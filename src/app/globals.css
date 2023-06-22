@@ -1,8 +1,13 @@
+@import url('https://fonts.googleapis.com/css2?family=Nunito:wght@400;500;600;700&display=swap');
 :root {
     --main-blue: #3256D5;
     --neutral-black: #1F1F23;
     --neutral-white: #F9FAF6;
     --secondary-blue: #98CEFF;
+}
+
+* {
+  font-family: 'Nunito', sans-serif;
 }
 
 .header {
