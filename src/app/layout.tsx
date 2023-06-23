@@ -22,11 +22,11 @@ export default function RootLayout({
           <ul className="navigation">
             <Link href="/"><li className="logo"></li></Link>
             <button className="secondary-button">Share</button> {/* will be a component*/}
-            <Link href="/Home"><li>Home</li></Link>
-            <Link href="/Gallery"><li>Gallery</li></Link>
-            <Link href="/Purpose"><li>Purpose</li></Link>
-            <Link href="/About"><li>About</li></Link>
-            <Link href="/Team"><li>Team</li></Link>
+            <Link href="/"><li>Home</li></Link>
+            <Link href="/gallery"><li>Gallery</li></Link>
+            <Link href="/purpose"><li>Purpose</li></Link>
+            <Link href="/about"><li>About</li></Link>
+            <Link href="/team"><li>Team</li></Link>
             <button className="main-button">Upload</button>
             <button className="main-button">Vote</button>
             <li className="triple-stack">TODO</li> {/* tripple stack mobile component*/}
