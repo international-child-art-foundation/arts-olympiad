@@ -15,6 +15,12 @@ module.exports = {
         'main-blue': '#3256D5',
         'neutral-black': '#1F1F23',
         'neutral-white': '#F9FAF6',
+      },
+      fontSize: {
+        'heading-1': ['2.125rem',{
+          fontWeight: '700',
+          lineHeight: ''
+        }],
       }
     },
   },
