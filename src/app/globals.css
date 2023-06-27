@@ -5,7 +5,9 @@
 
 
 
-.logo {
-    background: url('../../public/IcafLogo.png') no-repeat center; 
-    background-size: contain; 
-}
+.logo-bg {
+    background-image: url('/IcafLogo.svg');
+    background-size: cover;
+    background-position: center;
+  }
+  
