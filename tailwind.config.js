@@ -21,7 +21,7 @@ module.exports = {
           fontWeight: '700',
           lineHeight: ''
         }],
-      }
+      }, 
     },
   },
   plugins: [],
