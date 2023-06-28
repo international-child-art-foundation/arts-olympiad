@@ -37,7 +37,7 @@ export default function aboutPage() {
           </div>
         </ContentContainer>
         <div className="w-11/12 lg:w-3/5 mt-20 mb-2">
-          <h1 className="text-2xl font-normal leading-6 ml-2 text-primary mb-5">For more:</h1>
+          <h1 className="text-2xl font-semibold leading-6 ml-2 text-primary mb-5">For more:</h1>
           <p className="flex flex-col lg:flex-row lg:space-x-40 space-y-2 lg:space-y-0">
             <a href="https://icaf.org/" className="text-base inline-flex ml-2">
               <u>International Child Art Foundation</u>
