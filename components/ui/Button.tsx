@@ -1,4 +1,4 @@
-import Link from 'next/link';
+import Link from "next/link";
 
 type ButtonProps = {
   children: React.ReactNode;
@@ -13,9 +13,9 @@ const Button: React.FC<ButtonProps> = ({ children, mainButton, link }) => {
 
   return (
     <Link href={link} className={buttonStyle}>
-        {children}
+      {children}
     </Link>
   );
-}
+};
 
 export default Button;

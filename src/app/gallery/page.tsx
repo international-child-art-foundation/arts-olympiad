@@ -1,5 +1,5 @@
 export default function page() {
-    return (
-      <div>gallery</div>
-    )
-  }
+  return (
+    <div>gallery</div>
+  );
+}
