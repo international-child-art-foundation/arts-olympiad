@@ -1,11 +1,11 @@
 import Image from "next/image";
 import Icons from "./Icons";
-import ICAF_logo from "../public/ICAF_logo_transparent.svg";
+import ICAF_logo from "../public/icaf-logo-transparent.svg";
 
 const Footer = () => {
   return (
     <div className="grid py-20 grid-col-1 lg:grid-cols-2  justify-center px-2 bg-neutral-100">
-      <div className="flex justify-center items-center  ">
+      <div className="flex justify-center items-center">
         <div className="flex-initial w-fit pr-2 lg:pr-12">
           <Image src={ICAF_logo} alt="ICAF logo"></Image>
         </div>
@@ -24,4 +24,5 @@ const Footer = () => {
     </div>
   );
 };
+
 export default Footer;

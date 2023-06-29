@@ -21,13 +21,10 @@ export default function RootLayout({
         <header>
           <Header/>
         </header>
-
-        {children}
-
+        { children }
         <footer>
           <Footer/>
         </footer>
-
       </body>
     </html>
   );
