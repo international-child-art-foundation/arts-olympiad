@@ -10,7 +10,7 @@ export default function aboutPage() {
       </div>
 
       <Image 
-        src="/about/About.png" 
+        src="/about/about.png" 
         className="w-full h-auto" 
         alt="Group of children holding up art pieces in the national mall." 
       />

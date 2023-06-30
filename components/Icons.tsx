@@ -21,7 +21,13 @@ const Icons = () => {
   return (
     <>
       {svgIcons.map((icon) => (
-        <a className="inline-block px-3" key={icon.name} href={icon.link} target="_blank" rel="noopener noreferrer">
+        <a 
+          className="inline-block px-3" 
+          key={icon.name} 
+          href={icon.link} 
+          target="_blank" 
+          rel="noopener noreferrer"
+        >
           <Image src={icon.src} alt={icon.name} />
         </a>
       ))}
