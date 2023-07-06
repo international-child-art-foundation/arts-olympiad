@@ -10,13 +10,13 @@ const Header = () => {
     { name: "Purpose", url: "/purpose" },
     { name: "About", url: "/about" },
     { name: "Team", url: "/team" }
-]
+  ];
 
   return (
     <header className="w-full h-32 bg-neutral-white shadow-sm flex items-center justify-center">
       <ul className="flex items-center justify-around py-0 px-7 list-none w-full">
         <Link href="/">
-            <li className="logo-bg w-32 h-16 flex-shrink-0"></li>
+          <li className="logo-bg w-32 h-16 flex-shrink-0"></li>
         </Link>
 
         
@@ -31,7 +31,7 @@ const Header = () => {
         <MobileNav></MobileNav> {/* triple stack mobile component*/}
       </ul>
     </header>
-  )
-}
+  );
+};
 
-export default Header
+export default Header;

@@ -12,3 +12,7 @@
 - Include a description to communicate impact. Example of impact include notable design decisions or breaking changes.
 - Utilize the *Squash and Merge* option when submitting.
 - Delete associated branch once submitted.
+
+## File Naming
+
+- Follow the [Google file naming convention](https://developers.google.com/style/filenames).
