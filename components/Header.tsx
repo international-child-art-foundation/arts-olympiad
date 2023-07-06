@@ -1,16 +1,16 @@
-import Link from 'next/link';
-import Button from './ui/Button';
-import '../src/app/globals.css'; 
-import MobileNav from './MobileNav';
+import Link from "next/link";
+import Button from "./ui/Button";
+import MobileNav from "./MobileNav";
+import "../src/app/globals.css"; 
 
 const Header = () => {
   const links = [
-    { name: 'Home', url: '/' },
-    { name: 'Gallery', url: '/gallery' },
-    { name: 'Purpose', url: '/purpose' },
-    { name: 'About', url: '/about' },
-    { name: 'Team', url: '/team' }
-  ]
+    { name: "Home", url: "/" },
+    { name: "Gallery", url: "/gallery" },
+    { name: "Purpose", url: "/purpose" },
+    { name: "About", url: "/about" },
+    { name: "Team", url: "/team" }
+]
 
   return (
     <header className="w-full h-32 bg-neutral-white shadow-sm flex items-center justify-center">
