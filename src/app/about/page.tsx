@@ -57,7 +57,7 @@ export default function aboutPage() {
           </div>
         </ContentContainer>
         <ContentContainer>
-        <div className="w-1/5 mb-6 ml-2 mt-4">
+          <div className="w-1/5 mb-6 ml-2 mt-4">
             <Image 
               src={icon4}
               alt="icon4.png"
