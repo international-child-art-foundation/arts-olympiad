@@ -10,7 +10,7 @@ const ArtworkCard = ({ id, name, votes }: ArtworkCardProps) => {
     <div id={id}>
       {/* picture placeholder */}
       {/* /artist/{artistId}/artwork/{artworkId} */}
-      <Link href="/auth/login">
+      <Link href={`/gallery/${id}`}>
         <img className="w-full rounded-lg" src="https://picsum.photos/seed/picsum/300/300" alt="" />
       </Link>
       <p className="font-medium md:font-semi-bold text-lg">id: {id} </p>
