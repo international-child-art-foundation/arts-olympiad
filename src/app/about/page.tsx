@@ -11,6 +11,8 @@ export default function aboutPage() {
 
       <Image 
         src="/about/about.png" 
+        width = {1440}
+        height = {621}
         className="w-full h-auto" 
         alt="Group of children holding up art pieces in the national mall." 
       />
@@ -18,6 +20,8 @@ export default function aboutPage() {
       <div className="flex flex-col items-center bg-secondary-blue">
         <ContentContainer>
           <Image 
+            height = {80}
+            width = {80}
             src="/about/icon1.png" 
             className="w-auto h-auto max-w-[100px] max-h-[100px] mb-6 md:mb-0 md:mr-6" 
             alt="Artistic depection of a person with black hair and a multi-colored shirt."
@@ -28,6 +32,8 @@ export default function aboutPage() {
         </ContentContainer>
         <ContentContainer>
           <Image 
+            height = {80}
+            width = {81}
             src="/about/icon2.png" 
             className="w-auto h-auto max-w-[100px] max-h-[100px] mb-6 md:mb-0 md:mr-6" 
             alt="Artistic depection of a robot holding a wrench."
@@ -38,6 +44,8 @@ export default function aboutPage() {
         </ContentContainer>
         <ContentContainer>
           <Image 
+            height = {80}
+            width = {80}
             src="/about/icon3.png" 
             className="w-auto h-auto max-w-[100px] max-h-[100px] mb-6 md:mb-0 md:mr-6" 
             alt="Artistic depection of a person with yellow hair and a brown dress."
@@ -48,6 +56,8 @@ export default function aboutPage() {
         </ContentContainer>
         <ContentContainer>
           <Image 
+            width = {80}
+            height = {80}
             src="/about/icon4.png" 
             className="w-auto h-auto max-w-[100px] max-h-[100px] mb-6 md:mb-0 md:mr-6" 
             alt="Artistic depection of a person with an arm sling."  
@@ -62,6 +72,8 @@ export default function aboutPage() {
             <a href="https://icaf.org/" className="text-base inline-flex ml-2">
               <u>International Child Art Foundation</u>
               <Image 
+                width = {23}
+                height = {23}
                 src="/about/link.png" 
                 className="ml-2"
                 alt="Icon denoting a hyperlink" 
@@ -70,6 +82,8 @@ export default function aboutPage() {
             <a href="https://worldchildrensfestival.org/" className="text-base inline-flex ml-2">
               <u>The World Children's Festival</u>
               <Image 
+                width = {23}
+                height = {23}
                 src="/about/link.png" 
                 className="ml-2" 
                 alt="Icon denoting a hyperlink" 

@@ -9,7 +9,7 @@ const MobileNav = () => {
     { name: "Home", url: "/" },
     { name: "Gallery", url: "/gallery" },
     { name: "Purpose", url: "/purpose" },
-    { name: "About", url: "/about" },
+    { name: "About ICAF", url: "/about" },
     { name: "Team", url: "/team" }
   ];
   const [isOpen, setIsOpen] = useState(false);
