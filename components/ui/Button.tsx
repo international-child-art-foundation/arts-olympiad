@@ -8,8 +8,8 @@ type ButtonProps = {
 
 const Button: React.FC<ButtonProps> = ({ children, mainButton, link }) => {
   const buttonStyle = mainButton 
-    ? "bg-blue-500 text-white px-4 py-2 rounded-full hidden sm:block" 
-    : "bg-white text-blue-500 px-4 py-2 rounded-full hidden sm:block";
+    ? "bg-blue-500 text-white px-4 py-2 rounded-full hidden md:block" 
+    : "bg-white text-blue-500 px-4 py-2 rounded-full hidden md:block";
 
   return (
     <Link href={link} className={buttonStyle}>
