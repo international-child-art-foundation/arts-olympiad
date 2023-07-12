@@ -1,7 +1,8 @@
+
 import Image from "next/image";
-import Pagination from "../../../components/pagination/Pagination";
-import ArtworkCard from "../../../components/ArtworkCard";
-import gallery_image from "../../../public/gallery/gallery_image.svg";
+import Pagination from "../../../../components/pagination/Pagination";
+import ArtworkCard from "../../../../components/ArtworkCard";
+import gallery_image from "../../../../public/gallery/gallery_image.svg";
 
 type Artwork = {
   id: string,
@@ -22,25 +23,22 @@ export function generateStaticParams() {
   }));
 }
 
-export default async function page({ params }: {params: {page: string}}) {
-  const page = params && params.page ? parseInt(params.page) : 1;
-  const {data, total }: {data: Artwork[] ;total: number} = await getData(String(page));
-  
+const page = async ({ params }: {params: {page: string}}) => {
+  const {data, total }: {data: Artwork[] ;total: number} = await getData(params.page);
+  const page = parseInt(params.page);
+
   return (
     <div>
-      {/* yellow container */}
       <div className="flex justify-between items-center md:flex-col py-10 px-5 bg-main-yellow">
         <div className="text-left md:text-center">
           <h1 className="font-bold text-4xl">Gallery</h1>
           <p className="font-medium md:font-semi-bold text-lg">You can vote only once, so share with friends.</p>
           <p className="font-medium md:font-semi-bold text-lg">Vote until <span className="font-extrabold"> June 29, 2014 </span> (12:00) midnight EST </p>
         </div>
-        {/* image container */}
         <div className="text-left md:py-5">
           <Image src={gallery_image} alt="Previous artwork submission" />
         </div>
       </div>
-      {/* search container */}
       <div className="bg-neutral-white md:bg-main-yellow pt-6 md:pt-0 pb-10 px-5">
         <div className=" mx-auto max-w-4xl">
           <form className="space-y-4">
@@ -67,12 +65,11 @@ export default async function page({ params }: {params: {page: string}}) {
           </form>
         </div>
       </div>
-      {/* filter toggle */}
       <div className="flex justify-between bg-neutral-white px-5 py-5 lg:px-20">
         <p>search by time</p>
+        {params.page} 
         <p>Filter Icon</p>
       </div>
-      {/* image container */}
       <div className="bg-neutral-white px-5 lg:px-20">
         <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 md:gap-4">
           {data.map((artwork) =>
@@ -93,4 +90,5 @@ export default async function page({ params }: {params: {page: string}}) {
       </div>
     </div>
   );
-}
+};
+export default page;
