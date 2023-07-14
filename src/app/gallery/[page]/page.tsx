@@ -8,20 +8,21 @@ type Artwork = {
   id: string,
   name: string,
   votes: number,
+  url: string
 }
 
 async function getData(page: string) {
-  const data = await fetch(`http://localhost:3000/api/artworks?_page=${page}`);
+  const data = await fetch(`http://localhost:3000/api/artworks?_page=${page}&_limit=16`);
   return data.json();
 }
 
-export function generateStaticParams() {
-  // renders pages at build
-  const pagesToLoad = ["1", "2", "3"];
-  return pagesToLoad.map((pageNumber) => ({
-    page: pageNumber
-  }));
-}
+// export function generateStaticParams() {
+//   // renders pages at build
+//   const pagesToLoad = ["1", "2", "3"];
+//   return pagesToLoad.map((pageNumber) => ({
+//     page: pageNumber
+//   }));
+// }
 
 const page = async ({ params }: {params: {page: string}}) => {
   const {data, total }: {data: Artwork[] ;total: number} = await getData(params.page);
@@ -78,6 +79,7 @@ const page = async ({ params }: {params: {page: string}}) => {
                 id={artwork.id}
                 name={artwork.name}
                 votes={artwork.votes}
+                url={artwork.url}
               />
             </div>
           )}

@@ -9,7 +9,7 @@ export async function GET(req: NextRequest) {
   const pageStr = req.nextUrl.searchParams.get("_page");
 
   // # to display per page
-  const defaultLimit = 4;
+  const defaultLimit = 16;
   const limit = typeof(limitStr) === "string" ? parseInt(limitStr) : defaultLimit;
   // how many to skip
   const page = typeof(pageStr) === "string" ? parseInt(pageStr) : 1;
