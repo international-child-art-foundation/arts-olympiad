@@ -93,7 +93,7 @@ export default function Home() {
           </div>
           <hr className="w-full border-t-2 border-gray-500 mx-4" />
           <div className="break-words text-center text-xl pt-8 pb-8">
-            Upload Deadline is June 29, 2024
+            Vote Deadline is June 29, 2024
           </div>
         </div>
       </div>
@@ -118,12 +118,12 @@ export default function Home() {
       {/* - logo and text - */}
       <div className="grid grid-cols-1 gap-5 md:grid-cols-12 bg-secondary-blue col-span-1 md:col-span-10 mb-10">
         <Image 
-            src="/home/torch-logo.png" 
-            width = {151}
-            height = {139}
-            className="md:mt-16 md:ml-20 md:mb-10 md:col-span-2 col-span-1 justify-self-left mt-5 ml-5 mb-5" 
-            alt="torch-logo.png" 
-          />
+          src="/home/torch-logo.png" 
+          width = {151}
+          height = {139}
+          className="md:mt-16 md:ml-20 md:mb-10 md:col-span-2 col-span-1 justify-self-left mt-5 ml-5 mb-5" 
+          alt="torch-logo.png" 
+        />
         <div className="text-left text-xl ml-5 md:mt-36 md:mb-10 break-words md:col-span-4">
             An interactive exhibition in Paris to celebrate Creativity, Diversity, and Unity.
         </div>
@@ -143,15 +143,15 @@ export default function Home() {
         </div>
         <div className="md:col-span-3 bg-neutral-white rounded-2xl p-10 shadow-md flex flex-col items-center ml-10 mr-10">
           <Image 
-              src="/home/icon-2.png" 
-              width = {86}
-              height = {86}
-              className="w-3/7 h-auto mt-3" 
-              alt="icon-2.png" 
-            />
-            <div className="break-words text-base text-center pt-10">
-              Visitors vote for their favorite artwork.
-            </div>
+            src="/home/icon-2.png" 
+            width = {86}
+            height = {86}
+            className="w-3/7 h-auto mt-3" 
+            alt="icon-2.png" 
+          />
+          <div className="break-words text-base text-center pt-10">
+            Visitors vote for their favorite artwork.
+          </div>
         </div>
         <div className="md:col-span-3 bg-neutral-white rounded-2xl p-10 shadow-md flex flex-col items-center mr-20">
           <Image 
@@ -169,23 +169,23 @@ export default function Home() {
         <div className="hidden md:block md:col-span-3"></div>
         <div className="md:col-span-3 bg-neutral-white rounded-2xl p-10 shadow-md flex flex-col items-center mr-12">
           <Image 
-              src="/home/icon-4.png" 
-              width = {86}
-              height = {86}
-              className="w-3/7 h-auto mt-3" 
-              alt="icon-4.png" 
-            />
+            src="/home/icon-4.png" 
+            width = {86}
+            height = {86}
+            className="w-3/7 h-auto mt-3" 
+            alt="icon-4.png" 
+          />
           <div className="break-words text-base text-center pt-10">
             The gold, silver, and bronze winners and the prizes they receive will be announced at the <a href="https://worldchildrensfestival.org/" className="underline">7th World Children's Festival</a> on July 1, 2024 at the National Mall across the U.S. Capitol.
           </div>
         </div>
         <div className="md:col-span-3 bg-neutral-white rounded-2xl p-10 shadow-md flex flex-col items-center mr-10">
           <Image 
-              src="/home/icon-5.png" 
-              width = {86}
-              height = {86}
-              className="w-3/7 h-auto mt-3" 
-              alt="icon-5.png" 
+            src="/home/icon-5.png" 
+            width = {86}
+            height = {86}
+            className="w-3/7 h-auto mt-3" 
+            alt="icon-5.png" 
           />
           <div className="break-words text-base text-center pt-10">
             The Arts Olympiad venue in Paris and the prizes for the gold, silver, and bronze winners will be announced in December 2023.
