@@ -5,7 +5,7 @@ import Button from "../../components/ui/Button";
 
 export default function Home() {
   return (
-    <main className="grid grid-cols-1 gap-4 md:grid-cols-10 bg-neutral-white">
+    <main className="grid grid-cols-1 md:grid-cols-10 bg-neutral-white">
       {/* banner block */}
       <div className="bg-neutral-white col-span-1 md:col-span-6 aspect-w-16 aspect-h-9 relative">
         <Image 
@@ -41,7 +41,7 @@ export default function Home() {
         </div>
       </div>
 
-      <div className="bg-yellow-300 md:col-span-10 grid md:grid-cols-2 grid-cols-1">
+      <div className="bg-main-yellow md:col-span-10 grid md:grid-cols-2 grid-cols-1">
         {/* artist upload block */}
         <div className="bg-neutral-white col-span-1 rounded-2xl p-10 shadow-md flex flex-col items-center mt-10 mr-10 ml-10 mb-10">
           <div className="break-words font-semibold text-4xl pl-6 pt-2">
@@ -116,7 +116,7 @@ export default function Home() {
       </div>
       {/* 2024 arts olympiad introduction */}
       {/* - logo and text - */}
-      <div className="grid grid-cols-1 gap-5 md:grid-cols-12 bg-secondary-blue col-span-1 md:col-span-10 mb-10">
+      <div className="grid grid-cols-1 gap-5 md:grid-cols-12 bg-secondary-blue col-span-1 md:col-span-10">
         <Image 
           src="/home/torch-logo.png" 
           width = {151}
@@ -129,66 +129,186 @@ export default function Home() {
         </div>
         <div className="hidden md:block md:col-span-6"></div>
         <div className="hidden md:block md:col-span-1"></div>
-        <div className="md:col-span-3 bg-neutral-white md:rounded-2xl p-10 shadow-md flex flex-col items-center md:ml-20 ml-5 mr-5">
+        <div className="md:col-span-3 bg-neutral-white rounded-r-full rounded-l-2xl md:rounded-2xl shadow-md flex flex-row md:flex-col items-center md:ml-20 ml-5 mr-5">
           <Image 
             src="/home/icon-1.png" 
             width = {86}
             height = {86}
-            className="w-3/7 h-full mt-3" 
+            className="hidden md:block md:w-3/7 w-1/2 h-auto md:mt-3" 
             alt="icon-1.png" 
           />
-          <div className="break-words text-base text-center pt-7">
+          <div className="break-words text-base text-center md:pt-7 md:pr-7 md:pl-7">
             Visitors ages 10 to 20 Create, Upload, and Share their masterpieces to win the Gold!
           </div>
+          <Image 
+            src="/home/icon-1.png" 
+            width = {86}
+            height = {86}
+            className="block md:hidden md:w-3/7 w-1/2 h-auto md:mt-3" 
+            alt="icon-1.png" 
+          />
         </div>
-        <div className="md:col-span-3 bg-neutral-white rounded-2xl p-10 shadow-md flex flex-col items-center ml-10 mr-10">
+        <div className="md:col-span-3 bg-neutral-white rounded-l-full md:rounded-2xl p-10 shadow-md flex flex-row md:flex-col items-center ml-5 mr-5 md:ml-10 md:mr-10">
           <Image 
             src="/home/icon-2.png" 
             width = {86}
             height = {86}
-            className="w-3/7 h-auto mt-3" 
+            className="w-1/4 md:w-1/2 md:mt-3" 
             alt="icon-2.png" 
           />
-          <div className="break-words text-base text-center pt-10">
+          <div className="break-words text-base text-center md:pt-10">
             Visitors vote for their favorite artwork.
           </div>
         </div>
-        <div className="md:col-span-3 bg-neutral-white rounded-2xl p-10 shadow-md flex flex-col items-center mr-20">
+        <div className="md:col-span-3 bg-neutral-white rounded-r-full rounded-l-2xl md:rounded-2xl p-10 shadow-md flex flex-row md:flex-col items-center ml-5 mr-5 md:mr-20">
           <Image 
             src="/home/icon-3.png" 
             width = {86}
             height = {86}
-            className="w-3/7 h-auto mt-3" 
+            className="hidden md:block md:w-3/7 w-1/2 h-auto md:mt-3" 
             alt="icon-3.png" 
           />
-          <div className="break-words text-base text-center pt-10">
+          <div className="break-words text-base text-center md:pt-10">
             #MyFavoriteSport contest will spread across Europe and the world from Paris.
           </div>
+          <Image 
+            src="/home/icon-3.png" 
+            width = {86}
+            height = {86}
+            className="block md:hidden md:w-3/7 w-1/2 h-auto md:mt-3" 
+            alt="icon-3.png" 
+          />
         </div>
         <div className="hidden md:block md:col-span-2"></div>
         <div className="hidden md:block md:col-span-3"></div>
-        <div className="md:col-span-3 bg-neutral-white rounded-2xl p-10 shadow-md flex flex-col items-center mr-12">
+        <div className="md:col-span-3 bg-neutral-white rounded-l-full md:rounded-2xl p-10 shadow-md flex flex-row md:flex-col items-center ml-5 mr-5 md:mr-12 md:mb-10">
           <Image 
             src="/home/icon-4.png" 
             width = {86}
             height = {86}
-            className="w-3/7 h-auto mt-3" 
+            className="md:w-3/5 w-full h-auto md:mt-3" 
             alt="icon-4.png" 
           />
-          <div className="break-words text-base text-center pt-10">
+          <div className="break-words text-base text-center md:pt-10">
             The gold, silver, and bronze winners and the prizes they receive will be announced at the <a href="https://worldchildrensfestival.org/" className="underline">7th World Children's Festival</a> on July 1, 2024 at the National Mall across the U.S. Capitol.
           </div>
         </div>
-        <div className="md:col-span-3 bg-neutral-white rounded-2xl p-10 shadow-md flex flex-col items-center mr-10">
+        <div className="md:col-span-3 bg-neutral-white rounded-r-full rounded-l-2xl md:rounded-2xl p-10 shadow-md flex flex-row md:flex-col items-center ml-5 mr-5 md:mr-10 mb-10">
           <Image 
             src="/home/icon-5.png" 
             width = {86}
             height = {86}
-            className="w-3/7 h-auto mt-3" 
+            className="hidden md:block md:w-3/7 w-3/5 h-auto md:mt-3" 
             alt="icon-5.png" 
           />
-          <div className="break-words text-base text-center pt-10">
+          <div className="break-words text-base text-center md:pt-10">
             The Arts Olympiad venue in Paris and the prizes for the gold, silver, and bronze winners will be announced in December 2023.
+          </div>
+          <Image 
+            src="/home/icon-5.png" 
+            width = {86}
+            height = {86}
+            className="block md:hidden md:w-3/7 w-3/5 h-auto md:mt-3" 
+            alt="icon-5.png" 
+          />
+        </div>
+      </div>
+      {/* Sponsors */}
+      {/* Sponsor Title */}
+      <div className="bg-main-yellow col-span-1 md:col-span-10 flex flex-row">
+        <div className="w-full mt-10 mb-10 ml-5 md:ml-10 md:ml-20 md:mt-20">
+          <div className="break-words font-semibold text-4xl">
+            Sponsors
+          </div>
+        </div>
+      </div>
+      {/* 3 white blocks */}
+      <div className="bg-main-yellow col-span-1 md:col-span-10 grid grid-cols-12">
+        <div className="col-span-5 flex flex-col items-center bg-neutral-white rounded-2xl ml-5 md:ml-20 mr-5 mb-10">
+          <div className="break-words font-semibold text-3xl text-main-gold mt-10 mb-5">
+            Gold
+          </div>
+          <hr className="w-11/12 border-t-2 border-gray-500 mb-10 ml-5 mr-5" />
+          <div className="flex flex-col md:flex-row items-center mb-8">
+            <Image 
+              width={163}
+              height={76}
+              src="icaf-logo-transparent.svg" 
+              alt="ICAF logo"
+              className="md:ml-5 w-5/6 md:w-1/4 mb-4 md:mb-0"
+            />
+            <Image 
+              width={163}
+              height={76}
+              src="icaf-logo-transparent.svg" 
+              alt="ICAF logo"
+              className="md:ml-10 w-5/6 md:w-1/4 mb-4 md:mb-0"
+            />
+            <Image 
+              width={163}
+              height={76}
+              src="icaf-logo-transparent.svg"
+              alt="ICAF logo"
+              className="md:ml-10 md:mr-10 md:w-1/4 w-5/6 md:mb-0"
+            />
+          </div>
+        </div>
+        <div className="col-span-4 flex flex-col items-center bg-neutral-white rounded-2xl mr-5 mb-10">
+          <div className="break-words font-semibold text-3xl text-main-silver mt-10 mb-5">
+            Silver
+          </div>
+          <hr className="w-11/12 border-t-2 border-gray-500 mb-10 ml-5 mr-5" />
+          <div className="flex flex-col md:flex-row items-center">
+            <Image 
+              width={163}
+              height={76}
+              src="icaf-logo-transparent.svg"
+              alt="ICAF logo"
+              className="md:ml-10 md:w-1/5 w-4/5 mb-4 md:mb-0"
+            />
+            <Image 
+              width={163}
+              height={76}
+              src="icaf-logo-transparent.svg"
+              alt="ICAF logo"
+              className="md:ml-10 md:w-1/5 w-4/5 mb-4 md:mb-0"
+            />
+            <Image 
+              width={163}
+              height={76}
+              src="icaf-logo-transparent.svg"
+              alt="ICAF logo"
+              className="md:ml-10 md:w-1/5 w-4/5"
+            />
+          </div>
+        </div>
+        <div className="col-span-3 flex flex-col items-center bg-neutral-white rounded-2xl mr-5 md:mr-20 mb-10">
+          <div className="break-words font-semibold text-3xl text-main-bronze mt-10 mb-5">
+            Bronze
+          </div>
+          <hr className="w-11/12 border-t-2 border-gray-500 mb-10 ml-5 mr-5" />
+          <div className="flex flex-col md:flex-row items-center">
+            <Image 
+              width={163}
+              height={76}
+              src="icaf-logo-transparent.svg"
+              alt="ICAF logo"
+              className="md:ml-10 w-3/4 md:w-1/6 mb-10 md:mb-0"
+            />
+            <Image 
+              width={163}
+              height={76}
+              src="icaf-logo-transparent.svg"
+              alt="ICAF logo"
+              className="md:ml-10 w-3/4 md:w-1/6 mb-10 md:mb-0"
+            />
+            <Image 
+              width={163}
+              height={76}
+              src="icaf-logo-transparent.svg"
+              alt="ICAF logo"
+              className="md:ml-10 w-3/4 md:w-1/6"
+            />
           </div>
         </div>
       </div>
