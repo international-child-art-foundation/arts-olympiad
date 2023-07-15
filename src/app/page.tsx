@@ -1,6 +1,5 @@
-import bannerImage from "../../public/banner-image.png";
+import bannerImage from "../../public/banner-image.svg";
 import Image from "next/image";
-import ContentContainer from "../../components/ui/ContentContainer";
 import Button from "../../components/ui/Button";
 
 export default function Home() {
@@ -12,7 +11,7 @@ export default function Home() {
           width={1500}
           height={850}
           src={bannerImage}
-          alt="banner-image.png"
+          alt="bars making a smooth 90 degree curve in olympic colors"
           // fill={true}
           style={{objectFit: "fill"}}
         />
@@ -20,7 +19,7 @@ export default function Home() {
       {/* <div className="bg-neutral-white relative md:col-span-6">
         <img 
           src="/banner-image.png"
-          alt="banner-image.png"
+          alt="bars making a smooth 90 degree curve in olympic colors"
           className="w-full "
           style={{objectFit: "fill"}}
         />
@@ -55,7 +54,7 @@ export default function Home() {
             width = {224}
             height = {224}
             className="w-1/2 h-full pt-12" 
-            alt="artst.png" 
+            alt="girl doing gymnast pose" 
           />
           <div className="break-words text-center text-xl pt-8 pb-8">
             Create / Upload / Share your masterpiece to get the votes to win the gold!
@@ -82,7 +81,7 @@ export default function Home() {
             width = {124}
             height = {168}
             className="h-1/2 w-auto pt-12" 
-            alt="judge.png" 
+            alt="a smiling judge with a curly mustache" 
           />
           <div className="break-words text-center text-xl pt-8 pb-8">
             Vote For Your Favorite Artwork.
@@ -110,7 +109,7 @@ export default function Home() {
           width = {386}
           height = {244}
           className="h-auto sm:w-2/5 w-4/5 pt-10" 
-          alt="swim.png" 
+          alt="a swimmer doing a butterfly stroke" 
         />
         <Button link="/gallery" mainButton nonNav>Explore</Button>
       </div>
@@ -122,7 +121,7 @@ export default function Home() {
           width = {151}
           height = {139}
           className="md:mt-16 md:ml-20 md:mb-10 md:col-span-2 col-span-1 justify-self-left mt-5 ml-5 mb-5" 
-          alt="torch-logo.png" 
+          alt="2024 olympics torch ablaze" 
         />
         <div className="text-left text-xl ml-5 md:mt-36 md:mb-10 break-words md:col-span-4">
             An interactive exhibition in Paris to celebrate Creativity, Diversity, and Unity.
@@ -135,7 +134,7 @@ export default function Home() {
             width = {86}
             height = {86}
             className="hidden md:block md:w-3/7 w-1/2 h-auto md:mt-3" 
-            alt="icon-1.png" 
+            alt="painting panel with mixed paints" 
           />
           <div className="break-words text-base text-center md:pt-7 md:pr-7 md:pl-7">
             Visitors ages 10 to 20 Create, Upload, and Share their masterpieces to win the Gold!
@@ -145,7 +144,7 @@ export default function Home() {
             width = {86}
             height = {86}
             className="block md:hidden md:w-3/7 w-1/2 h-auto md:mt-3" 
-            alt="icon-1.png" 
+            alt="painting panel with mixed paints" 
           />
         </div>
         <div className="md:col-span-3 bg-neutral-white rounded-l-full md:rounded-2xl p-10 shadow-md flex flex-row md:flex-col items-center ml-5 mr-5 md:ml-10 md:mr-10">
@@ -154,7 +153,7 @@ export default function Home() {
             width = {86}
             height = {86}
             className="w-1/4 md:w-1/2 md:mt-3" 
-            alt="icon-2.png" 
+            alt="written document with a checkmark" 
           />
           <div className="break-words text-base text-center md:pt-10">
             Visitors vote for their favorite artwork.
@@ -166,7 +165,7 @@ export default function Home() {
             width = {86}
             height = {86}
             className="hidden md:block md:w-3/7 w-1/2 h-auto md:mt-3" 
-            alt="icon-3.png" 
+            alt="Image of a girl with a globe as her head" 
           />
           <div className="break-words text-base text-center md:pt-10">
             #MyFavoriteSport contest will spread across Europe and the world from Paris.
@@ -176,7 +175,7 @@ export default function Home() {
             width = {86}
             height = {86}
             className="block md:hidden md:w-3/7 w-1/2 h-auto md:mt-3" 
-            alt="icon-3.png" 
+            alt="Image of a girl with a globe as her head" 
           />
         </div>
         <div className="hidden md:block md:col-span-2"></div>
@@ -187,7 +186,7 @@ export default function Home() {
             width = {86}
             height = {86}
             className="md:w-3/5 w-full h-auto md:mt-3" 
-            alt="icon-4.png" 
+            alt="lightbulb with the words 'world childrens festiaval inside' " 
           />
           <div className="break-words text-base text-center md:pt-10">
             The gold, silver, and bronze winners and the prizes they receive will be announced at the <a href="https://worldchildrensfestival.org/" className="underline">7th World Children's Festival</a> on July 1, 2024 at the National Mall across the U.S. Capitol.
@@ -199,7 +198,7 @@ export default function Home() {
             width = {86}
             height = {86}
             className="hidden md:block md:w-3/7 w-3/5 h-auto md:mt-3" 
-            alt="icon-5.png" 
+            alt="a hand holding the earth as a globe" 
           />
           <div className="break-words text-base text-center md:pt-10">
             The Arts Olympiad venue in Paris and the prizes for the gold, silver, and bronze winners will be announced in December 2023.
@@ -209,7 +208,7 @@ export default function Home() {
             width = {86}
             height = {86}
             className="block md:hidden md:w-3/7 w-3/5 h-auto md:mt-3" 
-            alt="icon-5.png" 
+            alt="a hand holding the earth as a globe" 
           />
         </div>
       </div>
