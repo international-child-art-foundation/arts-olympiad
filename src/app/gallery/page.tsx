@@ -11,8 +11,7 @@ type Artwork = {
 }
 
 async function getData(page: string) {
-  const data = await fetch(`http://localhost:3000/api/artworks?_page=${page}`);
-  console.log(data);
+  const data = await fetch(`http://localhost:3000/api/artworks?_page=${page}&_limit=16`);
   return data.json();
 }
 
