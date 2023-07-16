@@ -42,6 +42,6 @@ const ArtworkPage: NextPage<PageProps> = (props) => {
       </div>
     </div>
   );
-}
+};
 
 export default ArtworkPage; 
