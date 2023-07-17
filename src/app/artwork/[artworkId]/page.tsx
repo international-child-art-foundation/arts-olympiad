@@ -1,5 +1,6 @@
 import { NextPage } from "next";
 import Link from "next/link";
+import { Fragment } from "react";
 
 interface PageProps {
   params: {
@@ -29,19 +30,24 @@ const ArtworkPage: NextPage<PageProps> = (props) => {
   }
 
   return (
-    <div className="text-center h-screen flex flex-col justify-center">
-      <div className="text-xl font-bold">{artwork.name}</div>
-      <div className="text-lg">Votes: {artwork.votes}</div>
-      <div className="flex justify-center">
-        <div className="grid place-items-center">
-          <img src={artwork.url} alt={artwork.name} />
+    <div className="flex flex-col items-center justify-evenly h-screen text-center bg-neutral-white">
+      <div className="flex justify-between md:w-1/4 px-4 px-0 mx-auto sm: w-3/4">
+        <div>
+          <div className="text-xl font-bold">{artwork.name}</div>
+          <p>New York, U.S.A.</p>
+          <p>Age 12</p>
         </div>
+        <div className="bg-yellow-200 rounded-full w-24 h-24 flex items-center justify-center flex-col">
+        <div className="text-3xl">{artwork.votes}</div>
+        <p>votes</p>
       </div>
-      <div className="flex justify-center mt-8">
-        <Link href="/vote" className="bg-blue-500 text-white px-16 py-2 rounded-full inline-block max-w-full">Vote</Link>
       </div>
+      <img src={artwork.url} alt={artwork.name} className="md: transform md:scale-150"/>
+      <Link href="/vote" className="bg-blue-500 text-white px-24 py-2 rounded-full">Vote</Link>
     </div>
   );
+  
+  
 };
 
 export default ArtworkPage; 
