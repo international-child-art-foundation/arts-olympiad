@@ -1,5 +1,6 @@
 import Link from "next/link";
 import Button from "./ui/Button";
+import MobileNav from "./MobileNav";
 import "../src/app/globals.css"; 
 
 const Header = () => {
@@ -21,13 +22,13 @@ const Header = () => {
         
         {links.map(link => (
           <Link key={link.name} href={link.url}>
-            <li className="text-neutral-black no-underline hidden sm:block">{link.name}</li>
+            <li className="text-neutral-black no-underline hidden md:block">{link.name}</li>
           </Link>
         ))}
 
         <Button link="/upload" mainButton>Upload</Button>
         <Button link="/vote" mainButton>Vote</Button>
-        <li className="lg:hidden">TODO</li> {/* triple stack mobile component*/}
+        <MobileNav></MobileNav> {/* triple stack mobile component*/}
       </ul>
     </header>
   );
