@@ -69,7 +69,7 @@ const page = async ({ params }: {params: {page: string}}) => {
       <div className="flex justify-between bg-neutral-white px-5 py-5 lg:px-20">
         <p>search by time</p>
         {params.page} 
-        <p>Filter Icon</p>
+        <img src="/gallery/filter-icon.svg" alt="filter gallery" />
       </div>
       <div className="bg-neutral-white px-5 lg:px-20">
         <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 md:gap-4">
