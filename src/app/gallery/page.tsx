@@ -71,7 +71,7 @@ export default async function page({ params }: {params: {page: string}}) {
       {/* filter toggle */}
       <div className="flex justify-between bg-neutral-white px-5 py-5 lg:px-20">
         <p>search by time</p>
-        <p>Filter Icon</p>
+        <img src="/gallery/filter-icon.svg" alt="filter gallery" /> 
       </div>
       {/* image container */}
       <div className="bg-neutral-white px-5 lg:px-20">
