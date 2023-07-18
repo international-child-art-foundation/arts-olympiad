@@ -19,7 +19,8 @@ const artworks = [
 ];
 
 function getArtworkById(id:string) {
-  return artworks.find(artwork => artwork.id === Number(id));
+  const index = (Number(id) - 1) % 7; 
+  return artworks[index];
 }
 
 const ArtworkPage: NextPage<PageProps> = (props) => {
@@ -38,9 +39,9 @@ const ArtworkPage: NextPage<PageProps> = (props) => {
           <p>Age 12</p>
         </div>
         <div className="bg-yellow-200 rounded-full w-24 h-24 flex items-center justify-center flex-col">
-        <div className="text-3xl">{artwork.votes}</div>
-        <p>votes</p>
-      </div>
+          <div className="text-3xl">{artwork.votes}</div>
+          <p>votes</p>
+        </div>
       </div>
       <img src={artwork.url} alt={artwork.name} className="md: transform md:scale-150"/>
       <Link href="/vote" className="bg-blue-500 text-white px-24 py-2 rounded-full">Vote</Link>
