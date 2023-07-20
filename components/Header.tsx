@@ -13,13 +13,12 @@ const Header = () => {
   ];
 
   return (
-    <header className="w-full h-32 bg-neutral-white shadow-sm flex items-center justify-center">
-      <ul className="flex items-center justify-around py-0 px-7 list-none w-full">
+    <header className="relative z-10 shadow-md w-full h-32 flex items-center justify-center">
+      <ul className="flex items-center justify-around py-0 px-7 list-none w-full max-w-7xl">
         <Link href="/">
           <li className="logo-bg w-32 h-16 flex-shrink-0"></li>
         </Link>
 
-        
         {links.map(link => (
           <Link key={link.name} href={link.url}>
             <li className="text-neutral-black no-underline hidden md:block">{link.name}</li>

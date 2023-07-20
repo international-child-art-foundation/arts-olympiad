@@ -4,7 +4,7 @@ import Button from "../../components/ui/Button";
 
 export default function Home() {
   return (
-    <main className="grid grid-cols-1 md:grid-cols-10 bg-neutral-white">
+    <div className="grid grid-cols-1 md:grid-cols-10">
       {/* banner block */}
       <div className="bg-neutral-white col-span-1 md:col-span-6 aspect-w-16 aspect-h-9 relative">
         <Image 
@@ -88,7 +88,7 @@ export default function Home() {
           </div>
           <Button link="/vote" mainButton nonNav>Vote</Button>
           <div className="break-words text-center text-xl pt-8 pb-8">
-            You can vote only once,so Share with friends.
+            You can vote only once, so Share with friends.
           </div>
           <hr className="w-full border-t-2 border-gray-500 mx-4" />
           <div className="break-words text-center text-xl pt-8 pb-8">
@@ -311,6 +311,6 @@ export default function Home() {
           </div>
         </div>
       </div>
-    </main>
+    </div>
   );
 }
