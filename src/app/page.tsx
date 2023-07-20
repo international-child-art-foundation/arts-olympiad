@@ -16,14 +16,6 @@ export default function Home() {
           style={{objectFit: "fill"}}
         />
       </div>
-      {/* <div className="bg-neutral-white relative md:col-span-6">
-        <img 
-          src="/banner-image.png"
-          alt="Bars making a smooth 90 degree curve in olympic colors"
-          className="w-full "
-          style={{objectFit: "fill"}}
-        />
-      </div> */}
 
       <div className="bg-neutral-white md:col-span-4 ">
         <div className="break-words font-semibold text-4xl pl-6 md:pl-20 pt-5 md:pt-20">
@@ -50,9 +42,9 @@ export default function Home() {
             10- to 20-year old
           </div>
           <Image 
-            src="/home/artist.png" 
-            width = {224}
-            height = {224}
+            src="/home/artist.svg" 
+            width={224}
+            height={224}
             className="w-1/2 h-full pt-12" 
             alt="Person doing gymnast pose" 
           />
@@ -77,9 +69,9 @@ export default function Home() {
             10 or older
           </div>
           <Image 
-            src="/home/judge.png" 
-            width = {124}
-            height = {168}
+            src="/home/judge.svg" 
+            width={124}
+            height={168}
             className="h-1/2 w-auto pt-12" 
             alt="A smiling judge with a curly mustache" 
           />
@@ -105,9 +97,9 @@ export default function Home() {
           Search the gallery for amazing works from around the world.
         </div>
         <Image 
-          src="/home/swim.png" 
-          width = {386}
-          height = {244}
+          src="/home/swim.svg" 
+          width={386}
+          height={244}
           className="h-auto sm:w-2/5 w-4/5 pt-10" 
           alt="A swimmer doing a butterfly stroke" 
         />
@@ -117,9 +109,9 @@ export default function Home() {
       {/* - logo and text - */}
       <div className="grid grid-cols-1 gap-5 md:grid-cols-12 bg-secondary-blue col-span-1 md:col-span-10">
         <Image 
-          src="/home/torch-logo.png" 
-          width = {151}
-          height = {139}
+          src="/home/torch-logo.svg" 
+          width={151}
+          height={139}
           className="md:mt-16 md:ml-20 md:mb-10 md:col-span-2 col-span-1 justify-self-left mt-5 ml-5 mb-5" 
           alt="2024 olympics torch ablaze" 
         />
@@ -130,9 +122,9 @@ export default function Home() {
         <div className="hidden md:block md:col-span-1"></div>
         <div className="md:col-span-3 bg-neutral-white rounded-r-full rounded-l-2xl md:rounded-2xl shadow-md flex flex-row md:flex-col items-center md:ml-20 ml-5 mr-5">
           <Image 
-            src="/home/icon-1.png" 
-            width = {86}
-            height = {86}
+            src="/home/icon1.svg" 
+            width={86}
+            height={86}
             className="hidden md:block md:w-3/7 w-1/2 h-auto md:mt-3" 
             alt="Painting panel with mixed paints" 
           />
@@ -140,18 +132,18 @@ export default function Home() {
             Visitors ages 10 to 20 Create, Upload, and Share their masterpieces to win the Gold!
           </div>
           <Image 
-            src="/home/icon-1.png" 
-            width = {86}
-            height = {86}
+            src="/home/icon1.svg" 
+            width={86}
+            height={86}
             className="block md:hidden md:w-3/7 w-1/2 h-auto md:mt-3" 
             alt="Painting panel with mixed paints" 
           />
         </div>
         <div className="md:col-span-3 bg-neutral-white rounded-l-full md:rounded-2xl p-10 shadow-md flex flex-row md:flex-col items-center ml-5 mr-5 md:ml-10 md:mr-10">
           <Image 
-            src="/home/icon-2.png" 
-            width = {86}
-            height = {86}
+            src="/home/icon2.svg" 
+            width={86}
+            height={86}
             className="w-1/4 md:w-1/2 md:mt-3" 
             alt="Written document with a checkmark" 
           />
@@ -161,9 +153,9 @@ export default function Home() {
         </div>
         <div className="md:col-span-3 bg-neutral-white rounded-r-full rounded-l-2xl md:rounded-2xl p-10 shadow-md flex flex-row md:flex-col items-center ml-5 mr-5 md:mr-20">
           <Image 
-            src="/home/icon-3.png" 
-            width = {86}
-            height = {86}
+            src="/home/icon3.svg" 
+            width={86}
+            height={86}
             className="hidden md:block md:w-3/7 w-1/2 h-auto md:mt-3" 
             alt="Image of a person with a globe as their head" 
           />
@@ -171,9 +163,9 @@ export default function Home() {
             #MyFavoriteSport contest will spread across Europe and the world from Paris.
           </div>
           <Image 
-            src="/home/icon-3.png" 
-            width = {86}
-            height = {86}
+            src="/home/icon3.svg" 
+            width={86}
+            height={86}
             className="block md:hidden md:w-3/7 w-1/2 h-auto md:mt-3" 
             alt="Image of a person with a globe as their head" 
           />
@@ -182,9 +174,9 @@ export default function Home() {
         <div className="hidden md:block md:col-span-3"></div>
         <div className="md:col-span-3 bg-neutral-white rounded-l-full md:rounded-2xl p-10 shadow-md flex flex-row md:flex-col items-center ml-5 mr-5 md:mr-12 md:mb-10">
           <Image 
-            src="/home/icon-4.png" 
-            width = {86}
-            height = {86}
+            src="/home/icon4.svg" 
+            width={86}
+            height={86}
             className="md:w-3/5 w-full h-auto md:mt-3" 
             alt="Lightbulb with the words 'world childrens festiaval inside' " 
           />
@@ -194,9 +186,9 @@ export default function Home() {
         </div>
         <div className="md:col-span-3 bg-neutral-white rounded-r-full rounded-l-2xl md:rounded-2xl p-10 shadow-md flex flex-row md:flex-col items-center ml-5 mr-5 md:mr-10 mb-10">
           <Image 
-            src="/home/icon-5.png" 
-            width = {86}
-            height = {86}
+            src="/home/icon5.svg" 
+            width={86}
+            height={86}
             className="hidden md:block md:w-3/7 w-3/5 h-auto md:mt-3" 
             alt="A hand holding the earth as a globe" 
           />
@@ -204,9 +196,9 @@ export default function Home() {
             The Arts Olympiad venue in Paris and the prizes for the gold, silver, and bronze winners will be announced in December 2023.
           </div>
           <Image 
-            src="/home/icon-5.png" 
-            width = {86}
-            height = {86}
+            src="/home/icon5.svg" 
+            width={86}
+            height={86}
             className="block md:hidden md:w-3/7 w-3/5 h-auto md:mt-3" 
             alt="A hand holding the earth as a globe" 
           />

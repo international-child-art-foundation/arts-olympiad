@@ -22,7 +22,7 @@ export default function aboutPage() {
           <Image 
             height = {80}
             width = {80}
-            src="/about/icon1.png" 
+            src="/about/icon1.svg" 
             className="w-auto h-auto max-w-[100px] max-h-[100px] mb-6 md:mb-0 md:mr-6" 
             alt="Artistic depection of a person with black hair and a multi-colored shirt."
           />
@@ -34,7 +34,7 @@ export default function aboutPage() {
           <Image 
             height = {80}
             width = {81}
-            src="/about/icon2.png" 
+            src="/about/icon2.svg" 
             className="w-auto h-auto max-w-[100px] max-h-[100px] mb-6 md:mb-0 md:mr-6" 
             alt="Artistic depection of a robot holding a wrench."
           />
@@ -46,7 +46,7 @@ export default function aboutPage() {
           <Image 
             height = {80}
             width = {80}
-            src="/about/icon3.png" 
+            src="/about/icon3.svg" 
             className="w-auto h-auto max-w-[100px] max-h-[100px] mb-6 md:mb-0 md:mr-6" 
             alt="Artistic depection of a person with yellow hair and a brown dress."
           />
@@ -58,7 +58,7 @@ export default function aboutPage() {
           <Image 
             width = {80}
             height = {80}
-            src="/about/icon4.png" 
+            src="/about/icon4.svg" 
             className="w-auto h-auto max-w-[100px] max-h-[100px] mb-6 md:mb-0 md:mr-6" 
             alt="Artistic depection of a person with an arm sling."  
           />
@@ -72,9 +72,9 @@ export default function aboutPage() {
             <a href="https://icaf.org/" className="text-base inline-flex ml-2">
               <u>International Child Art Foundation</u>
               <Image 
-                width = {23}
-                height = {23}
-                src="/about/link.png" 
+                width={23}
+                height={23}
+                src="/about/link.svg" 
                 className="ml-2"
                 alt="Icon denoting a hyperlink" 
               />
@@ -84,7 +84,7 @@ export default function aboutPage() {
               <Image 
                 width = {23}
                 height = {23}
-                src="/about/link.png" 
+                src="/about/link.svg" 
                 className="ml-2" 
                 alt="Icon denoting a hyperlink" 
               />
