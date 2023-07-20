@@ -31,7 +31,7 @@ export default function page() {
         </div>
       </div>
       {/* Arts Olympiad block */}
-      <div className="bg-secondary-blue md:pt-10">
+      <div className="bg-secondary-blue md:pt-10 pb-10">
         <div className="bg-neutral-white rounded-2xl p-10 md:p-5 shadow-md flex flex-col items-start mx-auto w-11/12">
           {/* skater part */}
           <div className="flex flex flex-col md:flex-row items-left">
@@ -65,10 +65,77 @@ export default function page() {
                 The global art contest on My Favorite Sport will bring personal and social benefits because creative kids face obesity risks in this TikTok sedentary era. Together, art and sport possess the power to inspire them to embrace the “Artist-Athlete Ideal” of the creative mind and healthy body (mens sana in corpore sano). When kids depict themselves as “artist-athletes” in their artwork on the theme, My Favorite Sport, their revised self-image as “artist-athletes” solidifies. Young artists and young athletes grow fellow feelings and empathic understanding, celebrating their creativity, diversity, and unity.
               </div>
               <br></br>
-              <div className="break-words text-base text-center md:text-left">
+              <div className="break-words text-base text-center md:text-left md:mb-5">
                 #MyFavoriteSport will go viral, involving millions of young artists worldwide to produce original works and young and old across the globe to vote for their favorite artwork.
               </div>
             </div>
+          </div>
+
+        </div>
+      </div>
+      {/* ICAF & the Olympics block */}
+      <div className="bg-neutral-white flex flex-col items-left pb-10">
+        <div className="break-words font-semibold text-3xl text-center md:text-left pl-6 md:ml-10 pt-10 mb-10">
+          ICAF & the Olympics
+        </div>
+        <div className="flex flex-col md:flex-row ml-5 mr-5 md:ml-10 md:mr-10 items-start">
+          <div className="bg-main-blue rounded-2xl p-5 shadow-md flex flex-col items-center md:h-full md:ml-5 mb-5">
+            <div className="break-words text-base text-center text-white md:text-left">
+              Earlier Olympics, as visualized by Baron de Coubertin, had gold, silver, and bronze medals for bothathletes and artists. See the <a href="https://www.smithsonianmag.com/arts-culture/when-the-olympics-gave-out-medals-for-art-6878965/" className="underline">Smithsonian Magazine</a>. The International Child Art Foundation (ICAF) combines art and sport through the Arts Olympiad and #MyFavoriteSport.
+            </div>
+          </div>
+          <div className="bg-main-blue rounded-2xl p-5 shadow-md flex flex-col items-center md:h-full md:mr-10 md:ml-5">
+            <div className="break-words text-base text-center text-white md:text-left">
+              New York City’s bid to host the Olympics included the Arts Olympiad to engage young artists in the 2012 Olympics. ICAF has previously produced Arts Olympiad exhibitions at Olympic venues. Covid canceled the Arts Olympiad plans for the 2022 Japan and Beijing Olympics. The United States Olympic Committee has granted ICAF an exclusive license to use the “Arts Olympiad” mark.
+            </div>
+          </div>
+          <div className="flex flex-col items-left mt-10 md:mt-0">
+            <div className="break-words text-base text-center md:text-left">
+              To engage creative kids in the Olympics, please donate today
+            </div>
+            <br></br>
+            <a href="https://icaf.org/donate.html" className="text-base text-left ml-5 inline-flex md:ml-0">
+              <u>https://icaf.org/donate.html</u>
+              <Image 
+                width = {23}
+                height = {23}
+                src="/about/link.svg" 
+                className="ml-2" 
+                alt="Icon denoting a hyperlink" 
+              />
+            </a>
+            <br></br>
+            <br></br>
+            <div className="break-words text-base text-left ml-5 md:ml-0">
+              For sponsorship opportunities, please <a href="https://icaf.org/about/contact-us" className="underline">contact us</a>
+            </div>
+          </div>
+        </div>
+      </div>
+      {/* Nelson Mandela & Marcel Proust part    */}
+      <div className="bg-main-yellow flex flex-col md:flex-row items-center pb-10">
+        {/* Nelson Mandela part */}
+        <div className="flex flex-row items-start p-10 md:w-1/2 md:pl-20">
+          <div className="flex flex-col items-center md:ml-20">
+            <Image className="w-full h-auto md:mt-10" src="/purpose/nelson.svg" alt="A smiling Nelson Mandela" width={211} height={211} />
+            <div className="break-words text-base text-center mb-5 mt-5">
+              Nelson Mandela
+            </div>
+          </div>
+          <div className="break-words text-base text-left ml-5 w-1/2 h-auto md:mt-10">
+            “ Sport has the power to change the world. It has the power to inspire. It has the power to unite people in a way that little else does. It speaks to youth in a language they understand. Sport can create hope where once there was only despair.”
+          </div>
+        </div>
+        {/* Marcel Proust part */}
+        <div className="flex flex-row items-start p-10 md:w-1/2 md:pl-20">
+          <div className="flex flex-col items-center">
+            <Image className="w-full h-auto md:mt-10" src="/purpose/marcel.svg" alt="A photo of Marcel Proust" width={211} height={211} />
+            <div className="break-words text-base text-center mb-5 mt-5">
+              Marcel Proust
+            </div>
+          </div>
+          <div className="break-words text-base text-left ml-5 w-1/2 h-auto md:mt-10">
+            “ Through art alone are we able to emerge from ourselves to know what another person sees.”
           </div>
         </div>
       </div>
