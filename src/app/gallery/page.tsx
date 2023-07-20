@@ -15,13 +15,13 @@ async function getData(page: string) {
   return data.json();
 }
 
-// export function generateStaticParams() {
-//   // renders pages at build
-//   const pagesToLoad = ["1", "2", "3"];
-//   return pagesToLoad.map((pageNumber) => ({
-//     page: pageNumber
-//   }));
-// }
+export function generateStaticParams() {
+  // renders pages at build
+  const pagesToLoad = ["1", "2", "3"];
+  return pagesToLoad.map((pageNumber) => ({
+    page: pageNumber
+  }));
+}
 
 export default async function page({ params }: {params: {page: string}}) {
   const page = params && params.page ? parseInt(params.page) : 1;
