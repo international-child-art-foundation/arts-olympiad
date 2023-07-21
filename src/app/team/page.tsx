@@ -1,4 +1,5 @@
 import ContentContainer from "../../../components/ui/ContentContainer";
+import Link from "next/link";
 
 export default function page() {
   return (
@@ -12,11 +13,23 @@ export default function page() {
         <ContentContainer>
           <div>
             <p className="text-base lg:text-2xl font-medium">Project Director</p>
-            <p className="text-base lg:text-lg">Ashfaw Ishaw, Ph.D.</p>
+            <p className="text-base lg:text-lg">Ashfaq Ishaq, Ph.D.
+              <Link href="https://www.linkedin.com/in/ashfaqishaq/" className="inline-block ml-3">
+                <img src="/team/icon-linkedin.svg" alt="LinkedIn" className="h-6 w-6" />
+              </Link>
+            </p>
             <p className="text-base lg:text-2xl font-medium">Director, Community Relations</p>
-            <p className="text-base lg:text-lg">Katty Guerami</p>
+            <p className="text-base lg:text-lg">Katty Guerami
+              <Link href="https://www.linkedin.com/in/katty-guerami-74a99014/" className="inline-block ml-3">
+                <img src="/team/icon-linkedin.svg" alt="LinkedIn" className="h-6 w-6" />
+              </Link>
+            </p>
             <p className="text-base lg:text-2xl font-medium">ICAF Paris</p>
-            <p className="text-base lg:text-lg">Katherine Harold, Paris College of Art</p>
+            <p className="text-base lg:text-lg">Katherine Harold, Paris College of Art
+              <Link href="https://www.linkedin.com/in/katherine-harold-23a5a0137/" className="inline-block ml-3">
+                <img src="/team/icon-linkedin.svg" alt="LinkedIn" className="h-6 w-6" />
+              </Link>
+            </p>
           </div>
         </ContentContainer>
         <ContentContainer>
@@ -60,13 +73,21 @@ export default function page() {
       <div className="w-full h-40 flex items-center pl-6 bg-main-yellow">
         <h1 className="mb-2 mt-0 text-3xl font-medium leading-6 text-primary sm:ml-12 ">Advisory Committee</h1>
       </div>
-      {/* content container image row */}
+      {/* content container image row NOTE: the Advisory committe links are not populated yet*/}
       <div className="flex flex-col sm:flex-row justify-evenly gap-4 px-4 bg-main-yellow">
         <div className="basis-1/2">
           <ContentContainer>
             <div>
-              <p className="text-base lg:text-lg">Joe Addo</p>
-              <p className="text-base lg:text-lg">Michael Shetzer</p>
+              <p className="text-base lg:text-lg">Joe Addo
+                <Link href="/team" className="inline-block ml-3">
+                  <img src="/team/icon-link.svg" alt="link" className="h-6 w-6" />
+                </Link>
+              </p>
+              <p className="text-base lg:text-lg">Michael Shetzer
+                <Link href="/team" className="inline-block ml-3">
+                  <img src="/team/icon-link.svg" alt="link" className="h-6 w-6" />
+                </Link>
+              </p>
             </div>
           </ContentContainer>
         </div>
