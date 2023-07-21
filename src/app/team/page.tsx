@@ -12,31 +12,39 @@ export default function page() {
       <div className="bg-secondary-blue flex flex-col sm:flex-row justify-evenly gap-4 px-4 " >
         <ContentContainer>
           <div>
-            <p className="text-base lg:text-2xl font-medium">Project Director</p>
-            <p className="text-base lg:text-lg">Ashfaq Ishaq, Ph.D.
-              <Link href="https://www.linkedin.com/in/ashfaqishaq/" className="inline-block ml-3">
-                <img src="/team/icon-linkedin.svg" alt="LinkedIn company logo" className="h-6 w-6" />
-              </Link>
-            </p>
-            <p className="text-base lg:text-2xl font-medium">Director, Community Relations</p>
-            <p className="text-base lg:text-lg">Katty Guerami
-              <Link href="https://www.linkedin.com/in/katty-guerami-74a99014/" className="inline-block ml-3">
-                <img src="/team/icon-linkedin.svg" alt="LinkedIn company logo" className="h-6 w-6" />
-              </Link>
-            </p>
-            <p className="text-base lg:text-2xl font-medium">ICAF Paris</p>
-            <p className="text-base lg:text-lg">Katherine Harold, Paris College of Art
-              <Link href="https://www.linkedin.com/in/katherine-harold-23a5a0137/" className="inline-block ml-3">
-                <img src="/team/icon-linkedin.svg" alt="LinkedIn company logo" className="h-6 w-6" />
-              </Link>
-            </p>
+            <h2 className="text-base lg:text-2xl font-medium">Project Director</h2>
+            <ul>
+              <li className="text-base lg:text-lg">Ashfaq Ishaq, Ph.D.
+                <Link href="https://www.linkedin.com/in/ashfaqishaq/" className="inline-block ml-3">
+                  <img src="/team/icon-linkedin.svg" alt="LinkedIn company logo" className="h-6 w-6" />
+                </Link>
+              </li>
+            </ul>
+            <h2 className="text-base lg:text-2xl font-medium">Director, Community Relations</h2>
+            <ul>
+              <li className="text-base lg:text-lg">Katty Guerami
+                <Link href="https://www.linkedin.com/in/katty-guerami-74a99014/" className="inline-block ml-3">
+                  <img src="/team/icon-linkedin.svg" alt="LinkedIn company logo" className="h-6 w-6" />
+                </Link>
+              </li>
+            </ul>
+            <h2 className="text-base lg:text-2xl font-medium">ICAF Paris</h2>
+            <ul>
+              <li className="text-base lg:text-lg">Katherine Harold, Paris College of Art
+                <Link href="https://www.linkedin.com/in/katherine-harold-23a5a0137/" className="inline-block ml-3">
+                  <img src="/team/icon-linkedin.svg" alt="LinkedIn company logo" className="h-6 w-6" />
+                </Link>
+              </li>
+            </ul>
           </div>
         </ContentContainer>
         <ContentContainer>
           <div>
-            <p className="text-base lg:text-2xl font-medium">Legal Advisors</p>
-            <p className="text-base lg:text-lg">Oroma Womeodu, Esq.</p>
-            <p className="text-base lg:text-lg">Jade Monkouopm</p>
+            <h2 className="text-base lg:text-2xl font-medium">Legal Advisors</h2>
+            <ul>
+              <li className="text-base lg:text-lg">Oroma Womeodu, Esq.</li>
+              <li className="text-base lg:text-lg">Jade Monkouopm</li>
+            </ul>
           </div>
         </ContentContainer>
       </div>
@@ -44,28 +52,34 @@ export default function page() {
       <div className="bg-secondary-blue flex flex-col sm:flex-row justify-evenly gap-4 px-4 pb-4">
         <ContentContainer>
           <div>
-            <p className="text-base lg:text-2xl font-medium">UX/UI</p>
-            <p className="text-base lg:text-lg">Liang-Yu Su</p>
-            <p className="text-base lg:text-lg">Claire Chen</p>
-            <p className="text-base lg:text-lg">Jaishri Chourasia</p>
+            <h2 className="text-base lg:text-2xl font-medium">UX/UI</h2>
+            <ul>
+              <li className="text-base lg:text-lg">Liang-Yu Su</li>
+              <li className="text-base lg:text-lg">Claire Chen</li>
+              <li className="text-base lg:text-lg">Jaishri Chourasia</li>
+            </ul>
           </div>
         </ContentContainer>
         <ContentContainer>
           <div>
-            <p className="text-base lg:text-2xl font-medium">Web Development</p>
-            <p className="text-base lg:text-lg">Andrew Dame</p>
-            <p className="text-base lg:text-lg">Chuck Gooley</p>
-            <p className="text-base lg:text-lg">Isaac Best</p>
-            <p className="text-base lg:text-lg">Patrick Feliciano</p>
-            <p className="text-base lg:text-lg">Adel Soltane</p>
-            <p className="text-base lg:text-lg">Rocky Wang</p>
+            <h2 className="text-base lg:text-2xl font-medium">Web Development</h2>
+            <ul>
+              <li className="text-base lg:text-lg">Andrew Dame</li>
+              <li className="text-base lg:text-lg">Chuck Gooley</li>
+              <li className="text-base lg:text-lg">Isaac Best</li>
+              <li className="text-base lg:text-lg">Patrick Feliciano</li>
+              <li className="text-base lg:text-lg">Adel Soltane</li>
+              <li className="text-base lg:text-lg">Rocky Wang</li>
+            </ul>
           </div>
         </ContentContainer>
         <ContentContainer>
           <div>
-            <p className="text-base lg:text-2xl font-medium">Data Science</p>
-            <p className="text-base lg:text-lg">Yiping Lu</p>
-            <p className="text-base lg:text-lg">Muwen Huang</p>
+            <h2 className="text-base lg:text-2xl font-medium">Data Science</h2>
+            <ul>
+              <li className="text-base lg:text-lg">Yiping Lu</li>
+              <li className="text-base lg:text-lg">Muwen Huang</li>
+            </ul>
           </div>
         </ContentContainer>
       </div>
@@ -78,21 +92,25 @@ export default function page() {
         <div className="basis-1/2">
           <ContentContainer>
             <div>
-              <p className="text-base lg:text-lg">Joe Addo
-                <Link href="/team" className="inline-block ml-3">
-                  <img src="/team/icon-link.svg" alt="Two chains interlinked" className="h-6 w-6" />
-                </Link>
-              </p>
-              <p className="text-base lg:text-lg">Michael Shetzer
-                <Link href="/team" className="inline-block ml-3">
-                  <img src="/team/icon-link.svg" alt="Two chains interlinked" className="h-6 w-6" />
-                </Link>
-              </p>
+              <ul>
+                <li className="text-base lg:text-lg">
+                  Joe Addo
+                  <Link href="/team" className="inline-block ml-3">
+                    <img src="/team/icon-link.svg" alt="Two chains interlinked" className="h-6 w-6" />
+                  </Link>
+                </li>
+                <li className="text-base lg:text-lg">
+                  Michael Shetzer
+                  <Link href="/team" className="inline-block ml-3">
+                    <img src="/team/icon-link.svg" alt="Two chains interlinked" className="h-6 w-6" />
+                  </Link>
+                </li>
+              </ul>
             </div>
           </ContentContainer>
         </div>
         <div className="basis-1/2">
-          <img src="/team/illustration-01.svg" alt="3 people forming a huddle"/>
+          <img src="/team/illustration-01.svg" alt="Three people forming a huddle"/>
         </div>
       </div>
     </div>
