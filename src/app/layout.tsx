@@ -17,14 +17,14 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body className={inter.className}>
-        <header>
-          <Header/>
-        </header>
-        { children }
-        <footer>
-          <Footer/>
-        </footer>
+      <body className={`${inter.className} bg-neutral-white`}>
+        <Header/>
+        <main className="flex justify-center">
+          <div className="w-full max-w-7xl">
+            { children }
+          </div>
+        </main>
+        <Footer />
       </body>
     </html>
   );
