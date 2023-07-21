@@ -15,19 +15,19 @@ export default function page() {
             <p className="text-base lg:text-2xl font-medium">Project Director</p>
             <p className="text-base lg:text-lg">Ashfaq Ishaq, Ph.D.
               <Link href="https://www.linkedin.com/in/ashfaqishaq/" className="inline-block ml-3">
-                <img src="/team/icon-linkedin.svg" alt="LinkedIn" className="h-6 w-6" />
+                <img src="/team/icon-linkedin.svg" alt="LinkedIn company logo" className="h-6 w-6" />
               </Link>
             </p>
             <p className="text-base lg:text-2xl font-medium">Director, Community Relations</p>
             <p className="text-base lg:text-lg">Katty Guerami
               <Link href="https://www.linkedin.com/in/katty-guerami-74a99014/" className="inline-block ml-3">
-                <img src="/team/icon-linkedin.svg" alt="LinkedIn" className="h-6 w-6" />
+                <img src="/team/icon-linkedin.svg" alt="LinkedIn company logo" className="h-6 w-6" />
               </Link>
             </p>
             <p className="text-base lg:text-2xl font-medium">ICAF Paris</p>
             <p className="text-base lg:text-lg">Katherine Harold, Paris College of Art
               <Link href="https://www.linkedin.com/in/katherine-harold-23a5a0137/" className="inline-block ml-3">
-                <img src="/team/icon-linkedin.svg" alt="LinkedIn" className="h-6 w-6" />
+                <img src="/team/icon-linkedin.svg" alt="LinkedIn company logo" className="h-6 w-6" />
               </Link>
             </p>
           </div>
@@ -80,12 +80,12 @@ export default function page() {
             <div>
               <p className="text-base lg:text-lg">Joe Addo
                 <Link href="/team" className="inline-block ml-3">
-                  <img src="/team/icon-link.svg" alt="link" className="h-6 w-6" />
+                  <img src="/team/icon-link.svg" alt="Two chains interlinked" className="h-6 w-6" />
                 </Link>
               </p>
               <p className="text-base lg:text-lg">Michael Shetzer
                 <Link href="/team" className="inline-block ml-3">
-                  <img src="/team/icon-link.svg" alt="link" className="h-6 w-6" />
+                  <img src="/team/icon-link.svg" alt="Two chains interlinked" className="h-6 w-6" />
                 </Link>
               </p>
             </div>
