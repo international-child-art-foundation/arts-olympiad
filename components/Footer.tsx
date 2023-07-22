@@ -1,5 +1,5 @@
 import Image from "next/image";
-import Icons from "./Icons";
+import SocialIcons from "./SocialIcons/SocialIcons";
 import ICAF_logo from "../public/icaf-logo-transparent.svg";
 
 // Custom box shadows added to apply the effects of "shadow-md" with a negative offset-y
@@ -21,7 +21,7 @@ const Footer = () => {
           </div>
         </div>
         <div className="flex justify-center items-center mt-9 lg:mt-0">
-          <Icons />
+          <SocialIcons />
         </div>
       </div>
     </footer>

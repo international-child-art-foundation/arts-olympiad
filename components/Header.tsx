@@ -21,7 +21,7 @@ const Header = () => {
 
         {links.map(link => (
           <Link key={link.name} href={link.url}>
-            <li className="text-neutral-black no-underline hidden md:block">{link.name}</li>
+            <li className="lg:text-lg font-semibold hover:text-main-blue text-neutral-black no-underline hidden md:block">{link.name}</li>
           </Link>
         ))}
 
