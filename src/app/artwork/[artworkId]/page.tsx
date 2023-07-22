@@ -35,15 +35,17 @@ const ArtworkPage: NextPage<PageProps> = (props) => {
       <div className="flex justify-between md:w-1/4 px-4 px-0 mx-auto sm: w-3/4">
         <div>
           <div className="text-xl font-bold">{artwork.name}</div>
-          <p>New York, U.S.A.</p>
-          <p>Age 12</p>
+          <ul>
+            <li>New York, U.S.A.</li>
+            <li>Age 12</li>
+          </ul>
         </div>
         <div className="bg-yellow-200 rounded-full w-24 h-24 flex items-center justify-center flex-col">
           <div className="text-3xl">{artwork.votes}</div>
           <p>votes</p>
         </div>
       </div>
-      <img src={artwork.url} alt={artwork.name} className="md: transform md:scale-150"/>
+      <img src={artwork.url} alt="sample artwork depicting various sports" className="md: transform md:scale-125"/>
       <Link href="/vote" className="bg-blue-500 text-white px-24 py-2 rounded-full">Vote</Link>
     </div>
   );

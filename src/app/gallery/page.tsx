@@ -1,32 +1,32 @@
+'use client'
 import Image from "next/image";
 import Pagination from "../../../components/pagination/Pagination";
 import ArtworkCard from "../../../components/ArtworkCard";
 import gallery_image from "../../../public/gallery/gallery_image.svg";
+import { useSearchParams } from 'next/navigation'
+import { artworks } from "../../../mock/artworks.js";
 
-type Artwork = {
-  id: string,
-  name: string,
-  votes: number,
-  url: string,
-}
 
-async function getData(page: string) {
-  const data = await fetch(`http://localhost:3000/api/artworks?_page=${page}&_limit=16`);
-  return data.json();
-}
+// type Artwork = {
+//   id: number,
+//   name: string,
+//   votes: number,
+//   url: string,
+// }
 
-export function generateStaticParams() {
-  // renders pages at build
-  const pagesToLoad = ["1", "2", "3"];
-  return pagesToLoad.map((pageNumber) => ({
-    page: pageNumber
-  }));
-}
-
-export default async function page({ params }: {params: {page: string}}) {
-  const page = params && params.page ? parseInt(params.page) : 1;
-  const {data, total }: {data: Artwork[] ;total: number} = await getData(String(page));
+export default  function page() {
+  const searchParams = useSearchParams();
+  const queryPage = searchParams.get('page');
+  const page = queryPage ? parseInt(queryPage) : 1;
   
+  const artworksPerPage = 16;
+  const startIndex = (page - 1) * artworksPerPage;
+  const endIndex = startIndex + artworksPerPage;
+  
+  const total = 30;
+  const pageData = artworks.slice(startIndex, endIndex);
+  
+
   return (
     <div>
       {/* yellow container */}
@@ -76,10 +76,10 @@ export default async function page({ params }: {params: {page: string}}) {
       {/* image container */}
       <div className="bg-neutral-white px-5 lg:px-20">
         <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 md:gap-4">
-          {data.map((artwork) =>
+          {pageData.map((artwork) =>
             <div key={artwork.id}>
               <ArtworkCard
-                id={artwork.id}
+                id={artwork.id.toString()}
                 name={artwork.name}
                 votes={artwork.votes}
                 url={artwork.url}
@@ -90,7 +90,7 @@ export default async function page({ params }: {params: {page: string}}) {
         <Pagination
           totalItems={total}
           currentPage={page}
-          renderPageLink={(page) => `/gallery/${page}`}
+          renderPageLink={(page) => `/gallery/?page=${page}`}
         />
       </div>
     </div>

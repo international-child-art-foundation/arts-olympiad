@@ -1,4 +1,4 @@
-[
+export const artworks = [
   {"id": 1, "name": "Teruhito Sekine", "votes": 12, "url":"/gallery/artwork-1.png" },
   {"id": 2, "name": "Teruhito Sekine", "votes": 15, "url":"/gallery/artwork-2.png"},
   {"id": 3, "name": "Teruhito Sekine", "votes": 2,  "url":"/gallery/artwork-3.png" },
