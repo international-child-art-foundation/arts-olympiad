@@ -1,4 +1,4 @@
-import ContentContainer from "../../../components/ui/ContentContainer";
+import Link from "next/link";
 import Image from "next/image";
 
 export default function page() {
@@ -94,7 +94,7 @@ export default function page() {
               To engage creative kids in the Olympics, please donate today
             </div>
             <br></br>
-            <a href="https://icaf.org/donate.html" className="text-base text-left ml-5 inline-flex md:ml-0">
+            <Link href="https://icaf.org/donate.html" target="_blank" className="text-base text-left ml-5 inline-flex md:ml-0">
               <u>https://icaf.org/donate.html</u>
               <Image 
                 width = {23}
@@ -103,11 +103,11 @@ export default function page() {
                 className="ml-2" 
                 alt="Icon denoting a hyperlink" 
               />
-            </a>
+            </Link>
             <br></br>
             <br></br>
             <div className="break-words text-base text-left ml-5 md:ml-0">
-              For sponsorship opportunities, please <a href="https://icaf.org/about/contact-us" className="underline">contact us</a>
+              For sponsorship opportunities, please <Link href="https://icaf.org/about/contact-us" target="_blank" className="underline">contact us</Link>
             </div>
           </div>
         </div>
