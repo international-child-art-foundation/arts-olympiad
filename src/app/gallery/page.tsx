@@ -1,22 +1,19 @@
-'use client'
+"use client";
 import Image from "next/image";
 import Pagination from "../../../components/pagination/Pagination";
 import ArtworkCard from "../../../components/ArtworkCard";
 import gallery_image from "../../../public/gallery/gallery_image.svg";
-import { useSearchParams } from 'next/navigation'
+// eslint-disable-next-line
+import { useSearchParams } from "next/navigation";
 import { artworks } from "../../../mock/artworks.js";
 
 
-// type Artwork = {
-//   id: number,
-//   name: string,
-//   votes: number,
-//   url: string,
-// }
+// the disable lint rule is because lint not interpreting useSearchParams as a react hook -> nextJS client component hook
 
 export default  function page() {
+  // eslint-disable-next-line
   const searchParams = useSearchParams();
-  const queryPage = searchParams.get('page');
+  const queryPage = searchParams.get("page");
   const page = queryPage ? parseInt(queryPage) : 1;
   
   const artworksPerPage = 16;

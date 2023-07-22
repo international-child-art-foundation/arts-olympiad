@@ -1,4 +1,3 @@
-import ContentContainer from "../../../components/ui/ContentContainer";
 import Image from "next/image";
 
 export default function page() {
