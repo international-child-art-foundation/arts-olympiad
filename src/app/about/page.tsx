@@ -1,3 +1,4 @@
+import Link from "next/link";
 import ContentContainer from "../../../components/ui/ContentContainer";
 import Image from "next/image";
 
@@ -69,7 +70,7 @@ export default function aboutPage() {
         <div className="w-11/12 lg:w-3/5 mt-20 mb-2">
           <h1 className="text-2xl font-semibold leading-6 ml-2 text-primary mb-5">For more:</h1>
           <p className="flex flex-col lg:flex-row lg:space-x-40 space-y-2 lg:space-y-0">
-            <a href="https://icaf.org/" className="text-base inline-flex ml-2">
+            <Link href="https://icaf.org/" target="_blank" className="text-base inline-flex ml-2">
               <u>International Child Art Foundation</u>
               <Image 
                 width={23}
@@ -78,8 +79,8 @@ export default function aboutPage() {
                 className="ml-2"
                 alt="Icon denoting a hyperlink" 
               />
-            </a>
-            <a href="https://worldchildrensfestival.org/" className="text-base inline-flex ml-2">
+            </Link>
+            <Link href="https://worldchildrensfestival.org/" target="_blank" className="text-base inline-flex ml-2">
               <u>The World Children's Festival</u>
               <Image 
                 width = {23}
@@ -88,7 +89,7 @@ export default function aboutPage() {
                 className="ml-2" 
                 alt="Icon denoting a hyperlink" 
               />
-            </a>
+            </Link>
           </p>
         </div>
       </div>
