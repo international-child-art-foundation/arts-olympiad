@@ -13,16 +13,11 @@ const Footer = () => {
             <Image src={ICAF_logo} alt="ICAF logo"></Image>
           </div>
           <div className="w-fit">
-            <ul className="font-normal text-sm md:font-medium lg:text-lg">
-              <li className=""> 
-                <Link href="http://www.icaf.org/" target="_blank" className="underline">
-                  International Child Art Foundation 
-                </Link>
-              </li>
-              <li>2549 Virginia Avenue NW
-                <span className="block">Washington, DC 20037</span>
-              </li>
-            </ul>
+            <address className="font-normal text-sm md:font-medium lg:text-lg not-italic">
+              <Link href="http://www.icaf.org/" target="_blank" className="underline"> International Child Art Foundation </Link> <br />
+              2548 Virginia Avenue, NW <br />
+              Washington, DC 20037
+            </address>
           </div>
         </div>
         <div className="flex justify-center items-center mt-9 lg:mt-0">
