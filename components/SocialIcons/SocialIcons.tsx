@@ -1,6 +1,6 @@
 import { InstagramIcon, FacebookIcon, TwitterIcon, YoutubeIcon,TiktokIcon,LinkedinIcon,PinterestIcon } from "./SocialSvgComponents";
 
-const svgIcons = [
+const icons = [
   { name: "instagram", link: "https://www.instagram.com", SVGcomponent: InstagramIcon },
   { name: "facebook", link: "https://www.facebook.com", SVGcomponent: FacebookIcon },
   { name: "twitter", link: "https://www.twitter.com", SVGcomponent: TwitterIcon },
@@ -13,7 +13,7 @@ const svgIcons = [
 const SocialIcons = () => {
   return (
     <>
-      {svgIcons.map((icon) => (
+      {icons.map((icon) => (
         <a 
           className="inline-block px-3" 
           key={icon.name} 
