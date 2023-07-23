@@ -6,18 +6,18 @@ export default function page() {
     <div>
       {/* title */}
       <div className="bg-secondary-blue flex flex-row">
-        <div className="bg-secondary-blue break-words font-semibold text-4xl pl-6 md:pl-20 pt-5 md:pt-10 mb-10">
+        <h1 className="bg-secondary-blue break-words font-semibold text-4xl pl-6 md:pl-20 pt-5 md:pt-10 mb-10">
           Purpose
-        </div>
+        </h1>
       </div>
       {/* engaging creative kids block */}
       <div className="bg-secondary-blue pb-10">
         <div className="bg-neutral-white rounded-2xl p-10 md:p-5 shadow-md flex flex-col md:flex-row items-start mx-auto w-11/12">
           {/* earth part */}
           <div className="flex flex-col items-center mb-15 md:w-3/7">
-            <div className="break-words font-semibold text-3xl text-center md:text-left pl-6 md:pl-10 pt-5 md:pt-10 mb-10">
+            <h2 className="break-words font-semibold text-3xl text-center md:text-left pl-6 md:pl-10 pt-5 md:pt-10 mb-10">
               Engaging Creative Kids in the Olympics
-            </div>
+            </h2>
             <Image className="w-3/5 h-auto" src="/purpose/icaf-2.svg" alt="An earth-like human waving at you with a smile" width={174} height={174} />
           </div>
           {/* pie chart part */}
@@ -36,9 +36,9 @@ export default function page() {
           {/* skater part */}
           <div className="flex flex flex-col md:flex-row items-left">
             <div className="flex flex-col items-center md:w-2/5 md:mr-10">
-              <div className="break-words font-semibold text-3xl text-center md:text-left pt-5 md:pt-10 mb-10">
+              <h2 className="break-words font-semibold text-3xl text-center md:text-left pt-5 md:pt-10 mb-10">
                 The Arts Olympiad
-              </div>
+              </h2>
               <Image className="w-1/2 h-1/2 md:mt-3" src="/purpose/illustration-08.svg" alt="A long hair skater with red sweater" width={211} height={211} />
             </div>
             <div className="flex flex-col items-center md:w-3/5 md:mt-10 md:mr-10">
@@ -75,13 +75,13 @@ export default function page() {
       </div>
       {/* ICAF & the Olympics block */}
       <div className="bg-neutral-white flex flex-col items-left pb-10">
-        <div className="break-words font-semibold text-3xl text-center md:text-left pl-6 md:ml-10 pt-10 mb-10">
+        <h2 className="break-words font-semibold text-3xl text-center md:text-left pl-6 md:ml-10 pt-10 mb-10">
           ICAF & the Olympics
-        </div>
+        </h2>
         <div className="flex flex-col md:flex-row ml-5 mr-5 md:ml-10 md:mr-10 items-start">
           <div className="bg-main-blue rounded-2xl p-5 shadow-md flex flex-col items-center md:h-full md:ml-5 mb-5">
             <div className="break-words text-base text-center text-white md:text-left">
-              Earlier Olympics, as visualized by Baron de Coubertin, had gold, silver, and bronze medals for bothathletes and artists. See the <a href="https://www.smithsonianmag.com/arts-culture/when-the-olympics-gave-out-medals-for-art-6878965/" className="underline">Smithsonian Magazine</a>. The International Child Art Foundation (ICAF) combines art and sport through the Arts Olympiad and #MyFavoriteSport.
+              Earlier Olympics, as visualized by Baron de Coubertin, had gold, silver, and bronze medals for bothathletes and artists. See the <Link href="https://www.smithsonianmag.com/arts-culture/when-the-olympics-gave-out-medals-for-art-6878965/" target="_blank" className="underline">Smithsonian Magazine </Link>. The International Child Art Foundation (ICAF) combines art and sport through the Arts Olympiad and #MyFavoriteSport.
             </div>
           </div>
           <div className="bg-main-blue rounded-2xl p-5 shadow-md flex flex-col items-center md:h-full md:mr-10 md:ml-5">
