@@ -19,16 +19,16 @@ export default function Home() {
       </div>
 
       <div className="bg-neutral-white md:col-span-4 ">
-        <h1 className="break-words font-semibold text-4xl pl-6 md:pl-20 pt-5 md:pt-20">
+        <h1 className="break-words font-semibold text-4xl pl-6 md:pl-20 pt-5 md:pt-10">
           My Favorite Sport
         </h1>
-        <div className="break-words text-base pl-6 md:pl-20 pt-7 md:pt-10 pr-6 md:pr-20">
+        <div className="break-words text-base pl-6 md:pl-20 pt-7 md:pt-5 pr-6 md:pr-20">
           To celebrate their Creativity, Diversity, and Unity, schoolchildren everywhere can participate in a global art contest on the theme, My Favorite Sport, and rally the votes to win the gold!
         </div>
-        <div className="break-words text-base pl-6 md:pl-20 pt-7 md:pt-10 pr-6 md:pr-20">
+        <div className="break-words text-base pl-6 md:pl-20 pt-7 md:pt-5 pr-6 md:pr-20">
           The contest will start from Paris at the Arts Olympiad exhibition in March 2024.
         </div>
-        <div className="break-words text-base pl-6 md:pl-20 pt-7 md:pt-10 pr-6 md:pr-20 pb-16">
+        <div className="break-words text-base pl-6 md:pl-20 pt-7 md:pt-5 pr-6 md:pr-20 pb-10 md:pb-0">
           The contest will end in Washington, D.C. when the winners are announced at the World Children's Festival on July 1, 2024.
         </div>
       </div>
