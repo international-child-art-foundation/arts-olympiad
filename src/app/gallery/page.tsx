@@ -3,15 +3,15 @@ import Image from "next/image";
 import Pagination from "../../../components/pagination/Pagination";
 import ArtworkCard from "../../../components/ArtworkCard";
 import gallery_image from "../../../public/gallery/gallery-image.svg";
-// eslint-disable-next-line
+// eslint-disable-next-line react-hooks/rules-of-hooks
 import { useSearchParams } from "next/navigation";
 import { artworks } from "../../../mock/artworks";
 
 
-// the disable lint rule is because lint not interpreting useSearchParams as a react hook -> nextJS client component hook
+// the disable lint rule is because lint is not interpreting useSearchParams as a react hook -> nextJS client component hook
 
 export default  function page() {
-  // eslint-disable-next-line
+  // eslint-disable-next-line react-hooks/rules-of-hooks
   const searchParams = useSearchParams();
   const queryPage = searchParams.get("page");
   const page = queryPage ? parseInt(queryPage) : 1;
