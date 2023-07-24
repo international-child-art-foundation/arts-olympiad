@@ -5,7 +5,7 @@ import ArtworkCard from "../../../components/ArtworkCard";
 import gallery_image from "../../../public/gallery/gallery_image.svg";
 // eslint-disable-next-line
 import { useSearchParams } from "next/navigation";
-import { artworks } from "../../../mock/artworks.js";
+import { artworks } from "../../../mock/artworks";
 
 
 // the disable lint rule is because lint not interpreting useSearchParams as a react hook -> nextJS client component hook
