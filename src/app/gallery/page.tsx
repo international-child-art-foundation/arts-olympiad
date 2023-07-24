@@ -34,7 +34,7 @@ export default  function page() {
         </div>
         {/* image container */}
         <div className="text-left md:py-5">
-          <Image src={gallery_image} alt="Previous artwork submission" />
+          <Image src={gallery_image} alt="Person holding a net" />
         </div>
       </div>
       {/* search container */}
