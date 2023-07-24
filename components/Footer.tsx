@@ -1,7 +1,23 @@
 import Image from "next/image";
-import SocialIcons from "./SocialIcons/SocialIcons";
+import Link from "next/link";
 import ICAF_logo from "../public/icaf-logo-transparent.svg";
+import { InstagramIcon } from "./svgs/InstagramIcon";
+import { FacebookIcon } from "./svgs/FacebookIcon";
+import { TwitterIcon } from "./svgs/TwitterIcon";
+import { YoutubeIcon } from "./svgs/YoutubeIcon";
+import { TiktokIcon } from "./svgs/TiktokIcon";
+import { LinkedinIcon } from "./svgs/LinkedinIcon";
+import { PinterestIcon } from "./svgs/PinterestIcon";
 
+const icons = [
+  { SVGcomponent: InstagramIcon },
+  { SVGcomponent: FacebookIcon },
+  { SVGcomponent: TwitterIcon },
+  { SVGcomponent: YoutubeIcon },
+  { SVGcomponent: TiktokIcon },
+  { SVGcomponent: LinkedinIcon },
+  { SVGcomponent: PinterestIcon },
+];
 // Custom box shadows added to apply the effects of "shadow-md" with a negative offset-y
 const Footer = () => {
   return (
@@ -12,16 +28,23 @@ const Footer = () => {
             <Image src={ICAF_logo} alt="ICAF logo"></Image>
           </div>
           <div className="w-fit">
-            <ul className="font-normal text-sm md:font-medium lg:text-lg">
-              <li className="">International Child Art Foundation</li>
-              <li>2549 Virginia Avenue NW,
-                <span className="block lg:inline">Washington, DC 20038</span>
-              </li>
-            </ul>
+            <address className="font-normal text-sm md:font-medium lg:text-lg not-italic">
+              <Link href="http://www.icaf.org/" target="_blank" className="underline"> International Child Art Foundation </Link> <br />
+              2548 Virginia Avenue, NW <br />
+              Washington, DC 20037
+            </address>
           </div>
         </div>
-        <div className="flex justify-center items-center mt-9 lg:mt-0">
-          <SocialIcons />
+        <div >
+          <ol className="flex justify-center items-center mt-9 lg:mt-0">
+            {icons.map((icon, i) => (
+              <li key={i} className="inline-block px-3">
+                <icon.SVGcomponent
+                  className="fill-neutral-black hover:fill-main-blue"
+                />
+              </li>
+            ))}
+          </ol>
         </div>
       </div>
     </footer>
