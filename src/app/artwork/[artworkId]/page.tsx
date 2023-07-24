@@ -1,5 +1,6 @@
 import { NextPage } from "next";
 import Link from "next/link";
+import { artworks } from "../../../../mock/artworks";
 
 
 interface PageProps {
@@ -8,23 +9,9 @@ interface PageProps {
   };
 }
 
-const artworks = [
-  {"id": 1, "name": "Teruhito Sekine", "votes": 12, "url":"/gallery/artwork-1.png" },
-  {"id": 2, "name": "Teruhito Sekine", "votes": 15, "url":"/gallery/artwork-2.png"},
-  {"id": 3, "name": "Teruhito Sekine", "votes": 2,  "url":"/gallery/artwork-3.png" },
-  {"id": 4, "name": "Teruhito Sekine", "votes": 23, "url":"/gallery/artwork-4.png" },
-  {"id": 5, "name": "Teruhito Sekine", "votes": 12, "url":"/gallery/artwork-5.png" },
-  {"id": 6, "name": "Teruhito Sekine", "votes": 15, "url":"/gallery/artwork-6.png" },
-  {"id": 7, "name": "Teruhito Sekine", "votes": 2, "url":"/gallery/artwork-7.png" }
-];
-
-function getArtworkById(id:string) {
-  const index = (Number(id) - 1) % 7; 
-  return artworks[index];
-}
 
 const ArtworkPage: NextPage<PageProps> = (props) => {
-  const artwork = getArtworkById(props.params.artworkId);
+  const artwork = artworks.find(artwork => artwork.id === Number(props.params.artworkId));
 
   if (!artwork) {
     return <div>No artwork found.</div>;
