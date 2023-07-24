@@ -2,7 +2,7 @@
 import Image from "next/image";
 import Pagination from "../../../components/pagination/Pagination";
 import ArtworkCard from "../../../components/ArtworkCard";
-import gallery_image from "../../../public/gallery/gallery_image.svg";
+import gallery_image from "../../../public/gallery/gallery-image.svg";
 // eslint-disable-next-line
 import { useSearchParams } from "next/navigation";
 import { artworks } from "../../../mock/artworks";
@@ -20,7 +20,6 @@ export default  function page() {
   const startIndex = (page - 1) * artworksPerPage;
   const endIndex = startIndex + artworksPerPage;
   
-  const total = 30;
   const pageData = artworks.slice(startIndex, endIndex);
   
 
@@ -85,9 +84,10 @@ export default  function page() {
           )}
         </div>
         <Pagination
-          totalItems={total}
+          totalItems={artworks.length}
           currentPage={page}
           renderPageLink={(page) => `/gallery/?page=${page}`}
+          itemsPerPage={artworksPerPage}
         />
       </div>
     </div>
