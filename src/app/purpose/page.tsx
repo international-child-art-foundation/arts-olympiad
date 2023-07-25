@@ -86,7 +86,7 @@ export default function page() {
           </div>
           <div className="bg-main-blue rounded-2xl p-5 shadow-md flex flex-col items-center md:h-full md:mr-10 md:ml-5">
             <div className="break-words text-base text-center text-white md:text-left">
-              New York City’s bid to host the Olympics included the Arts Olympiad to engage young artists in the 2012 Olympics. ICAF has previously produced Arts Olympiad exhibitions at Olympic venues. Covid canceled the Arts Olympiad plans for the 2022 Japan and Beijing Olympics. The United States Olympic Committee has granted ICAF an exclusive license to use the “Arts Olympiad” mark.
+              New York City’s bid to host the Olympics included the Arts Olympiad to engage young artists in the 2012 Olympics. ICAF has previously produced Arts Olympiad exhibitions at Olympic venues. Covid canceled the Arts Olympiad plans for the 2022 Japan and Beijing Olympics. The United States Olympic Committee has granted ICAF an exclusive license to use the “<Link href="/purpose/new-york-olympic.pdf" className="underline" target="_blank">Arts Olympiad</Link>” mark.
             </div>
           </div>
           <div className="flex flex-col items-left mt-10 md:mt-0">
