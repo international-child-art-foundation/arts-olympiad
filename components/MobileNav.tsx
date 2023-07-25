@@ -26,11 +26,13 @@ const MobileNav = () => {
     <div className="md:hidden">
       <Menu isOpen={isOpen} onStateChange={handleStateChange} right styles={styles} customCrossIcon={ <img src="close.svg" alt="Close menu"/> }>
         <span  className="flex space-x-5">
-          <Link onClick={closeMenu} className= "bg-blue-500 text-white text-xl px-4 py-2 m-3  rounded-full inline-block" href="/vote">Vote</Link>
-          <Link onClick={closeMenu} className= "bg-blue-500 text-white text-xl px-4 py-2 m-3 rounded-full inline-block" href="/upload">upload</Link>
+          <Link onClick={closeMenu} className= "bg-blue-500 bg-main-blue hover:bg-secondary-blue text-white text-xl px-4 py-2 m-3 rounded-full inline-block" href="/upload">Upload</Link>
+          <Link onClick={closeMenu} className= "bg-blue-500 bg-main-blue hover:bg-secondary-blue text-white text-xl px-4 py-2 m-3  rounded-full inline-block" href="/vote">Vote</Link>
         </span>
         {links.map(link => (
-          <Link key={link.name} href={link.url} onClick={closeMenu} className="block py-1 text-white text-xl no-underline m:2">{link.name}</Link>
+          <Link key={link.name} href={link.url} onClick={closeMenu} className="block py-1 text-white text-xl no-underline m:2">
+            <span className="hover:text-main-blue text-white">{link.name}</span>
+          </Link>
         ))}
       </Menu>
     </div>
