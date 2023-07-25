@@ -68,7 +68,6 @@ export default function page() {
               <li className="text-base lg:text-lg">Chuck Gooley</li>
               <li className="text-base lg:text-lg">Isaac Best</li>
               <li className="text-base lg:text-lg">Patrick Feliciano</li>
-              <li className="text-base lg:text-lg">Adel Soltane</li>
               <li className="text-base lg:text-lg">Rocky Wang</li>
             </ul>
           </div>
@@ -78,7 +77,6 @@ export default function page() {
             <h2 className="text-base lg:text-2xl font-medium">Data Science</h2>
             <ul>
               <li className="text-base lg:text-lg">Yiping Lu</li>
-              <li className="text-base lg:text-lg">Muwen Huang</li>
             </ul>
           </div>
         </ContentContainer>
