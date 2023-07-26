@@ -33,7 +33,7 @@ const ArtworkPage: NextPage<PageProps> = (props) => {
         </div>
       </div>
       <img src={artwork.url} alt="sample artwork depicting various sports" className="md: transform md:scale-125"/>
-      <Link href="/vote" className="bg-blue-500 text-white px-24 py-2 rounded-full">Vote</Link>
+      <Link href="https://artsolympiad.info/artwok_select.php" className="bg-blue-500 text-white px-24 py-2 rounded-full">Vote</Link>
     </div>
   );
   
