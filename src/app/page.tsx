@@ -52,7 +52,7 @@ export default function Home() {
           <div className="break-words text-center text-xl pt-8 pb-8">
             Create / Upload / Share your masterpiece to get the votes to win the gold!
           </div>
-          <Button link="/upload" mainButton nonNav>Upload</Button>
+          <Button link="https://artsolympiad.info/artwok_registration.php" mainButton nonNav>Upload</Button>
           <div className="break-words text-center text-xl pt-8 pb-8">
             Upload today and Share your work for maximum votes.
           </div>
@@ -79,7 +79,7 @@ export default function Home() {
           <div className="break-words text-center text-xl pt-8 pb-8">
             Vote For Your Favorite Artwork.
           </div>
-          <Button link="/vote" mainButton nonNav>Vote</Button>
+          <Button link="https://artsolympiad.info/artwok_select.php" mainButton nonNav>Vote</Button>
           <div className="break-words text-center text-xl pt-8 pb-8">
             You can vote only once, so Share with friends.
           </div>

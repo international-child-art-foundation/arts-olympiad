@@ -25,8 +25,8 @@ const Header = () => {
           </Link>
         ))}
 
-        <Button link="/upload" mainButton>Upload</Button>
-        <Button link="/vote" mainButton>Vote</Button>
+        <Button link="https://artsolympiad.info/artwok_registration.php" mainButton>Upload</Button>
+        <Button link="https://artsolympiad.info/artwok_select.php" mainButton>Vote</Button>
         <MobileNav></MobileNav> {/* triple stack mobile component*/}
       </ul>
     </header>
