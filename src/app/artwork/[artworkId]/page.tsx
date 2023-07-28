@@ -2,13 +2,19 @@ import { NextPage } from "next";
 import Link from "next/link";
 import { artworks } from "../../../../mock/artworks";
 
-
 interface PageProps {
   params: {
     artworkId: string;
   };
 }
 
+export async function generateStaticParams() {
+  const routes = artworks.map(artwork => ({
+    artworkId: artwork.id.toString(),
+  }));
+
+  return routes;
+}
 
 const ArtworkPage: NextPage<PageProps> = (props) => {
   const artwork = artworks.find(artwork => artwork.id === Number(props.params.artworkId));
