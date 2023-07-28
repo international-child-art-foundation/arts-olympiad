@@ -49,7 +49,7 @@ const Footer = () => {
                 >
                   <icon.SVGcomponent 
                     className="fill-neutral-black hover:fill-main-blue"
-                    aria-hidden
+                    aria-hidden="true"
                   />
                 </Link>
               </li>
