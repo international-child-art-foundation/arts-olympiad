@@ -8,7 +8,6 @@ import { YoutubeIcon } from "./svgs/YoutubeIcon";
 import { TiktokIcon } from "./svgs/TiktokIcon";
 import { LinkedinIcon } from "./svgs/LinkedinIcon";
 import { PinterestIcon } from "./svgs/PinterestIcon";
-import IconLink from "./IconLink";
 
 const icons = [
   { SVGcomponent: InstagramIcon, altText:"Visit the International Child Art Foundation's Instagram page", href:"https://www.instagram.com/intlchildartfoundation/"},
@@ -42,14 +41,17 @@ const Footer = () => {
           <ol className="flex justify-center items-center mt-9 lg:mt-0">
             {icons.map((icon,i) => (
               <li key={i} className="inline-block px-3">
-                <IconLink
-                  altText={icon.altText}
+                <Link
+                  aria-label={icon.altText}
                   href={icon.href}
                   target="_blank"
                   rel="noopener noreferrer"
                 >
-                  <icon.SVGcomponent className="fill-neutral-black hover:fill-main-blue"/>
-                </IconLink>
+                  <icon.SVGcomponent 
+                    className="fill-neutral-black hover:fill-main-blue"
+                    aria-hidden
+                  />
+                </Link>
               </li>
             ))}
           </ol>
