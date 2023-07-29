@@ -93,13 +93,13 @@ export default function page() {
               <ul>
                 <li className="text-base lg:text-lg">
                   Joe Addo
-                  <Link href="/team" className="inline-block ml-3">
+                  <Link href="https://www.joeaddo.com/" target="_blank" className="inline-block ml-3">
                     <img src="/team/icon-link.svg" alt="Two chains interlinked" className="h-6 w-6" />
                   </Link>
                 </li>
                 <li className="text-base lg:text-lg">
                   Michael Shetzer
-                  <Link href="/team" className="inline-block ml-3">
+                  <Link href="https://ceesmena.org/michael-shetzer/" target="_blank" className="inline-block ml-3">
                     <img src="/team/icon-link.svg" alt="Two chains interlinked" className="h-6 w-6" />
                   </Link>
                 </li>
