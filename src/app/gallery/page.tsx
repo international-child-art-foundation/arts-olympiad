@@ -60,7 +60,7 @@ export default  function page() {
                 <input type="text" id="city" name="city" placeholder="City" className="w-full border border-main-blue border-2 rounded-lg py-2 px-4" />
               </div>
             </div>
-            <button type="submit" className="w-full bg-main-blue text-white py-2 px-4 rounded-lg">Search</button>
+            <button type="submit" className="btn-primary w-full">Search</button>
           </form>
         </div>
       </div>

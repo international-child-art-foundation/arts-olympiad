@@ -1,5 +1,4 @@
 import Link from "next/link";
-import Button from "./ui/Button";
 import MobileNav from "./MobileNav";
 import "../src/app/globals.css"; 
 
@@ -25,9 +24,21 @@ const Header = () => {
           </Link>
         ))}
 
-        <Button link="https://artsolympiad.info/artwok_registration.php" mainButton>Upload</Button>
-        <Button link="https://artsolympiad.info/artwok_select.php" mainButton>Vote</Button>
-        <MobileNav></MobileNav> {/* triple stack mobile component*/}
+        <Link
+          href="https://artsolympiad.info/artwok_registration.php"
+          className="btn-primary hidden md:block"
+          target="_blank"
+        >
+          Upload
+        </Link>
+        <Link
+          href="https://artsolympiad.info/artwok_select.php"
+          className="btn-primary hidden md:block"
+          target="_blank"
+        >
+          Vote
+        </Link>
+        <MobileNav /> {/* triple stack mobile component*/}
       </ul>
     </header>
   );
