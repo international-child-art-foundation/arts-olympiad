@@ -19,16 +19,16 @@ export default function Home() {
       </div>
 
       <div className="bg-neutral-white md:col-span-4 ">
-        <div className="break-words font-semibold text-4xl pl-6 md:pl-20 pt-5 md:pt-20">
+        <h1 className="break-words font-semibold text-4xl pl-6 md:pl-20 pt-5 md:pt-10">
           My Favorite Sport
-        </div>
-        <div className="break-words text-base pl-6 md:pl-20 pt-7 md:pt-10 pr-6 md:pr-20">
+        </h1>
+        <div className="break-words text-base pl-6 md:pl-20 pt-7 md:pt-5 pr-6 md:pr-20">
           To celebrate their Creativity, Diversity, and Unity, schoolchildren everywhere can participate in a global art contest on the theme, My Favorite Sport, and rally the votes to win the gold!
         </div>
-        <div className="break-words text-base pl-6 md:pl-20 pt-7 md:pt-10 pr-6 md:pr-20">
+        <div className="break-words text-base pl-6 md:pl-20 pt-7 md:pt-5 pr-6 md:pr-20">
           The contest will start from Paris at the Arts Olympiad exhibition in March 2024.
         </div>
-        <div className="break-words text-base pl-6 md:pl-20 pt-7 md:pt-10 pr-6 md:pr-20 pb-16">
+        <div className="break-words text-base pl-6 md:pl-20 pt-7 md:pt-5 pr-6 md:pr-20 pb-10 md:pb-0">
           The contest will end in Washington, D.C. when the winners are announced at the World Children's Festival on July 1, 2024.
         </div>
       </div>
@@ -36,9 +36,9 @@ export default function Home() {
       <div className="bg-main-yellow md:col-span-10 grid md:grid-cols-2 grid-cols-1">
         {/* artist upload block */}
         <div className="bg-neutral-white col-span-1 rounded-2xl p-10 shadow-md flex flex-col items-center mt-10 mr-10 ml-10 mb-10">
-          <div className="break-words font-semibold text-4xl pl-6 pt-2">
+          <h2 className="break-words font-semibold text-4xl pl-6 pt-2">
             I am an Artist
-          </div>
+          </h2>
           <div className="break-words text-xl pt-2">
             10- to 20-year old
           </div>
@@ -63,9 +63,9 @@ export default function Home() {
         </div>
         {/* voter block */}
         <div className="bg-neutral-white col-span-1 rounded-2xl p-10 shadow-md flex flex-col items-center mt-10 mr-10 ml-10 mb-10">
-          <div className="break-words font-semibold text-4xl pl-6 pt-2">
+          <h2 className="break-words font-semibold text-4xl pl-6 pt-2">
             I want to be a Judge
-          </div>
+          </h2>
           <div className="break-words text-xl pt-2">
             10 or older
           </div>
@@ -91,9 +91,9 @@ export default function Home() {
       </div>
       {/* gallery search block */}
       <div className="bg-neutral-white col-span-1 md:col-span-10 flex flex-col items-center mt-10 mr-10 ml-10 mb-10">
-        <div className="break-words font-semibold text-4xl">
+        <h2 className="break-words font-semibold text-4xl">
           #MyFavoriteSport
-        </div>
+        </h2>
         <div className="break-words text-center text-xl pt-8 pb-8">
           Search the gallery for amazing works from around the world.
         </div>
@@ -209,17 +209,17 @@ export default function Home() {
       {/* Sponsor Title */}
       <div className="bg-main-yellow col-span-1 md:col-span-10 flex flex-row">
         <div className="w-full mt-10 mb-10 ml-5 md:ml-10 md:ml-20 md:mt-20">
-          <div className="break-words font-semibold text-4xl">
+          <h2 className="break-words font-semibold text-4xl">
             Sponsors
-          </div>
+          </h2>
         </div>
       </div>
       {/* 3 white blocks */}
       <div className="bg-main-yellow col-span-1 md:col-span-10 grid grid-cols-12">
         <div className="col-span-5 flex flex-col items-center bg-neutral-white rounded-2xl ml-5 md:ml-20 mr-5 mb-10">
-          <div className="break-words font-semibold text-3xl text-main-gold mt-10 mb-5">
+          <h3 className="break-words font-semibold text-3xl text-main-gold mt-10 mb-5">
             Gold
-          </div>
+          </h3>
           <hr className="w-11/12 border-t-2 border-gray-500 mb-10 ml-5 mr-5" />
           <div className="flex flex-col md:flex-row items-center mb-8">
             <Image
@@ -246,9 +246,9 @@ export default function Home() {
           </div>
         </div>
         <div className="col-span-4 flex flex-col items-center bg-neutral-white rounded-2xl mr-5 mb-10">
-          <div className="break-words font-semibold text-3xl text-main-silver mt-10 mb-5">
+          <h3 className="break-words font-semibold text-3xl text-main-silver mt-10 mb-5">
             Silver
-          </div>
+          </h3>
           <hr className="w-11/12 border-t-2 border-gray-500 mb-10 ml-5 mr-5" />
           <div className="flex flex-col md:flex-row items-center">
             <Image
@@ -275,9 +275,9 @@ export default function Home() {
           </div>
         </div>
         <div className="col-span-3 flex flex-col items-center bg-neutral-white rounded-2xl mr-5 md:mr-20 mb-10">
-          <div className="break-words font-semibold text-3xl text-main-bronze mt-10 mb-5">
+          <h3 className="break-words font-semibold text-3xl text-main-bronze mt-10 mb-5">
             Bronze
-          </div>
+          </h3>
           <hr className="w-11/12 border-t-2 border-gray-500 mb-10 ml-5 mr-5" />
           <div className="flex flex-col md:flex-row items-center">
             <Image

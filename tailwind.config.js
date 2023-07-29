@@ -21,12 +21,12 @@ module.exports = {
         'main-bronze': '#AD8122',
       },
       fontSize: {
-        'heading-1': ['2.125rem',{
-          fontWeight: '700',
-          lineHeight: ''
+        "heading-1": ["2.125rem",{
+          fontWeight: "700",
+          lineHeight: ""
         }],
       }, 
     },
   },
   plugins: [],
-}
+};
