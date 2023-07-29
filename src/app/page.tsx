@@ -1,6 +1,5 @@
 import bannerImage from "../../public/banner-image.svg";
 import Image from "next/image";
-import Button from "../../components/ui/Button";
 import Link from "next/link";
 
 export default function Home() {
@@ -52,7 +51,13 @@ export default function Home() {
           <div className="break-words text-center text-xl pt-8 pb-8">
             Create / Upload / Share your masterpiece to get the votes to win the gold!
           </div>
-          <Button link="https://artsolympiad.info/artwok_registration.php" mainButton nonNav>Upload</Button>
+          <Link
+            href="https://artsolympiad.info/artwok_registration.php"
+            className="btn-primary"
+            target="_blank"
+          >
+            Upload
+          </Link>
           <div className="break-words text-center text-xl pt-8 pb-8">
             Upload today and Share your work for maximum votes.
           </div>
@@ -79,7 +84,13 @@ export default function Home() {
           <div className="break-words text-center text-xl pt-8 pb-8">
             Vote For Your Favorite Artwork.
           </div>
-          <Button link="https://artsolympiad.info/artwok_select.php" mainButton nonNav>Vote</Button>
+          <Link 
+            href="https://artsolympiad.info/artwok_select.php"
+            className="btn-primary"
+            target="_blank"
+          >
+            Vote
+          </Link>
           <div className="break-words text-center text-xl pt-8 pb-8">
             You can vote only once, so Share with friends.
           </div>
@@ -104,7 +115,12 @@ export default function Home() {
           className="h-auto sm:w-2/5 w-4/5 pt-10"
           alt="A swimmer doing a butterfly stroke"
         />
-        <Button link="/gallery" mainButton nonNav>Explore</Button>
+        <Link 
+          href="/gallery"
+          className="btn-primary"
+        >
+          Explore
+        </Link>
       </div>
       {/* 2024 arts olympiad introduction */}
       {/* - logo and text - */}
