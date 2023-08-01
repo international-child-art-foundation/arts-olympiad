@@ -32,7 +32,7 @@ const Footer = () => {
           <div className="w-fit">
             <address className="font-normal text-sm md:font-medium lg:text-lg not-italic">
               <Link href="http://www.icaf.org/" target="_blank" className="underline"> International Child Art Foundation </Link> <br />
-              2548 Virginia Avenue, NW <br />
+              2549 Virginia Avenue, NW <br />
               Washington, DC 20037
             </address>
           </div>
