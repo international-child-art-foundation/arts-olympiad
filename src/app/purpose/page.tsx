@@ -36,10 +36,12 @@ export default function page() {
           {/* skater part */}
           <div className="flex flex flex-col md:flex-row items-left">
             <div className="flex flex-col items-center md:w-2/5 md:mr-10">
-              <h2 className="break-words font-semibold text-3xl text-center md:text-left pt-5 md:pt-10 mb-10">
+              <h2 className="break-words font-semibold text-3xl text-center md:text-left pt-5 md:pt-10 ">
                 The Arts Olympiad
               </h2>
-              <Image className="w-1/2 h-1/2 md:mt-3" src="/purpose/illustration-08.svg" alt="A long hair skater with red sweater" width={211} height={211} />
+              <div className="flex items-center flex-col w-1/2 md:w-5/12 h-1/2 my-5 md:mt-10">
+                <Image src="/purpose/illustration-08.svg" alt="A long hair skater with red sweater" width={211} height={211} />
+              </div>
             </div>
             <div className="flex flex-col items-center md:w-3/5 md:mt-10 md:mr-10">
               <div className="break-words text-base text-center md:text-left">
@@ -57,8 +59,8 @@ export default function page() {
           </div>
           {/* water polo player part */}
           <div className="flex flex flex-col md:flex-row items-left">
-            <div className="md:w-2/5 flex flex-col items-center">
-              <Image className="w-2/5 h-auto md:mt-10" src="/purpose/illustration-06.svg" alt="A smiling water polo player" width={211} height={211} />
+            <div className="md:w-2/5 flex flex-col items-center mt-3 mb-3 md:mt-10">
+              <Image className="w-1/2 md:w-5/12 h-auto " src="/purpose/illustration-06.svg" alt="A smiling water polo player" width={211} height={211} />
             </div>
             <div className="flex flex-col items-center md:w-3/5 md:mt-10 md:mr-10 md:ml-10">
               <div className="break-words text-base text-center md:text-left">
