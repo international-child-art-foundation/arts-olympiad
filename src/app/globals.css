@@ -5,7 +5,7 @@
 
 @layer components {
   .btn-primary {
-    @apply min-w-[90px] text-center bg-main-blue hover:bg-secondary-blue text-white px-4 py-2 rounded-full;
+    @apply min-w-[90px] text-center bg-main-blue hover:bg-secondary-blue text-white text-base px-4 py-2 rounded-full;
   }
 }
 
