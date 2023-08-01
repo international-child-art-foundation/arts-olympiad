@@ -22,7 +22,7 @@ export default function page() {
           </div>
           {/* pie chart part */}
           <div className="flex flex-col items-center pt-0 md:pt-10 md:pl-20 md:w-4/7">
-            <div className="break-words text-base text-center md:text-left mb-5 md:mb-0">
+            <div className="break-words text-base text-left mb-5 md:mb-0">
               A survey of 9,000 kids by a U.K. advertising company, KidsKnowBest, revealed that about 50% seemed uninterested in watching the Olympics.
             </div>
             <Image className="w-full h-auto md:mt-10 md:mr-10 hidden md:block" src="/purpose/chart-desktop.svg" alt="A pie chart shows 50% of children are not interested in Olympics" width={174} height={174} />
@@ -44,15 +44,15 @@ export default function page() {
               </div>
             </div>
             <div className="flex flex-col items-center md:w-3/5 md:mt-10 md:mr-10">
-              <div className="break-words text-base text-center md:text-left">
+              <div className="break-words text-base text-left">
                 By bringing together countries and cultures from around the world, the Paris 2024 Olympics will reassure kids that their chaotic and divided world has hope. 
               </div>
               <br></br>
-              <div className="break-words text-base text-center md:text-left">
+              <div className="break-words text-base text-left">
                 The Arts Olympiad brings excitement to Paris and a Create & Share interactivity that engages creative kids worldwide in the Olympics and the Olympic Movement. They participate in #MyFavoriteSport and become inspired by the Olympic values of excellence, friendship, and respect.
               </div>
               <br></br>
-              <div className="break-words text-base text-center md:text-left">
+              <div className="break-words text-base text-left">
                 The Arts Olympiad connects Paris and Washington with the launch of the global contest at the Parisian exhibition in March 2024 and the announcement of the winners at the National Mall across the U.S. Capitol on July 1, 2024. 
               </div>
             </div>
@@ -63,11 +63,11 @@ export default function page() {
               <Image className="w-1/2 md:w-5/12 h-auto " src="/purpose/illustration-06.svg" alt="A smiling water polo player" width={211} height={211} />
             </div>
             <div className="flex flex-col items-center md:w-3/5 md:mt-10 md:mr-10 md:ml-10">
-              <div className="break-words text-base text-center md:text-left">
+              <div className="break-words text-base text-left">
                 The global art contest on My Favorite Sport will bring personal and social benefits because creative kids face obesity risks in this TikTok sedentary era. Together, art and sport possess the power to inspire them to embrace the “Artist-Athlete Ideal” of the creative mind and healthy body (mens sana in corpore sano). When kids depict themselves as “artist-athletes” in their artwork on the theme, My Favorite Sport, their revised self-image as “artist-athletes” solidifies. Young artists and young athletes grow fellow feelings and empathic understanding, celebrating their creativity, diversity, and unity.
               </div>
               <br></br>
-              <div className="break-words text-base text-center md:text-left md:mb-5">
+              <div className="break-words text-base text-left md:mb-5">
                 #MyFavoriteSport will go viral, involving millions of young artists worldwide to produce original works and young and old across the globe to vote for their favorite artwork.
               </div>
             </div>
