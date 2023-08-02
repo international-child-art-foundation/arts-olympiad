@@ -31,21 +31,21 @@ export default function page() {
         </div>
       </div>
       {/* Arts Olympiad block */}
-      <div className="bg-secondary-blue md:pt-10 pb-10">
-        <div className="bg-neutral-white rounded-2xl p-10 md:p-5 shadow-md flex flex-col items-start mx-auto w-11/12">
+      <div className="bg-secondary-blue lg:pt-10 pb-10">
+        <div className="bg-neutral-white rounded-2xl p-10 lg:p-5 shadow-md flex flex-col items-start mx-auto w-11/12">
           {/* skater part */}
-          <div className="flex flex-col md:flex-row items-left">
-            <div className="flex flex-col items-center md:w-2/5 md:mr-10">
-              <h2 className="break-words font-semibold text-2xl lg:text-3xl text-center md:text-left md:pt-10 ">
+          <div className="flex flex-col lg:flex-row items-left">
+            <div className="flex flex-col items-center lg:w-2/5 lg:mr-10">
+              <h2 className="break-words font-semibold text-2xl lg:text-3xl text-center lg:text-left lg:pt-10 ">
                 The Arts Olympiad
               </h2>
-              <div className="flex items-center flex-col w-1/2 md:w-5/12 h-1/2 my-5 md:mt-10">
+              <div className="flex items-center flex-col w-1/2 lg:w-5/12 h-1/2 my-5 lg:mt-10">
                 <Image src="/purpose/illustration-08.svg" alt="A long hair skater with red sweater" width={211} height={211}
                   className="w-auto h-auto max-w-[180px] max-h-[180px]"
                 />
               </div>
             </div>
-            <div className="flex flex-col items-center md:w-3/5 md:mt-10 md:mr-10">
+            <div className="flex flex-col items-center lg:w-3/5 lg:mt-10 lg:mr-10">
               <div className="break-words text-base text-left">
                 By bringing together countries and cultures from around the world, the Paris 2024 Olympics will reassure kids that their chaotic and divided world has hope.
               </div>
@@ -60,16 +60,16 @@ export default function page() {
             </div>
           </div>
           {/* water polo player part */}
-          <div className="flex flex flex-col md:flex-row items-left">
-            <div className="md:w-2/5 flex flex-col items-center mt-3 mb-3 md:mt-14">
+          <div className="flex flex flex-col lg:flex-row items-left">
+            <div className="lg:w-2/5 flex flex-col items-center mt-3 mb-3 lg:mt-14">
               <Image className="w-auto h-auto max-w-[180px] max-h-[180px] " src="/purpose/illustration-06.svg" alt="A smiling water polo player" width={211} height={211} />
             </div>
-            <div className="flex flex-col items-center md:w-3/5 md:mt-10 md:mr-10 md:ml-10">
+            <div className="flex flex-col items-center lg:w-3/5 lg:mt-10 lg:mr-10 lg:ml-10">
               <div className="break-words text-base text-left">
                 The global art contest on My Favorite Sport will bring personal and social benefits because creative kids face obesity risks in this TikTok sedentary era. Together, art and sport possess the power to inspire them to embrace the “Artist-Athlete Ideal” of the creative mind and healthy body (mens sana in corpore sano). When kids depict themselves as “artist-athletes” in their artwork on the theme, My Favorite Sport, their revised self-image as “artist-athletes” solidifies. Young artists and young athletes grow fellow feelings and empathic understanding, celebrating their creativity, diversity, and unity.
               </div>
               <br></br>
-              <div className="break-words text-base text-left md:mb-5">
+              <div className="break-words text-base text-left lg:mb-5">
                 #MyFavoriteSport will go viral, involving millions of young artists worldwide to produce original works and young and old across the globe to vote for their favorite artwork.
               </div>
             </div>
@@ -79,7 +79,7 @@ export default function page() {
       </div>
       {/* ICAF & the Olympics block */}
       <div className="bg-neutral-white flex flex-col items-left pb-10">
-        <h2 className="font-semibold text-2xl md:text-3xl text-center lg:text-left lg:pl-6 lg:ml-10 pt-10 mb-10">
+        <h2 className="font-semibold text-2xl lg:text-3xl text-center lg:text-left lg:pl-6 lg:ml-10 pt-10 mb-10">
           ICAF & the Olympics
         </h2>
         <div className="flex flex-col lg:flex-row ml-5 mr-5 lg:ml-10 lg:mr-10 gap-3">
