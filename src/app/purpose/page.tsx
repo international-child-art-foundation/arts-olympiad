@@ -12,21 +12,21 @@ export default function page() {
       </div>
       {/* engaging creative kids block */}
       <div className="bg-secondary-blue pb-10">
-        <div className="bg-neutral-white rounded-2xl p-10 md:p-5 shadow-md flex flex-col md:flex-row items-start mx-auto w-11/12">
+        <div className="bg-neutral-white rounded-2xl px-10 pt-10 pb-10 lg:pb-[60px] md:p-5 shadow-md flex flex-col md:flex-row items-start mx-auto w-11/12">
           {/* earth part */}
-          <div className="flex flex-col items-center mb-15 md:w-3/7">
-            <h2 className="break-words font-semibold text-3xl text-center md:text-left md:pl-10 md:pt-10 mb-10">
-              Engaging Creative Kids in the Olympics
+          <div className="flex flex-col w-full items-center mb-15 md:w-2/5 md:mr-10">
+            <h2 className="font-semibold text-2xl lg:text-3xl text-center md:text-left md:pt-10">
+              Engaging Creative <span><br /></span> Kids in the Olympics
             </h2>
-            <Image className="w-3/5 h-auto" src="/purpose/icaf-2.svg" alt="An earth-like human waving at you with a smile" width={174} height={174} />
+            <Image className="mt-4 mb-2 w-auto" src="/purpose/icaf-2.svg" alt="An earth-like human waving at you with a smile" width={174} height={174} />
           </div>
           {/* pie chart part */}
-          <div className="flex flex-col items-center pt-0 md:pt-10 md:pl-20 md:w-4/7">
+          <div className="flex flex-col justify-end items-center pt-0 md:pt-10 md:mr-10 md:w-3/5">
             <div className="break-words text-base text-left mb-5 md:mb-0">
               A survey of 9,000 kids by a U.K. advertising company, KidsKnowBest, revealed that about 50% seemed uninterested in watching the Olympics.
             </div>
-            <Image className="w-full h-auto md:mt-10 md:mr-10 hidden md:block" src="/purpose/chart-desktop.svg" alt="A pie chart shows 50% of children are not interested in Olympics" width={174} height={174} />
-            <Image className="w-full h-auto md:mt-10 md:mr-10 block md:hidden" src="/purpose/chart-mobile.svg" alt="A pie chart shows 50% of children are not interested in Olympics" width={174} height={174} />
+            <Image className="w-full md:mt-4 hidden md:block" src="/purpose/chart-desktop.svg" alt="A pie chart shows 50% of children are not interested in Olympics" width={174} height={174} />
+            <Image className="w-full h-auto max-w-[300px] block md:hidden" src="/purpose/chart-mobile.svg" alt="A pie chart shows 50% of children are not interested in Olympics" width={174} height={174} />
           </div>
         </div>
       </div>
@@ -34,9 +34,9 @@ export default function page() {
       <div className="bg-secondary-blue md:pt-10 pb-10">
         <div className="bg-neutral-white rounded-2xl p-10 md:p-5 shadow-md flex flex-col items-start mx-auto w-11/12">
           {/* skater part */}
-          <div className="flex flex flex-col md:flex-row items-left">
+          <div className="flex flex-col md:flex-row items-left">
             <div className="flex flex-col items-center md:w-2/5 md:mr-10">
-              <h2 className="break-words font-semibold text-3xl text-center md:text-left md:pt-10 ">
+              <h2 className="break-words font-semibold text-2xl lg:text-3xl text-center md:text-left md:pt-10 ">
                 The Arts Olympiad
               </h2>
               <div className="flex items-center flex-col w-1/2 md:w-5/12 h-1/2 my-5 md:mt-10">
@@ -79,21 +79,21 @@ export default function page() {
       </div>
       {/* ICAF & the Olympics block */}
       <div className="bg-neutral-white flex flex-col items-left pb-10">
-        <h2 className="font-semibold text-3xl text-center md:text-left md:pl-6 md:ml-10 pt-10 mb-10">
+        <h2 className="font-semibold text-2xl md:text-3xl text-center lg:text-left lg:pl-6 lg:ml-10 pt-10 mb-10">
           ICAF & the Olympics
         </h2>
-        <div className="flex flex-col md:flex-row ml-5 mr-5 md:ml-10 md:mr-10 gap-3">
-          <div className="bg-main-blue rounded-2xl p-10 shadow-md items-center md:ml-5 mb-5 md:mb-0">
+        <div className="flex flex-col lg:flex-row ml-5 mr-5 lg:ml-10 lg:mr-10 gap-3">
+          <div className="bg-main-blue rounded-2xl p-10 shadow-md items-center lg:ml-5 mb-5 lg:mb-0">
             <div className="text-base text-white text-left">
               Earlier Olympics, as visualized by Baron de Coubertin, had gold, silver, and bronze medals for bothathletes and artists. See the <Link href="https://www.smithsonianmag.com/arts-culture/when-the-olympics-gave-out-medals-for-art-6878965/" target="_blank" className="underline">Smithsonian Magazine.</Link> The International Child Art Foundation (ICAF) combines art and sport through the Arts Olympiad and #MyFavoriteSport.
             </div>
           </div>
-          <div className="bg-main-blue rounded-2xl p-10 shadow-md items-center md:mr-6">
+          <div className="bg-main-blue rounded-2xl p-10 shadow-md items-center lg:mr-6">
             <div className="text-base text-white text-left">
               <Link href="/purpose/new-york-olympic.pdf" className="underline" target="_blank">New York City’s bid</Link> to host the Olympics included the Arts Olympiad to engage young artists in the 2012 Olympics. ICAF has previously produced Arts Olympiad exhibitions at Olympic venues. Covid canceled the Arts Olympiad plans for the 2022 Japan and Beijing Olympics. The United States Olympic Committee has granted ICAF an exclusive license to use the “Arts Olympiad” mark.
             </div>
           </div>
-          <div className="flex flex-col items-left mt-10 ml-5 md:ml-0 md:mt-0 min-w-[300px]">
+          <div className="flex flex-col items-left ml-5 lg:ml-0 mt-10 lg:mt-10 min-w-[300px]">
             <div className="break-words text-base text-left ">
               To engage creative kids in the Olympics, please donate today
             </div>
@@ -121,7 +121,7 @@ export default function page() {
         <div className="flex flex-col lg:flex-row items-center p-10 lg:w-1/2 ">
           <div className="flex flex-col items-center">
             <Image className="w-full h-auto" src="/purpose/nelson.svg" alt="A smiling Nelson Mandela" width={211} height={211} />
-            <div className="break-words text-base text-center my-4">
+            <div className="break-words text-sm text-center mt-2.5 mb-3.5">
               Nelson Mandela
             </div>
           </div>
@@ -133,7 +133,7 @@ export default function page() {
         <div className="flex flex-col lg:flex-row items-center px-10 pb-10 lg:p-10 lg:w-1/2">
           <div className="flex flex-col items-center">
             <Image className="w-full h-auto" src="/purpose/marcel.svg" alt="A photo of Marcel Proust" width={211} height={211} />
-            <div className="break-words text-base text-center my-4">
+            <div className="break-words text-sm text-center mt-2.5 mb-3.5">
               Marcel Proust
             </div>
           </div>
