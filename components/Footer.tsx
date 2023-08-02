@@ -19,6 +19,7 @@ const icons = [
   { SVGcomponent: LinkedinIcon, altText:"Visit the International Child Art Foundation's Linkedin page", href:"https://www.linkedin.com/company/international-child-art-foundation"},
   { SVGcomponent: PinterestIcon, altText:"Visit the International Child Art Foundation's Pinterest page", href:"https://www.pinterest.com/icaf/"},
 ];
+
 // Custom box shadows added to apply the effects of "shadow-md" with a negative offset-y
 const Footer = () => {
   return (
@@ -40,9 +41,9 @@ const Footer = () => {
           </div>
         </div>
         <div >
-          <ol className="flex justify-center items-center mt-9 lg:mt-0">
+          <ol className="flex justify-between lg:justify-center lg:space-x-3 mt-9 lg:mt-0">
             {icons.map((icon,i) => (
-              <li key={i} className="inline-block px-3">
+              <li key={i} className="inline-block">
                 <Link
                   aria-label={icon.altText}
                   href={icon.href}
