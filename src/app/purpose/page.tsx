@@ -26,7 +26,7 @@ export default function page() {
               A survey of 9,000 kids by a U.K. advertising company, KidsKnowBest, revealed that about 50% seemed uninterested in watching the Olympics.
             </div>
             <Image className="w-full h-auto md:mt-10 md:mr-10 hidden md:block" src="/purpose/chart-desktop.svg" alt="A pie chart shows 50% of children are not interested in Olympics" width={174} height={174} />
-            <Image className="w-full h-auto md:mt-10 md:mr-10 block md:hidden" src="/purpose/chart-mobile.svg" alt="A pie chart shows 50% of children are not interested in Olympics" width={174} height={174} />
+            <Image className="w-auto h-auto md:mt-10 md:mr-10 block md:hidden" src="/purpose/chart-mobile.svg" alt="A pie chart shows 50% of children are not interested in Olympics" width={174} height={174} />
           </div>
         </div>
       </div>
@@ -40,7 +40,9 @@ export default function page() {
                 The Arts Olympiad
               </h2>
               <div className="flex items-center flex-col w-1/2 md:w-5/12 h-1/2 my-5 md:mt-10">
-                <Image src="/purpose/illustration-08.svg" alt="A long hair skater with red sweater" width={211} height={211} />
+                <Image src="/purpose/illustration-08.svg" alt="A long hair skater with red sweater" width={211} height={211}
+                  className="w-auto h-auto max-w-[180px] max-h-[180px]"
+                />
               </div>
             </div>
             <div className="flex flex-col items-center md:w-3/5 md:mt-10 md:mr-10">
@@ -60,7 +62,7 @@ export default function page() {
           {/* water polo player part */}
           <div className="flex flex flex-col md:flex-row items-left">
             <div className="md:w-2/5 flex flex-col items-center mt-3 mb-3 md:mt-10">
-              <Image className="w-1/2 md:w-5/12 h-auto " src="/purpose/illustration-06.svg" alt="A smiling water polo player" width={211} height={211} />
+              <Image className="w-auto h-auto max-w-[180px] max-h-[180px] " src="/purpose/illustration-06.svg" alt="A smiling water polo player" width={211} height={211} />
             </div>
             <div className="flex flex-col items-center md:w-3/5 md:mt-10 md:mr-10 md:ml-10">
               <div className="break-words text-base text-left">
@@ -82,17 +84,17 @@ export default function page() {
         </h2>
         <div className="flex flex-col md:flex-row ml-5 mr-5 md:ml-10 md:mr-10 items-start">
           <div className="bg-main-blue rounded-2xl p-5 shadow-md flex flex-col items-center md:h-full md:ml-5 mb-5">
-            <div className="break-words text-base text-center text-white md:text-left">
+            <div className="break-words text-base text-white text-left">
               Earlier Olympics, as visualized by Baron de Coubertin, had gold, silver, and bronze medals for bothathletes and artists. See the <Link href="https://www.smithsonianmag.com/arts-culture/when-the-olympics-gave-out-medals-for-art-6878965/" target="_blank" className="underline">Smithsonian Magazine </Link>. The International Child Art Foundation (ICAF) combines art and sport through the Arts Olympiad and #MyFavoriteSport.
             </div>
           </div>
           <div className="bg-main-blue rounded-2xl p-5 shadow-md flex flex-col items-center md:h-full md:mr-10 md:ml-5">
-            <div className="break-words text-base text-center text-white md:text-left">
+            <div className="break-words text-base text-white text-left">
               New York City’s bid to host the Olympics included the Arts Olympiad to engage young artists in the 2012 Olympics. ICAF has previously produced Arts Olympiad exhibitions at Olympic venues. Covid canceled the Arts Olympiad plans for the 2022 Japan and Beijing Olympics. The United States Olympic Committee has granted ICAF an exclusive license to use the “<Link href="/purpose/new-york-olympic.pdf" className="underline" target="_blank">Arts Olympiad</Link>” mark.
             </div>
           </div>
           <div className="flex flex-col items-left mt-10 md:mt-0">
-            <div className="break-words text-base text-center md:text-left">
+            <div className="break-words text-base text-left ml-5 md:ml-0">
               To engage creative kids in the Olympics, please donate today
             </div>
             <br></br>
@@ -107,7 +109,6 @@ export default function page() {
               />
             </Link>
             <br></br>
-            <br></br>
             <div className="break-words text-base text-left ml-5 md:ml-0">
               For sponsorship opportunities, please <Link href="https://icaf.org/about/contact-us" target="_blank" className="underline">contact us</Link>
             </div>
@@ -115,29 +116,29 @@ export default function page() {
         </div>
       </div>
       {/* Nelson Mandela & Marcel Proust part    */}
-      <div className="bg-main-yellow flex flex-col md:flex-row items-center pb-10">
+      <div className="bg-main-yellow flex flex-col lg:flex-row items-center">
         {/* Nelson Mandela part */}
-        <div className="flex flex-row items-start p-10 md:w-1/2 md:pl-20">
-          <div className="flex flex-col items-center md:ml-20">
-            <Image className="w-full h-auto md:mt-10" src="/purpose/nelson.svg" alt="A smiling Nelson Mandela" width={211} height={211} />
-            <div className="break-words text-base text-center mb-5 mt-5">
+        <div className="flex flex-col lg:flex-row items-center p-10 lg:w-1/2 ">
+          <div className="flex flex-col items-center">
+            <Image className="w-full h-auto" src="/purpose/nelson.svg" alt="A smiling Nelson Mandela" width={211} height={211} />
+            <div className="break-words text-base text-center my-4">
               Nelson Mandela
             </div>
           </div>
-          <div className="break-words text-base text-left ml-5 w-1/2 h-auto md:mt-10">
-            “ Sport has the power to change the world. It has the power to inspire. It has the power to unite people in a way that little else does. It speaks to youth in a language they understand. Sport can create hope where once there was only despair.”
+          <div className="break-words text-base text-left lg:ml-5 max-w-lg lg:w-1/2 self-start">
+            “Sport has the power to change the world. It has the power to inspire. It has the power to unite people in a way that little else does. It speaks to youth in a language they understand. Sport can create hope where once there was only despair.”
           </div>
         </div>
         {/* Marcel Proust part */}
-        <div className="flex flex-row items-start p-10 md:w-1/2 md:pl-20">
+        <div className="flex flex-col lg:flex-row items-center px-10 pb-10 lg:p-10 lg:w-1/2">
           <div className="flex flex-col items-center">
-            <Image className="w-full h-auto md:mt-10" src="/purpose/marcel.svg" alt="A photo of Marcel Proust" width={211} height={211} />
-            <div className="break-words text-base text-center mb-5 mt-5">
+            <Image className="w-full h-auto" src="/purpose/marcel.svg" alt="A photo of Marcel Proust" width={211} height={211} />
+            <div className="break-words text-base text-center my-4">
               Marcel Proust
             </div>
           </div>
-          <div className="break-words text-base text-left ml-5 w-1/2 h-auto md:mt-10">
-            “ Through art alone are we able to emerge from ourselves to know what another person sees.”
+          <div className="break-words text-base text-left lg:ml-5 max-w-lg lg:w-1/2 h-auto self-start">
+            “Through art alone are we able to emerge from ourselves to know what another person sees.”
           </div>
         </div>
       </div>
