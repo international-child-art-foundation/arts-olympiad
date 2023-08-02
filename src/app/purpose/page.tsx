@@ -15,7 +15,7 @@ export default function page() {
         <div className="bg-neutral-white rounded-2xl p-10 md:p-5 shadow-md flex flex-col md:flex-row items-start mx-auto w-11/12">
           {/* earth part */}
           <div className="flex flex-col items-center mb-15 md:w-3/7">
-            <h2 className="break-words font-semibold text-3xl text-center md:text-left pl-6 md:pl-10 pt-5 md:pt-10 mb-10">
+            <h2 className="break-words font-semibold text-3xl text-center md:text-left md:pl-10 md:pt-10 mb-10">
               Engaging Creative Kids in the Olympics
             </h2>
             <Image className="w-3/5 h-auto" src="/purpose/icaf-2.svg" alt="An earth-like human waving at you with a smile" width={174} height={174} />
@@ -26,7 +26,7 @@ export default function page() {
               A survey of 9,000 kids by a U.K. advertising company, KidsKnowBest, revealed that about 50% seemed uninterested in watching the Olympics.
             </div>
             <Image className="w-full h-auto md:mt-10 md:mr-10 hidden md:block" src="/purpose/chart-desktop.svg" alt="A pie chart shows 50% of children are not interested in Olympics" width={174} height={174} />
-            <Image className="w-auto h-auto md:mt-10 md:mr-10 block md:hidden" src="/purpose/chart-mobile.svg" alt="A pie chart shows 50% of children are not interested in Olympics" width={174} height={174} />
+            <Image className="w-full h-auto md:mt-10 md:mr-10 block md:hidden" src="/purpose/chart-mobile.svg" alt="A pie chart shows 50% of children are not interested in Olympics" width={174} height={174} />
           </div>
         </div>
       </div>
@@ -36,7 +36,7 @@ export default function page() {
           {/* skater part */}
           <div className="flex flex flex-col md:flex-row items-left">
             <div className="flex flex-col items-center md:w-2/5 md:mr-10">
-              <h2 className="break-words font-semibold text-3xl text-center md:text-left pt-5 md:pt-10 ">
+              <h2 className="break-words font-semibold text-3xl text-center md:text-left md:pt-10 ">
                 The Arts Olympiad
               </h2>
               <div className="flex items-center flex-col w-1/2 md:w-5/12 h-1/2 my-5 md:mt-10">
@@ -47,7 +47,7 @@ export default function page() {
             </div>
             <div className="flex flex-col items-center md:w-3/5 md:mt-10 md:mr-10">
               <div className="break-words text-base text-left">
-                By bringing together countries and cultures from around the world, the Paris 2024 Olympics will reassure kids that their chaotic and divided world has hope. 
+                By bringing together countries and cultures from around the world, the Paris 2024 Olympics will reassure kids that their chaotic and divided world has hope.
               </div>
               <br></br>
               <div className="break-words text-base text-left">
@@ -55,13 +55,13 @@ export default function page() {
               </div>
               <br></br>
               <div className="break-words text-base text-left">
-                The Arts Olympiad connects Paris and Washington with the launch of the global contest at the Parisian exhibition in March 2024 and the announcement of the winners at the National Mall across the U.S. Capitol on July 1, 2024. 
+                The Arts Olympiad connects Paris and Washington with the launch of the global contest at the Parisian exhibition in March 2024 and the announcement of the winners at the National Mall across the U.S. Capitol on July 1, 2024.
               </div>
             </div>
           </div>
           {/* water polo player part */}
           <div className="flex flex flex-col md:flex-row items-left">
-            <div className="md:w-2/5 flex flex-col items-center mt-3 mb-3 md:mt-10">
+            <div className="md:w-2/5 flex flex-col items-center mt-3 mb-3 md:mt-14">
               <Image className="w-auto h-auto max-w-[180px] max-h-[180px] " src="/purpose/illustration-06.svg" alt="A smiling water polo player" width={211} height={211} />
             </div>
             <div className="flex flex-col items-center md:w-3/5 md:mt-10 md:mr-10 md:ml-10">
@@ -79,37 +79,37 @@ export default function page() {
       </div>
       {/* ICAF & the Olympics block */}
       <div className="bg-neutral-white flex flex-col items-left pb-10">
-        <h2 className="break-words font-semibold text-3xl text-center md:text-left pl-6 md:ml-10 pt-10 mb-10">
+        <h2 className="font-semibold text-3xl text-center md:text-left md:pl-6 md:ml-10 pt-10 mb-10">
           ICAF & the Olympics
         </h2>
-        <div className="flex flex-col md:flex-row ml-5 mr-5 md:ml-10 md:mr-10 items-start">
-          <div className="bg-main-blue rounded-2xl p-5 shadow-md flex flex-col items-center md:h-full md:ml-5 mb-5">
-            <div className="break-words text-base text-white text-left">
-              Earlier Olympics, as visualized by Baron de Coubertin, had gold, silver, and bronze medals for bothathletes and artists. See the <Link href="https://www.smithsonianmag.com/arts-culture/when-the-olympics-gave-out-medals-for-art-6878965/" target="_blank" className="underline">Smithsonian Magazine </Link>. The International Child Art Foundation (ICAF) combines art and sport through the Arts Olympiad and #MyFavoriteSport.
+        <div className="flex flex-col md:flex-row ml-5 mr-5 md:ml-10 md:mr-10 gap-3">
+          <div className="bg-main-blue rounded-2xl p-10 shadow-md items-center md:ml-5 mb-5 md:mb-0">
+            <div className="text-base text-white text-left">
+              Earlier Olympics, as visualized by Baron de Coubertin, had gold, silver, and bronze medals for bothathletes and artists. See the <Link href="https://www.smithsonianmag.com/arts-culture/when-the-olympics-gave-out-medals-for-art-6878965/" target="_blank" className="underline">Smithsonian Magazine.</Link> The International Child Art Foundation (ICAF) combines art and sport through the Arts Olympiad and #MyFavoriteSport.
             </div>
           </div>
-          <div className="bg-main-blue rounded-2xl p-5 shadow-md flex flex-col items-center md:h-full md:mr-10 md:ml-5">
-            <div className="break-words text-base text-white text-left">
-              New York City’s bid to host the Olympics included the Arts Olympiad to engage young artists in the 2012 Olympics. ICAF has previously produced Arts Olympiad exhibitions at Olympic venues. Covid canceled the Arts Olympiad plans for the 2022 Japan and Beijing Olympics. The United States Olympic Committee has granted ICAF an exclusive license to use the “<Link href="/purpose/new-york-olympic.pdf" className="underline" target="_blank">Arts Olympiad</Link>” mark.
+          <div className="bg-main-blue rounded-2xl p-10 shadow-md items-center md:mr-6">
+            <div className="text-base text-white text-left">
+              <Link href="/purpose/new-york-olympic.pdf" className="underline" target="_blank">New York City’s bid</Link> to host the Olympics included the Arts Olympiad to engage young artists in the 2012 Olympics. ICAF has previously produced Arts Olympiad exhibitions at Olympic venues. Covid canceled the Arts Olympiad plans for the 2022 Japan and Beijing Olympics. The United States Olympic Committee has granted ICAF an exclusive license to use the “Arts Olympiad” mark.
             </div>
           </div>
-          <div className="flex flex-col items-left mt-10 md:mt-0">
-            <div className="break-words text-base text-left ml-5 md:ml-0">
+          <div className="flex flex-col items-left mt-10 ml-5 md:ml-0 md:mt-0 min-w-[300px]">
+            <div className="break-words text-base text-left ">
               To engage creative kids in the Olympics, please donate today
             </div>
             <br></br>
-            <Link href="https://icaf.org/donate.html" target="_blank" className="text-base text-left ml-5 inline-flex md:ml-0">
+            <Link href="https://icaf.org/donate.html" target="_blank" className="text-base text-left inline-flex">
               <u>https://icaf.org/donate.html</u>
-              <Image 
-                width = {23}
-                height = {23}
-                src="/about/link.svg" 
-                className="ml-2" 
-                alt="Icon denoting a hyperlink" 
+              <Image
+                width={23}
+                height={23}
+                src="/about/link.svg"
+                className="ml-2"
+                alt="Icon denoting a hyperlink"
               />
             </Link>
             <br></br>
-            <div className="break-words text-base text-left ml-5 md:ml-0">
+            <div className="break-words text-base text-left">
               For sponsorship opportunities, please <Link href="https://icaf.org/about/contact-us" target="_blank" className="underline">contact us</Link>
             </div>
           </div>
