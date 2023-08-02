@@ -14,14 +14,14 @@ export default function page() {
       <div className="bg-secondary-blue pb-10">
         <div className="bg-neutral-white rounded-2xl px-10 pt-10 pb-10 lg:pb-[60px] md:p-5 shadow-md flex flex-col md:flex-row items-start mx-auto w-11/12">
           {/* earth part */}
-          <div className="flex flex-col w-full items-center mb-15 md:w-2/5 md:mr-10">
-            <h2 className="font-semibold text-2xl lg:text-3xl text-center md:text-left md:pt-10">
+          <div className="flex flex-col w-full items-center mb-15 md:w-2/5 md:mr-7 lg:mr-10">
+            <h2 className="font-semibold text-2xl lg:text-3xl text-center md:text-left md:pt-5 lg:pt-10">
               Engaging Creative <span><br /></span> Kids in the Olympics
             </h2>
             <Image className="mt-4 mb-2 w-auto" src="/purpose/icaf-2.svg" alt="An earth-like human waving at you with a smile" width={174} height={174} />
           </div>
           {/* pie chart part */}
-          <div className="flex flex-col justify-end items-center pt-0 md:pt-10 md:mr-10 md:w-3/5">
+          <div className="flex flex-col justify-end items-center pt-0 md:pt-5 lg:pt-10 md:mr-5 lg:mr-10 md:w-3/5" >
             <div className="break-words text-base text-left mb-5 md:mb-0">
               A survey of 9,000 kids by a U.K. advertising company, KidsKnowBest, revealed that about 50% seemed uninterested in watching the Olympics.
             </div>
