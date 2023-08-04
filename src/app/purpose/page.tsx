@@ -120,7 +120,7 @@ export default function page() {
         {/* Nelson Mandela part */}
         <div className="flex flex-col lg:flex-row items-center p-10 lg:w-1/2 ">
           <div className="flex flex-col items-center">
-            <Image className="w-full h-auto" src="/purpose/nelson.svg" alt="A smiling Nelson Mandela" width={211} height={211} />
+            <Image src="/purpose/nelson-mandela-portrait.png" alt="A smiling Nelson Mandela" width={204} height={261} />
             <div className="break-words text-sm text-center mt-2.5 mb-3.5">
               Nelson Mandela
             </div>
@@ -132,7 +132,7 @@ export default function page() {
         {/* Marcel Proust part */}
         <div className="flex flex-col lg:flex-row items-center px-10 pb-10 lg:p-10 lg:w-1/2">
           <div className="flex flex-col items-center">
-            <Image className="w-full h-auto" src="/purpose/marcel.svg" alt="A photo of Marcel Proust" width={211} height={211} />
+            <Image src="/purpose/marcel-proust-portrait.png" alt="A photo of Marcel Proust" width={204} height={261} />
             <div className="break-words text-sm text-center mt-2.5 mb-3.5">
               Marcel Proust
             </div>
