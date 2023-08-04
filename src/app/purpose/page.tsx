@@ -12,11 +12,11 @@ export default function page() {
       </div>
       {/* engaging creative kids block */}
       <div className="bg-secondary-blue pb-10">
-        <div className="bg-neutral-white rounded-2xl px-10 pt-10 pb-10 lg:pb-[60px] md:p-5 shadow-md flex flex-col md:flex-row items-start mx-auto w-11/12">
+        <div className="bg-neutral-white rounded-2xl px-10 py-10 lg:pb-16 md:p-5 shadow-md flex flex-col md:flex-row items-start mx-auto w-11/12">
           {/* earth part */}
           <div className="flex flex-col w-full items-center mb-15 md:w-2/5 md:mr-7 lg:mr-10">
             <h2 className="font-semibold text-2xl lg:text-3xl text-center md:text-left md:pt-5 lg:pt-10">
-              Engaging Creative <span><br /></span> Kids in the Olympics
+              Engaging Creative <br /> Kids in the Olympics
             </h2>
             <Image className="mt-4 mb-2 w-auto" src="/purpose/icaf-2.svg" alt="An earth-like human waving at you with a smile" width={174} height={174} />
           </div>
@@ -26,7 +26,7 @@ export default function page() {
               A survey of 9,000 kids by a U.K. advertising company, KidsKnowBest, revealed that about 50% seemed uninterested in watching the Olympics.
             </div>
             <Image className="w-full md:mt-4 hidden md:block" src="/purpose/chart-desktop.svg" alt="A pie chart shows 50% of children are not interested in Olympics" width={174} height={174} />
-            <Image className="w-full h-auto max-w-[300px] block md:hidden" src="/purpose/chart-mobile.svg" alt="A pie chart shows 50% of children are not interested in Olympics" width={174} height={174} />
+            <Image className="w-full h-auto max-w-72 block md:hidden" src="/purpose/chart-mobile.svg" alt="A pie chart shows 50% of children are not interested in Olympics" width={174} height={174} />
           </div>
         </div>
       </div>
@@ -41,7 +41,7 @@ export default function page() {
               </h2>
               <div className="flex items-center flex-col w-1/2 lg:w-5/12 h-1/2 my-5 lg:mt-10">
                 <Image src="/purpose/illustration-08.svg" alt="A long hair skater with red sweater" width={211} height={211}
-                  className="w-auto h-auto max-w-[180px] max-h-[180px]"
+                  className="w-auto h-auto max-w-44 max-h-44"
                 />
               </div>
             </div>
@@ -62,7 +62,7 @@ export default function page() {
           {/* water polo player part */}
           <div className="flex flex flex-col lg:flex-row items-left">
             <div className="lg:w-2/5 flex flex-col items-center mt-3 mb-3 lg:mt-14">
-              <Image className="w-auto h-auto max-w-[180px] max-h-[180px] " src="/purpose/illustration-06.svg" alt="A smiling water polo player" width={211} height={211} />
+              <Image className="w-auto h-auto max-w-44 max-h-44 " src="/purpose/illustration-06.svg" alt="A smiling water polo player" width={211} height={211} />
             </div>
             <div className="flex flex-col items-center lg:w-3/5 lg:mt-10 lg:mr-10 lg:ml-10">
               <div className="break-words text-base text-left">
@@ -93,7 +93,7 @@ export default function page() {
               <Link href="/purpose/new-york-olympic.pdf" className="underline" target="_blank">New York City’s bid</Link> to host the Olympics included the Arts Olympiad to engage young artists in the 2012 Olympics. ICAF has previously produced Arts Olympiad exhibitions at Olympic venues. Covid canceled the Arts Olympiad plans for the 2022 Japan and Beijing Olympics. The United States Olympic Committee has granted ICAF an exclusive license to use the “Arts Olympiad” mark.
             </div>
           </div>
-          <div className="flex flex-col items-left ml-5 lg:ml-0 mt-10 lg:mt-10 min-w-[300px]">
+          <div className="flex flex-col items-left ml-5 lg:ml-0 mt-10 lg:mt-10 min-w-72">
             <div className="break-words text-base text-left ">
               To engage creative kids in the Olympics, please donate today
             </div>
