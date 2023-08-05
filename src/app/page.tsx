@@ -35,7 +35,7 @@ export default function Home() {
       <div className="bg-main-yellow md:col-span-10 grid md:grid-cols-2 grid-cols-1">
         {/* artist upload block */}
         <div className="bg-neutral-white col-span-1 rounded-2xl p-10 shadow-md flex flex-col items-center mt-10 mr-10 ml-10 mb-10">
-          <h2 className="break-words font-semibold text-4xl pl-6 pt-2">
+          <h2 className="break-words font-semibold text-4xl md:pl-6 pt-2">
             I am an Artist
           </h2>
           <div className="break-words text-xl pt-2">
@@ -68,7 +68,7 @@ export default function Home() {
         </div>
         {/* voter block */}
         <div className="bg-neutral-white col-span-1 rounded-2xl p-10 shadow-md flex flex-col items-center mt-10 mr-10 ml-10 mb-10">
-          <h2 className="break-words font-semibold text-4xl pl-6 pt-2">
+          <h2 className="break-words font-semibold text-center text-4xl md:pl-6 pt-2">
             I want to be a Judge
           </h2>
           <div className="break-words text-xl pt-2">
