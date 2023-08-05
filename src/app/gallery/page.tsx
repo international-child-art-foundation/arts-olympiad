@@ -73,7 +73,7 @@ export default  function page() {
       <div className="bg-neutral-white px-5 lg:px-20">
         <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 md:gap-4">
           {pageData.map((artwork) =>
-            <div key={artwork.id}>
+            <div className="h-full" key={artwork.id}>
               <ArtworkCard
                 id={artwork.id.toString()}
                 name={artwork.name}
