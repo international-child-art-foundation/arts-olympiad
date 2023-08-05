@@ -5,8 +5,8 @@ export default function page() {
   return (
     <div>
       {/* Title block */}
-      <div className="w-full h-40 flex items-center pl-6 bg-secondary-blue">
-        <h1 className="mb-2 mt-0 text-3xl font-medium leading-6 sm:ml-12 text-primary">Meet Our Team</h1>
+      <div className="w-full h-40 flex items-center pl-6 bg-secondary-blue -mb-10">
+        <h1 className="mb-2 mt-0 text-4xl font-semibold leading-6 sm:ml-12 text-primary">Meet Our Team</h1>
       </div>
       {/* 2 lateral content containers*/}
       <div className="bg-secondary-blue flex flex-col sm:flex-row justify-evenly gap-4 px-4 " >
