@@ -35,7 +35,7 @@ export default function Home() {
       <div className="bg-main-yellow md:col-span-10 grid md:grid-cols-2 grid-cols-1">
         {/* artist upload block */}
         <div className="bg-neutral-white col-span-1 rounded-2xl p-10 shadow-md flex flex-col items-center mt-10 mr-10 ml-10 mb-10">
-          <h2 className="break-words font-semibold text-4xl md:pl-6 pt-2">
+          <h2 className="break-words font-semibold text-center text-4xl md:pl-6 pt-2">
             I am an Artist
           </h2>
           <div className="break-words text-xl pt-2">
@@ -117,7 +117,7 @@ export default function Home() {
         />
         <Link 
           href="/gallery"
-          className="btn-primary"
+          className="btn-primary mt-10"
         >
           Explore
         </Link>
@@ -132,10 +132,10 @@ export default function Home() {
           className="md:mt-16 md:ml-20 md:mb-10 md:col-span-2 col-span-1 justify-self-left mt-5 ml-5 mb-5"
           alt="2024 olympics torch ablaze"
         />
-        <div className="text-left text-xl ml-5 md:mt-36 md:mb-10 break-words md:col-span-4">
+        <div className="text-left text-xl ml-5 md:mt-36 md:mb-10 break-words md:col-span-5 md:ml-20">
           An interactive exhibition in Paris to celebrate Creativity, Diversity, and Unity.
         </div>
-        <div className="hidden md:block md:col-span-6"></div>
+        <div className="hidden md:block md:col-span-5"></div>
         <div className="hidden md:block md:col-span-1"></div>
         <div className="md:col-span-3 bg-neutral-white rounded-r-full rounded-l-2xl md:rounded-2xl shadow-md flex flex-row md:flex-col items-center md:ml-20 ml-5 mr-5">
           <Image
