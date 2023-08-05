@@ -42,10 +42,10 @@ export default function Home() {
             10- to 20-year old
           </div>
           <Image
-            src="/home/artist.svg"
+            src="/home/artist.png"
             width={224}
             height={224}
-            className="w-1/2 h-full pt-12"
+            className="w-1/2 h-auto mt-5"
             alt="Person doing gymnast pose"
           />
           <div className="break-words text-center text-xl pt-8 pb-8">
@@ -75,10 +75,10 @@ export default function Home() {
             10 or older
           </div>
           <Image
-            src="/home/judge.svg"
-            width={124}
-            height={168}
-            className="h-1/2 w-auto pt-12"
+            src="/home/judge.png"
+            width={224}
+            height={224}
+            className="w-1/2 h-auto mt-5"
             alt="A smiling judge with a curly mustache"
           />
           <div className="break-words text-center text-xl pt-8 pb-8">
