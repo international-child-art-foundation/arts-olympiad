@@ -137,86 +137,86 @@ export default function Home() {
         </div>
         <div className="hidden md:block md:col-span-5"></div>
         <div className="hidden md:block md:col-span-1"></div>
-        <div className="md:col-span-3 bg-neutral-white rounded-r-full rounded-l-2xl md:rounded-2xl shadow-md flex flex-row md:flex-col items-center md:ml-20 ml-5 mr-5">
+        <div className="md:col-span-3 bg-neutral-white rounded-r-full rounded-l-2xl md:rounded-2xl p-6 shadow-md flex flex-row md:flex-col items-center md:ml-20 ml-5 mr-5">
           <Image
-            src="/home/icon1.svg"
+            src="/home/icon1.png"
             width={86}
             height={86}
-            className="hidden md:block md:w-3/7 w-1/2 h-auto md:mt-3"
+            className="hidden md:block md:mt-3"
             alt="Painting panel with mixed paints"
           />
           <div className="break-words text-base text-center md:pt-7 md:pr-7 md:pl-7">
             Visitors ages 10 to 20 Create, Upload, and Share their masterpieces to win the Gold!
           </div>
           <Image
-            src="/home/icon1.svg"
+            src="/home/icon1.png"
             width={86}
             height={86}
-            className="block md:hidden md:w-3/7 w-1/2 h-auto md:mt-3"
+            className="block md:hidden w-1/2 h-auto md:mt-3"
             alt="Painting panel with mixed paints"
           />
         </div>
-        <div className="md:col-span-3 bg-neutral-white rounded-l-full md:rounded-2xl p-10 shadow-md flex flex-row md:flex-col items-center ml-5 mr-5 md:ml-10 md:mr-10">
+        <div className="md:col-span-3 bg-neutral-white rounded-l-full md:rounded-2xl p-6 shadow-md flex flex-row md:flex-col items-center ml-5 mr-5 md:ml-10 md:mr-10">
           <Image
-            src="/home/icon2.svg"
+            src="/home/icon2.png"
             width={86}
             height={86}
-            className="w-1/4 md:w-1/2 md:mt-3"
+            className="md:mt-3"
             alt="Written document with a checkmark"
           />
           <div className="break-words text-base text-center md:pt-10">
             Visitors vote for their favorite artwork.
           </div>
         </div>
-        <div className="md:col-span-3 bg-neutral-white rounded-r-full rounded-l-2xl md:rounded-2xl p-10 shadow-md flex flex-row md:flex-col items-center ml-5 mr-5 md:mr-20">
+        <div className="md:col-span-3 bg-neutral-white rounded-r-full rounded-l-2xl md:rounded-2xl p-6 shadow-md flex flex-row md:flex-col items-center ml-5 mr-5 md:mr-20">
           <Image
-            src="/home/icon3.svg"
+            src="/home/icon3.png"
             width={86}
             height={86}
-            className="hidden md:block md:w-3/7 w-1/2 h-auto md:mt-3"
+            className="hidden md:block md:mt-3"
             alt="Image of a person with a globe as their head"
           />
           <div className="break-words text-base text-center md:pt-10">
             #MyFavoriteSport contest will spread across Europe and the world from Paris.
           </div>
           <Image
-            src="/home/icon3.svg"
+            src="/home/icon3.png"
             width={86}
             height={86}
-            className="block md:hidden md:w-3/7 w-1/2 h-auto md:mt-3"
+            className="block md:hidden w-1/2 h-auto md:mt-3"
             alt="Image of a person with a globe as their head"
           />
         </div>
         <div className="hidden md:block md:col-span-2"></div>
         <div className="hidden md:block md:col-span-3"></div>
-        <div className="md:col-span-3 bg-neutral-white rounded-l-full md:rounded-2xl p-10 shadow-md flex flex-row md:flex-col items-center ml-5 mr-5 md:mr-12 md:mb-10">
+        <div className="md:col-span-3 bg-neutral-white rounded-l-full md:rounded-2xl p-6 shadow-md flex flex-row md:flex-col items-center ml-5 mr-5 md:mr-12 md:mb-10">
           <Image
-            src="/home/icon4.svg"
+            src="/home/icon4.png"
             width={86}
             height={86}
-            className="md:w-3/5 w-full h-auto md:mt-3"
+            className="md:mt-3"
             alt="Lightbulb with the words 'world childrens festiaval inside' "
           />
           <div className="break-words text-base text-center md:pt-10">
             The gold, silver, and bronze winners and the prizes they receive will be announced at the <Link href="https://worldchildrensfestival.org/" target="_blank" className="underline">7th World Children's Festival</Link> on July 1, 2024 at the National Mall across the U.S. Capitol.
           </div>
         </div>
-        <div className="md:col-span-3 bg-neutral-white rounded-r-full rounded-l-2xl md:rounded-2xl p-10 shadow-md flex flex-row md:flex-col items-center ml-5 mr-5 md:mr-10 mb-10">
+        <div className="md:col-span-3 bg-neutral-white rounded-r-full rounded-l-2xl md:rounded-2xl p-6 shadow-md flex flex-row md:flex-col items-center ml-5 mr-5 md:mr-10 mb-10">
           <Image
-            src="/home/icon5.svg"
+            src="/home/icon5.png"
             width={86}
             height={86}
-            className="hidden md:block md:w-3/7 w-3/5 h-auto md:mt-3"
+            className="hidden md:block md:mt-3"
             alt="A hand holding the earth as a globe"
           />
           <div className="break-words text-base text-center md:pt-10">
             The Arts Olympiad venue in Paris and the prizes for the gold, silver, and bronze winners will be announced in December 2023.
           </div>
           <Image
-            src="/home/icon5.svg"
+            src="/home/icon5.png"
             width={86}
             height={86}
-            className="block md:hidden md:w-3/7 w-3/5 h-auto md:mt-3"
+            className="block md:hidden w-3/5 h-auto md:mt-3"
             alt="A hand holding the earth as a globe"
           />
         </div>
