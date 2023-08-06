@@ -32,9 +32,9 @@ export default function page() {
           </div>
           {/* pie chart part */}
           <div className="flex flex-col justify-end items-center pt-0 md:pt-5 lg:pt-10 md:mr-5 lg:mr-10 md:w-3/5" >
-            <div className="break-words text-base text-left mb-5 md:mb-0">
+            <p className="break-words text-base text-left mb-5 md:mb-0">
               A survey of 9,000 kids by a U.K. advertising company, KidsKnowBest, revealed that about 50% seemed uninterested in watching the Olympics.
-            </div>
+            </p>
             <Image className="w-full md:mt-4 hidden md:block" src="/purpose/chart-desktop.svg" alt="A pie chart shows 50% of children are not interested in Olympics" width={174} height={174} />
             <Image className="w-full h-auto max-w-72 block md:hidden" src="/purpose/chart-mobile.svg" alt="A pie chart shows 50% of children are not interested in Olympics" width={174} height={174} />
           </div>
@@ -56,17 +56,17 @@ export default function page() {
               </div>
             </div>
             <div className="flex flex-col items-center lg:w-3/5 lg:mt-10 lg:mr-10">
-              <div className="break-words text-base text-left">
+              <p className="break-words text-base text-left">
                 By bringing together countries and cultures from around the world, the Paris 2024 Olympics will reassure kids that their chaotic and divided world has hope.
-              </div>
-              <br></br>
-              <div className="break-words text-base text-left">
-                The Arts Olympiad brings excitement to Paris and a Create & Share interactivity that engages creative kids worldwide in the Olympics and the Olympic Movement. They participate in #MyFavoriteSport and become inspired by the Olympic values of excellence, friendship, and respect.
-              </div>
-              <br></br>
-              <div className="break-words text-base text-left">
-                The Arts Olympiad connects Paris and Washington with the launch of the global contest at the Parisian exhibition in March 2024 and the announcement of the winners at the National Mall across the U.S. Capitol on July 1, 2024.
-              </div>
+              </p>
+              <br />
+              <p className="break-words text-base text-left">
+                The Arts Olympiad exhibition will bring excitement to Paris with a Create & Share interactivity that engages creative kids locally and then worldwide in the Olympics and the Olympic Movement. The #MyFavoriteSport will motivate millions to engage in sports and embrace the Olympic values of excellence, friendship, and respect.
+              </p>
+              <br />
+              <p className="break-words text-base text-left">
+                The #MyFavoriteSport connects Paris and Washington. The global contest is launched at the Parisian exhibition and the winners are announced at the National Mall across the U.S. Capitol.
+              </p>
             </div>
           </div>
           {/* water polo player part */}
@@ -75,13 +75,13 @@ export default function page() {
               <Image className="w-auto h-auto max-w-44 max-h-44 " src="/purpose/illustration-06.svg" alt="A smiling water polo player" width={211} height={211} />
             </div>
             <div className="flex flex-col items-center lg:w-3/5 lg:mt-10 lg:mr-10 lg:ml-10">
-              <div className="break-words text-base text-left">
-                The global art contest on My Favorite Sport will bring personal and social benefits because creative kids face obesity risks in this TikTok sedentary era. Together, art and sport possess the power to inspire them to embrace the “Artist-Athlete Ideal” of the creative mind and healthy body (mens sana in corpore sano). When kids depict themselves as “artist-athletes” in their artwork on the theme, My Favorite Sport, their revised self-image as “artist-athletes” solidifies. Young artists and young athletes grow fellow feelings and empathic understanding, celebrating their creativity, diversity, and unity.
-              </div>
-              <br></br>
-              <div className="break-words text-base text-left lg:mb-5">
-                #MyFavoriteSport will go viral, involving millions of young artists worldwide to produce original works and young and old across the globe to vote for their favorite artwork.
-              </div>
+              <p className="break-words text-base text-left">
+              The global art contest on #MyFavoriteSport will bring personal and social benefits because creative kids face obesity risks in this TikTok sedentary era. Together, art and sport possess the power to inspire them to embrace the “Artist-Athlete Ideal” of the creative mind and healthy body (<em>mens sana in corpore sano</em>). When kids depict themselves as “artist-athletes” in their artwork on the theme, <em>My Favorite Sport</em>, their revised self-image as “artist-athletes” solidifies. Young artists and young athletes grow fellow feelings and empathic understanding, celebrating their creativity, diversity, and unity.
+              </p>
+              <br />
+              <p className="break-words text-base text-left lg:mb-5">
+                #MyFavoriteSport will go viral, involving millions of young artists worldwide to produce original works and people across the globe to vote for their favorite artwork.
+              </p>
             </div>
           </div>
 
@@ -95,7 +95,7 @@ export default function page() {
         <div className="flex flex-col lg:flex-row ml-5 mr-5 lg:ml-10 lg:mr-10 gap-3">
           <div className="bg-main-blue rounded-2xl p-10 shadow-md items-center lg:ml-5 mb-5 lg:mb-0">
             <div className="text-base text-white text-left">
-              Earlier Olympics, as visualized by Baron de Coubertin, had gold, silver, and bronze medals for bothathletes and artists. See the <Link href="https://www.smithsonianmag.com/arts-culture/when-the-olympics-gave-out-medals-for-art-6878965/" target="_blank" className="underline">Smithsonian Magazine.</Link> The International Child Art Foundation (ICAF) combines art and sport through the Arts Olympiad and #MyFavoriteSport.
+              Earlier Olympics, as visualized by Baron de Coubertin, had Gold, Silver, and Bronze medals for athletes and artists. See the <Link href="https://www.smithsonianmag.com/arts-culture/when-the-olympics-gave-out-medals-for-art-6878965/" target="_blank" className="underline">Smithsonian Magazine.</Link> The International Child Art Foundation (ICAF) combines art and sport through the Arts Olympiad and #MyFavoriteSport.
             </div>
           </div>
           <div className="bg-main-blue rounded-2xl p-10 shadow-md items-center lg:mr-6">
@@ -120,7 +120,7 @@ export default function page() {
             </Link>
             <br></br>
             <div className="break-words text-base text-left">
-              For sponsorship opportunities, please <Link href="https://icaf.org/about/contact-us" target="_blank" className="underline">contact us</Link>
+              For sponsorship opportunities, please <Link href="https://icaf.org/about/contact-us" target="_blank" className="underline">contact us</Link>.
             </div>
           </div>
         </div>
