@@ -32,13 +32,13 @@ export default function Home() {
           My Favorite Sport
         </h1>
         <div className="break-words text-base pl-6 md:pl-20 pt-7 md:pt-5 pr-6 md:pr-20">
-          To celebrate their Creativity, Diversity, and Unity, schoolchildren everywhere can participate in a global art contest on the theme, <a className="italic">My Favorite Sport</a>, and rally the votes to win the gold!
+          To celebrate their Creativity, Diversity, and Unity, schoolchildren everywhere can participate in a global art contest on the theme, <em>My Favorite Sport</em>, and rally the votes to win the gold!
         </div>
         <div className="break-words text-base pl-6 md:pl-20 pt-7 md:pt-5 pr-6 md:pr-20">
           The contest will start from Paris at the Arts Olympiad exhibition in March 2024.
         </div>
         <div className="break-words text-base pl-6 md:pl-20 pt-7 md:pt-5 pr-6 md:pr-20 pb-10 md:pb-0">
-          The contest will end in Washington, D.C. when the winners are announced at the World Children's Festival on July 1, 2024.
+          The contest will end in Washington, D.C. where winners will be announced at the World Children's Festival on July 1, 2024.
         </div>
       </div>
 
@@ -237,7 +237,7 @@ export default function Home() {
             alt="A hand holding the earth as a globe"
           />
           <div className="break-words text-base text-center md:pt-10">
-            The Arts Olympiad venue in Paris and the prizes for the gold, silver, and bronze winners will be announced in December 2023.
+            The Arts Olympiad venue in Paris and the prizes for the Gold, Silver, and Bronze winners will be posted here in December 2023.
           </div>
           <Image
             src="/home/icon5.png"
