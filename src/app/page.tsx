@@ -1,6 +1,16 @@
 import bannerImage from "../../public/banner-image.svg";
 import Image from "next/image";
 import Link from "next/link";
+import { Metadata } from "next";
+import { sharedOpenGraph } from "./shared-metadata";
+
+export const metadata: Metadata = {
+  title: "Home | My Favorite Sport",
+  openGraph: {
+    ...sharedOpenGraph,
+    title: "Home | My Favorite Sport",
+  }
+};
 
 export default function Home() {
   return (
