@@ -1,6 +1,16 @@
 import Link from "next/link";
 import ContentContainer from "../../../components/ui/ContentContainer";
 import Image from "next/image";
+import { Metadata } from "next";
+import { sharedOpenGraph } from "../shared-metadata";
+
+export const metadata: Metadata = {
+  title: "About | My Favorite Sport",
+  openGraph: {
+    ...sharedOpenGraph,
+    title: "About | My Favorite Sport",
+  }
+};
 
 export default function aboutPage() {
   return (

@@ -1,5 +1,15 @@
 import Link from "next/link";
 import Image from "next/image";
+import { sharedOpenGraph } from "../shared-metadata";
+import { Metadata } from "next";
+
+export const metadata: Metadata = {
+  title: "Purpose | My Favorite Sport",
+  openGraph: {
+    ...sharedOpenGraph,
+    title: "Purpose | My Favorite Sport",
+  }
+};
 
 export default function page() {
   return (
