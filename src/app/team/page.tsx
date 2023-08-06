@@ -1,5 +1,15 @@
 import ContentContainer from "../../../components/ui/ContentContainer";
 import Link from "next/link";
+import { sharedOpenGraph } from "../shared-metadata";
+import { Metadata } from "next";
+
+export const metadata: Metadata = {
+  title: "Team | My Favorite Sport",
+  openGraph: {
+    ...sharedOpenGraph,
+    title: "Team | My Favorite Sport",
+  }
+};
 
 export default function page() {
   return (

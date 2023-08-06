@@ -1,12 +1,21 @@
-import { NextPage } from "next";
+import { Metadata, NextPage } from "next";
 import Link from "next/link";
 import { artworks } from "../../../../mock/artworks";
+import { sharedOpenGraph } from "@/app/shared-metadata";
 
 interface PageProps {
   params: {
     artworkId: string;
   };
 }
+
+export const metadata: Metadata = {
+  title: "Gallery | My Favorite Sport",
+  openGraph: {
+    ...sharedOpenGraph,
+    title: "Gallery | My Favorite Sport",
+  }
+};
 
 export async function generateStaticParams() {
   const routes = artworks.map(artwork => ({
