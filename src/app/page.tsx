@@ -44,69 +44,86 @@ export default function Home() {
 
       <div className="bg-main-yellow md:col-span-10 grid md:grid-cols-2 grid-cols-1">
         {/* artist upload block */}
-        <div className="bg-neutral-white col-span-1 rounded-2xl p-10 shadow-md flex flex-col items-center mt-10 mr-10 ml-10 mb-10">
-          <h2 className="break-words font-semibold text-center text-4xl md:pl-6 pt-2">
-            I am an Artist
-          </h2>
-          <div className="break-words text-xl pt-2">
-            10- to 20-year old
+        <div className="bg-neutral-white col-span-1 rounded-2xl p-10 shadow-md items-center mt-10 mr-10 ml-10 mb-10 grid grid-rows-8">
+          <div className="row-span-1 text-center">
+            <h2 className="break-words font-semibold text-4xl md:pl-6 pt-2">
+              I am an Artist
+            </h2>
+            <div className="break-words text-xl pt-2">
+              10- to 20-year old
+            </div>
           </div>
-          <Image
-            src="/home/artist.png"
-            width={224}
-            height={224}
-            className="w-1/2 h-auto mt-5"
-            alt="Person doing gymnast pose"
-          />
-          <div className="break-words text-center text-xl pt-8 pb-8">
+          <div className="row-span-2 flex flex-col items-center mt-5">
+            <Image
+              src="/home/artist.png"
+              width={224}
+              height={224}
+              className="w-1/2 h-auto"
+              alt="Person doing gymnast pose"
+            />
+          </div>
+          <div className="break-words text-center text-xl pt-8 pb-8 row-span-1">
             Create / Upload / Share your masterpiece to get the votes to win the gold!
           </div>
-          <Link
-            href="https://artsolympiad.info/artwok_registration.php"
-            className="btn-primary"
-            target="_blank"
-          >
-            Upload
-          </Link>
-          <div className="break-words text-center text-xl pt-8 pb-8">
+          <div className="row-span-1 flex flex-col items-center">
+            <Link
+              href="https://artsolympiad.info/artwok_registration.php"
+              className="btn-primary row-span-1"
+              target="_blank"
+            >
+              Upload
+            </Link>
+          </div>
+          <div className="break-words text-center text-xl pt-8 pb-8 row-span-1">
             Upload today and Share your work for maximum votes.
           </div>
-          <hr className="w-full border-t-2 border-gray-500 mx-4" />
-          <div className="break-words text-center text-xl pt-8 pb-8">
-            Upload Deadline is June 29, 2024
+          <div className="row-span-2">
+            <hr className="w-full border-t-2 border-gray-500 mx-4" />
+            <div className="break-words text-center text-xl pt-8 pb-8">
+              Upload Deadline is June 29, 2024
+            </div>
           </div>
         </div>
+
         {/* voter block */}
-        <div className="bg-neutral-white col-span-1 rounded-2xl p-10 shadow-md flex flex-col items-center mt-10 mr-10 ml-10 mb-10">
-          <h2 className="break-words font-semibold text-center text-4xl md:pl-6 pt-2">
-            I want to be a Judge
-          </h2>
-          <div className="break-words text-xl pt-2">
-            10 or older
+        <div className="bg-neutral-white col-span-1 rounded-2xl p-10 shadow-md items-center mt-10 mr-10 ml-10 mb-10 grid grid-rows-8">
+          <div className="row-span-1 text-center">
+              <h2 className="break-words font-semibold text-4xl md:pl-6 pt-2">
+                  I want to be a Judge
+              </h2>
+              <div className="break-words text-xl pt-2">
+                  10 or older
+              </div>
           </div>
-          <Image
-            src="/home/judge.png"
-            width={224}
-            height={224}
-            className="w-1/2 h-auto mt-5"
-            alt="A smiling judge with a curly mustache"
-          />
-          <div className="break-words text-center text-xl pt-8 pb-8">
-            Vote For Your Favorite Artwork.
+          <div className="row-span-2 flex flex-col items-center">
+              <Image
+                  src="/home/judge.png"
+                  width={224}
+                  height={224}
+                  className="w-1/2 h-auto"
+                  alt="A smiling judge with a curly mustache"
+              />
           </div>
-          <Link 
-            href="https://artsolympiad.info/artwok_select.php"
-            className="btn-primary"
-            target="_blank"
-          >
-            Vote
-          </Link>
-          <div className="break-words text-center text-xl pt-8 pb-8">
-            You can vote only once, so Share with friends.
+          <div className="break-words text-center text-xl pt-8 mb-14 row-span-1">
+              Vote For Your Favorite Artwork.
           </div>
-          <hr className="w-full border-t-2 border-gray-500 mx-4" />
-          <div className="break-words text-center text-xl pt-8 pb-8">
-            Vote Deadline is June 29, 2024
+          <div className="row-span-1 flex flex-col items-center">
+              <Link 
+                  href="https://artsolympiad.info/artwok_select.php"
+                  className="btn-primary row-span-1"
+                  target="_blank"
+              >
+                  Vote
+              </Link>
+          </div>
+          <div className="break-words text-center text-xl pt-8 row-span-1">
+              You can vote only once, so Share with friends.
+          </div>
+          <div className="row-span-2 mt-10 pt-2">
+              <hr className="w-full border-t-2 border-gray-500 mx-4" />
+              <div className="break-words text-center text-xl pt-8 pb-7">
+                  Vote Deadline is June 29, 2024
+              </div>
           </div>
         </div>
       </div>
