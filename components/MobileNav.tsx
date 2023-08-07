@@ -78,6 +78,9 @@ const styles = {
     top: "2rem",
     right: "2rem"
   },
+  bmBurgerButton: {
+    position: "relative",
+  },
   bmOverlay: {
     position: "fixed",
     left: "0",
