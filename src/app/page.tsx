@@ -88,42 +88,42 @@ export default function Home() {
         {/* voter block */}
         <div className="bg-neutral-white col-span-1 rounded-2xl p-10 shadow-md items-center mt-10 mr-10 ml-10 mb-10 grid grid-rows-8">
           <div className="row-span-1 text-center">
-              <h2 className="break-words font-semibold text-4xl md:pl-6 pt-2">
-                  I want to be a Judge
-              </h2>
-              <div className="break-words text-xl pt-2">
-                  10 or older
-              </div>
+            <h2 className="break-words font-semibold text-4xl md:pl-6 pt-2">
+                I want to be a Judge
+            </h2>
+            <div className="break-words text-xl pt-2">
+                10 or older
+            </div>
           </div>
           <div className="row-span-2 flex flex-col items-center">
-              <Image
-                  src="/home/judge.png"
-                  width={224}
-                  height={224}
-                  className="w-1/2 h-auto"
-                  alt="A smiling judge with a curly mustache"
-              />
+            <Image
+              src="/home/judge.png"
+              width={224}
+              height={224}
+              className="w-1/2 h-auto"
+              alt="A smiling judge with a curly mustache"
+            />
           </div>
-          <div className="break-words text-center text-xl pt-8 mb-14 row-span-1">
+          <div className="break-words text-center text-xl pt-8 mb-6 md:mb-14 row-span-1">
               Vote For Your Favorite Artwork.
           </div>
           <div className="row-span-1 flex flex-col items-center">
-              <Link 
-                  href="https://artsolympiad.info/artwok_select.php"
-                  className="btn-primary row-span-1"
-                  target="_blank"
-              >
-                  Vote
-              </Link>
+            <Link 
+              href="https://artsolympiad.info/artwok_select.php"
+              className="btn-primary row-span-1"
+              target="_blank"
+            >
+              Vote
+            </Link>
           </div>
           <div className="break-words text-center text-xl pt-8 row-span-1">
               You can vote only once, so Share with friends.
           </div>
           <div className="row-span-2 mt-10 pt-2">
-              <hr className="w-full border-t-2 border-gray-500 mx-4" />
-              <div className="break-words text-center text-xl pt-8 pb-7">
-                  Vote Deadline is June 29, 2024
-              </div>
+            <hr className="w-full border-t-2 border-gray-500 mx-4" />
+            <div className="break-words text-center text-xl pt-8 pb-7">
+                Vote Deadline is June 29, 2024
+            </div>
           </div>
         </div>
       </div>
@@ -151,7 +151,7 @@ export default function Home() {
       </div>
       {/* 2024 arts olympiad introduction */}
       {/* - logo and text - */}
-      <div className="grid grid-cols-1 gap-5 md:grid-cols-12 bg-secondary-blue col-span-1 md:col-span-10">
+      <div className="grid grid-cols-1 md:grid-cols-12 bg-secondary-blue col-span-1 md:col-span-10">
         <Image
           src="/home/torch-logo.svg"
           width={151}
@@ -162,92 +162,98 @@ export default function Home() {
         <div className="text-left text-xl ml-5 md:mt-36 md:mb-10 break-words md:col-span-5 md:ml-20">
           An interactive exhibition in Paris to celebrate Creativity, Diversity, and Unity.
         </div>
-        <div className="hidden md:block md:col-span-5"></div>
-        <div className="hidden md:block md:col-span-1"></div>
-        <div className="md:col-span-3 bg-neutral-white rounded-r-full rounded-l-2xl md:rounded-2xl p-6 shadow-md flex flex-row md:flex-col items-center md:ml-20 ml-5 mr-5">
-          <Image
-            src="/home/icon1.png"
-            width={86}
-            height={86}
-            className="hidden md:block md:mt-3"
-            alt="Painting panel with mixed paints"
-          />
-          <div className="break-words text-base text-center md:pt-7 md:pr-7 md:pl-7">
-            Visitors ages 10 to 20 Create, Upload, and Share their masterpieces to win the Gold!
+      </div>
+      <div className="col-span-1 md:col-span-10 flex justify-center bg-secondary-blue pt-10 md:pt-0">
+        <div className="md:w-4/5 flex flex-col md:flex-row">
+          <div className="md:w-1/3 bg-neutral-white rounded-r-[6rem] rounded-l-[2rem] md:rounded-2xl p-7 mb-6 md:mb-0 ml-5 mr-5 shadow-md flex flex-row md:flex-col items-center">
+            <Image
+              src="/home/icon1.png"
+              width={86}
+              height={86}
+              className="hidden md:block md:mt-3"
+              alt="Painting panel with mixed paints"
+            />
+            <div className="break-words text-base md:text-center text-start md:pt-7 md:px-0">
+              Visitors ages 10 to 20 Create, Upload, and Share their masterpieces to win the Gold!
+            </div>
+            <Image
+              src="/home/icon1.png"
+              width={86}
+              height={86}
+              className="block md:hidden"
+              alt="Painting panel with mixed paints"
+            />
           </div>
-          <Image
-            src="/home/icon1.png"
-            width={86}
-            height={86}
-            className="block md:hidden w-1/2 h-auto md:mt-3"
-            alt="Painting panel with mixed paints"
-          />
-        </div>
-        <div className="md:col-span-3 bg-neutral-white rounded-l-full md:rounded-2xl p-6 shadow-md flex flex-row md:flex-col items-center ml-5 mr-5 md:ml-10 md:mr-10">
-          <Image
-            src="/home/icon2.png"
-            width={86}
-            height={86}
-            className="md:mt-3"
-            alt="Written document with a checkmark"
-          />
-          <div className="break-words text-base text-center md:pt-10">
-            Visitors vote for their favorite artwork.
+          <div className="md:w-1/3 bg-neutral-white rounded-l-[6rem] rounded-r-[2rem] md:rounded-2xl p-6 shadow-md flex flex-row md:flex-col items-center mb-6 md:mb-0 ml-5 mr-5 md:ml-2">
+            <Image
+              src="/home/icon2.png"
+              width={86}
+              height={86}
+              className="md:mt-3"
+              alt="Written document with a checkmark"
+            />
+            <div className="break-words text-base md:text-center text-start px-4 md:pt-7 md:px-0">
+              Visitors vote for their favorite artwork.
+            </div>
           </div>
-        </div>
-        <div className="md:col-span-3 bg-neutral-white rounded-r-full rounded-l-2xl md:rounded-2xl p-6 shadow-md flex flex-row md:flex-col items-center ml-5 mr-5 md:mr-20">
-          <Image
-            src="/home/icon3.png"
-            width={86}
-            height={86}
-            className="hidden md:block md:mt-3"
-            alt="Image of a person with a globe as their head"
-          />
-          <div className="break-words text-base text-center md:pt-10">
-            #MyFavoriteSport contest will spread across Europe and the world from Paris.
+          <div className="md:w-1/3 bg-neutral-white rounded-r-[6rem] rounded-l-[2rem] md:rounded-2xl p-6 shadow-md flex flex-row md:flex-col items-center ml-5 mr-5 md:ml-2 md:mr-0">
+            <Image
+              src="/home/icon3.png"
+              width={86}
+              height={86}
+              className="hidden md:block md:mt-3"
+              alt="Image of a person with a globe as their head"
+            />
+            <div className="break-words text-base md:text-center text-start md:pt-7 md:px-0">
+              #MyFavoriteSport contest will spread across Europe and the world from Paris.
+            </div>
+            <Image
+              src="/home/icon3.png"
+              width={86}
+              height={86}
+              className="block md:hidden"
+              alt="Image of a person with a globe as their head"
+            />
           </div>
-          <Image
-            src="/home/icon3.png"
-            width={86}
-            height={86}
-            className="block md:hidden w-1/2 h-auto md:mt-3"
-            alt="Image of a person with a globe as their head"
-          />
-        </div>
-        <div className="hidden md:block md:col-span-2"></div>
-        <div className="hidden md:block md:col-span-3"></div>
-        <div className="md:col-span-3 bg-neutral-white rounded-l-full md:rounded-2xl p-6 shadow-md flex flex-row md:flex-col items-center ml-5 mr-5 md:mr-12 md:mb-10">
-          <Image
-            src="/home/icon4.png"
-            width={86}
-            height={86}
-            className="md:mt-3"
-            alt="Lightbulb with the words 'world childrens festiaval inside' "
-          />
-          <div className="break-words text-base text-center md:pt-10">
-            The gold, silver, and bronze winners and the prizes they receive will be announced at the <Link href="https://worldchildrensfestival.org/" target="_blank" className="underline">7th World Children's Festival</Link> on July 1, 2024 at the National Mall across the U.S. Capitol.
-          </div>
-        </div>
-        <div className="md:col-span-3 bg-neutral-white rounded-r-full rounded-l-2xl md:rounded-2xl p-6 shadow-md flex flex-row md:flex-col items-center ml-5 mr-5 md:mr-10 mb-10">
-          <Image
-            src="/home/icon5.png"
-            width={86}
-            height={86}
-            className="hidden md:block md:mt-3"
-            alt="A hand holding the earth as a globe"
-          />
-          <div className="break-words text-base text-center md:pt-10">
-            The Arts Olympiad venue in Paris and the prizes for the Gold, Silver, and Bronze winners will be posted here in December 2023.
-          </div>
-          <Image
-            src="/home/icon5.png"
-            width={86}
-            height={86}
-            className="block md:hidden w-3/5 h-auto md:mt-3"
-            alt="A hand holding the earth as a globe"
-          />
         </div>
       </div>
+      <div className="col-span-1 md:col-span-10 flex justify-center bg-secondary-blue pt-8">
+        <div className="md:w-3/5 flex flex-col md:flex-row">
+          <div className="md:w-1/2 bg-neutral-white rounded-l-[4rem] rounded-r-[2rem] md:rounded-2xl p-6 shadow-md flex flex-row md:flex-col items-center ml-5 mr-5 mb-8 md:mb-10">
+            <Image
+              src="/home/icon4.png"
+              width={86}
+              height={86}
+              className="md:mt-3"
+              alt="Lightbulb with the words 'world childrens festiaval inside' "
+            />
+            <div className="break-words text-base md:text-center text-start md:pt-10">
+              The gold, silver, and bronze winners and the prizes they receive will be announced at the <Link href="https://worldchildrensfestival.org/" target="_blank" className="underline">7th World Children's Festival</Link> on July 1, 2024 at the National Mall across the U.S. Capitol.
+            </div>
+          </div>
+          <div className="md:w-1/2 bg-neutral-white rounded-r-[6rem] rounded-l-[2rem] md:rounded-2xl p-6 shadow-md flex flex-row md:flex-col items-center ml-5 mr-5 mb-10">
+            <Image
+              src="/home/icon5.png"
+              width={86}
+              height={86}
+              className="hidden md:block md:mt-3"
+              alt="A hand holding the earth as a globe"
+            />
+            <div className="break-words text-base md:text-center text-start md:pt-10">
+              The Arts Olympiad venue in Paris and the prizes for the Gold, Silver, and Bronze winners will be posted here in December 2023.
+            </div>
+            <Image
+              src="/home/icon5.png"
+              width={86}
+              height={86}
+              className="block md:hidden"
+              alt="A hand holding the earth as a globe"
+            />
+          </div>
+        </div>
+      </div>
+        
+      
       {/* Sponsors */}
       {/* Sponsor Title */}
       <div className="bg-main-yellow col-span-1 md:col-span-10 flex flex-row">
