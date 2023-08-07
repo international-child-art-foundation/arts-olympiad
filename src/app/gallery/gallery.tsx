@@ -23,7 +23,7 @@ export default function Gallery () {
   return (
     <div>
       {/* yellow container */}
-      <div className="flex justify-between items-center md:flex-col py-10 px-5 bg-main-yellow">
+      <div className="flex justify-between items-center md:flex-col py-10 mb-10 px-5 bg-main-yellow">
         <div className="text-left md:text-center">
           <h1 className="font-bold text-4xl">Gallery</h1>
           <p className="font-medium md:font-semi-bold text-lg">You can vote only once, so share with friends.</p>
@@ -35,7 +35,7 @@ export default function Gallery () {
         </div>
       </div>
       {/* search container */}
-      <div className="bg-neutral-white md:bg-main-yellow pt-6 md:pt-0 pb-10 px-5">
+      {/* <div className="bg-neutral-white md:bg-main-yellow pt-6 md:pt-0 pb-10 px-5">
         <div className=" mx-auto max-w-4xl">
           <form className="space-y-4">
             <div className="flex gap-4">
@@ -60,12 +60,12 @@ export default function Gallery () {
             <button type="submit" className="btn-primary w-full">Search</button>
           </form>
         </div>
-      </div>
+      </div> */}
       {/* filter toggle */}
-      <div className="flex justify-between bg-neutral-white px-5 py-5 lg:px-20">
+      {/* <div className="flex justify-between bg-neutral-white px-5 py-5 lg:px-20">
         <p>search by time</p>
         <img src="/gallery/filter-icon.svg" alt="filter gallery" /> 
-      </div>
+      </div> */}
       {/* image container */}
       <div className="bg-neutral-white px-5 lg:px-20">
         <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 md:gap-4">
