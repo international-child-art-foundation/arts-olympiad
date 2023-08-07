@@ -5,11 +5,11 @@ export default function page() {
   return (
     <div>
       {/* Title block */}
-      <div className="w-full h-40 flex items-center pl-6 bg-secondary-blue -mb-10">
+      <div className="w-full h-32 flex items-center pl-6 bg-secondary-blue -mb-5 sm:-mb-10">
         <h1 className="mb-2 mt-0 text-4xl font-semibold leading-6 sm:ml-12 text-primary">Meet Our Team</h1>
       </div>
       {/* 2 lateral content containers*/}
-      <div className="bg-secondary-blue flex flex-col sm:flex-row justify-evenly gap-4 px-4 " >
+      <div className="bg-secondary-blue flex flex-col sm:flex-row justify-evenly sm:gap-4 sm:px-4" >
         <ContentContainer>
           <div className="self-start">
             <h2 className="text-base lg:text-2xl font-medium pb-1 md:pb-2">Project Director</h2>
@@ -49,7 +49,7 @@ export default function page() {
         </ContentContainer>
       </div>
       {/* 3 lateral content containers*/}
-      <div className="bg-secondary-blue flex flex-col sm:flex-row justify-evenly gap-4 px-4 pb-4">
+      <div className="bg-secondary-blue flex flex-col sm:flex-row sm:gap-4 sm:px-4 pb-4">
         <ContentContainer>
           <div className="self-start">
             <h2 className="text-base lg:text-2xl font-medium pb-1 md:pb-2">UX/UI</h2>
@@ -82,11 +82,11 @@ export default function page() {
         </ContentContainer>
       </div>
       {/* yellow section */}
-      <div className="w-full h-40 flex items-center pl-6 bg-main-yellow">
+      <div className="w-full h-32 flex items-center pl-6 bg-main-yellow -mb-5 sm:-mb-10">
         <h1 className="mb-2 mt-0 text-3xl font-medium leading-6 text-primary sm:ml-12 ">Advisory Committee</h1>
       </div>
       {/* content container image row NOTE: the Advisory committe links are not populated yet*/}
-      <div className="flex flex-col sm:flex-row justify-evenly gap-4 px-4 bg-main-yellow">
+      <div className="flex flex-col sm:flex-row justify-evenly gap-4 bg-main-yellow">
         <div className="basis-1/2">
           <ContentContainer>
             <div className="self-start">
@@ -107,7 +107,7 @@ export default function page() {
             </div>
           </ContentContainer>
         </div>
-        <div className="basis-1/2">
+        <div className="basis-1/2 px-4">
           <img src="/team/illustration-01.svg" alt="Three people forming a huddle"/>
         </div>
       </div>
