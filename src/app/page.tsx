@@ -266,89 +266,89 @@ export default function Home() {
       {/* 3 white blocks */}
       <div className="bg-main-yellow col-span-1 md:col-span-10 grid grid-cols-12">
         <div className="col-span-5 flex flex-col items-center bg-neutral-white rounded-2xl ml-5 md:ml-20 mr-5 mb-10">
-          <h3 className="break-words font-semibold text-3xl text-main-gold mt-10 mb-5">
+          <h3 className="break-words font-semibold text-xl md:text-3xl text-main-gold mt-10 mb-5">
             Gold
           </h3>
           <hr className="w-11/12 border-t-2 border-gray-500 mb-10 ml-5 mr-5" />
-          <div className="flex flex-col md:flex-row items-center mb-8">
+          <div className="flex flex-col justify-evenly md:mx-2 md:flex-row items-center mb-8">
             <Image
               width={163}
               height={76}
               src="icaf-logo-transparent.svg"
               alt="ICAF logo"
-              className="md:ml-5 w-5/6 md:w-1/4 mb-4 md:mb-0"
+              className="w-5/6 md:w-1/4 mb-4 md:mb-0"
             />
             <Image
               width={163}
               height={76}
               src="icaf-logo-transparent.svg"
               alt="ICAF logo"
-              className="md:ml-10 w-5/6 md:w-1/4 mb-4 md:mb-0"
+              className="w-5/6 md:w-1/4 mb-4 md:mb-0"
             />
             <Image
               width={163}
               height={76}
               src="icaf-logo-transparent.svg"
               alt="ICAF logo"
-              className="md:ml-10 md:mr-10 md:w-1/4 w-5/6 md:mb-0"
+              className="md:w-1/4 w-5/6 md:mb-0"
             />
           </div>
         </div>
         <div className="col-span-4 flex flex-col items-center bg-neutral-white rounded-2xl mr-5 mb-10">
-          <h3 className="break-words font-semibold text-3xl text-main-silver mt-10 mb-5">
+          <h3 className="break-words font-semibold text-xl md:text-3xl text-main-silver mt-10 mb-5">
             Silver
           </h3>
           <hr className="w-11/12 border-t-2 border-gray-500 mb-10 ml-5 mr-5" />
-          <div className="flex flex-col md:flex-row items-center">
+          <div className="flex flex-col justify-evenly md:mx-2 md:mt-2 md:flex-row items-center">
             <Image
               width={163}
               height={76}
               src="icaf-logo-transparent.svg"
               alt="ICAF logo"
-              className="md:ml-10 md:w-1/5 w-4/5 mb-4 md:mb-0"
+              className="md:w-1/5 w-4/5 mb-6 md:mb-0"
             />
             <Image
               width={163}
               height={76}
               src="icaf-logo-transparent.svg"
               alt="ICAF logo"
-              className="md:ml-10 md:w-1/5 w-4/5 mb-4 md:mb-0"
+              className="md:w-1/5 w-4/5 mb-6 md:mb-0"
             />
             <Image
               width={163}
               height={76}
               src="icaf-logo-transparent.svg"
               alt="ICAF logo"
-              className="md:ml-10 md:w-1/5 w-4/5"
+              className="md:w-1/5 w-4/5"
             />
           </div>
         </div>
         <div className="col-span-3 flex flex-col items-center bg-neutral-white rounded-2xl mr-5 md:mr-20 mb-10">
-          <h3 className="break-words font-semibold text-3xl text-main-bronze mt-10 mb-5">
+          <h3 className="break-words font-semibold text-xl md:text-3xl text-main-bronze mt-10 mb-5">
             Bronze
           </h3>
           <hr className="w-11/12 border-t-2 border-gray-500 mb-10 ml-5 mr-5" />
-          <div className="flex flex-col md:flex-row items-center">
+          <div className="flex flex-col justify-evenly md:flex-row md:mt-3">
             <Image
               width={163}
               height={76}
               src="icaf-logo-transparent.svg"
               alt="ICAF logo"
-              className="md:ml-10 w-3/4 md:w-1/6 mb-10 md:mb-0"
+              className="ml-2 md:ml-0 w-3/4 md:w-1/6 mb-10 md:mb-0"
             />
             <Image
               width={163}
               height={76}
               src="icaf-logo-transparent.svg"
               alt="ICAF logo"
-              className="md:ml-10 w-3/4 md:w-1/6 mb-10 md:mb-0"
+              className="ml-2 md:ml-0 w-3/4 md:w-1/6 mb-10 md:mb-0"
             />
             <Image
               width={163}
               height={76}
               src="icaf-logo-transparent.svg"
               alt="ICAF logo"
-              className="md:ml-10 w-3/4 md:w-1/6"
+              className="ml-2 md:ml-0 w-3/4 md:w-1/6"
             />
           </div>
         </div>
