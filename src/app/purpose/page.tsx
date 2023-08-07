@@ -5,10 +5,8 @@ export default function page() {
   return (
     <div>
       {/* title */}
-      <div className="bg-secondary-blue flex flex-row">
-        <h1 className="bg-secondary-blue break-words font-semibold text-4xl pl-6 md:pl-20 pt-5 md:pt-10 mb-10">
-          Purpose
-        </h1>
+      <div className="bg-secondary-blue flex flex-row h-32 items-center">
+        <h1 className="bg-secondary-blue break-words font-semibold text-4xl pl-6 md:pl-0 sm:ml-12"> Purpose </h1>
       </div>
       {/* engaging creative kids block */}
       <div className="bg-secondary-blue pb-10">
