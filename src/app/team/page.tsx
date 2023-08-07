@@ -12,7 +12,7 @@ export default function page() {
       <div className="bg-secondary-blue flex flex-col sm:flex-row justify-evenly sm:gap-4 sm:px-4" >
         <ContentContainer>
           <div className="self-start">
-            <h2 className="text-base lg:text-2xl font-medium pb-1 md:pb-2">Project Director</h2>
+            <h2 className="text-lg lg:text-2xl font-medium pb-1 md:pb-2">Project Director</h2>
             <ul>
               <li className="text-base lg:text-lg">Ashfaq Ishaq, Ph.D.
                 <Link href="https://www.linkedin.com/in/ashfaqishaq/" className="ml-3">
@@ -20,7 +20,7 @@ export default function page() {
                 </Link>
               </li>
             </ul>
-            <h2 className="text-base lg:text-2xl font-medium pb-1 md:pb-2 pt-3">Director, Community Relations</h2>
+            <h2 className="text-lg lg:text-2xl font-medium pb-1 md:pb-2 pt-3">Director, Community Relations</h2>
             <ul>
               <li className="text-base lg:text-lg">Katty Guerami
                 <Link href="https://www.linkedin.com/in/katty-guerami-74a99014/" className="ml-3">
@@ -28,7 +28,7 @@ export default function page() {
                 </Link>
               </li>
             </ul>
-            <h2 className="text-base lg:text-2xl font-medium pb-1 md:pb-2 pt-3">ICAF Paris</h2>
+            <h2 className="text-lg lg:text-2xl font-medium pb-1 md:pb-2 pt-3">ICAF Paris</h2>
             <ul>
               <li className="text-base lg:text-lg">Katherine Harold, Paris College of Art
                 <Link href="https://www.linkedin.com/in/katherine-harold-23a5a0137/" className="ml-3">
@@ -40,7 +40,7 @@ export default function page() {
         </ContentContainer>
         <ContentContainer>
           <div className="self-start">
-            <h2 className="text-base lg:text-2xl font-medium pb-1 md:pb-2">Legal Advisors</h2>
+            <h2 className="text-lg lg:text-2xl font-medium pb-1 md:pb-2">Legal Advisors</h2>
             <ul>
               <li className="text-base lg:text-lg">Oroma Womeodu, Esq.</li>
               <li className="text-base lg:text-lg">Jade Monkouopm</li>
@@ -52,7 +52,7 @@ export default function page() {
       <div className="bg-secondary-blue flex flex-col sm:flex-row sm:gap-4 sm:px-4 pb-4">
         <ContentContainer>
           <div className="self-start">
-            <h2 className="text-base lg:text-2xl font-medium pb-1 md:pb-2">UX/UI</h2>
+            <h2 className="text-lg lg:text-2xl font-medium pb-1 md:pb-2">UX/UI</h2>
             <ul>
               <li className="text-base lg:text-lg">Liang-Yu Su</li>
               <li className="text-base lg:text-lg">Claire Chen</li>
@@ -62,7 +62,7 @@ export default function page() {
         </ContentContainer>
         <ContentContainer>
           <div className="self-start">
-            <h2 className="text-base lg:text-2xl font-medium pb-1 md:pb-2">Web Development</h2>
+            <h2 className="text-lg lg:text-2xl font-medium pb-1 md:pb-2">Web Development</h2>
             <ul>
               <li className="text-base lg:text-lg">Andrew Dame</li>
               <li className="text-base lg:text-lg">Chuck Gooley</li>
@@ -74,7 +74,7 @@ export default function page() {
         </ContentContainer>
         <ContentContainer>
           <div className="self-start">
-            <h2 className="text-base lg:text-2xl font-medium pb-1 md:pb-2">Data Science</h2>
+            <h2 className="text-lg lg:text-2xl font-medium pb-1 md:pb-2">Data Science</h2>
             <ul>
               <li className="text-base lg:text-lg">Yiping Lu</li>
             </ul>
