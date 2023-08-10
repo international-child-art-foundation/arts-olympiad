@@ -12,7 +12,7 @@ const Header = () => {
   ];
 
   return (
-    <header className="relative z-20 shadow-md w-full h-32 flex items-center justify-center">
+    <header className="z-20 shadow-md w-full h-32 flex items-center justify-center fixed md:relative top-0 left-0">
       <ul className="flex items-center justify-around py-0 px-7 list-none w-full h-full bg-neutral-white max-w-7xl">
         <Link href="/">
           <li className="logo-bg w-32 h-16 flex-shrink-0"></li>
