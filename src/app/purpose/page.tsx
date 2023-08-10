@@ -49,9 +49,8 @@ export default function page() {
               <h2 className="break-words font-semibold text-2xl lg:text-3xl text-center lg:text-left lg:pt-10 ">
                 The Arts Olympiad
               </h2>
-              <div className="flex items-center flex-col w-1/2 lg:w-5/12 h-1/2 my-5 lg:mt-10">
-                <Image src="/purpose/illustration-08.svg" alt="A long hair skater with red sweater" width={211} height={211}
-                  className="w-auto h-auto max-w-44 max-h-44"
+              <div className="flex items-center flex-col my-3 lg:mt-10">
+                <Image src="/purpose/illustration-08.png" alt="A long hair skater with red sweater" width={224} height={224}
                 />
               </div>
             </div>
@@ -71,8 +70,8 @@ export default function page() {
           </div>
           {/* water polo player part */}
           <div className="flex flex flex-col lg:flex-row items-left">
-            <div className="lg:w-2/5 flex flex-col items-center mt-3 mb-3 lg:mt-14">
-              <Image className="w-auto h-auto max-w-44 max-h-44 " src="/purpose/illustration-06.svg" alt="A smiling water polo player" width={211} height={211} />
+            <div className="lg:w-2/5 flex flex-col items-center my-3 lg:mt-14">
+              <Image src="/purpose/illustration-06.png" alt="A smiling water polo player" width={224} height={224} />
             </div>
             <div className="flex flex-col items-center lg:w-3/5 lg:mt-10 lg:mr-10 lg:ml-10">
               <p className="break-words text-base text-left">
