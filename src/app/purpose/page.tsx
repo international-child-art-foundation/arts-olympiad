@@ -76,7 +76,7 @@ export default function page() {
             </div>
             <div className="flex flex-col items-center lg:w-3/5 lg:mt-10 lg:mr-10 lg:ml-10">
               <p className="break-words text-base text-left">
-              The global art contest on #MyFavoriteSport will bring personal and social benefits because creative kids face obesity risks in this TikTok sedentary era. Together, art and sport possess the power to inspire them to embrace the “Artist-Athlete Ideal” of the creative mind and healthy body (<em>mens sana in corpore sano</em>). When kids depict themselves as “artist-athletes” in their artwork on the theme, <em>My Favorite Sport</em>, their revised self-image as “artist-athletes” solidifies. Young artists and young athletes grow fellow feelings and empathic understanding, celebrating their creativity, diversity, and unity.
+              The global art contest on #MyFavoriteSport will bring personal and social benefits because creative kids face obesity risks in this TikTok sedentary era. Together, art and sport possess the power to inspire them to embrace the “Artist-Athlete Ideal” of the creative mind and healthy body (<i>mens sana in corpore sano</i>). When kids depict themselves as “artist-athletes” in their artwork on the theme, <i>My Favorite Sport</i>, their revised self-image as “artist-athletes” solidifies. Young artists and young athletes grow fellow feelings and empathic understanding, celebrating their creativity, diversity, and unity.
               </p>
               <br />
               <p className="break-words text-base text-left lg:mb-5">

@@ -32,7 +32,7 @@ export default function Home() {
           My Favorite Sport
         </h1>
         <div className="break-words text-base pl-6 md:pl-20 pt-7 md:pt-5 pr-6 md:pr-20">
-          To celebrate their Creativity, Diversity, and Unity, schoolchildren everywhere can participate in a global art contest on the theme, <em>My Favorite Sport</em>, and rally the votes to win the gold!
+          To celebrate their Creativity, Diversity, and Unity, schoolchildren everywhere can participate in a global art contest on the theme, <i>My Favorite Sport</i>, and rally the votes to win the gold!
         </div>
         <div className="break-words text-base pl-6 md:pl-20 pt-7 md:pt-5 pr-6 md:pr-20">
           The contest will start from Paris at the Arts Olympiad exhibition in March 2024.
