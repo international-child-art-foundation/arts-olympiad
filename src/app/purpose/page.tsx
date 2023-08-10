@@ -23,14 +23,14 @@ export default function page() {
       {/* quote */}
       <div className="bg-secondary-blue flex flex-col items-center justify-center ">
         <div className="text-center mb-10">
-            <p className="font-bold text-xl mb-2 relative">
-              <span className="text-white text-5xl" style={{ verticalAlign: "-0.4em", lineHeight: "1em" }}>&#8220;</span>
+          <p className="font-bold text-xl mb-2 relative">
+            <span className="text-white text-5xl" style={{ verticalAlign: "-0.4em", lineHeight: "1em" }}>&#8220;</span>
               &nbsp;&nbsp;People don't just want to be spectators.&nbsp;&nbsp;
-              <span className="text-white text-5xl " style={{ verticalAlign: "-0.4em", lineHeight: "1em" }}>&#8221;</span>
-            </p>
-            <p className="text-center md:text-right">
+            <span className="text-white text-5xl " style={{ verticalAlign: "-0.4em", lineHeight: "1em" }}>&#8221;</span>
+          </p>
+          <p className="text-center md:text-right">
                 &#x2014; Paris 2024 CEO &#201;tienne Thobois
-            </p>
+          </p>
         </div>
       </div>
       {/* engaging creative kids block */}
