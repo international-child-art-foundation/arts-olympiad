@@ -20,6 +20,19 @@ export default function page() {
           Purpose
         </h1>
       </div>
+      {/* quote */}
+      <div className="bg-secondary-blue flex flex-col items-center justify-center ">
+        <div className="text-center mb-10">
+            <p className="font-bold text-xl mb-2 relative">
+              <span className="text-white text-5xl" style={{ verticalAlign: "-0.4em", lineHeight: "1em" }}>&#8220;</span>
+              &nbsp;&nbsp;People don't just want to be spectators.&nbsp;&nbsp;
+              <span className="text-white text-5xl " style={{ verticalAlign: "-0.4em", lineHeight: "1em" }}>&#8221;</span>
+            </p>
+            <p className="text-center md:text-right">
+                &#x2014; Paris 2024 CEO &#201;tienne Thobois
+            </p>
+        </div>
+      </div>
       {/* engaging creative kids block */}
       <div className="bg-secondary-blue pb-10">
         <div className="bg-neutral-white rounded-2xl px-10 py-10 lg:pb-16 md:p-5 shadow-md flex flex-col md:flex-row items-start mx-auto w-11/12">
