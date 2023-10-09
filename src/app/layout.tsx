@@ -22,14 +22,12 @@ export default function RootLayout({
         href="/banner-image.svg"
         type="image/svg+xml"
       />
-      <body className={`${inter.className} bg-neutral-white md:pt-0 pt-32`}>
-        <Header/>
-        <main className="flex justify-center">
-          <div className="w-full max-w-7xl">
-            { children }
-          </div>
+      <body className={`${inter.className} bg-neutral-white pt-32`}>
+        {/*<Header/>*/}
+        <main className="flex justify-center w-full max-w-7xl m-auto">
+          { children }
         </main>
-        <Footer />
+        {/*<Footer />*/}
       </body>
     </html>
   );
