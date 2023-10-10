@@ -11,6 +11,7 @@ import introimg4 from "../../public/home/introimg4.webp";
 import introimg5 from "../../public/home/introimg5.webp";
 import introimg6 from "../../public/home/introimg6.webp";
 import Link from "next/link";
+import {LazyImage} from "../common/LazyImage";
 
 export const Intro = () => {
   return (
@@ -46,16 +47,16 @@ export const Intro = () => {
         className=" z-10 hidden md:grid max-w-[490px] md:col-span-2 md:grid-cols-4 md:grid-rows-2 gap-3"
       >
         <div className="grid gap-5 col-span-2 row-span-2">
-          <Image src={introimg1} className="w-full h-full" alt="earth image surrounded palms" />
-          <Image src={introimg2} className="w-full h-full" alt="a person drawing on an ipad" />
+          <LazyImage imageUrl={introimg1}  alt="earth image surrounded palms" />
+          <LazyImage imageUrl={introimg2} alt="a person drawing on an ipad" />
         </div>
         <div className="grid gap-3 col-span-2 row-span-2">
-          <Image src={introimg3} className="w-full h-full" alt="a person using graphic editors on a desktop" />
-          <Image src={introimg4} className="w-full h-full" alt="scissors, ropes, buttons and tape" />
+          <LazyImage imageUrl={introimg3} alt="a person using graphic editors on a desktop" />
+          <LazyImage imageUrl={introimg4} alt="scissors, ropes, buttons and tape" />
           {/* Make the last div span two columns */}
           <div className="grid gap-3 grid-cols-2 grid-rows-1">
-            <Image src={introimg5} className="w-full h-full" alt="basket full of brushes" />
-            <Image src={introimg6} className="w-full h-full" alt="basket full of pencils" />
+            <LazyImage imageUrl={introimg5} alt="basket full of brushes" />
+            <LazyImage imageUrl={introimg6} alt="basket full of pencils" />
           </div>
         </div>
       </figure>
