@@ -24,7 +24,7 @@ export default function RootLayout({
       />
       <body className={`${inter.className} bg-neutral-white pt-32`}>
         {/*<Header/>*/}
-        <main className="flex justify-center w-full max-w-7xl m-auto">
+        <main className="flex flex-col justify-center align-middle w-full m-auto">
           { children }
         </main>
         {/*<Footer />*/}

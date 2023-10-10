@@ -14,12 +14,12 @@ import Link from "next/link";
 
 export const Intro = () => {
   return (
-    <section aria-label="introduction"  className="max-w-[1200px] max-h-[760] relative bg-neutral-white grid md:col-span-4 md:grid-cols-4 px-4 md:px-12 ">
+    <section aria-label="introduction"  className="max-w-[1200px] max-h-[760] relative bg-neutral-white grid md:col-span-4 md:grid-cols-4 px-4 md:px-12 mx-auto ">
       {/* TEXTS */}
 
-      <article className="z-10 flex-col align-middle-center md:col-span-2">
+      <article role="banner" className="z-10 flex-col align-middle-center md:col-span-2">
         <div className="flex flex-row align-center mb-8">
-          <Image src={hashtag} alt="colorful hashtag" width={32} height={32}  />
+          <Image src={hashtag} alt="" width={32} height={32}  />
           <h1 className="break-words font-semibold text-4xl lg:text-5xl xl:text-6xl ">
               MyFavoriteSport
           </h1>
@@ -40,7 +40,11 @@ export const Intro = () => {
 
       {/* SIDE IMAGES */}
 
-      <figure className=" z-10 hidden md:grid max-w-[490px] md:col-span-2 md:grid-cols-4 md:grid-rows-2 gap-3">
+      <figure
+        role="region"
+        aria-label="artistic attributes and tools"
+        className=" z-10 hidden md:grid max-w-[490px] md:col-span-2 md:grid-cols-4 md:grid-rows-2 gap-3"
+      >
         <div className="grid gap-5 col-span-2 row-span-2">
           <Image src={introimg1} className="w-full h-full" alt="earth image surrounded palms" />
           <Image src={introimg2} className="w-full h-full" alt="a person drawing on an ipad" />
@@ -60,36 +64,30 @@ export const Intro = () => {
 
       {/* mobile */}
       <Image
-        src={blueblob} alt="blue blob" width={300} height={260}
+        src={blueblob} alt="" width={300} height={260}
         className="absolute z-0 top-24 -left-16 md:hidden"
-        aria-hidden
       />
       {/* small tablet */}
       <Image
-        src={horizontalblueblob} alt="blue blob" width={450} height={400}
+        src={horizontalblueblob} alt="" width={450} height={400}
         className="hidden md:block lg:hidden absolute z-0 top-52 right-32"
-        aria-hidden
       />
       <Image
-        src={littlepinkblob} alt="pink blob" width={212} height={195}
+        src={littlepinkblob} alt="" width={212} height={195}
         className="hidden md:block lg:hidden absolute z-0 -top-16 right-4 "
-        aria-hidden
       />
       {/* >= big tablet */}
       <Image
-        src={horizontalblueblob} alt="blue blob" width={525} height={442}
+        src={horizontalblueblob} alt="" width={525} height={442}
         className="hidden lg:block absolute z-0 top-56 right-56"
-        aria-hidden
       />
       <Image
-        src={littlepinkblob} alt="pink blob" width={212} height={195}
+        src={littlepinkblob} alt="" width={212} height={195}
         className="hidden lg:block absolute z-0 -top-16 right-56 "
-        aria-hidden
       />
       <Image
-        src={littlepinkblob} alt="pink blob" width={212} height={195}
+        src={littlepinkblob} alt="" width={212} height={195}
         className="hidden lg:block absolute z-0 -bottom-16 right-0 "
-        aria-hidden
       />
     </section>
   );

@@ -1,9 +1,9 @@
-import bannerImage from "../../public/banner-image.svg";
-import Image from "next/image";
-import Link from "next/link";
+import "../styles/home.css";
 import { Metadata } from "next";
 import { sharedOpenGraph } from "./shared-metadata";
 import {Intro} from "../../components/home/Intro";
+import {ImageCarousel} from "../../components/home/image-carousel/ImageCarousel";
+import {artworks} from "../../mock/artworks";
 
 export const metadata: Metadata = {
   title: "Home | My Favorite Sport",
@@ -16,8 +16,8 @@ export const metadata: Metadata = {
 export default function Home() {
   return (
     <>
-      {/* banner block */}
       <Intro />
+      <ImageCarousel images={artworks} />
 
       {/*<div className="bg-main-yellow md:col-span-10 grid md:grid-cols-2 grid-cols-1">*/}
       {/*  /!* artist upload block *!/*/}
