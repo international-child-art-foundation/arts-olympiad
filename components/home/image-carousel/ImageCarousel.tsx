@@ -114,7 +114,6 @@ export const ImageCarousel = ({ images }: IProps) => {
       onTouchEnd={() => setHaltInterval(false)}
       className="relative mt-36 mb-36"
       ref={intersectionTarget}
-
     >
       <figure
         role="region"

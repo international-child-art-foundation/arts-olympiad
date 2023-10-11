@@ -25,7 +25,10 @@ module.exports = {
           fontWeight: "700",
           lineHeight: ""
         }],
-      }, 
+      },
+      borderWidth: {
+        "0.5": "0.5px",
+      },
     },
   },
   plugins: [],
