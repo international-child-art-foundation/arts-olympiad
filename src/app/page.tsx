@@ -4,6 +4,7 @@ import { sharedOpenGraph } from "./shared-metadata";
 import {Intro} from "../../components/home/Intro";
 import {ImageCarousel} from "../../components/home/image-carousel/ImageCarousel";
 import {artworks} from "../../mock/artworks";
+import {WhyParticipate} from "../../components/home/why-participate/WhyParticipate";
 
 export const metadata: Metadata = {
   title: "Home | My Favorite Sport",
@@ -18,6 +19,7 @@ export default function Home() {
     <>
       <Intro />
       <ImageCarousel images={artworks} />
+      <WhyParticipate />
 
       {/*<div className="bg-main-yellow md:col-span-10 grid md:grid-cols-2 grid-cols-1">*/}
       {/*  /!* artist upload block *!/*/}
