@@ -1,6 +1,6 @@
 import Image from "next/image";
 import Link from "next/link";
-import ICAFLogo from "../public/icaf-logo-transparent.svg";
+import ICAFLogo from "../public/svgs/icaf-logo-transparent.svg";
 import { InstagramIcon } from "./svgs/InstagramIcon";
 import { FacebookIcon } from "./svgs/FacebookIcon";
 import { TwitterIcon } from "./svgs/TwitterIcon";

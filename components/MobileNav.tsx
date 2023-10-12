@@ -28,8 +28,8 @@ const MobileNav = () => {
         onStateChange={handleStateChange} 
         right 
         styles={styles} 
-        customCrossIcon={<img src="/close.svg" alt="Close navigation menu"/>}
-        customBurgerIcon={<img src="/burger.svg" alt="Open navigation menu"/>}
+        customCrossIcon={<img src="/svgs/close.svg" alt="Close navigation menu"/>}
+        customBurgerIcon={<img src="/svgs/burger.svg" alt="Open navigation menu"/>}
       >
         <div className="flex space-x-5">
           <Link 

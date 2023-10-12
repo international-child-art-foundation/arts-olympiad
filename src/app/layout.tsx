@@ -19,7 +19,7 @@ export default function RootLayout({
     <html lang="en">
       <link
         rel="icon"
-        href="/banner-image.svg"
+        href="/svgs/banner-image.svg"
         type="image/svg+xml"
       />
       <body className={`${inter.className} bg-neutral-white pt-32`}>

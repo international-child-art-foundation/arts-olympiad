@@ -3,8 +3,8 @@
 import React, {useEffect, useRef, useState} from "react";
 import {CarouselImageItem} from "./CarouselImageItem";
 import Image from "next/image";
-import scrollRight from "../../../public/scroll-right.svg";
-import scrollLeft from "../../../public/scroll-left.svg";
+import scrollRight from "../../../public/svgs/scroll-right.svg";
+import scrollLeft from "../../../public/svgs/scroll-left.svg";
 import useIntersectionObserver from "@/hooks/useIntersectionObserver";
 
 interface IProps {
