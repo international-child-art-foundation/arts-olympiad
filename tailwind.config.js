@@ -14,6 +14,7 @@ module.exports = {
       'md': '481px',
       'lg': '769px',
       'xl': '1025px',
+      '2xl':'1360px',
     },
     extend: {
       colors:{
@@ -33,7 +34,8 @@ module.exports = {
         body: ['Open Sans']
       },
       spacing:{
-        '15%': '15%',
+        '20%': '20%',
+        '5%': '5%',
       },
       fontSize: {
         "heading-1": ["2.125rem",{
