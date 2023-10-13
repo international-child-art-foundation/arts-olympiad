@@ -1,6 +1,6 @@
 import Image from "next/image";
 import React, {useState, useEffect} from "react";
-import {LazyImage} from "../../common/LazyImage";
+import {LazyImage} from "../../common/images/LazyImage";
 
 interface IProps {
   imageUrl: string

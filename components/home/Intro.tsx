@@ -11,7 +11,9 @@ import introimg4 from "../../public/home/introimg4.webp";
 import introimg5 from "../../public/home/introimg5.webp";
 import introimg6 from "../../public/home/introimg6.webp";
 import Link from "next/link";
-import {LazyImage} from "../common/LazyImage";
+import {LazyImage} from "../common/images/LazyImage";
+import {H2m} from "../common/texts/H2m";
+import {H3m} from "../common/texts/H3m";
 
 export const Intro = () => {
   return (
@@ -26,12 +28,12 @@ export const Intro = () => {
           </h1>
         </div>
         <div className=" mb-32 z-20 ">
-          <h2 className=" z-20 break-words text-2xl lg:text-3xl mb-2 sm:mb-4 lg:mb6">
+          <H2m className=" z-20 mb-2 sm:mb-4 lg:mb6" >
           A global art competition on Olympic sports
-          </h2>
-          <h3 className=" z-20 break-words lg:text-xl xl:text-2xl font-light mb-4 lg:mb8">
+          </H2m>
+          <H3m className=" z-20 font-light mb-4 lg:mb8">
           Celebrate the Paris 2024 Olympics and reassure youth that their chaotic and divided world has hope.
-          </h3>
+          </H3m>
           <Link href="/about" className="text-main-blue text-sm lg:text-lg flex flex-row" aria-label="Learn more">
               Learn more
             <Image src={vector} alt="angle bracket right" className="ml-4" aria-hidden />

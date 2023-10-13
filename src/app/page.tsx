@@ -18,7 +18,7 @@ export default function Home() {
   return (
     <>
       <Intro />
-      <ImageCarousel images={artworks} />
+      {/*<ImageCarousel images={artworks} />*/}
       <WhyParticipate />
 
       {/*<div className="bg-main-yellow md:col-span-10 grid md:grid-cols-2 grid-cols-1">*/}
