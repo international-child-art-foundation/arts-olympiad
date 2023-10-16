@@ -1,42 +1,48 @@
 import Image from "next/image";
 import Link from "next/link";
-import ICAFLogo from "../public/icaf-logo-transparent.svg";
 import { InstagramIcon } from "./svgs/InstagramIcon";
 import { FacebookIcon } from "./svgs/FacebookIcon";
 import { TwitterIcon } from "./svgs/TwitterIcon";
 import { YoutubeIcon } from "./svgs/YoutubeIcon";
-import { TiktokIcon } from "./svgs/TiktokIcon";
 import { LinkedinIcon } from "./svgs/LinkedinIcon";
 import { PinterestIcon } from "./svgs/PinterestIcon";
 
 const icons = [
+  { SVGcomponent: FacebookIcon, altText:"Visit the International Child Art Foundation's Facebook page", href:"https://www.facebook.com/ICAF.org"},
   { SVGcomponent: InstagramIcon, altText:"Visit the International Child Art Foundation's Instagram page", href:"https://www.instagram.com/intlchildartfoundation/"},
-  { SVGcomponent: FacebookIcon, altText:"Visit the International Child Art Foundation's Facebook page", href:"https://www.facebook.com/ICAF.org",},
-  { SVGcomponent: TwitterIcon, altText:"Visit the International Child Art Foundation's Twitter page", href:"https://www.twitter.com/ICAF_org"},
   { SVGcomponent: YoutubeIcon, altText:"Visit the International Child Art Foundation's Youtube page", href:"https://www.youtube.com/channel/UCvvipwdFEaNnTSv0EIhznaQ"},
-  { SVGcomponent: TiktokIcon, altText:"Visit the International Child Art Foundation's Tiktok page", href:"https://www.tiktok.com/@internationalchildartfdn"},
-  { SVGcomponent: LinkedinIcon, altText:"Visit the International Child Art Foundation's Linkedin page", href:"https://www.linkedin.com/company/international-child-art-foundation"},
+  { SVGcomponent: TwitterIcon, altText:"Visit the International Child Art Foundation's Twitter page", href:"https://www.twitter.com/ICAF_org"},
   { SVGcomponent: PinterestIcon, altText:"Visit the International Child Art Foundation's Pinterest page", href:"https://www.pinterest.com/icaf/"},
+  { SVGcomponent: LinkedinIcon, altText:"Visit the International Child Art Foundation's Linkedin page", href:"https://www.linkedin.com/company/international-child-art-foundation"},
 ];
 
 // Custom box shadows added to apply the effects of "shadow-md" with a negative offset-y
 const Footer = () => {
   return (
-    <footer className="relative z-10 flex justify-center w-full shadow-[0_-4px_6px_-2px_rgba(0,0,0,0.1)] shadow-[0_-2px_4px_-2px_rgba(0,0,0,0.1)]">
-      <div className="grid py-20 grid-col-1 lg:grid-cols-2 justify-center px-2 w-full max-w-7xl">
-        <div className="flex justify-center items-center">
-          <Image className="mr-2 lg:mr-12 hidden lg:block" width={163} src={ICAFLogo} alt="ICAF logo"/>
-          <Image className="mr-2 lg:mr-12 lg:hidden" width={111} src={ICAFLogo} alt="ICAF logo"/>
-          <address className="font-normal text-sm md:font-medium lg:text-lg not-italic">
-            <Link href="http://www.icaf.org/" target="_blank" className="underline"> International Child Art Foundation </Link> <br />
-            2549 Virginia Avenue, NW <br />
-            Washington, DC 20037
-          </address>
+    <footer className="bg-new-blue font-body relative w-full max-w-[1600px] mx-auto">
+      <div className="sm:ml-5% md:mx-auto md:max-w-sm lg:max-w-full flex flex-wrap gap-x-6 gap-y-10 pt-8 pb-20">
+        
+        <div className="space-y-3 sm:w-full lg:w-2/5 xl:w-30% text-sm text-neutral-white col-span-2 lg:order-1 lg:col-span-3 lg:ml-5%">
+          <p>Join our newsletter now</p>
+          <div className="flex flex-wrap gap-1 items-center text-main-grey focus-within:text-gray-600">
+            <div className="flex">
+              <input 
+                type="text"
+                name="email"
+                placeholder="Your email address"
+                autoComplete="off"
+                className="h-9 w-72 md:w-fit pl-10 pr-3 broder broder-main-grey rounded-sm required">  
+              </input>
+              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" className="absolute pointer-events-none w-5 h-5 ml-3 mt-2"><path stroke-linecap="round" stroke-linejoin="round" d="M21.75 6.75v10.5a2.25 2.25 0 01-2.25 2.25h-15a2.25 2.25 0 01-2.25-2.25V6.75m19.5 0A2.25 2.25 0 0019.5 4.5h-15a2.25 2.25 0 00-2.25 2.25m19.5 0v.243a2.25 2.25 0 01-1.07 1.916l-7.5 4.615a2.25 2.25 0 01-2.36 0L3.32 8.91a2.25 2.25 0 01-1.07-1.916V6.75" /></svg>
+            </div>
+            <a href="#" className="btn-sign sm:w-72 md:w-fit text-neutral-white">Sign up</a>
+          </div>
         </div>
-        <div >
-          <ol className="flex justify-between lg:justify-center lg:space-x-3 mt-9 lg:mt-0">
+
+        <div className="sm:w-full lg:w-1/4 xl:w-1/5 lg:order-3">
+          <ol className="grid grid-cols-6 lg:gap-3 my-2 lg:grid-cols-3">
             {icons.map((icon,i) => (
-              <li key={i}>
+              <div key={i}>
                 <Link
                   aria-label={icon.altText}
                   href={icon.href}
@@ -44,15 +50,43 @@ const Footer = () => {
                   rel="noopener noreferrer"
                 >
                   <icon.SVGcomponent 
-                    className="fill-neutral-black hover:fill-main-blue"
+                    className="fill-neutral-white"  
                     aria-hidden="true"
                   />
                 </Link>
-              </li>
+              </div>
             ))}
           </ol>
         </div>
+
+        <div className="text-sm sm:w-full lg:w-1/5 lg:order-2 xl:w-1/6 xl:pl-5 text-neutral-white">
+          <ol className="grid grid-cols-2 gap-y-5 lg:gap-y-3 lg:grid-cols-1">
+            <div><a href="#">FAQ's</a></div>
+            <div><a href="https://icaf.org/about/contact-us">Contact Us</a></div>
+            <div><a href="#">Terms of use</a></div>
+            <div><a href="#">Privacy policy</a></div>
+          </ol>
+        </div> 
+
+        <div className="flex flex-wrap gap-10 lg:justify-center sm:w-full lg:order-4 xl:w-1/6 xl:flex-col xl:gap-5"> 
+          <div className="flex flex-col sm:items-left lg:items-center">
+            <a href="#" className="group btn bg-neutral-white text-new-blue"><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="#134380" className="w-4 h-4 inline-block mr-1 mb-1 group-hover:fill-main-red group-hover:stroke-main-red"><path stroke-linecap="round" stroke-linejoin="round" d="M21 8.25c0-2.485-2.099-4.5-4.688-4.5-1.935 0-3.597 1.126-4.312 2.733-.715-1.607-2.377-2.733-4.313-2.733C5.1 3.75 3 5.765 3 8.25c0 7.22 9 12 9 12s9-4.78 9-12z" /></svg>Donate</a>
+          </div>
+          <div className="flex flex-col sm:items-left lg:items-center">
+            <a href="https://icaf.org/about/contact-us" className="btn text-neutral-white">Contact Us</a>
+          </div>
+        </div> 
+      
+
+        <div className="h-1 lg:absolute lg:bottom-0 lg:h-10 lg:left-1/4">
+          <div className="font-light text-xs text-neutral-white">
+            © 1997-2023 International Child Art Foundation, Post Office Box 58133, Washington, DC 20037
+          </div>
+        </div>
+
       </div>
+
+
     </footer>
   );
 };
