@@ -4,12 +4,12 @@ import vector from "../../public/svgs/Vector.svg";
 import blueblob from "../../public/svgs/blueblob.svg";
 import horizontalblueblob from "../../public/svgs/horizontalblueblob.svg";
 import littlepinkblob from "../../public/svgs/littlepinkblob.svg";
-import introimg1 from "../../public/home/introimg1.webp";
-import introimg2 from "../../public/home/introimg2.webp";
-import introimg3 from "../../public/home/introimg3.webp";
-import introimg4 from "../../public/home/introimg4.webp";
-import introimg5 from "../../public/home/introimg5.webp";
-import introimg6 from "../../public/home/introimg6.webp";
+import introimg1 from "../../public/home/intro/introimg1.webp";
+import introimg2 from "../../public/home/intro/introimg2.webp";
+import introimg3 from "../../public/home/intro/introimg3.webp";
+import introimg4 from "../../public/home/intro/introimg4.webp";
+import introimg5 from "../../public/home/intro/introimg5.webp";
+import introimg6 from "../../public/home/intro/introimg6.webp";
 import Link from "next/link";
 import {LazyImage} from "../common/images/LazyImage";
 import {H2m} from "../common/texts/H2m";
@@ -49,16 +49,16 @@ export const Intro = () => {
         className="relative ml-6 z-10 hidden md:grid max-w-[490px] md:col-span-2 md:grid-cols-4 md:grid-rows-2 gap-3"
       >
         <div className="z-10 grid gap-5 col-span-2 row-span-2">
-          <LazyImage classes="border-0.5 border-black" imageUrl={introimg1}  alt="earth image surrounded palms" />
-          <LazyImage classes="border-0.5 border-black" imageUrl={introimg2} alt="a person drawing on an ipad" />
+          <LazyImage className="border-0.5 border-black" imageUrl={introimg1}  alt="earth image surrounded palms" />
+          <LazyImage className="border-0.5 border-black" imageUrl={introimg2} alt="a person drawing on an ipad" />
         </div>
         <div className="z-10 grid gap-3 col-span-2 row-span-2">
-          <LazyImage classes="border-0.5 border-black" imageUrl={introimg3} alt="a person using graphic editors on a desktop" />
-          <LazyImage classes="border-0.5 border-black" imageUrl={introimg4} alt="scissors, ropes, buttons and tape" />
+          <LazyImage className="border-0.5 border-black" imageUrl={introimg3} alt="a person using graphic editors on a desktop" />
+          <LazyImage className="border-0.5 border-black" imageUrl={introimg4} alt="scissors, ropes, buttons and tape" />
           {/* Make the last div span two columns */}
           <div className="z-10 grid gap-3 grid-cols-2 grid-rows-1">
-            <LazyImage classes="border-0.5 border-black" imageUrl={introimg5} alt="basket full of brushes" />
-            <LazyImage classes="border-0.5 border-black" imageUrl={introimg6} alt="basket full of pencils" />
+            <LazyImage className="border-0.5 border-black" imageUrl={introimg5} alt="basket full of brushes" />
+            <LazyImage className="border-0.5 border-black" imageUrl={introimg6} alt="basket full of pencils" />
           </div>
         </div>
 

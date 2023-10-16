@@ -1,10 +1,9 @@
 import Image, {StaticImageData} from "next/image";
-import React, {useState} from "react";
+import React, {HTMLProps, useState} from "react";
 
-interface IProps {
+interface IProps extends HTMLProps<HTMLImageElement>{
   imageUrl: string | StaticImageData
   alt: string
-  classes?: string
   width?: number
   height?: number
 }
@@ -18,11 +17,11 @@ interface IProps {
  * @param height
  * @description a lazy loaded server-side rendered image component, falling back to blue div while it's not fully loaded
  */
-export const LazyImage = ({imageUrl, alt, classes, width, height}: IProps) => {
+export const LazyImage = ({imageUrl, alt, className, width, height}: IProps) => {
 
   return (
     <Image
-      className={`rounded-lg object-fit w-full h-full ${classes}`}
+      className={`rounded-lg object-fit w-full h-full ${className}`}
       src={imageUrl}
       alt={alt}
       width={width}

@@ -1,10 +1,11 @@
-import React, {useState} from "react";
+import React, {useEffect, useState} from "react";
 import Image from "next/image";
 import iteration from "../../../public/svgs/iteration-ccw.svg";
 import {H2m} from "../../common/texts/H2m";
 import {H3m} from "../../common/texts/H3m";
 import {Pm} from "../../common/texts/Pm";
 import {TinyStarIcon} from "./TinyStarIcon";
+import "../../../src/styles/flipping-card.css";
 
 interface IProps {
   isFlippable: boolean
@@ -19,45 +20,81 @@ interface IProps {
 export const FlippingCard = ({isFlippable, icon, heading1, heading2, description, color, children}: IProps) => {
 
   const [flipped, setFlipped] = useState(false);
+  const [hovered, setHovered] = useState(false);
+
+  useEffect(() => {
+    if (!isFlippable) {
+      setFlipped(false);
+      setHovered(false);
+    }
+  }, [isFlippable]);
 
   return (
-    <article
-      className="cursor-pointer my-6 border-2 rounded-lg flex flex-col justify-center items-center p-6 "
-      style={{borderColor: color}}
-      onClick={() => setFlipped(!flipped)}
+    <div
+      className={`
+        ${isFlippable && flipped && "flip"}
+        my-4 md:my-0 relative md:min-h-[270px] lg:min-h-[468px] 2xl:min-h-[400px]
+        z-10 bg-neutral-white cursor-pointer rounded-lg
+      `}
+      onClick={() => (isFlippable && !hovered) && setFlipped(!flipped)}
+      onMouseEnter={() => {
+        isFlippable && setFlipped(true);
+        isFlippable && setHovered(true);
+      }}
+      onMouseLeave={() => {
+        isFlippable && setFlipped(false);
+        isFlippable && setHovered(false);
+      }}
     >
+      <article
+        aria-live="polite"
+        className={`
+        ${isFlippable && flipped && "flip"}
+        card
+        w-full h-full
+        z-10 rounded-lg flex border-2 flex-col items-center p-6
+          `}
+        style={{borderColor: color}}
+      >
 
-      {
-        isFlippable &&
-        <Image src={iteration} alt="" width={36} height={36} className="self-end" />
-      }
+        { // only displayed on md screens and bigger
+          isFlippable &&
+        <Image src={iteration} alt="" width={36} height={36} className="absolute top-4 right-4" />
+        }
 
-      <div className="relative" >
-        <div className="absolute -top-3 -right-1"><TinyStarIcon fill={color} /></div>
-        <div className="absolute -top-1 -right-5"><TinyStarIcon fill={color} /></div>
-        <div className="absolute top-3 -right-4"><TinyStarIcon fill={color} /></div>
-        <Image className="my-2" src={icon} alt="" width={56} height={56} />
-        <div className="absolute -bottom-3 -left-1"><TinyStarIcon fill={color} /></div>
-        <div className="absolute -bottom-1 -left-5"><TinyStarIcon fill={color} /></div>
-        <div className="absolute bottom-3 -left-4"><TinyStarIcon fill={color} /></div>
-      </div>
-      <H2m className="my-2 text-dark-blue text-center" >{heading1}</H2m>
-      <H3m className="my-2 text-dark-blue text-center" >{heading2}</H3m>
+        { // front of the card on lg screens and bigger
+          !flipped &&
+        <div className="front flex flex-col justify-center items-center h-full">
+          <div className="relative" >
+            <div className="absolute -top-3 -right-1"><TinyStarIcon fill={color} /></div>
+            <div className="absolute -top-1 -right-5"><TinyStarIcon fill={color} /></div>
+            <div className="absolute top-3 -right-4"><TinyStarIcon fill={color} /></div>
+            <Image className="my-2" src={icon} alt="" width={56} height={56} />
+            <div className="absolute -bottom-3 -left-1"><TinyStarIcon fill={color} /></div>
+            <div className="absolute -bottom-1 -left-5"><TinyStarIcon fill={color} /></div>
+            <div className="absolute bottom-3 -left-4"><TinyStarIcon fill={color} /></div>
+          </div>
+          <H2m className="my-2 text-dark-blue text-center" >{heading1}</H2m>
+          <H3m className="my-2 text-dark-blue text-center" >{heading2}</H3m>
+        </div>
+        }
 
-      {!isFlippable &&
+        { // back of the card on lg screens and bigger
+          isFlippable && flipped &&
+        <div className="back h-full flex flex-col justify-between">
+          <Pm className="my-12 font-light text-sm " >{description}</Pm>
+          {children}
+        </div>
+        }
+
+        { // for small screen
+          !isFlippable &&
         <>
           <Pm className="my-2 font-light text-sm " >{description}</Pm>
           {children}
         </>
-      }
-
-      {
-        isFlippable && flipped &&
-        <>
-          <Pm className="my-2 font-light text-sm " >{description}</Pm>
-          {children}
-        </>
-      }
-    </article>
+        }
+      </article>
+    </div>
   );
 };

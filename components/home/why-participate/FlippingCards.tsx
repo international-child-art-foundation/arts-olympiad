@@ -5,8 +5,8 @@ import monitorUp from "../../../public/svgs/monitor-up.svg";
 import vote from "../../../public/svgs/vote.svg";
 import heart from "../../../public/svgs/heart-handshake.svg";
 import clipboard from "../../../public/svgs/clipboard-edit.svg";
-import littleHeart from "./heart.svg";
-import upload from "./upload.svg";
+import littleHeart from "../../../public/home/why-participate/heart.svg";
+import upload from "../../../public/home/why-participate/upload.svg";
 import {ButtonStd} from "../../common/ui/ButtonStd";
 import Image from "next/image";
 
@@ -16,7 +16,7 @@ export const FlippingCards = () => {
   const areFlippable = width >= 768;
 
   return (
-    <div>
+    <div className="z-10 md:grid grid-cols-2 grid-rows-2 gap-4 mt-6 card-grid" >
       <FlippingCard
         isFlippable={areFlippable}
         heading1="Share"
@@ -41,7 +41,10 @@ export const FlippingCards = () => {
         icon={heart}
         color="#168C39"
       >
-        <ButtonStd className="my-1">
+        <ButtonStd className="my-1"
+          onTouchStart={(e: React.TouchEvent<HTMLButtonElement>) => { e.stopPropagation();}}
+          onClick={(e: React.MouseEvent<HTMLButtonElement>) => { e.stopPropagation();}}
+        >
           <Image className="mr-2" src={littleHeart} alt="" width={24} height={24} />
           Donate now
         </ButtonStd>
@@ -54,7 +57,10 @@ export const FlippingCards = () => {
         icon={clipboard}
         color="#0286C3"
       >
-        <ButtonStd className="my-1">
+        <ButtonStd className="my-1"
+          onTouchStart={(e: React.TouchEvent<HTMLButtonElement>) => { e.stopPropagation();}}
+          onClick={(e: React.MouseEvent<HTMLButtonElement>) => { e.stopPropagation();}}
+        >
           <Image className="mr-2" src={upload} alt="" width={24} height={24} />
           Register here
         </ButtonStd>
