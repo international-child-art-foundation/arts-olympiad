@@ -31,6 +31,9 @@ module.exports = {
         "0.5": "0.5px",
         "1": "1px",
       },
+      screens: {
+        "mxl": "1380px"
+      }
     },
   },
   plugins: [],

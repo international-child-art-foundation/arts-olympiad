@@ -29,7 +29,7 @@ export const Guidelines = () => {
           heading={"How to submit"}
           description={"Follow our guide for hassle-free artwork submission."}
         >
-          <Link href="/about" className="text-main-blue text-sm flex flex-row">
+          <Link href="/about" className="text-main-blue text-sm lg:text-lg flex flex-row">
             Learn more here
             <Image src={vector} alt="angle bracket right" className="ml-4" aria-hidden />
           </Link>

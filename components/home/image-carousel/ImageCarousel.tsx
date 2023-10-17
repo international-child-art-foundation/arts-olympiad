@@ -7,7 +7,7 @@ import scrollRight from "../../../public/svgs/scroll-right.svg";
 import scrollLeft from "../../../public/svgs/scroll-left.svg";
 import useIntersectionObserver from "@/hooks/useIntersectionObserver";
 
-interface IProps {
+interface IProps extends React.HTMLProps<HTMLDivElement>{
   images: {
     id?: number,
     name?: string,
@@ -17,10 +17,8 @@ interface IProps {
     age?: number
     alt: string
   }[];
-  singleImageWidth?: number
-  singeImageHeight?: number
 }
-export const ImageCarousel = ({ images }: IProps) => {
+export const ImageCarousel = ({ images, ...props }: IProps) => {
 
   const carouselRef = useRef<HTMLDivElement | null>(null);
   const leftButtonRef = useRef<HTMLButtonElement | null>(null);
@@ -120,7 +118,7 @@ export const ImageCarousel = ({ images }: IProps) => {
       <figure
         role="region"
         aria-live="polite"
-        aria-label="list of olimpyad participants' artworks"
+        aria-label={props["aria-label"]}
         className="no-scrollbar flex flex-row flex-nowrap overflow-x-auto"
         ref={carouselRef}
       >

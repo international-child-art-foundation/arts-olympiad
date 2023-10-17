@@ -17,7 +17,7 @@ import {H3m} from "../common/texts/H3m";
 
 export const Intro = () => {
   return (
-    <section aria-label="introduction"  className="mb-36 max-h-[760] relative bg-neutral-white grid md:col-span-4 md:grid-cols-4 px-6 md:px-12 xl:px-24 ">
+    <section aria-label="introduction"  className="mb-8 md:mb-36 max-h-[760] relative bg-neutral-white grid md:col-span-4 md:grid-cols-4 px-6 md:px-12 xl:px-24 ">
       {/* TEXTS */}
 
       <article role="banner" className=" z-20 relative flex-col align-middle md:col-span-2">
@@ -49,12 +49,12 @@ export const Intro = () => {
         className="relative ml-6 z-10 hidden md:grid max-w-[490px] md:col-span-2 md:grid-cols-4 md:grid-rows-2 gap-3"
       >
         <div className="z-10 grid gap-5 col-span-2 row-span-2">
-          <LazyImage className="border-0.5 border-black" imageUrl={introimg1}  alt="earth image surrounded palms" />
+          <LazyImage className="border-0.5 border-black" imageUrl={introimg1}  alt="earth image surrounded by palms" />
           <LazyImage className="border-0.5 border-black" imageUrl={introimg2} alt="a person drawing on an ipad" />
         </div>
         <div className="z-10 grid gap-3 col-span-2 row-span-2">
           <LazyImage className="border-0.5 border-black" imageUrl={introimg3} alt="a person using graphic editors on a desktop" />
-          <LazyImage className="border-0.5 border-black" imageUrl={introimg4} alt="scissors, ropes, buttons and tape" />
+          <LazyImage className="border-0.5 border-black" imageUrl={introimg4} alt="handcraft tools" />
           {/* Make the last div span two columns */}
           <div className="z-10 grid gap-3 grid-cols-2 grid-rows-1">
             <LazyImage className="border-0.5 border-black" imageUrl={introimg5} alt="basket full of brushes" />
@@ -92,7 +92,7 @@ export const Intro = () => {
       {/* BLOB mobile */}
       <Image
         src={blueblob} alt="" width={300} height={260}
-        className="absolute z-0 top-24 -left-16 md:hidden"
+        className="absolute z-0 top-12 -left-16 md:hidden"
       />
 
     </section>

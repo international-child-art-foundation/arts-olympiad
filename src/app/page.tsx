@@ -20,7 +20,7 @@ export default function Home() {
   return (
     <>
       <Intro />
-      <ImageCarousel images={artworks} />
+      <ImageCarousel aria-label={"list of olimpyad participants' artworks"} images={artworks} />
       <WhyParticipate />
       <AboutICAF />
       <Guidelines />
