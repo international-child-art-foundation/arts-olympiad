@@ -15,12 +15,3 @@
     background-size: cover;
     background-position: center;
   }
-
-.btn{
-  @apply w-fit h-fit border-neutral-white border rounded text-center py-3 px-4 text-sm cursor-pointer tracking-wide
-}
-
-.btn-sign{
-  @apply h-fit border-neutral-white border rounded text-center py-2 px-3 text-sm cursor-pointer tracking-wide
-}
-  
