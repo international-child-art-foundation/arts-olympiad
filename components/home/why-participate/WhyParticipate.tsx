@@ -10,11 +10,10 @@ import {H2m} from "../../common/texts/H2m";
 export const WhyParticipate = () => {
 
   return (
-    <section className="relative px-6 md:px-12 xl:px-24 mt-44 mb-36">
+    <section className="relative px-6 md:px-12 xl:px-24 mt-44">
       <H2m className="z-10 font-medium text-3xl md:text-4xl" >Why Participate?</H2m>
-      {
-        <Image src={underline} alt="" width={180} height={16} className="z-10 md:w-[290px] md:h-[28px] xl:w-[340px] xl:h-[34px] ml-16 md:ml-20 " />
-      }
+      <Image src={underline} alt="" width={180} height={16} className="z-10 md:w-[290px] md:h-[28px] xl:w-[340px] xl:h-[34px] ml-16 md:ml-20 " />
+
       <div className="z-10 lg:grid lg:grid-cols-2">
         <FlippingCards/>
         <SideImages />

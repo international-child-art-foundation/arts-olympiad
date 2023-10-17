@@ -21,7 +21,7 @@ export const LazyImage = ({imageUrl, alt, className, width, height}: IProps) => 
 
   return (
     <Image
-      className={`rounded-lg object-fit w-full h-full ${className}`}
+      className={`rounded-xl object-fit container ${className}`}
       src={imageUrl}
       alt={alt}
       width={width}

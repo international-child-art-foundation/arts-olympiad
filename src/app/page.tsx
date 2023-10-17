@@ -5,6 +5,8 @@ import {Intro} from "../../components/home/Intro";
 import {ImageCarousel} from "../../components/home/image-carousel/ImageCarousel";
 import {artworks} from "../../mock/artworks";
 import {WhyParticipate} from "../../components/home/why-participate/WhyParticipate";
+import {AboutICAF} from "../../components/home/about/AboutICAF";
+import {Guidelines} from "../../components/home/guidelines/Guidelines";
 
 export const metadata: Metadata = {
   title: "Home | My Favorite Sport",
@@ -18,8 +20,10 @@ export default function Home() {
   return (
     <>
       <Intro />
-      {/*<ImageCarousel images={artworks} />*/}
+      <ImageCarousel images={artworks} />
       <WhyParticipate />
+      <AboutICAF />
+      <Guidelines />
 
       {/*<div className="bg-main-yellow md:col-span-10 grid md:grid-cols-2 grid-cols-1">*/}
       {/*  /!* artist upload block *!/*/}

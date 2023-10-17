@@ -6,15 +6,15 @@ import {H3m} from "../../common/texts/H3m";
 import {Pm} from "../../common/texts/Pm";
 import {TinyStarIcon} from "./TinyStarIcon";
 import "../../../src/styles/flipping-card.css";
+import {LazyImage} from "../../common/images/LazyImage";
 
-interface IProps {
+interface IProps extends React.HTMLProps<HTMLDivElement>{
   isFlippable: boolean
   icon: string,
   heading1: string
   heading2: string
   description: string
   color: string
-  children?: React.ReactNode
 }
 
 export const FlippingCard = ({isFlippable, icon, heading1, heading2, description, color, children}: IProps) => {
@@ -34,7 +34,7 @@ export const FlippingCard = ({isFlippable, icon, heading1, heading2, description
       className={`
         ${isFlippable && flipped && "flip"}
         my-4 md:my-0 relative md:min-h-[270px] lg:min-h-[468px] 2xl:min-h-[400px]
-        z-10 bg-neutral-white cursor-pointer rounded-lg
+        z-10 bg-neutral-white cursor-pointer rounded-xl
       `}
       onClick={() => (isFlippable && !hovered) && setFlipped(!flipped)}
       onMouseEnter={() => {
@@ -50,9 +50,10 @@ export const FlippingCard = ({isFlippable, icon, heading1, heading2, description
         aria-live="polite"
         className={`
         ${isFlippable && flipped && "flip"}
+        ${!isFlippable && "border-2"}
         card
         w-full h-full
-        z-10 rounded-lg flex border-2 flex-col items-center p-6
+        z-10 rounded-lg flex flex-col items-center p-6
           `}
         style={{borderColor: color}}
       >
@@ -69,7 +70,7 @@ export const FlippingCard = ({isFlippable, icon, heading1, heading2, description
             <div className="absolute -top-3 -right-1"><TinyStarIcon fill={color} /></div>
             <div className="absolute -top-1 -right-5"><TinyStarIcon fill={color} /></div>
             <div className="absolute top-3 -right-4"><TinyStarIcon fill={color} /></div>
-            <Image className="my-2" src={icon} alt="" width={56} height={56} />
+            <LazyImage className="my-2" imageUrl={icon} alt="" width={56} height={56} />
             <div className="absolute -bottom-3 -left-1"><TinyStarIcon fill={color} /></div>
             <div className="absolute -bottom-1 -left-5"><TinyStarIcon fill={color} /></div>
             <div className="absolute bottom-3 -left-4"><TinyStarIcon fill={color} /></div>

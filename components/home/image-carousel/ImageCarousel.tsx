@@ -2,21 +2,23 @@
 
 import React, {useEffect, useRef, useState} from "react";
 import {CarouselImageItem} from "./CarouselImageItem";
-import Image from "next/image";
+import Image, {StaticImageData} from "next/image";
 import scrollRight from "../../../public/svgs/scroll-right.svg";
 import scrollLeft from "../../../public/svgs/scroll-left.svg";
 import useIntersectionObserver from "@/hooks/useIntersectionObserver";
 
 interface IProps {
   images: {
-    id: number,
-    name: string,
-    votes: number
-    url: string,
-    country: string,
-    age: number
+    id?: number,
+    name?: string,
+    votes?: number
+    url: string | StaticImageData,
+    country?: string,
+    age?: number
     alt: string
   }[];
+  singleImageWidth?: number
+  singeImageHeight?: number
 }
 export const ImageCarousel = ({ images }: IProps) => {
 
@@ -112,7 +114,7 @@ export const ImageCarousel = ({ images }: IProps) => {
       onMouseLeave={() => setHaltInterval(false)}
       onTouchStart={() => setHaltInterval(true)}
       onTouchEnd={() => setHaltInterval(false)}
-      className="relative mt-36"
+      className="relative"
       ref={intersectionTarget}
     >
       <figure

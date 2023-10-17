@@ -17,7 +17,7 @@ import {H3m} from "../common/texts/H3m";
 
 export const Intro = () => {
   return (
-    <section aria-label="introduction"  className=" max-h-[760] relative bg-neutral-white grid md:col-span-4 md:grid-cols-4 px-6 md:px-12 xl:px-24 ">
+    <section aria-label="introduction"  className="mb-36 max-h-[760] relative bg-neutral-white grid md:col-span-4 md:grid-cols-4 px-6 md:px-12 xl:px-24 ">
       {/* TEXTS */}
 
       <article role="banner" className=" z-20 relative flex-col align-middle md:col-span-2">
@@ -34,7 +34,7 @@ export const Intro = () => {
           <H3m className=" z-20 font-light mb-4 lg:mb8">
           Celebrate the Paris 2024 Olympics and reassure youth that their chaotic and divided world has hope.
           </H3m>
-          <Link href="/about" className="text-main-blue text-sm lg:text-lg flex flex-row" aria-label="Learn more">
+          <Link href="/about" className="text-main-blue text-sm lg:text-lg flex flex-row">
               Learn more
             <Image src={vector} alt="angle bracket right" className="ml-4" aria-hidden />
           </Link>

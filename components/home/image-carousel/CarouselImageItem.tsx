@@ -1,9 +1,9 @@
-import Image from "next/image";
+import Image, {StaticImageData} from "next/image";
 import React, {useState, useEffect} from "react";
 import {LazyImage} from "../../common/images/LazyImage";
 
 interface IProps {
-  imageUrl: string
+  imageUrl: string | StaticImageData
   alt: string
 }
 export const CarouselImageItem = ({imageUrl, alt}: IProps) => {
