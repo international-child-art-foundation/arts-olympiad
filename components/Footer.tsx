@@ -25,17 +25,17 @@ const Footer = () => {
         <div className="space-y-3 sm:w-full lg:w-2/5 xl:w-30% text-sm text-neutral-white col-span-2 lg:order-1 lg:col-span-3 lg:ml-5%">
           <p>Join our newsletter now</p>
           <div className="flex flex-wrap gap-1 items-center text-main-grey focus-within:text-gray-600">
-            <div className="flex">
+            <div className="flex w-full md:w-auto">
               <input 
                 type="text"
                 name="email"
                 placeholder="Your email address"
                 autoComplete="off"
-                className="h-9 w-72 md:w-fit pl-10 pr-3 broder broder-main-grey rounded-sm required">  
+                className="h-9 w-full md:w-auto pl-10 pr-3 border border-main-grey rounded-sm required">  
               </input>
               <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" className="absolute pointer-events-none w-5 h-5 ml-3 mt-2"><path stroke-linecap="round" stroke-linejoin="round" d="M21.75 6.75v10.5a2.25 2.25 0 01-2.25 2.25h-15a2.25 2.25 0 01-2.25-2.25V6.75m19.5 0A2.25 2.25 0 0019.5 4.5h-15a2.25 2.25 0 00-2.25 2.25m19.5 0v.243a2.25 2.25 0 01-1.07 1.916l-7.5 4.615a2.25 2.25 0 01-2.36 0L3.32 8.91a2.25 2.25 0 01-1.07-1.916V6.75" /></svg>
             </div>
-            <a href="#" className="h-fit border-neutral-white border rounded text-center py-2 px-3 text-sm cursor-pointer tracking-wide w-72 md:w-fit text-neutral-white">Sign up</a>
+            <a href="#" className="h-fit border-neutral-white border rounded text-center py-2 px-3 text-sm cursor-pointer tracking-wide w-full md:w-auto text-neutral-white">Sign up</a>
           </div>
         </div>
 
@@ -61,10 +61,10 @@ const Footer = () => {
 
         <div className="text-sm sm:w-full lg:w-1/5 lg:order-2 xl:w-1/6 xl:pl-5 text-neutral-white">
           <ol className="grid grid-cols-2 gap-y-5 lg:gap-y-3 lg:grid-cols-1">
-            <div><a href="#">FAQ's</a></div>
-            <div><a href="https://icaf.org/about/contact-us">Contact Us</a></div>
-            <div><a href="#">Terms of use</a></div>
-            <div><a href="#">Privacy policy</a></div>
+            <div className="break-words"><a href="#">FAQ's</a></div>
+            <div className="break-words"><a href="https://icaf.org/about/contact-us">Contact Us</a></div>
+            <div className="break-words"><a href="#">Terms of use</a></div>
+            <div className="break-words"><a href="#">Privacy policy</a></div>
           </ol>
         </div> 
 
