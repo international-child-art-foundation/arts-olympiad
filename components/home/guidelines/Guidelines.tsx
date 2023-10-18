@@ -11,7 +11,7 @@ import vector from "../../../public/svgs/Vector.svg";
 
 export const Guidelines = () => {
   return (
-    <section className="relative px-6 md:px-12 xl:px-24 mt-36 mb-36 flex flex-col">
+    <section className="relative px-6 md:px-12 xl:px-24 mt-36 flex flex-col">
       <Image src={blob} alt="" width={1000} className="z-0 hidden md:block absolute -top-36 left-0" />
       <H2m className="z-10 font-medium text-3xl md:text-4xl" >
         Submission Guidelines Made
