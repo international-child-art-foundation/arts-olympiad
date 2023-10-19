@@ -15,35 +15,29 @@ export const TimePoint = ({heading, description, date, color, isMobile, inversed
 
   if (isMobile) {
     return (
-      <li className="time-point flex flex-row justify-between align-bottom h-full">
-        <div className="flex flex-col h-full w-full">
+      <li className="z-10 time-point flex flex-row justify-between align-bottom h-full">
+        <div className=" flex flex-col h-full w-full">
           <TimePointDescription heading={heading} color={color} description={description} isMobile />
           <TimePointDate color={color} date={date} isMobile />
         </div>
-        <div className="relative bg-black h-[360px] m-0 border-2 border-black">
-          {/*<div style={{ backgroundColor: color }} className="absolute top-9 -right-2 rounded-full w-4 h-4" />*/}
-        </div>
+        <div className="z-10 relative bg-black h-[360px] m-0 border-2 border-black" />
       </li>
     );
   }
 
   return (
-    <li className="time-point flex flex-row h-full">
+    <li className="z-10 time-point flex flex-row h-full">
       {
         inversed ?
           <>
             <TimePointDate date={date} color={color} inversed />
-            <div className="relative bg-black min-h-[250px] m-0 border-2 border-black">
-              {/*<div style={{ backgroundColor: color }} className={"absolute bottom-5 -right-2 rounded-full w-4 h-4"} />*/}
-            </div>
+            <div className="z-10 relative bg-black min-h-[287px] m-0 border-2 border-black" />
             <TimePointDescription color={color} heading={heading} description={description} inversed />
           </>
           :
           <>
             <TimePointDescription color={color} heading={heading} description={description} />
-            <div className="relative bg-black h-[250px] m-0 border-2 border-black">
-              {/*<div style={{ backgroundColor: color }} className="absolute bottom-5 -right-2 rounded-full w-4 h-4" />*/}
-            </div>
+            <div className="z-10 relative bg-black h-[287px] m-0 border-2 border-black" />
             <TimePointDate date={date} color={color} />
           </>
       }

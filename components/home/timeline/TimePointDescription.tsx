@@ -13,8 +13,9 @@ export const TimePointDescription = ({heading, color, description, isMobile, inv
   return (
     <div
       className={`
-      self-end flex flex-col h-full 
-      ${isMobile ? "w-full" : "w-[50%]"}
+      z-20
+      flex flex-col h-full 
+      ${isMobile ? "w-full" : "w-[49.7%]"}
       ${inversed ? "pl-11 text-right " : "pr-11"}
       `}
     >
@@ -23,8 +24,8 @@ export const TimePointDescription = ({heading, color, description, isMobile, inv
         <div
           style={{ backgroundColor: color }}
           className={`
-          ${inversed ? "-top-2 -left-14" : "-top-2 -right-14"}
-          z-10 absolute rounded-full w-5 h-5
+          z-50 absolute rounded-full w-7 h-7
+          ${inversed ? "-top-4 -left-[60px]" : "-top-4 -right-[60px]"}
           `}
         />
       </div>

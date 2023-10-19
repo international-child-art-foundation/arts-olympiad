@@ -4,10 +4,14 @@ import scrollIcon from "../../../public/home/timeline/scroll-icon.svg";
 import arrow from "../../../public/home/timeline/left-inclined-arrow.svg";
 import {Pm} from "../../common/texts/Pm";
 import {TimePoint} from "./TimePoint";
-import {TimePointDescription} from "./TimePointDescription";
-import {TimePointDate} from "./TimePointDate";
 import useWindowDimensions from "@/hooks/useWindowDimensions";
 import useIntersectionObserver from "@/hooks/useIntersectionObserver";
+import underline from "../../../public/svgs/underline.svg";
+import littleYellowBlob from "../../../public/svgs/little-yellow-blob.svg";
+import tinyYellowBlob from "../../../public/svgs/tiny-yellow-blob.svg";
+import tinyPinkBlob from "../../../public/svgs/tiny-vertical-pink-blob.svg";
+import bigPinkBlob from "../../../public/svgs/vertical-big-pink-blob.svg";
+import bigBlueBlob from "../../../public/svgs/blue-leg-down-blob.svg";
 
 export const Timeline = () => {
 
@@ -16,7 +20,7 @@ export const Timeline = () => {
   const isMobile = width <= 768;
 
   return (
-    <section className="relative px-6 md:px-12 xl:px-24 mt-36 mb-36 flex flex-col" aria-label="timeline">
+    <section className="overflow-hidden relative px-6 md:px-12 xl:px-24 mt-36 mb-36 flex flex-col" aria-label="timeline">
       <figure className="relative mb-8 self-center flex flex-col items-center justify-center">
         <Image width={105} src={scrollIcon} alt="mouse scroller icon" className=" self-center" />
         <Image width={150} src={arrow} alt="arrow pointing downwards" className="absolute bottom-0 right-24" />
@@ -57,7 +61,15 @@ export const Timeline = () => {
             isMobile={isMobile}
           />
           <TimePoint
-            heading={<>Winner goes to the<span className="font-bold text-dark-blue"> Olympics!</span></>}
+            heading={
+              <>
+              Winner goes to the
+                <span className="inline-block relative font-bold text-dark-blue"> Olympics!
+                  <Image src={underline} alt="" width={180} height={16} className="md:absolute right-0 z-10 " />
+
+                </span>
+              </>
+            }
             description="These winners will be on their way to the Paris Olympics, thanks to generous sponsors!"
             date="July 26, 2024"
             color={"#EE2F4D"}
@@ -66,6 +78,15 @@ export const Timeline = () => {
           />
         </ul>
       </div>
+
+      {/* BLOBS */}
+
+      <Image src={littleYellowBlob} alt="" className="z-0 absolute top-48 left-0 " />
+      <Image src={tinyYellowBlob} alt="" className="hidden md:block z-0 absolute top-44 left-24 " />
+      <Image src={tinyPinkBlob} alt="" className="hidden md:block z-0 absolute top-[480px] right-44 " />
+      <Image src={bigPinkBlob} alt="" className="z-0 w-[300px] md:w-[500px] absolute top-96 -right-12 md:-right-44" />
+      <Image src={bigBlueBlob} alt="" className="z-0 w-[400px] md:w-[700px] absolute bottom-96 md:bottom-24 -left-12 md:-left-44" />
+
     </section>
   );
 };
