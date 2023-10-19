@@ -1,28 +1,39 @@
 import {CalendarDayIcon} from "./CalendarDayIcon";
-import {Pm} from "../../common/texts/Pm";
 
 interface IProps {
-  mobile?: boolean
+  date: string
+  color: string
+  isMobile?: boolean
   inversed?: boolean
 }
-export const TimePointDate = ({mobile, inversed}: IProps) => {
+export const TimePointDate = ({date, color, isMobile, inversed}: IProps) => {
+
+  if (isMobile) {
+    return (
+      <div className=" my-8 flex flex-row h-full ">
+        <CalendarDayIcon width={80} height={80} fill={color} />
+        <p className="text-center my-auto">{date}</p>
+      </div>
+    );
+  }
+
   return (
-    <div className="self-end flex flex-row justify-between align-middle h-full w-[50%]">
+    <div className={`self-end flex flex-row ${inversed && "justify-end"} align-middle h-full w-[50%]`}>
       {
         inversed ?
           <>
-            <div className="flex">
-              <CalendarDayIcon fill="#0286C3" />
-              <p className="text-center my-auto">March 15th 2024</p>
+            <div className="flex mx-4">
+              <CalendarDayIcon fill={color} />
+              <p className="text-center my-auto">{date}</p>
             </div>
-            <hr className="w-[40%] border-1 border-black border-dashed my-auto flex-grow-0" />
+            <hr className="w-[40%] border-[1px] border-black border-dashed my-auto flex-grow-0" />
           </>
           :
           <>
-            <hr className="w-[40%] border-1 border-black border-dashed my-auto flex-grow-0" />
-            <div className="flex">
-              <p className="text-center my-auto">March 15th 2024</p>
-              <CalendarDayIcon fill="#0286C3" />
+            <hr className="w-[40%] border-[1px] border-black border-dashed my-auto flex-grow-0" />
+            <div className="flex mx-4">
+              <p className="text-center my-auto">{date}</p>
+              <CalendarDayIcon fill={color} />
             </div>
           </>
       }
