@@ -1,0 +1,13 @@
+.time-point {
+    opacity: 0.3;
+}
+
+.fade-into-focus {
+    opacity: 1;
+    transition: opacity 1s ease-in;
+}
+
+
+
+
+

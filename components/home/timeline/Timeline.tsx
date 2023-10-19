@@ -7,10 +7,12 @@ import {TimePoint} from "./TimePoint";
 import {TimePointDescription} from "./TimePointDescription";
 import {TimePointDate} from "./TimePointDate";
 import useWindowDimensions from "@/hooks/useWindowDimensions";
+import useIntersectionObserver from "@/hooks/useIntersectionObserver";
 
 export const Timeline = () => {
 
   const { width } = useWindowDimensions();
+  useIntersectionObserver({}, "time-point", "fade-into-focus");
   const isMobile = width <= 768;
 
   return (

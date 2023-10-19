@@ -10,22 +10,57 @@ type CleanupFunction = () => void;
 
 /**
  * @param options
+ * @param targetClass - used to observe number of elements of the same class
  * @returns ref to the target element,
  * isIntersecting <boolean>,
  * setCleanupFunctions state dispatch to provide cleanup functions from outside useEffects that can be used when the target is no longer intersected for example
  * @description encapsulates intersection logic, provides convenient way to handle cleanup when target is not intersecting
  */
 const useIntersectionObserver = (
-  options?: IIntersectionObserverOptions
+  options?: IIntersectionObserverOptions,
+  targetClass?: string,
+  classToApplyToTarget?: string
 ): [RefObject<HTMLElement>, boolean, Dispatch<SetStateAction<CleanupFunction[]>>] => {
   const targetRef = useRef<HTMLElement>(null);
   const [isIntersecting, setIsIntersecting] = useState(false);
   const [cleanupFunctions, setCleanupFunctions] = useState<CleanupFunction[]>([]);
 
   useEffect(() => {
+
+    // this will run for the scenario when we need to observe number of elements
+    if (targetClass) {
+
+      const cards = document.querySelectorAll(`.${targetClass}`);
+      console.log(cards);
+
+      const observer = new IntersectionObserver(
+        entries => {
+          entries.forEach(entry => {
+            if (entry.isIntersecting && classToApplyToTarget) {
+              entry.target.classList.add(classToApplyToTarget);
+              observer.unobserve(entry.target);
+            }
+          });
+        },
+      );
+
+      cards.forEach(card => {
+        observer.observe(card);
+      });
+
+      // Clean up the observer when the component unmounts
+      return () => {
+        observer.disconnect();
+      };
+    }
+
+    //////////////////////////////////////////////////////
+
     if (!targetRef.current) {
       return;
     }
+
+    //////////////////////////////////////////////////////
 
     const observer = new IntersectionObserver(
       (entries) => {
@@ -50,39 +85,3 @@ const useIntersectionObserver = (
 };
 
 export default useIntersectionObserver;
-
-
-// example from my other project for future reference
-
-// import {useEffect} from 'react'
-//
-// interface IParams {
-//   target: string
-// }
-//
-// export const useIntersectionObserver = ({target} : IParams ) => {
-//   useEffect(() => {
-//     // Create the IntersectionObserver in the effect hook
-//     const cards = document.querySelectorAll(target)
-//
-//     const observer = new IntersectionObserver(
-//       entries => {
-//         entries.forEach(entry => {
-//           if (entry.isIntersecting) {
-//             entry.target.classList.add('slide-in')
-//             observer.unobserve(entry.target)
-//           }
-//         })
-//       },
-//     )
-//
-//     cards.forEach(card => {
-//       observer.observe(card)
-//     })
-//
-//     // Clean up the observer when the component unmounts
-//     return () => {
-//       observer.disconnect()
-//     }
-//   }, []) // Empty dependency array to run the effect only once
-// }
