@@ -1,4 +1,3 @@
-import Image from "next/image";
 import Link from "next/link";
 import { InstagramIcon } from "./svgs/InstagramIcon";
 import { FacebookIcon } from "./svgs/FacebookIcon";
