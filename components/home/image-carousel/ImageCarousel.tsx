@@ -72,16 +72,7 @@ export const ImageCarousel = ({ images, ...props }: IProps) => {
     if (carouselRef.current) {
       const epsilon = 0.01; // used to adjust precision
       const newIndex = (carouselRef.current.scrollLeft + carouselRef.current.clientWidth) / carouselRef.current.clientWidth;
-      // console.log(
-      //   "newIndex: " + newIndex +
-      //   " Scroll Left: " + carouselRef.current.scrollLeft,
-      //   " Scroll width: " + carouselRef.current.scrollWidth,
-      //   " client Width: " + carouselRef.current.clientWidth
-      // );
-
-      // if the end of scroll container been reached, scroll all the way to the beginning
       if (newIndex + epsilon >= carouselRef.current.scrollWidth / carouselRef.current.clientWidth) {
-        // console.log("Reached the end!");
         carouselRef.current.scrollTo({
           left: 0,
           behavior: "smooth",

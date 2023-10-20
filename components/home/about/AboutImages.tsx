@@ -2,7 +2,7 @@
 
 import useWindowDimensions from "@/hooks/useWindowDimensions";
 import {ImageCarousel} from "../image-carousel/ImageCarousel";
-import {aboutImages} from "../../../mock/aboutimages";
+import {aboutImages} from "../../../mock/aboutImages";
 import {LazyImage} from "../../common/images/LazyImage";
 
 export const AboutImages = () => {

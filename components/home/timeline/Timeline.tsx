@@ -20,7 +20,7 @@ export const Timeline = () => {
   const isMobile = width <= 768;
 
   return (
-    <section className="overflow-hidden relative px-6 md:px-12 xl:px-24 mt-36 mb-36 flex flex-col" aria-label="timeline">
+    <section className="overflow-hidden relative px-6 md:px-12 xl:px-24 mt-36 flex flex-col" aria-label="timeline">
       <figure className="relative mb-8 self-center flex flex-col items-center justify-center">
         <Image width={105} src={scrollIcon} alt="mouse scroller icon" className=" self-center" />
         <Image width={150} src={arrow} alt="arrow pointing downwards" className="absolute bottom-0 right-24" />
@@ -63,10 +63,8 @@ export const Timeline = () => {
           <TimePoint
             heading={
               <>
-              Winner goes to the
-                <span className="inline-block relative font-bold text-dark-blue"> Olympics!
+              Winner goes to the <span className="inline-block relative font-bold text-dark-blue"> Olympics!
                   <Image src={underline} alt="" width={180} height={16} className="md:absolute right-0 z-10 " />
-
                 </span>
               </>
             }

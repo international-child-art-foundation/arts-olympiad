@@ -8,6 +8,7 @@ import {WhyParticipate} from "../../components/home/why-participate/WhyParticipa
 import {AboutICAF} from "../../components/home/about/AboutICAF";
 import {Guidelines} from "../../components/home/guidelines/Guidelines";
 import {Timeline} from "../../components/home/timeline/Timeline";
+import {Wisdom} from "../../components/home/wisdom/Wisdom";
 
 export const metadata: Metadata = {
   title: "Home | My Favorite Sport",
@@ -26,6 +27,7 @@ export default function Home() {
       <AboutICAF />
       <Guidelines />
       <Timeline />
+      <Wisdom />
 
       {/*<div className="bg-main-yellow md:col-span-10 grid md:grid-cols-2 grid-cols-1">*/}
       {/*  /!* artist upload block *!/*/}
