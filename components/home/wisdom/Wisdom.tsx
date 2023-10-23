@@ -5,7 +5,7 @@ import {WisdomCarousel} from "./WisdomCarousel";
 
 export const Wisdom = () => {
   return (
-    <section className="px-6 md:px-12 xl:px-24 mt-44 flex flex-col">
+    <section className="relative px-6 md:px-12 xl:px-24 mt-44 flex flex-col">
       <div className="self-center">
         <H2m className="text-center inline-block relative">
         The Art of Living: Wisdom from <span className="inline-block relative font-bold text-dark-blue">Visionary Thinkers</span>

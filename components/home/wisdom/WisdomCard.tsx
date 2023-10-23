@@ -12,12 +12,14 @@ interface IProps {
 
 export const WisdomCard = ({wisdom}: IProps) => {
   return (
-    <figure className="relative">
-      <LazyImage imageUrl={wisdom.url} alt={wisdom.alt} className="w-full max-h-[200px] object-cover" />
-      <div className="relative">
-        <Image className="absolute top-52" src={mobileBlob} alt=""/>
-        <H3m className="absolute top-5" >{wisdom.author}</H3m>
-        <Pm className="absolute top-10">{wisdom.wisdomText}</Pm>
+    <figure className="w-full">
+      <LazyImage imageUrl={wisdom.url} alt={wisdom.alt} className="object-cover" />
+      <div className="-mt-16 relative h-full">
+        <Image className="h-full" src={mobileBlob} alt=""/>
+        <div className="h-full absolute inset-0 p-10 flex flex-col ">
+          <H3m className="z-20 my-4 text-white text-center" >{wisdom.author}</H3m>
+          <Pm className="z-20 text-white">{wisdom.wisdomText}</Pm>
+        </div>
       </div>
     </figure>
   );
