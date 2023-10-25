@@ -6,12 +6,19 @@ import {wisdomList} from "../../../mock/wisdomItems";
 import React, {useEffect, useRef, useState} from "react";
 import useIntersectionObserver from "@/hooks/useIntersectionObserver";
 import {WisdomCard} from "./WisdomCard";
+import useWindowDimensions from "@/hooks/useWindowDimensions";
+import {WisdomThumbnail} from "./WisdomThumbnail";
+import bigBlob from "../../../public/home/wisdom/wisdom-cloud-blob.svg";
+import mobileBlob from "../../../public/home/wisdom/wisdom-cloud-blob-mobile.svg";
+import {H3m} from "../../common/texts/H3m";
+import {Pm} from "../../common/texts/Pm";
 
 export const WisdomCarousel = () => {
 
   const leftButtonRef = useRef<HTMLButtonElement | null>(null);
   const rightButtonRef = useRef<HTMLButtonElement | null>(null);
   const [intersectionTarget, isTargetIntersecting, setCleanupFunctions] = useIntersectionObserver({ threshold: 0.2 });
+  const {width} = useWindowDimensions();
   const [currentWisdom, setCurrentWisdom] = useState(0);
 
 
@@ -46,6 +53,10 @@ export const WisdomCarousel = () => {
     }
   };
 
+  const handleIndicatorClick = (i: number) => {
+    setCurrentWisdom(i);
+  };
+
   const handleGoRight = () => {
     if ( currentWisdom < wisdomList.length - 1) {
       setCurrentWisdom(currentWisdom + 1 );
@@ -55,48 +66,79 @@ export const WisdomCarousel = () => {
   };
 
   return (
-    <figure className="flex flex-col justify-center items-center" ref={intersectionTarget}>
+    <figure className="flex flex-col justify-center items-center bg-transparent" ref={intersectionTarget}>
 
       {
+        width < 768 &&
         <WisdomCard wisdom={wisdomList[currentWisdom]}/>
       }
 
-      {/* Current item indicators */}
-      <div className="my-6 flex flex-row">
-        {
-          wisdomList.map((wisdom, i) => {
-            return (
-              <div
-                key={i}
-                className={`
+      {
+        width >= 768 &&
+        <div className=" relative w-full h-full grid grid-rows-3 grid-cols-5 gap-4">
+          <WisdomCard wisdom={wisdomList[currentWisdom]}/>
+          <div className="row-span-2 col-span-1" />
+          {
+            wisdomList
+              .map((wisdom, i) =>
+                <WisdomThumbnail
+                  key={wisdom.author}
+                  wisdom={wisdom}
+                  onClick={() => setCurrentWisdom(i)}
+                />
+              )
+              .filter((wisdom) => wisdom.key !== wisdomList[currentWisdom].author )
+
+          }
+          <div className="col-span-3 row-span-1 w-full -mt-16 ml-6 md:ml-12 xl:ml-24 relative h-full">
+            <Image className="h-full min-w-[400px] w-full" src={bigBlob} alt=""/>
+            <div className="h-full absolute inset-0 py-10 pl-16 pr-6 grid grid-rows-3 ">
+              <H3m className="z-20 my-4 text-white text-center row-span-1" >{wisdomList[currentWisdom].author}</H3m>
+              <Pm className=" text-sm z-20 text-white row-span-1">{wisdomList[currentWisdom].wisdomText}</Pm>
+            </div>
+          </div>
+        </div>
+      }
+
+      <div className="w-full flex flex-col md:flex-row justify-start items-center ">
+        {/* Current item indicators */}
+        <div className="my-6 flex flex-row mx-[10%]">
+          {
+            wisdomList.map((wisdom, i) => {
+              return (
+                <div
+                  key={i}
+                  className={`
                 mx-2 rounded-full w-5 h-5 border-0.5 border-main-blue 
-                ${currentWisdom === i && "bg-main-blue"}
+                ${currentWisdom === i && "bg-dark-blue"}
                 ` }
-              >
-              </div>
-            );
-          })
-        }
-      </div>
+                  onClick={() => handleIndicatorClick(i)}
+                >
+                </div>
+              );
+            })
+          }
+        </div>
 
-      {/* Scroll arrow buttons */}
+        {/* Scroll arrow buttons */}
 
-      <div className="" >
-        <button
-          ref={leftButtonRef}
-          className="mr-2"
-          aria-label="scroll left button"
-          onClick={handleGoLeft}
-        >
-          <Image src={scrollLeft} width={40} height={40} alt=""/>
-        </button>
-        <button
-          ref={rightButtonRef}
-          aria-label="scroll right button"
-          onClick={handleGoRight}
-        >
-          <Image src={scrollRight} width={40} height={40} alt=""/>
-        </button>
+        <div className="" >
+          <button
+            ref={leftButtonRef}
+            className="mr-2"
+            aria-label="scroll left button"
+            onClick={handleGoLeft}
+          >
+            <Image src={scrollLeft} width={40} height={40} alt=""/>
+          </button>
+          <button
+            ref={rightButtonRef}
+            aria-label="scroll right button"
+            onClick={handleGoRight}
+          >
+            <Image src={scrollRight} width={40} height={40} alt=""/>
+          </button>
+        </div>
       </div>
 
     </figure>
