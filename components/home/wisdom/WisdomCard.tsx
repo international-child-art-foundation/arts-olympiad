@@ -33,12 +33,10 @@ export const WisdomCard = ({wisdom}: IProps) => {
   }
 
   return (
-    <figure className="w-full col-span-4 row-span-2">
-      <div className="w-full " >
-        <LazyImage imageUrl={wisdom.url} alt={wisdom.alt} className="object-cover" />
-      </div>
-
-    </figure>
+    <LazyImage
+      imageUrl={wisdom.url} alt={wisdom.alt}
+      className="object-cover w-full col-span-8 row-span-2  h-[400px] lg:h-[500px] rounded-xl"
+    />
   );
 
 };

@@ -17,6 +17,11 @@ interface IProps extends React.HTMLProps<HTMLDivElement>{
     age?: number
     alt: string
   }[];
+  height?: number
+  mdheight?: number
+  mdwidth?: number
+  width?: number
+  objectCover?: boolean
 }
 export const ImageCarousel = ({ images, ...props }: IProps) => {
 
@@ -110,11 +115,14 @@ export const ImageCarousel = ({ images, ...props }: IProps) => {
         role="region"
         aria-live="polite"
         aria-label={props["aria-label"]}
-        className="no-scrollbar flex flex-row flex-nowrap overflow-x-auto"
+        className={`
+        h-[${props.height || 110}px] md:h-[${props.height || 180}px]
+        no-scrollbar flex flex-row flex-nowrap overflow-x-auto
+        `}
         ref={carouselRef}
       >
-        {images.map((item) => (
-          <CarouselImageItem key={item.id} imageUrl={item.url} alt={item.alt} />
+        {images.map((image) => (
+          <CarouselImageItem key={image.id} imageUrl={image.url} alt={image.alt} width={props.width} mdwidth={props.mdwidth} objectCover={props.objectCover} />
         ))}
       </figure>
       <div className="absolute right-[5%] -bottom-16" >

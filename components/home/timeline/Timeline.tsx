@@ -79,11 +79,11 @@ export const Timeline = () => {
 
       {/* BLOBS */}
 
-      <Image src={littleYellowBlob} alt="" className="z-0 absolute top-48 left-0 " />
-      <Image src={tinyYellowBlob} alt="" className="hidden md:block z-0 absolute top-44 left-24 " />
-      <Image src={tinyPinkBlob} alt="" className="hidden md:block z-0 absolute top-[480px] right-44 " />
-      <Image src={bigPinkBlob} alt="" className="z-0 w-[300px] md:w-[500px] absolute top-96 -right-12 md:-right-44" />
-      <Image src={bigBlueBlob} alt="" className="z-0 w-[400px] md:w-[700px] absolute bottom-96 md:bottom-24 -left-12 md:-left-44" />
+      <Image src={littleYellowBlob} alt="" className="-z-10 absolute top-48 left-0 " />
+      <Image src={tinyYellowBlob} alt="" className="hidden md:block -z-10 absolute top-44 left-24 " />
+      <Image src={tinyPinkBlob} alt="" className="hidden md:block -z-10 absolute top-[480px] right-44 " />
+      <Image src={bigPinkBlob} alt="" className="-z-10 w-[300px] md:w-[500px] absolute top-96 -right-12 md:-right-44" />
+      <Image src={bigBlueBlob} alt="" className="-z-10 w-[400px] md:w-[700px] absolute bottom-96 md:bottom-24 -left-12 md:-left-44" />
 
     </section>
   );

@@ -4,7 +4,6 @@ import bigBlob from "../../../public/svgs/vertical-big-pink-blob.svg";
 import Image from "next/image";
 import {FlippingCards} from "./FlippingCards";
 import {SideImages} from "./SideImages";
-import blueblob from "../../../public/svgs/blueblob.svg";
 import {H2m} from "../../common/texts/H2m";
 
 export const WhyParticipate = () => {

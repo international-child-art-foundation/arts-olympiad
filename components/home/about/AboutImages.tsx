@@ -14,15 +14,15 @@ export const AboutImages = () => {
       {
         width <= 768 ?
 
-          <ImageCarousel aria-label="Photos from our events" images={aboutImages} />
+          <ImageCarousel objectCover={true} height={180} aria-label="Photos from our events." images={aboutImages} />
 
           :
 
-          <figure aria-label="Photos from our events" className="z-10 grid grid-cols-3 grid-rows-3 gap-6">
-            <LazyImage className="col-span-3 row-span-2"  imageUrl={aboutImages[0].url} alt={aboutImages[0].alt} />
-            <LazyImage className="" imageUrl={aboutImages[1].url} alt={aboutImages[1].alt} />
-            <LazyImage className="" imageUrl={aboutImages[2].url} alt={aboutImages[2].alt} />
-            <LazyImage className="" imageUrl={aboutImages[3].url} alt={aboutImages[3].alt} />
+          <figure aria-label="Photos from our events." className="z-10 grid grid-cols-3 grid-rows-2 gap-6">
+            <LazyImage className="col-span-3 object-cover h-[270px] lg:h-[320px] xl:h-[400px] 2xl:h-[450px]"  imageUrl={aboutImages[0].url} alt={aboutImages[0].alt} />
+            <LazyImage className="object-cover h-[270px] lg:h-[320px] xl:h-[400px] 2xl:h-[450px]" imageUrl={aboutImages[1].url} alt={aboutImages[1].alt} />
+            <LazyImage className="object-cover h-[270px] lg:h-[320px] xl:h-[400px] 2xl:h-[450px]" imageUrl={aboutImages[2].url} alt={aboutImages[2].alt} />
+            <LazyImage className="object-cover h-[270px] lg:h-[320px] xl:h-[400px] 2xl:h-[450px]" imageUrl={aboutImages[3].url} alt={aboutImages[3].alt} />
           </figure>
       }
     </div>

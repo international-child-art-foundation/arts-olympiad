@@ -65,7 +65,6 @@ export const FlippingCards = () => {
           Register here
         </ButtonStd>
       </FlippingCard>
-
     </div>
   );
 };

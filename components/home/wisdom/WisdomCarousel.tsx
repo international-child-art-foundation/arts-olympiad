@@ -75,9 +75,9 @@ export const WisdomCarousel = () => {
 
       {
         width >= 768 &&
-        <div className=" relative w-full h-full grid grid-rows-3 grid-cols-5 gap-4">
+        <div className=" relative w-full h-full grid grid-rows-2 grid-cols-10 gap-4">
           <WisdomCard wisdom={wisdomList[currentWisdom]}/>
-          <div className="row-span-2 col-span-1" />
+          <div className="row-span-1 col-span-2" />
           {
             wisdomList
               .map((wisdom, i) =>
@@ -90,13 +90,13 @@ export const WisdomCarousel = () => {
               .filter((wisdom) => wisdom.key !== wisdomList[currentWisdom].author )
 
           }
-          <div className="col-span-3 row-span-1 w-full -mt-16 ml-6 md:ml-12 xl:ml-24 relative h-full">
-            <Image className="h-full min-w-[400px] w-full" src={bigBlob} alt=""/>
-            <div className="h-full absolute inset-0 py-10 pl-16 pr-6 grid grid-rows-3 ">
-              <H3m className="z-20 my-4 text-white text-center row-span-1" >{wisdomList[currentWisdom].author}</H3m>
-              <Pm className=" text-sm z-20 text-white row-span-1">{wisdomList[currentWisdom].wisdomText}</Pm>
-            </div>
-          </div>
+          {/*<div className="col-span-3 row-span-1 w-full -mt-16 ml-6 md:ml-12 xl:ml-24 relative h-full">*/}
+          {/*  <Image className="h-full min-w-[400px] w-full" src={bigBlob} alt=""/>*/}
+          {/*  <div className="h-full absolute inset-0 py-10 pl-16 pr-6 grid grid-rows-3 ">*/}
+          {/*    <H3m className="z-20 my-4 text-white text-center row-span-1" >{wisdomList[currentWisdom].author}</H3m>*/}
+          {/*    <Pm className=" text-sm z-20 text-white row-span-1">{wisdomList[currentWisdom].wisdomText}</Pm>*/}
+          {/*  </div>*/}
+          {/*</div>*/}
         </div>
       }
 

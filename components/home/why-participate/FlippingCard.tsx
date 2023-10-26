@@ -31,9 +31,10 @@ export const FlippingCard = ({isFlippable, icon, heading1, heading2, description
 
   return (
     <div
+      style={{boxShadow: "0px 4px 15px 0px rgba(0, 0, 0, 0.07)"}}
       className={`
         ${isFlippable && flipped && "flip"}
-        my-4 md:my-0 relative md:min-h-[270px] lg:min-h-[468px] 2xl:min-h-[400px]
+        my-4 md:my-0 relative md:min-h-[270px] lg:min-h-[430px] xl:min-h-[468px] 2xl:min-h-[370px]
         z-10 bg-neutral-white cursor-pointer rounded-xl
       `}
       onClick={() => (isFlippable && !hovered) && setFlipped(!flipped)}
