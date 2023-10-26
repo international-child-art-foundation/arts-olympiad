@@ -1,5 +1,6 @@
 import { Metadata, NextPage } from "next";
 import Link from "next/link";
+import Image from "next/image";
 import { artworks } from "../../../../mock/artworks";
 import { sharedOpenGraph } from "@/app/shared-metadata";
 
@@ -33,10 +34,10 @@ const ArtworkPage: NextPage<PageProps> = (props) => {
   }
 
   return (
-    <div className="flex flex-col items-center justify-evenly h-screen text-center bg-neutral-white">
-      <div className="w-full flex items-left md:pt-10 md:pl-20">
-        <Link href="/gallery" className="w-full md:w-3/5 h-auto">
-          <img src="/gallery/back-button.svg" alt="A button to go back to the Gallery page"/>
+    <div className="flex flex-col items-center min-h-[600px] justify-evenly h-screen text-center bg-neutral-white">
+      <div className="w-full flex items-left md:pt-10 sm:pl-5 md:pl-10 lg:pl-20">
+        <Link href="/gallery" className="relative w-[40px] h-[40px]">
+          <Image src="/gallery/back-button.svg" alt="A button to go back to the Gallery page" fill />
         </Link>
       </div>
       <div className="flex justify-between px-4 py-10 mx-auto w-5/6 md:w-3/5">
@@ -52,8 +53,14 @@ const ArtworkPage: NextPage<PageProps> = (props) => {
           <p>votes</p>
         </div>
       </div>
-      <div className="flex justify-center w-5/6 md:w-4/5 h-auto overflow-hidden pb-10">
-        <img src={artwork.url} alt="sample artwork depicting various sports"/>
+      <div className="flex justify-center w-5/6 md:w-4/5 h-auto overflow-hidden pb-10 min-h-[300px]">
+        <Image 
+          src={artwork.url} 
+          alt="sample artwork depicting various sports" 
+          height={800}
+          width={800}
+          className="object-contain"
+        />
       </div>
       <div className="pb-10 w-5/6 md:w-4/5 flex justify-center">
         <Link href="https://artsolympiad.info/artwok_select.php" className="bg-blue-500 text-white py-2 rounded-full w-full md:w-1/3 block text-center">Vote</Link>

@@ -30,7 +30,7 @@ module.exports = {
         'main-grey':'#6A7682',
       },
       fontFamily:{
-        body: ['Open Sans']
+        body: ['Nunito']
       },
       spacing:{
         '5%': '5%',
@@ -45,5 +45,17 @@ module.exports = {
       }, 
     },
   },
-  plugins: [],
+  plugins: [
+    function ({ addUtilities, variants }) {
+      const newUtilities = {
+        '.grid-flow-col': {
+          gridAutoFlow: 'column',
+        },
+        '.grid-flow-row': {
+          gridAutoFlow: 'row',
+        },
+      };
+      addUtilities(newUtilities, variants('gridAutoFlow'));
+    },
+  ],
 };
