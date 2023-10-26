@@ -90,13 +90,15 @@ export const WisdomCarousel = () => {
               .filter((wisdom) => wisdom.key !== wisdomList[currentWisdom].author )
 
           }
-          {/*<div className="col-span-3 row-span-1 w-full -mt-16 ml-6 md:ml-12 xl:ml-24 relative h-full">*/}
-          {/*  <Image className="h-full min-w-[400px] w-full" src={bigBlob} alt=""/>*/}
-          {/*  <div className="h-full absolute inset-0 py-10 pl-16 pr-6 grid grid-rows-3 ">*/}
-          {/*    <H3m className="z-20 my-4 text-white text-center row-span-1" >{wisdomList[currentWisdom].author}</H3m>*/}
-          {/*    <Pm className=" text-sm z-20 text-white row-span-1">{wisdomList[currentWisdom].wisdomText}</Pm>*/}
-          {/*  </div>*/}
-          {/*</div>*/}
+          <div className="absolute w-[400px] lg:w-[500px] xl:w-[600px] bottom-0 -right-16 xl:-right-24">
+            <div className="relative">
+              <Image className="h-fullw-full" src={bigBlob} alt=""/>
+              <div className="h-full absolute inset-0 py-10 pl-16 pr-6 grid grid-rows-3 ">
+                <H3m className="z-20 my-4 text-white text-center row-span-1" >{wisdomList[currentWisdom].author}</H3m>
+                <Pm className=" text-sm z-20 text-white row-span-1">{wisdomList[currentWisdom].wisdomText}</Pm>
+              </div>
+            </div>
+          </div>
         </div>
       }
 
