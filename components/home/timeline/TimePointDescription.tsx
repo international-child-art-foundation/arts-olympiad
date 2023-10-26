@@ -1,6 +1,7 @@
 import {ReactNode} from "react";
 import {H2m} from "../../common/texts/H2m";
 import {Pm} from "../../common/texts/Pm";
+import useIntersectionObserver from "@/hooks/useIntersectionObserver";
 
 interface IProps {
   heading: string | ReactNode
@@ -10,6 +11,9 @@ interface IProps {
   inversed?: boolean
 }
 export const TimePointDescription = ({heading, color, description, isMobile, inversed}: IProps) => {
+
+  useIntersectionObserver({}, "time-point", "fade-into-focus");
+
   return (
     <div
       className={`

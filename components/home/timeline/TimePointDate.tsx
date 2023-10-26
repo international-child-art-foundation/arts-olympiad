@@ -1,4 +1,5 @@
 import {CalendarDayIcon} from "./CalendarDayIcon";
+import useIntersectionObserver from "@/hooks/useIntersectionObserver";
 
 interface IProps {
   date: string
@@ -7,6 +8,8 @@ interface IProps {
   inversed?: boolean
 }
 export const TimePointDate = ({date, color, isMobile, inversed}: IProps) => {
+
+  useIntersectionObserver({}, "time-point", "fade-into-focus");
 
   if (isMobile) {
     return (

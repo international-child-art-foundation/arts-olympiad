@@ -18,7 +18,7 @@ export const WisdomCard = ({wisdom}: IProps) => {
   if (width < 768) {
     return (
       <figure className="w-full">
-        <div className="w-full h-[250px]" >
+        <div className=" w-full h-[250px]" >
           <LazyImage imageUrl={wisdom.url} alt={wisdom.alt} className="object-cover" />
         </div>
         <div className="w-full -mt-16 ml-6 md:ml-12 xl:ml-24 relative h-full">

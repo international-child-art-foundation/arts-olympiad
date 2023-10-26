@@ -2,6 +2,7 @@ import "../../../src/styles/time-point.css";
 import {TimePointDescription} from "./TimePointDescription";
 import {TimePointDate} from "./TimePointDate";
 import {ReactNode} from "react";
+import useIntersectionObserver from "@/hooks/useIntersectionObserver";
 
 interface IProps {
   heading: string | ReactNode
@@ -12,6 +13,8 @@ interface IProps {
   inversed?: boolean
 }
 export const TimePoint = ({heading, description, date, color, isMobile, inversed}: IProps) => {
+
+  useIntersectionObserver({}, "time-point", "fade-into-focus");
 
   if (isMobile) {
     return (

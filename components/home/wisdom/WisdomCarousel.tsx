@@ -66,7 +66,7 @@ export const WisdomCarousel = () => {
   };
 
   return (
-    <figure className="flex flex-col justify-center items-center bg-transparent" ref={intersectionTarget}>
+    <figure className="z-40 flex flex-col justify-center items-center bg-transparent" ref={intersectionTarget}>
 
       {
         width < 768 &&
@@ -75,7 +75,7 @@ export const WisdomCarousel = () => {
 
       {
         width >= 768 &&
-        <div className=" relative w-full h-full grid grid-rows-2 grid-cols-10 gap-4">
+        <div className="z-40 relative w-full h-full grid grid-rows-2 grid-cols-10 gap-4">
           <WisdomCard wisdom={wisdomList[currentWisdom]}/>
           <div className="row-span-1 col-span-2" />
           {

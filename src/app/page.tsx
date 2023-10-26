@@ -1,4 +1,5 @@
 import "../styles/home.css";
+import "../styles/animated-arrows.css";
 import { Metadata } from "next";
 import { sharedOpenGraph } from "./shared-metadata";
 import {Intro} from "../../components/home/Intro";
@@ -27,7 +28,7 @@ export default function Home() {
       <AboutICAF />
       <Guidelines />
       <Timeline />
-      {/*<Wisdom />*/}
+      <Wisdom />
 
       {/*<div className="bg-main-yellow md:col-span-10 grid md:grid-cols-2 grid-cols-1">*/}
       {/*  /!* artist upload block *!/*/}
