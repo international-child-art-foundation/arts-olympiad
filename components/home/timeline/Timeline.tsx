@@ -17,7 +17,7 @@ export const Timeline = () => {
 
   const { width } = useWindowDimensions();
   useIntersectionObserver({}, "time-point", "fade-into-focus");
-  const isMobile = width <= 768;
+  const isMobile = width < 768;
 
   return (
     <section className="overflow-hidden relative px-6 md:px-12 xl:px-24 mt-36 flex flex-col" aria-label="timeline">

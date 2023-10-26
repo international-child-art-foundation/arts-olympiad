@@ -15,8 +15,8 @@ export const TimePoint = ({heading, description, date, color, isMobile, inversed
 
   if (isMobile) {
     return (
-      <li className="z-10 time-point flex flex-row justify-between align-bottom h-full">
-        <div className=" flex flex-col h-full w-full">
+      <li className="z-10 flex flex-row items-end h-full">
+        <div className=" flex flex-col justify-end h-full w-full">
           <TimePointDescription heading={heading} color={color} description={description} isMobile />
           <TimePointDate color={color} date={date} isMobile />
         </div>
@@ -26,7 +26,7 @@ export const TimePoint = ({heading, description, date, color, isMobile, inversed
   }
 
   return (
-    <li className="z-10 time-point flex flex-row h-full">
+    <li className="z-10 flex flex-row h-full">
       {
         inversed ?
           <>

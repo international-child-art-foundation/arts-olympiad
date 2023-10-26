@@ -19,17 +19,17 @@ export const TimePointDescription = ({heading, color, description, isMobile, inv
       ${inversed ? "pl-11 text-right " : "pr-11"}
       `}
     >
-      <H2m className="font-semibold md:font-normal" >{heading}</H2m>
+      <H2m className="time-point font-semibold md:font-normal h-[50%]" >{heading}</H2m>
       <div className="relative border-1 my-4 border-black" >
         <div
-          style={{ backgroundColor: color }}
+          style={{ backgroundColor: color}}
           className={`
           z-50 absolute rounded-full w-7 h-7
           ${inversed ? "-top-4 -left-[60px]" : "-top-4 -right-[60px]"}
           `}
         />
       </div>
-      <Pm className="font-light font-sans">{description}</Pm>
+      <Pm className="time-point font-light font-sans h-[50%]">{description}</Pm>
     </div>
   );
 };
