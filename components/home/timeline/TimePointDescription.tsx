@@ -14,12 +14,14 @@ export const TimePointDescription = ({heading, color, description, isMobile, inv
     <div
       className={`
       z-20
-      flex flex-col h-full 
+      flex flex-col min-h-full justify-center
       ${isMobile ? "w-full" : "w-[49.7%]"}
       ${inversed ? "pl-11 text-right " : "pr-11"}
       `}
     >
-      <H2m className="time-point font-semibold md:font-normal h-[50%]" >{heading}</H2m>
+      <div className="min-h-[50%] flex flex-col justify-end">
+        <H2m className="time-point font-semibold md:font-normal " >{heading}</H2m>
+      </div>
       <div className="relative border-1 my-4 border-black" >
         <div
           style={{ backgroundColor: color}}
@@ -29,7 +31,7 @@ export const TimePointDescription = ({heading, color, description, isMobile, inv
           `}
         />
       </div>
-      <Pm className="time-point font-light font-sans h-[50%]">{description}</Pm>
+      <Pm className="time-point font-light font-sans min-h-[50%]">{description}</Pm>
     </div>
   );
 };
