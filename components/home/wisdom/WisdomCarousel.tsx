@@ -78,6 +78,15 @@ export const WisdomCarousel = () => {
         <div className="z-40 relative w-full h-full grid grid-rows-2 grid-cols-10 gap-4">
           <WisdomCard wisdom={wisdomList[currentWisdom]}/>
           <div className="row-span-1 col-span-2" />
+          <div className="z-10 absolute w-[400px] lg:w-[500px] xl:w-[600px] bottom-0 -right-16 xl:-right-24">
+            <div className="relative">
+              <Image className="h-fullw-full" src={bigBlob} alt=""/>
+              <div className="h-full absolute inset-0 py-10 pl-16 pr-6 grid grid-rows-3 ">
+                <H3m className="z-20 my-4 text-white text-center row-span-1" >{wisdomList[currentWisdom].author}</H3m>
+                <Pm className=" text-sm z-20 text-white row-span-1">{wisdomList[currentWisdom].wisdomText}</Pm>
+              </div>
+            </div>
+          </div>
           {
             wisdomList
               .map((wisdom, i) =>
@@ -90,15 +99,6 @@ export const WisdomCarousel = () => {
               .filter((wisdom) => wisdom.key !== wisdomList[currentWisdom].author )
 
           }
-          <div className="absolute w-[400px] lg:w-[500px] xl:w-[600px] bottom-0 -right-16 xl:-right-24">
-            <div className="relative">
-              <Image className="h-fullw-full" src={bigBlob} alt=""/>
-              <div className="h-full absolute inset-0 py-10 pl-16 pr-6 grid grid-rows-3 ">
-                <H3m className="z-20 my-4 text-white text-center row-span-1" >{wisdomList[currentWisdom].author}</H3m>
-                <Pm className=" text-sm z-20 text-white row-span-1">{wisdomList[currentWisdom].wisdomText}</Pm>
-              </div>
-            </div>
-          </div>
         </div>
       }
 
@@ -128,14 +128,14 @@ export const WisdomCarousel = () => {
           <button
             ref={leftButtonRef}
             className="mr-2"
-            aria-label="scroll left button"
+            aria-label="scroll left button."
             onClick={handleGoLeft}
           >
             <Image src={scrollLeft} width={40} height={40} alt=""/>
           </button>
           <button
             ref={rightButtonRef}
-            aria-label="scroll right button"
+            aria-label="scroll right button."
             onClick={handleGoRight}
           >
             <Image src={scrollRight} width={40} height={40} alt=""/>

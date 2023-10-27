@@ -21,15 +21,15 @@ export const Timeline = () => {
   const isMobile = width < 768;
 
   return (
-    <section className="overflow-hidden relative px-6 md:px-12 xl:px-24 mt-36 flex flex-col" aria-label="timeline">
+    <section className="overflow-hidden relative px-6 md:px-12 xl:px-24 mt-36 flex flex-col" aria-label="Timeline.">
       <figure className="relative mb-8 self-center flex flex-col items-center justify-center">
-        <Image width={105} src={scrollIcon} alt="mouse scroller icon" className=" self-center" />
+        <Image width={105} src={scrollIcon} alt="mouse scroller icon." className=" self-center" />
         <div className="z-10 bg-neutral-white w-[130px] h-[85px] draw-line-left absolute bottom-0 right-24" />
-        <Image src={arrow} alt="arrow pointing downwards" className="absolute bottom-0 right-24" />
+        <Image src={arrow} alt="arrow pointing downwards." className="absolute bottom-0 right-24" />
         <Pm className="z-20 font-sans text-center ">Scroll Down</Pm>
       </figure>
       <div>
-        <ul aria-label="participation timeline h-full">
+        <ul aria-label="participation timeline.">
           <TimePoint
             heading="When does it start?"
             description="#MyFavoriteSport event kicks off at an interactive exhibition in Paris."

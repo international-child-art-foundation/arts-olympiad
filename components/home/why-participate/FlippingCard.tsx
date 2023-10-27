@@ -37,8 +37,8 @@ export const FlippingCard = ({isFlippable, icon, heading1, heading2, description
         my-4 md:my-0 relative md:min-h-[270px] lg:min-h-[430px] xl:min-h-[468px] 2xl:min-h-[370px]
         z-10 bg-neutral-white cursor-pointer rounded-xl
       `}
-      onClick={() => (isFlippable && !hovered) && setFlipped(!flipped)}
-      onMouseEnter={() => {
+      onTouchStart={() => (isFlippable && !hovered) && setFlipped(!flipped)}
+      onMouseOver={() => {
         isFlippable && setFlipped(true);
         isFlippable && setHovered(true);
       }}
@@ -48,6 +48,7 @@ export const FlippingCard = ({isFlippable, icon, heading1, heading2, description
       }}
     >
       <article
+        role="region"
         aria-live="polite"
         className={`
         ${isFlippable && flipped && "flip"}

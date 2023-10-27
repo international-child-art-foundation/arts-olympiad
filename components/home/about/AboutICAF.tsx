@@ -8,9 +8,9 @@ import {AboutImages} from "./AboutImages";
 
 export const AboutICAF = () => {
   return (
-    <section className="relative flex flex-col px-6 md:px-12 xl:px-24 mt-36">
+    <section aria-label="about ICAF." className="relative flex flex-col px-6 md:px-12 xl:px-24 mt-36">
       <Image src={blob} alt="" width={1200} className="z-0 hidden md:block absolute -top-24 left-0" />
-      <Image src={icafLogo} alt="ICAF Logo" width={153} height={89} className="md:hidden self-end" />
+      <Image src={icafLogo} alt="ICAF Logo." width={153} height={89} className="md:hidden self-end" />
       <div className="z-10 md:flex flex-row justify-between mb-8">
         <article className="md:max-w-[70%] md:flex flex-col mr-10" >
           <H2m className="font-medium text-3xl md:text-4xl" >About <span className="text-dark-blue">#ICAF?</span></H2m>
@@ -19,7 +19,7 @@ export const AboutICAF = () => {
         Since 1997, the International Child Art Foundation has served as the national arts organization for American children and as the global arts organization for children worldwide.
           </Pm>
         </article>
-        <Image src={icafLogo} alt="ICAF Logo" width={264} height={153} className="z-10 hidden md:block self-end" />
+        <Image src={icafLogo} alt="ICAF Logo." width={264} height={153} className="z-10 hidden md:block self-end" />
       </div>
       <AboutImages />
     </section>

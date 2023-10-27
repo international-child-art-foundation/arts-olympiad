@@ -12,6 +12,8 @@ export const Pm = ({style, children, className, ...restProps }: HTMLProps<HTMLPa
       {...restProps}
     >
       {children}
+      {/* this period is here for screen reader */}
+      <span className="sr-only">.</span>
     </p>
   );
 };

@@ -11,7 +11,7 @@ import vector from "../../../public/svgs/Vector.svg";
 
 export const Guidelines = () => {
   return (
-    <section className="relative px-6 md:px-12 xl:px-24 mt-36 flex flex-col">
+    <section aria-label="Submission guidelines." className="relative px-6 md:px-12 xl:px-24 mt-36 flex flex-col">
       <Image src={blob} alt="" width={1000} className="z-0 hidden md:block absolute -top-36 left-0" />
       <H2m className="z-10 font-medium text-3xl md:text-4xl" >
         Submission Guidelines Made
@@ -29,9 +29,9 @@ export const Guidelines = () => {
           heading={"How to submit"}
           description={"Follow our guide for hassle-free artwork submission."}
         >
-          <Link href="/about" className="text-main-blue text-sm lg:text-lg flex flex-row">
+          <Link href="https://artsolympiad.info/artwok_registration.php" className="text-main-blue text-sm lg:text-lg flex flex-row">
             Learn more here
-            <Image src={vector} alt="angle bracket right" className="ml-4" aria-hidden />
+            <Image src={vector} alt="" className="ml-4" aria-hidden />
           </Link>
         </GuidelineCard>
         <GuidelineCard

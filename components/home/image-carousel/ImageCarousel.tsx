@@ -130,7 +130,7 @@ export const ImageCarousel = ({ images, ...props }: IProps) => {
           ref={leftButtonRef}
           className="mr-2"
           onClick={handleScrollLeft}
-          aria-label="scroll left button"
+          aria-label="scroll left button."
           onFocus={() => setHaltInterval(true)}
           onBlur={() => setHaltInterval(false)}
         >
@@ -139,7 +139,7 @@ export const ImageCarousel = ({ images, ...props }: IProps) => {
         <button
           ref={rightButtonRef}
           onClick={handleScrollRight}
-          aria-label="scroll right button"
+          aria-label="scroll right button."
           onFocus={() => setHaltInterval(true)}
           onBlur={() => setHaltInterval(false)}
         >

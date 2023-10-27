@@ -1,4 +1,5 @@
 "use client";
+import React from "react";
 import {FlippingCard} from "./FlippingCard";
 import useWindowDimensions from "@/hooks/useWindowDimensions";
 import monitorUp from "../../../public/svgs/monitor-up.svg";
@@ -7,8 +8,8 @@ import heart from "../../../public/svgs/heart-handshake.svg";
 import clipboard from "../../../public/svgs/clipboard-edit.svg";
 import littleHeart from "../../../public/home/why-participate/heart.svg";
 import upload from "../../../public/home/why-participate/upload.svg";
-import {ButtonStd} from "../../common/ui/ButtonStd";
 import Image from "next/image";
+import {ButtonStyledLink} from "../../common/ui/ButtonStyledLink";
 
 export const FlippingCards = () => {
 
@@ -41,13 +42,14 @@ export const FlippingCards = () => {
         icon={heart}
         color="#168C39"
       >
-        <ButtonStd className="my-1"
-          onTouchStart={(e: React.TouchEvent<HTMLButtonElement>) => { e.stopPropagation();}}
-          onClick={(e: React.MouseEvent<HTMLButtonElement>) => { e.stopPropagation();}}
+        <ButtonStyledLink className="my-1"
+          href={"https://www.icaf.org/donate"}
+          onTouchStart={(e: React.TouchEvent<HTMLAnchorElement>) => { e.stopPropagation();}}
+          onClick={(e: React.MouseEvent<HTMLAnchorElement>) => { e.stopPropagation();}}
         >
           <Image className="mr-2" src={littleHeart} alt="" width={24} height={24} />
           Donate now
-        </ButtonStd>
+        </ButtonStyledLink>
       </FlippingCard>
       <FlippingCard
         isFlippable={areFlippable}
@@ -57,13 +59,15 @@ export const FlippingCards = () => {
         icon={clipboard}
         color="#0286C3"
       >
-        <ButtonStd className="my-1"
-          onTouchStart={(e: React.TouchEvent<HTMLButtonElement>) => { e.stopPropagation();}}
-          onClick={(e: React.MouseEvent<HTMLButtonElement>) => { e.stopPropagation();}}
+        <ButtonStyledLink
+          href={"/auth/register"}
+          className="my-1"
+          onTouchStart={(e: React.TouchEvent<HTMLAnchorElement>) => { e.stopPropagation();}}
+          onClick={(e: React.MouseEvent<HTMLAnchorElement>) => { e.stopPropagation();}}
         >
           <Image className="mr-2" src={upload} alt="" width={24} height={24} />
           Register here
-        </ButtonStd>
+        </ButtonStyledLink>
       </FlippingCard>
     </div>
   );

@@ -17,14 +17,14 @@ import {H3m} from "../common/texts/H3m";
 
 export const Intro = () => {
   return (
-    <section aria-label="introduction"  className="mb-8 md:mb-36 max-h-[760] relative bg-neutral-white grid md:col-span-4 md:grid-cols-4 px-6 md:px-12 xl:px-24 ">
+    <section aria-label="introduction."  className="mb-8 md:mb-36 max-h-[760] relative bg-neutral-white grid md:col-span-4 md:grid-cols-4 px-6 md:px-12 xl:px-24 ">
       {/* TEXTS */}
 
       <article role="banner" className=" z-20 relative flex-col align-middle md:col-span-2">
         <div className=" z-20 flex flex-row align-center mb-8">
           <Image src={hashtag} alt="" width={32} height={32}  />
           <h1 className=" z-20 break-words font-semibold text-4xl lg:text-5xl xl:text-6xl ">
-              MyFavoriteSport
+              MyFavoriteSport<span className="sr-only">.</span>
           </h1>
         </div>
         <div className=" mb-32 z-20 ">
@@ -35,7 +35,7 @@ export const Intro = () => {
           Celebrate the Paris 2024 Olympics and reassure youth that their chaotic and divided world has hope.
           </H3m>
           <Link href="/about" className="text-main-blue text-sm lg:text-lg flex flex-row">
-              Learn more
+              Learn more<span className="invisible">.</span>
             <Image src={vector} alt="angle bracket right" className="ml-4" aria-hidden />
           </Link>
         </div>
@@ -49,16 +49,16 @@ export const Intro = () => {
         className="relative ml-6 z-10 hidden md:grid max-w-[490px] md:col-span-2 md:grid-cols-4 md:grid-rows-2 gap-3"
       >
         <div className="z-10 grid gap-5 col-span-2 row-span-2">
-          <LazyImage className="border-0.5 border-black object-cover" imageUrl={introimg1}  alt="earth image surrounded by palms" />
-          <LazyImage className="border-0.5 border-black object-cover" imageUrl={introimg2} alt="a person drawing on an ipad" />
+          <LazyImage className="border-0.5 border-black object-cover" imageUrl={introimg1}  alt="earth image surrounded by palms." />
+          <LazyImage className="border-0.5 border-black object-cover" imageUrl={introimg2} alt="a person drawing on an ipad." />
         </div>
         <div className="z-10 grid gap-3 col-span-2 row-span-2">
-          <LazyImage className="border-0.5 border-black object-cover" imageUrl={introimg3} alt="a person using graphic editors on a desktop" />
-          <LazyImage className="border-0.5 border-black object-cover" imageUrl={introimg4} alt="handcraft tools" />
+          <LazyImage className="border-0.5 border-black object-cover" imageUrl={introimg3} alt="a person using graphic editors on a desktop." />
+          <LazyImage className="border-0.5 border-black object-cover" imageUrl={introimg4} alt="handcraft tools." />
           {/* Make the last div span two columns */}
           <div className="z-10 grid gap-3 grid-cols-2 grid-rows-1">
-            <LazyImage className="border-0.5 border-black object-cover" imageUrl={introimg5} alt="basket full of brushes" />
-            <LazyImage className="border-0.5 border-black object-cover" imageUrl={introimg6} alt="basket full of pencils" />
+            <LazyImage className="border-0.5 border-black object-cover" imageUrl={introimg5} alt="basket full of brushes." />
+            <LazyImage className="border-0.5 border-black object-cover" imageUrl={introimg6} alt="basket full of pencils." />
           </div>
         </div>
 

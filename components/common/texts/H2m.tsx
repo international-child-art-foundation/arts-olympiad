@@ -13,6 +13,8 @@ export const H2m = ({style, children, className, ...restProps }: HTMLProps<HTMLH
       {...restProps}
     >
       {children}
+      {/* this period is here for screen reader */}
+      <span className="sr-only">.</span>
     </h2>
   );
 };

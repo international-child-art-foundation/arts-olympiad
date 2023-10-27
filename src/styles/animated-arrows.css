@@ -2,7 +2,7 @@
     transition: transform 1s ease-in;
 }
 
-.draw-line-right {
+.draw-line-bottom {
     transition: transform 1s ease-in;
 }
 
@@ -19,6 +19,6 @@
     transform: translateX(-150px);
 }
 
-.animate-drawing-right {
-    transform: translateX(150px);
+.animate-drawing-bottom {
+    transform: translateY(200px);
 }
