@@ -20,11 +20,11 @@ const Header = () => {
   ];
 
   return (
-    <header className="bg-neutral-white font-body z-20 w-full md:w-11/12 h-fit flex items-center justify-center relative top-0 left-0">
+    <header className="bg-neutral-white font-body z-20 w-full max-w-[1600px] md:flex md:w-11/12 h-fit items-center justify-center relative top-0 left-0">
       
-      <div className="w-full md:w-1/4">
+      <div className="w-full md:w-fit md:ml-5%">
         <Link href="/">
-          <div className="logo-bg ms-auto w-16 h-16 my-1 md:w-32 md:h-32 md:mx-8 md:mt-6 flex-shrink-0 "></div>
+          <div className="logo-bg mx-auto w-16 h-16 my-1 md:w-32 md:h-32 md:mx-8 md:mt-6"></div>
           <div className="font-light mt-1 mx-8 tracking-widest text-xs hidden md:block">#MyFavoriteSport</div>
         </Link>
       </div>
@@ -88,10 +88,17 @@ const Header = () => {
             </Link>
           ))}
           
-          <a href="https://icaf.org/donate" className="group w-fit h-fit border-neutral-white border rounded text-center py-3 px-4 text-sm cursor-pointer tracking-wide bg-new-blue text-neutral-white ml-auto hidden md:block">
+          {/* <a href="https://icaf.org/donate" className="group w-fit h-fit border-neutral-white border rounded text-center py-3 px-4 text-sm cursor-pointer tracking-wide bg-new-blue text-neutral-white ml-auto hidden md:block">
             <HeartIconWhite />
             Donate
-          </a>
+          </a> */}
+          <div className="ml-auto flex">
+            <div className="heart-gif me-auto my-2 hidden md:block"></div>
+            <a href="https://icaf.org/donate" className="w-fit h-fit border-neutral-white border rounded text-center py-3 px-4 text-sm cursor-pointer tracking-wide bg-new-blue text-neutral-white ml-auto hidden md:block">
+              Donate
+            </a>
+          </div>
+          
 
         </div>
 

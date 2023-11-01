@@ -7,6 +7,7 @@ import { LoginIcon } from "./svgs/LoginIcon";
 import { DownIcon } from "./svgs/DownIcon";
 import { UpIcon } from "./svgs/UpIcon";
 
+
 const MobileNav = () => {
   const [isOpen, setIsOpen] = useState(false);
   const links1 = [
@@ -40,7 +41,7 @@ const MobileNav = () => {
 
         <div className="logo-bg w-16 h-16 mx-auto my-2"></div>
 
-        <hr className="my-2 mx-2 border-gray-600 border-1 w-full"></hr>
+        <hr className="my-2 border-gray-600 border-1 w-full"></hr>
 
         {links1.map(link => (
           <Link 
@@ -75,25 +76,29 @@ const MobileNav = () => {
           </nav>
           <div className="flex flex-wrap">
             {links2.map(link => (
-            <Link 
-              key={link.name} 
-              href={link.url} 
-              onClick={closeMenu} 
-              className="text-black tracking-widest w-full text-sm px-8 py-4 hover:text-new-blue hover:font-bold hover:bg-gradient-to-b from-light-blue to-white"
-            >
-              {link.name}
-            </Link>
-          ))}
-        </div>
+              <Link 
+                key={link.name} 
+                href={link.url} 
+                onClick={closeMenu} 
+                className="text-black tracking-widest w-full text-sm px-8 py-4 hover:text-new-blue hover:font-bold hover:bg-gradient-to-b from-light-blue to-white"
+              >
+                {link.name}
+              </Link>
+            ))}
+          </div>
         </div>
 
-        <hr className="my-4 mx-2 border-gray-600 border-1 w-full"></hr>
+        <hr className="my-4 mx-auto w-5/6 border-gray-600 border-1"></hr>
 
-        <a href="https://icaf.org/donate" className="group mx-auto mb-4 w-5/6 h-fit border-neutral-white border rounded text-center py-2 px-4 text-sm cursor-pointer tracking-wide bg-new-blue text-neutral-white">
+        {/* <a href="https://icaf.org/donate" className="group mx-auto mb-4 w-5/6 h-fit border-neutral-white border rounded text-center py-2 px-4 text-sm cursor-pointer tracking-wide bg-new-blue text-neutral-white">
           <HeartIconWhite />
           Donate
+        </a> */}
+        <a href="https://icaf.org/donate" className="group mx-auto mb-4 w-5/6 h-fit border-neutral-white border rounded text-center py-2 px-4 text-sm cursor-pointer tracking-wide bg-new-blue text-neutral-white">
+          Donate
         </a>
-
+        <div className="heart-gif me-auto"></div>
+        
         <a href="https://artsolympiad.info/artwok_registration.php" className="group mx-auto mb-4 h-fit w-5/6 border-new-blue border rounded text-center py-2 px-3 text-xs cursor-pointer tracking-wide text-new-blue hidden md:block">
           Upload
         </a>
