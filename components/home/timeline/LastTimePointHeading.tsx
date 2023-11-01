@@ -11,6 +11,7 @@ export const LastTimePointHeading = () => {
         <AnimatedScribble
           smwidth={150}
           width={100}
+          animationDelay={1500}
           className="md:absolute -right-8 top-6 z-10"
         />
       </span>

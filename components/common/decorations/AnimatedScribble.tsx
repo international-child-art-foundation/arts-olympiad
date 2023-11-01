@@ -6,9 +6,10 @@ import useWindowDimensions from "@/hooks/useWindowDimensions";
 interface IProps extends HTMLProps<SVGElement>{
   width: number
   smwidth?: number
+  animationDelay?: number
 }
 
-export const AnimatedScribble = ({width, smwidth, className}: IProps) => {
+export const AnimatedScribble = ({width, smwidth, animationDelay, className}: IProps) => {
 
   const [targetRef, isIntersecting] = useIntersectionObserver();
   const [hasAnimated, setHasAnimated] = useState(false);
@@ -88,7 +89,7 @@ export const AnimatedScribble = ({width, smwidth, className}: IProps) => {
   }
 
   function startSVGAnimation(parentElement: Element): void {
-    drawSVGPaths(parentElement, 0, 1200, 0);
+    drawSVGPaths(parentElement, 0, 1200, animationDelay || 0);
   }
 
   useEffect(() => {
