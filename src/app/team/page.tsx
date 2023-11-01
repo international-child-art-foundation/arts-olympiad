@@ -1,5 +1,6 @@
 import ContentContainer from "../../../components/common/ui/ContentContainer";
 import Link from "next/link";
+import Image from "next/image";
 import { sharedOpenGraph } from "../shared-metadata";
 import { Metadata } from "next";
 
@@ -26,7 +27,13 @@ export default function page() {
             <ul>
               <li className="text-base lg:text-lg">Ashfaq Ishaq, Ph.D.
                 <Link href="https://www.linkedin.com/in/ashfaqishaq/" className="ml-3">
-                  <img src="/team/icon-linkedin.svg" alt="LinkedIn company logo" className="inline-block h-6 w-6" />
+                  <Image
+                    src="/team/icon-linkedin.svg"
+                    alt="LinkedIn company logo"
+                    height={24}
+                    width={24}
+                    className="inline-block"
+                  />
                 </Link>
               </li>
             </ul>
@@ -34,7 +41,13 @@ export default function page() {
             <ul>
               <li className="text-base lg:text-lg">Katty Guerami
                 <Link href="https://www.linkedin.com/in/katty-guerami-74a99014/" className="ml-3">
-                  <img src="/team/icon-linkedin.svg" alt="LinkedIn company logo" className="inline-block h-6 w-6" />
+                  <Image
+                    src="/team/icon-linkedin.svg"
+                    alt="LinkedIn company logo"
+                    height={24}
+                    width={24}
+                    className="inline-block"
+                  />
                 </Link>
               </li>
             </ul>
@@ -42,7 +55,13 @@ export default function page() {
             <ul>
               <li className="text-base lg:text-lg">Katherine Harold, Paris College of Art
                 <Link href="https://www.linkedin.com/in/katherine-harold-23a5a0137/" className="ml-3">
-                  <img src="/team/icon-linkedin.svg" alt="LinkedIn company logo" className="inline-block h-6 w-6" />
+                  <Image
+                    src="/team/icon-linkedin.svg"
+                    alt="LinkedIn company logo"
+                    height={24}
+                    width={24}
+                    className="inline-block"
+                  />
                 </Link>
               </li>
             </ul>
@@ -104,13 +123,25 @@ export default function page() {
                 <li className="text-base lg:text-lg">
                   Joe Addo
                   <Link href="https://www.joeaddo.com/" target="_blank" className="ml-3">
-                    <img src="/team/icon-link.svg" alt="Two chains interlinked" className="inline-block h-6 w-6" />
+                    <Image 
+                      src="/team/icon-link.svg" 
+                      alt="Two chains interlinked" 
+                      height={24}
+                      width={24}
+                      className="inline-block" 
+                    />
                   </Link>
                 </li>
                 <li className="text-base lg:text-lg">
                   Michael Shetzer
                   <Link href="https://ceesmena.org/michael-shetzer/" target="_blank" className="ml-3">
-                    <img src="/team/icon-link.svg" alt="Two chains interlinked" className="inline-block h-6 w-6" />
+                    <Image 
+                      src="/team/icon-link.svg" 
+                      alt="Two chains interlinked" 
+                      height={24}
+                      width={24}
+                      className="inline-block" 
+                    />
                   </Link>
                 </li>
               </ul>
@@ -118,7 +149,12 @@ export default function page() {
           </ContentContainer>
         </div>
         <div className="basis-1/2 px-4">
-          <img src="/team/illustration-01.svg" alt="Three people forming a huddle"/>
+          <Image 
+            src="/team/illustration-01.svg" 
+            alt="Three people forming a huddle" 
+            height={208} 
+            width={392} 
+          />
         </div>
       </div>
     </div>

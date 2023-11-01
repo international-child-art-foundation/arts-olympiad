@@ -1,4 +1,6 @@
 import Link from "next/link";
+import Image from "next/image";
+
 type ArtworkCardProps = {
     id: string;
     name: string;
@@ -9,9 +11,14 @@ type ArtworkCardProps = {
 const ArtworkCard = ({ id, name, votes, url }: ArtworkCardProps) => {
   return (
     <div id={id} className="relative w-full h-full">
-      <div className="w-full h-64 rounded-lg overflow-hidden">
+      <div className="w-full h-64 rounded-lg overflow-hidden relative">
         <Link href={`/artwork/${id}`}>
-          <img className="w-full h-full" src={url} alt={name}/>
+          <Image
+            fill
+            src={url} 
+            alt={name}
+            className="w-full h-full"
+          />
         </Link>
       </div>
       <p className="font-medium md:font-semi-bold text-lg">Name: {name}</p>

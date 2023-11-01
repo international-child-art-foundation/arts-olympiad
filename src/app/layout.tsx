@@ -27,7 +27,7 @@ export default function RootLayout({
         <main className="flex flex-col justify-center align-middle w-full m-auto">
           { children }
         </main>
-        {/*<Footer />*/}
+        <Footer />
       </body>
     </html>
   );

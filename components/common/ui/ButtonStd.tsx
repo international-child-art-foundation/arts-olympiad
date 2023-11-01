@@ -1,4 +1,4 @@
-import {ButtonHTMLAttributes, DetailedHTMLProps, HTMLProps} from "react";
+import {ButtonHTMLAttributes, DetailedHTMLProps} from "react";
 
 
 /**

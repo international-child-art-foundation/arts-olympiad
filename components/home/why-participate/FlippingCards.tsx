@@ -13,8 +13,8 @@ import {ButtonStyledLink} from "../../common/ui/ButtonStyledLink";
 
 export const FlippingCards = () => {
 
-  const { width } = useWindowDimensions();
-  const areFlippable = width >= 768;
+  const { windowWidth } = useWindowDimensions();
+  const areFlippable = windowWidth >= 768;
 
   return (
     <div className="z-10 md:grid grid-cols-2 grid-rows-2 gap-4 mt-6 card-grid" >

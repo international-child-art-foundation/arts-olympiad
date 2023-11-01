@@ -2,6 +2,8 @@
 import React, {useState} from "react";
 import { slide as Menu } from "react-burger-menu";
 import Link from "next/link";
+import Image from "next/image";
+
 
 const MobileNav = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -28,8 +30,22 @@ const MobileNav = () => {
         onStateChange={handleStateChange} 
         right 
         styles={styles} 
-        customCrossIcon={<img src="/svgs/close.svg" alt="Close navigation menu"/>}
-        customBurgerIcon={<img src="/svgs/burger.svg" alt="Open navigation menu"/>}
+        customCrossIcon={
+          <Image
+            src="/close.svg"
+            alt="Close navigation menu"
+            width={24}
+            height={24}
+          />
+        }
+        customBurgerIcon={
+          <Image
+            src="/burger.svg"
+            alt="Open navigation menu"
+            width={24}
+            height={24}
+          />
+        }
       >
         <div className="flex space-x-5">
           <Link 

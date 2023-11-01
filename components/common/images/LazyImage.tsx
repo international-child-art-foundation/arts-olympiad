@@ -1,5 +1,5 @@
 import Image, {StaticImageData} from "next/image";
-import React, {HTMLProps, useState} from "react";
+import React, {HTMLProps} from "react";
 
 interface IProps extends HTMLProps<HTMLImageElement>{
   imageUrl: string | StaticImageData

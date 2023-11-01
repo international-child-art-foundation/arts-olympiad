@@ -6,6 +6,7 @@ import Image, {StaticImageData} from "next/image";
 import scrollRight from "../../../public/svgs/scroll-right.svg";
 import scrollLeft from "../../../public/svgs/scroll-left.svg";
 import useIntersectionObserver from "@/hooks/useIntersectionObserver";
+import useWindowDimensions from "@/hooks/useWindowDimensions";
 
 interface IProps extends React.HTMLProps<HTMLDivElement>{
   images: {
@@ -19,8 +20,8 @@ interface IProps extends React.HTMLProps<HTMLDivElement>{
   }[];
   height?: number
   mdheight?: number
-  mdwidth?: number
-  width?: number
+  mdwidth: number
+  width: number
   objectCover?: boolean
 }
 export const ImageCarousel = ({ images, ...props }: IProps) => {
@@ -29,8 +30,39 @@ export const ImageCarousel = ({ images, ...props }: IProps) => {
   const leftButtonRef = useRef<HTMLButtonElement | null>(null);
   const rightButtonRef = useRef<HTMLButtonElement | null>(null);
   const [haltInterval, setHaltInterval] = useState(false);
+  const {windowWidth} = useWindowDimensions();
 
   const [intersectionTarget, isTargetIntersecting, setCleanupFunctions] = useIntersectionObserver({ threshold: 0.2 });
+
+  const handleScrollRight = () => {
+    if (carouselRef.current) {
+      const epsilon = 1; // to improve precision for edge cases
+      const scrollWidthWithMargin = windowWidth >= 768 ? props.mdwidth + 8 : props.width + 8;
+      const scrollRightTo = carouselRef.current.scrollLeft + (scrollWidthWithMargin);
+      if ((carouselRef.current.clientWidth - scrollWidthWithMargin) + scrollRightTo + epsilon  >= carouselRef.current.scrollWidth) {
+        carouselRef.current.scrollTo({
+          left: 0,
+          behavior: "smooth",
+        });
+        return;
+      }
+      carouselRef.current.scrollTo({
+        left: scrollRightTo,
+        behavior: "smooth",
+      });
+    }
+  };
+
+  const handleScrollLeft = () => {
+    if (carouselRef.current) {
+      const scrollWidthWithMargin = props.width ? props.width + 8 : 150 + 8;
+      const scrollLeftTo = carouselRef.current.scrollLeft - (scrollWidthWithMargin);
+      carouselRef.current.scrollTo({
+        left: scrollLeftTo,
+        behavior: "smooth",
+      });
+    }
+  };
 
   // effect to set interval for autoscroll
   useEffect(() => {
@@ -73,34 +105,6 @@ export const ImageCarousel = ({ images, ...props }: IProps) => {
     };
   }, [isTargetIntersecting]);
 
-  const handleScrollRight = () => {
-    if (carouselRef.current) {
-      const epsilon = 0.01; // used to adjust precision
-      const newIndex = (carouselRef.current.scrollLeft + carouselRef.current.clientWidth) / carouselRef.current.clientWidth;
-      if (newIndex + epsilon >= carouselRef.current.scrollWidth / carouselRef.current.clientWidth) {
-        carouselRef.current.scrollTo({
-          left: 0,
-          behavior: "smooth",
-        });
-        return;
-      }
-      carouselRef.current.scrollTo({
-        left: carouselRef.current.clientWidth * newIndex,
-        behavior: "smooth",
-      });
-    }
-  };
-
-  const handleScrollLeft = () => {
-    if (carouselRef.current) {
-      const newIndex = (carouselRef.current.scrollLeft - carouselRef.current.clientWidth) / carouselRef.current.clientWidth;
-      carouselRef.current.scrollTo({
-        left: carouselRef.current.clientWidth * newIndex,
-        behavior: "smooth",
-      });
-    }
-  };
-
   return (
     <section
       // implementing autoscroll lock on hover and on touch
@@ -116,7 +120,7 @@ export const ImageCarousel = ({ images, ...props }: IProps) => {
         aria-live="polite"
         aria-label={props["aria-label"]}
         className={`
-        h-[${props.height || 110}px] md:h-[${props.height || 180}px]
+        h-[${props.height || 110}px] md:h-[${props.mdheight || 180}px]
         no-scrollbar flex flex-row flex-nowrap overflow-x-auto
         `}
         ref={carouselRef}

@@ -16,9 +16,9 @@ import {LastTimePointHeading} from "./LastTimePointHeading";
 
 export const Timeline = () => {
 
-  const { width } = useWindowDimensions();
+  const { windowWidth } = useWindowDimensions();
   useIntersectionObserver({}, "draw-line-left", "animate-drawing-left");
-  const isMobile = width < 768;
+  const isMobile = windowWidth < 768;
 
   return (
     <section className="overflow-hidden relative px-6 md:px-12 xl:px-24 mt-36 flex flex-col" aria-label="Timeline.">

@@ -2,7 +2,6 @@ import Image from "next/image";
 import hashtag from "../../public/home/hashtag.svg";
 import vector from "../../public/svgs/Vector.svg";
 import blueblob from "../../public/svgs/blueblob.svg";
-import horizontalblueblob from "../../public/svgs/horizontalblueblob.svg";
 import littlepinkblob from "../../public/svgs/littlepinkblob.svg";
 import introimg1 from "../../public/home/intro/introimg1.webp";
 import introimg2 from "../../public/home/intro/introimg2.webp";

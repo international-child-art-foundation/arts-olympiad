@@ -1,19 +1,19 @@
 import { useState, useEffect } from "react";
 
 type Dimensions = {
-  width: number;
-  height: number;
+  windowWidth: number;
+  windowHeight: number;
   orientation: "landscape" | "portrait";
 }
 
 function useWindowDimensions() {
-  const [dimensions, setDimensions] = useState<Dimensions>({ width: window?.innerWidth, height: window?.innerHeight, orientation: "portrait" });
+  const [dimensions, setDimensions] = useState<Dimensions>({ windowWidth: window?.innerWidth, windowHeight: window?.innerHeight, orientation: "portrait" });
 
   useEffect(() => {
     function handleResize() {
       setDimensions({
-        width: window?.innerWidth,
-        height: window?.innerHeight,
+        windowWidth: window?.innerWidth,
+        windowHeight: window?.innerHeight,
         orientation: dimensions.orientation
       });
     }
@@ -23,9 +23,9 @@ function useWindowDimensions() {
     return () => {
       window?.removeEventListener("resize", handleResize);
     };
-  }, []);
+  });
 
-  const orientation = dimensions.width > dimensions.height ? "landscape" : "portrait";
+  const orientation = dimensions.windowWidth > dimensions.windowHeight ? "landscape" : "portrait";
   dimensions.orientation = orientation;
 
   return dimensions;
