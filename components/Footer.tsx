@@ -6,7 +6,7 @@ import { YoutubeIcon } from "./svgs/YoutubeIcon";
 import { LinkedinIcon } from "./svgs/LinkedinIcon";
 import { PinterestIcon } from "./svgs/PinterestIcon";
 import { EmailIcon } from "./svgs/EmailIcon";
-import { HeartIcon } from "./svgs/HeartIcon";
+// import { HeartIcon } from "./svgs/HeartIcon";
 
 const icons = [
   { SVGcomponent: FacebookIcon, altText:"Visit the International Child Art Foundation's Facebook page", href:"https://www.facebook.com/ICAF.org"},
@@ -72,10 +72,14 @@ const Footer = () => {
         <div className="flex flex-wrap max-w-sm md:max-w-full md:justify-center md:gap-9 w-full md:order-4 lg:w-auto lg:flex-col lg:gap-5"> 
           <div className="w-1/2 md:w-auto">
             <div className="flex flex-col w-auto items-left md:items-center">
-              <a href="#" className="group w-32 lg:w-32 h-fit border-neutral-white border rounded text-center py-3 px-5 text-sm cursor-pointer tracking-wide bg-neutral-white text-new-blue">
+              {/* <a href="#" className="group w-32 lg:w-32 h-fit border-neutral-white border rounded text-center py-3 px-5 text-sm cursor-pointer tracking-wide bg-neutral-white text-new-blue">
                 <HeartIcon />
                 Donate
+              </a> */}
+              <a href="#" className="group w-32 lg:w-32 h-fit border-neutral-white border rounded text-center py-3 px-5 text-sm cursor-pointer tracking-wide bg-neutral-white text-new-blue">
+                Donate
               </a>
+              <div className="heart-white me-auto my-2"></div>
             </div>
           </div>
           <div className="w-1/2 md:w-auto">

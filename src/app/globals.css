@@ -11,7 +11,40 @@
 }
 
 .logo-bg {
-    background-image: url('/icaf-logo.svg');
+    background-image: url('/new-header.svg');
     background-size: cover;
     background-position: center;
   }
+
+.heart-white{
+  background-image: url('/heartWhite.gif');
+  background-size: cover;
+  background-position: center;
+  height: 24px;
+  width: 48px;
+}
+
+.heart-black{
+  background-image: url('/heartBlack.gif');
+  background-size: cover;
+  background-position: center;
+  height: 24px;
+  width: 48px;
+}
+
+.un {
+  display: hidden;
+}
+
+.un:after {
+  content: '';
+  width: 0px;
+  height: 1px;
+  display: block;
+  background: #134380;
+  transition: 600ms;
+}
+
+.un:hover:after {
+  width: 100%;
+}

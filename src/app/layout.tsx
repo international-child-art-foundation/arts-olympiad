@@ -22,7 +22,7 @@ export default function RootLayout({
         href="/banner-image.svg"
         type="image/svg+xml"
       />
-      <body className={`${inter.className} bg-neutral-white md:pt-0 pt-32`}>
+      <body className={`${inter.className} bg-neutral-white`}>
         <Header/>
         <main className="flex justify-center">
           <div className="w-full max-w-7xl">
