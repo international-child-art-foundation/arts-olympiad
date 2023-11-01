@@ -16,6 +16,22 @@
     background-position: center;
   }
 
+.heart-white{
+  background-image: url('/heartWhite.gif');
+  background-size: cover;
+  background-position: center;
+  height: 24px;
+  width: 48px;
+}
+
+.heart-black{
+  background-image: url('/heartBlack.gif');
+  background-size: cover;
+  background-position: center;
+  height: 24px;
+  width: 48px;
+}
+
 .un {
   display: hidden;
 }
