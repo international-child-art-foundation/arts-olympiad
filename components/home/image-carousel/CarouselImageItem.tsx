@@ -13,6 +13,7 @@ export const CarouselImageItem = ({imageUrl, alt, objectCover, width, mdwidth}: 
 
   const {windowWidth} = useWindowDimensions();
   const finalWidth = windowWidth >= 768 ? mdwidth : width;
+
   // mx-1 min-w-[150px] md:min-w-[250px] h-[110px] md:h-[180px]
   return (
     <div className={`mx-1 min-w-[${finalWidth}px] md:min-w-[${finalWidth}px] `}>

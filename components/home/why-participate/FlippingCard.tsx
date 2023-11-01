@@ -10,6 +10,7 @@ import {LazyImage} from "../../common/images/LazyImage";
 
 interface IProps extends React.HTMLProps<HTMLDivElement>{
   isFlippable: boolean
+  touchScreenPrimary: boolean
   icon: string,
   heading1: string
   heading2: string
@@ -17,10 +18,34 @@ interface IProps extends React.HTMLProps<HTMLDivElement>{
   color: string
 }
 
-export const FlippingCard = ({isFlippable, icon, heading1, heading2, description, color, children}: IProps) => {
+export const FlippingCard = ({touchScreenPrimary, isFlippable, icon, heading1, heading2, description, color, children}: IProps) => {
 
   const [flipped, setFlipped] = useState(false);
   const [hovered, setHovered] = useState(false);
+
+  const handleTouchStart = () => {
+    if (isFlippable && !hovered) {
+      setFlipped(!flipped);
+    }
+  };
+
+  const handleMouseOver = () => {
+    if (isFlippable) {
+      setFlipped(true);
+      setHovered(true);
+    }
+  };
+
+  const handleMouseLeave = () => {
+    if (isFlippable) {
+      setFlipped(false);
+      setHovered(false);
+    }
+  };
+
+  const noop = () => {
+    return;
+  };
 
   useEffect(() => {
     if (!isFlippable) {
@@ -37,15 +62,9 @@ export const FlippingCard = ({isFlippable, icon, heading1, heading2, description
         my-4 md:my-0 relative md:min-h-[270px] lg:min-h-[430px] xl:min-h-[468px] 2xl:min-h-[370px]
         z-10 bg-neutral-white cursor-pointer rounded-xl
       `}
-      onTouchStart={() => (isFlippable && !hovered) && setFlipped(!flipped)}
-      onMouseOver={() => {
-        isFlippable && setFlipped(true);
-        isFlippable && setHovered(true);
-      }}
-      onMouseLeave={() => {
-        isFlippable && setFlipped(false);
-        isFlippable && setHovered(false);
-      }}
+      onTouchStart={touchScreenPrimary ? handleTouchStart : noop}
+      onMouseOver={touchScreenPrimary ? noop : handleMouseOver}
+      onMouseLeave={touchScreenPrimary ? noop : handleMouseLeave}
     >
       <article
         role="region"

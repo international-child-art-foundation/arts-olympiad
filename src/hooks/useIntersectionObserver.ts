@@ -31,8 +31,6 @@ const useIntersectionObserver = (
     if (targetClass) {
 
       const cards = document.querySelectorAll(`.${targetClass}`);
-      console.log(cards);
-
       const observer = new IntersectionObserver(
         entries => {
           entries.forEach(entry => {

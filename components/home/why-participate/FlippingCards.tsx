@@ -1,5 +1,5 @@
 "use client";
-import React from "react";
+import React, {useEffect, useState} from "react";
 import {FlippingCard} from "./FlippingCard";
 import useWindowDimensions from "@/hooks/useWindowDimensions";
 import monitorUp from "../../../public/svgs/monitor-up.svg";
@@ -13,12 +13,29 @@ import {ButtonStyledLink} from "../../common/ui/ButtonStyledLink";
 
 export const FlippingCards = () => {
 
+  const [touchScreenPrimary, setTouchScreenPrimary] = useState(false);
   const { windowWidth } = useWindowDimensions();
   const areFlippable = windowWidth >= 768;
+
+  // Determines if user device has touch screen as primary input device. Should work for phones and tablets.
+  useEffect(() => {
+    const hasTouchScreen = () => {
+      return window.matchMedia("(pointer: coarse)").matches;
+    };
+
+    if (hasTouchScreen()) {
+      setTouchScreenPrimary(true);
+      console.log("Touchscreen device detected");
+    } else {
+      setTouchScreenPrimary(false);
+    }
+
+  }, []);
 
   return (
     <div className="z-10 md:grid grid-cols-2 grid-rows-2 gap-4 mt-6 card-grid" >
       <FlippingCard
+        touchScreenPrimary={touchScreenPrimary}
         isFlippable={areFlippable}
         heading1="Share"
         heading2="Artists, ages 10-20: Share your creations!"
@@ -27,6 +44,7 @@ export const FlippingCards = () => {
         color="#EE2F4D"
       />
       <FlippingCard
+        touchScreenPrimary={touchScreenPrimary}
         isFlippable={areFlippable}
         heading1="Vote"
         heading2="For your favorite artwork"
@@ -35,6 +53,7 @@ export const FlippingCards = () => {
         color="#FBB22E"
       />
       <FlippingCard
+        touchScreenPrimary={touchScreenPrimary}
         isFlippable={areFlippable}
         heading1="Support"
         heading2="Your support changes lives"
@@ -52,6 +71,7 @@ export const FlippingCards = () => {
         </ButtonStyledLink>
       </FlippingCard>
       <FlippingCard
+        touchScreenPrimary={touchScreenPrimary}
         isFlippable={areFlippable}
         heading1="Register"
         heading2="For free"

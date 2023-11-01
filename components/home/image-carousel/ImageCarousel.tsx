@@ -103,7 +103,7 @@ export const ImageCarousel = ({ images, ...props }: IProps) => {
     return () => {
       cleanupEventListener();
     };
-  }, [isTargetIntersecting]);
+  }, []);
 
   return (
     <section
