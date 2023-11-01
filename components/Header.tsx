@@ -1,7 +1,7 @@
 import Link from "next/link";
 import MobileNav from "./MobileNav";
 import "../src/app/globals.css"; 
-import { HeartIconWhite } from "./svgs/HeartIconWhite";
+// import { HeartIconWhite } from "./svgs/HeartIconWhite";
 import { UploadIcon } from "./svgs/UploadIcon";
 import { VoteIcon } from "./svgs/VoteIcon";
 import { LoginIcon } from "./svgs/LoginIcon";
@@ -20,9 +20,9 @@ const Header = () => {
   ];
 
   return (
-    <header className="bg-neutral-white font-body z-20 w-full max-w-[1600px] md:flex md:w-11/12 h-fit items-center justify-center relative top-0 left-0">
+    <header className="bg-neutral-white mx-auto font-body z-20 w-full max-w-[1600px] md:flex h-fit relative top-0 left-0">
       
-      <div className="w-full md:w-fit md:ml-5%">
+      <div className="w-full md:w-fit">
         <Link href="/">
           <div className="logo-bg mx-auto w-16 h-16 my-1 md:w-32 md:h-32 md:mx-8 md:mt-6"></div>
           <div className="font-light mt-1 mx-8 tracking-widest text-xs hidden md:block">#MyFavoriteSport</div>
@@ -48,7 +48,7 @@ const Header = () => {
 
         <hr className="my-2 mx-2 border-gray-400 border-1 w-full hidden md:block"></hr>
 
-        <div className="flex flex-wrap items-center gap-x-3 w-full py-2 h-1/2 max-w-7xl">
+        <div className="flex flex-wrap items-center gap-x-3 w-full py-2 h-1/2">
           
           {links1.map(link => (
             <Link key={link.name} href={link.url}>
@@ -92,8 +92,9 @@ const Header = () => {
             <HeartIconWhite />
             Donate
           </a> */}
+          
           <div className="ml-auto flex">
-            <div className="heart-gif me-auto my-2 hidden md:block"></div>
+            <div className="heart-black me-auto my-4 hidden md:block"></div>
             <a href="https://icaf.org/donate" className="w-fit h-fit border-neutral-white border rounded text-center py-3 px-4 text-sm cursor-pointer tracking-wide bg-new-blue text-neutral-white ml-auto hidden md:block">
               Donate
             </a>

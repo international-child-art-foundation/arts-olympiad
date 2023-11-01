@@ -2,7 +2,7 @@
 import React, {useState} from "react";
 import { slide as Menu } from "react-burger-menu";
 import Link from "next/link";
-import { HeartIconWhite } from "./svgs/HeartIconWhite";
+// import { HeartIconWhite } from "./svgs/HeartIconWhite";
 import { LoginIcon } from "./svgs/LoginIcon";
 import { DownIcon } from "./svgs/DownIcon";
 import { UpIcon } from "./svgs/UpIcon";
@@ -97,7 +97,7 @@ const MobileNav = () => {
         <a href="https://icaf.org/donate" className="group mx-auto mb-4 w-5/6 h-fit border-neutral-white border rounded text-center py-2 px-4 text-sm cursor-pointer tracking-wide bg-new-blue text-neutral-white">
           Donate
         </a>
-        <div className="heart-gif me-auto"></div>
+        <div className="heart-black me-auto ml-4"></div>
         
         <a href="https://artsolympiad.info/artwok_registration.php" className="group mx-auto mb-4 h-fit w-5/6 border-new-blue border rounded text-center py-2 px-3 text-xs cursor-pointer tracking-wide text-new-blue hidden md:block">
           Upload
