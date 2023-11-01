@@ -1,17 +1,17 @@
-import underline from "../../../public/svgs/underline.svg";
 import tinyBlob from "../../../public/svgs/tiny-vertical-pink-blob.svg";
 import bigBlob from "../../../public/svgs/vertical-big-pink-blob.svg";
 import Image from "next/image";
 import {FlippingCards} from "./FlippingCards";
 import {SideImages} from "./SideImages";
 import {H2m} from "../../common/texts/H2m";
+import {AnimatedScribble} from "../../common/decorations/AnimatedScribble";
 
 export const WhyParticipate = () => {
 
   return (
     <section className="relative px-6 md:px-12 xl:px-24 mt-44">
       <H2m className="z-10 font-medium" >Why Participate?</H2m>
-      <Image src={underline} alt="" width={180} height={16} className="z-10 md:w-[290px] md:h-[28px] xl:w-[340px] xl:h-[34px] ml-16 md:ml-20 " />
+      <AnimatedScribble width={280} smwidth={180} className="z-10 md:w-[290px] md:h-[28px] xl:w-[340px] xl:h-[34px] ml-16 md:ml-20 " />
 
       <div className="z-10 lg:grid lg:grid-cols-2">
         <FlippingCards/>

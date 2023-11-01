@@ -1,5 +1,4 @@
 import Image from "next/image";
-import underline from "../../../public/svgs/underline.svg";
 import img1 from "../../../public/home/guidelines/guidelines1.webp";
 import img2 from "../../../public/home/guidelines/guidelines2.webp";
 import img3 from "../../../public/home/guidelines/guidelines3.webp";
@@ -8,6 +7,7 @@ import {H2m} from "../../common/texts/H2m";
 import {GuidelineCard} from "./GuidelineCard";
 import Link from "next/link";
 import vector from "../../../public/svgs/Vector.svg";
+import {AnimatedScribble} from "../../common/decorations/AnimatedScribble";
 
 export const Guidelines = () => {
   return (
@@ -17,11 +17,17 @@ export const Guidelines = () => {
         Submission Guidelines Made
         <span className="text-dark-blue"> Simple</span>
       </H2m>
-      <Image
-        src={underline} alt=""
-        width={180} height={16}
-        className="hidden sm:block z-10 md:w-[290px] md:h-[28px] xl:w-[340px] xl:h-[34px] ml-96"
+      <AnimatedScribble
+        width={280}
+        smwidth={180}
+        className="z-10 md:w-[290px] md:h-[28px] xl:w-[340px] xl:h-[34px] ml-96"
       />
+
+      {/*<Image*/}
+      {/*  src={underline} alt=""*/}
+      {/*  width={180} height={16}*/}
+      {/*  className="hidden sm:block z-10 md:w-[290px] md:h-[28px] xl:w-[340px] xl:h-[34px] ml-96"*/}
+      {/*/>*/}
       <figure className="z-10 mt-8 md:grid grid-cols-3 gap-6" >
         <GuidelineCard
           className="border-[#0286C3]"

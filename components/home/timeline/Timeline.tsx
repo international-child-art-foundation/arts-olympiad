@@ -6,7 +6,6 @@ import {Pm} from "../../common/texts/Pm";
 import {TimePoint} from "./TimePoint";
 import useWindowDimensions from "@/hooks/useWindowDimensions";
 import useIntersectionObserver from "@/hooks/useIntersectionObserver";
-import underline from "../../../public/svgs/underline.svg";
 import littleYellowBlob from "../../../public/svgs/little-yellow-blob.svg";
 import tinyYellowBlob from "../../../public/svgs/tiny-yellow-blob.svg";
 import tinyPinkBlob from "../../../public/svgs/tiny-vertical-pink-blob.svg";
