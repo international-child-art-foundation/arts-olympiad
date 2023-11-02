@@ -6,7 +6,7 @@ import { YoutubeIcon } from "./svgs/YoutubeIcon";
 import { LinkedinIcon } from "./svgs/LinkedinIcon";
 import { PinterestIcon } from "./svgs/PinterestIcon";
 import { EmailIcon } from "./svgs/EmailIcon";
-import { HeartIcon } from "./svgs/HeartIcon";
+// import { HeartIcon } from "./svgs/HeartIcon";
 
 const icons = [
   { SVGcomponent: FacebookIcon, altText:"Visit the International Child Art Foundation's Facebook page", href:"https://www.facebook.com/ICAF.org"},
@@ -20,7 +20,7 @@ const icons = [
 // Custom box shadows added to apply the effects of "shadow-md" with a negative offset-y
 const Footer = () => {
   return (
-    <footer className="bg-new-blue font-body relative w-full max-w-[1600px] mx-auto">
+    <footer className="bg-new-blue font-body relative w-full mx-auto">
       <div className="mx-5% sm:mx-auto sm:max-w-sm md:max-w-full flex flex-wrap gap-y-10 pt-12 pb-10 pl-2 pr-2 ml:pl-8 mr:pr-8 justify-around">
         
         <div className="space-y-3 w-full md:w-2/5 max-w-sm lg:w-30% text-sm text-neutral-white col-span-2 md:order-1 md:col-span-3">
@@ -72,10 +72,14 @@ const Footer = () => {
         <div className="flex flex-wrap max-w-sm md:max-w-full md:justify-center md:gap-9 w-full md:order-4 lg:w-auto lg:flex-col lg:gap-5"> 
           <div className="w-1/2 md:w-auto">
             <div className="flex flex-col w-auto items-left md:items-center">
-              <a href="#" className="group w-32 lg:w-32 h-fit border-neutral-white border rounded text-center py-3 px-5 text-sm cursor-pointer tracking-wide bg-neutral-white text-new-blue">
+              {/* <a href="#" className="group w-32 lg:w-32 h-fit border-neutral-white border rounded text-center py-3 px-5 text-sm cursor-pointer tracking-wide bg-neutral-white text-new-blue">
                 <HeartIcon />
                 Donate
+              </a> */}
+              <a href="#" className="group w-32 lg:w-32 h-fit border-neutral-white border rounded text-center py-3 px-5 text-sm cursor-pointer tracking-wide bg-neutral-white text-new-blue">
+                Donate
               </a>
+              <div className="heart-white me-auto my-2"></div>
             </div>
           </div>
           <div className="w-1/2 md:w-auto">

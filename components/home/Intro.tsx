@@ -18,7 +18,7 @@ import {H3m} from "../common/texts/H3m";
 export const Intro = () => {
 
   return (
-    <section aria-label="introduction."  className="mb-8 md:mb-36 max-h-[760] relative bg-neutral-white grid md:col-span-4 md:grid-cols-4 px-6 md:px-12 xl:px-24 ">
+    <section aria-label="introduction."  className="mb-8 md:mb-36 mt-20 max-h-[760] relative bg-neutral-white grid md:col-span-4 md:grid-cols-4 px-6 md:px-12 xl:px-24 ">
       {/* TEXTS */}
 
       <article role="banner" className=" z-20 relative flex-col align-middle md:col-span-2">
