@@ -20,7 +20,7 @@ const Header = () => {
   ];
 
   return (
-    <header className="bg-neutral-white mx-auto font-body z-20 w-full md:flex h-fit relative top-0 left-0">
+    <header className=" bg-neutral-white mx-auto font-body z-20 w-full md:flex h-fit relative top-0 left-0">
       
       <div className="w-full md:w-fit">
         <Link href="/">

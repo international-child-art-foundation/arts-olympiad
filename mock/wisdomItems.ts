@@ -1,6 +1,6 @@
 import {StaticImageData} from "next/image";
 import mandela from "../public/home/wisdom/mandela.png";
-import angelou from "../public/home/wisdom/angelou.webp";
+import angelou from "../public/home/wisdom/angelou.png";
 import proust from "../public/home/wisdom/proust.png";
 
 export interface IWisdom {

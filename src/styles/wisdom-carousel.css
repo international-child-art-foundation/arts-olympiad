@@ -1,0 +1,19 @@
+.cloud {
+    margin-left: 400px;
+}
+
+.slide-left-cloud {
+    margin-left: 0;
+    transition: margin-left 1s ease-in-out;
+}
+
+.visionary-thinker {
+    width: 100px;
+    height: 100px;
+}
+
+.grow-thinker {
+    width: 100%;
+    height: 500px;
+    transition: all 1s ease-in-out;
+}

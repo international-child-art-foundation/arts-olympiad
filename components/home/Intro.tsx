@@ -18,13 +18,13 @@ import {H3m} from "../common/texts/H3m";
 export const Intro = () => {
 
   return (
-    <section aria-label="introduction."  className="mb-8 md:mb-36 mt-20 max-h-[760] relative bg-neutral-white grid md:col-span-4 md:grid-cols-4 px-6 md:px-12 xl:px-24 ">
+    <section aria-label="introduction."  className="mb-8 md:mb-36 mt-6 md:mt-20 max-h-[760] relative bg-neutral-white grid md:col-span-4 md:grid-cols-4 px-6 md:px-12 xl:px-24 ">
       {/* TEXTS */}
 
       <article role="banner" className=" z-20 relative flex-col align-middle md:col-span-2">
         <div className=" z-20 flex flex-row align-center mb-8">
           <Image src={hashtag} alt="" width={32} height={32}  />
-          <h1 className=" z-20 break-words font-semibold text-4xl lg:text-5xl xl:text-6xl ">
+          <h1 className=" z-20 break-words font-semibold text-3xl xsm:text-4xl lg:text-5xl xl:text-6xl ">
               MyFavoriteSport<span className="sr-only">.</span>
           </h1>
         </div>

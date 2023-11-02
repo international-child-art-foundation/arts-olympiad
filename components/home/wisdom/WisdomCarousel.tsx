@@ -1,4 +1,5 @@
 "use client";
+import "../../../src/styles/wisdom-carousel.css";
 import Image from "next/image";
 import scrollLeft from "../../../public/svgs/scroll-left.svg";
 import scrollRight from "../../../public/svgs/scroll-right.svg";
@@ -16,20 +17,18 @@ export const WisdomCarousel = () => {
 
   const leftButtonRef = useRef<HTMLButtonElement | null>(null);
   const rightButtonRef = useRef<HTMLButtonElement | null>(null);
+  const cloudRef = useRef<HTMLImageElement | null>(null);
+  const wisdomCardRef = useRef<HTMLImageElement | null>(null);
   const [intersectionTarget, isTargetIntersecting, setCleanupFunctions] = useIntersectionObserver({ threshold: 0.2 });
   const {windowWidth} = useWindowDimensions();
   const [currentWisdom, setCurrentWisdom] = useState(0);
-
 
   // effect to listen to keyboard arrow buttons clicks and control the carousel
   useEffect(() => {
     const handleKeyDown = (event: KeyboardEvent) => {
       if (event.key === "ArrowLeft" && leftButtonRef.current) {
-        // focusing on it will prevent autoscroll
-        leftButtonRef.current?.focus();
         leftButtonRef.current?.click();
       } else if (event.key === "ArrowRight" && rightButtonRef.current) {
-        rightButtonRef.current?.focus();
         rightButtonRef.current?.click();
       }
     };
@@ -44,6 +43,17 @@ export const WisdomCarousel = () => {
     };
   }, [isTargetIntersecting]);
 
+  useEffect(() => {
+    const timeout = setTimeout(() => {
+      cloudRef.current?.classList.add("slide-left-cloud");
+      wisdomCardRef.current?.classList.add("grow-thinker");
+    }, 50);
+
+    return () => {
+      clearTimeout(timeout);
+    };
+  }, [currentWisdom]);
+
   const handleGoLeft = () => {
     if ( currentWisdom > 0 ) {
       setCurrentWisdom(currentWisdom - 1);
@@ -53,6 +63,8 @@ export const WisdomCarousel = () => {
   };
 
   const handleIndicatorClick = (i: number) => {
+    cloudRef.current?.classList.remove("slide-left-cloud");
+    wisdomCardRef.current?.classList.remove("grow-thinker");
     setCurrentWisdom(i);
   };
 
@@ -69,17 +81,17 @@ export const WisdomCarousel = () => {
 
       {
         windowWidth < 768 &&
-        <WisdomCard wisdom={wisdomList[currentWisdom]}/>
+        <WisdomCard ref={wisdomCardRef} wisdom={wisdomList[currentWisdom]}/>
       }
 
       {
         windowWidth >= 768 &&
         <div className="z-40 relative w-full h-full grid grid-rows-2 grid-cols-10 gap-4">
-          <WisdomCard wisdom={wisdomList[currentWisdom]}/>
+          <WisdomCard ref={wisdomCardRef} wisdom={wisdomList[currentWisdom]}/>
           <div className="row-span-1 col-span-2" />
           <div className="z-10 absolute w-[400px] lg:w-[500px] xl:w-[600px] bottom-0 -right-16 xl:-right-24">
-            <div className="relative">
-              <Image className="h-fullw-full" src={bigBlob} alt=""/>
+            <div className="relative ">
+              <Image ref={cloudRef} className="h-full cloud " src={bigBlob} alt=""/>
               <div className="h-full absolute inset-0 py-10 pl-16 pr-6 grid grid-rows-3 ">
                 <H3m className="z-20 my-4 text-white text-center row-span-1" >{wisdomList[currentWisdom].author}</H3m>
                 <Pm className=" text-sm z-20 text-white row-span-1">{wisdomList[currentWisdom].wisdomText}</Pm>
@@ -92,7 +104,7 @@ export const WisdomCarousel = () => {
                 <WisdomThumbnail
                   key={wisdom.author}
                   wisdom={wisdom}
-                  onClick={() => setCurrentWisdom(i)}
+                  onClick={() => handleIndicatorClick(i)}
                 />
               )
               .filter((wisdom) => wisdom.key !== wisdomList[currentWisdom].author )

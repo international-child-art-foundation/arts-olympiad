@@ -10,8 +10,8 @@ export const WhyParticipate = () => {
 
   return (
     <section className="relative px-6 md:px-12 xl:px-24 mt-44">
-      <H2m className="z-10 font-medium" >Why Participate?</H2m>
-      <AnimatedScribble width={280} smwidth={180} className="z-10 md:w-[290px] md:h-[28px] xl:w-[340px] xl:h-[34px] ml-16 md:ml-20 " />
+      <H2m className="z-10 font-medium text-3xl md:text-4xl" >Why Participate?</H2m>
+      <AnimatedScribble width={280} smwidth={180} className="z-10 md:w-[290px] md:h-[28px] xl:w-[340px] xl:h-[34px] ml-20 " />
 
       <div className="z-10 lg:grid lg:grid-cols-2">
         <FlippingCards/>
