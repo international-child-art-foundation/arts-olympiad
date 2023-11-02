@@ -1,3 +1,4 @@
+"use client";
 import Image from "next/image";
 import hashtag from "../../public/home/hashtag.svg";
 import vector from "../../public/svgs/Vector.svg";
@@ -15,6 +16,7 @@ import {H2m} from "../common/texts/H2m";
 import {H3m} from "../common/texts/H3m";
 
 export const Intro = () => {
+
   return (
     <section aria-label="introduction."  className="mb-8 md:mb-36 max-h-[760] relative bg-neutral-white grid md:col-span-4 md:grid-cols-4 px-6 md:px-12 xl:px-24 ">
       {/* TEXTS */}

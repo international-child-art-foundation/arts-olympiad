@@ -9,7 +9,6 @@ import {WisdomCard} from "./WisdomCard";
 import useWindowDimensions from "@/hooks/useWindowDimensions";
 import {WisdomThumbnail} from "./WisdomThumbnail";
 import bigBlob from "../../../public/home/wisdom/wisdom-cloud-blob.svg";
-import mobileBlob from "../../../public/home/wisdom/wisdom-cloud-blob-mobile.svg";
 import {H3m} from "../../common/texts/H3m";
 import {Pm} from "../../common/texts/Pm";
 
