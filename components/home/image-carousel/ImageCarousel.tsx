@@ -126,7 +126,7 @@ export const ImageCarousel = ({ images, ...props }: IProps) => {
         ref={carouselRef}
       >
         {images.map((image) => (
-          <CarouselImageItem key={image.id} imageUrl={image.url} alt={image.alt} width={props.width} mdwidth={props.mdwidth} objectCover={props.objectCover} />
+          <CarouselImageItem key={image.id} imageUrl={image.url} alt={image.alt} width={props.width} mdwidth={props.mdwidth} height={props.height} objectCover={props.objectCover} />
         ))}
       </figure>
       <div className="absolute right-[5%] -bottom-16" >
