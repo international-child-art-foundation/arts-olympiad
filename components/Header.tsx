@@ -20,12 +20,12 @@ const Header = () => {
   ];
 
   return (
-    <header className=" bg-neutral-white mx-auto font-body z-20 w-full md:flex h-fit relative top-0 left-0">
+    <header className="px-6 gap-6 mt-6 m-auto sm:px-8 md:px-12 lg:px-16 xl:px-20 max-w-screen-2xl bg-neutral-white font-body z-20 md:flex h-fit relative top-0 left-0">
       
       <div className="w-full md:w-fit">
         <Link href="/">
-          <div className="logo-bg mx-auto w-16 h-16 my-1 md:w-32 md:h-32 md:mx-8 md:mt-6"></div>
-          <div className="font-light mt-1 mx-8 tracking-widest text-xs hidden md:block">#MyFavoriteSport</div>
+          <div className="logo-bg mx-auto w-16 h-16  md:w-32 md:h-32"></div>
+          <div className="font-light mt-1 tracking-widest text-xs hidden md:block">#MyFavoriteSport</div>
         </Link>
       </div>
       
