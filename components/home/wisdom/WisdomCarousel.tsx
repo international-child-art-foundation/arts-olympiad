@@ -148,7 +148,7 @@ export const WisdomCarousel = () => {
                 <div
                   key={i + Date.now()}
                   className={`
-                mx-2 rounded-full w-5 h-5 border-0.5 border-main-blue 
+                mx-2 rounded-full w-5 h-5 border-0.5 border-main-blue cursor-pointer
                 ${currentWisdom === i && "bg-dark-blue"}
                 ` }
                   onClick={() => handleIndicatorClick(i)}
