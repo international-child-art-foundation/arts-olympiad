@@ -1,5 +1,5 @@
 import Link from "next/link";
-import ContentContainer from "../../../components/ui/ContentContainer";
+import ContentContainer from "../../../components/common/ui/ContentContainer";
 import Image from "next/image";
 import { Metadata } from "next";
 import { sharedOpenGraph } from "../shared-metadata";

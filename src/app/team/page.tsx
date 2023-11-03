@@ -1,4 +1,4 @@
-import ContentContainer from "../../../components/ui/ContentContainer";
+import ContentContainer from "../../../components/common/ui/ContentContainer";
 import Link from "next/link";
 import Image from "next/image";
 import { sharedOpenGraph } from "../shared-metadata";
