@@ -19,12 +19,15 @@ export const WisdomCarousel = () => {
   const rightButtonRef = useRef<HTMLButtonElement | null>(null);
   const cloudRef = useRef<HTMLImageElement | null>(null);
   const wisdomCardRef = useRef<HTMLImageElement | null>(null);
+  const wisdomTextRef = useRef<HTMLDivElement | null>(null);
   const [intersectionTarget, isTargetIntersecting, setCleanupFunctions] = useIntersectionObserver({ threshold: 0.2 });
   const {windowWidth} = useWindowDimensions();
   const [currentWisdom, setCurrentWisdom] = useState(0);
+  const [wasViewed, setWasViewed] = useState(false);
 
   // effect to listen to keyboard arrow buttons clicks and control the carousel
   useEffect(() => {
+    isTargetIntersecting && setWasViewed(true);
     const handleKeyDown = (event: KeyboardEvent) => {
       if (event.key === "ArrowLeft" && leftButtonRef.current) {
         leftButtonRef.current?.click();
@@ -43,18 +46,38 @@ export const WisdomCarousel = () => {
     };
   }, [isTargetIntersecting]);
 
-  useEffect(() => {
-    const timeout = setTimeout(() => {
-      cloudRef.current?.classList.add("slide-left-cloud");
-      wisdomCardRef.current?.classList.add("grow-thinker");
-    }, 50);
 
-    return () => {
-      clearTimeout(timeout);
-    };
-  }, [currentWisdom]);
+  useEffect(() => {
+    if (wasViewed) {
+      const timeout = setTimeout(() => {
+        addAnimationClasses();
+      }, 50);
+
+      return () => {
+        clearTimeout(timeout);
+      };
+    }
+    return;
+  }, [currentWisdom, wasViewed]);
+
+  const addAnimationClasses = () => {
+    cloudRef.current?.classList.add("slide-left-cloud");
+    wisdomCardRef.current?.classList.add("grow-thinker");
+    wisdomTextRef.current?.classList.add("animate-wisdom-opacity");
+  };
+
+  /*
+  use this to remove animation - triggering classes to trigger effect
+  that will assign them back to start the animation once again
+   */
+  const removeAnimationClasses = () => {
+    cloudRef.current?.classList.remove("slide-left-cloud");
+    wisdomCardRef.current?.classList.remove("grow-thinker");
+    wisdomTextRef.current?.classList.remove("animate-wisdom-opacity");
+  };
 
   const handleGoLeft = () => {
+    removeAnimationClasses();
     if ( currentWisdom > 0 ) {
       setCurrentWisdom(currentWisdom - 1);
     } else {
@@ -63,12 +86,12 @@ export const WisdomCarousel = () => {
   };
 
   const handleIndicatorClick = (i: number) => {
-    cloudRef.current?.classList.remove("slide-left-cloud");
-    wisdomCardRef.current?.classList.remove("grow-thinker");
+    removeAnimationClasses();
     setCurrentWisdom(i);
   };
 
   const handleGoRight = () => {
+    removeAnimationClasses();
     if ( currentWisdom < wisdomList.length - 1) {
       setCurrentWisdom(currentWisdom + 1 );
     } else {
@@ -92,7 +115,10 @@ export const WisdomCarousel = () => {
           <div className="z-10 absolute w-[400px] lg:w-[500px] xl:w-[600px] bottom-0 -right-16 xl:-right-24">
             <div className="relative ">
               <Image ref={cloudRef} className="h-full cloud " src={bigBlob} alt=""/>
-              <div className="h-full absolute inset-0 py-10 pl-16 pr-6 grid grid-rows-3 ">
+              <div
+                ref={wisdomTextRef}
+                className="wisdom-text h-full absolute inset-0 py-10 pl-16 pr-6 grid grid-rows-3 "
+              >
                 <H3m className="z-20 my-4 text-white text-center row-span-1" >{wisdomList[currentWisdom].author}</H3m>
                 <Pm className=" text-sm z-20 text-white row-span-1">{wisdomList[currentWisdom].wisdomText}</Pm>
               </div>
@@ -120,7 +146,7 @@ export const WisdomCarousel = () => {
             wisdomList.map((wisdom, i) => {
               return (
                 <div
-                  key={i}
+                  key={i + Date.now()}
                   className={`
                 mx-2 rounded-full w-5 h-5 border-0.5 border-main-blue 
                 ${currentWisdom === i && "bg-dark-blue"}

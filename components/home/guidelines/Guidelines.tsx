@@ -15,12 +15,11 @@ export const Guidelines = () => {
       <Image src={blob} alt="" width={1000} className="z-0 hidden md:block absolute -top-36 left-0" />
       <H2m className="z-10 font-medium text-3xl md:text-4xl" >
         Submission Guidelines Made
-        <span className="text-dark-blue relative">
-          Simple
+        <span className="text-dark-blue relative"> Simple
           <AnimatedScribble
             width={280}
             smwidth={180}
-            className="absolute top-8 -right-8 z-10 md:w-[290px] md:h-[28px] xl:w-[340px] xl:h-[34px]"
+            className="absolute top-8 md:top-10 -right-8 z-10 md:w-[290px] md:h-[28px] xl:w-[340px] xl:h-[34px]"
           />
         </span>
 

@@ -15,8 +15,6 @@ interface IProps {
 // eslint-disable-next-line react/display-name
 export const WisdomCard = forwardRef(({wisdom}: IProps, forwardedRef: React.Ref<HTMLImageElement>) => {
 
-  console.log("forwardedRef in WisdomCard:", forwardedRef);
-
   const {windowWidth} = useWindowDimensions();
 
 
@@ -38,11 +36,12 @@ export const WisdomCard = forwardRef(({wisdom}: IProps, forwardedRef: React.Ref<
   }
 
   return (
-    <LazyImage
-      ref={forwardedRef}
-      imageUrl={wisdom.url} alt={wisdom.alt}
-      className="object-cover visionary-thinker col-span-8 row-span-2  md:h-[400px] lg:h-[500px] rounded-xl"
-    />
+    <div className="md:h-[400px] lg:h-[500px] mxl:h-[600px] 2xl:h-[700px] col-span-8 row-span-2 flex">
+      <LazyImage
+        ref={forwardedRef}
+        imageUrl={wisdom.url} alt={wisdom.alt}
+        className=" self-end object-cover visionary-thinker  rounded-xl"
+      />
+    </div>
   );
-
 });
