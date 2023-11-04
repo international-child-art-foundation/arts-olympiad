@@ -31,21 +31,45 @@ export const ImageCarousel = ({ images, ...props }: IProps) => {
   const rightButtonRef = useRef<HTMLButtonElement | null>(null);
   const [haltInterval, setHaltInterval] = useState(false);
   const {windowWidth} = useWindowDimensions();
+  const imageWidthWithMargin = windowWidth >= 768 ? (props.mdwidth + 8) : (props.width + 8);
+  // distance to be passed every 10 ms
+  const distanceToGo = imageWidthWithMargin / 300;
 
   const [intersectionTarget, isTargetIntersecting, setCleanupFunctions] = useIntersectionObserver({ threshold: 0.2 });
+
+  const constantlyScrollCarousel = () => {
+    if (carouselRef.current) {
+      const epsilon = 1; // to improve precision for edge cases
+      const scrollRightTo = carouselRef.current.scrollLeft + (distanceToGo);
+      console.log("scrollWidth: ", carouselRef.current.scrollWidth);
+      console.log("conditionLeft: ", carouselRef.current.clientWidth + scrollRightTo + epsilon);
+      console.log((carouselRef.current.clientWidth + scrollRightTo + epsilon)  >= carouselRef.current.scrollWidth);
+      if ( (carouselRef.current.clientWidth + scrollRightTo + epsilon)  >= carouselRef.current.scrollWidth) {
+        carouselRef.current.scrollTo({
+          left: 0,
+          behavior: "instant",
+        });
+        return;
+      }
+      carouselRef.current.scrollTo({
+        left: carouselRef.current?.scrollLeft + distanceToGo,
+        behavior: "instant",
+      });
+    }
+  };
 
   const handleScrollRight = () => {
     if (carouselRef.current) {
       const epsilon = 1; // to improve precision for edge cases
-      const scrollWidthWithMargin = windowWidth >= 768 ? props.mdwidth + 8 : props.width + 8;
-      const scrollRightTo = carouselRef.current.scrollLeft + (scrollWidthWithMargin);
-      if ((carouselRef.current.clientWidth - scrollWidthWithMargin) + scrollRightTo + epsilon  >= carouselRef.current.scrollWidth) {
+      const scrollRightTo = carouselRef.current.scrollLeft + (imageWidthWithMargin);
+      if ((carouselRef.current.clientWidth - imageWidthWithMargin) + scrollRightTo + epsilon  >= carouselRef.current.scrollWidth) {
         carouselRef.current.scrollTo({
           left: 0,
           behavior: "smooth",
         });
         return;
       }
+
       carouselRef.current.scrollTo({
         left: scrollRightTo,
         behavior: "smooth",
@@ -66,9 +90,10 @@ export const ImageCarousel = ({ images, ...props }: IProps) => {
 
   // effect to set interval for autoscroll
   useEffect(() => {
+
     const interval = setInterval(() => {
-      handleScrollRight();
-    }, 3000);
+      constantlyScrollCarousel();
+    }, 10);
     const cleanupInterval = () => clearInterval(interval);
     setCleanupFunctions((prevCleanupFunctions) => [...prevCleanupFunctions, cleanupInterval]);
 
@@ -135,6 +160,8 @@ export const ImageCarousel = ({ images, ...props }: IProps) => {
           className="mr-2"
           onClick={handleScrollLeft}
           aria-label="scroll left button."
+          onMouseOver={() => setHaltInterval(true)}
+          onMouseLeave={() => setHaltInterval(false)}
           onFocus={() => setHaltInterval(true)}
           onBlur={() => setHaltInterval(false)}
         >
@@ -144,6 +171,8 @@ export const ImageCarousel = ({ images, ...props }: IProps) => {
           ref={rightButtonRef}
           onClick={handleScrollRight}
           aria-label="scroll right button."
+          onMouseOver={() => setHaltInterval(true)}
+          onMouseLeave={() => setHaltInterval(false)}
           onFocus={() => setHaltInterval(true)}
           onBlur={() => setHaltInterval(false)}
         >
