@@ -9,13 +9,15 @@ export const useDetectOutsideClick = (ref: React.MutableRefObject<HTMLElement | 
   const [isActive, setIsActive] = useState(initialState);
 
   useEffect(() => {
-    const onClick = (e: any) => {
-      // If the active ref exists and is clicked outside of
-      if (ref?.current !== null && !ref?.current.contains(e.target)) {
-        setIsActive(!isActive);
+    const onClick = (e: MouseEvent) => {
+      // First, check if the target is an instance of Node
+      if (e.target instanceof Node) {
+        if (ref?.current !== null && !ref?.current.contains(e.target)) {
+          setIsActive(!isActive);
+        }
       }
     };
-
+  
     // If the item is active (ie open) then listen for clicks outside
     if (isActive) {
       window.addEventListener("click", onClick);

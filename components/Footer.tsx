@@ -21,7 +21,7 @@ const icons = [
 const Footer = () => {
   return (
     <footer className="bg-new-blue font-body relative w-full mx-auto">
-      <div className="mx-5% sm:mx-auto sm:max-w-sm md:max-w-full flex flex-wrap gap-y-10 pt-12 pb-10 pl-2 pr-2 ml:pl-8 mr:pr-8 justify-around">
+      <div className="mx-5% sm:mx-auto sm:max-w-sm md:max-w-full lg:max-w-screen-2xl flex flex-wrap gap-y-10 pt-12 pb-10 px-8 md:px-12 lg:px-16 xl:px-20 justify-between">
         
         <div className="space-y-3 w-full md:w-2/5 max-w-sm lg:w-30% text-sm text-neutral-white col-span-2 md:order-1 md:col-span-3">
           <p>Join our newsletter here</p>

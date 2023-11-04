@@ -11,8 +11,8 @@ import {AnimatedScribble} from "../../common/decorations/AnimatedScribble";
 
 export const Guidelines = () => {
   return (
-    <section aria-label="Submission guidelines." className="relative px-6 md:px-12 xl:px-24 mt-36 flex flex-col">
-      <Image src={blob} alt="" width={1000} className="z-0 hidden md:block absolute -top-36 left-0" />
+    <section aria-label="Submission guidelines." className="relative px-8 md:px-12 lg:px-16 xl:px-20 mt-36 flex flex-col max-w-screen-2xl m-auto">
+      <Image src={blob} alt="" width={1000} className="z-0 hidden md:block absolute -top-32 -left-28" />
       <H2m className="z-10 font-medium text-3xl md:text-4xl" >
         Submission Guidelines Made
         <span className="text-dark-blue relative"> Simple
