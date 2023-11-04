@@ -20,7 +20,7 @@ const Header = () => {
   ];
 
   return (
-    <header className=" bg-neutral-white mx-auto font-body z-20 w-full md:flex h-fit relative top-0 left-0">
+    <header className="bg-neutral-white mx-auto font-body z-20 w-full max-w-[1408px] md:flex h-fit relative top-0 left-0">
       
       <div className="w-full md:w-fit">
         <Link href="/">
@@ -41,12 +41,12 @@ const Header = () => {
           Vote
         </a>
 
-        <a href="#" className="group my-2 ml-auto h-fit w-fit text-center py-2 px-3 text-xs cursor-pointer tracking-wide text-new-blue hidden md:block">
+        <a href="#" className="group my-2 ml-auto mr-5% h-fit w-fit text-center py-2 px-3 text-xs cursor-pointer tracking-wide text-new-blue hidden md:block">
           <LoginIcon />
           Login
         </a>
 
-        <hr className="my-2 mx-2 border-gray-400 border-1 w-full hidden md:block"></hr>
+        <hr className="my-2 mx-2 border-gray-400 border-1 w-full mr-5% hidden md:block"></hr>
 
         <div className="flex flex-wrap items-center gap-x-3 w-full py-2 h-1/2">
           
@@ -93,7 +93,7 @@ const Header = () => {
             Donate
           </a> */}
           
-          <div className="ml-auto flex">
+          <div className="ml-auto flex mr-5%">
             <div className="heart-black me-auto my-4 hidden md:block"></div>
             <a href="https://icaf.org/donate" className="w-fit h-fit border-neutral-white border rounded text-center py-3 px-4 text-sm cursor-pointer tracking-wide bg-new-blue text-neutral-white ml-auto hidden md:block">
               Donate
