@@ -89,7 +89,7 @@ export const AnimatedScribble = ({width, smwidth, animationDelay, className}: IP
   }
 
   function startSVGAnimation(parentElement: Element): void {
-    drawSVGPaths(parentElement, 0, 1200, animationDelay || 0);
+    drawSVGPaths(parentElement, 0, 3000, animationDelay || 0);
   }
 
   useEffect(() => {
