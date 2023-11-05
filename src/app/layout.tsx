@@ -24,7 +24,7 @@ export default function RootLayout({
       />
       <body className={`${inter.className} bg-neutral-white`}>
         <Header/>
-        <main className="flex flex-col justify-center align-middle w-full m-auto">
+        <main className="overflow-x-hidden flex flex-col justify-center align-middle w-full m-auto">
           { children }
         </main>
         <Footer />

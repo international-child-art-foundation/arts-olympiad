@@ -109,10 +109,10 @@ export const WisdomCarousel = () => {
 
       {
         windowWidth >= 768 &&
-        <div className="z-40 relative w-full h-full grid grid-rows-2 grid-cols-10 gap-4">
+        <div className=" z-40 relative w-full h-full grid grid-rows-2 grid-cols-10 gap-4">
           <WisdomCard ref={wisdomCardRef} wisdom={wisdomList[currentWisdom]}/>
           <div className="row-span-1 col-span-2" />
-          <div className="z-10 absolute w-[400px] lg:w-[500px] xl:w-[600px] bottom-0 -right-16 xl:-right-24">
+          <div className="z-10 absolute w-[400px] lg:w-[500px] xl:w-[600px] bottom-0 -right-36 xl:-right-36">
             <div className="relative ">
               <Image ref={cloudRef} className="h-full cloud " src={bigBlob} alt=""/>
               <div

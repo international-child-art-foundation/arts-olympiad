@@ -141,7 +141,7 @@ const styles = {
     left: "0",
     bottom: "0",
     background: "#F9FAF6",
-    zIndex: "-1",
+    zIndex: "20",
   }
 };
 
