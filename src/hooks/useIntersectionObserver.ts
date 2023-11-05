@@ -77,7 +77,7 @@ const useIntersectionObserver = (
     return () => {
       observer.disconnect();
     };
-  }, [options, cleanupFunctions]);
+  }, [options, cleanupFunctions, classToApplyToTarget, targetClass]);
 
   return [targetRef, isIntersecting, setCleanupFunctions];
 };

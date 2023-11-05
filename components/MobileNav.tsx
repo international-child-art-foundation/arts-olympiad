@@ -6,6 +6,7 @@ import Link from "next/link";
 import { LoginIcon } from "./svgs/LoginIcon";
 import { DownIcon } from "./svgs/DownIcon";
 import { UpIcon } from "./svgs/UpIcon";
+import Image from "next/image";
 
 
 const MobileNav = () => {
@@ -35,8 +36,8 @@ const MobileNav = () => {
         onStateChange={handleStateChange} 
         right 
         styles={styles} 
-        customCrossIcon={<img src="/svgs/close.svg" alt="Close navigation menu"/>}
-        customBurgerIcon={<img src="/svgs/burger.svg" alt="Open navigation menu"/>}
+        customCrossIcon={<Image src="/svgs/close.svg" alt="Close navigation menu" width={30} height={30}/>}
+        customBurgerIcon={<Image src="/svgs/burger.svg" alt="Open navigation menu" width={30} height={30} />}
       >
 
         <div className="logo-bg w-16 h-16 mx-auto my-2"></div>

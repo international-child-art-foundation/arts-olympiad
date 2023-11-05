@@ -1,5 +1,5 @@
 "use client";
-import {HTMLProps, LegacyRef, useEffect, useState} from "react";
+import {HTMLProps, LegacyRef, memo, useEffect, useState} from "react";
 import useIntersectionObserver from "@/hooks/useIntersectionObserver";
 import useWindowDimensions from "@/hooks/useWindowDimensions";
 
@@ -9,7 +9,8 @@ interface IProps extends HTMLProps<SVGElement>{
   animationDelay?: number
 }
 
-export const AnimatedScribble = ({width, smwidth, animationDelay, className}: IProps) => {
+// eslint-disable-next-line react/display-name
+export const AnimatedScribble = memo(({width, smwidth, animationDelay, className}: IProps) => {
 
   const [targetRef, isIntersecting] = useIntersectionObserver();
   const [hasAnimated, setHasAnimated] = useState(false);
@@ -100,7 +101,7 @@ export const AnimatedScribble = ({width, smwidth, animationDelay, className}: IP
       startSVGAnimation(svgElement);
       setHasAnimated(true);
     }
-  }, [isIntersecting]);
+  }, [isIntersecting, targetRef, setHasAnimated, startSVGAnimation, replaceWithPaths]);
 
   return (
     <div ref={targetRef as LegacyRef<HTMLDivElement>} className="z-10">
@@ -113,4 +114,4 @@ export const AnimatedScribble = ({width, smwidth, animationDelay, className}: IP
       </svg>
     </div>
   );
-};
+});

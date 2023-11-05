@@ -1,6 +1,6 @@
 "use client";
 
-import React, {useEffect, useRef, useState} from "react";
+import React, {useCallback, useEffect, useRef, useState} from "react";
 import {CarouselImageItem} from "./CarouselImageItem";
 import Image, {StaticImageData} from "next/image";
 import scrollRight from "../../../public/svgs/scroll-right.svg";
@@ -37,7 +37,7 @@ export const ImageCarousel = ({ images, ...props }: IProps) => {
 
   const [intersectionTarget, isTargetIntersecting, setCleanupFunctions] = useIntersectionObserver({ threshold: 0.2 });
 
-  const constantlyScrollCarousel = () => {
+  const constantlyScrollCarousel = useCallback(() => {
     if (carouselRef.current) {
       const epsilon = 1; // to improve precision for edge cases
       const scrollRightTo = carouselRef.current.scrollLeft + (distanceToGo);
@@ -56,7 +56,7 @@ export const ImageCarousel = ({ images, ...props }: IProps) => {
         behavior: "instant",
       });
     }
-  };
+  }, [distanceToGo]);
 
   const handleScrollRight = () => {
     if (carouselRef.current) {
@@ -105,7 +105,7 @@ export const ImageCarousel = ({ images, ...props }: IProps) => {
     return () => {
       cleanupInterval();
     };
-  }, [haltInterval, isTargetIntersecting]);
+  }, [haltInterval, isTargetIntersecting, constantlyScrollCarousel, setCleanupFunctions]);
 
   // effect to listen to keyboard arrow buttons clicks and control the carousel
   useEffect(() => {
@@ -128,7 +128,7 @@ export const ImageCarousel = ({ images, ...props }: IProps) => {
     return () => {
       cleanupEventListener();
     };
-  }, []);
+  }, [setCleanupFunctions]);
 
   return (
     <section

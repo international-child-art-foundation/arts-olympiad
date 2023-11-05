@@ -44,7 +44,7 @@ export const WisdomCarousel = () => {
     return () => {
       cleanupEventListener();
     };
-  }, [isTargetIntersecting]);
+  }, [isTargetIntersecting, setCleanupFunctions]);
 
 
   useEffect(() => {
