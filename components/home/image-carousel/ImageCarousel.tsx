@@ -30,6 +30,7 @@ export const ImageCarousel = ({ images, ...props }: IProps) => {
   const leftButtonRef = useRef<HTMLButtonElement | null>(null);
   const rightButtonRef = useRef<HTMLButtonElement | null>(null);
   const [haltInterval, setHaltInterval] = useState(false);
+  const [continueConstantScroll, setContinueConstantScroll] = useState(true);
   const {windowWidth} = useWindowDimensions();
   const imageWidthWithMargin = windowWidth >= 768 ? (props.mdwidth + 8) : (props.width + 8);
   // distance to be passed every 10 ms
@@ -37,39 +38,38 @@ export const ImageCarousel = ({ images, ...props }: IProps) => {
 
   const [intersectionTarget, isTargetIntersecting, setCleanupFunctions] = useIntersectionObserver({ threshold: 0.2 });
 
+  const scrollToStartSmoothly = useCallback(() => {
+    setContinueConstantScroll(false);
+    carouselRef.current?.scrollTo({
+      left: 0,
+      behavior: "smooth",
+    });
+    return;
+  }, [carouselRef, setContinueConstantScroll]);
+
   const constantlyScrollCarousel = useCallback(() => {
     if (carouselRef.current) {
       const epsilon = 1; // to improve precision for edge cases
       const scrollRightTo = carouselRef.current.scrollLeft + (distanceToGo);
-      console.log("scrollWidth: ", carouselRef.current.scrollWidth);
-      console.log("conditionLeft: ", carouselRef.current.clientWidth + scrollRightTo + epsilon);
-      console.log((carouselRef.current.clientWidth + scrollRightTo + epsilon)  >= carouselRef.current.scrollWidth);
       if ( (carouselRef.current.clientWidth + scrollRightTo + epsilon)  >= carouselRef.current.scrollWidth) {
+        scrollToStartSmoothly();
+      }
+      if (continueConstantScroll) {
         carouselRef.current.scrollTo({
-          left: 0,
+          left: carouselRef.current?.scrollLeft + distanceToGo,
           behavior: "instant",
         });
-        return;
       }
-      carouselRef.current.scrollTo({
-        left: carouselRef.current?.scrollLeft + distanceToGo,
-        behavior: "instant",
-      });
     }
-  }, [distanceToGo]);
+  }, [distanceToGo, continueConstantScroll, scrollToStartSmoothly]);
 
   const handleScrollRight = () => {
     if (carouselRef.current) {
       const epsilon = 1; // to improve precision for edge cases
       const scrollRightTo = carouselRef.current.scrollLeft + (imageWidthWithMargin);
       if ((carouselRef.current.clientWidth - imageWidthWithMargin) + scrollRightTo + epsilon  >= carouselRef.current.scrollWidth) {
-        carouselRef.current.scrollTo({
-          left: 0,
-          behavior: "smooth",
-        });
-        return;
+        scrollToStartSmoothly();
       }
-
       carouselRef.current.scrollTo({
         left: scrollRightTo,
         behavior: "smooth",
@@ -79,8 +79,7 @@ export const ImageCarousel = ({ images, ...props }: IProps) => {
 
   const handleScrollLeft = () => {
     if (carouselRef.current) {
-      const scrollWidthWithMargin = props.width ? props.width + 8 : 150 + 8;
-      const scrollLeftTo = carouselRef.current.scrollLeft - (scrollWidthWithMargin);
+      const scrollLeftTo = carouselRef.current.scrollLeft - (imageWidthWithMargin);
       carouselRef.current.scrollTo({
         left: scrollLeftTo,
         behavior: "smooth",
@@ -106,6 +105,24 @@ export const ImageCarousel = ({ images, ...props }: IProps) => {
       cleanupInterval();
     };
   }, [haltInterval, isTargetIntersecting, constantlyScrollCarousel, setCleanupFunctions]);
+
+  // effect to set timeout for smooth scroll back to start
+  useEffect(() => {
+    if (!continueConstantScroll) {
+      const timeout = setTimeout(() => {
+        setContinueConstantScroll(true);
+      }, 1000);
+
+      const cleanupTimeout = () => {
+        clearTimeout(timeout);
+      };
+      setCleanupFunctions((prevCleanupFunctions) => [...prevCleanupFunctions, cleanupTimeout]);
+
+      return () => {
+        cleanupTimeout(); // Call the cleanup function when the effect is cleaned up
+      };
+    }
+  }, [continueConstantScroll, setCleanupFunctions]);
 
   // effect to listen to keyboard arrow buttons clicks and control the carousel
   useEffect(() => {
