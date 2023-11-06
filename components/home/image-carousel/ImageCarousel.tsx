@@ -1,6 +1,6 @@
 "use client";
 
-import React, {useEffect, useRef, useState} from "react";
+import React, {useCallback, useEffect, useRef, useState} from "react";
 import {CarouselImageItem} from "./CarouselImageItem";
 import Image, {StaticImageData} from "next/image";
 import scrollRight from "../../../public/svgs/scroll-right.svg";
@@ -24,51 +24,76 @@ interface IProps extends React.HTMLProps<HTMLDivElement>{
   width: number
   objectCover?: boolean
 }
-export const ImageCarousel = ({ images, ...props }: IProps) => {
+// eslint-disable-next-line react/display-name
+export const ImageCarousel = React.memo(({ images, ...props }: IProps) => {
 
   const carouselRef = useRef<HTMLDivElement | null>(null);
   const leftButtonRef = useRef<HTMLButtonElement | null>(null);
   const rightButtonRef = useRef<HTMLButtonElement | null>(null);
   const [haltInterval, setHaltInterval] = useState(false);
+  const [continueConstantScroll, setContinueConstantScroll] = useState(true);
   const {windowWidth} = useWindowDimensions();
+  const imageWidthWithMargin = windowWidth >= 768 ? (props.mdwidth + 8) : (props.width + 8);
+  // distance to be passed every 10 ms
+  const distanceToGo = windowWidth >= 768 ? imageWidthWithMargin / 300 : 1; // it doesn't move at all if this value is less than 0.67 in emulator or 1 on my iphone :(
 
   const [intersectionTarget, isTargetIntersecting, setCleanupFunctions] = useIntersectionObserver({ threshold: 0.2 });
 
-  const handleScrollRight = () => {
+  const scrollToStartSmoothly = useCallback(() => {
+    setContinueConstantScroll(false);
+    carouselRef.current?.scrollTo({
+      left: 0,
+      behavior: "smooth",
+    });
+    return;
+  }, [carouselRef, setContinueConstantScroll]);
+
+  const constantlyScrollCarousel = useCallback(() => {
     if (carouselRef.current) {
       const epsilon = 1; // to improve precision for edge cases
-      const scrollWidthWithMargin = windowWidth >= 768 ? props.mdwidth + 8 : props.width + 8;
-      const scrollRightTo = carouselRef.current.scrollLeft + (scrollWidthWithMargin);
-      if ((carouselRef.current.clientWidth - scrollWidthWithMargin) + scrollRightTo + epsilon  >= carouselRef.current.scrollWidth) {
+      const scrollRightTo = carouselRef.current.scrollLeft + (distanceToGo);
+      if ( (carouselRef.current.clientWidth + scrollRightTo + epsilon)  >= carouselRef.current.scrollWidth) {
+        scrollToStartSmoothly();
+      }
+      if (continueConstantScroll) {
         carouselRef.current.scrollTo({
-          left: 0,
-          behavior: "smooth",
+          left: carouselRef.current?.scrollLeft + distanceToGo,
+          behavior: "instant",
         });
-        return;
+      }
+    }
+  }, [distanceToGo, continueConstantScroll, scrollToStartSmoothly]);
+
+  const handleScrollRight = useCallback(() => {
+    if (carouselRef.current) {
+      const epsilon = 1; // to improve precision for edge cases
+      const scrollRightTo = carouselRef.current.scrollLeft + (imageWidthWithMargin);
+      if ((carouselRef.current.clientWidth - imageWidthWithMargin) + scrollRightTo + epsilon  >= carouselRef.current.scrollWidth) {
+        scrollToStartSmoothly();
       }
       carouselRef.current.scrollTo({
         left: scrollRightTo,
         behavior: "smooth",
       });
     }
-  };
+  }, [carouselRef, scrollToStartSmoothly, imageWidthWithMargin]);
 
-  const handleScrollLeft = () => {
+  const handleScrollLeft = useCallback(() => {
     if (carouselRef.current) {
-      const scrollWidthWithMargin = props.width ? props.width + 8 : 150 + 8;
-      const scrollLeftTo = carouselRef.current.scrollLeft - (scrollWidthWithMargin);
+      const scrollLeftTo = carouselRef.current.scrollLeft - (imageWidthWithMargin);
       carouselRef.current.scrollTo({
         left: scrollLeftTo,
         behavior: "smooth",
       });
     }
-  };
+  }, [carouselRef, imageWidthWithMargin]);
 
   // effect to set interval for autoscroll
   useEffect(() => {
+
     const interval = setInterval(() => {
-      handleScrollRight();
-    }, 3000);
+      constantlyScrollCarousel();
+    }, 10);
     const cleanupInterval = () => clearInterval(interval);
     setCleanupFunctions((prevCleanupFunctions) => [...prevCleanupFunctions, cleanupInterval]);
 
@@ -80,7 +105,25 @@ export const ImageCarousel = ({ images, ...props }: IProps) => {
     return () => {
       cleanupInterval();
     };
-  }, [haltInterval, isTargetIntersecting]);
+  }, [haltInterval, isTargetIntersecting, constantlyScrollCarousel, setCleanupFunctions]);
+
+  // effect to set timeout for smooth scroll back to start
+  useEffect(() => {
+    if (!continueConstantScroll) {
+      const timeout = setTimeout(() => {
+        setContinueConstantScroll(true);
+      }, 1000);
+
+      const cleanupTimeout = () => {
+        clearTimeout(timeout);
+      };
+      setCleanupFunctions((prevCleanupFunctions) => [...prevCleanupFunctions, cleanupTimeout]);
+
+      return () => {
+        cleanupTimeout(); // Call the cleanup function when the effect is cleaned up
+      };
+    }
+  }, [continueConstantScroll, setCleanupFunctions]);
 
   // effect to listen to keyboard arrow buttons clicks and control the carousel
   useEffect(() => {
@@ -103,7 +146,7 @@ export const ImageCarousel = ({ images, ...props }: IProps) => {
     return () => {
       cleanupEventListener();
     };
-  }, []);
+  }, [setCleanupFunctions]);
 
   return (
     <section
@@ -135,6 +178,8 @@ export const ImageCarousel = ({ images, ...props }: IProps) => {
           className="mr-2"
           onClick={handleScrollLeft}
           aria-label="scroll left button."
+          onMouseOver={() => setHaltInterval(true)}
+          onMouseLeave={() => setHaltInterval(false)}
           onFocus={() => setHaltInterval(true)}
           onBlur={() => setHaltInterval(false)}
         >
@@ -144,6 +189,8 @@ export const ImageCarousel = ({ images, ...props }: IProps) => {
           ref={rightButtonRef}
           onClick={handleScrollRight}
           aria-label="scroll right button."
+          onMouseOver={() => setHaltInterval(true)}
+          onMouseLeave={() => setHaltInterval(false)}
           onFocus={() => setHaltInterval(true)}
           onBlur={() => setHaltInterval(false)}
         >
@@ -152,4 +199,4 @@ export const ImageCarousel = ({ images, ...props }: IProps) => {
       </div>
     </section>
   );
-};
+});
