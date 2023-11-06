@@ -20,7 +20,7 @@ export const Timeline = () => {
   const isMobile = windowWidth < 768;
 
   return (
-    <section className="overflow-hidden relative px-8 md:px-12 lg:px-16 xl:px-20 mt-36 flex flex-col max-w-screen-2xl m-auto" aria-label="Timeline.">
+    <section className=" relative px-8 md:px-12 lg:px-16 xl:px-20 mt-36 flex flex-col max-w-screen-2xl m-auto" aria-label="Timeline.">
       <figure className="relative mb-8 self-center flex flex-col items-center justify-center">
         <Image width={105} src={scrollIcon} alt="mouse scroller icon." className=" self-center" />
         <div className="z-10 bg-neutral-white w-[130px] h-[85px] draw-line-left absolute bottom-0 right-24" />
