@@ -1,5 +1,5 @@
 "use client";
-import {HTMLProps, LegacyRef, memo, useEffect, useState} from "react";
+import {HTMLProps, LegacyRef, memo, useCallback, useEffect, useState} from "react";
 import useIntersectionObserver from "@/hooks/useIntersectionObserver";
 import useWindowDimensions from "@/hooks/useWindowDimensions";
 
@@ -23,11 +23,11 @@ export const AnimatedScribble = memo(({width, smwidth, animationDelay, className
     return -c / 2 * ((--t) * (t - 2) - 1) + b;
   }
 
-  function SVG(tag: string): Element {
+  const SVG = useCallback((tag: string): Element => {
     return document.createElementNS("http://www.w3.org/2000/svg", tag);
-  }
+  }, []);
 
-  function replaceRectsWithPaths(parentElement: Element): void {
+  const replaceRectsWithPaths = useCallback((parentElement: Element): void => {
     const rects = parentElement.querySelectorAll("rect");
     rects.forEach((rect: Element) => {
       const rectX = rect.getAttribute("x");
@@ -48,7 +48,7 @@ export const AnimatedScribble = memo(({width, smwidth, animationDelay, className
       rect.parentNode!.insertBefore(pathElement, rect.nextSibling);
       rect.parentNode!.removeChild(rect);
     });
-  }
+  }, [SVG]);
 
   // function hideSVGPaths(parentElement: Element): void {
   //   const paths = parentElement.querySelectorAll("path");
@@ -59,7 +59,7 @@ export const AnimatedScribble = memo(({width, smwidth, animationDelay, className
   //   });
   // }
 
-  function drawSVGPaths(parentElement: Element, timeMin: number, timeMax: number, timeDelay: number): void {
+  const drawSVGPaths = useCallback((parentElement: Element, timeMin: number, timeMax: number, timeDelay: number): void => {
     const paths = parentElement.querySelectorAll("path");
     paths.forEach((path: Element, i: number) => {
       const totalLength = (path as SVGPathElement).getTotalLength();
@@ -83,15 +83,15 @@ export const AnimatedScribble = memo(({width, smwidth, animationDelay, className
         requestAnimationFrame(animate);
       }, timeDelay * i);
     });
-  }
+  }, []);
 
-  function replaceWithPaths(parentElement: Element): void {
+  const replaceWithPaths = useCallback((parentElement: Element): void => {
     replaceRectsWithPaths(parentElement);
-  }
+  }, [replaceRectsWithPaths]);
 
-  function startSVGAnimation(parentElement: Element): void {
+  const startSVGAnimation = useCallback((parentElement: Element): void => {
     drawSVGPaths(parentElement, 0, 3000, animationDelay || 0);
-  }
+  }, [drawSVGPaths, animationDelay]);
 
   useEffect(() => {
     const svgElement = targetRef.current;
@@ -101,7 +101,7 @@ export const AnimatedScribble = memo(({width, smwidth, animationDelay, className
       startSVGAnimation(svgElement);
       setHasAnimated(true);
     }
-  }, [isIntersecting, targetRef, setHasAnimated, startSVGAnimation, replaceWithPaths]);
+  }, [isIntersecting, targetRef,hasAnimated, setHasAnimated, startSVGAnimation, replaceWithPaths]);
 
   return (
     <div ref={targetRef as LegacyRef<HTMLDivElement>} className="z-10">

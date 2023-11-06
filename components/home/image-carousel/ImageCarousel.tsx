@@ -24,7 +24,8 @@ interface IProps extends React.HTMLProps<HTMLDivElement>{
   width: number
   objectCover?: boolean
 }
-export const ImageCarousel = ({ images, ...props }: IProps) => {
+// eslint-disable-next-line react/display-name
+export const ImageCarousel = React.memo(({ images, ...props }: IProps) => {
 
   const carouselRef = useRef<HTMLDivElement | null>(null);
   const leftButtonRef = useRef<HTMLButtonElement | null>(null);
@@ -34,7 +35,7 @@ export const ImageCarousel = ({ images, ...props }: IProps) => {
   const {windowWidth} = useWindowDimensions();
   const imageWidthWithMargin = windowWidth >= 768 ? (props.mdwidth + 8) : (props.width + 8);
   // distance to be passed every 10 ms
-  const distanceToGo = imageWidthWithMargin / 300;
+  const distanceToGo = windowWidth >= 768 ? imageWidthWithMargin / 300 : 1; // it doesn't move at all if this value is less than 0.67 in emulator or 1 on my iphone :(
 
   const [intersectionTarget, isTargetIntersecting, setCleanupFunctions] = useIntersectionObserver({ threshold: 0.2 });
 
@@ -63,7 +64,7 @@ export const ImageCarousel = ({ images, ...props }: IProps) => {
     }
   }, [distanceToGo, continueConstantScroll, scrollToStartSmoothly]);
 
-  const handleScrollRight = () => {
+  const handleScrollRight = useCallback(() => {
     if (carouselRef.current) {
       const epsilon = 1; // to improve precision for edge cases
       const scrollRightTo = carouselRef.current.scrollLeft + (imageWidthWithMargin);
@@ -75,9 +76,9 @@ export const ImageCarousel = ({ images, ...props }: IProps) => {
         behavior: "smooth",
       });
     }
-  };
+  }, [carouselRef, scrollToStartSmoothly, imageWidthWithMargin]);
 
-  const handleScrollLeft = () => {
+  const handleScrollLeft = useCallback(() => {
     if (carouselRef.current) {
       const scrollLeftTo = carouselRef.current.scrollLeft - (imageWidthWithMargin);
       carouselRef.current.scrollTo({
@@ -85,7 +86,7 @@ export const ImageCarousel = ({ images, ...props }: IProps) => {
         behavior: "smooth",
       });
     }
-  };
+  }, [carouselRef, imageWidthWithMargin]);
 
   // effect to set interval for autoscroll
   useEffect(() => {
@@ -198,4 +199,4 @@ export const ImageCarousel = ({ images, ...props }: IProps) => {
       </div>
     </section>
   );
-};
+});
