@@ -198,7 +198,7 @@ export const WisdomCarousel = () => {
 
       <div className="w-full flex flex-col md:flex-row justify-start items-center md:grid md:grid-rows-2 md:grid-cols-10 md:gap-4 justify-center">
         {/* Current item indicators */}
-        <div className="my-6 flex flex-row mx-[10%] md:mx-[0%] md:row-start-1 md:row-end-3 md:col-start-3 md:col-end-5">
+        <div className="my-6 flex flex-row mx-[10%] md:mx-[0%] md:row-start-1 md:row-end-3 md:col-start-3 md:col-end-5 justify-self-center">
           {
             wisdomList.map((wisdom, i) => {
               return (
