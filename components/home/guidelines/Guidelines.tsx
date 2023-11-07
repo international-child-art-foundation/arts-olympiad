@@ -29,7 +29,7 @@ export const Guidelines = () => {
       {/*  width={180} height={16}*/}
       {/*  className="hidden sm:block z-10 md:w-[290px] md:h-[28px] xl:w-[340px] xl:h-[34px] ml-96"*/}
       {/*/>*/}
-      <figure className="z-10 mt-8 md:grid grid-cols-3 gap-6" >
+      <figure className="z-10 mt-12 md:grid grid-cols-3 gap-6" >
         <GuidelineCard
           className="border-[#0286C3]"
           imgUrl={img1}
