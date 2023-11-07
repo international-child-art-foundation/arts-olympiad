@@ -8,7 +8,7 @@ export const H3m = ({style, children, className, ...restProps }: HTMLProps<HTMLH
   return (
     <h3
       style={style}
-      className={`break-words lg:text-xl xl:text-2xl ${className}`}
+      className={`break-words text-xl lg:text-xl xl:text-2xl ${className}`}
       {...restProps}
     >
       {children}

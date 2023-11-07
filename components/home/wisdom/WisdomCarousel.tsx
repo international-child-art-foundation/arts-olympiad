@@ -44,10 +44,30 @@ export const WisdomCarousel = () => {
     return () => {
       cleanupEventListener();
     };
-  }, [isTargetIntersecting, setCleanupFunctions]);
+  }, [isTargetIntersecting, setCleanupFunctions, intersectionTarget]);
+
+  const checkVisibility = (element: Element) => {
+    const rect = element.getBoundingClientRect();
+    return (
+      rect.top >= 0 &&
+      rect.left >= 0 &&
+      rect.bottom <= (window.innerHeight || document.documentElement.clientHeight) &&
+      rect.right <= (window.innerWidth || document.documentElement.clientWidth)
+    );
+  };
 
 
   useEffect(() => {
+    // Function to check if the element is in the viewport
+  
+    // Only proceed if intersectionTarget.current is not null
+    if (intersectionTarget.current) {
+      // Manually trigger animation if the component is already in view
+      if (checkVisibility(intersectionTarget.current)) {
+        addAnimationClasses();
+      }
+    }
+        
     if (wasViewed) {
       const timeout = setTimeout(() => {
         addAnimationClasses();
@@ -58,7 +78,44 @@ export const WisdomCarousel = () => {
       };
     }
     return;
-  }, [currentWisdom, wasViewed]);
+  }, [currentWisdom, wasViewed, intersectionTarget]);
+
+  useEffect(() => {
+    const handleResize = debounce(() => {
+      // Check if the window width crosses the threshold and if the element is in view
+      if (window.innerWidth >= 768 && intersectionTarget.current) {
+        // Check visibility in case the resize made the element visible
+        if (checkVisibility(intersectionTarget.current)) {
+          removeAnimationClasses(); // Reset animation state
+          addAnimationClasses();    // Reapply animation classes
+        }
+      }
+    }, 250); // Debounce by 250 milliseconds
+  
+    // Set up the event listener
+    window.addEventListener("resize", handleResize);
+  
+    // Clean up the event listener
+    return () => {
+      window.removeEventListener("resize", handleResize);
+    };
+  }, [intersectionTarget]);
+  
+  // Debounce function to limit the rate at which a function can fire
+  function debounce<Func extends (...args: unknown[]) => void>(func: Func, wait: number) {
+    let timeout: ReturnType<typeof setTimeout> | null = null;
+    return function(this: ThisParameterType<Func>, ...args: Parameters<Func>) {
+      const later = () => {
+        timeout = null;
+        func.apply(this, args);
+      };
+      if (timeout !== null) {
+        clearTimeout(timeout);
+      }
+      timeout = setTimeout(later, wait);
+    };
+  }
+      
 
   const addAnimationClasses = () => {
     cloudRef.current?.classList.add("slide-left-cloud");
@@ -112,14 +169,14 @@ export const WisdomCarousel = () => {
         <div className=" z-40 relative w-full h-full grid grid-rows-2 grid-cols-10 gap-4">
           <WisdomCard ref={wisdomCardRef} wisdom={wisdomList[currentWisdom]}/>
           <div className="row-span-1 col-span-2" />
-          <div className="z-10 absolute w-[400px] lg:w-[500px] mxl:w-[600px] bottom-0 -right-36 xl:-right-36">
+          <div className="z-10 absolute w-[400px] lg:w-[500px] mxl:w-[600px] bottom-0 -right-36 md:-right-24 lg:-right-36">
             <div className="relative ">
               <Image ref={cloudRef} className="h-full cloud " src={bigBlob} alt=""/>
               <div
                 ref={wisdomTextRef}
-                className="wisdom-text h-full absolute inset-0 py-10 pl-16 pr-6 grid grid-rows-3 "
+                className="wisdom-text h-full absolute inset-0 py-10 pl-16 pr-6 grid grid-rows-3 align-center"
               >
-                <H3m className="z-20 my-4 text-white text-center row-span-1" >{wisdomList[currentWisdom].author}</H3m>
+                <H3m className="z-20 my-4 text-white text-center row-span-1 xl:text-3xl lg:text-xl xl:mt-14" >{wisdomList[currentWisdom].author}</H3m>
                 <Pm className=" text-sm z-20 text-white row-span-1">{wisdomList[currentWisdom].wisdomText}</Pm>
               </div>
             </div>
@@ -139,9 +196,9 @@ export const WisdomCarousel = () => {
         </div>
       }
 
-      <div className="w-full flex flex-col md:flex-row justify-start items-center ">
+      <div className="w-full flex flex-col md:flex-row justify-start items-center md:grid md:grid-rows-2 md:grid-cols-10 md:gap-4 justify-center">
         {/* Current item indicators */}
-        <div className="my-6 flex flex-row mx-[10%]">
+        <div className="my-6 flex flex-row mx-[10%] md:mx-[0%] md:row-start-1 md:row-end-3 md:col-start-3 md:col-end-5">
           {
             wisdomList.map((wisdom, i) => {
               return (
@@ -161,7 +218,7 @@ export const WisdomCarousel = () => {
 
         {/* Scroll arrow buttons */}
 
-        <div className="" >
+        <div className="md:row-start-1 md:row-end-3 md:col-start-1 md:col-end-7 md:flex md:justify-end" >
           <button
             ref={leftButtonRef}
             className="mr-2"

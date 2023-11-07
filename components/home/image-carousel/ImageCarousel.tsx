@@ -35,19 +35,24 @@ export const ImageCarousel = React.memo(({ images, ...props }: IProps) => {
   const {windowWidth} = useWindowDimensions();
   const imageWidthWithMargin = windowWidth >= 768 ? (props.mdwidth + 8) : (props.width + 8);
   // distance to be passed every 10 ms
-  const distanceToGo = windowWidth >= 768 ? imageWidthWithMargin / 300 : 1; // it doesn't move at all if this value is less than 0.67 in emulator or 1 on my iphone :(
+  const distanceToGo = 1; // Must be >= 1
 
   const [intersectionTarget, isTargetIntersecting, setCleanupFunctions] = useIntersectionObserver({ threshold: 0.2 });
 
   const scrollToStartSmoothly = useCallback(() => {
     setContinueConstantScroll(false);
-    carouselRef.current?.scrollTo({
-      left: 0,
-      behavior: "smooth",
-    });
-    return;
+    setTimeout(() => {
+      carouselRef.current?.scrollTo({
+        left: 0,
+        behavior: "smooth",
+      });
+      setTimeout(() => {
+        setContinueConstantScroll(true);
+      }, 1000); // Assume 1 second for the smooth scroll to complete
+    }, 50); // Short timeout to ensure the constant scroll has stopped
+  
   }, [carouselRef, setContinueConstantScroll]);
-
+      
   const constantlyScrollCarousel = useCallback(() => {
     if (carouselRef.current) {
       const epsilon = 1; // to improve precision for edge cases
@@ -90,22 +95,27 @@ export const ImageCarousel = React.memo(({ images, ...props }: IProps) => {
 
   // effect to set interval for autoscroll
   useEffect(() => {
+    let interval: NodeJS.Timeout | null = null;
 
-    const interval = setInterval(() => {
-      constantlyScrollCarousel();
-    }, 10);
-    const cleanupInterval = () => clearInterval(interval);
-    setCleanupFunctions((prevCleanupFunctions) => [...prevCleanupFunctions, cleanupInterval]);
-
-    if(haltInterval) {
-      cleanupInterval();
-      return;
+    // Only set the interval if there are more than 8 images
+    if (images.length > 8 && !haltInterval) {
+      interval = setInterval(() => {
+        constantlyScrollCarousel();
+      }, 20);
     }
+
+    const cleanupInterval = () => {
+      if (interval) {
+        clearInterval(interval);
+      }
+    };
+
+    setCleanupFunctions((prevCleanupFunctions) => [...prevCleanupFunctions, cleanupInterval]);
 
     return () => {
       cleanupInterval();
     };
-  }, [haltInterval, isTargetIntersecting, constantlyScrollCarousel, setCleanupFunctions]);
+  }, [haltInterval, isTargetIntersecting, constantlyScrollCarousel, setCleanupFunctions, images.length]);
 
   // effect to set timeout for smooth scroll back to start
   useEffect(() => {
@@ -172,7 +182,7 @@ export const ImageCarousel = React.memo(({ images, ...props }: IProps) => {
           <CarouselImageItem key={image.id} imageUrl={image.url} alt={image.alt} width={props.width} mdwidth={props.mdwidth} height={props.height} objectCover={props.objectCover} />
         ))}
       </figure>
-      <div className="absolute right-[5%] -bottom-16" >
+      <div className="px-8 md:px-12 lg:px-16 xl:px-20 max-w-screen-2xl m-auto text-right mt-6" >
         <button
           ref={leftButtonRef}
           className="mr-2"

@@ -1,9 +1,9 @@
 .draw-line-left  {
-    transition: transform 3s ease-in;
+    transition: transform 1.5s ease-in;
 }
 
 .draw-line-bottom {
-    transition: transform 3s ease-in;
+    transition: transform 1.5s ease-in;
 }
 
 .animate-drawing-left {
