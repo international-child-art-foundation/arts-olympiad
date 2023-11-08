@@ -5,7 +5,7 @@ import { sharedOpenGraph } from "./shared-metadata";
 import {Intro} from "../../components/home/Intro";
 import {ImageCarousel} from "../../components/home/image-carousel/ImageCarousel";
 import {artworks} from "../../mock/artworks";
-import {WhyParticipate} from "../../components/home/why-participate/WhyParticipate";
+import {GetInvolved} from "../../components/home/get-involved/GetInvolved";
 import {AboutICAF} from "../../components/home/about/AboutICAF";
 import {Guidelines} from "../../components/home/guidelines/Guidelines";
 import {Timeline} from "../../components/home/timeline/Timeline";
@@ -24,7 +24,7 @@ export default function Home() {
     <>
       <Intro />
       <ImageCarousel width={150} mdwidth={250} aria-label="list of olimpyad participants' artworks." images={artworks} />
-      <WhyParticipate />
+      <GetInvolved />
       <AboutICAF />
       <Guidelines />
       <Timeline />

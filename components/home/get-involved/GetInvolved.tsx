@@ -6,11 +6,11 @@ import {SideImages} from "./SideImages";
 import {H2m} from "../../common/texts/H2m";
 import {AnimatedScribble} from "../../common/decorations/AnimatedScribble";
 
-export const WhyParticipate = () => {
+export const GetInvolved = () => {
 
   return (
     <section className="relative px-8 md:px-12 lg:px-16 xl:px-20 mt-44 max-w-screen-2xl m-auto">
-      <H2m className="z-10 font-medium text-3xl md:text-4xl" >Why Participate?</H2m>
+      <H2m className="z-10 font-medium text-3xl md:text-4xl" >Get Involved!</H2m>
       <AnimatedScribble width={280} smwidth={180} className="z-10 md:w-[290px] md:h-[28px] xl:w-[340px] xl:h-[34px] ml-20 " />
 
       <div className="z-10 lg:grid lg:grid-cols-2">

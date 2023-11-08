@@ -6,8 +6,8 @@ import monitorUp from "../../../public/svgs/monitor-up.svg";
 import vote from "../../../public/svgs/vote.svg";
 import heart from "../../../public/svgs/heart-handshake.svg";
 import clipboard from "../../../public/svgs/clipboard-edit.svg";
-import littleHeart from "../../../public/home/why-participate/heart.svg";
-import upload from "../../../public/home/why-participate/upload.svg";
+import littleHeart from "../../../public/home/get-involved/heart.svg";
+import upload from "../../../public/home/get-involved/upload.svg";
 import Image from "next/image";
 import {ButtonStyledLink} from "../../common/ui/ButtonStyledLink";
 
