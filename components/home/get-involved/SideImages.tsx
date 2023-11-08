@@ -1,6 +1,6 @@
-import img1 from "../../../public/home/why-participate/why-participate1.webp";
-import img2 from "../../../public/home/why-participate/why-participate2.webp";
-import img3 from "../../../public/home/why-participate/why-participate3.webp";
+import img1 from "../../../public/home/get-involved/get-involved1.webp";
+import img2 from "../../../public/home/get-involved/get-involved2.webp";
+import img3 from "../../../public/home/get-involved/get-involved3.webp";
 import {LazyImage} from "../../common/images/LazyImage";
 
 export const SideImages = () => {
