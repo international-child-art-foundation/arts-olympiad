@@ -17,7 +17,7 @@ export const CarouselImageItem = ({imageUrl, alt, objectCover, width, mdwidth, h
 
   // mx-1 min-w-[150px] md:min-w-[250px] h-[110px] md:h-[180px]
   return (
-    <div className={`mx-1 min-w-[${finalWidth}px] md:min-w-[${finalWidth}px] `}>
+    <div className={"mx-1 min-w-[150px] md:min-w-[250px] h-[110px] md:h-[180px]"}>
       <LazyImage className={`${objectCover && "object-cover"}`} imageUrl={imageUrl} alt={alt} width={finalWidth} height={height || 110} />
     </div>
   );
