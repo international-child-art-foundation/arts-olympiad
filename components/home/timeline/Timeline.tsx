@@ -6,11 +6,11 @@ import {Pm} from "../../common/texts/Pm";
 import {TimePoint} from "./TimePoint";
 import useWindowDimensions from "@/hooks/useWindowDimensions";
 import useIntersectionObserver from "@/hooks/useIntersectionObserver";
-import littleYellowBlob from "../../../public/svgs/little-yellow-blob.svg";
-import tinyYellowBlob from "../../../public/svgs/tiny-yellow-blob.svg";
-import tinyPinkBlob from "../../../public/svgs/tiny-vertical-pink-blob.svg";
-import bigPinkBlob from "../../../public/svgs/vertical-big-pink-blob.svg";
-import bigBlueBlob from "../../../public/svgs/blue-leg-down-blob.svg";
+import littleYellowBlob from "../../../public/svgs/blobs/little-yellow-blob.svg";
+import tinyYellowBlob from "../../../public/svgs/blobs/tiny-yellow-blob.svg";
+import tinyPinkBlob from "../../../public/svgs/blobs/tiny-vertical-pink-blob.svg";
+import bigPinkBlob from "../../../public/svgs/blobs/vertical-big-pink-blob.svg";
+import bigBlueBlob from "../../../public/svgs/blobs/blue-leg-down-blob.svg";
 import {LastTimePointHeading} from "./LastTimePointHeading";
 
 export const Timeline = () => {
