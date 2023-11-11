@@ -14,6 +14,7 @@ function useWindowDimensions() {
     windowHeight: 0,
     orientation: "portrait",
   });
+  const [touchScreenPrimary, setTouchScreenPrimary] = useState(false);
 
   useEffect(() => {
     if (!isClient) {
@@ -33,12 +34,23 @@ function useWindowDimensions() {
 
     window.addEventListener("resize", handleResize);
 
+    // Determines if user device has touch screen as primary input device. Should work for phones and tablets.
+    const hasTouchScreen = () => {
+      return window.matchMedia("(pointer: coarse)").matches;
+    };
+
+    if (hasTouchScreen()) {
+      setTouchScreenPrimary(true);
+    } else {
+      setTouchScreenPrimary(false);
+    }
+
     return () => {
       window.removeEventListener("resize", handleResize);
     };
   }, [isClient]);
 
-  return dimensions;
+  return {...dimensions, touchScreenPrimary};
 }
 
 

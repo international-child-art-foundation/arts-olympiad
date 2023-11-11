@@ -1,5 +1,5 @@
 "use client";
-import React, {useEffect, useState} from "react";
+import React from "react";
 import {FlippingCard} from "./FlippingCard";
 import useWindowDimensions from "@/hooks/useWindowDimensions";
 import monitorUp from "../../../public/svgs/monitor-up.svg";
@@ -13,24 +13,8 @@ import {ButtonStyledLink} from "../../common/ui/ButtonStyledLink";
 
 export const FlippingCards = () => {
 
-  const [touchScreenPrimary, setTouchScreenPrimary] = useState(false);
-  const { windowWidth } = useWindowDimensions();
+  const { windowWidth, touchScreenPrimary } = useWindowDimensions();
   const areFlippable = windowWidth >= 768;
-
-  // Determines if user device has touch screen as primary input device. Should work for phones and tablets.
-  useEffect(() => {
-    const hasTouchScreen = () => {
-      return window.matchMedia("(pointer: coarse)").matches;
-    };
-
-    if (hasTouchScreen()) {
-      setTouchScreenPrimary(true);
-      console.log("Touchscreen device detected");
-    } else {
-      setTouchScreenPrimary(false);
-    }
-
-  }, []);
 
   return (
     <div className="z-10 md:grid grid-cols-2 grid-rows-2 gap-4 mt-6 card-grid" >
