@@ -7,7 +7,7 @@ export const VisionCards = () => {
   return (
     <section
       aria-label="Our Vision and Our Goal"
-      className="mt-36 mb-36 relative flex flex-col px-8 md:px-12 lg:px-16 xl:px-20 mt-36 max-w-screen-2xl m-auto"
+      className="mt-36 relative flex flex-col px-8 md:px-12 lg:px-16 xl:px-20 mt-36 max-w-screen-2xl m-auto"
     >
       <article className=" text-center md:flex flex-col mr-10" >
         <H2m className="font-medium text-3xl md:text-4xl" >Our Vision & Our <span className="relative text-dark-blue">Goal
@@ -24,7 +24,7 @@ export const VisionCards = () => {
           description="Incorporated in the District of Columbia in 1997, the International Child Art Foundation (ICAF) is a 501(c)(3) nonprofit organization with federal tax number 52-2032649. "
           color="#FFF5AD"
           texture={
-            <Image src="/svgs/blobs/beginning-blob.svg" className="w-[60%] absolute bottom-0 left-0 opacity-70" alt="" width={0} height={0}/>
+            <Image src="/svgs/blobs/beginning-blob.svg" className="w-[60%] absolute bottom-0 left-0 opacity-80" alt="" width={0} height={0}/>
           }
         />
         <VisionCard
@@ -34,10 +34,10 @@ export const VisionCards = () => {
           color="#F9E4EE"
           texture={
             <div className=" w-full absolute bottom-0 left-0">
-              <Image src="/svgs/blobs/mission-blob.svg" className="w-[30%]  opacity-70" alt="" width={0} height={0}/>
+              <Image src="/svgs/blobs/mission-blob.svg" className="w-[30%]" alt="" width={0} height={0}/>
               <div className="flex flex-row">
-                <Image src="/svgs/blobs/mission-blob.svg" className="w-[30%]  opacity-70" alt="" width={0} height={0}/>
-                <Image src="/svgs/blobs/mission-blob.svg" className="w-[30%]  opacity-70" alt="" width={0} height={0}/>
+                <Image src="/svgs/blobs/mission-blob.svg" className="w-[30%]" alt="" width={0} height={0}/>
+                <Image src="/svgs/blobs/mission-blob.svg" className="w-[30%]" alt="" width={0} height={0}/>
               </div>
             </div>
           }
@@ -48,7 +48,7 @@ export const VisionCards = () => {
           description="This initiative was brought to life by ICAF. This program was born out of our belief in the power of art and creativity to inspire and unite young people for a prosperous, sustainable, and peaceful future."
           color="#CCEBFF"
           texture={
-            <Image src="/svgs/blobs/blue-scar-blob.svg" className="w-[80%] absolute bottom-0 left-0 opacity-70" alt="" width={0} height={0}/>
+            <Image src="/svgs/blobs/blue-scar-blob.svg" className="w-[80%] absolute bottom-0 left-0 " alt="" width={0} height={0}/>
           }
         />
       </div>

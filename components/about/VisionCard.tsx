@@ -27,7 +27,7 @@ export const VisionCard = ({ icon, heading, description, color, texture, ...rest
 
   return (
     <article
-      className={`relative lg:max-w-[30%] flex flex-col justify-stretch items-center p-6 mb-6 rounded-xl border-1 ${restProps.className}`}
+      className={`relative lg:max-w-[30%] lg:min-h-[440px] flex flex-col justify-stretch items-center p-6 mb-6 rounded-xl border-1 ${restProps.className}`}
       style={{boxShadow: "5px 6px 25px 4px rgba(0, 0, 0, 0.18)", backgroundColor: color}}
       onMouseOver={() => !touchScreenPrimary && setRevealTexture(true)}
       onMouseOut={() => !touchScreenPrimary && setRevealTexture(false)}
@@ -36,9 +36,9 @@ export const VisionCard = ({ icon, heading, description, color, texture, ...rest
     >
       <div className="w-full flex flex-row lg:flex-col justify-start items-center">
         <Image src={icon} alt="" width={isTablet ? 50 : 30} height={30} className={`${!isTablet && "mr-4"}`}/>
-        <H3m className="font-semibold my-5">{heading}<span className="sr-only">.</span></H3m>
+        <H3m className="font-semibold my-5">{heading}</H3m>
       </div>
-      <Pm className="font-sans font-light">{description}<span className="sr-only">.</span></Pm>
+      <Pm className="font-sans font-light">{description}</Pm>
       {
         isTablet &&
         <div className={`opacity-0 ${revealTexture ? "fade-in" : "fade-out"}`}>
