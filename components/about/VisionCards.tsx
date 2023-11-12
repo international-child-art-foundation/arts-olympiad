@@ -1,5 +1,7 @@
 import {VisionCard} from "./VisionCard";
 import Image from "next/image";
+import {H2m} from "../common/texts/H2m";
+import {AnimatedScribble} from "../common/decorations/AnimatedScribble";
 
 export const VisionCards = () => {
   return (
@@ -7,12 +9,15 @@ export const VisionCards = () => {
       aria-label="Our Vision and Our Goal"
       className="mt-36 mb-36 relative flex flex-col px-8 md:px-12 lg:px-16 xl:px-20 mt-36 max-w-screen-2xl m-auto"
     >
-      {/*<article className=" text-center md:max-w-[70%] md:flex flex-col mr-10" >*/}
-      {/*  <H2m className="font-medium text-3xl md:text-4xl" >Our Vision & Our <span className="text-dark-blue">Goal</span></H2m>*/}
-      {/*  <AnimatedScribble width={280} smwidth={180} className="z-10 md:w-[290px] xl:w-[340px] xl:h-[34px] ml-40 md:ml-44 " />*/}
-      {/*</article>*/}
+      <article className=" text-center md:flex flex-col mr-10" >
+        <H2m className="font-medium text-3xl md:text-4xl" >Our Vision & Our <span className="relative text-dark-blue">Goal
+          <AnimatedScribble width={180} className="absolute -bottom-6 -right-20" />
+        </span>
 
-      <div className="flex flex-nowrap flex-col md:flex-row justify-between mt-6">
+        </H2m>
+      </article>
+
+      <div className="flex flex-nowrap flex-col lg:flex-row justify-between mt-12">
         <VisionCard
           icon="/svgs/history.svg"
           heading="Beginning"

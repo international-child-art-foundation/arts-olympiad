@@ -1,6 +1,7 @@
 "use client";
+import "../../src/styles/fade-in-out-texture.css";
 import React, {StaticImageData} from "next/image";
-import {ReactNode} from "react";
+import {ReactNode, useState} from "react";
 import {H3m} from "../common/texts/H3m";
 import {Pm} from "../common/texts/Pm";
 import Image from "next/image";
@@ -16,20 +17,33 @@ interface IProps extends React.HTMLProps<HTMLDivElement> {
 
 export const VisionCard = ({ icon, heading, description, color, texture, ...restProps } : IProps) => {
 
-  const {windowWidth} = useWindowDimensions();
+  const {windowWidth, touchScreenPrimary} = useWindowDimensions();
+  const isTablet = windowWidth >= 1024;
+  const [revealTexture, setRevealTexture] = useState(false);
+
+  // const noop = () => {
+  //   return;
+  // };
 
   return (
     <article
-      className={`relative md:max-w-[30%] flex flex-col justify-stretch items-center p-6 mb-6 rounded-xl border-1 ${restProps.className}`}
+      className={`relative lg:max-w-[30%] flex flex-col justify-stretch items-center p-6 mb-6 rounded-xl border-1 ${restProps.className}`}
       style={{boxShadow: "5px 6px 25px 4px rgba(0, 0, 0, 0.18)", backgroundColor: color}}
+      onMouseOver={() => !touchScreenPrimary && setRevealTexture(true)}
+      onMouseOut={() => !touchScreenPrimary && setRevealTexture(false)}
+      onTouchStart={() => touchScreenPrimary && setRevealTexture(!revealTexture)}
       {...restProps}
     >
-      <Image src={icon} alt="" width={50} height={30} />
-      <H3m className="font-semibold my-10 text-center">{heading}<span className="sr-only">.</span></H3m>
+      <div className="w-full flex flex-row lg:flex-col justify-start items-center">
+        <Image src={icon} alt="" width={isTablet ? 50 : 30} height={30} className={`${!isTablet && "mr-4"}`}/>
+        <H3m className="font-semibold my-5">{heading}<span className="sr-only">.</span></H3m>
+      </div>
       <Pm className="font-sans font-light">{description}<span className="sr-only">.</span></Pm>
       {
-        windowWidth >= 768 &&
-        texture
+        isTablet &&
+        <div className={`opacity-0 ${revealTexture ? "fade-in" : "fade-out"}`}>
+          {texture}
+        </div>
       }
     </article>
   );
