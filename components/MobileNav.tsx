@@ -14,7 +14,7 @@ const MobileNav = () => {
   const links1 = [
     { name: "About", url: "/about" },
     { name: "Contest", url: "/" },
-    { name: "Sponsors", url: "/" }
+    { name: "Sponsor", url: "/sponsor" }
   ];
   const links2 = [
     { name: "Resources", url: "/" },
