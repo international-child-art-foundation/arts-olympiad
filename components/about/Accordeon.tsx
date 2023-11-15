@@ -6,6 +6,8 @@ import {Pm} from "../common/texts/Pm";
 import {artworks} from "../../mock/artworks";
 import {LazyImage} from "../common/images/LazyImage";
 import {AboutArtworkCard} from "./AboutArtworkCard";
+import {H2m} from "../common/texts/H2m";
+import Image from "next/image";
 
 export const Accordeon = () => {
 
@@ -16,15 +18,20 @@ export const Accordeon = () => {
       aria-label="Our Commitment."
       className="w-full mt-36 relative flex flex-col px-8 md:px-12 lg:px-16 xl:px-20 max-w-screen-2xl m-auto"
     >
-      {/*<article className=" text-center md:flex flex-col mr-10" >*/}
-      {/*  <Pm className="font-bold">ICAF</Pm>*/}
-      {/*  <H2m className="font-medium text-3xl md:text-4xl" >Our <span className="relative text-dark-blue">Commitment*/}
-      {/*    <AnimatedScribble width={180} className="absolute -bottom-6 -right-20" />*/}
-      {/*  </span>*/}
-      {/*  </H2m>*/}
-      {/*</article>*/}
+      <article className="md:flex flex-col mr-10" >
+        <H2m className="font-medium text-3xl md:text-4xl" >#MyFavoriteSport: A  <span className="relative text-dark-blue">Creative <span className="text-black">Leap</span>
+          <Image src="/svgs/colorful-scribble.svg" alt="" width={250} height={20} className="absolute -bottom-6 right-0" />
+        </span>
+        </H2m>
+        <Pm className="my-8">Discover #MyFavoriteSport's celebration of youthful imagination
+          and physical vitality, nurturing the next generation of creative athletes.</Pm>
+      </article>
     
-      <div className="flex flex-col min-h-fit lg:flex-row">
+      <div
+        role="region"
+        aria-live="polite"
+        className="flex flex-col min-h-fit lg:flex-row"
+      >
         <AccordeonCard
           className="rounded-t-xl lg:rounded-l-xl lg:rounded-tr-none"
           isOpen={cardOpen === 1}
