@@ -179,7 +179,7 @@ export const ImageCarousel = React.memo(({ images, ...props }: IProps) => {
         ref={carouselRef}
       >
         {images.map((image) => (
-          <CarouselImageItem key={image.id} imageUrl={image.url} alt={image.alt} width={props.width} mdwidth={props.mdwidth} height={props.height} objectCover={props.objectCover} />
+          <CarouselImageItem key={image.id} imageUrl={image.url} artwork={image} alt={image.alt} width={props.width} mdwidth={props.mdwidth} height={props.height} objectCover={props.objectCover} />
         ))}
       </figure>
       <div className="px-8 md:px-12 lg:px-16 xl:px-20 max-w-screen-2xl m-auto text-right mt-6" >

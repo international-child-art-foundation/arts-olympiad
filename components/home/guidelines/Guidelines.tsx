@@ -2,7 +2,7 @@ import Image from "next/image";
 import img1 from "../../../public/home/guidelines/guidelines1.webp";
 import img2 from "../../../public/home/guidelines/guidelines2.webp";
 import img3 from "../../../public/home/guidelines/guidelines3.webp";
-import blob from "../../../public/svgs/stretched-pink-blob.svg";
+import blob from "../../../public/svgs/blobs/stretched-pink-blob.svg";
 import {H2m} from "../../common/texts/H2m";
 import {GuidelineCard} from "./GuidelineCard";
 import Link from "next/link";

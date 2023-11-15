@@ -9,7 +9,7 @@ export const ButtonStyledLink = ({children, className,  ...restProps}: ButtonSty
   return (
     <Link
       target="_blank"
-      className={`${className} w-full rounded-lg h-14 flex items-center justify-center bg-dark-blue text-neutral-white font-normal`}
+      className={`${className} px-6 w-full rounded-lg h-14 flex items-center justify-center bg-dark-blue text-neutral-white font-normal text-center`}
       {...restProps}
     >
       {children}

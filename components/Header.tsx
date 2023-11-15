@@ -20,7 +20,7 @@ const Header = () => {
   ];
 
   return (
-    <header className="px-6 gap-6 mt-6 m-auto sm:px-8 md:px-12 lg:px-16 xl:px-20 max-w-screen-2xl bg-neutral-white font-body z-20 md:flex h-fit relative top-0 left-0">
+    <header className="px-6 gap-6 mt-6 m-auto sm:px-8 md:px-12 lg:px-16 xl:px-20 max-w-screen-2xl  font-body z-20 md:flex h-fit relative top-0 left-0">
       
       <div className="w-full md:w-fit">
         <Link href="/">
