@@ -15,11 +15,11 @@ export const metadata: Metadata = {
 
 export default function aboutPage() {
   return (
-    <>
+    <div className="overflow-hidden">
       <AboutHero />
       <VisionCards />
       <Accordeon />
       <Commitment />
-    </>
+    </div>
   );
 }

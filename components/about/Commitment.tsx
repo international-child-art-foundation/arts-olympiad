@@ -4,12 +4,13 @@ import {Pm} from "../common/texts/Pm";
 import React from "next/image";
 import {ButtonStyledLink} from "../common/ui/ButtonStyledLink";
 import {LazyImage} from "../common/images/LazyImage";
+import Image from "next/image";
 
 export const Commitment = () => {
   return (
     <section
       aria-label="Our Commitment."
-      className="w-full mt-36 mb-36 relative flex flex-col px-8 md:px-12 lg:px-16 xl:px-20 max-w-screen-2xl m-auto"
+      className="w-full mt-36 mb-36 relative flex flex-col px-8 md:px-12 lg:px-16 xl:px-20 max-w-screen-2xl m-auto overflow-y-visible"
     >
       <article className=" text-center md:flex flex-col mr-10" >
         <Pm className="font-bold">ICAF</Pm>
@@ -61,6 +62,16 @@ export const Commitment = () => {
         </article>
 
       </div>
+
+      <Image
+        src="/svgs/blobs/ligthbrown-outlined-blob.svg" alt="" width={645} height={903}
+        className="absolute -z-10 -top-52 -left-52"
+      />
+
+      <Image
+        src="/svgs/blobs/yellow-populated-arrow-blob.svg" alt="" width={600} height={600}
+        className="absolute -z-10 -bottom-96 -right-40"
+      />
 
     </section>
   );

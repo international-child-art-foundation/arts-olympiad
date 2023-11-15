@@ -2,7 +2,7 @@ import {ReactNode} from "react";
 import {H3m} from "../common/texts/H3m";
 import {H2m} from "../common/texts/H2m";
 import useWindowDimensions from "@/hooks/useWindowDimensions";
-import "../../src/styles/accordeon.css";
+// import "../../src/styles/accordeon.css";
 
 interface IProps {
   className?: string
@@ -30,12 +30,14 @@ export const AccordeonCard = ({className, isOpen, setIsOpen, color, number, head
     }
       ${className} flex flex-col 
       min-h-[85px]
-      lg:flex-row justify-between  lg:min-h-[650px] lg:min-w-[85px] 
+      lg:flex-row lg:min-w-[85px] 
       cursor-pointer
       `}
       onClick={() => setIsOpen(number)}
     >
-      <div className="flex flex-row lg:flex-col lg:justify-between min-w-[80px] p-6">
+      <div
+        className="flex flex-row lg:flex-col lg:justify-between min-w-[80px] p-6"
+      >
         <H3m className="font-bold text-center mr-6 lg:mr-0">0{number}</H3m>
         <H3m
           className={!displayhorizontally ? "font-semibold" : ""}
@@ -45,16 +47,18 @@ export const AccordeonCard = ({className, isOpen, setIsOpen, color, number, head
         </H3m>
       </div>
 
-      <div
-        className={`${isOpen ? "content-in" : "content-out"} flex flex-col justify-between p-12`}
-      >
-        {
-          displayhorizontally &&
+      { isOpen &&
+        <div
+          className={`${isOpen ? "content-in" : "content-out"} flex flex-col p-12`}
+        >
+          {
+            displayhorizontally &&
             <H2m>{header}</H2m>
-        }
-        {paragraph}
-        {images}
-      </div>
+          }
+          {paragraph}
+          {images}
+        </div>
+      }
 
     </article>
   );

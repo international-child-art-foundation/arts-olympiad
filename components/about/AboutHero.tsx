@@ -24,18 +24,18 @@ export const AboutHero = () => {
         <LazyImage
           imageUrl="/about/washinton-monument-alley.webp"
           alt={"View over washington monument from side of capitolium "}
-          className="md:ml-12 min-w-[30%] rounded-[46%]"
-          style={{boxShadow: "10px 10px 0px 8px #689576"}}
+          className="md:ml-12 min-w-[30%]"
+          style={{boxShadow: "10px 10px 0px 8px #689576", borderRadius: "46%"}}
           width={100}
           height={100}
         />
 
       </section>
 
-      {/*<Image*/}
-      {/*  src="/svgs/blobs/big-turquise-blob.svg" alt="" width={0} height={0}*/}
-      {/*  className="w-full absolute -z-10 bottom-0 right-0 overflow-visible"*/}
-      {/*/>*/}
+      <Image
+        src="/svgs/blobs/hero-green-blob.svg" alt="" width={0} height={0}
+        className="w-full h-full md:h-[1200px] absolute -z-10 bottom-20 md:-top-20 right-0 overflow-visible"
+      />
 
     </>
   );

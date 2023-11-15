@@ -24,7 +24,7 @@ export const Accordeon = () => {
       {/*  </H2m>*/}
       {/*</article>*/}
     
-      <div className="flex flex-col lg:flex-row">
+      <div className="flex flex-col min-h-fit lg:flex-row">
         <AccordeonCard
           className="rounded-t-xl lg:rounded-l-xl lg:rounded-tr-none"
           isOpen={cardOpen === 1}

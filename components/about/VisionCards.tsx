@@ -53,6 +53,11 @@ export const VisionCards = () => {
         />
       </div>
 
+      <Image
+        src="/svgs/blobs/populated-green-arrow-blob.svg" alt="" width={645} height={903}
+        className="absolute -z-10 -top-20 -left-10"
+      />
+
     </section>
   );
 };
