@@ -1,8 +1,10 @@
-import {ReactNode} from "react";
 import {H3m} from "../common/texts/H3m";
 import {H2m} from "../common/texts/H2m";
 import useWindowDimensions from "@/hooks/useWindowDimensions";
-// import "../../src/styles/accordeon.css";
+import "../../src/styles/accordion.css";
+import React, { useState, useEffect } from "react";
+import {ReactNode} from "react";
+
 
 interface IProps {
   className?: string
@@ -15,15 +17,39 @@ interface IProps {
   images: ReactNode
 }
 
-export const AccordeonCard = ({className, isOpen, setIsOpen, color, number, header, paragraph, images}: IProps) => {
+export const AccordionCard = ({className, isOpen, setIsOpen, color, number, header, paragraph, images}: IProps) => {
 
   const {windowWidth} = useWindowDimensions();
   const displayhorizontally = windowWidth >= 1024;
+  // State to control the visibility and class of the content
+  const [contentVisible, setContentVisible] = useState(isOpen);
+  const [transitionClass, setTransitionClass] = useState("content-out");
 
+  useEffect(() => {
+    if (isOpen) {
+      setContentVisible(true);
+      // Delay setting the transition class slightly to ensure the element is rendered
+      const timer = setTimeout(() => {
+        setTransitionClass("content-in");
+      }, 10); // Short delay
+
+      return () => clearTimeout(timer);
+    } else {
+      setTransitionClass("content-out");
+      // Start the "content-out" transition
+      const timer = setTimeout(() => {
+        setContentVisible(false); // Remove the element after the transition
+      }, 1800);
+
+      return () => clearTimeout(timer);
+    }
+  }, [isOpen]);
+  
   return (
     <article
       style={{backgroundColor: color}}
       className={`
+      ${isOpen ? "cursor-default" : "cursor-pointer"}
       ${
     isOpen && displayhorizontally ? "slide-in" : !isOpen && displayhorizontally ? "slide-out" :
       isOpen && !displayhorizontally ? "slide-up" : !isOpen && !displayhorizontally && "slide-down"
@@ -38,7 +64,7 @@ export const AccordeonCard = ({className, isOpen, setIsOpen, color, number, head
       <div
         className="flex flex-row lg:flex-col lg:justify-between min-w-[80px] p-6"
       >
-        <H3m className="font-bold text-center mr-6 lg:mr-0">0{number}</H3m>
+        <H3m useBreakNormal={true} className="font-bold text-center mr-6 lg:mr-0">0{number}</H3m>
         <H3m
           className={!displayhorizontally ? "font-semibold" : ""}
           style={{writingMode: displayhorizontally ? "vertical-lr": "horizontal-tb", transform: displayhorizontally ? "rotate(180deg)" : ""}}
@@ -47,9 +73,9 @@ export const AccordeonCard = ({className, isOpen, setIsOpen, color, number, head
         </H3m>
       </div>
 
-      { isOpen &&
+      { contentVisible &&
         <div
-          className={`${isOpen ? "content-in" : "content-out"} flex flex-col p-12`}
+          className={`${transitionClass} flex flex-col p-12 pt-8 overflow-hidden`}
         >
           {
             displayhorizontally &&

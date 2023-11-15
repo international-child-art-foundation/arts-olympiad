@@ -8,7 +8,7 @@ export const Pm = ({style, children, className, ...restProps }: HTMLProps<HTMLPa
   return (
     <p
       style={style}
-      className={`break-words lg:text-lg xl:text-xl ${className}`}
+      className={`break-words lg:text-lg xl:text-xl cursor-text ${className}`}
       {...restProps}
     >
       {children}

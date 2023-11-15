@@ -29,7 +29,7 @@ export const AboutArtworkCard = ({artwork, width, mdwidth, height}: IProps) => {
         style={{
           boxShadow: "0px 8px 9px 0px rgba(0, 0, 0, 0.06), 0px 20px 26px 0px rgba(0, 0, 0, 0.05)",
         }}
-        className="flex items-center justify-center h-14 w-full opacity-60 absolute bottom-0 bg-[#ffffff] backdrop-blur-[15px] rounded-b-xl"
+        className="flex items-center justify-center h-14 w-full absolute bottom-0 bg-[#ffffff] bg-opacity-60 backdrop-blur-[2px] rounded-b-xl"
       >
         <Pm className="text-center font-medium">{artwork?.name} - {artwork?.country}</Pm>
       </div>

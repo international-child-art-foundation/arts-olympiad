@@ -1,6 +1,6 @@
 "use client";
 import React from "next/image";
-import {AccordeonCard} from "./AccordeonCard";
+import {AccordionCard} from "./AccordionCard";
 import {useState} from "react";
 import {Pm} from "../common/texts/Pm";
 import {artworks} from "../../mock/artworks";
@@ -9,7 +9,7 @@ import {AboutArtworkCard} from "./AboutArtworkCard";
 import {H2m} from "../common/texts/H2m";
 import Image from "next/image";
 
-export const Accordeon = () => {
+export const Accordion = () => {
 
   const [cardOpen, setCardOpen] = useState(1);
 
@@ -30,9 +30,9 @@ export const Accordeon = () => {
       <div
         role="region"
         aria-live="polite"
-        className="flex flex-col min-h-fit lg:flex-row"
+        className="flex flex-col lg:flex-row lg:h-accordion-narrow lg:max-h-accordion-narrow-max xl:h-accordion-wide xl:max-h-accordion-wide-max"
       >
-        <AccordeonCard
+        <AccordionCard
           className="rounded-t-xl lg:rounded-l-xl lg:rounded-tr-none"
           isOpen={cardOpen === 1}
           setIsOpen={(i) => setCardOpen(i)}
@@ -47,14 +47,14 @@ export const Accordeon = () => {
             </>
           }
           images={
-            <div className="flex flex-col md:flex-row mx-auto lg:flex-col xl:flex-row xl:mx-0">
+            <div className="flex flex-col sm:flex-row mx-auto xl:mx-0">
               <AboutArtworkCard artwork={artworks[12]}/>
               <div className="my-4 md:my-0 lg:my-4 xl:my-0 mx-4" />
               <AboutArtworkCard artwork={artworks[13]}/>
             </div>
           }
         />
-        <AccordeonCard
+        <AccordionCard
           isOpen={cardOpen === 2}
           setIsOpen={(i) => setCardOpen(i)}
           color="#FFF5AD"
@@ -69,7 +69,7 @@ export const Accordeon = () => {
             </div>
           }
         />
-        <AccordeonCard
+        <AccordionCard
           isOpen={cardOpen === 3}
           setIsOpen={(i) => setCardOpen(i)}
           color="#CCEBFF"
@@ -80,7 +80,7 @@ export const Accordeon = () => {
             <LazyImage className="max-w-[500px] max-h-[315px]" imageUrl="/svgs/icao-logo.svg" alt="Internation Child Art Olympiad logo." />
           }
         />
-        <AccordeonCard
+        <AccordionCard
           className="rounded-b-xl lg:rounded-r-xl lg:rounded-bl-none"
           isOpen={cardOpen === 4}
           setIsOpen={(i) => setCardOpen(i)}
