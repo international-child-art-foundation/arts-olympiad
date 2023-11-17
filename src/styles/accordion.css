@@ -1,0 +1,30 @@
+.slide-in {
+    width: 100%;
+    transition: width 1s ease-in-out;
+}
+
+.slide-out {
+    width: 85px;
+    transition: width 1s ease-in-out;
+}
+
+.slide-up {
+    max-height: 1600px;
+    transition: max-height 1.5s ease-in-out;
+}
+
+.slide-down {
+    max-height:0;
+    transition: max-height 1.5s ease-in-out;
+}
+
+.content-in {
+    position: relative;
+    opacity: 1;
+    transition: opacity 1s ease-in-out;
+}
+
+.content-out {
+    opacity: 0;
+    transition: opacity 1s ease-in-out;
+}

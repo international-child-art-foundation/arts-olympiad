@@ -1,5 +1,5 @@
-import tinyBlob from "../../../public/svgs/tiny-vertical-pink-blob.svg";
-import bigBlob from "../../../public/svgs/vertical-big-pink-blob.svg";
+import tinyBlob from "../../../public/svgs/blobs/tiny-vertical-pink-blob.svg";
+import bigBlob from "../../../public/svgs/blobs/vertical-big-pink-blob.svg";
 import Image from "next/image";
 import {FlippingCards} from "./FlippingCards";
 import {SideImages} from "./SideImages";

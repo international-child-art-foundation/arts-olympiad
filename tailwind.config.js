@@ -52,7 +52,15 @@ module.exports = {
       screens: {
         "xsm": "410px",
         "mxl": "1380px"
-      }
+      },
+      height: {
+        "accordion-wide": "43rem",
+        "accordion-narrow": "46rem",
+      },
+      maxHeight: {
+        "accordion-wide-max": "43rem",
+        "accordion-narrow-max": "46rem",
+      },
     },
   },
   plugins: [

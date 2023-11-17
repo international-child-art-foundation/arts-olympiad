@@ -1,0 +1,91 @@
+import {H3m} from "../common/texts/H3m";
+import {H2m} from "../common/texts/H2m";
+import useWindowDimensions from "@/hooks/useWindowDimensions";
+import "../../src/styles/accordion.css";
+import React, { useState, useEffect } from "react";
+import {ReactNode} from "react";
+
+
+interface IProps {
+  className?: string
+  isOpen: boolean
+  setIsOpen: (i: number) => void
+  color: string
+  number: number
+  header: string
+  paragraph: ReactNode
+  images: ReactNode
+}
+
+export const AccordionCard = ({className, isOpen, setIsOpen, color, number, header, paragraph, images}: IProps) => {
+
+  const {windowWidth} = useWindowDimensions();
+  const displayhorizontally = windowWidth >= 1024;
+  // State to control the visibility and class of the content
+  const [contentVisible, setContentVisible] = useState(isOpen);
+  const [transitionClass, setTransitionClass] = useState("content-out");
+
+  useEffect(() => {
+    if (isOpen) {
+      setContentVisible(true);
+      // Delay setting the transition class slightly to ensure the element is rendered
+      const timer = setTimeout(() => {
+        setTransitionClass("content-in");
+      }, 10); // Short delay
+
+      return () => clearTimeout(timer);
+    } else {
+      setTransitionClass("content-out");
+      // Start the "content-out" transition
+      const timer = setTimeout(() => {
+        setContentVisible(false); // Remove the element after the transition
+      }, 1800);
+
+      return () => clearTimeout(timer);
+    }
+  }, [isOpen]);
+  
+  return (
+    <article
+      style={{backgroundColor: color}}
+      className={`
+      ${isOpen ? "cursor-default" : "cursor-pointer"}
+      ${
+    isOpen && displayhorizontally ? "slide-in" : !isOpen && displayhorizontally ? "slide-out" :
+      isOpen && !displayhorizontally ? "slide-up" : !isOpen && !displayhorizontally && "slide-down"
+    }
+      ${className} flex flex-col 
+      min-h-[85px]
+      lg:flex-row lg:min-w-[85px] 
+      cursor-pointer
+      `}
+      onClick={() => setIsOpen(number)}
+    >
+      <div
+        className="flex flex-row lg:flex-col lg:justify-between min-w-[80px] p-6"
+      >
+        <H3m useBreakNormal={true} className="font-bold text-center mr-6 lg:mr-0">0{number}</H3m>
+        <H3m
+          className={!displayhorizontally ? "font-semibold" : ""}
+          style={{writingMode: displayhorizontally ? "vertical-lr": "horizontal-tb", transform: displayhorizontally ? "rotate(180deg)" : ""}}
+        >
+          {header}
+        </H3m>
+      </div>
+
+      { contentVisible &&
+        <div
+          className={`${transitionClass} flex flex-col p-12 pt-8 overflow-hidden`}
+        >
+          {
+            displayhorizontally &&
+            <H2m>{header}</H2m>
+          }
+          {paragraph}
+          {images}
+        </div>
+      }
+
+    </article>
+  );
+};
