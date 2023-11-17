@@ -17,7 +17,7 @@ export const metadata: Metadata = {
 
 export default function sponsorPage() {
   return (
-    <div className="overflow-hidden max-w-screen-2xl z-0 mx-auto">
+    <div className="overflow-hidden z-0 mx-auto">
       <SponsorBegin />
       <Advantage /> 
       <Carousel />
