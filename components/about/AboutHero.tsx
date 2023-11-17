@@ -24,7 +24,7 @@ export const AboutHero = () => {
         <LazyImage
           imageUrl="/about/washinton-monument-alley.webp"
           alt={"View over washington monument from side of capitolium "}
-          className="md:ml-12 min-w-[30%]"
+          className="m-auto max-w-md md:max-w-fit md:ml-12 md:min-w-[30%]"
           style={{boxShadow: "10px 10px 0px 8px #689576", borderRadius: "46%"}}
           width={100}
           height={100}
