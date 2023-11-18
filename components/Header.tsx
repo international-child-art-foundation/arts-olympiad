@@ -24,7 +24,7 @@ const Header = () => {
       
       <div className="w-full md:w-fit">
         <Link href="/">
-          <div className="logo-bg mx-auto w-16 h-16 md:w-32 md:h-32"></div>
+          <div className="logo-bg mx-auto w-[56px] h-[72px] md:w-[94px] md:h-[120px] mxl:w-[107px] mxl:h-[136px]"></div>
           <div className="font-light mt-1 tracking-widest text-xs hidden md:block">#MyFavoriteSport</div>
         </Link>
       </div>

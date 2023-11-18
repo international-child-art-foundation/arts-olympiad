@@ -1,7 +1,7 @@
 "use client";
 
 import Image from "next/image";
-import yellowBlob from "../../public/svgs/sponsor-yellowblob.svg";
+import yellowBlob from "../../public/svgs/sponsor-svg/yellowblob.svg";
 import { DownIcon } from "../../components/svgs/DownIcon2";
 import { UpIcon } from "../../components/svgs/UpIcon2";
 import { HeartIconWhite } from "../../components/svgs/HeartIconWhite";
@@ -16,14 +16,13 @@ export const FiveDrop = () => {
 
   return (
     <>
-      <div className="pt-32"></div>
       <div className="relative">
         <Image src={yellowBlob} alt="" width={442} height={417} className="absolute z-0 right-0 w-2/3 sm:w-1/2 lg:w-1/3 mb-10 -top-72" />
       </div>
 
-      <div className="z-30 relative">
-        <div className="bg-baby-blue mx-auto w-11/12 py-6 px-4 relative rounded-2xl">
-          <button onClick={() => SetIsExpanded1(!isExpanded1)} className="group w-full text-xl font-semibold text-neutral-black inline-flex">
+      <div className="z-30 relative m-auto max-w-screen-2xl px-8 md:px-12 lg:px-16 xl:px-20">
+        <div onClick={() => SetIsExpanded1(!isExpanded1)} className="bg-baby-blue py-6 px-4 relative rounded-2xl cursor-pointer">
+          <button className="group w-full text-xl font-semibold text-neutral-black inline-flex">
             How can I be a sponsor?
             <DownIcon />
             <UpIcon />
@@ -38,9 +37,9 @@ export const FiveDrop = () => {
         </div>
       </div>
 
-      <div className="z-30 relative mt-6">
-        <div className="bg-baby-blue mx-auto w-11/12 py-6 px-4 relative rounded-2xl">
-          <button onClick={() => SetIsExpanded2(!isExpanded2)} className="group w-full text-xl font-semibold text-neutral-black inline-flex">
+      <div className="z-30 relative mt-6 m-auto max-w-screen-2xl px-8 md:px-12 lg:px-16 xl:px-20">
+        <div onClick={() => SetIsExpanded2(!isExpanded2)} className="bg-baby-blue py-6 px-4 relative rounded-2xl cursor-pointer">
+          <button className="group w-full text-xl font-semibold text-neutral-black inline-flex">
             What are the benefits?
             <DownIcon />
             <UpIcon />
@@ -55,9 +54,9 @@ export const FiveDrop = () => {
         </div>
       </div>
 
-      <div className="z-30 relative mt-6">
-        <div className="bg-baby-blue mx-auto w-11/12 py-6 px-4 relative rounded-2xl">
-          <button onClick={() => SetIsExpanded3(!isExpanded3)} className="group w-full text-xl font-semibold text-neutral-black inline-flex">
+      <div className="z-30 relative mt-6 m-auto max-w-screen-2xl px-8 md:px-12 lg:px-16 xl:px-20">
+        <div onClick={() => SetIsExpanded3(!isExpanded3)} className="bg-baby-blue py-6 px-4 relative rounded-2xl cursor-pointer">
+          <button className="group w-full text-xl font-semibold text-neutral-black inline-flex">
             Can I partner with you?
             <DownIcon />
             <UpIcon />
@@ -72,9 +71,9 @@ export const FiveDrop = () => {
         </div>
       </div>
 
-      <div className="z-30 relative mt-6">
-        <div className="bg-baby-blue mx-auto w-11/12 py-6 px-4 relative rounded-2xl">
-          <button onClick={() => SetIsExpanded4(!isExpanded4)} className="group w-full text-xl font-semibold text-neutral-black inline-flex">
+      <div className="z-30 relative mt-6 m-auto max-w-screen-2xl px-8 md:px-12 lg:px-16 xl:px-20">
+        <div onClick={() => SetIsExpanded4(!isExpanded4)} className="bg-baby-blue py-6 px-4 relative rounded-2xl cursor-pointer">
+          <button className="group w-full text-xl font-semibold text-neutral-black inline-flex">
             How does sponsorship work?
             <DownIcon />
             <UpIcon />
@@ -89,9 +88,9 @@ export const FiveDrop = () => {
         </div>
       </div>
 
-      <div className="z-40 relative mt-6">
-        <div className="bg-baby-blue mx-auto w-11/12 py-6 px-4 relative rounded-2xl">
-          <button onClick={() => SetIsExpanded5(!isExpanded5)} className="group w-full text-xl font-semibold text-neutral-black inline-flex">
+      <div className="z-40 relative mt-6 m-auto max-w-screen-2xl px-8 md:px-12 lg:px-16 xl:px-20">
+        <div onClick={() => SetIsExpanded5(!isExpanded5)} className="bg-baby-blue py-6 px-4 relative rounded-2xl cursor-pointer">
+          <button className="group w-full text-xl font-semibold text-neutral-black inline-flex">
             Can I donate instead?
             <DownIcon />
             <UpIcon />
