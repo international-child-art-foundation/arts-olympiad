@@ -1,9 +1,9 @@
 "use client";
 import { useState } from "react";
 import Image from "next/image";
-import globleIcon from "../../public/svgs/globle-icon.svg";
-import bulbIcon from "../../public/svgs/bulb-icon.svg";
-import medalIcon from "../../public/svgs/medal-icon.svg";
+import globleIcon from "../../public/svgs/sponsor-svg/globle-icon.svg";
+import bulbIcon from "../../public/svgs/sponsor-svg/bulb-icon.svg";
+import medalIcon from "../../public/svgs/sponsor-svg/medal-icon.svg";
 
 export const Carousel = () => {
   const [isChecked, setIsChecked] = useState(true);
@@ -14,9 +14,9 @@ export const Carousel = () => {
 
   return (
     <>
-      <div className="z-20 mt-28 relative lg:hidden">
+      <div className="z-20 mt-28 relative lg:hidden m-auto max-w-screen-2xl px-8 md:px-12 lg:px-16 xl:px-20">
         <Image src={medalIcon} alt="" width={100} height={100} className="z-0 absolute -top-12 left-1/2 transform -translate-x-1/2 w-[100px] h-[100px] md:hidden" />
-        <div className="bg-light-pink pt-20 mx-5% rounded-2xl w-11/12 h-fit md:pt-8 ">
+        <div className="bg-light-pink pt-20 rounded-2xl h-fit md:pt-8 ">
           <div className="mx-5%">
             <h3 className="text-center font-medium text-3xl pb-10 md:hidden">Celebrate the Olympics!</h3>
             <div className="flex justify-center">
@@ -25,7 +25,7 @@ export const Carousel = () => {
                 Celebrate the Olympics!
               </span> 
             </div>
-            <ul className="mx-5% list-disc font-extralight text-lg leading-loose mb-28">
+            <ul className="mx-5% list-disc font-extralight text-lg leading-loose mb-24 md:mb-8">
               <li className="pb-1">
                 Promote Olympism in your company and the Olympic values of excellence, friendship, and respect.
               </li>
@@ -40,9 +40,9 @@ export const Carousel = () => {
         </div>
       </div>
 
-      <div className="z-20 relative lg:hidden">
+      <div className="z-20 relative lg:hidden m-auto max-w-screen-2xl px-8 md:px-12 lg:px-16 xl:px-20">
         <Image src={bulbIcon} alt="" width={100} height={100} className="z-0 absolute -top-12 left-1/2 transform -translate-x-1/2 w-[100px] h-[100px] md:hidden" />
-        <div className="bg-baby-blue pt-20 mx-5% rounded-2xl w-11/12 h-fit md:pt-8">
+        <div className="bg-baby-blue pt-20 rounded-2xl h-fit md:pt-8">
           <div className="mx-5%">
             <h3 className="text-center font-medium text-3xl pb-10 md:hidden">Brighten the Future!</h3>
             <div className="flex justify-center">
@@ -51,7 +51,7 @@ export const Carousel = () => {
                 Brighten the Future!
               </span> 
             </div>
-            <ul className="mx-5% list-disc font-extralight text-lg leading-loose mb-28">
+            <ul className="mx-5% list-disc font-extralight text-lg leading-loose mb-24 md:mb-8">
               <li className="pb-1">
                 Engage creative youth worldwide—a key demographic for long-term business growth.
               </li>
@@ -66,9 +66,9 @@ export const Carousel = () => {
         </div>
       </div>
 
-      <div className="z-20 relative lg:hidden">
+      <div className="z-20 relative lg:hidden m-auto max-w-screen-2xl px-8 md:px-12 lg:px-16 xl:px-20">
         <Image src={globleIcon} alt="" width={100} height={100} className="z-0 absolute -top-12 left-1/2 transform -translate-x-1/2 w-[100px] h-[100px] md:hidden" />
-        <div className="bg-light-green pt-20 mx-5% rounded-2xl w-11/12 h-fit md:pt-8">
+        <div className="bg-light-green pt-20 rounded-2xl h-fit md:pt-8">
           <div className="mx-5%">
             <h3 className="text-center font-medium text-3xl pb-1 md:hidden">Make your mark on</h3> 
             <h3 className="text-center font-medium text-3xl pb-10 md:hidden">The National Mall!</h3> 
@@ -79,7 +79,7 @@ export const Carousel = () => {
               </span> 
             </div>
             
-            <ul className="mx-5% list-disc font-extralight text-lg leading-loose mb-28">
+            <ul className="mx-5% list-disc font-extralight text-lg leading-loose mb-24 md:mb-36">
               <li className="pb-1">
                 Join the World Children's Festival—a celebration of creativity, diversity, and unity—with your company's "Pavilion," where creative activities and empathy training are held.
               </li>
@@ -96,7 +96,7 @@ export const Carousel = () => {
 
 
 
-      <div className="realtive z-20 pt-28 pb-10 hidden lg:block">
+      <div className="realtive z-20 pt-28 pb-44 hidden lg:block m-auto max-w-screen-2xl px-8 md:px-12 lg:px-16 xl:px-20">
         <section className="relative">
           <div className="max-w-lg mx-auto relative">
             <input id="article-01" type="radio" name="slider" className="sr-only peer/01" checked={isChecked} onChange={checkHandler}/>
@@ -211,4 +211,3 @@ export const Carousel = () => {
     </>
   );
 };
-
