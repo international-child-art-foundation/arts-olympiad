@@ -1,5 +1,5 @@
 export const DownIcon = () => (
-  <svg className="w-5 h-5 mt-1.5 ml-auto group-hover:hidden" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 10 6">
+  <svg className="w-5 h-5 mt-1.5 ml-auto" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 10 6">
     <path stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="1" d="m1 1 4 4 4-4" />
   </svg>
 );
