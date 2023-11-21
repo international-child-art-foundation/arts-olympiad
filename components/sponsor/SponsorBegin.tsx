@@ -35,12 +35,12 @@ export const SponsorBegin = () => {
         </div>
 
         <div className="col-span-2 z-20 sm:col-span-1">            
-          <Image src="/photo-sponsor.png" width = {390} height = {271} className="sm:ml-10 lg:ml-0 w-full rounded-[225px] lg:rounded-[300px] shadow-[8px_18px_0_-6px_rgba(251,178,46,1)]" alt="photo" />
+          <Image src="/photo-sponsor.webp" width = {390} height = {271} className="sm:ml-10 lg:ml-0 w-full rounded-[225px] lg:rounded-[300px] shadow-[8px_18px_0_-6px_rgba(251,178,46,1)]" alt="photo" />
         </div>
 
       </section>
 
-      <article className="z-20 m-auto max-w-screen-2xl px-8 md:px-12 lg:px-16 xl:px-20 font-extralight text-lg leading-loose pt-36 lg:pt-24">
+      <article className="relative z-20 m-auto max-w-screen-2xl px-8 md:px-12 lg:px-16 xl:px-20 font-extralight text-lg leading-loose pt-36 lg:pt-24">
         <h2>The global art contest <span className="font-semibold">#MyFavoriteSport</span> begins in <span className="font-semibold">March 2024</span> at an interactive exhibition in Paris, where young visitors produce and upload their artwork and share it with family and friends to get their votes.</h2>
         <h2>Over the next three months, this "Create & Share" activity will spread worldwide and can go viral, engaging millions. The winners selected by public votes will be announced on July 1st at a press conference at the National Mall across the U.S. Capitol during the 7th World Children's Festival. With your support, the gold, silver, and bronze winners will attend the Paris Olympics.</h2>
       </article>
