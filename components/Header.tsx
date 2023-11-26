@@ -46,7 +46,7 @@ const Header = () => {
           Login
         </a>
 
-        <hr className="my-2 mx-2 border-gray-400 border-1 w-full hidden md:block"></hr>
+        <hr className="my-2 border-new-black border-t-0.5 w-full hidden md:block"></hr>
 
         <div className="flex flex-wrap items-center gap-x-3 w-full py-2 h-1/2">
           

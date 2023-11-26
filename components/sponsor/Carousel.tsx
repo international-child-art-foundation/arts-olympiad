@@ -6,10 +6,32 @@ import bulbIcon from "../../public/svgs/sponsor-svg/bulb-icon.svg";
 import medalIcon from "../../public/svgs/sponsor-svg/medal-icon.svg";
 
 export const Carousel = () => {
-  const [isChecked, setIsChecked] = useState(true);
+  const [isChecked1, setIsChecked1] = useState(false);
+  const [isChecked2, setIsChecked2] = useState(false);
+  const [isChecked3, setIsChecked3] = useState(true);
 
-  const checkHandler = () => {
-    setIsChecked(!isChecked);
+  const checkHandler1 = () => {
+    if (!isChecked1){
+      setIsChecked1(true);
+      setIsChecked2(false);
+      setIsChecked3(false);
+    }
+  };
+
+  const checkHandler2 = () => {
+    if (!isChecked2){
+      setIsChecked2(true);
+      setIsChecked1(false);
+      setIsChecked3(false);
+    }
+  };
+
+  const checkHandler3 = () => {
+    if (!isChecked3){
+      setIsChecked3(true);
+      setIsChecked1(false);
+      setIsChecked2(false);
+    }
   };
 
   return (
@@ -98,10 +120,11 @@ export const Carousel = () => {
 
       <div className="realtive z-20 pt-28 pb-44 hidden lg:block m-auto max-w-screen-2xl px-8 md:px-12 lg:px-16 xl:px-20">
         <section className="relative">
+          <div></div>
           <div className="max-w-lg mx-auto relative">
-            <input id="article-01" type="radio" name="slider" className="sr-only peer/01" checked={isChecked} onChange={checkHandler}/>
-            <input id="article-02" type="radio" name="slider" className="sr-only peer/02" checked={isChecked} onChange={checkHandler}/>
-            <input id="article-03" type="radio" name="slider" className="sr-only peer/03" checked={isChecked} onChange={checkHandler}/>
+            <input id="article-01" type="checkbox" name="slider" className="sr-only peer/01" checked={isChecked1} onClick={checkHandler1}/>
+            <input id="article-02" type="checkbox" name="slider" className="sr-only peer/02" checked={isChecked2} onClick={checkHandler2}/>
+            <input id="article-03" type="checkbox" name="slider" className="sr-only peer/03" checked={isChecked3} onClick={checkHandler3}/>
 
             <div className="
               absolute inset-0 scale-[83.75%] z-20 transition-all duration-500 ease-[cubic-bezier(0.25,1,0.5,1)]                    
