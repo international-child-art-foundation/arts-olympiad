@@ -51,14 +51,14 @@ const Header = () => {
           
           {links1.map(link => (
             <Link key={link.name} href={link.url}>
-              <li className="tracking-widest text-sm w-fit h-fit py-3 px-2 rounded-xl un text-neutral-black hidden md:block">
+              <li className="tracking-widest text-sm w-fit h-fit py-3 pr-2 rounded-xl un text-neutral-black hidden md:block">
                 {link.name}
               </li>
             </Link>
           ))}
           
           <div className="group relative">
-            <button className="tracking-widest text-sm w-fit h-fit py-3 px-2 text-neutral-black hidden md:inline-flex">
+            <button className="tracking-widest text-sm w-fit h-fit py-3 pr-2 text-neutral-black hidden md:inline-flex">
               Gallery
               <DownIcon />
               <UpIcon />
@@ -81,7 +81,7 @@ const Header = () => {
 
           {links2.map(link => (
             <Link key={link.name} href={link.url}>
-              <li className="tracking-widest text-sm w-fit h-fit py-3 px-2 rounded-xl un text-neutral-black hidden md:block">
+              <li className="tracking-widest text-sm w-fit h-fit py-3 pr-2 rounded-xl un text-neutral-black hidden md:block">
                 {link.name}
               </li>
             </Link>
