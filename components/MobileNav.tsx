@@ -14,7 +14,7 @@ const MobileNav = () => {
   const links1 = [
     { name: "About", url: "/about" },
     { name: "Contest", url: "/" },
-    { name: "Sponsors", url: "/" }
+    { name: "Sponsor", url: "/sponsor" }
   ];
   const links2 = [
     { name: "Resources", url: "/" },
@@ -40,7 +40,7 @@ const MobileNav = () => {
         customBurgerIcon={<Image src="/svgs/burger.svg" alt="Open navigation menu" width={30} height={30} />}
       >
 
-        <div className="logo-bg w-16 h-16 mx-auto my-2"></div>
+        <div className="logo-bg w-[56px] h-[72px] mx-auto my-2"></div>
 
         <hr className="my-2 border-gray-600 border-1 w-full"></hr>
 

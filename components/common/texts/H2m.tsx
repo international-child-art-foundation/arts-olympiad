@@ -9,7 +9,7 @@ export const H2m = ({style, children, className, ...restProps }: HTMLProps<HTMLH
   return (
     <h2
       style={style}
-      className={`break-words text-2xl lg:text-3xl ${className}`}
+      className={`break-words text-2xl lg:text-3xl cursor-text ${className}`}
       {...restProps}
     >
       {children}
