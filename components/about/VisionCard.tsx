@@ -41,7 +41,7 @@ export const VisionCard = ({ icon, heading, description, color, texture, ...rest
       <Pm className="font-sans font-light">{description}</Pm>
       {
         isTablet &&
-        <div className={`opacity-0 ${revealTexture ? "fade-in" : "fade-out"}`}>
+        <div className={`${revealTexture ? "opacity-1" : "opacity-0" }`}>
           {texture}
         </div>
       }
