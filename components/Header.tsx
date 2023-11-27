@@ -24,8 +24,7 @@ const Header = () => {
       
       <div className="w-full md:w-fit">
         <Link href="/">
-          <div className="logo-bg mx-auto w-[56px] h-[72px] md:w-[94px] md:h-[120px] mxl:w-[107px] mxl:h-[136px]"></div>
-          <div className="font-light mt-1 tracking-widest text-xs hidden md:block">#MyFavoriteSport</div>
+          <div className="logo-bg mx-auto w-[60px] h-[90px] md:w-[90px] md:h-[137px]"></div>
         </Link>
       </div>
       
@@ -46,7 +45,7 @@ const Header = () => {
           Login
         </a>
 
-        <hr className="my-2 mx-2 border-gray-400 border-1 w-full hidden md:block"></hr>
+        <hr className="my-2 border-new-black border-t-0.5 w-full hidden md:block"></hr>
 
         <div className="flex flex-wrap items-center gap-x-3 w-full py-2 h-1/2">
           
