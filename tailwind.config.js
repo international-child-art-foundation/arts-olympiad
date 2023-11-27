@@ -20,6 +20,7 @@ module.exports = {
         "light-pink": "#F9E4EE",
         "light-green": "#E4F9EA",
         "neutral-black": "#1F1F23",
+        "new-black":"#000000",
         "neutral-white": "#F9FAF6",
         "main-yellow": "#FCE983",
         "main-orange": "#FBB22E",

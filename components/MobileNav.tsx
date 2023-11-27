@@ -40,9 +40,9 @@ const MobileNav = () => {
         customBurgerIcon={<Image src="/svgs/burger.svg" alt="Open navigation menu" width={30} height={30} />}
       >
 
-        <div className="logo-bg w-[56px] h-[72px] mx-auto my-2"></div>
+        <div className="logo-bg w-[60px] h-[90px] mx-auto my-2"></div>
 
-        <hr className="my-2 border-gray-600 border-1 w-full"></hr>
+        <hr className="my-2 border-new-black border-t-0.5 w-full"></hr>
 
         {links1.map(link => (
           <Link 
@@ -89,7 +89,7 @@ const MobileNav = () => {
           </div>
         </div>
 
-        <hr className="my-4 mx-auto w-5/6 border-gray-600 border-1"></hr>
+        <hr className="my-4 mx-auto w-5/6 border-new-black border-t-0.5"></hr>
 
         {/* <a href="https://icaf.org/donate" className="group mx-auto mb-4 w-5/6 h-fit border-neutral-white border rounded text-center py-2 px-4 text-sm cursor-pointer tracking-wide bg-new-blue text-neutral-white">
           <HeartIconWhite />
