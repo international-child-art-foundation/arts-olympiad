@@ -1,6 +1,5 @@
 import Image from "next/image";
 import hashtag from "../../public/home/hashtag.svg";
-import {LazyImage} from "../common/images/LazyImage";
 
 export const AboutHero = () => {
   return (
@@ -21,11 +20,11 @@ export const AboutHero = () => {
             </h1>
           </div>
         </article>
-        <LazyImage
-          imageUrl="/about/washinton-monument-alley.webp"
+        <Image
+          src="about_header_image.webp"
           alt={"View over washington monument from side of capitolium "}
-          className="m-auto max-w-md md:max-w-fit md:ml-12 md:min-w-[30%]"
-          style={{boxShadow: "10px 10px 0px 8px #689576", borderRadius: "46%"}}
+          className="rounded-xl w-full h-full m-auto max-w-md md:max-w-fit md:ml-12 md:min-w-[30%]"
+          // style={{boxShadow: "10px 10px 0px 8px #689576", borderRadius: "46%"}}
           width={100}
           height={100}
         />
@@ -36,11 +35,6 @@ export const AboutHero = () => {
       <Image src="/svgs/blobs/hero-green-blob.svg" alt="" width={1279} height={377} className="absolute -z-10 hidden lg:block xl:hidden -top-32 w-full h-full" />
       <Image src="/svgs/blobs/hero-green-blob.svg" alt="" width={1536} height={432} className="absolute -z-10 hidden xl:block 2xl:hidden -top-32 w-full h-[1000px]" />
       <Image src="/svgs/blobs/hero-green-blob.svg" alt="" width={1536} height={432} className="absolute -z-10 hidden 2xl:block -top-32 right-0 w-full h-full mxl:h-[1000px]" />
-
-      {/*<Image*/}
-      {/*  src="/svgs/blobs/hero-green-blob.svg" alt="" width={0} height={0}*/}
-      {/*  className="w-full h-full md:h-[1200px] absolute -z-10 bottom-20 md:-top-20 right-0 overflow-visible"*/}
-      {/*/>*/}
 
     </>
   );

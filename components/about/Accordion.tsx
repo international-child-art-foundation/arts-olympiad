@@ -1,17 +1,26 @@
 "use client";
 import React from "next/image";
 import {AccordionCard} from "./AccordionCard";
-import {useState} from "react";
+import {useEffect, useState} from "react";
 import {Pm} from "../common/texts/Pm";
 import {artworks} from "../../mock/artworks";
 import {LazyImage} from "../common/images/LazyImage";
 import {AboutArtworkCard} from "./AboutArtworkCard";
 import {H2m} from "../common/texts/H2m";
 import Image from "next/image";
+import useWindowDimensions from "@/hooks/useWindowDimensions";
 
 export const Accordion = () => {
 
+  const {windowWidth} = useWindowDimensions();
   const [cardOpen, setCardOpen] = useState(1);
+  const [minimalContentWidth, setMinimalContentWidth] = useState<number | undefined>(0);
+  const [contentWidthWasSet, setContentWidthWasSet] = useState(false);
+
+  // effect to reset minimalContentWidth when window dimensions change
+  useEffect(() => {
+    setContentWidthWasSet(false);
+  }, [windowWidth]);
 
   return (
     <section
@@ -30,9 +39,13 @@ export const Accordion = () => {
       <div
         role="region"
         aria-live="polite"
-        className="flex flex-col lg:flex-row lg:h-accordion-narrow lg:max-h-accordion-narrow-max xl:h-accordion-wide xl:max-h-accordion-wide-max"
+        className="flex flex-col lg:flex-row lg:h-accordion-narrow lg:max-h-accordion-narrow-max xl:h-accordion-wide xl:max-h-accordion-wide-max overflow-hidden"
       >
         <AccordionCard
+          minimalContentWidth={minimalContentWidth}
+          setMinimalContentWidth={setMinimalContentWidth}
+          contentWidthWasSet={contentWidthWasSet}
+          setContentWidthWasSet={setContentWidthWasSet}
           className="rounded-t-xl lg:rounded-l-xl lg:rounded-tr-none"
           isOpen={cardOpen === 1}
           setIsOpen={(i) => setCardOpen(i)}
@@ -55,6 +68,10 @@ export const Accordion = () => {
           }
         />
         <AccordionCard
+          minimalContentWidth={minimalContentWidth}
+          setMinimalContentWidth={setMinimalContentWidth}
+          contentWidthWasSet={contentWidthWasSet}
+          setContentWidthWasSet={setContentWidthWasSet}
           isOpen={cardOpen === 2}
           setIsOpen={(i) => setCardOpen(i)}
           color="#FFF5AD"
@@ -70,6 +87,10 @@ export const Accordion = () => {
           }
         />
         <AccordionCard
+          minimalContentWidth={minimalContentWidth}
+          setMinimalContentWidth={setMinimalContentWidth}
+          contentWidthWasSet={contentWidthWasSet}
+          setContentWidthWasSet={setContentWidthWasSet}
           isOpen={cardOpen === 3}
           setIsOpen={(i) => setCardOpen(i)}
           color="#CCEBFF"
@@ -81,6 +102,10 @@ export const Accordion = () => {
           }
         />
         <AccordionCard
+          minimalContentWidth={minimalContentWidth}
+          setMinimalContentWidth={setMinimalContentWidth}
+          contentWidthWasSet={contentWidthWasSet}
+          setContentWidthWasSet={setContentWidthWasSet}
           className="rounded-b-xl lg:rounded-r-xl lg:rounded-bl-none"
           isOpen={cardOpen === 4}
           setIsOpen={(i) => setCardOpen(i)}
