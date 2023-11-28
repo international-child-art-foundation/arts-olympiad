@@ -32,10 +32,15 @@ export const AboutHero = () => {
 
       </section>
 
-      <Image
-        src="/svgs/blobs/hero-green-blob.svg" alt="" width={0} height={0}
-        className="w-full h-full md:h-[1200px] absolute -z-10 bottom-20 md:-top-20 right-0 overflow-visible"
-      />
+      <Image src="/svgs/blobs/hero-green-blob-minitablet.svg" alt="" width={1279} height={377} className="absolute -z-10 sm:block lg:hidden -top-32 w-full h-full" />
+      <Image src="/svgs/blobs/hero-green-blob.svg" alt="" width={1279} height={377} className="absolute -z-10 hidden lg:block xl:hidden -top-32 w-full h-full" />
+      <Image src="/svgs/blobs/hero-green-blob.svg" alt="" width={1536} height={432} className="absolute -z-10 hidden xl:block 2xl:hidden -top-32 w-full h-[1000px]" />
+      <Image src="/svgs/blobs/hero-green-blob.svg" alt="" width={1536} height={432} className="absolute -z-10 hidden 2xl:block -top-32 right-0 w-full h-full mxl:h-[1000px]" />
+
+      {/*<Image*/}
+      {/*  src="/svgs/blobs/hero-green-blob.svg" alt="" width={0} height={0}*/}
+      {/*  className="w-full h-full md:h-[1200px] absolute -z-10 bottom-20 md:-top-20 right-0 overflow-visible"*/}
+      {/*/>*/}
 
     </>
   );
