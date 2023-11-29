@@ -2,7 +2,7 @@ import {H3m} from "../common/texts/H3m";
 import {H2m} from "../common/texts/H2m";
 import useWindowDimensions from "@/hooks/useWindowDimensions";
 import "../../src/styles/accordion.css";
-import React, { useState, useEffect } from "react";
+import React, {Dispatch, SetStateAction, useState, useEffect, useRef, useLayoutEffect} from "react";
 import {ReactNode} from "react";
 
 
@@ -15,15 +15,24 @@ interface IProps {
   header: string
   paragraph: ReactNode
   images: ReactNode
+  minimalContentWidth: number | undefined
+  setMinimalContentWidth: Dispatch<SetStateAction<number | undefined>>
+  contentWidthWasSet: boolean
+  setContentWidthWasSet: Dispatch<SetStateAction<boolean>>
 }
 
-export const AccordionCard = ({className, isOpen, setIsOpen, color, number, header, paragraph, images}: IProps) => {
+export const AccordionCard = (
+  {className, isOpen, setIsOpen, color, number, header, paragraph, images, minimalContentWidth, setMinimalContentWidth, contentWidthWasSet, setContentWidthWasSet}
+    : IProps
+) => {
 
+  const minimalContentWidthWithPadding = minimalContentWidth && minimalContentWidth - 48;
   const {windowWidth} = useWindowDimensions();
   const displayhorizontally = windowWidth >= 1024;
   // State to control the visibility and class of the content
   const [contentVisible, setContentVisible] = useState(isOpen);
   const [transitionClass, setTransitionClass] = useState("content-out");
+  const cardRef = useRef< HTMLDivElement | null>(null);
 
   useEffect(() => {
     if (isOpen) {
@@ -44,10 +53,30 @@ export const AccordionCard = ({className, isOpen, setIsOpen, color, number, head
       return () => clearTimeout(timer);
     }
   }, [isOpen]);
+
+  // an effect to scroll into view of the card once all transitions are over
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      if (!displayhorizontally && isOpen) {
+        cardRef.current?.scrollIntoView({behavior: "smooth"});
+      }
+    }, 900);
+
+    return () => clearTimeout(timer);
+  }, [isOpen, displayhorizontally]);
+
+  // an effect that sets minimal content width to avoid content wrapping
+  useLayoutEffect(() => {
+    if (displayhorizontally && isOpen && !contentWidthWasSet) {
+      setContentWidthWasSet(true);
+      setMinimalContentWidth(cardRef.current?.clientWidth);
+    }
+  }, [displayhorizontally, isOpen, contentWidthWasSet]);
   
   return (
     <article
       style={{backgroundColor: color}}
+      ref={cardRef}
       className={`
       ${isOpen ? "cursor-default" : "cursor-pointer"}
       ${
@@ -76,6 +105,7 @@ export const AccordionCard = ({className, isOpen, setIsOpen, color, number, head
       { contentVisible &&
         <div
           className={`${transitionClass} flex flex-col p-12 pt-8 overflow-hidden`}
+          style={{minWidth: minimalContentWidthWithPadding + "px" }}
         >
           {
             displayhorizontally &&

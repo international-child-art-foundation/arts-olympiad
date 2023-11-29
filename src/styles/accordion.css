@@ -1,11 +1,19 @@
 .slide-in {
     width: 100%;
     transition: width 1s ease-in-out;
+    z-index: 10;
+    .content-in {
+        z-index: 10;
+    }
 }
 
 .slide-out {
     width: 85px;
     transition: width 1s ease-in-out;
+    z-index: 10;
+    .content-in {
+        z-index: 10;
+    }
 }
 
 .slide-up {
@@ -15,7 +23,7 @@
 
 .slide-down {
     max-height:0;
-    transition: max-height 1.5s ease-in-out;
+    transition: max-height 1s ease-in-out;
 }
 
 .content-in {
