@@ -32,7 +32,7 @@ export const Commitment = () => {
             <Pm className="font-sans font-light my-4">
             All of ICAF’s programs, festivals, and exhibitions are offered free of charge and are made possible through the support of empathic donors and creative sponsors.
             </Pm>
-            <ButtonStyledLink className="max-w-fit px-6 my-8" href="/sponsorship">
+            <ButtonStyledLink className="max-w-fit px-6 my-8" href="/sponsor">
             Learn more about becoming a sponsor
             </ButtonStyledLink>
           </div>
