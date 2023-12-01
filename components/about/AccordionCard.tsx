@@ -105,7 +105,7 @@ export const AccordionCard = (
       { contentVisible &&
         <div
           className={`${transitionClass} flex flex-col p-12 pt-8 overflow-hidden`}
-          style={{minWidth: minimalContentWidthWithPadding + "px" }}
+          style={{minWidth: displayhorizontally ? minimalContentWidthWithPadding + "px" : "" }}
         >
           {
             displayhorizontally &&
