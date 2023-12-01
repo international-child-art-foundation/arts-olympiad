@@ -15,7 +15,7 @@ export const metadata: Metadata = {
 
 export default function aboutPage() {
   return (
-    <div className="overflow-hidden">
+    <div className="overflow-clip">
       <AboutHero />
       <VisionCards />
       <Accordion />
