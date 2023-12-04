@@ -19,7 +19,6 @@ export const Accordion = () => {
 
   // effect to reset minimalContentWidth when window dimensions change
   useEffect(() => {
-    console.log("minimalContentWidth" + minimalContentWidth);
     setContentWidthWasSet(false);
   }, [windowWidth]);
 
