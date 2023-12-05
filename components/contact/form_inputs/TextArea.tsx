@@ -6,21 +6,22 @@ interface IProps {
   labelText: string
   id: string
   placeholder?: string
-  inputType?: string
   error: string | undefined
   touched: boolean | undefined
   value: string | undefined
   required?: boolean
 }
-export const TextInput = ({labelText, id, placeholder, inputType, error, touched, value, required = true}: IProps) => {
+export const TextArea = ({labelText, id, placeholder, error, touched, value, required = true}: IProps) => {
 
   return (
-    <div className="flex flex-row md:flex-col" >
+    <div className="col-span-2 row-span-2 flex flex-row md:flex-col" >
       <label htmlFor={id}>{`${labelText}${required && error && touched ? "*" : "" }`}</label>
       <Field
-        className={`my-2 p-3 border-1 rounded-lg ${required && error && touched ? "border-accent-red placeholder:text-accent-red"  : "border-black"}`}
+        style={{resize: "none"}}
+        className={`w-full h-full my-2 p-3 border-1 rounded-lg ${required && error && touched ? "border-accent-red placeholder:text-accent-red"  : "border-black"}`}
         placeholder={ placeholder || "Start typing here..."}
-        type={inputType || "text" }
+        as="textarea"
+        type="text"
         id={id}
         name={id}
       />
