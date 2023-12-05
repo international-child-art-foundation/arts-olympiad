@@ -1,10 +1,11 @@
-import { Formik, Field, Form, ErrorMessage } from "formik";
+import { Formik, Form } from "formik";
 import * as Yup from "yup";
+import {TextInput} from "./form_inputs/TextInput";
 
 type Query = "Issue submitting artwork" | "Someone uploaded my work" | "Trouble sharing artwork" |
   "Voting assistance" | "Account issues" | "Other" | null
 
-interface IFormValues {
+interface IContactFormValues {
   firstName: string,
   lastName: string,
   phone: string,
@@ -19,7 +20,7 @@ const validationSchema = Yup.object().shape({
   phone: Yup.string().required("Phone Number is required"),
 });
 
-const initialValues: IFormValues = {
+const initialValues: IContactFormValues = {
   firstName: "",
   lastName: "",
   phone: "",
@@ -27,7 +28,7 @@ const initialValues: IFormValues = {
   query: null
 };
 
-const onSubmit = (values: IFormValues) => {
+const onSubmit = (values: IContactFormValues) => {
   // Handle form submission logic here
   console.log(values);
 };
@@ -39,38 +40,12 @@ export const ContactForm = () => {
       validationSchema={validationSchema}
       onSubmit={onSubmit}
     >
-      <Form className="grid grid-rows-6 grid-cols-2">
-        <div className="row-span-2 col-span-2">
-          <div className="col-span-1 row-span-1" >
-            <div className="w-full">
-              <label htmlFor="firstName">First Name</label>
-              <Field type="text" id="firstName" name="firstName" />
-              <ErrorMessage name="firstName" component="div" />
-            </div>
-
-            <div>
-              <label htmlFor="lastName">Last Name</label>
-              <Field type="text" id="lastName" name="lastName" />
-              <ErrorMessage name="lastName" component="div" />
-            </div>
-          </div>
-
-          <div className="col-span-1 row-span-1" >
-            <div>
-              <label htmlFor="email">Email</label>
-              <Field type="text" id="email" name="email" />
-              <ErrorMessage name="email" component="div" />
-            </div>
-
-            <div>
-              <label htmlFor="phone">Phone Number</label>
-              <Field type="text" id="phone" name="phone" />
-              <ErrorMessage name="phone" component="div" />
-            </div>
-          </div>
-        </div>
-
-      </Form>
+      {({ errors, touched, values }) => (
+        <Form className="grid grid-rows-6 grid-cols-2">
+          <TextInput error={errors.firstName} touched={touched.firstName} value={values.firstName} labelText="First Name" id="firstName" />
+          <TextInput error={errors.lastName} touched={touched.lastName} value={values.lastName} labelText="Last Name" id="lastName" />
+        </Form>
+      )}
     </Formik>
   );
 };

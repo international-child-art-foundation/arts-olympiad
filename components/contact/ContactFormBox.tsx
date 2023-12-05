@@ -13,7 +13,7 @@ interface IProps {
 
 export const ContactFormBox = ({ } : IProps) => {
   return (
-    <div className="grid grid-cols-2 p-10 xl:p-20 flex flex-col lg:flex-row border-1 border-black rounded-xl z-10 bg-neutral-white">
+    <div className="grid grid-cols-2 gap-4 p-10 xl:p-20 flex flex-col lg:flex-row border-1 border-black rounded-xl z-10 bg-neutral-white">
 
       <div className="col-span-1 flex flex-col">
         <H2m><span className="relative">Contact us

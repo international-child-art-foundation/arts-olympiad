@@ -28,6 +28,7 @@ module.exports = {
         "main-silver": "#919191",
         "main-bronze": "#AD8122",
         "main-red": "#FF0000",
+        "accent-red": "#F72214",
         "main-grey":"#6A7682",
       },
       fontFamily:{
