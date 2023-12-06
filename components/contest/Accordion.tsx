@@ -5,7 +5,7 @@ import { Up } from "../../public/svgs/contest-svg/Up";
 import { Down } from "../../public/svgs/contest-svg/Down";
 import { Face } from "../../public/svgs/contest-svg/Face";
 import { Folder } from "../../public/svgs/contest-svg/Folder";
-import { Palette } from "../../public/svgs/contest-svg/palette";
+import { Palette } from "../../public/svgs/contest-svg/Palette";
 import blueBG from "../../public/svgs/contest-svg/blueBG.svg";
 import yellowBG from "../../public/svgs/contest-svg/yellowBG.svg";
 import purpleBG from "../../public/svgs/contest-svg/purpleBG.svg";
