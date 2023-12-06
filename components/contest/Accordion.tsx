@@ -141,7 +141,7 @@ export const Accordion = () => {
 
 
 
-          {/* <div tabindex="0" className="group col-span-3 lg:col-span-1 h-fit bg-light-yellow py-6 px-4 relative rounded-2xl cursor-pointer">
+        {/* <div tabindex="0" className="group col-span-3 lg:col-span-1 h-fit bg-light-yellow py-6 px-4 relative rounded-2xl cursor-pointer">
             <Image src={yellowBG} width = {390} height = {271} className="relative -top-6 -left-4 z-10 h-[300px]" alt="photo" />
             <div className="absolute top-2 z-30"> <Face /> </div>
             <button className="group transition ease-in-out duration-500 group-focus:-translate-y-24 absolute top-[200px] z-30 group w-5/6 text-2xl font-semibold text-neutral-black inline-flex">

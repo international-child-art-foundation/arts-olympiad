@@ -12,7 +12,7 @@ export const Process = () => {
             <p className="mb-8 test-base font-light">To submit your artwork, you need to create an account on our website. Once logged in, you can upload your artwork and provide the necessary information including the title, description, and artist's statement.</p>
           </div>
 
-          <Image src="/laptop.png" width = {704} height = {482} className="rounded-xl w-full h-full col-span-2 lg:col-span-1 pr-10" alt="laptop" />
+          <Image src="/laptop.webp" width = {704} height = {482} className="rounded-xl w-full h-full col-span-2 lg:col-span-1 pr-10" alt="laptop" />
           
           <article className="col-span-2 lg:col-span-1">
             <div className="border-main-orange border-l-8 hidden lg:block">
@@ -52,7 +52,7 @@ export const Process = () => {
             </ol>
           </article>
         
-          <Image src="/rules.png" width = {704} height = {482} className="rounded-xl w-full h-full col-span-2 lg:col-span-1 lg:pl-10 order-1 lg:order-2" alt="rules" />
+          <Image src="/rules.webp" width = {704} height = {482} className="rounded-xl w-full h-full col-span-2 lg:col-span-1 lg:pl-10 order-1 lg:order-2" alt="rules" />
 
         </div>
       </div>
