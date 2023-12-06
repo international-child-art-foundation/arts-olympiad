@@ -19,7 +19,7 @@ export const Guidelines = () => {
           <AnimatedScribble
             width={280}
             smwidth={180}
-            className="absolute top-8 md:top-10 -right-8 z-10 md:w-[290px] md:h-[28px] xl:w-[340px] xl:h-[34px]"
+            className="stroke-new-blue absolute top-8 md:top-10 -right-8 z-10 md:w-[290px] md:h-[28px] xl:w-[340px] xl:h-[34px]"
           />
         </span>
 

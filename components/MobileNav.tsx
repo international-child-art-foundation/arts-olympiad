@@ -13,7 +13,7 @@ const MobileNav = () => {
   const [isOpen, setIsOpen] = useState(false);
   const links1 = [
     { name: "About", url: "/about" },
-    { name: "Contest", url: "/" },
+    { name: "Contest", url: "/contest" },
     { name: "Sponsor", url: "/sponsor" }
   ];
   const links2 = [

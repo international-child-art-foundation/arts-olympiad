@@ -35,7 +35,7 @@ export const SponsorBegin = () => {
         </div>
 
         <div className="col-span-2 z-20 sm:col-span-1">            
-          <Image src="/sponsor_header_image.webp" width = {390} height = {271} className="sm:ml-10 lg:ml-0 w-full rounded-[225px] lg:rounded-[300px]]" alt="photo" />
+          <Image src="/sponsor_header_image.webp" width = {390} height = {271} className="sm:ml-10 lg:ml-0 w-full rounded-[225px] lg:rounded-[300px]" alt="photo" />
           {/*<Image src="/photo-sponsor.webp" width = {390} height = {271} className="sm:ml-10 lg:ml-0 w-full rounded-[225px] lg:rounded-[300px] shadow-[8px_18px_0_-6px_rgba(251,178,46,1)]" alt="photo" />*/}
         </div>
 
