@@ -21,7 +21,7 @@ export const FiveDrop = () => {
 
       <div className="mt-40 z-30 relative m-auto max-w-screen-2xl px-8 md:px-12 lg:px-16 xl:px-20">
         <p className="font-medium text-4xl mb-6">Submission</p>
-        <p className="font-extralight text-xl mb-12">Find answers to frequently asked questions about submitting your artwork for the art competition.</p>
+        <p className="font-light text-xl mb-12">Find answers to frequently asked questions about submitting your artwork for the art competition.</p>
       </div>
 
       <div className="z-30 relative m-auto max-w-screen-2xl px-8 md:px-12 lg:px-16 xl:px-20">
@@ -35,7 +35,7 @@ export const FiveDrop = () => {
           {isExpanded1 &&
           <nav tabIndex={0} className="w-full">
             <UpIcon />
-            <p className="mt-4 font-extralight text-base leading-loose">
+            <p className="mt-4 font-light text-base leading-loose">
               We accept submissions in JPEG, and PNG formats.
             </p>
           </nav>
@@ -54,7 +54,7 @@ export const FiveDrop = () => {
           {isExpanded2 &&
           <nav tabIndex={0} className="w-full">
             <UpIcon />
-            <p className="mt-4 font-extralight text-base leading-loose">
+            <p className="mt-4 font-light text-base leading-loose">
               The maximum file size should not exceed 10MB.
             </p>
           </nav>
@@ -73,7 +73,7 @@ export const FiveDrop = () => {
           {isExpanded3 &&
           <nav tabIndex={0} className="w-full">
             <UpIcon />
-            <p className="mt-4 font-extralight text-base leading-loose">
+            <p className="mt-4 font-light text-base leading-loose">
               No, there are no fees associated with submitting an entry to the art competition.  
             </p>
           </nav>
@@ -92,7 +92,7 @@ export const FiveDrop = () => {
           {isExpanded4 &&
           <nav tabIndex={0} className="w-full">
             <UpIcon />
-            <p className="mt-4 font-extralight text-base leading-loose">
+            <p className="mt-4 font-light text-base leading-loose">
               Art submission can start on March 15th, 2024.  This will coincide with our kickoff in Paris during our art exhibition! 
             </p>
           </nav>
@@ -111,7 +111,7 @@ export const FiveDrop = () => {
           {isExpanded5 &&
           <nav tabIndex={0} className="w-full">
             <UpIcon />
-            <p className="mt-4 font-extralight text-base leading-loose">
+            <p className="mt-4 font-light text-base leading-loose">
               The top 20 artworks will be selected based on public votes on this site, so be sure to share your submission on social media.  These 20 finalists will make it to the next round where our sponsors will determine the top 3 winners. 
             </p>
           </nav>

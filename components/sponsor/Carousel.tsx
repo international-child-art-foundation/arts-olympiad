@@ -47,7 +47,7 @@ export const Carousel = () => {
                 Celebrate the Olympics!
               </span> 
             </div>
-            <ul className="mx-5% list-disc font-extralight text-lg leading-loose mb-24 md:mb-8">
+            <ul className="mx-5% list-disc font-light text-lg leading-loose mb-24 md:mb-8">
               <li className="pb-1">
                 Promote Olympism in your company and the Olympic values of excellence, friendship, and respect.
               </li>
@@ -73,7 +73,7 @@ export const Carousel = () => {
                 Brighten the Future!
               </span> 
             </div>
-            <ul className="mx-5% list-disc font-extralight text-lg leading-loose mb-24 md:mb-8">
+            <ul className="mx-5% list-disc font-light text-lg leading-loose mb-24 md:mb-8">
               <li className="pb-1">
                 Engage creative youth worldwide—a key demographic for long-term business growth.
               </li>
@@ -101,7 +101,7 @@ export const Carousel = () => {
               </span> 
             </div>
             
-            <ul className="mx-5% list-disc font-extralight text-lg leading-loose mb-24 md:mb-36">
+            <ul className="mx-5% list-disc font-light text-lg leading-loose mb-24 md:mb-36">
               <li className="pb-1">
                 Join the World Children's Festival—a celebration of creativity, diversity, and unity—with your company's "Pavilion," where creative activities and empathy training are held.
               </li>
@@ -145,7 +145,7 @@ export const Carousel = () => {
                   <Image src={globleIcon} alt="" width={100} height={100} className="absolute left-1/2 transform -translate-x-1/2 w-[100px] h-[100px] -top-12" />
                   <h3 className="text-center font-medium text-3xl pt-10 pb-2">Make your mark on</h3> 
                   <h3 className="text-center font-medium text-3xl pb-2">The National Mall!</h3>                         
-                  <ul className="mx-5% list-disc font-extralight text-lg leading-loose my-4">
+                  <ul className="mx-5% list-disc font-light text-lg leading-loose my-4">
                     <li className="pb-1">
                       Join the World Children's Festival—a celebration of creativity, diversity, and unity—with your company's "Pavilion," where creative activities and empathy training are held.
                     </li>
@@ -179,7 +179,7 @@ export const Carousel = () => {
                 <div className="mx-5%">
                   <Image src={bulbIcon} alt="" width={100} height={100} className="absolute left-1/2 transform -translate-x-1/2 w-[100px] h-[100px] -top-12" />
                   <h3 className="text-center font-medium text-3xl pt-14">Brighten the Future!</h3>
-                  <ul className="mx-5% list-disc font-extralight text-lg leading-loose my-10">
+                  <ul className="mx-5% list-disc font-light text-lg leading-loose my-10">
                     <li className="pb-1">
                       Engage creative youth worldwide—a key demographic for long-term business growth.
                     </li>
@@ -212,7 +212,7 @@ export const Carousel = () => {
                 <div className="mx-5%">
                   <Image src={medalIcon} alt="" width={100} height={100} className="absolute left-1/2 transform -translate-x-1/2 w-[100px] h-[100px] -top-12" />
                   <h3 className="text-center font-medium text-3xl py-10">Celebrate the Olympics!</h3>
-                  <ul className="mx-5% list-disc font-extralight text-lg leading-loose">
+                  <ul className="mx-5% list-disc font-light text-lg leading-loose">
                     <li className="pb-1">
                       Promote Olympism in your company and the Olympic values of excellence, friendship, and respect.
                     </li>

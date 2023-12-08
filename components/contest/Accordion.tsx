@@ -36,7 +36,7 @@ export const Accordion = () => {
                   <div className="col-span-1"><Up /> </div>
                 </button>
                 <hr className="absolute top-[170px] xl:top-[200px] z-30 border-new-black border-t-0.5 w-11/12 lg:w-5/6"></hr>
-                <p className="absolute top-[180px] xl:top-[210px] z-30 font-extralight text-base leading-loose w-11/12 lg:w-5/6">
+                <p className="absolute top-[180px] xl:top-[210px] z-30 font-light text-base leading-loose w-11/12 lg:w-5/6">
                   Participants must be between the ages of 10 and 20 to submit their artwork.
                 </p>
               </div>
@@ -59,7 +59,7 @@ export const Accordion = () => {
                   <div className="col-span-1"><Up /> </div>
                 </button>
                 <hr className="absolute top-[170px] xl:top-[200px] z-30 border-new-black border-t-0.5 w-11/12 lg:w-5/6"></hr>
-                <p className="absolute top-[180px] xl:top-[210px] z-30 font-extralight text-base leading-loose w-11/12 lg:w-5/6">
+                <p className="absolute top-[180px] xl:top-[210px] z-30 font-light text-base leading-loose w-11/12 lg:w-5/6">
                   Create artwork that showcases the beauty and excitement of sports.
                 </p>
               </div>
@@ -82,7 +82,7 @@ export const Accordion = () => {
                   <div className="col-span-1"><Up /> </div>
                 </button>
                 <hr className="absolute top-[170px] xl:top-[200px] z-30 border-new-black border-t-0.5 w-11/12 lg:w-5/6"></hr>
-                <p className="absolute top-[180px] xl:top-[210px] z-30 font-extralight text-base leading-loose w-11/12 lg:w-5/6">
+                <p className="absolute top-[180px] xl:top-[210px] z-30 font-light text-base leading-loose w-11/12 lg:w-5/6">
                   You can submit your artwork in digital format only.  Please upload a photo image of your piece through the upload submission form.
                 </p>
               </div>
@@ -101,7 +101,7 @@ export const Accordion = () => {
                   Age Restrictions:
                 </p>
                 <hr className="absolute top-[130px] z-30 border-new-black border-t-0.5 w-11/12 md:w-5/6"></hr>
-                <p className="absolute top-[130px] z-30 font-extralight text-base leading-loose w-11/12 md:w-5/6">
+                <p className="absolute top-[130px] z-30 font-light text-base leading-loose w-11/12 md:w-5/6">
                   Participants must be between the ages of 10 and 20 to submit their artwork.
                 </p>
               </div>
@@ -115,7 +115,7 @@ export const Accordion = () => {
                   Theme: Art on Sport and the Olympics
                 </p>
                 <hr className="absolute top-[130px] z-30 border-new-black border-t-0.5 w-11/12 md:w-5/6"></hr>
-                <p className="absolute top-[130px] z-30 font-extralight text-base leading-loose w-11/12 md:w-5/6">
+                <p className="absolute top-[130px] z-30 font-light text-base leading-loose w-11/12 md:w-5/6">
                   Create artwork that showcases the beauty and excitement of sports.
                 </p>
               </div>
@@ -130,7 +130,7 @@ export const Accordion = () => {
                   Submission Format: Digital Only
                 </p>
                 <hr className="absolute top-[130px] z-30 border-new-black border-t-0.5 w-11/12 md:w-5/6"></hr>
-                <p className="absolute top-[130px] z-30 font-extralight text-base leading-loose w-11/12 md:w-5/6">
+                <p className="absolute top-[130px] z-30 font-light text-base leading-loose w-11/12 md:w-5/6">
                   You can submit your artwork in digital format only.  Please upload a photo image of your piece through the upload submission form.
                 </p>
               </div>
@@ -150,7 +150,7 @@ export const Accordion = () => {
               <div className="hidden group-focus:block"><Up /> </div>
             </button>
             <hr className="hidden group-focus:block absolute top-[200px] border-new-black border-t-0.5 w-11/12 lg:w-5/6"></hr>
-            <p className="hidden group-focus:block absolute top-[210px] z-30 font-extralight text-base leading-loose w-11/12 lg:w-5/6">
+            <p className="hidden group-focus:block absolute top-[210px] z-30 font-light text-base leading-loose w-11/12 lg:w-5/6">
               Participants must be between the ages of 10 and 20 to submit their artwork.
             </p>
           </div>
@@ -164,7 +164,7 @@ export const Accordion = () => {
                 <div className="hidden group-focus:block"><Up /> </div>
               </button>
               <hr className="hidden group-focus:block absolute top-[200px] border-new-black border-t-0.5 w-11/12 lg:w-5/6"></hr>
-              <p className="hidden group-focus:block absolute top-[210px] z-30 font-extralight text-base leading-loose w-11/12 lg:w-5/6">
+              <p className="hidden group-focus:block absolute top-[210px] z-30 font-light text-base leading-loose w-11/12 lg:w-5/6">
                 Create artwork that showcases the beauty and excitement of sports.
               </p>
           </div>
@@ -178,7 +178,7 @@ export const Accordion = () => {
                 <div className="hidden group-focus:block"><Up /> </div>
               </button>
               <hr className="hidden group-focus:block absolute top-[200px] border-new-black border-t-0.5 w-11/12 lg:w-5/6"></hr>
-              <p className="hidden group-focus:block absolute top-[210px] z-30 font-extralight text-base leading-loose w-11/12 lg:w-5/6">
+              <p className="hidden group-focus:block absolute top-[210px] z-30 font-light text-base leading-loose w-11/12 lg:w-5/6">
                 You can submit your artwork in digital format only.  Please upload a photo image of your piece through the upload submission form. 
               </p>
           </div> */}

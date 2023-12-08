@@ -19,11 +19,8 @@ export const ContestBegin = () => {
 
         <div className="col-span-2 sm:col-span-1 md:mt-8">
           {/* <h1 className="flex-col z-20 font-semibold mb-4 text-3xl xsm:text-4xl lg:text-5xl xl:text-6xl"> */}
-          <h1 className="flex-col z-20 font-semibold mb-4 mxl:hidden text-3xl xsm:text-4xl lg:text-5xl xl:text-6xl">
+          <h1 className="flex-col z-20 font-semibold mb-4 text-3xl xsm:text-4xl lg:text-5xl xl:text-6xl">
             About ICAF and
-          </h1>
-          <h1 className="flex-col z-20 font-semibold mb-4 hidden mxl:block text-6xl">
-            Contest Guidelines
           </h1>
           <div className="z-20 flex flex-row align-center mb-8">
             <Image src={hashtag} alt="" width={32} height={32}  />

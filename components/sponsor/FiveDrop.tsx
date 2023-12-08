@@ -31,7 +31,7 @@ export const FiveDrop = () => {
           {isExpanded1 &&
           <nav tabIndex={0} className="w-full">
             <UpIcon />
-            <p className="mt-4 font-extralight text-lg leading-loose">
+            <p className="mt-4 font-light text-lg leading-loose">
               To explore sponsorship opportunities and learn about the unique benefits, please contact us.
             </p>
           </nav>
@@ -50,7 +50,7 @@ export const FiveDrop = () => {
           {isExpanded2 &&
           <nav tabIndex={0} className="w-full">
             <UpIcon />
-            <p className="mt-4 font-extralight text-lg leading-loose">
+            <p className="mt-4 font-light text-lg leading-loose">
               As a sponsor, you will gain visibility and recognition among our audience.  You will also have the opportunity to support young artists to contribute to a meaningful cause. 
             </p>
           </nav>
@@ -69,7 +69,7 @@ export const FiveDrop = () => {
           {isExpanded3 &&
           <nav tabIndex={0} className="w-full">
             <UpIcon />
-            <p className="mt-4 font-extralight text-lg leading-loose">
+            <p className="mt-4 font-light text-lg leading-loose">
               Please contact us to explore collaboration opportunities. 
             </p>
           </nav>
@@ -88,7 +88,7 @@ export const FiveDrop = () => {
           {isExpanded4 &&
           <nav tabIndex={0} className="w-full">
             <UpIcon />
-            <p className="mt-4 font-extralight text-lg leading-loose">
+            <p className="mt-4 font-light text-lg leading-loose">
               Sponsorship involves providing financial support to our charity and the at competition.  In return, sponsors receive various benefits such as brand exposure and recognition.
             </p>
           </nav>
@@ -107,7 +107,7 @@ export const FiveDrop = () => {
           {isExpanded5 &&
           <nav tabIndex={0} className="w-full">
             <UpIcon />
-            <p className="mt-4 mb-8 font-extralight text-lg leading-loose">
+            <p className="mt-4 mb-8 font-light text-lg leading-loose">
               Absolutely! If you prefer to make a donation instead of becoming a sponsor, we appreciate your support. Visit our donation page to contribute. 
             </p>
             <a href="https://icaf.org/donate" className="group w-fit h-fit border-neutral-white border rounded text-center py-3 px-4 text-sm tracking-wide bg-new-blue text-neutral-white">

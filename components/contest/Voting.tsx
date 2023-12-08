@@ -26,7 +26,7 @@ export const Voting = () => {
           <Image src="/hands.webp" width = {509} height = {432} className="mx-auto w-3/4 sm:w-2/5 lg:w-1/2 xl:w-4/5 2xl:w-2/3 my-7" alt="hands" />
           <div className="grid grid-cols-3">
             <h2 className="text-2xl sm:text-xl lg:text-2xl lg:font-semibold col-span-3 lg:col-span-1 ml-7 sm:ml-16 lg:ml-7 xl:ml-9 2xl:ml-11">One-Vote Rule:</h2>
-            <p className="mx-7 sm:mx-16 col-span-3 lg:col-span-2 mt-4 font-extralight text-base mb-7">Remember, your voice matters! Each participant is allowed a single vote to ensure a fair and balanced competition. Cast your vote carefully — once it's submitted, it's final!</p>
+            <p className="mx-7 sm:mx-16 col-span-3 lg:col-span-2 mt-4 font-light text-base mb-7">Remember, your voice matters! Each participant is allowed a single vote to ensure a fair and balanced competition. Cast your vote carefully — once it's submitted, it's final!</p>
           </div>
         </div>
 
@@ -36,7 +36,7 @@ export const Voting = () => {
             <span className="hidden lg:block"><VoteIcon /></span>
             <span className="ml-3">Public Voting</span>
           </h3>
-          <p className="mt-4 font-extralight text-base leading-loose">
+          <p className="mt-4 font-light text-base leading-loose">
             The top 20 submissions with the most public votes will proceed to the final round.
           </p>
 
@@ -44,7 +44,7 @@ export const Voting = () => {
             <ThreePerson />
             <span className="ml-3">ICAF Panel of Judges</span>
           </h3>
-          <p className="mt-4 font-extralight text-base leading-loose">
+          <p className="mt-4 font-light text-base leading-loose">
             The panel will review the top 20 submissions and select the top three winners.
           </p>
 
@@ -52,7 +52,7 @@ export const Voting = () => {
             <ThreeMedal />
             <span className="ml-3">Winner Announcement</span>
           </h3>
-          <p className="mt-4 font-extralight text-base leading-loose">
+          <p className="mt-4 font-light text-base leading-loose">
             Gold, Silver, and Bronze winners will be announced in Washington DC on July 1st.
           </p>
 
