@@ -1,6 +1,6 @@
 import Image from "next/image";
 import {H2m} from "../../components/common/texts/H2m";
-import {AnimatedScribble} from "../../components/common/decorations/AnimatedScribbleOrange";
+import {AnimatedScribble} from "../../components/common/decorations/AnimatedScribble";
 import blueBG from "../../public/svgs/sponsor-svg/blueblob.svg";
 import blueBGmobile from "../../public/svgs/sponsor-svg/blueblob-mobile.svg";
 
@@ -14,12 +14,12 @@ export const Advantage = () => {
         <div className="pt-28 xsm:block sm:hidden">
           <H2m className="font-medium text-3xl" >The Sponsorship</H2m>
           <H2m className="font-medium text-3xl mt-6" >Advantage</H2m>
-          <AnimatedScribble width={280} smwidth={180} className="ml-6" />
+          <AnimatedScribble width={280} smwidth={180} className="stroke-main-orange ml-6" />
         </div>
 
         <div className="pt-12 sm:pt-32 md:pt-28 hidden sm:block">
           <H2m className="font-medium text-3xl" >The Sponsorship Advantage</H2m>
-          <AnimatedScribble width={280} smwidth={180} className="ml-64 md:ml-64" />
+          <AnimatedScribble width={280} smwidth={180} className="stroke-main-orange ml-64 md:ml-64" />
         </div>
 
         <article className="my-10 border-main-orange border-l-8">

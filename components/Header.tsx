@@ -11,7 +11,7 @@ import { UpIcon } from "./svgs/UpIcon";
 const Header = () => {
   const links1 = [
     { name: "About", url: "/about" },
-    { name: "Contest", url: "/" },
+    { name: "Contest", url: "/contest" },
     { name: "Sponsor", url: "/sponsor" }
   ];
   const links2 = [

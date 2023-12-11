@@ -15,7 +15,7 @@ export const Commitment = () => {
       <article className=" text-center md:flex flex-col mr-10" >
         <Pm className="font-bold">ICAF</Pm>
         <H2m className="font-medium text-3xl md:text-4xl" >Our <span className="relative text-dark-blue">Commitment
-          <AnimatedScribble width={180} className="absolute -bottom-6 -right-20" />
+          <AnimatedScribble width={180} className="absolute -bottom-6 -right-20 stroke-new-blue" />
         </span>
         </H2m>
       </article>
