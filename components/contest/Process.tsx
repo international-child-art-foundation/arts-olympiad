@@ -12,7 +12,11 @@ export const Process = () => {
             <p className="mb-8 test-base font-light">To submit your artwork, you need to create an account on our website. Once logged in, you can upload your artwork and provide the necessary information including the title, description, and artist's statement.</p>
           </div>
 
-          <Image src="/laptop.webp" width = {704} height = {482} className=" object-cover rounded-xl w-full h-full col-span-2 lg:col-span-1 pr-10" alt="laptop" />
+
+          <div className="rounded-xl w-full h-full col-span-2 lg:col-span-1 pr-10">           
+            <Image src="/laptop.webp" width = {704} height = {482} className="object-cover rounded-xl w-full h-full " alt="laptop" />
+          </div>
+
           
           <article className="col-span-2 lg:col-span-1">
             <div className="border-main-orange border-l-8 hidden lg:block">
@@ -51,8 +55,10 @@ export const Process = () => {
               <p className="font-light text-base mb-8 mt-4">Yes, we do accept AI artwork.  However, this must be clearly indicated in your submission on what tools you used to create your artwork to ensure fair judgment.</p>
             </ol>
           </article>
-        
-          <Image src="/rules.webp" width = {704} height = {482} className="object-cover rounded-xl w-full h-full col-span-2 lg:col-span-1 lg:pl-10 order-1 lg:order-2" alt="rules" />
+          <div className="rounded-xl w-full h-full col-span-2 lg:col-span-1 lg:pl-10 order-1 lg:order-2">           
+            <Image src="/rules.webp" width = {704} height = {482} className="object-right object-cover rounded-xl w-full h-full" alt="rules" />
+          </div>
+
 
         </div>
       </div>
