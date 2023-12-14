@@ -57,7 +57,7 @@ export const Accordion = () => {
                 <p className="absolute top-[60px] sm:top-[100px] z-30 group w-5/6 text-xl font-semibold">
                   Age Restrictions:
                 </p>
-                <hr className="absolute top-[170px] sm:top-[170px] z-30 border-new-black border-t-0.5 w-11/12 sm:w-1/2"></hr>
+                <hr className="absolute top-[170px] sm:top-[170px] z-30 border-new-black border-1 border-t-0.5 w-11/12 sm:w-1/2"></hr>
                 <p className="absolute top-[190px] sm:top-[200px] z-30 font-light text-base leading-loose w-11/12 sm:w-1/2">
                   Participants must be between the ages of 10 and 20 to submit their artwork.
                 </p>
@@ -71,7 +71,7 @@ export const Accordion = () => {
                 <p className="absolute top-[60px] sm:top-[100px] z-30 group w-5/6 text-xl font-semibold">
                   Theme: Art on Sport and the Olympics
                 </p>
-                <hr className="absolute top-[170px] sm:top-[170px] z-30 border-new-black border-t-0.5 w-11/12 sm:w-1/2"></hr>
+                <hr className="absolute top-[170px] sm:top-[170px] z-30 border-new-black border-1 border-t-0.5 w-11/12 sm:w-1/2"></hr>
                 <p className="absolute top-[190px] sm:top-[200px] z-30 font-light text-base leading-loose w-11/12 sm:w-1/2">
                   Create artwork that showcases the beauty and excitement of sports.
                 </p>
@@ -86,7 +86,7 @@ export const Accordion = () => {
                 <p className="absolute top-[60px] sm:top-[100px] z-30 group w-5/6 text-xl font-semibold">
                   Submission Format: Digital Only
                 </p>
-                <hr className="absolute top-[170px] sm:top-[170px] z-30 border-new-black border-t-0.5 w-11/12 sm:w-1/2"></hr>
+                <hr className="absolute top-[170px] sm:top-[170px] z-30 border-new-black border-1 border-t-0.5 w-11/12 sm:w-1/2"></hr>
                 <p className="absolute top-[190px] sm:top-[200px] z-30 font-light text-base leading-loose w-11/12 sm:w-1/2">
                   You can submit your artwork in digital format only.  Please upload a photo image of your piece through the upload submission form.
                 </p>

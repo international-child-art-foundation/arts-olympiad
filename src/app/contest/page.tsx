@@ -48,10 +48,26 @@ export default function contestPage() {
       </div>
       <Voting />
       <FiveDrop />
-      <Image src={pinkBlob} alt="" width={442} height={417} className="absolute z-0 right-0 w-1/2 sm:w-1/3 mb-10" />
-      <Image src={orangeBlob} alt="" width={442} height={417} className="absolute z-0 left-0 w-1/2 sm:w-1/3 mb-10" />
+      <Image src={pinkBlob} alt="" width={442} height={417} className="absolute z-0 right-0 w-1/2 sm:w-1/3 mb-10 max-w-2xl" />
+      <Image src={orangeBlob} alt="" width={442} height={417} className="absolute z-0 left-0 w-1/2 sm:w-1/3 mb-10 max-w-2xl" />
       <ContactUs />
-      <Banner />
+      <Banner 
+        backgroundColor="light-blue"
+        title="Submit Your Artwork Today!" 
+        description="Join the Art Competition and Showcase Your Talent in Anticipation of the 2024 Olympics." 
+        buttons={[
+          {
+            href: "#",
+            text: "Submit",
+            className: "bg-new-blue rounded text-center text-sm cursor-pointer tracking-wide text-neutral-white w-36"
+          },
+          {
+            href: "#",
+            text: "Learn More",
+            className: "border-new-blue border rounded text-center text-sm cursor-pointer tracking-wide bg-light-blue text-new-blue w-36"
+          }
+        ]}
+      />
     </div>
   );
 }
