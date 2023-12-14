@@ -11,6 +11,7 @@ export const RadioButton = ({name, value}: IProps) => {
       <label>
         <Field type="radio" name={name} value={value} />
         {" " + value}
+        <span className="sr-only">.</span>
       </label>
     </div>
   );

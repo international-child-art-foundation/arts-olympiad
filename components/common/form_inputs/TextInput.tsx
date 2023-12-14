@@ -1,6 +1,7 @@
 import React from "react";
-import {ErrorMessage, Field} from "formik";
-import Image from "next/image";
+import { Field} from "formik";
+import {InputLabel} from "./InputLabel";
+import {ErrorSuccessPopUp} from "./ErrorSuccessPopUp";
 
 interface IProps {
   className?: string
@@ -17,12 +18,12 @@ export const TextInput = ({className, labelText, id, placeholder, inputType, err
 
   return (
     <div className={`${className} my-1 flex flex-col`} >
-      <label htmlFor={id}>{`${labelText}${required && error && touched ? "*" : "" }`}</label>
+      <InputLabel labelText={labelText} htmlFor={id} error={error} touched={touched} />
       <Field
         className={`
           my-2 p-3 border-1 rounded-lg 
           ${
-    required && error && touched ? "border-accent-red placeholder:text-accent-red"  
+    required && error && touched ? "border-accent-red placeholder:text-accent-red text-accent-red"  
       :
       required &&!error && touched && value ? "border-accent-green text-accent-green" 
         :
@@ -36,20 +37,7 @@ export const TextInput = ({className, labelText, id, placeholder, inputType, err
         name={id}
       />
 
-      <div className="flex flex-row h-6">
-        {
-          required && error && touched &&
-          <>
-            <Image src="/contact/bx_error-circle.svg" alt="" width={20} height={20} />
-            <ErrorMessage className="block text-accent-red" name={id} component="div" />
-          </>
-        }
-
-        {
-          required &&!error && touched && value &&
-          <Image src="/contact/bx_check-circle.svg" alt="" width={20} height={20} />
-        }
-      </div>
+      <ErrorSuccessPopUp required={required} id={id} error={error} touched={touched} value={value} />
     </div>
   );
 };

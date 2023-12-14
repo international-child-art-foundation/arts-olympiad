@@ -3,6 +3,7 @@ import {FormikErrors} from "formik";
 import Image from "next/image";
 import {IContactFormValues, Query} from "../../contact/ContactForm";
 import {Pm} from "../texts/Pm";
+import {InputLabel} from "./InputLabel";
 
 interface IProps {
   children: React.ReactNode
@@ -18,7 +19,7 @@ export const RadioButtonsContainer = ({labelText, touched , id, error, value, re
 
   return (
     <div className="my-1 col-span-2 row-span-2 flex flex-col" >
-      <label className="mb-2" htmlFor="radioContainer">{labelText}</label>
+      <InputLabel className="mb-2" labelText={labelText} htmlFor="radioContainer" error={error} touched={touched} />
       <div id="radioContainer" className="col-span-2 row-span-2 grid md:grid-cols-2 grid-cols-1">
         {children}
       </div>
