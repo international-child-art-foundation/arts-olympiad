@@ -23,6 +23,7 @@ module.exports = {
         "new-black":"#000000",
         "neutral-white": "#F9FAF6",
         "main-yellow": "#FCE983",
+        "light-yellow": "#FFF5AD",
         "main-orange": "#FBB22E",
         "main-gold": "#E7A004",
         "main-silver": "#919191",

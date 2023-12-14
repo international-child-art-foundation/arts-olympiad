@@ -12,7 +12,7 @@ export const LastTimePointHeading = () => {
           smwidth={150}
           width={100}
           animationDelay={1500}
-          className="md:absolute -right-8 top-6 z-10"
+          className="stroke-new-blue md:absolute -right-8 top-6 z-10"
         />
       </span>
     </>

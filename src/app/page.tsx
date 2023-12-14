@@ -11,6 +11,13 @@ import {Guidelines} from "../../components/home/guidelines/Guidelines";
 import {Timeline} from "../../components/home/timeline/Timeline";
 import {Wisdom} from "../../components/home/wisdom/Wisdom";
 
+import Image from "next/image";
+import littleYellowBlob from "../../public/svgs/blobs/little-yellow-blob.svg";
+import tinyYellowBlob from "../../public/svgs/blobs/tiny-yellow-blob.svg";
+import tinyPinkBlob from "../../public/svgs/blobs/tiny-vertical-pink-blob.svg";
+import bigPinkBlob from "../../public/svgs/blobs/vertical-big-pink-blob.svg";
+import bigBlueBlob from "../../public/svgs/blobs/blue-leg-down-blob.svg";
+
 export const metadata: Metadata = {
   title: "Home | My Favorite Sport",
   openGraph: {
@@ -27,7 +34,14 @@ export default function Home() {
       <GetInvolved />
       <AboutICAF />
       <Guidelines />
-      <Timeline />
+      <div className="relative">       
+        <Image src={littleYellowBlob} alt="" className="-z-10 absolute top-96 -left-12 " />
+        <Image src={tinyYellowBlob} alt="" className="hidden md:block z-20 absolute top-[368px] left-24 " />
+        <Image src={tinyPinkBlob} alt="" className="hidden md:block -z-10 absolute top-[672px] right-44 " />
+        <Image src={bigPinkBlob} alt="" className="-z-10 w-[300px] md:w-[500px] absolute top-[576px] -right-12 md:-right-44" />
+        <Image src={bigBlueBlob} alt="" className="-z-10 w-[400px] md:w-[700px] absolute bottom-96 md:bottom-24 -left-12 md:-left-44" />
+        <Timeline />
+      </div>
       <Wisdom />
 
       {/*<div className="bg-main-yellow md:col-span-10 grid md:grid-cols-2 grid-cols-1">*/}
