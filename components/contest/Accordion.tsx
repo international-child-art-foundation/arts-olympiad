@@ -13,21 +13,21 @@ export const Accordion = () => {
 
   const [list] = useState([
     {
-      backgroud: yellowBG,
+      background: yellowBG,
       color: "#FFF5AD",
       header: "Age Restrictions:",
       element: "Participants must be between the ages of 10 and 20 to submit their artwork.",
       icon: <Face />
     },
     {
-      backgroud: purpleBG,
+      background: purpleBG,
       color: "#F9E4EE",
       header: "Theme: Art on Sport and the Olympics",
       element: "Create artwork that showcases the beauty and excitement of sports.",
       icon: <Palette />
     },
     {
-      backgroud: blueBG,
+      background: blueBG,
       color: "#CCEBFF",
       header: "Submission Format: Digital Only",
       element: "You can submit your artwork in digital format only.  Please upload a photo image of your piece through the upload submission form.",
@@ -42,7 +42,7 @@ export const Accordion = () => {
           <div className="overflow-hidden grid grid-cols-3 gap-6 ">
             {
               list.map((item, key) => (
-                <AccordionCard key={key} datas={item}/>
+                <AccordionCard key={key} data={item}/>
               ))
             }
           </div>
