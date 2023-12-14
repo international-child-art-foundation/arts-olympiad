@@ -19,8 +19,8 @@ export const ContactConfirmation = () => {
         Thank you for reaching out to us. Your query is important, and we're on it. Our team is currently reviewing your message and will get back to you as soon as possible. In the meantime, feel free to browse our [FAQ section] or continue exploring our website.
         </Pm>
         <div className="flex flex-row mt-8">
-          <ButtonStyledLink className={"mr-8"} href="/">Back home</ButtonStyledLink>
-          <ButtonStyledLink href="/" textColor="dark-blue" backGroundColor="neutral-white" >
+          <ButtonStyledLink target="_self" className={"mr-8"} href="/">Back home</ButtonStyledLink>
+          <ButtonStyledLink target="_self" href="/" textColor="dark-blue" backGroundColor="neutral-white" >
           View FAQ’s
           </ButtonStyledLink>
         </div>

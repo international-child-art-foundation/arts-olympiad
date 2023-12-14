@@ -3,6 +3,7 @@ import {ErrorMessage, Field} from "formik";
 import Image from "next/image";
 
 interface IProps {
+  className?: string
   labelText: string
   id: string
   placeholder?: string
@@ -11,10 +12,10 @@ interface IProps {
   value: string | undefined
   required?: boolean
 }
-export const TextArea = ({labelText, id, placeholder, error, touched, value, required = true}: IProps) => {
+export const TextArea = ({className, labelText, id, placeholder, error, touched, value, required = true}: IProps) => {
 
   return (
-    <div className="col-span-2 row-span-2 flex flex-row md:flex-col" >
+    <div className={`${className} flex flex-col`} >
       <label htmlFor={id}>{`${labelText}${required && error && touched ? "*" : "" }`}</label>
       <Field
         style={{resize: "none"}}
@@ -25,17 +26,20 @@ export const TextArea = ({labelText, id, placeholder, error, touched, value, req
         id={id}
         name={id}
       />
-      {
-        required && error && touched &&
-        <div className="flex flex-row">
-          <Image src="/contact/bx_error-circle.svg" alt="" width={20} height={20} />
-          <ErrorMessage className="block text-accent-red" name={id} component="div" />
-        </div>
-      }
-      {
-        required &&!error && touched && value &&
-        <Image src="/contact/bx_check-circle.svg" alt="" width={20} height={20} />
-      }
+      <div className="flex flex-row h-6">
+        {
+          required && error && touched &&
+          <>
+            <Image src="/contact/bx_error-circle.svg" alt="" width={20} height={20} />
+            <ErrorMessage className="block text-accent-red" name={id} component="div" />
+          </>
+        }
+
+        {
+          required &&!error && touched && value &&
+          <Image src="/contact/bx_check-circle.svg" alt="" width={20} height={20} />
+        }
+      </div>
     </div>
   );
 };
