@@ -4,14 +4,26 @@ import Image from "next/image";
 import { Down } from "../../public/svgs/contest-svg/Down";
 import { Up } from "../../public/svgs/contest-svg/Up";
 
-export const AccordionCard = (props) => {
+interface Item {
+  background: string;
+  color: string;
+  header: string;
+  element: string;
+  icon: JSX.Element;
+}
+
+interface AccordionCardProps {
+  data: Item;
+}
+
+export const AccordionCard = (props: AccordionCardProps) => {
   const [isExpanded, SetIsExpanded] = useState(false);
-  const [item] = useState(props.datas);
+  const [item] = useState(props.data);
  
   return (
     <>
       <div onClick={() => SetIsExpanded(!isExpanded)} className="col-span-1 h-fit py-6 px-4 relative rounded-2xl cursor-pointer" style={{backgroundColor: item.color}}>
-        <Image src={item.backgroud} width = {390} height = {271} className="relative -top-6 -left-4 z-0 h-[340px] xl:h-[300px]" alt="" />
+        <Image src={item.background} width = {390} height = {271} className="relative -top-6 -left-4 z-0 h-[340px] xl:h-[300px]" alt="" />
         <div className="absolute top-2 z-30"> {item.icon} </div>
         <button className={`transition-all ease-in-out duration-500 grid grid-cols-5 absolute z-30 group w-5/6 text-xl lg:text-2xl font-semibold text-neutral-black ${isExpanded ?  "top-[60px] lg:top-[100px] xl:top-[120px]" : "top-[200px]"}`}>
           <div className="col-span-4">{item.header}</div>
