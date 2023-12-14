@@ -26,10 +26,21 @@ export default function sponsorPage() {
       <Advantage /> 
       <Carousel />
       <FiveDrop />
-      <Image src={greenBlob} alt="" width={442} height={417} className="absolute z-0 right-0 w-1/2 sm:w-1/3 mb-10" />
-      <Image src={orangeBlob} alt="" width={442} height={417} className="absolute z-0 left-0 w-1/2 sm:w-1/3 mb-10" />
+      <Image src={greenBlob} alt="" width={442} height={417} className="absolute z-0 right-0 w-1/2 sm:w-1/3 mb-10 max-w-xl" />
+      <Image src={orangeBlob} alt="" width={442} height={417} className="absolute z-0 left-0 w-1/2 sm:w-1/3 mb-10 max-w-3xl" />
       <ContactUs />
-      <Banner />
+      <Banner 
+        backgroundColor="light-blue"
+        title="Want to get involved?" 
+        description="All of ICAF's programs, festivals, and exhibitions are offered free of charge and are made possible through the support of empathic donors and creative sponsors." 
+        buttons={[
+          {
+            href: "#",
+            text: "Learn more about becoming a sponsor",
+            className: "bg-new-blue rounded text-center text-sm cursor-pointer tracking-wide text-neutral-white"
+          }
+        ]}
+      />
     </div>
 
   );
