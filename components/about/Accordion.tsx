@@ -60,9 +60,9 @@ export const Accordion = () => {
             </>
           }
           images={
-            <div className="flex flex-col sm:flex-row mx-auto xl:mx-0">
+            <div className="flex flex-col sm:flex-row mx-auto xl:mx-0 cursor-default">
               <AboutArtworkCard artwork={artworks[12]}/>
-              <div className="my-4 md:my-0 lg:my-4 xl:my-0 mx-4" />
+              <div className="my-4 md:my-0 lg:my-4 xl:my-0 mx-4 cursor-default" />
               <AboutArtworkCard artwork={artworks[13]}/>
             </div>
           }
@@ -77,12 +77,17 @@ export const Accordion = () => {
           color="#FFF5AD"
           number={2}
           header="Inspired by the Vision of Baron de Coubertin"
-          paragraph={<Pm className="mb-12 lg:my-12">Baron de Coubertin, the visionary behind the modern Olympics, believed in showcasing humanity's physical prowess and artistic talents. #MyFavoriteSport art contest revives this vision, inviting young artists to express themselves through their favorite sport, celebrating the intersection of art and athleticism."</Pm>}
+          paragraph={
+            <>
+              <Pm className="mb-6 lg:my-5">Baron de Coubertin, the visionary behind the modern Olympics, believed in showcasing humanity's physical prowess and artistic talents. #MyFavoriteSport art contest revives this vision, inviting young artists to express themselves through their favorite sport, celebrating the intersection of art and athleticism.</Pm>
+              <Pm className="mb-6 lg:my-5 text-blue-600 visited:text-purple-600"><a target="_blank" rel="noopener noreferrer" href="https://www.smithsonianmag.com/arts-culture/when-the-olympics-gave-out-medals-for-art-6878965/">"When the Olympics Gave Out Medals for Art," Smithsonian Magazine</a></Pm>
+            </>
+          }
           images={
             <div className="flex flex-col md:flex-row mx-auto lg:mx-0">
-              <LazyImage className="min-w-[230px] min-h-[300px] max-w-[230px] max-h-[300px]" imageUrl="/about/olympic-monument.webp" alt="olympic-monument." />
+              <LazyImage className="min-w-[230px] min-h-[300px] max-w-[230px] max-h-[300px] cursor-default" imageUrl="/about/olympic-monument.webp" alt="olympic-monument." />
               <div className="my-4 md:my-0 mx-4" />
-              <LazyImage className="min-w-[230px] min-h-[300px] max-w-[230px] max-h-[300px]" imageUrl="/about/baron-de-couberin.jfif" alt="baron-de-couberin." />
+              <LazyImage className="min-w-[230px] min-h-[300px] max-w-[230px] max-h-[300px] cursor-default" imageUrl="/about/baron-de-couberin.jfif" alt="baron-de-couberin." />
             </div>
           }
         />
@@ -98,7 +103,7 @@ export const Accordion = () => {
           header="Recognized by the U.S. Olympic Committee"
           paragraph={<Pm className="mb-12 lg:my-12">The U.S. Olympic and Paralympic Committee has granted ICAF an exclusive license to use the 'Arts Olympiad' mark for #MyFavoriteSport."</Pm>}
           images={
-            <LazyImage className="max-w-[500px] max-h-[315px]" imageUrl="/svgs/icao-logo.svg" alt="Internation Child Art Olympiad logo." />
+            <LazyImage className="max-w-[500px] max-h-[315px] cursor-default" imageUrl="/svgs/icao-logo.svg" alt="Internation Child Art Olympiad logo." />
           }
         />
         <AccordionCard
@@ -114,7 +119,7 @@ export const Accordion = () => {
           header="More about ICAF"
           paragraph={<Pm className="mb-12 lg:my-12">ICAF is more than just #MyFavoriteSport. We are proud to be ranked among the 25 Top Children’s Charities in the United States. Beyond #MyFavoriteSport, ICAF also organizes Healing Art Programs to revive faith in the natural world for child victims of natural disasters and Peace through Art Programs to restore trust in humanity for children in conflict zones.</Pm>}
           images={
-            <LazyImage className="max-w-[500px] max-h-[315px]" imageUrl="/svgs/Icaf-logo.svg" alt="Internation Child Art Olympiad logo." />
+            <LazyImage className="max-w-[500px] max-h-[315px] cursor-default" imageUrl="/svgs/Icaf-logo.svg" alt="Internation Child Art Olympiad logo." />
           }
         />
       </div>
