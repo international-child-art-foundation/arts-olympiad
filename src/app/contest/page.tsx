@@ -57,15 +57,15 @@ export default function contestPage() {
         description="Join the Art Competition and Showcase Your Talent in Anticipation of the 2024 Olympics." 
         buttons={[
           {
-            href: "#",
+            href: "#", // Will direct user to Login page
             text: "Submit",
             className: "bg-new-blue rounded text-center text-sm cursor-pointer tracking-wide text-neutral-white w-36"
           },
-          {
-            href: "#",
-            text: "Learn More",
-            className: "border-new-blue border rounded text-center text-sm cursor-pointer tracking-wide bg-light-blue text-new-blue w-36"
-          }
+          // {
+          //   href: "#",
+          //   text: "Learn More",
+          //   className: "border-new-blue border rounded text-center text-sm cursor-pointer tracking-wide bg-light-blue text-new-blue w-36"
+          // }
         ]}
       />
     </div>
