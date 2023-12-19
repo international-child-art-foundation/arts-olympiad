@@ -4,30 +4,54 @@ import Image from "next/image";
 import scrollLeft from "../../../public/svgs/scroll-left.svg";
 import scrollRight from "../../../public/svgs/scroll-right.svg";
 import {wisdomList} from "../../../mock/wisdomItems";
-import React, {useEffect, useRef, useState} from "react";
+import React, {useEffect, createRef, useRef, useState} from "react";
 import useIntersectionObserver from "@/hooks/useIntersectionObserver";
-import {WisdomCard} from "./WisdomCard";
-import useWindowDimensions from "@/hooks/useWindowDimensions";
-import {WisdomThumbnail} from "./WisdomThumbnail";
-import bigBlob from "../../../public/home/wisdom/wisdom-cloud-blob.svg";
+import { WisdomCard } from "./WisdomCard";
 import {H3m} from "../../common/texts/H3m";
 import {Pm} from "../../common/texts/Pm";
+import { gsap } from "gsap";
+
+interface Position {
+  top: number | string;
+  left: number | string;
+  width: number | string;
+  height: number | string;
+}
 
 export const WisdomCarousel = () => {
-
   const leftButtonRef = useRef<HTMLButtonElement | null>(null);
   const rightButtonRef = useRef<HTMLButtonElement | null>(null);
-  const cloudRef = useRef<HTMLImageElement | null>(null);
-  const wisdomCardRef = useRef<HTMLImageElement | null>(null);
   const wisdomTextRef = useRef<HTMLDivElement | null>(null);
   const [intersectionTarget, isTargetIntersecting, setCleanupFunctions] = useIntersectionObserver({ threshold: 0.2 });
-  const {windowWidth} = useWindowDimensions();
   const [currentWisdom, setCurrentWisdom] = useState(0);
-  const [wasViewed, setWasViewed] = useState(false);
+  const wisdomCardRefs = useRef(wisdomList.map(() => createRef<HTMLDivElement>()));
 
+  const [wisdomText, setWisdomText] = useState(wisdomList[currentWisdom].wisdomText);
+  const [authorName, setAuthorName] = useState(wisdomList[currentWisdom].author);
+
+  const centerPosition: Position = {
+    top: 0,
+    left: "0%",
+    width: "100%",
+    height: "70%"
+  };
+  
+  const rightPosition: Position = {
+    top: "236%",
+    left: "0%",
+    width: "49.2%",
+    height: "30%"
+  };
+  
+  const leftPosition: Position = {
+    top: "236%",
+    left: "103%",
+    width: "49.2%",
+    height: "30%"
+  };
+  
   // effect to listen to keyboard arrow buttons clicks and control the carousel
   useEffect(() => {
-    isTargetIntersecting && setWasViewed(true);
     const handleKeyDown = (event: KeyboardEvent) => {
       if (event.key === "ArrowLeft" && leftButtonRef.current) {
         leftButtonRef.current?.click();
@@ -45,96 +69,8 @@ export const WisdomCarousel = () => {
       cleanupEventListener();
     };
   }, [isTargetIntersecting, setCleanupFunctions, intersectionTarget]);
-
-  const checkVisibility = (element: Element) => {
-    const rect = element.getBoundingClientRect();
-    return (
-      rect.top >= 0 &&
-      rect.left >= 0 &&
-      rect.bottom <= (window.innerHeight || document.documentElement.clientHeight) &&
-      rect.right <= (window.innerWidth || document.documentElement.clientWidth)
-    );
-  };
-
-
-  useEffect(() => {
-    // Function to check if the element is in the viewport
   
-    // Only proceed if intersectionTarget.current is not null
-    if (intersectionTarget.current) {
-      // Manually trigger animation if the component is already in view
-      if (checkVisibility(intersectionTarget.current)) {
-        addAnimationClasses();
-      }
-    }
-        
-    if (wasViewed) {
-      const timeout = setTimeout(() => {
-        addAnimationClasses();
-      }, 50);
-
-      return () => {
-        clearTimeout(timeout);
-      };
-    }
-    return;
-  }, [currentWisdom, wasViewed, intersectionTarget]);
-
-  useEffect(() => {
-    const handleResize = debounce(() => {
-      // Check if the window width crosses the threshold and if the element is in view
-      if (window.innerWidth >= 768 && intersectionTarget.current) {
-        // Check visibility in case the resize made the element visible
-        if (checkVisibility(intersectionTarget.current)) {
-          removeAnimationClasses(); // Reset animation state
-          addAnimationClasses();    // Reapply animation classes
-        }
-      }
-    }, 250); // Debounce by 250 milliseconds
-  
-    // Set up the event listener
-    window.addEventListener("resize", handleResize);
-  
-    // Clean up the event listener
-    return () => {
-      window.removeEventListener("resize", handleResize);
-    };
-  }, [intersectionTarget]);
-  
-  // Debounce function to limit the rate at which a function can fire
-  function debounce<Func extends (...args: unknown[]) => void>(func: Func, wait: number) {
-    let timeout: ReturnType<typeof setTimeout> | null = null;
-    return function(this: ThisParameterType<Func>, ...args: Parameters<Func>) {
-      const later = () => {
-        timeout = null;
-        func.apply(this, args);
-      };
-      if (timeout !== null) {
-        clearTimeout(timeout);
-      }
-      timeout = setTimeout(later, wait);
-    };
-  }
-      
-
-  const addAnimationClasses = () => {
-    cloudRef.current?.classList.add("slide-left-cloud");
-    wisdomCardRef.current?.classList.add("grow-thinker");
-    wisdomTextRef.current?.classList.add("animate-wisdom-opacity");
-  };
-
-  /*
-  use this to remove animation - triggering classes to trigger effect
-  that will assign them back to start the animation once again
-   */
-  const removeAnimationClasses = () => {
-    cloudRef.current?.classList.remove("slide-left-cloud");
-    wisdomCardRef.current?.classList.remove("grow-thinker");
-    wisdomTextRef.current?.classList.remove("animate-wisdom-opacity");
-  };
-
   const handleGoLeft = () => {
-    removeAnimationClasses();
     if ( currentWisdom > 0 ) {
       setCurrentWisdom(currentWisdom - 1);
     } else {
@@ -143,12 +79,10 @@ export const WisdomCarousel = () => {
   };
 
   const handleIndicatorClick = (i: number) => {
-    removeAnimationClasses();
     setCurrentWisdom(i);
   };
 
   const handleGoRight = () => {
-    removeAnimationClasses();
     if ( currentWisdom < wisdomList.length - 1) {
       setCurrentWisdom(currentWisdom + 1 );
     } else {
@@ -156,54 +90,117 @@ export const WisdomCarousel = () => {
     }
   };
 
-  return (
-    <figure className="z-40 flex flex-col justify-center items-center bg-transparent" ref={intersectionTarget}>
+  useEffect(() => {
+    const textContainer = wisdomTextRef.current;
+    if (textContainer) {
+      // Measure the required height
+      textContainer.style.height = "auto";
+      const newHeight = textContainer.scrollHeight + "px";
+      textContainer.style.height = "0";
+  
+      // Expand the container to fit new content
+      gsap.to(textContainer, {
+        height: newHeight,
+        opacity: 0.9,
+        duration: 0.6,
+        ease: "power1.inOut",
+        onComplete: () => {
+          textContainer.style.height = "auto";
+        }
+      });
+    }
+  }, [wisdomText, authorName]);
+  
 
-      {
-        windowWidth < 768 &&
-        <WisdomCard ref={wisdomCardRef} wisdom={wisdomList[currentWisdom]}/>
+  const animateCards = () => {
+    wisdomList.forEach((wisdom, i) => {
+      const cardRef = wisdomCardRefs.current[i];
+      let position: Position;
+  
+      if (i === currentWisdom) {
+        position = centerPosition;
+        if (cardRef.current) {
+          cardRef.current.style.zIndex = "2";
+          gsap.to(cardRef.current.querySelector(".cardLabel"), { opacity: 0, duration: 0.4 });
+        }
+      } else if (i === currentWisdom - 1 || (currentWisdom === 0 && i === wisdomList.length - 1)) {
+        position = leftPosition;
+        if (cardRef.current) {
+          cardRef.current.style.zIndex = "1";
+          gsap.to(cardRef.current.querySelector(".cardLabel"), { opacity: 0.8, duration: 0.4 });
+        }
+      } else {
+        position = rightPosition;
+        if (cardRef.current) {
+          cardRef.current.style.zIndex = "1";
+          gsap.to(cardRef.current.querySelector(".cardLabel"), { opacity: 0.8, duration: 0.4 });
+        }
       }
+  
+      gsap.to(cardRef.current, {
+        x: position.left,
+        y: position.top,
+        width: position.width,
+        height: position.height,      
+        duration: 0.7,
+        ease: "slow(0.3,0.7,false)",});
+    });
 
+    // Animate Pm and H3m text
+    const textContainer = wisdomTextRef.current;
+    if (textContainer) {
+      gsap.to(textContainer, {
+        height: 0,
+        opacity: 0,
+        duration: 0.15,
+        ease: "power1.inOut",
+        onComplete: () => {
+          setWisdomText(wisdomList[currentWisdom].wisdomText);
+          setAuthorName(wisdomList[currentWisdom].author);
+        }
+      });
+    }
+
+  };
+    
+  useEffect(() => {
+    animateCards();
+  }, [currentWisdom, animateCards]);
+  
+
+  return (
+    <figure className="z-40 flex flex-col justify-center items-center bg-transparent h-visionary-thinkers-md overflow-hidden" ref={intersectionTarget}>
       {
-        windowWidth >= 768 &&
-        <div className=" z-40 relative w-full h-full grid grid-rows-2 grid-cols-10 gap-4">
-          <WisdomCard ref={wisdomCardRef} wisdom={wisdomList[currentWisdom]}/>
-          <div className="row-span-1 col-span-2" />
-          <div className="z-10 absolute w-[400px] lg:w-[500px] mxl:w-[600px] bottom-0 -right-36 md:-right-24 lg:-right-36">
-            <div className="relative ">
-              <Image ref={cloudRef} className="h-full cloud " src={bigBlob} alt=""/>
-              <div
-                ref={wisdomTextRef}
-                className="wisdom-text h-full absolute inset-0 py-10 pl-16 pr-6 grid grid-rows-3 align-center"
-              >
-                <H3m className="z-20 my-4 text-white text-center row-span-1 xl:text-3xl lg:text-xl xl:mt-14" >{wisdomList[currentWisdom].author}</H3m>
-                <Pm className=" text-sm z-20 text-white row-span-1">{wisdomList[currentWisdom].wisdomText}</Pm>
-              </div>
-            </div>
+        <div className=" z-40 relative w-full h-full">
+          <div
+            ref={wisdomTextRef}
+            className="flex flex-col md:flex-col text-white p-5 absolute right-0 bottom-0 text-black z-50 bg-gray-700 -translate-y-48 mb-1 md:-translate-y-52 opacity-90 rounded-xl w-full md:w-60 w-96 overflow-hidden max-w-full"
+          >
+            <Pm className="text-sm z-20 row-span-1 text-end overflow-hidden  text-overflow-ellipsis">{wisdomText}</Pm>
+            <H3m className="z-20 mt-4 text-right font-semibold overline row-span-1 xl:text-2xl lg:text-xl overflow-hidden whitespace-nowrap text-overflow-ellipsis">{authorName}</H3m>
           </div>
           {
             wisdomList
               .map((wisdom, i) =>
-                <WisdomThumbnail
+                <WisdomCard
+                  ref={wisdomCardRefs.current[i]}
                   key={wisdom.author}
                   wisdom={wisdom}
                   onClick={() => handleIndicatorClick(i)}
                 />
               )
-              .filter((wisdom) => wisdom.key !== wisdomList[currentWisdom].author )
-
           }
         </div>
       }
 
-      <div className="w-full flex flex-col md:flex-row justify-start items-center md:grid md:grid-rows-2 md:grid-cols-10 md:gap-4 justify-center">
+      <div className="w-full flex flex-col md:flex-row justify-start items-center md:grid md:grid-rows-2 md:grid-cols-6 md:gap-4 justify-center mt-8">
         {/* Current item indicators */}
         <div className="my-6 flex flex-row mx-[10%] md:mx-[0%] md:row-start-1 md:row-end-3 md:col-start-3 md:col-end-5 justify-self-center">
           {
             wisdomList.map((wisdom, i) => {
               return (
                 <div
-                  key={i + Date.now()}
+                  key={wisdom.author}
                   className={`
                 mx-2 rounded-full w-5 h-5 border-0.5 border-main-blue cursor-pointer
                 ${currentWisdom === i && "bg-dark-blue"}
@@ -218,7 +215,7 @@ export const WisdomCarousel = () => {
 
         {/* Scroll arrow buttons */}
 
-        <div className="md:row-start-1 md:row-end-3 md:col-start-1 md:col-end-7 md:flex md:justify-end" >
+        <div className="md:row-start-1 md:row-end-3 md:col-start-5 md:col-end-7 md:flex md:justify-end pointer-events-none opacity-0 sm:pointer-events-auto sm:opacity-100" >
           <button
             ref={leftButtonRef}
             className="mr-2"

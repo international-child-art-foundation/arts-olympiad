@@ -58,6 +58,7 @@ module.exports = {
       height: {
         "accordion-wide": "43rem",
         "accordion-narrow": "46rem",
+        "visionary-thinkers-md": "50rem",        
       },
       maxHeight: {
         "accordion-wide-max": "43rem",
