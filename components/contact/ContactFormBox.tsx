@@ -22,11 +22,21 @@ export const ContactFormBox = ({ setIsSubmitted } : IProps) => {
           </span>
           </H2m>
           <div className="flex flex-row mt-12 mb-6" >
-            <Image src="/contact/geo-mark.svg" alt="" width={30} height={0} className="max-h-[30px] mr-4" />
-            <Pm className="">
-          International Children Art Foundation
-          Post Office Box 58133, Washington, DC 20037
-            </Pm>
+            <Image src="/contact/geo-mark.svg" alt="" width={30} height={0} className="max-h-[30px] mr-4 mt-0" />
+            <div className="flex flex-col" >
+              <Pm className="">
+              International Child Art Foundation
+              </Pm>
+              <Pm className="">
+              2549 Virginia Avenue, NW
+              </Pm>
+              <Pm className="">
+              Washington, DC 20037
+              </Pm>
+              <Pm className="">
+              USA
+              </Pm>
+            </div>
           </div>
         </div>
         <LazyImage imageUrl="/svgs/icaf-logo.svg" alt="ICAF Logo." className="hidden md:block mx-auto my-8" />

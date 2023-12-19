@@ -7,7 +7,7 @@ import {ButtonStd} from "../common/ui/ButtonStd";
 import React, {Dispatch, SetStateAction} from "react";
 import {RadioButton} from "../common/form_inputs/RadioButton";
 
-export type Query = "Issue submitting artwork" | "Someone uploaded my work" | "Trouble sharing artwork" |
+export type Query = "Question about artwork submission" | "Someone uploaded my work" | "Trouble sharing artwork" |
   "Voting assistance" | "Account issues" | "Other" | null
 
 interface IProps {
@@ -27,7 +27,7 @@ const validationSchema = Yup.object().shape({
   lastName: Yup.string().required("Last Name is required"),
   email: Yup.string().email("Not a recognized email address").required("Email is required"),
   query: Yup.mixed().oneOf(
-    ["Issue submitting artwork", "Someone uploaded my work", "Trouble sharing artwork", "Voting assistance", "Account issues", "Other"],
+    ["Question about artwork submission", "Someone uploaded my work", "Trouble sharing artwork", "Voting assistance", "Account issues", "Other"],
     "You must select one to submit a query"
   ).required("You must select one to submit a query"),
   message: Yup.string().required("Message is required").min(20, "Message must be at least 20 Characters long")
@@ -63,7 +63,7 @@ export const ContactForm = ({ setIsSubmitted }: IProps) => {
           <TextInput className="col-span-2" placeholder="johndoe@gmail.com" error={errors.email}  touched={touched.email} value={values.email} labelText="Email" id="email" />
           <RadioButtonsContainer touched={touched.message} labelText="Which best describes your query?" id="query" error={errors.query} value={values.query} setFieldValue={setFieldValue}>
             <div className="mr-4">
-              <RadioButton name="query" value="Issue submitting artwork" />
+              <RadioButton name="query" value="Question about artwork submission" />
               <RadioButton name="query" value="Someone uploaded my work" />
               <RadioButton name="query" value="Trouble sharing artwork" />
             </div>
