@@ -2,9 +2,9 @@ import { Metadata } from "next";
 import { sharedOpenGraph } from "../shared-metadata";
 import { ImpactBegin } from "../../../components/impact/ImpactBegin";
 import { Grow } from "../../../components/impact/Grow";
-import { Banner } from "../../../components/sponsor/Banner";
 import { Empowering } from "../../../components/impact/Empowering";
-
+import { Carousel } from "../../../components/impact/Carousel";
+import { Banner } from "../../../components/sponsor/Banner";
 
 export const metadata: Metadata = {
   title: "Impact | My Favorite Sport",
@@ -20,6 +20,7 @@ export default function impactPage() {
       <ImpactBegin />
       <Grow />
       <Empowering />
+      <Carousel />
       <Banner 
         backgroundColor="light-blue"
         title="Support ICAF's Global Mission" 
