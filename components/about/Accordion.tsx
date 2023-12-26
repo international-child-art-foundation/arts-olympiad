@@ -29,7 +29,7 @@ export const Accordion = () => {
     >
       <article className="md:flex flex-col mr-10" >
         <H2m className="font-medium text-3xl md:text-4xl" >#MyFavoriteSport: A  <span className="relative text-dark-blue">Creative <span className="text-black">Leap</span>
-          <Image src="/svgs/colorful-scribble.svg" alt="" width={250} height={20} className="z-50 absolute -bottom-6 right-0" />
+          <Image src="/svgs/colorful-scribble.svg" alt="" width={250} height={20} className="absolute -bottom-6 right-0" />
         </span>
         </H2m>
         <Pm className="my-8">Discover #MyFavoriteSport's celebration of youthful imagination
