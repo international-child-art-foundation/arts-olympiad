@@ -13,13 +13,11 @@ import { Build } from "../../public/svgs/impact-svg/Build";
 export const Grow = () => {
   return (
     <>
-      <div className="max-w-screen-2xl">
-        <Image src={blueSmall} alt="" width={768} height={668} className="absolute -z-10 lg:hidden -mt-8 sm:mt-20 w-fit sm:w-full h-[668px]" />
-        <Image src={blueLarge} alt="" width={1536} height={468} className="absolute -z-10 hidden lg:block mt-28 w-full 2xl:w-[1300px] h-fit" />
-        <Image src={blueTiny} alt="" width={95} height={157} className="absolute -z-10 w-fit h-fit right-0 2xl:left-0 mr-[50px] mt-[300px] xsm:mt-[400px] sm:mr-[130px] sm:mt-[480px] md:mr-[200px] md:mt-[430px] lg:mr-[220px] lg:mt-[360px] xl:mr-[300px] xl:mt-[390px] mxl:mr-[320px] mxl:mt-[420px] 2xl:mt-[400px] 2xl:ml-[920px]" />
-      </div>
+      <Image src={blueSmall} alt="" width={768} height={668} className="absolute -z-10 lg:hidden -mt-8 sm:mt-20 w-fit sm:w-full h-[668px]" />
+      <Image src={blueLarge} alt="" width={1536} height={468} className="absolute -z-10 hidden lg:block mt-28 w-full 2xl:w-[1300px] h-fit" />
+      <Image src={blueTiny} alt="" width={95} height={157} className="absolute -z-10 w-fit h-fit right-0 2xl:left-0 mr-[50px] mt-[300px] xsm:mt-[400px] sm:mr-[130px] sm:mt-[480px] md:mr-[200px] md:mt-[430px] lg:mr-[220px] lg:mt-[360px] xl:mr-[300px] xl:mt-[390px] mxl:mr-[320px] mxl:mt-[420px] 2xl:mt-[400px] 2xl:ml-[920px]" />
 
-      <section className="mt-32 sm:mt-40 md:mt-48 relative m-auto max-w-screen-2xl px-8 md:px-12 lg:px-16 xl:px-20">
+      <section className="mb-4 mt-32 sm:mt-40 md:mt-48 relative m-auto max-w-screen-2xl px-8 md:px-12 lg:px-16 xl:px-20">
         <h3 className="text-3xl font-normal">
           Grow Creativity and Empathy to Brighten the <div className="inline-block">Future<AnimatedScribble width={140} smwidth={90} className="stroke-new-blue ml-6" /></div>
         </h3>

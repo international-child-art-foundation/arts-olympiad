@@ -3,6 +3,7 @@ import { sharedOpenGraph } from "../shared-metadata";
 import { ImpactBegin } from "../../../components/impact/ImpactBegin";
 import { Grow } from "../../../components/impact/Grow";
 import { Banner } from "../../../components/sponsor/Banner";
+import { Empowering } from "../../../components/impact/Empowering";
 
 
 export const metadata: Metadata = {
@@ -18,7 +19,7 @@ export default function impactPage() {
     <div className="overflow-hidden z-0 mx-auto">
       <ImpactBegin />
       <Grow />
-      <div className="pt-[1000px]"></div>
+      <Empowering />
       <Banner 
         backgroundColor="light-blue"
         title="Support ICAF's Global Mission" 
