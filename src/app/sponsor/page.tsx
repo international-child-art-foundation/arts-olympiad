@@ -37,6 +37,7 @@ export default function sponsorPage() {
           {
             href: "#",
             text: "Learn more about becoming a sponsor",
+            icon: <></>,
             className: "bg-new-blue rounded text-center text-sm cursor-pointer tracking-wide text-neutral-white"
           }
         ]}
