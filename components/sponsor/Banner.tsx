@@ -8,6 +8,7 @@ interface BannerProps {
   buttons: {
     href: string;
     text: string;
+    icon: JSX.Element;
     className?: string;
   }[];
 }
@@ -32,6 +33,7 @@ export const Banner = (props: BannerProps) => {
           <div className="mx-auto mb-8 md:mx-0 h-auto order-3 flex flex-nowrap justify-start w-full items-baseline">
             {props.buttons && Array.isArray(props.buttons) && props.buttons.map((button, index) => (
               <a key={index} href={button.href} className={`${button.className} py-4 px-6`}>
+                {button.icon}
                 {button.text}
               </a>
             ))}

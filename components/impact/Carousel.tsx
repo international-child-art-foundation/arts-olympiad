@@ -71,14 +71,14 @@ export const Carousel = () => {
               <label className="absolute inset-0" htmlFor="article-01"><span className="sr-only"></span></label>
               <article className="bg-baby-blue p-6 rounded-2xl shadow-2xl">
                 <Image src={blueBlob} alt="" width={1536} height={432} className="absolute z-0 w-fit h-fit -mt-6 -ml-6 pointer-events-none rounded-2xl " />
-                <div className="relative mx-10% pointer-events-none">
-                  <h3 className="font-semibold text-2xl mt-14">
+                <div className="relative mx-10% pointer-events-none peer-checked/01:pointer-events-auto">
+                  <h3 className="font-semibold text-2xl mt-14 xl:mt-12">
                     World Children’s Festival
                   </h3>                      
                   <p className="text-base my-6">
                     Learn more about the World Children’s Festival,  the World Children’s Award, and our research and publications promoting STEAMS education that integrates Arts and Sports with STEM disciplines.
                   </p>
-                  <div className="mb-20">
+                  <div className="mb-20 xl:mb-16">
                     <a href="#" className="w-fit h-fit border rounded text-center py-3 px-4 text-xs font-normal cursor-pointer bg-new-blue text-neutral-white"> 
                       Learn More
                     </a>
@@ -109,7 +109,7 @@ export const Carousel = () => {
                   <h3 className="font-semibold text-2xl mt-14">
                     Broaden Horizons with Art
                   </h3>
-                  <p className="text-base my-8">
+                  <p className="text-base my-9">
                     Use teaching materials from ChildArt magazine to enrich your curriculum and introduce students to the power of art in understanding cultural diversity and global issues.
                   </p>
                   <div className="mb-20">
@@ -138,18 +138,18 @@ export const Carousel = () => {
               <article className="bg-[#FFEA8B] p-3 rounded-2xl shadow-2xl">
                 <Image src={yellowDots} alt="" width={1536} height={432} className="absolute z-0 w-fit h-fit -mt-3 -ml-3 pointer-events-none" />
                 <div className="relative mx-10% pointer-events-none">
-                  <h3 className="font-semibold text-2xl mt-14">
+                  <h3 className="font-semibold text-2xl mt-14 2xl:mt-12">
                     ChildArt Magazine’s Teaching Supplements
                   </h3>
                   <p className="text-base my-8">
                     ICAF offers a range of programs and initiatives that harness the power of art and creativity to positively impact children's lives.
                   </p>
-                  <div className="mb-20">
+                  <div className="mb-20 2xl:mb-16">
                     <a href="https://www.icaf.org/mission/childart-magazine" className="w-fit h-fit border rounded text-center py-3 px-4 text-xs font-normal cursor-pointer bg-new-blue text-neutral-white"> 
                       Subscribe
                     </a>
                   </div>
-                  <Image src={childArt} alt="" width={1536} height={432} className="absolute z-10 w-3/5 -mt-28 ml-32 pointer-events-none" />
+                  <Image src={childArt} alt="" width={1536} height={432} className="absolute z-10 w-3/5 -mt-28 2xl:-mt-32 ml-32 pointer-events-none" />
                 </div>
               </article>
             </div>  

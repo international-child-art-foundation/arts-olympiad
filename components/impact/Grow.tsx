@@ -19,7 +19,7 @@ export const Grow = () => {
 
       <section className="mb-4 mt-32 sm:mt-40 md:mt-48 relative m-auto max-w-screen-2xl px-8 md:px-12 lg:px-16 xl:px-20">
         <h3 className="text-3xl font-normal">
-          Grow Creativity and Empathy to Brighten the <div className="inline-block">Future<AnimatedScribble width={140} smwidth={90} className="stroke-new-blue ml-6" /></div>
+          Grow Creativity and Empathy to Brighten the <div className="inline-block">Future<AnimatedScribble width={210} smwidth={135} className="stroke-new-blue ml-4" /></div>
         </h3>
         <p className="text-base font-light xsm:mt-6 w-5/6 md:w-2/3">
           Through children's creative and empathic development, ICAF contributes to fulfilling six critical UN Social Development Goals (SDGs).  You can help extend our outreach to poorest communities.

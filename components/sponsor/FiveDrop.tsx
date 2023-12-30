@@ -4,7 +4,7 @@ import Image from "next/image";
 import yellowBlob from "../../public/svgs/sponsor-svg/yellowblob.svg";
 import { DownIcon } from "../svgs/DownIcon2";
 import { UpIcon } from "../svgs/UpIcon2";
-import { HeartIconWhite } from "../svgs/HeartIconWhite";
+import { HeartIcon } from "../svgs/HeartIcon";
 import { useState } from "react";
 
 export const FiveDrop = () => {
@@ -111,7 +111,7 @@ export const FiveDrop = () => {
               Absolutely! If you prefer to make a donation instead of becoming a sponsor, we appreciate your support. Visit our donation page to contribute. 
             </p>
             <a href="https://icaf.org/donate" className="group w-fit h-fit border-neutral-white border rounded text-center py-3 px-4 text-sm tracking-wide bg-new-blue text-neutral-white">
-              <HeartIconWhite />
+              <HeartIcon stroke="white" />
               Donate
             </a>
           </nav>

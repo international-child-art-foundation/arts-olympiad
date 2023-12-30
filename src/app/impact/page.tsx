@@ -5,6 +5,7 @@ import { Grow } from "../../../components/impact/Grow";
 import { Empowering } from "../../../components/impact/Empowering";
 import { Carousel } from "../../../components/impact/Carousel";
 import { Banner } from "../../../components/sponsor/Banner";
+import { HeartIcon } from "../../../components/svgs/HeartIcon";
 
 export const metadata: Metadata = {
   title: "Impact | My Favorite Sport",
@@ -29,7 +30,8 @@ export default function impactPage() {
           {
             href: "#", 
             text: "Donate",
-            className: "bg-new-blue rounded text-center text-sm cursor-pointer tracking-wide text-neutral-white w-36"
+            icon: <HeartIcon stroke="#EE2F4D" />,
+            className: "group bg-new-blue rounded text-center text-sm cursor-pointer tracking-wide text-neutral-white w-36"
           },
           {
             href: "https://www.icaf.org/join-us/volunteers",
