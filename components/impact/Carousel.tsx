@@ -10,46 +10,19 @@ import childArt from "../../public/svgs/impact-svg/childArt.svg";
 import blub from "../../public/svgs/impact-svg/blub.svg";
 
 export const Carousel = () => {
-  window.addEventListener( "pageshow", function ( event ) {
-    if ( event.persisted ) {
-      window.location.reload();
+  const [checkedOption, setCheckedOption] = useState(3);
+  const [forceRender, setForceRender] = useState(0);
+  const handleCheck = (option: number) => {
+    // There is a visual bug that occurs when the checkedOption is set to the same value as it currently has.
+    // This bug can occur due to next.js caching when the user navigates forward/back 
+    // in their browser when the user has a non-default state selected.
+    // To fix the bug, we re-render the component when we find that checkedOption has not been changed.
+    // This is a workaround to the root issue of the state being desynced with the component display due to caching.
+    if (checkedOption === option) {
+      setForceRender(prev => prev + 1);
+      return;
     }
-  });
-
-  //   useEffect(() => {    
-  //     window.onpageshow = function(event) {
-  //       if (event.persisted) {
-  //         window.location.reload();
-  //       }
-  //     };
-  //  }, []);
-
-  const [isChecked1, setIsChecked1] = useState(false);
-  const [isChecked2, setIsChecked2] = useState(false);
-  const [isChecked3, setIsChecked3] = useState(true);
-
-  const checkHandler1 = () => {
-    if (!isChecked1){
-      setIsChecked1(true);
-      setIsChecked2(false);
-      setIsChecked3(false);
-    }
-  };
-
-  const checkHandler2 = () => {
-    if (!isChecked2){
-      setIsChecked2(true);
-      setIsChecked1(false);
-      setIsChecked3(false);
-    }
-  };
-
-  const checkHandler3 = () => {
-    if (!isChecked3){
-      setIsChecked3(true);
-      setIsChecked1(false);
-      setIsChecked2(false);
-    }
+    setCheckedOption(option);
   };
 
   return (
@@ -65,12 +38,12 @@ export const Carousel = () => {
         
       </div>
 
-      <div className="realtive z-20 pt-8 pb-44 m-auto max-w-screen-2xl px-8 md:px-12 lg:px-16 xl:px-20">
+      <div data-force-render={forceRender} className="realtive z-20 pt-8 pb-44 m-auto max-w-screen-2xl px-8 md:px-12 lg:px-16 xl:px-20">
         <section className="relative hidden lg:block">
           <div className="lg:max-w-md xl:max-w-lg 2xl:max-w-xl mx-auto relative">
-            <input id="article-01" type="checkbox" name="slider" className="sr-only peer/01" checked={isChecked1} onClick={checkHandler1}/>
-            <input id="article-02" type="checkbox" name="slider" className="sr-only peer/02" checked={isChecked2} onClick={checkHandler2}/>
-            <input id="article-03" type="checkbox" name="slider" className="sr-only peer/03" checked={isChecked3} onClick={checkHandler3}/>
+            <input id="article-01" type="checkbox" name="slider" className="sr-only peer/01" checked={checkedOption === 1} onChange={() => handleCheck(1)}/>
+            <input id="article-02" type="checkbox" name="slider" className="sr-only peer/02" checked={checkedOption === 2} onChange={() => handleCheck(2)}/>
+            <input id="article-03" type="checkbox" name="slider" className="sr-only peer/03" checked={checkedOption === 3} onChange={() => handleCheck(3)}/>
 
             <div className="
               absolute inset-0 scale-[67%] z-10 transition-all duration-500 ease-[cubic-bezier(0.25,1,0.5,1)]                    
@@ -97,10 +70,10 @@ export const Carousel = () => {
                   </p>
                   
                   <div className="mb-20 xl:mb-16">
-                    {!isChecked1 && <a href="#" className="w-fit h-fit border rounded text-center py-3 px-4 text-xs font-normal cursor-pointer bg-new-blue text-neutral-white"> 
+                    {checkedOption != 1 && <a href="#" className="w-fit h-fit border rounded text-center py-3 px-4 text-xs font-normal cursor-pointer bg-new-blue text-neutral-white"> 
                       Learn More
                     </a>}
-                    {isChecked1 && <a href="https://worldchildrensfestival.org/" className="pointer-events-auto w-fit h-fit border rounded text-center py-3 px-4 text-xs font-normal cursor-pointer bg-new-blue text-neutral-white"> 
+                    {checkedOption == 1 && <a href="https://worldchildrensfestival.org/" className="pointer-events-auto w-fit h-fit border rounded text-center py-3 px-4 text-xs font-normal cursor-pointer bg-new-blue text-neutral-white"> 
                       Learn More
                     </a>}
                   </div> 
@@ -135,10 +108,10 @@ export const Carousel = () => {
                     Use teaching materials from ChildArt magazine to enrich your curriculum and introduce students to the power of art in understanding cultural diversity and global issues.
                   </p>
                   <div className="mb-20">
-                    {!isChecked2 && <a href="#" className="w-fit h-fit border rounded text-center py-3 px-4 text-xs font-normal cursor-pointer bg-new-blue text-neutral-white"> 
+                    {checkedOption != 2 && <a href="#" className="w-fit h-fit border rounded text-center py-3 px-4 text-xs font-normal cursor-pointer bg-new-blue text-neutral-white"> 
                       Access Supplements
                     </a>}
-                    {isChecked2 && <a href="https://www.icaf.org/mission/arts-olympiad" className="pointer-events-auto w-fit h-fit border rounded text-center py-3 px-4 text-xs font-normal cursor-pointer bg-new-blue text-neutral-white"> 
+                    {checkedOption == 2 && <a href="https://www.icaf.org/mission/arts-olympiad" className="pointer-events-auto w-fit h-fit border rounded text-center py-3 px-4 text-xs font-normal cursor-pointer bg-new-blue text-neutral-white"> 
                       Access Supplements
                     </a>}
                   </div>
@@ -170,10 +143,10 @@ export const Carousel = () => {
                     ICAF offers a range of programs and initiatives that harness the power of art and creativity to positively impact children's lives.
                   </p>
                   <div className="mb-20 2xl:mb-16">
-                    {!isChecked3 && <a href="#" className="w-fit h-fit border rounded text-center py-3 px-4 text-xs font-normal cursor-pointer bg-new-blue text-neutral-white"> 
+                    {checkedOption != 3 && <a href="#" className="w-fit h-fit border rounded text-center py-3 px-4 text-xs font-normal cursor-pointer bg-new-blue text-neutral-white"> 
                       Subscribe
                     </a>}
-                    {isChecked3 && <a href="https://www.icaf.org/mission/childart-magazine" className="pointer-events-auto w-fit h-fit border rounded text-center py-3 px-4 text-xs font-normal cursor-pointer bg-new-blue text-neutral-white"> 
+                    {checkedOption == 3 && <a href="https://www.icaf.org/mission/childart-magazine" className="pointer-events-auto w-fit h-fit border rounded text-center py-3 px-4 text-xs font-normal cursor-pointer bg-new-blue text-neutral-white"> 
                     Subscribe
                     </a>} 
                   </div>
