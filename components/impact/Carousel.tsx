@@ -38,7 +38,7 @@ export const Carousel = () => {
         
       </div>
 
-      <div className="realtive z-20 pt-8 pb-44 m-auto max-w-screen-2xl px-8 md:px-12 lg:px-16 xl:px-20">
+      <div data-force-render={forceRender} className="realtive z-20 pt-8 pb-44 m-auto max-w-screen-2xl px-8 md:px-12 lg:px-16 xl:px-20">
         <section className="relative hidden lg:block">
           <div className="lg:max-w-md xl:max-w-lg 2xl:max-w-xl mx-auto relative">
             <input id="article-01" type="checkbox" name="slider" className="sr-only peer/01" checked={checkedOption === 1} onChange={() => handleCheck(1)}/>
