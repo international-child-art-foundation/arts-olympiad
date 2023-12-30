@@ -11,7 +11,7 @@ export const ContestBegin = () => {
     <>
       <Image src={orangeBGmobile} alt="" width={767} height={446} className="absolute -z-10 sm:hidden -top-32 w-full h-full" />
       <Image src={orangeBGipad} alt="" width={1023} height={333} className="absolute -z-10 hidden sm:block lg:hidden -top-32 w-full h-full" />
-      <Image src={orangeBGtablet} alt="" width={1279} height={377} className="absolute -z-10 hidden lg:block xl:hidden -top-32 w-full h-full" />
+      <Image src={orangeBGtablet} alt="" width={1279} height={377} className="absolute -z-10 hidden lg:block xl:hidden -top-48 w-full h-full" />
       <Image src={orangeBGsmall} alt="" width={1536} height={432} className="absolute -z-10 hidden xl:block 2xl:hidden -top-32 w-full h-[1000px]" />
       <Image src={orangeBGlarge} alt="" width={1536} height={432} className="absolute -z-10 hidden 2xl:block -top-32 right-0 w-full h-full mxl:h-[1000px]" />
 

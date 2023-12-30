@@ -28,7 +28,7 @@ export default function impactPage() {
         description="Join us in making a positive impact on children's lives worldwide." 
         buttons={[
           {
-            href: "#", 
+            href: "https://icaf.org/donate", 
             text: "Donate",
             icon: <HeartIcon stroke="#EE2F4D" />,
             className: "group bg-new-blue rounded text-center text-sm cursor-pointer tracking-wide text-neutral-white w-36"
@@ -36,6 +36,7 @@ export default function impactPage() {
           {
             href: "https://www.icaf.org/join-us/volunteers",
             text: "Volunteer",
+            icon: <></>,
             className: "ml-6 border-new-blue border rounded text-center text-sm cursor-pointer tracking-wide bg-light-blue text-new-blue w-36"
           }
         ]}

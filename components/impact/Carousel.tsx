@@ -10,6 +10,20 @@ import childArt from "../../public/svgs/impact-svg/childArt.svg";
 import blub from "../../public/svgs/impact-svg/blub.svg";
 
 export const Carousel = () => {
+  window.addEventListener( "pageshow", function ( event ) {
+    if ( event.persisted ) {
+      window.location.reload();
+    }
+  });
+
+  //   useEffect(() => {    
+  //     window.onpageshow = function(event) {
+  //       if (event.persisted) {
+  //         window.location.reload();
+  //       }
+  //     };
+  //  }, []);
+
   const [isChecked1, setIsChecked1] = useState(false);
   const [isChecked2, setIsChecked2] = useState(false);
   const [isChecked3, setIsChecked3] = useState(true);
@@ -41,12 +55,15 @@ export const Carousel = () => {
   return (
     <>
       <Image src={purpleBG} alt="" width={1536} height={432} className="absolute -z-10 w-full md:w-4/5 lg:w-1/2 mxl:w-2/5 h-fit mt-28" />
-      <h2 className="text-3xl font-normal md:text-[42px] md:font-medium mt-48 z-10 max-w-screen-2xl px-8 md:px-12 lg:px-16 xl:px-20">
-        Elevating Youth Voices
-      </h2>
-      <p className="mt-4 text-base font-light md:text-lg md:font-normal z-10 max-w-screen-2xl px-8 md:px-12 lg:px-16 xl:px-20">
-        Showcasing Children’s Talents
-      </p>
+      <div className="m-auto max-w-screen-2xl px-8 md:px-12 lg:px-16 xl:px-20">
+        <h2 className="text-3xl font-normal md:text-[42px] md:font-medium mt-48 z-10">
+          Elevating Youth Voices
+        </h2>
+        <p className="mt-4 text-base font-light md:text-lg md:font-normal z-10">
+          Showcasing Children’s Talents
+        </p>
+        
+      </div>
 
       <div className="realtive z-20 pt-8 pb-44 m-auto max-w-screen-2xl px-8 md:px-12 lg:px-16 xl:px-20">
         <section className="relative hidden lg:block">
@@ -71,20 +88,25 @@ export const Carousel = () => {
               <label className="absolute inset-0" htmlFor="article-01"><span className="sr-only"></span></label>
               <article className="bg-baby-blue p-6 rounded-2xl shadow-2xl">
                 <Image src={blueBlob} alt="" width={1536} height={432} className="absolute z-0 w-fit h-fit -mt-6 -ml-6 pointer-events-none rounded-2xl " />
-                <div className="relative mx-10% pointer-events-none peer-checked/01:pointer-events-auto">
+                <div className="relative mx-10% pointer-events-none">
                   <h3 className="font-semibold text-2xl mt-14 xl:mt-12">
                     World Children’s Festival
                   </h3>                      
                   <p className="text-base my-6">
                     Learn more about the World Children’s Festival,  the World Children’s Award, and our research and publications promoting STEAMS education that integrates Arts and Sports with STEM disciplines.
                   </p>
+                  
                   <div className="mb-20 xl:mb-16">
-                    <a href="#" className="w-fit h-fit border rounded text-center py-3 px-4 text-xs font-normal cursor-pointer bg-new-blue text-neutral-white"> 
+                    {!isChecked1 && <a href="#" className="w-fit h-fit border rounded text-center py-3 px-4 text-xs font-normal cursor-pointer bg-new-blue text-neutral-white"> 
                       Learn More
-                    </a>
-                  </div>
-                  <Image src={blub} alt="" width={1536} height={432} className="absolute z-10 w-1/4 -mt-28 ml-60 pointer-events-none" />
+                    </a>}
+                    {isChecked1 && <a href="https://worldchildrensfestival.org/" className="pointer-events-auto w-fit h-fit border rounded text-center py-3 px-4 text-xs font-normal cursor-pointer bg-new-blue text-neutral-white"> 
+                      Learn More
+                    </a>}
+                  </div> 
+                  <Image src={blub} alt="" width={1536} height={432} className="absolute z-10 w-1/4 -mt-28 ml-60" />
                 </div>
+
               </article>
             </div>
 
@@ -113,9 +135,12 @@ export const Carousel = () => {
                     Use teaching materials from ChildArt magazine to enrich your curriculum and introduce students to the power of art in understanding cultural diversity and global issues.
                   </p>
                   <div className="mb-20">
-                    <a href="https://www.icaf.org/mission/arts-olympiad" className="w-fit h-fit border rounded text-center py-3 px-4 text-xs font-normal cursor-pointer bg-new-blue text-neutral-white"> 
+                    {!isChecked2 && <a href="#" className="w-fit h-fit border rounded text-center py-3 px-4 text-xs font-normal cursor-pointer bg-new-blue text-neutral-white"> 
                       Access Supplements
-                    </a>
+                    </a>}
+                    {isChecked2 && <a href="https://www.icaf.org/mission/arts-olympiad" className="pointer-events-auto w-fit h-fit border rounded text-center py-3 px-4 text-xs font-normal cursor-pointer bg-new-blue text-neutral-white"> 
+                      Access Supplements
+                    </a>}
                   </div>
                 </div>
               </article>
@@ -145,20 +170,23 @@ export const Carousel = () => {
                     ICAF offers a range of programs and initiatives that harness the power of art and creativity to positively impact children's lives.
                   </p>
                   <div className="mb-20 2xl:mb-16">
-                    <a href="https://www.icaf.org/mission/childart-magazine" className="w-fit h-fit border rounded text-center py-3 px-4 text-xs font-normal cursor-pointer bg-new-blue text-neutral-white"> 
+                    {!isChecked3 && <a href="#" className="w-fit h-fit border rounded text-center py-3 px-4 text-xs font-normal cursor-pointer bg-new-blue text-neutral-white"> 
                       Subscribe
-                    </a>
+                    </a>}
+                    {isChecked3 && <a href="https://www.icaf.org/mission/childart-magazine" className="pointer-events-auto w-fit h-fit border rounded text-center py-3 px-4 text-xs font-normal cursor-pointer bg-new-blue text-neutral-white"> 
+                    Subscribe
+                    </a>} 
                   </div>
-                  <Image src={childArt} alt="" width={1536} height={432} className="absolute z-10 w-3/5 -mt-28 2xl:-mt-32 ml-32 pointer-events-none" />
+                  <Image src={childArt} alt="" width={1536} height={432} className="absolute z-10 w-3/5 -mt-28 2xl:-mt-32 ml-48" />
                 </div>
               </article>
             </div>  
             
           </div>
         </section>
-        
+
+
         <section className="overflow-hidden lg:hidden z-20 m-auto max-w-screen-2xl ">
-          
           <article className="bg-light-green p-3 rounded-2xl">
             <Image src={greenBlob} alt="" width={1536} height={432} className="absolute z-0 w-fit h-1/3 -mt-3 -ml-3" />
             <div className="relative mx-5%">

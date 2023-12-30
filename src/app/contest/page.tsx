@@ -58,6 +58,7 @@ export default function contestPage() {
         buttons={[
           {
             href: "#", // Will direct user to Login page
+            icon: <></>,
             text: "Submit",
             className: "bg-new-blue rounded text-center text-sm cursor-pointer tracking-wide text-neutral-white w-36"
           },
