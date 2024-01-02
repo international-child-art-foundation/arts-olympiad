@@ -36,7 +36,7 @@ export const ExpandingDiv = ({ background, sections }: ExpandingDivProps) => {
   };
 
   return (
-    <div className={`w-100 pb-6`}>
+    <div className="w-100 pb-6">
       {sections.map((section, index) => (
         <div key={index} className={`${background} shadow-md rounded-2xl m-auto mt-6 `}>
           <div className="relative cursor-pointer" onClick={() => toggleSection(index)}>
@@ -51,7 +51,7 @@ export const ExpandingDiv = ({ background, sections }: ExpandingDivProps) => {
                     {section.description}
                   </p>
                   {section.buttons?.map((button, btnIndex) => (
-                    <a key={btnIndex} href={button.href}    className={`${button.classNames.join(' ')} mt-6 block`}>
+                    <a key={btnIndex} href={button.href}    className={`${button.classNames.join(" ")} mt-6 block`}>
                       {button.children}
                     </a>
                   ))}
