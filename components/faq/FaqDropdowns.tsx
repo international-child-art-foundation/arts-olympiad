@@ -3,7 +3,7 @@ import Image from "next/image";
 import { ExpandingDiv } from "./ExpandingDiv";
 import { ExpandingDivProps } from "./ExpandingDiv";
 import { HeartIconWhite } from "../svgs/HeartIconWhite";
-import { useState, useRef, useEffect } from "react";
+import { useState, useRef, useEffect, useCallback } from "react";
 import { gsap } from "gsap";
 import faqYelBlob from "../../public/svgs/blobs/faq-yel-blob.svg";
 import faqPinkBlob from "../../public/svgs/blobs/faq-pink-blob.svg";
@@ -213,36 +213,41 @@ export const FaqDropdowns = () => {
   const [transitioningSection, setTransitioningSection] =
     useState<SectionType | null>(null);
   const underlineRef = useRef<HTMLDivElement>(null);
-  const [windowWidth, setWindowWidth] = useState(window.innerWidth);
+  const [windowWidth, setWindowWidth] = useState(0);
 
-
-  useEffect(() => {
-    // Update underline position
-    const updateUnderlinePosition = () => {
-      if (containerRef.current) {
-        const activeButton = document.querySelector(`.Pm-${activeSection}`);
-        if (activeButton && underlineRef.current) {
-          const buttonRect = activeButton.getBoundingClientRect();
-          gsap.set(underlineRef.current, {
-            x:
-              buttonRect.left - containerRef.current.getBoundingClientRect().left,
-            width: buttonRect.width,
-          });
-        }
+  const updateUnderlinePosition = useCallback(() => {
+    if (containerRef.current) {
+      const activeButton = document.querySelector(`.Pm-${activeSection}`);
+      if (activeButton && underlineRef.current) {
+        const buttonRect = activeButton.getBoundingClientRect();
+        gsap.set(underlineRef.current, {
+          x: buttonRect.left - containerRef.current.getBoundingClientRect().left,
+          width: buttonRect.width,
+        });
       }
-    };
-    function handleResize() {
+    }
+  }, [activeSection, containerRef, underlineRef]);
+  const handleResize = useCallback(() => {
+    if (typeof window !== "undefined") {
       setWindowWidth(window.innerWidth);
       updateUnderlinePosition();
     }
-  
+  }, [updateUnderlinePosition]); 
+  useEffect(() => {
+    if (typeof window !== "undefined") {
+      setWindowWidth(window.innerWidth);
+      window.addEventListener("resize", handleResize);
+      return () => window.removeEventListener("resize", handleResize);
+    }
+  }, [handleResize]);
+
+  useEffect(() => {
     window.addEventListener("resize", handleResize);
     return () => {
       window.removeEventListener("resize", handleResize);
     };
-  }, [activeSection]);
-
-  // Set initial underline position
+  }, [activeSection, handleResize]);
+      
   useEffect(() => {
     const handleLoad = () => {
       const contestButton = document.querySelector(".Pm-contest");
