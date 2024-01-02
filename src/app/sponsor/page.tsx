@@ -3,7 +3,7 @@ import { sharedOpenGraph } from "../shared-metadata";
 import { SponsorBegin } from "../../../components/sponsor/SponsorBegin";
 import { Advantage } from "../../../components/sponsor/Advantage";
 import { Carousel } from "../../../components/sponsor/Carousel";
-import { Banner } from "../../../components/sponsor/Banner";
+import { Banner } from "../../../components/Banner";
 import { ContactUs } from "../../../components/sponsor/ContactUs";
 import { FiveDrop } from "../../../components/sponsor/FiveDrop";
 import orangeBlob from "../../../public/svgs/sponsor-svg/orangeblob.svg";

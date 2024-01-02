@@ -34,7 +34,7 @@ export const FiveDrop = () => {
           </button>
           {isExpanded1 &&
           <nav tabIndex={0} className="w-full">
-            <UpIcon />
+            <UpIcon className="-mt-6"/>
             <p className="mt-4 font-light text-base leading-loose">
               We accept submissions in JPEG, and PNG formats.
             </p>
@@ -53,7 +53,7 @@ export const FiveDrop = () => {
           </button>
           {isExpanded2 &&
           <nav tabIndex={0} className="w-full">
-            <UpIcon />
+            <UpIcon className="-mt-6"/>
             <p className="mt-4 font-light text-base leading-loose">
               The maximum file size should not exceed 10MB.
             </p>
@@ -72,7 +72,7 @@ export const FiveDrop = () => {
           </button>
           {isExpanded3 &&
           <nav tabIndex={0} className="w-full">
-            <UpIcon />
+            <UpIcon className="-mt-6"/>
             <p className="mt-4 font-light text-base leading-loose">
               No, there are no fees associated with submitting an entry to the art competition.  
             </p>
@@ -91,7 +91,7 @@ export const FiveDrop = () => {
           </button>
           {isExpanded4 &&
           <nav tabIndex={0} className="w-full">
-            <UpIcon />
+            <UpIcon className="-mt-6"/>
             <p className="mt-4 font-light text-base leading-loose">
               Art submission can start on March 15th, 2024.  This will coincide with our kickoff in Paris during our art exhibition! 
             </p>
@@ -110,7 +110,7 @@ export const FiveDrop = () => {
           </button>
           {isExpanded5 &&
           <nav tabIndex={0} className="w-full">
-            <UpIcon />
+            <UpIcon className="-mt-6"/>
             <p className="mt-4 font-light text-base leading-loose">
               The top 20 artworks will be selected based on public votes on this site, so be sure to share your submission on social media.  These 20 finalists will make it to the next round where our sponsors will determine the top 3 winners. 
             </p>

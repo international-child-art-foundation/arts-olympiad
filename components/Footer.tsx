@@ -62,7 +62,7 @@ const Footer = () => {
 
         <div className="text-sm w-full max-w-sm md:order-2 md:w-1/4 md:pl-11 lg:w-1/5 lg:pl-0 lg:w-auto text-neutral-white">
           <ol className="grid grid-cols-2 gap-y-5 md:gap-y-3 md:grid-cols-1">
-            <div className="break-words"><a href="#">FAQ's</a></div>
+          <div className="break-words"><Link href="/faq">FAQ's</Link></div>
             <div className="break-words"><a href="https://icaf.org/about/contact-us">Contact Us</a></div>
             <div className="break-words"><a href="#">Terms of use</a></div>
             <div className="break-words"><a href="#">Privacy policy</a></div>
