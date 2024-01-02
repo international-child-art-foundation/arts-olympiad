@@ -29,7 +29,7 @@ export const Banner = (props: BannerProps) => {
 
           {/* Image: First on small screens, second on larger screens */}
           <Image src={icafLogo} alt="ICAF Logo" className="mx-auto my-auto w-1/2 h-fit order-1 md:order-2 md:w-11/12 md:col-start-3 md:col-end-3 md:row-span-3" />
-
+          
           <div className="mx-auto mb-8 md:mx-0 h-auto order-3 flex flex-nowrap justify-start w-full items-baseline">
             {props.buttons && Array.isArray(props.buttons) && props.buttons.map((button, index) => (
               <a key={index} href={button.href} className={`${button.className} py-4 px-6`}>
