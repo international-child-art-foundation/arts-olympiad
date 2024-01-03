@@ -305,7 +305,7 @@ export const FaqDropdowns = () => {
           });
         }
       }
-      // Content height shrink animation
+      // Section shrink animation
       gsap.to(containerRef.current, {
         height: 0,
         opacity: 1,
@@ -327,45 +327,27 @@ export const FaqDropdowns = () => {
               duration: 0.5,
               ease: "power3.out",
             });
+            // Section grow animation
+            if (containerRef.current) {
+              setTimeout(() => {
+                if (containerRef.current) {
+                  gsap.to(containerRef.current, {
+                    height: "auto",
+                    opacity: 1,
+                    duration: 0.5,
+                    ease: "power3.out",
+                    onComplete: () => {
+                    },
+                  });
+                }
+              }, 0);
+            }
           }
           setIsAnimating(false);
           setTransitioningSection(null);
         },
       });
     }
-  };
-
-  // Content height grow animation
-  useEffect(() => {
-    if (containerRef.current && !isAnimating) {
-      setTimeout(() => {
-        if (containerRef.current) {
-          setIsAnimating(true);
-          const newHeight = containerRef.current.scrollHeight;
-          const duration = calculateDuration(0, newHeight);
-          gsap.to(containerRef.current, {
-            height: "auto",
-            opacity: 1,
-            duration: duration,
-            ease: "power3.out",
-            onComplete: () => {
-              setIsAnimating(false);
-            },
-          });
-        }
-      }, 0);
-    }
-  }, [activeSection, isAnimating]);
-
-  // Function to calculate the duration based on height change
-  const calculateDuration = (
-    startHeight: number,
-    endHeight: number
-  ): number => {
-    const heightDifference = Math.abs(startHeight - endHeight);
-    const baseDuration = 0.5; // Minimum duration
-    const scalingFactor = 0.0003; // Controls how height diff affects duration
-    return baseDuration + heightDifference * scalingFactor;
   };
 
   // Return number of entries only on large screens
