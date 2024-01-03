@@ -372,7 +372,7 @@ export const FaqDropdowns = () => {
               className={`select-none cursor-pointer text-lg md:text-xl transition-color mb-2 px-1 Pm Pm-${key}
                     ${
             activeSection === key && transitioningSection !== key
-              ? "text-main-blue font-bold " // Active and not transitioning
+              ? "text-new-blue font-bold " // Active and not transitioning
               : transitioningSection === key
                 ? "text-gray-500 font-normal" // Transitioning
                 : "text-default-color" // Neither active nor transitioning
@@ -388,27 +388,27 @@ export const FaqDropdowns = () => {
           className=" bg-new-blue absolute hidden xsm:block h-[3px] -mt-[3px] z-0 rounded-lg w-32"
         ></div>
         {/* Current item indicators */}
-        {/* <div className="my-6 flex flex-row mx-[10%] md:mx-[0%] md:row-start-1 md:row-end-3 md:col-start-3 md:col-end-5 justify-center">
-                {(Object.keys(sections) as SectionType[]).map(key => (
-                    <div
-                        key={key}
-                        className={`
-                            mx-2 rounded-full w-5 h-5 border-0.5 border-main-blue cursor-pointer 
-                            ${activeSection === key && transitioningSection !== key 
-                                ? 'bg-dark-blue '  // Active and not transitioning
-                                : transitioningSection === key 
-                                    ? 'bg-white' // Transitioning
-                                    : 'bg-white' // Neither active nor transitioning
-                            }`}
-                        onClick={() => handleSectionClick(key)}
-                    >
-                    </div>
-                ))}
-            </div> */}
-        <div className="my-8 w-full min-h-[400px] border-y-4 shadow-md rounded-lg ">
+        <div className="block md:hidden mt-6 mb-0 flex flex-row mx-[10%] md:mx-[0%] md:row-start-1 md:row-end-3 md:col-start-3 md:col-end-5 justify-center">
+          {(Object.keys(sections) as SectionType[]).map(key => (
+            <div
+              key={key}
+              className={`
+                      mx-2 rounded-full w-5 h-5 border-0.5 border-main-blue cursor-pointer 
+                      ${activeSection === key && transitioningSection !== key 
+              ? "bg-new-blue"  // Active and not transitioning
+              : transitioningSection === key 
+                ? "bg-new-blue opacity-50" // Transitioning
+                : "bg-white" // Neither active nor transitioning
+            }`}
+              onClick={() => handleSectionClick(key)}
+            >
+            </div>
+          ))}
+        </div>
+        <div className=" w-full min-h-[400px] rounded-lg ">
           <div
             ref={containerRef}
-            className="px-4 sm:px-10 py-0 sm:py-5 max-w-unset transition-opacity overflow-hidden bg-neutral-white rounded-sm border-silver rounded-lg"
+            className="px-4 sm:px-10 py-0 max-w-unset overflow-hidden bg-transparent rounded-lg"
           >
             <ExpandingDiv {...sections[activeSection]} />
           </div>

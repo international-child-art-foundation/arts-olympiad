@@ -38,7 +38,7 @@ export const ExpandingDiv = ({ background, sections }: ExpandingDivProps) => {
   return (
     <div className="w-100 pb-6">
       {sections.map((section, index) => (
-        <div key={index} className={`${background} shadow-md rounded-2xl m-auto mt-6 `}>
+        <div key={index} className={`${background} rounded-2xl m-auto mt-6 `}>
           <div className="relative cursor-pointer" onClick={() => toggleSection(index)}>
             <div className="py-6 px-5 relative">
               <button className="group w-full text-xl font-semibold text-neutral-black inline-flex items-start text-left">
