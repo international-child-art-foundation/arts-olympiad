@@ -324,7 +324,7 @@ export const FaqDropdowns = () => {
             gsap.to(underlineRef.current, {
               width: newWidth,
               x: newPosition,
-              duration: 0.5,
+              duration: 0.8,
               ease: "power3.out",
             });
             // Section grow animation
@@ -334,7 +334,7 @@ export const FaqDropdowns = () => {
                   gsap.to(containerRef.current, {
                     height: "auto",
                     opacity: 1,
-                    duration: 0.5,
+                    duration: 0.8,
                     ease: "power3.out",
                     onComplete: () => {
                     },
