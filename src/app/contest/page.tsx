@@ -9,7 +9,7 @@ import { Process } from "../../../components/contest/Process";
 import { Timeline } from "../../../components/home/timeline/Timeline";
 import { Voting } from "../../../components/contest/Voting";
 import { FiveDrop } from "../../../components/contest/FiveDrop";
-import { Banner } from "../../../components/sponsor/Banner";
+import { Banner } from "../../../components/Banner";
 import { ContactUs } from "../../../components/sponsor/ContactUs";
 import orangeBlob from "../../../public/svgs/sponsor-svg/orangeblob.svg";
 import pinkBlob from "../../../public/svgs/contest-svg/pinkblobContact.svg";

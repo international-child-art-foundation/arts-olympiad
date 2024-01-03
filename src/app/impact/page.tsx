@@ -4,7 +4,7 @@ import { ImpactBegin } from "../../../components/impact/ImpactBegin";
 import { Grow } from "../../../components/impact/Grow";
 import { Empowering } from "../../../components/impact/Empowering";
 import { Carousel } from "../../../components/impact/Carousel";
-import { Banner } from "../../../components/sponsor/Banner";
+import { Banner } from "../../../components/Banner";
 import { HeartIcon } from "../../../components/svgs/HeartIcon";
 
 export const metadata: Metadata = {
