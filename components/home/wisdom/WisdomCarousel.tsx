@@ -10,13 +10,8 @@ import { WisdomCard } from "./WisdomCard";
 import {H3m} from "../../common/texts/H3m";
 import {Pm} from "../../common/texts/Pm";
 import { gsap } from "gsap";
+import { Position, centerPosition, rightPosition, leftPosition } from "../../../mock/positions"; 
 
-interface Position {
-  top: number | string;
-  left: number | string;
-  width: number | string;
-  height: number | string;
-}
 
 export const WisdomCarousel = () => {
   const leftButtonRef = useRef<HTMLButtonElement | null>(null);
@@ -29,27 +24,6 @@ export const WisdomCarousel = () => {
   const [wisdomText, setWisdomText] = useState(wisdomList[currentWisdom].wisdomText);
   const [authorName, setAuthorName] = useState(wisdomList[currentWisdom].author);
 
-  const centerPosition: Position = {
-    top: 0,
-    left: "0%",
-    width: "100%",
-    height: "70%"
-  };
-  
-  const rightPosition: Position = {
-    top: "236%",
-    left: "0%",
-    width: "49.2%",
-    height: "30%"
-  };
-  
-  const leftPosition: Position = {
-    top: "236%",
-    left: "103%",
-    width: "49.2%",
-    height: "30%"
-  };
-  
   // effect to listen to keyboard arrow buttons clicks and control the carousel
   useEffect(() => {
     const handleKeyDown = (event: KeyboardEvent) => {
@@ -111,63 +85,61 @@ export const WisdomCarousel = () => {
     }
   }, [wisdomText, authorName]);
   
-
-  const animateCards = () => {
-    wisdomList.forEach((wisdom, i) => {
-      const cardRef = wisdomCardRefs.current[i];
-      let position: Position;
-  
-      if (i === currentWisdom) {
-        position = centerPosition;
-        if (cardRef.current) {
-          cardRef.current.style.zIndex = "2";
-          gsap.to(cardRef.current.querySelector(".cardLabel"), { opacity: 0, duration: 0.4 });
-        }
-      } else if (i === currentWisdom - 1 || (currentWisdom === 0 && i === wisdomList.length - 1)) {
-        position = leftPosition;
-        if (cardRef.current) {
-          cardRef.current.style.zIndex = "1";
-          gsap.to(cardRef.current.querySelector(".cardLabel"), { opacity: 0.8, duration: 0.4 });
-        }
-      } else {
-        position = rightPosition;
-        if (cardRef.current) {
-          cardRef.current.style.zIndex = "1";
-          gsap.to(cardRef.current.querySelector(".cardLabel"), { opacity: 0.8, duration: 0.4 });
-        }
-      }
-  
-      gsap.to(cardRef.current, {
-        x: position.left,
-        y: position.top,
-        width: position.width,
-        height: position.height,      
-        duration: 0.7,
-        ease: "slow(0.3,0.7,false)",});
-    });
-
-    // Animate Pm and H3m text
-    const textContainer = wisdomTextRef.current;
-    if (textContainer) {
-      gsap.to(textContainer, {
-        height: 0,
-        opacity: 0,
-        duration: 0.15,
-        ease: "power1.inOut",
-        onComplete: () => {
-          setWisdomText(wisdomList[currentWisdom].wisdomText);
-          setAuthorName(wisdomList[currentWisdom].author);
-        }
-      });
-    }
-
-  };
-    
   useEffect(() => {
-    animateCards();
-  }, [currentWisdom, animateCards]);
-  
+    const animateCards = () => {
+      wisdomList.forEach((wisdom, i) => {
+        const cardRef = wisdomCardRefs.current[i];
+        let position: Position;
+    
+        if (i === currentWisdom) {
+          position = centerPosition;
+          if (cardRef.current) {
+            cardRef.current.style.zIndex = "2";
+            gsap.to(cardRef.current.querySelector(".cardLabel"), { opacity: 0, duration: 0.4 });
+          }
+        } else if (i === currentWisdom - 1 || (currentWisdom === 0 && i === wisdomList.length - 1)) {
+          position = leftPosition;
+          if (cardRef.current) {
+            cardRef.current.style.zIndex = "1";
+            gsap.to(cardRef.current.querySelector(".cardLabel"), { opacity: 0.8, duration: 0.4 });
+          }
+        } else {
+          position = rightPosition;
+          if (cardRef.current) {
+            cardRef.current.style.zIndex = "1";
+            gsap.to(cardRef.current.querySelector(".cardLabel"), { opacity: 0.8, duration: 0.4 });
+          }
+        }
+    
+        gsap.to(cardRef.current, {
+          x: position.left,
+          y: position.top,
+          width: position.width,
+          height: position.height,      
+          duration: 0.7,
+          ease: "slow(0.3,0.7,false)",});
+      });
 
+      // Animate Pm and H3m text
+      const textContainer = wisdomTextRef.current;
+      if (textContainer) {
+        gsap.to(textContainer, {
+          height: 0,
+          opacity: 0,
+          duration: 0.15,
+          ease: "power1.inOut",
+          onComplete: () => {
+            setWisdomText(wisdomList[currentWisdom].wisdomText);
+            setAuthorName(wisdomList[currentWisdom].author);
+          }
+        });
+      }
+
+    };
+    
+    animateCards();
+  }, [currentWisdom]);
+  
   return (
     <figure className="z-40 flex flex-col justify-center items-center bg-transparent h-visionary-thinkers-md overflow-hidden" ref={intersectionTarget}>
       {
