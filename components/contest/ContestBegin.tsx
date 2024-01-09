@@ -31,7 +31,7 @@ export const ContestBegin = () => {
         </div>
 
         <div className="col-span-2 z-20 sm:col-span-1">            
-          <Image src="contest_header_image.webp" width = {390} height = {271} className="sm:ml-10 lg:ml-0 w-full rounded-[225px] lg:rounded-[300px]" alt="photo" />
+          <Image src="/contest_header_image.webp" width = {390} height = {271} className="sm:ml-10 lg:ml-0 w-full rounded-[225px] lg:rounded-[300px]" alt="photo" />
         </div>
 
       </section>

@@ -34,8 +34,8 @@ export const Empowering = () => {
           </p>
         </div>
 
-        <Image src="heads-small.webp" alt="" width={390} height={271} className="mt-10 col-span-3 mx-auto my-auto w-full h-fit lg:hidden" />
-        <Image src="heads-large.webp" alt="" width={390} height={271} className="mt-11 col-span-3 mx-auto my-auto w-full h-fit hidden lg:block lg:order-3" />
+        <Image src="/heads-small.webp" alt="" width={390} height={271} className="mt-10 col-span-3 mx-auto my-auto w-full h-fit lg:hidden" />
+        <Image src="/heads-large.webp" alt="" width={390} height={271} className="mt-11 col-span-3 mx-auto my-auto w-full h-fit hidden lg:block lg:order-3" />
         
       </section>
 
