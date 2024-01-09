@@ -6,7 +6,6 @@ export const HeartIcon = (props: SVGProps<SVGSVGElement>) => (
     fill="none"
     viewBox="0 0 24 24"
     strokeWidth="1.5"
-    stroke="#134380"
     className="w-4 h-4 inline-block mr-1 mb-1 group-hover:fill-main-red group-hover:stroke-main-red"
     {...props}
   >

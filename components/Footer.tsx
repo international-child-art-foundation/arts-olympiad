@@ -62,7 +62,7 @@ const Footer = () => {
 
         <div className="text-sm w-full max-w-sm md:order-2 md:w-1/4 md:pl-11 lg:w-1/5 lg:pl-0 lg:w-auto text-neutral-white">
           <ol className="grid grid-cols-2 gap-y-5 md:gap-y-3 md:grid-cols-1">
-            <div className="break-words"><a href="#">FAQ's</a></div>
+            <div className="break-words"><Link href="/faq">FAQ's</Link></div>
             <div className="break-words"><a href="https://icaf.org/about/contact-us">Contact Us</a></div>
             <div className="break-words"><a href="#">Terms of use</a></div>
             <div className="break-words"><a href="#">Privacy policy</a></div>
@@ -90,7 +90,7 @@ const Footer = () => {
         </div> 
 
         <div className="bg-new-blue order-5 lg:mx-80 max-w-sm md:max-w-full md:w-screen grid grid-cols-1 place-items-center font-light text-xs text-neutral-white">
-          © 1997-2023 International Child Art Foundation, Post Office Box 58133, Washington, DC 20037
+          © 1997-2023 International Child Art Foundation | 2549 Virginia Avenue, NW, Washington, DC 20037, USA
         </div>
       </div>
     </footer>

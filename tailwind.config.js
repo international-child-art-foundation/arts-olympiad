@@ -52,12 +52,13 @@ module.exports = {
         "1": "1px",
       },
       screens: {
-        "xsm": "410px",
-        "mxl": "1380px"
+        "xsm": "382px",
+        "mxl": "1380px",
       },
       height: {
         "accordion-wide": "43rem",
         "accordion-narrow": "46rem",
+        "visionary-thinkers-md": "50rem",        
       },
       maxHeight: {
         "accordion-wide-max": "43rem",

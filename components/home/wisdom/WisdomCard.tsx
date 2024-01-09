@@ -1,47 +1,51 @@
-import React, {forwardRef} from "react";
-import {IWisdom} from "../../../mock/wisdomItems";
-import {LazyImage} from "../../common/images/LazyImage";
-import mobileBlob from "../../../public/home/wisdom/wisdom-cloud-blob-mobile.svg";
-import bigBlob from "../../../public/home/wisdom/wisdom-cloud-blob.svg";
-import Image from "next/image";
-import {H3m} from "../../common/texts/H3m";
-import {Pm} from "../../common/texts/Pm";
-import useWindowDimensions from "@/hooks/useWindowDimensions";
+import React, { forwardRef } from "react";
+import { LazyImage } from "../../common/images/LazyImage";
+import { H3m } from "../../common/texts/H3m";
+import { IWisdom } from "../../../mock/wisdomItems";
 
 interface IProps {
-  wisdom: IWisdom
+  wisdom: IWisdom;
+  onClick: () => void;
 }
 
-// eslint-disable-next-line react/display-name
-export const WisdomCard = forwardRef(({wisdom}: IProps, forwardedRef: React.Ref<HTMLImageElement>) => {
-
-  const {windowWidth} = useWindowDimensions();
-
-
-  if (windowWidth < 768) {
-    return (
-      <figure className="w-full">
-        <div className=" w-full h-[250px]" >
-          <LazyImage imageUrl={wisdom.url} alt={wisdom.alt} className="object-cover" />
-        </div>
-        <div className="w-full md:-mt-10 ml-6 md:ml-12 xl:ml-24 relative h-full">
-          <Image className="h-full min-w-[300px] w-full" src={windowWidth < 430 ? bigBlob : mobileBlob} alt=""/>
-          <div className="h-full absolute inset-0 py-10 pl-16 pr-6 grid grid-rows-4 ">
-            <H3m className="z-20 text-white text-center " >{wisdom.author}</H3m>
-            <Pm className=" text-[12px] xsm:text-sm z-20 text-white ">{wisdom.wisdomText}</Pm>
-          </div>
-        </div>
-      </figure>
-    );
-  }
-
+export const WisdomCard = forwardRef<HTMLDivElement, IProps>(({ wisdom, onClick }, ref) => {
   return (
-    <div className="md:h-[400px] lg:h-[500px] mxl:h-[600px] 2xl:h-[700px] col-span-8 row-span-2 flex">
-      <LazyImage
-        ref={forwardedRef}
-        imageUrl={wisdom.url} alt={wisdom.alt}
-        className=" self-end object-cover visionary-thinker  rounded-xl"
-      />
+    <div
+      ref={ref}
+      className="
+        thumbnail
+        overflow-hidden
+        cursor-pointer
+        absolute
+        border-1
+        border-black
+        rounded-xl
+      "
+      onClick={onClick}
+    >
+      <div className="absolute inset-0 rounded-xl overflow-hidden">
+        <LazyImage className="thumbnail-image w-full h-full object-cover" imageUrl={wisdom.url} alt={wisdom.alt} />
+        <div
+          className="
+            cardLabel
+            thumbnail-textfield
+            absolute
+            bottom-0
+            w-full
+            h-[20%]
+            bg-[#D9D9D9]
+            rounded-b-xl
+            flex
+            items-center
+            justify-center
+            font-semibold
+          "
+        >
+          <H3m>{wisdom.author}</H3m>
+        </div>
+      </div>
     </div>
   );
 });
+
+WisdomCard.displayName = "WisdomCard";

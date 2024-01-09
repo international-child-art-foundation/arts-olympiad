@@ -17,8 +17,8 @@ const MobileNav = () => {
     { name: "Sponsor", url: "/sponsor" }
   ];
   const links2 = [
-    { name: "Resources", url: "/" },
-    { name: "FAQ's", url: "/" }
+    { name: "Impact", url: "/impact" },
+    { name: "FAQ's", url: "/faq" }
   ];
   
   const closeMenu = () => {

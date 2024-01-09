@@ -30,7 +30,7 @@ export const FiveDrop = () => {
           </button>
           {isExpanded1 &&
           <nav tabIndex={0} className="w-full">
-            <UpIcon />
+            <UpIcon className="-mt-6"/>
             <p className="mt-4 font-light text-lg leading-loose">
               To explore sponsorship opportunities and learn about the unique benefits, please contact us.
             </p>
@@ -49,7 +49,7 @@ export const FiveDrop = () => {
           </button>
           {isExpanded2 &&
           <nav tabIndex={0} className="w-full">
-            <UpIcon />
+            <UpIcon className="-mt-6"/>
             <p className="mt-4 font-light text-lg leading-loose">
               As a sponsor, you will gain visibility and recognition among our audience.  You will also have the opportunity to support young artists to contribute to a meaningful cause. 
             </p>
@@ -68,7 +68,7 @@ export const FiveDrop = () => {
           </button>
           {isExpanded3 &&
           <nav tabIndex={0} className="w-full">
-            <UpIcon />
+            <UpIcon className="-mt-6"/>
             <p className="mt-4 font-light text-lg leading-loose">
               Please contact us to explore collaboration opportunities. 
             </p>
@@ -87,7 +87,7 @@ export const FiveDrop = () => {
           </button>
           {isExpanded4 &&
           <nav tabIndex={0} className="w-full">
-            <UpIcon />
+            <UpIcon className="-mt-6"/>
             <p className="mt-4 font-light text-lg leading-loose">
               Sponsorship involves providing financial support to our charity and the at competition.  In return, sponsors receive various benefits such as brand exposure and recognition.
             </p>
@@ -106,7 +106,7 @@ export const FiveDrop = () => {
           </button>
           {isExpanded5 &&
           <nav tabIndex={0} className="w-full">
-            <UpIcon />
+            <UpIcon className="-mt-6"/>
             <p className="mt-4 mb-8 font-light text-lg leading-loose">
               Absolutely! If you prefer to make a donation instead of becoming a sponsor, we appreciate your support. Visit our donation page to contribute. 
             </p>

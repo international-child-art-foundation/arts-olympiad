@@ -15,13 +15,13 @@ export const Wisdom = () => {
         <H2m className="z-40 text-center inline-block relative mb-6">
           The Art of Living: Wisdom from <span className="z-40 inline-block font-bold text-dark-blue">Visionary Thinkers</span>
           <div
-            className="hidden md:block draw-line-bottom z-30 bg-neutral-white w-[145px] h-[200px] absolute top-0 -right-36 mxl:-right-36 2xl:-right-64"
+            className="hidden md:block draw-line-bottom z-30 bg-neutral-white w-[145px] h-[200px] absolute top-0 -right-36 mxl:-right-36 2xl:-right-40"
           />
           <Image
             width={80}
             src={arrow}
             alt="Arrow pointing down."
-            className="hidden md:block z-20 absolute top-10 -right-20 mxl:-right-36 2xl:-right-64"
+            className="hidden md:block z-20 absolute top-10 -right-20 mxl:-right-36 2xl:-right-40"
           />
         </H2m>
         <Image width={30} src={arrow} alt=" Arrow pointing down." className="block md:hidden ml-2" />
