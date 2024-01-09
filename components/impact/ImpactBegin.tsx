@@ -5,6 +5,7 @@ import pinkBGipad from "../../public/svgs/impact-svg/pinkBG-ipad.svg";
 import pinkBGtablet from "../../public/svgs/impact-svg/pinkBG-tablet.svg";
 import pinkBGsmall from "../../public/svgs/impact-svg/pinkBG-small.svg";
 import pinkBGlarge from "../../public/svgs/impact-svg/pinkBG-large.svg";
+import impactHeaderImage from "../../public/impact/impact_header_image.webp";
 
 export const ImpactBegin = () => {
   return (
@@ -35,7 +36,7 @@ export const ImpactBegin = () => {
         </div>
 
         <div className="col-span-2 z-20 sm:col-span-1">            
-          <Image src="/impact_header_image.webp" width = {390} height = {271} className="sm:ml-10 lg:ml-0 w-full rounded-[225px] lg:rounded-[300px]" alt="photo" />
+          <Image src={impactHeaderImage} width = {390} height = {271} className="sm:ml-10 lg:ml-0 w-full rounded-[225px] lg:rounded-[300px]" alt="photo" />
         </div>
 
       </section>
