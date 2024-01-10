@@ -18,7 +18,16 @@ export const TextInput = ({className, labelText, id, placeholder, inputType, err
 
   return (
     <div className={`${className} my-1 flex flex-col`} >
-      <InputLabel labelText={labelText} htmlFor={id} error={error} touched={touched} />
+      <InputLabel
+        className={`font-semibold ${
+          required && error && touched ? "text-accent-red"
+            :
+            required &&!error && touched && value ?  "text-accent-green"
+              :
+              ""
+        }`}
+        labelText={labelText} htmlFor={id} error={error} touched={touched}
+      />
       <Field
         className={`
           my-2 p-3 border-1 rounded-lg 
@@ -35,7 +44,8 @@ export const TextInput = ({className, labelText, id, placeholder, inputType, err
         type={inputType || "text" }
         id={id}
         name={id}
-      />
+      >
+      </Field>
 
       <ErrorSuccessPopUp required={required} id={id} error={error} touched={touched} value={value} />
     </div>
