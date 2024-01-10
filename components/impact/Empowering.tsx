@@ -6,6 +6,9 @@ import yellowBGsmall from "../../public/svgs/impact-svg/yellowBG-small.svg";
 import yellowBGlarge from "../../public/svgs/impact-svg/yellowBG-large.svg";
 import yellowTiny from "../../public/svgs/impact-svg/yellowBlobTiny.svg";
 import icafLogo from "../../public/svgs/Icaf-logo.svg";
+import headsLarge from "../../public/impact/heads-large.webp";
+import headsSmall from "../../public/impact/heads-small.webp";
+import colorfulScribble from "../../public/svgs/colorful-scribble.svg";
 
 export const Empowering = () => {
   return (
@@ -25,7 +28,7 @@ export const Empowering = () => {
           <h2 className="text-3xl font-normal ">
             Empowering the Next <span className="inline-block">
               Generation
-              <Image src="/svgs/colorful-scribble.svg" alt="" width={250} height={20} />
+              <Image src={colorfulScribble} alt="" width={250} height={20} />
             </span>
             
           </h2>
@@ -34,8 +37,8 @@ export const Empowering = () => {
           </p>
         </div>
 
-        <Image src="heads-small.webp" alt="" width={390} height={271} className="mt-10 col-span-3 mx-auto my-auto w-full h-fit lg:hidden" />
-        <Image src="heads-large.webp" alt="" width={390} height={271} className="mt-11 col-span-3 mx-auto my-auto w-full h-fit hidden lg:block lg:order-3" />
+        <Image src={headsSmall} alt="" width={390} height={271} className="mt-10 col-span-3 mx-auto my-auto w-full h-fit lg:hidden" />
+        <Image src={headsLarge} alt="" width={390} height={271} className="mt-11 col-span-3 mx-auto my-auto w-full h-fit hidden lg:block lg:order-3" />
         
       </section>
 

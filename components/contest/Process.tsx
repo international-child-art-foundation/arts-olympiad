@@ -1,5 +1,7 @@
 import Image from "next/image";
 import {AnimatedScribble} from "../../components/common/decorations/AnimatedScribble";
+import laptop from "../../public/contest/laptop.webp";
+import rules from "../../public/contest/rules.webp";
 
 export const Process = () => {
   return (
@@ -14,7 +16,7 @@ export const Process = () => {
 
 
           <div className="rounded-xl w-full h-full col-span-2 lg:col-span-1 pr-10">           
-            <Image src="laptop.webp" width = {704} height = {482} className="object-cover rounded-xl w-full h-full " alt="laptop" />
+            <Image src={laptop} width = {704} height = {482} className="object-cover rounded-xl w-full h-full " alt="laptop" />
           </div>
 
           
@@ -56,7 +58,7 @@ export const Process = () => {
             </ol>
           </article>
           <div className="rounded-xl w-full h-full col-span-2 lg:col-span-1 lg:pl-10 order-1 lg:order-2">           
-            <Image src="rules.webp" width = {704} height = {482} className="object-right object-cover rounded-xl w-full h-full" alt="rules" />
+            <Image src={rules} width = {704} height = {482} className="object-right object-cover rounded-xl w-full h-full" alt="rules" />
           </div>
 
 
