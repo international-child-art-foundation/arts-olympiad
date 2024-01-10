@@ -9,6 +9,8 @@ import Image from "next/image";
 import facebook from "../../public/auth/Facebook_Logo.svg";
 import google from "../../public/auth/Google_Logo.svg";
 import apple from "../../public/auth/Apple.svg";
+import OpenEye from "../../public/auth/eye_open.svg";
+import ClosedEye from "../../public/auth/eye_closed.svg";
 import Link from "next/link";
 
 interface IProps {
@@ -59,7 +61,12 @@ export const RegisterForm = ({ setIsSubmitted }: IProps) => {
             <TextInput className="mt-4" placeholder="johndoe@gmail.com" error={errors.email}  touched={touched.email} value={values.email} labelText="Email" id="email" />
             <div className="relative">
               <TextInput inputType={`${!showPassword && "password" }`} className="mb-4" placeholder="Squk1*Bn" error={errors.password}  touched={touched.password} value={values.password} labelText="Password" id="password" />
-              <Image className="absolute inset-0" onClick={() => setShowPassword(!showPassword)} width={30} src={apple} alt="Apple logo." />
+              <Image
+                className="absolute top-11 right-4 cursor-pointer"
+                onClick={() => setShowPassword(!showPassword)}
+                width={30} height={30}
+                src={showPassword ? OpenEye : ClosedEye }
+                alt="Show password button." />
             </div>
             <ButtonStd type="submit" className="w-full my-2">Sign up</ButtonStd>
           </Form>
