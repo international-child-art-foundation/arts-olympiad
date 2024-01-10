@@ -8,8 +8,8 @@ interface IProps {
 export const CheckBox = ({name, value}: IProps) => {
   return (
     <div className="my-2">
-      <label>
-        <Field type="checkbox" name={name} value={value} />
+      <label className="cursor-pointer">
+        <Field className="cursor-pointer" type="checkbox" name={name} value={value} />
         {" " + value}
         <span className="sr-only">.</span>
       </label>

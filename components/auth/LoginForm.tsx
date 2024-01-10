@@ -1,6 +1,6 @@
 import React, {useState} from "react";
 import * as Yup from "yup";
-import {Field, Form, Formik} from "formik";
+import {Form, Formik} from "formik";
 import {TextInput} from "../common/form_inputs/TextInput";
 import {ButtonStd} from "../common/ui/ButtonStd";
 import {H2m} from "../common/texts/H2m";
@@ -15,6 +15,7 @@ import Link from "next/link";
 import {useRouter} from "next/navigation";
 import {Modal} from "../common/ui/Modal";
 import {CheckBox} from "../common/form_inputs/CheckBox";
+import {ForgotPasswordForm} from "./ForgotPasswordForm";
 
 export interface IContactFormValues {
   email: string,
@@ -43,7 +44,7 @@ export const LoginForm = () => {
   };
 
   return (
-    <div className="max-w-[90%] sm:max-w-[70%] lg:max-w-[40%]">
+    <div className="w-[90%] sm:w-[70%] lg:w-[40%]">
       <H2m>Log in to your account</H2m>
       <Formik
         initialValues={initialValues}
@@ -54,7 +55,7 @@ export const LoginForm = () => {
           <Form className="">
             <TextInput inputType="email" className="mt-4" placeholder="johndoe@gmail.com" error={errors.email}  touched={touched.email} value={values.email} labelText="Email" id="email" />
             <div className="relative">
-              <TextInput inputType={`${!showPassword && "password" }`} className="mb-4" placeholder="Squk1*Bn" error={errors.password}  touched={touched.password} value={values.password} labelText="Password" id="password" />
+              <TextInput inputType={`${!showPassword && "password" }`} placeholder="Squk1*Bn" error={errors.password}  touched={touched.password} value={values.password} labelText="Password" id="password" />
               <Image
                 className="absolute top-11 right-4 cursor-pointer"
                 onClick={() => setShowPassword(!showPassword)}
@@ -62,11 +63,11 @@ export const LoginForm = () => {
                 src={showPassword ? OpenEye : ClosedEye }
                 alt="Show password button." />
             </div>
-            <div className="flex flex-col">
+            <div className="flex flex-row justify-between">
               <CheckBox name="remember" value="Remember me"/>
-              <ButtonStd type="button" className="bg-transparent border-none text-xl">
-                <Pm className="ml-4 text-black text-base text-nowrap">Forgot your password?</Pm>
-              </ButtonStd>
+              <button onClick={() => setShowForgotPassword(true)} type="button" className="bg-transparent border-none  ml-8">
+                Forgot your password?
+              </button>
             </div>
             <ButtonStd type="submit" className="w-full my-2">Log in</ButtonStd>
           </Form>
@@ -97,7 +98,7 @@ export const LoginForm = () => {
         <span className="text-main-blue font-semibold"><Link className="inline" href="/auth/register"> Create one now</Link></span>
       </Pm>
       <Modal isOpen={showForgotPassword} onClose={() => setShowForgotPassword(false)}>
-        <></>
+        <ForgotPasswordForm />
       </Modal>
     </div>
   );
