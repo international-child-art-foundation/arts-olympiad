@@ -160,8 +160,8 @@ export const Carousel = () => {
 
 
         <section className="overflow-hidden lg:hidden z-20 m-auto max-w-screen-2xl ">
-          <article className="bg-light-green p-3 rounded-2xl">
-            <Image src={greenBlob} alt="" width={1536} height={432} className="absolute z-0 w-fit h-1/3 -mt-3 -ml-3" />
+          <article className="bg-light-green p-3 rounded-2xl relative overflow-hidden">
+            <Image src={greenBlob} alt="" width={1536} height={432} className="absolute z-0 w-fit -mt-3 -ml-3" />
             <div className="relative mx-5%">
               <h3 className="font-semibold text-2xl mt-10">
                 Broaden Horizons with Art
@@ -177,7 +177,7 @@ export const Carousel = () => {
             </div>
           </article>
 
-          <article className="bg-baby-blue p-3 rounded-2xl mt-10">
+          <article className="bg-baby-blue p-3 rounded-2xl mt-10 relative overflow-hidden">
             <Image src={blueBlob} alt="" width={1536} height={432} className="absolute z-0 w-fit h-fit -mt-3 -ml-3 rounded-2xl" />
             <div className="relative mx-5%">
               <h3 className="font-semibold text-2xl mt-10">
@@ -195,8 +195,8 @@ export const Carousel = () => {
             </div>
           </article>
 
-          <article className="bg-[#FFEA8B] p-3 rounded-2xl mt-10">
-            <Image src={yellowDots} alt="" width={1536} height={432} className="absolute z-0 w-fit h-1/4 -mt-3 -ml-3" />
+          <article className="bg-[#FFEA8B] p-3 rounded-2xl mt-10 relative overflow-hidden">
+            <Image src={yellowDots} alt="" width={1536} height={432} className="absolute z-0 w-fit -mt-3 -ml-3" />
             <div className="relative mx-5%">
               <h3 className="font-semibold text-2xl mt-10">
                 ChildArt Magazine’s Teaching Supplements
