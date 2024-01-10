@@ -1,6 +1,6 @@
 import React, {useState} from "react";
 import * as Yup from "yup";
-import {Form, Formik} from "formik";
+import {Field, Form, Formik} from "formik";
 import {TextInput} from "../common/form_inputs/TextInput";
 import {ButtonStd} from "../common/ui/ButtonStd";
 import {H2m} from "../common/texts/H2m";
@@ -13,6 +13,8 @@ import OpenEye from "../../public/auth/eye_open.svg";
 import ClosedEye from "../../public/auth/eye_closed.svg";
 import Link from "next/link";
 import {useRouter} from "next/navigation";
+import {Modal} from "../common/ui/Modal";
+import {CheckBox} from "../common/form_inputs/CheckBox";
 
 export interface IContactFormValues {
   email: string,
@@ -21,13 +23,7 @@ export interface IContactFormValues {
 
 const validationSchema = Yup.object().shape({
   email: Yup.string().email("Not a recognized email address").required("Email is required"),
-  password: Yup.string()
-    .required("Password is required")
-    .min(8, "Password must be at least 8 characters")
-    .matches(
-      /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]+$/,
-      "Password must contain at least 1 uppercase letter, 1 lowercase letter, 1 digit, and 1 special character"
-    ),
+  password: Yup.string().required("Password is required")
 });
 
 const initialValues: IContactFormValues = {
@@ -35,9 +31,10 @@ const initialValues: IContactFormValues = {
   password: ""
 };
 
-export const RegisterForm = () => {
+export const LoginForm = () => {
 
   const [showPassword, setShowPassword] = useState(false);
+  const [showForgotPassword, setShowForgotPassword] = useState(false);
   const router = useRouter();
 
   const onSubmit = (values: IContactFormValues) => {
@@ -47,8 +44,7 @@ export const RegisterForm = () => {
 
   return (
     <div className="max-w-[90%] sm:max-w-[70%] lg:max-w-[40%]">
-      <H2m>Create an account</H2m>
-      <Pm className="my-2" >Join us! Create your account to either vote for inspiring art or enter your own work.</Pm>
+      <H2m>Log in to your account</H2m>
       <Formik
         initialValues={initialValues}
         validationSchema={validationSchema}
@@ -66,7 +62,13 @@ export const RegisterForm = () => {
                 src={showPassword ? OpenEye : ClosedEye }
                 alt="Show password button." />
             </div>
-            <ButtonStd type="submit" className="w-full my-2">Sign up</ButtonStd>
+            <div className="flex flex-col">
+              <CheckBox name="remember" value="Remember me"/>
+              <ButtonStd type="button" className="bg-transparent border-none text-xl">
+                <Pm className="ml-4 text-black text-base text-nowrap">Forgot your password?</Pm>
+              </ButtonStd>
+            </div>
+            <ButtonStd type="submit" className="w-full my-2">Log in</ButtonStd>
           </Form>
         )}
       </Formik>
@@ -91,9 +93,12 @@ export const RegisterForm = () => {
           </ButtonStd>
         </div>
       </div>
-      <Pm className="font-semibold my-4 text-center">Already have an account?
-        <span className="text-main-blue font-semibold"><Link className="inline" href="/auth/login"> Log in here</Link></span>
+      <Pm className="font-semibold my-4 text-center">Don’t have an account?
+        <span className="text-main-blue font-semibold"><Link className="inline" href="/auth/register"> Create one now</Link></span>
       </Pm>
+      <Modal isOpen={showForgotPassword} onClose={() => setShowForgotPassword(false)}>
+        <></>
+      </Modal>
     </div>
   );
 };
