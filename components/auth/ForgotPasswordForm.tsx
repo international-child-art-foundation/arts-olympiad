@@ -1,5 +1,4 @@
 import React, {useState} from "react";
-import {useRouter} from "next/navigation";
 import {H2m} from "../common/texts/H2m";
 import {Pm} from "../common/texts/Pm";
 import {Form, Formik} from "formik";
@@ -23,11 +22,9 @@ const initialValues: IContactFormValues = {
 export const ForgotPasswordForm = () => {
 
   const [submitted, setSubmitted] = useState(false);
-  const router = useRouter();
 
   const onSubmit = (values: IContactFormValues) => {
     console.log(values);
-    router.push("/auth/login");
     setSubmitted(true);
   };
 

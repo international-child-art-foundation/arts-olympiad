@@ -63,9 +63,9 @@ export const LoginForm = () => {
                 src={showPassword ? OpenEye : ClosedEye }
                 alt="Show password button." />
             </div>
-            <div className="flex flex-row justify-between">
+            <div className=" mb-4 flex flex-col xsm:flex-row items-center justify-between">
               <CheckBox name="remember" value="Remember me"/>
-              <button onClick={() => setShowForgotPassword(true)} type="button" className="bg-transparent border-none  ml-8">
+              <button onClick={() => setShowForgotPassword(true)} type="button" className="font-semibold bg-transparent border-none xsm:ml-8">
                 Forgot your password?
               </button>
             </div>
