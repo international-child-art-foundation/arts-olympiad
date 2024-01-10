@@ -1,5 +1,8 @@
 import Image from "next/image";
 import hashtag from "../../public/home/hashtag.svg";
+import aboutHeaderImage from "../../public/about/about_header_image.webp";
+import heroGreenBlob from "../../public/svgs/blobs/hero-green-blob.svg";
+import heroGreenBlobMini from "../../public/svgs/blobs/hero-green-blob-minitablet.svg";
 
 export const AboutHero = () => {
   return (
@@ -21,7 +24,7 @@ export const AboutHero = () => {
           </div>
         </article>
         <Image
-          src="about_header_image.webp"
+          src={aboutHeaderImage}
           alt={"View over washington monument from side of capitolium "}
           className="rounded-xl w-full h-full m-auto max-w-md md:max-w-fit md:ml-12 md:min-w-[30%]"
           // style={{boxShadow: "10px 10px 0px 8px #689576", borderRadius: "46%"}}
@@ -31,10 +34,10 @@ export const AboutHero = () => {
 
       </section>
 
-      <Image src="/svgs/blobs/hero-green-blob-minitablet.svg" alt="" width={1279} height={377} className="absolute -z-10 sm:block lg:hidden -top-32 w-full h-full" />
-      <Image src="/svgs/blobs/hero-green-blob.svg" alt="" width={1279} height={377} className="absolute -z-10 hidden lg:block xl:hidden -top-32 w-full h-full" />
-      <Image src="/svgs/blobs/hero-green-blob.svg" alt="" width={1536} height={432} className="absolute -z-10 hidden xl:block 2xl:hidden -top-32 w-full h-[1000px]" />
-      <Image src="/svgs/blobs/hero-green-blob.svg" alt="" width={1536} height={432} className="absolute -z-10 hidden 2xl:block -top-32 right-0 w-full h-full mxl:h-[1000px]" />
+      <Image src={heroGreenBlobMini} alt="" width={1279} height={377} className="absolute -z-10 sm:block lg:hidden -top-32 w-full h-full" />
+      <Image src={heroGreenBlob} alt="" width={1279} height={377} className="absolute -z-10 hidden lg:block xl:hidden -top-32 w-full h-full" />
+      <Image src={heroGreenBlob} alt="" width={1536} height={432} className="absolute -z-10 hidden xl:block 2xl:hidden -top-32 w-full h-[1000px]" />
+      <Image src={heroGreenBlob} alt="" width={1536} height={432} className="absolute -z-10 hidden 2xl:block -top-32 right-0 w-full h-full mxl:h-[1000px]" />
 
     </>
   );

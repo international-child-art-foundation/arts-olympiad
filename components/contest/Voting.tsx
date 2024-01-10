@@ -5,6 +5,7 @@ import { VoteIcon } from "../../public/svgs/contest-svg/VoteIcon";
 import { ThreeDot } from "../../public/svgs/contest-svg/ThreeDot";
 import { ThreePerson } from "../../public/svgs/contest-svg/ThreePerson";
 import { ThreeMedal } from "../../public/svgs/contest-svg/ThreeMedal";
+import hands from "../../public/contest/hands.webp";
 
 export const Voting = () => {
   return (
@@ -23,7 +24,7 @@ export const Voting = () => {
       
       <div className="grid grid-cols-2 z-20 mt-10 m-auto max-w-screen-2xl px-8 md:px-12 lg:px-16 xl:px-20">
         <div className="z-50 col-span-2 lg:col-span-1 bg-light-yellow w-full lg:w-[460px] xl:w-[636px] 2xl:w-[816px] h-fix rounded-xl">
-          <Image src="hands.webp" width = {509} height = {432} className="mx-auto w-3/4 sm:w-2/5 lg:w-1/2 xl:w-4/5 2xl:w-2/3 my-7" alt="hands" />
+          <Image src={hands} width = {509} height = {432} className="mx-auto w-3/4 sm:w-2/5 lg:w-1/2 xl:w-4/5 2xl:w-2/3 my-7" alt="hands" />
           <div className="grid grid-cols-3">
             <h2 className="text-2xl sm:text-xl lg:text-2xl lg:font-semibold col-span-3 lg:col-span-1 ml-7 sm:ml-16 lg:ml-7 xl:ml-9 2xl:ml-11">One-Vote Rule:</h2>
             <p className="mx-7 sm:mx-16 col-span-3 lg:col-span-2 mt-4 font-light text-base mb-7">Remember, your voice matters! Each participant is allowed a single vote to ensure a fair and balanced competition. Cast your vote carefully — once it's submitted, it's final!</p>

@@ -5,6 +5,7 @@ import orangeBGipad from "../../public/svgs/contest-svg/orangeBG-ipad.svg";
 import orangeBGtablet from "../../public/svgs/contest-svg/orangeBG-tablet.svg";
 import orangeBGsmall from "../../public/svgs/contest-svg/orangeBG-small.svg";
 import orangeBGlarge from "../../public/svgs/contest-svg/orangeBG-large.svg";
+import contestHeaderImage from "../../public/contest/contest_header_image.webp";
 
 export const ContestBegin = () => {
   return (
@@ -31,7 +32,7 @@ export const ContestBegin = () => {
         </div>
 
         <div className="col-span-2 z-20 sm:col-span-1">            
-          <Image src="contest_header_image.webp" width = {390} height = {271} className="sm:ml-10 lg:ml-0 w-full rounded-[225px] lg:rounded-[300px]" alt="photo" />
+          <Image src={contestHeaderImage} width = {390} height = {271} className="sm:ml-10 lg:ml-0 w-full rounded-[225px] lg:rounded-[300px]" alt="photo" />
         </div>
 
       </section>
