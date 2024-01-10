@@ -70,7 +70,10 @@ export const RegisterForm = () => {
           </Form>
         )}
       </Formik>
-      <div>
+      <Pm className="font-semibold my-4 text-center">Already have an account?
+        <span className="text-main-blue font-semibold"><Link className="inline" href="/auth/login"> Log in here</Link></span>
+      </Pm>
+      <div className="invisible">
         <div className="flex flex-row">
           <div className=" mx-4 z-10 my-12 relative bg-main-grey w-full m-0 border-1 border-main-grey" />
           <p className="font-light my-auto text-2xl min-w-24 text-center">Or With</p>
@@ -91,9 +94,9 @@ export const RegisterForm = () => {
           </ButtonStd>
         </div>
       </div>
-      <Pm className="font-semibold my-4 text-center">Already have an account?
-        <span className="text-main-blue font-semibold"><Link className="inline" href="/auth/login"> Log in here</Link></span>
-      </Pm>
+      {/*<Pm className="font-semibold my-4 text-center">Already have an account?*/}
+      {/*  <span className="text-main-blue font-semibold"><Link className="inline" href="/auth/login"> Log in here</Link></span>*/}
+      {/*</Pm>*/}
     </div>
   );
 };
