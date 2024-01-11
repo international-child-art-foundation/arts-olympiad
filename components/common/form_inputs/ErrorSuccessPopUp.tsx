@@ -13,11 +13,11 @@ interface IProps {
 
 export const ErrorSuccessPopUp = ({required, error, touched, value, id, className}: IProps) => {
   return (
-    <div className={`${className} flex flex-row h-6`}>
+    <div className={`${className} flex flex-row min-h-6`}>
       {
         required && error && touched &&
         <div className="flex flex-row" aria-label="Error.">
-          <Image src="/contact/bx_error-circle.svg" alt="" width={20} height={20} />
+          <Image className="self-start" src="/contact/bx_error-circle.svg" alt="" width={20} height={20} />
           <ErrorMessage className="block text-accent-red" name={id} component="div" />
           <span className="sr-only">.</span>
         </div>
