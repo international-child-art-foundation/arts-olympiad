@@ -1,0 +1,146 @@
+{
+  "api": {
+    "apia4acf3fa": {
+      "dependsOn": [
+        {
+          "attributes": [
+            "Name",
+            "Arn"
+          ],
+          "category": "function",
+          "resourceName": "usersLambda"
+        }
+      ],
+      "providerPlugin": "awscloudformation",
+      "service": "API Gateway"
+    }
+  },
+  "auth": {
+    "artsolympiadc497c1aa": {
+      "customAuth": false,
+      "dependsOn": [],
+      "frontendAuthConfig": {
+        "mfaConfiguration": "OFF",
+        "mfaTypes": [
+          "SMS"
+        ],
+        "passwordProtectionSettings": {
+          "passwordPolicyCharacters": [],
+          "passwordPolicyMinLength": 8
+        },
+        "signupAttributes": [
+          "EMAIL"
+        ],
+        "socialProviders": [],
+        "usernameAttributes": [],
+        "verificationMechanisms": [
+          "EMAIL"
+        ]
+      },
+      "providerPlugin": "awscloudformation",
+      "service": "Cognito"
+    }
+  },
+  "function": {
+    "createPresignedUrl": {
+      "build": true,
+      "dependsOn": [
+        {
+          "attributes": [
+            "BucketName"
+          ],
+          "category": "storage",
+          "resourceName": "s369dba687"
+        }
+      ],
+      "providerPlugin": "awscloudformation",
+      "service": "Lambda"
+    },
+    "processImage": {
+      "build": true,
+      "dependsOn": [],
+      "providerPlugin": "awscloudformation",
+      "service": "Lambda"
+    },
+    "usersLambda": {
+      "build": true,
+      "dependsOn": [
+        {
+          "attributeEnvMap": {
+            "Arn": "TABLE_ARN",
+            "Name": "TABLE_NAME"
+          },
+          "attributes": [
+            "Name",
+            "Arn"
+          ],
+          "category": "storage",
+          "resourceName": "dynamo22205621"
+        }
+      ],
+      "providerPlugin": "awscloudformation",
+      "service": "Lambda"
+    }
+  },
+  "parameters": {
+    "AMPLIFY_function_createPresignedUrl_deploymentBucketName": {
+      "usedBy": [
+        {
+          "category": "function",
+          "resourceName": "createPresignedUrl"
+        }
+      ]
+    },
+    "AMPLIFY_function_createPresignedUrl_s3Key": {
+      "usedBy": [
+        {
+          "category": "function",
+          "resourceName": "createPresignedUrl"
+        }
+      ]
+    },
+    "AMPLIFY_function_processImage_deploymentBucketName": {
+      "usedBy": [
+        {
+          "category": "function",
+          "resourceName": "processImage"
+        }
+      ]
+    },
+    "AMPLIFY_function_processImage_s3Key": {
+      "usedBy": [
+        {
+          "category": "function",
+          "resourceName": "processImage"
+        }
+      ]
+    },
+    "AMPLIFY_function_usersLambda_deploymentBucketName": {
+      "usedBy": [
+        {
+          "category": "function",
+          "resourceName": "usersLambda"
+        }
+      ]
+    },
+    "AMPLIFY_function_usersLambda_s3Key": {
+      "usedBy": [
+        {
+          "category": "function",
+          "resourceName": "usersLambda"
+        }
+      ]
+    }
+  },
+  "storage": {
+    "dynamo22205621": {
+      "providerPlugin": "awscloudformation",
+      "service": "DynamoDB"
+    },
+    "s369dba687": {
+      "dependsOn": [],
+      "providerPlugin": "awscloudformation",
+      "service": "S3"
+    }
+  }
+}

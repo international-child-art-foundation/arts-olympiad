@@ -1,0 +1,12 @@
+{
+  "permissions": {
+    "storage": {
+      "s369dba687": [
+        "create",
+        "read",
+        "update"
+      ]
+    }
+  },
+  "lambdaLayers": []
+}

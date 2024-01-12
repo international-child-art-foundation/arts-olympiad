@@ -3,6 +3,7 @@ import { Inter } from "next/font/google";
 import Footer from "../../components/Footer";
 import Header from "../../components/Header";
 import { Metadata } from "next";
+import ConfigureAmplifyClientSide from "@/utils/ConfigureAmplifyClientSide";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -26,6 +27,7 @@ export default function RootLayout({
       <body className={`${inter.className} bg-neutral-white`}>
         <Header/>
         <main className="overflow-hidden flex flex-col justify-center align-middle w-full m-auto">
+          <ConfigureAmplifyClientSide />
           { children }
         </main>
         <Footer />
