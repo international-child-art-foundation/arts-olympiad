@@ -10,7 +10,7 @@ interface Ellipse {
   rotation: (time: number) => { x: number, y: number };
 }
 
-export default function TestPage() {
+export default function AnimatedBlob() {
   useEffect(() => {
     const canvas = document.getElementById("myCanvas") as HTMLCanvasElement;
     const ctx = canvas.getContext("2d");
