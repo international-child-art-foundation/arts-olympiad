@@ -2,8 +2,8 @@ import React from "react";
 
 
 export default function CountdownContainer({
-  backgroundColor = "", // Should match background color of the page
-  stroke = 5, // Width of the curved rectangle outline
+  backgroundColor = "#F9FAF6", // Should match background color of the page
+  stroke = 2, // Width of the curved rectangle outline
   duration = 10, // Duration of animation
   scale = 1, // Size of container
 }) {
@@ -24,20 +24,20 @@ export default function CountdownContainer({
           <feGaussianBlur in="SourceGraphic" stdDeviation="5"/>
         </filter>
         <mask id="mask">
-          <ellipse cx="0" cy="0" rx={30 + stroke} ry="10" fill="#fff" filter="url(#blurFilter)" fill-opacity="10%">
-            <animateMotion dur={duration} begin="0.2s" repeatCount="indefinite" path={ellipsePath} rotate="auto"/>
+          <ellipse cx="0" cy="0" rx={30 + stroke} ry="12" fill="#fff" filter="url(#blurFilter)" fill-opacity="10%">
+            <animateMotion dur={duration} begin="0s" repeatCount="indefinite" path={ellipsePath} rotate="auto"/>
           </ellipse>
-          <ellipse cx="0" cy="0" rx={35 + stroke} ry="12" fill="#fff" filter="url(#blurFilter)" fill-opacity="2%">
-            <animateMotion dur={duration} begin="0.3s" repeatCount="indefinite" path={ellipsePath} rotate="auto"/>
+          <ellipse cx="0" cy="0" rx={35 + stroke} ry="10" fill="#fff" filter="url(#blurFilter)" fill-opacity="6%">
+            <animateMotion dur={duration} begin="-0.2s" repeatCount="indefinite" path={ellipsePath} rotate="auto"/>
           </ellipse>
-          <ellipse cx="0" cy="0" rx={40 + stroke} ry="10" fill="#fff" filter="url(#blurFilter)" fill-opacity="2%">
+          <ellipse cx="0" cy="0" rx={40 + stroke} ry="8" fill="#fff" filter="url(#blurFilter)" fill-opacity="6%">
+            <animateMotion dur={duration} begin="-0.1s" repeatCount="indefinite" path={ellipsePath} rotate="auto"/>
+          </ellipse>
+          <ellipse cx="0" cy="0" rx={45 + stroke} ry="6" fill="#fff" filter="url(#blurFilter)" fill-opacity="6%">
             <animateMotion dur={duration} begin="0.1s" repeatCount="indefinite" path={ellipsePath} rotate="auto"/>
           </ellipse>
-          <ellipse cx="0" cy="0" rx={45 + stroke} ry="12" fill="#fff" filter="url(#blurFilter)" fill-opacity="2%">
-            <animateMotion dur={duration} begin="0.4s" repeatCount="indefinite" path={ellipsePath} rotate="auto"/>
-          </ellipse>
-          <ellipse cx="0" cy="0" rx={50 + stroke} ry="10" fill="#fff" filter="url(#blurFilter)" fill-opacity="2%">
-            <animateMotion dur={duration} begin="0.0s" repeatCount="indefinite" path={ellipsePath} rotate="auto"/>
+          <ellipse cx="0" cy="0" rx={50 + stroke} ry="4" fill="#fff" filter="url(#blurFilter)" fill-opacity="6%">
+            <animateMotion dur={duration} begin="0.2s" repeatCount="indefinite" path={ellipsePath} rotate="auto"/>
           </ellipse>
         </mask>
         <filter id="blur-effect" x="-50%" y="-50%" width="200%" height="200%">
@@ -46,30 +46,21 @@ export default function CountdownContainer({
       </defs>
       <rect x={1 + stroke} y={1 + stroke} width="600" height="100" rx="51" stroke="url(#paint0_linear_3_4)" stroke-width={stroke}/>
       <rect x={1 + stroke} y={1 + stroke} width="600" height="100" rx="51" fill="url(#paint0_linear_3_4)" mask="url(#mask)"/>
-      <path id="ellipse2path" d="M 50,1 L 550,1 A 50,50 0 0 1 551,101 L 50,101 A 45,45 0 0 1 50,1" fill="none" stroke=""/>
       <g style={{
         mixBlendMode: "soft-light"
       }}
       filter="url(#blur-effect)">
-        <circle cx="0" cy="0" r="55" fill={backgroundColor}>
-          <animateMotion dur={duration} begin="0.3s" repeatCount="indefinite">
-            <mpath href="#ellipse2path"/>
-          </animateMotion>
+        <circle cx="0" cy="0" r="30" fill={backgroundColor}>
+          <animateMotion dur={duration} begin="-0.2s" repeatCount="indefinite" path={ellipsePath}/>
         </circle>
-        <circle cx="0" cy="0" r="55" fill={backgroundColor}>
-          <animateMotion dur={duration} begin="0.3s" repeatCount="indefinite">
-            <mpath href="#ellipse2path"/>
-          </animateMotion>
+        <circle cx="0" cy="0" r="30" fill={backgroundColor}>
+          <animateMotion dur={duration} begin="-0.1s" repeatCount="indefinite" path={ellipsePath}/>
         </circle>
-        <circle cx="0" cy="0" r="55" fill={backgroundColor}>
-          <animateMotion dur={duration} begin="0.3s" repeatCount="indefinite">
-            <mpath href="#ellipse2path"/>
-          </animateMotion>
+        <circle cx="0" cy="0" r="30" fill={backgroundColor}>
+          <animateMotion dur={duration} begin="0.1s" repeatCount="indefinite" path={ellipsePath}/>
         </circle>
-        <circle cx="0" cy="0" r="55" fill={backgroundColor}>
-          <animateMotion dur={duration} begin="0.3s" repeatCount="indefinite">
-            <mpath href="#ellipse2path"/>
-          </animateMotion>
+        <circle cx="0" cy="0" r="30" fill={backgroundColor}>
+          <animateMotion dur={duration} begin="0.2s" repeatCount="indefinite" path={ellipsePath}/>
         </circle>
       </g>
     </svg>
