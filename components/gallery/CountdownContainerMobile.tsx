@@ -1,7 +1,7 @@
 import React from "react";
 
 
-export default function CountdownContainer({
+export default function CountdownContainerMobile({
   backgroundColor = "#F9FAF6", // Should match background color of the page
   stroke = 2, // Width of the curved rectangle outline
   duration = 10, // Duration of animation
