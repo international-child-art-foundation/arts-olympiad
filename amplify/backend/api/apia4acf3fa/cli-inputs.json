@@ -1,11 +1,17 @@
 {
   "version": 1,
   "paths": {
-    "/api/users": {
-      "name": "/api/users",
+    "/api": {
+      "name": "/api",
       "lambdaFunction": "usersLambda",
       "permissions": {
-        "setting": "open"
+        "setting": "private",
+        "auth": [
+          "create",
+          "read",
+          "update",
+          "delete"
+        ]
       }
     }
   }

@@ -1,10 +1,10 @@
 {
   "version": "1",
   "cognitoConfig": {
-    "identityPoolName": "artsolympiadc497c1aa_identitypool_c497c1aa",
+    "identityPoolName": "artsolympiad0eb091ba_identitypool_0eb091ba",
     "allowUnauthenticatedIdentities": true,
-    "resourceNameTruncated": "artsolc497c1aa",
-    "userPoolName": "artsolympiadc497c1aa_userpool_c497c1aa",
+    "resourceNameTruncated": "artsol0eb091ba",
+    "userPoolName": "artsolympiad0eb091ba_userpool_0eb091ba",
     "autoVerifiedAttributes": [
       "email"
     ],
@@ -31,30 +31,27 @@
     "userpoolClientReadAttributes": [
       "email"
     ],
-    "userpoolClientLambdaRole": "artsolc497c1aa_userpoolclient_lambda_role",
+    "userpoolClientLambdaRole": "artsol0eb091ba_userpoolclient_lambda_role",
     "userpoolClientSetAttributes": false,
-    "sharedId": "c497c1aa",
-    "resourceName": "artsolympiadc497c1aa",
+    "sharedId": "0eb091ba",
+    "resourceName": "artsolympiad0eb091ba0eb091ba",
     "authSelections": "identityPoolAndUserPool",
-    "useDefault": "default",
+    "useDefault": "manual",
+    "thirdPartyAuth": false,
+    "usernameAttributes": [
+      "email"
+    ],
+    "userPoolGroups": false,
+    "adminQueries": false,
     "triggers": {},
+    "hostedUI": true,
+    "hostedUIDomainName": "artsolympiad0eb091ba-0eb091ba",
+    "authProvidersUserPool": [],
+    "hostedUIProviderMeta": "[]",
+    "oAuthMetadata": "{\"AllowedOAuthFlows\":[\"code\"],\"AllowedOAuthScopes\":[\"email\",\"openid\",\"profile\",\"aws.cognito.signin.user.admin\"],\"CallbackURLs\":[\"http://localhost:3000/\"],\"LogoutURLs\":[\"http://localhost:3000/\"]}",
     "userPoolGroupList": [],
     "serviceName": "Cognito",
     "usernameCaseSensitive": false,
-    "useEnabledMfas": true,
-    "authRoleArn": {
-      "Fn::GetAtt": [
-        "AuthRole",
-        "Arn"
-      ]
-    },
-    "unauthRoleArn": {
-      "Fn::GetAtt": [
-        "UnauthRole",
-        "Arn"
-      ]
-    },
-    "breakCircularDependency": true,
-    "dependsOn": []
+    "useEnabledMfas": true
   }
 }

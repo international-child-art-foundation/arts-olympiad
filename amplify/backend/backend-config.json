@@ -16,7 +16,7 @@
     }
   },
   "auth": {
-    "artsolympiadc497c1aa": {
+    "artsolympiad0eb091ba0eb091ba": {
       "customAuth": false,
       "dependsOn": [],
       "frontendAuthConfig": {
@@ -32,7 +32,9 @@
           "EMAIL"
         ],
         "socialProviders": [],
-        "usernameAttributes": [],
+        "usernameAttributes": [
+          "EMAIL"
+        ],
         "verificationMechanisms": [
           "EMAIL"
         ]
