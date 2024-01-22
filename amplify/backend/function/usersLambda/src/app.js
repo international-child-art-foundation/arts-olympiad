@@ -9,6 +9,7 @@ See the License for the specific language governing permissions and limitations 
 
 
 const { DynamoDBClient } = require("@aws-sdk/client-dynamodb");
+const { SignUpCommand,CognitoIdentityProviderClient, AuthFlowType, InitiateAuthCommand, DeleteUserCommand, RevokeTokenCommand } = require('@aws-sdk/client-cognito-identity-provider');
 const { DeleteCommand, DynamoDBDocumentClient, GetCommand, PutCommand, UpdateCommand, QueryCommand, ScanCommand } = require("@aws-sdk/lib-dynamodb");
 const awsServerlessExpressMiddleware = require("aws-serverless-express/middleware")
 const bodyParser = require("body-parser")
@@ -22,6 +23,10 @@ if (process.env.ENV && process.env.ENV !== "NONE") {
   tableName = tableName + "-" + process.env.ENV;
 }
 
+const clientId = "26h0ul3gca5v4kevgl13dhhsur";
+
+const { S3Client } = require("@aws-sdk/client-s3");
+const { createPresignedPost } = require("@aws-sdk/s3-presigned-post"); 
 
 // declare a new express app
 const app = express();
@@ -35,25 +40,291 @@ app.use(function(req, res, next) {
   next();
 });
 
+/************************************
+* HTTP Post method to create user *
+************************************/
+app.post("/api/users", async function(req,res) { //change to api/users
+  const client = new CognitoIdentityProviderClient({});
+  const { email, password, f_name, l_name, location, age, g_f_name, g_l_name, voted_id, can_submit_art } = req.body;
+
+  const command = new SignUpCommand({
+    ClientId: clientId,
+    Username: email,
+    Password: password,
+    UserAttributes: [] 
+  });
+
+  try {
+    const signupResult = await client.send(command);
+
+    const user = {
+      pk: "USER",
+      sk: signupResult.UserSub,
+      id: signupResult.UserSub, // uuid created for User name if not specified
+      f_name: f_name,
+      l_name: l_name,
+      location: location,
+      age: age,
+      email: email,
+      ...g_f_name && { g_f_name: g_f_name }, 
+      ...g_l_name && { g_l_name: g_l_name }, 
+      ...voted_id && { voted_id: voted_id }, 
+      can_submit_art: false 
+    };
+
+    // Create user info in db after sending credentials to cognito
+    let putUserParams = {
+      TableName: tableName,
+      Item: user
+    };
+
+    await ddbDocClient.send(new PutCommand(putUserParams));
+
+    const response = {
+      id: signupResult.UserSub, // uuid created for User name if not specified
+      f_name: f_name,
+      l_name: l_name,
+      location: location,
+      age: age,
+      email: email,
+      ...g_f_name && { g_f_name: g_f_name }, 
+      ...g_l_name && { g_l_name: g_l_name }, 
+      ...voted_id && { voted_id: voted_id }, 
+      can_submit_art: false 
+    };
+
+    res.status(201).json(response);
+
+    
+  } catch(error) {
+    res.status(400).json({ message: 'Signup failed', error: error.message });
+  }
+});
 
 /************************************
-* HTTP Get method to list objects *
+* HTTP Post method to login *
 ************************************/
+app.post("/api/login", async function (req,res) {
+  const client = new CognitoIdentityProviderClient({});
+  const { username, password } = req.body; // change to email and password
+  
+  const command = new InitiateAuthCommand({
+    AuthFlow: AuthFlowType.USER_PASSWORD_AUTH,
+    AuthParameters: {
+      USERNAME: username,
+      PASSWORD: password,
+    },
+    ClientId: clientId, //change clientId to web
+  });
 
-app.get("/api/users", async function(req, res) {
-  var params = {
+  try {
+    const response = await client.send(command);
+    res.status(200).json({ session_token: response.AuthenticationResult });
+    
+  } catch(error) {
+    res.status(401).json({ error: error.message });
+  }
+});
+
+/************************************
+* HTTP Post method to logout *
+************************************/
+app.post("/api/logout", async function (req,res) {
+  const client = new CognitoIdentityProviderClient({});
+  const refreshToken = req.headers.authentication?.split(" ")[1]; //refresh token
+
+  const input = { // RevokeTokenRequest
+    Token: refreshToken, // required
+    ClientId: clientId,
+  };
+  const command = new RevokeTokenCommand(input); // invalidate refresh token
+
+  try {
+    const response = await client.send(command);
+    res.status(200).json({ success: "success", response });
+    
+  } catch(error) {
+    res.status(401).json({ error: error.message });
+  }
+});
+
+/************************************
+* HTTP Get method to get user *
+************************************/
+app.get("/api/users/:userId", async function(req, res) {
+  const userId = req.params.userId;
+  const getUserParams = {
     TableName: tableName,
-    Select: "ALL_ATTRIBUTES",
+    Key: {
+      pk: "USER",
+      sk: userId
+    }
   };
 
   try {
-    const data = await ddbDocClient.send(new ScanCommand(params));
-    res.json(data.Items);
+    const data = await ddbDocClient.send(new GetCommand(getUserParams));
+    if (data.Item) {
+      const userResponse = {
+        id: data.Item.id, // uuid created for User name if not specified
+        f_name: data.Item.f_name,
+        l_name: data.Item.l_name,
+        location: data.Item.location,
+        age: data.Item.age,
+        email: data.Item.email,
+        ...data.Item.g_f_name && { g_f_name: data.Item.g_f_name }, 
+        ...data.Item.g_l_name && { g_l_name: data.Item.g_l_name }, 
+        ...data.Item.voted_id && { voted_id: data.Item.voted_id }, 
+        can_submit_art: data.Item.can_submit_art 
+      };
+      res.status(200).json(userResponse);
+    } 
+  } catch(error) {
+    res.status(500).json({error: 'Could not load items: ' + err.message});
+  }
+})
+
+/************************************
+* HTTP Patch method to update user 
+************************************/
+app.patch("/api/users/:userId", async function(req, res) {
+
+  const cognitoFields = [ "password" ]; // fields to be updated with cognito
+  const updatableFields = ["f_name", "l_name", "location", "age", "g_f_name", "g_l_name"]; // allowed fields to be updated
+  const userId = req.params.userId;
+  const fieldToUpdate = Object.keys(req.body)[0];
+  const valueToUpdate = req.body[fieldToUpdate];
+
+  // invalid field
+  if (!fieldToUpdate || cognitoFields.includes(fieldToUpdate) || !updatableFields.includes(fieldToUpdate)) {
+    return res.status(400).json({ error: "Invalid field or field not allowed to be updated" });
+  }
+
+  // logic if field needs to be updated with cognito
+
+  const patchUserParams = {
+    TableName: tableName,
+    Key: {
+      pk: "USER",
+      sk: userId
+    },
+    UpdateExpression: "set #attributeName = :newValue",
+    ExpressionAttributeValues: {
+      ":newValue": valueToUpdate,
+    },
+    ExpressionAttributeNames:{
+      "#attributeName": fieldToUpdate
+    },
+    ReturnValues: "ALL_NEW"
+  };
+
+  try {
+    let data = await ddbDocClient.send(new UpdateCommand(patchUserParams)); 
+    const updatedUser = data.Attributes;
+    const userResponse = {
+      id: updatedUser.id, // uuid created for User name if not specified
+      f_name: updatedUser.f_name,
+      l_name: updatedUser.l_name,
+      location: updatedUser.location,
+      age: updatedUser.age,
+      email: updatedUser.email,
+      ...updatedUser.g_f_name && { g_f_name: updatedUser.g_f_name }, 
+      ...updatedUser.g_l_name && { g_l_name: updatedUser.g_l_name }, 
+      ...updatedUser.voted_id && { voted_id: updatedUser.voted_id }, 
+      can_submit_art: updatedUser.id 
+    };
+    res.status(200).json(userResponse);
   } catch (err) {
-    res.statusCode = 500;
-    res.json({error: "Could not load items: " + err.message});
+    res.json({ error: err });
   }
 });
+
+/************************************
+* HTTP Delete method to delete user *
+************************************/
+app.delete("/api/users/:userId", async function(req, res) {
+  const client = new CognitoIdentityProviderClient({});
+  const userId = req.params.userId;
+  const token = req.headers.authorization?.split(" ")[1]; // Authorization: Bearer token_here
+
+  // check if the token belongs to the same user being deleted 
+  if (req.apiGateway.event.requestContext.authorizer.claims.sub !== userId) {
+    return res.status(403).json({ message:"Not authorized to delete user" });
+  }
+  
+  try {
+    const command = new DeleteUserCommand({ AccessToken: token });
+    await client.send(command);
+    
+    // remove user info from db pk="USER" 
+    let deleteUserParams = {
+      TableName: tableName,
+      Key: {
+        pk: "USER",
+        sk: userId
+      }
+    };
+    await ddbDocClient.send(new DeleteCommand(deleteUserParams));
+    
+    // remove artwork info from db pk="ART" 
+    let deleteArtworkParams = {
+      TableName: tableName,
+      Key: {
+        pk: "ART",
+        sk: userId
+      }
+    };
+    await ddbDocClient.send(new DeleteCommand(deleteArtworkParams));
+    res.status(204).send();
+  } catch (err) {
+    res.status(500).json({error: err});
+  }
+});
+
+/************************************
+* presignedURL 
+************************************/
+app.get("/api/users/:userId/presigned-url", async function(req,res) {
+
+  const userId = req.params.userId;
+  const client = new S3Client();
+  const Bucket = "artsolympiadf677eab9a54848dc8788ee9110a11839185846-staging"; // todo: load as env variable
+
+  let fileName;
+
+  if (req.apiGateway.event.queryStringParameters && req.apiGateway.event.queryStringParameters.fileName) {
+    fileName = req.apiGateway.event.queryStringParameters.fileName;
+  }
+
+  const Key = fileName;
+  const Expires = 900;
+  const Fields = {
+    "x-amz-meta-user-id": userId,
+  };
+  const Conditions = [
+    ["starts-with", "$key", Key],
+    ["content-length-range", 0, 1024 * 1024 * 5],
+    ["eq", "$x-amz-meta-user-id", userId],
+  ];
+
+
+  const { url, fields } = await createPresignedPost(client, {
+    Bucket,
+    Conditions,
+    Fields,
+    Key,
+    Expires,
+});
+  
+  console.log(url);
+  console.log(fields);
+
+  try {
+    res.status(200).json({ s3_presigned_url:url, fields: fields });
+  } catch (error) {
+    res.status(400).json({ message: 'Signup failed', error: error.message });
+  }
+});
+
 
 /************************************
 * HTTP Get method to get single artwork *
