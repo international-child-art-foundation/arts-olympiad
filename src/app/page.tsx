@@ -11,12 +11,12 @@ import {Guidelines} from "../../components/home/guidelines/Guidelines";
 import {Timeline} from "../../components/home/timeline/Timeline";
 import {Wisdom} from "../../components/home/wisdom/Wisdom";
 
-import Image from "next/image";
-import littleYellowBlob from "../../public/svgs/blobs/little-yellow-blob.svg";
-import tinyYellowBlob from "../../public/svgs/blobs/tiny-yellow-blob.svg";
-import tinyPinkBlob from "../../public/svgs/blobs/tiny-vertical-pink-blob.svg";
-import bigPinkBlob from "../../public/svgs/blobs/vertical-big-pink-blob.svg";
-import bigBlueBlob from "../../public/svgs/blobs/blue-leg-down-blob.svg";
+// import Image from "next/image";
+// import littleYellowBlob from "../../public/svgs/blobs/little-yellow-blob.svg";
+// import tinyYellowBlob from "../../public/svgs/blobs/tiny-yellow-blob.svg";
+// import tinyPinkBlob from "../../public/svgs/blobs/tiny-vertical-pink-blob.svg";
+// import bigPinkBlob from "../../public/svgs/blobs/vertical-big-pink-blob.svg";
+// import bigBlueBlob from "../../public/svgs/blobs/blue-leg-down-blob.svg";
 
 export const metadata: Metadata = {
   title: "Home | My Favorite Sport",
