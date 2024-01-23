@@ -14,7 +14,7 @@ export const Guidelines = () => {
     <section aria-label="Submission guidelines." className="relative px-8 md:px-12 lg:px-16 xl:px-20 mt-36 flex flex-col max-w-screen-2xl m-auto">
       <Image src={blob} alt="" width={1000} className="z-0 hidden md:block absolute -top-32 -left-28" />
       <H2m className="z-10 font-medium text-3xl md:text-4xl" >
-        Submission Guidelines Made
+        Submission Made
         <span className="text-dark-blue relative"> Simple
           <AnimatedScribble
             width={280}

@@ -3,10 +3,10 @@ import "../styles/animated-arrows.css";
 import { Metadata } from "next";
 import { sharedOpenGraph } from "./shared-metadata";
 import {Intro} from "../../components/home/Intro";
-import {ImageCarousel} from "../../components/home/image-carousel/ImageCarousel";
-import {artworks} from "../../mock/artworks";
+// import {ImageCarousel} from "../../components/home/image-carousel/ImageCarousel";
+// import {artworks} from "../../mock/artworks";
+// import {AboutICAF} from "../../components/home/about/AboutICAF";
 import {GetInvolved} from "../../components/home/get-involved/GetInvolved";
-import {AboutICAF} from "../../components/home/about/AboutICAF";
 import {Guidelines} from "../../components/home/guidelines/Guidelines";
 import {Timeline} from "../../components/home/timeline/Timeline";
 import {Wisdom} from "../../components/home/wisdom/Wisdom";
@@ -30,9 +30,9 @@ export default function Home() {
   return (
     <>
       <Intro />
-      <ImageCarousel width={150} mdwidth={250} aria-label="list of olimpyad participants' artworks." images={artworks} />
+      {/* <ImageCarousel width={150} mdwidth={250} aria-label="list of olimpyad participants' artworks." images={artworks} /> */}
       <GetInvolved />
-      <AboutICAF />
+      {/* <AboutICAF /> */}
       <Guidelines />
       <div className="relative">       
         <Image src={littleYellowBlob} alt="" className="-z-10 absolute top-96 -left-12 " />

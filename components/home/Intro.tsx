@@ -1,16 +1,14 @@
 "use client";
 import Image from "next/image";
 import hashtag from "../../public/home/hashtag.svg";
-import vector from "../../public/svgs/Vector.svg";
 import blueblob from "../../public/svgs/blobs/blueblob.svg";
 import littlepinkblob from "../../public/svgs/blobs/littlepinkblob.svg";
-import introimg1 from "../../public/home/intro/introimg1.webp";
-import introimg2 from "../../public/home/intro/introimg2.webp";
-import introimg3 from "../../public/home/intro/introimg3.webp";
-import introimg4 from "../../public/home/intro/introimg4.webp";
-import introimg5 from "../../public/home/intro/introimg5.webp";
-import introimg6 from "../../public/home/intro/introimg6.webp";
-import Link from "next/link";
+import introimg1 from "../../public/home/new-hero/Painter.webp";
+import introimg2 from "../../public/home/new-hero/_MG_4685.webp";
+import introimg3 from "../../public/home/new-hero/_MG_8137.webp";
+import introimg4 from "../../public/home/new-hero/face_paint_crop.webp";
+import introimg5 from "../../public/home/new-hero/DSC_5762.webp";
+import introimg6 from "../../public/home/new-hero/Fiona_Fung.HK.webp";
 import {LazyImage} from "../common/images/LazyImage";
 import {H2m} from "../common/texts/H2m";
 import {H3m} from "../common/texts/H3m";
@@ -33,12 +31,15 @@ export const Intro = () => {
           A global art competition on Olympic sports
           </H2m>
           <H3m className=" z-20 font-light mb-4 lg:mb8">
-          Celebrate the Paris 2024 Olympics and reassure youth that their chaotic and divided world has hope.
+          Any 10 to 20-year-old anywhere can create art on his or her most favorite sport, upload it, and share it with family and friends to get their votes.
           </H3m>
-          <Link href="/about" className="text-main-blue text-sm lg:text-lg flex flex-row">
+          <H3m className="z-20 font-light mb-4 lg:mb8">
+          The gold, silver, and bronze winners selected through public votes will get to attend the Paris Olympics with our sponsors' support.
+          </H3m>
+          {/* <Link href="/about" className="text-main-blue text-sm lg:text-lg flex flex-row">
               Learn more<span className="invisible">.</span>
             <Image src={vector} alt="angle bracket right" className="ml-4" aria-hidden />
-          </Link>
+          </Link> */}
         </div>
       </article>
 
@@ -50,22 +51,30 @@ export const Intro = () => {
         className="relative ml-6 z-10 hidden md:grid max-w-[490px] md:col-span-2 md:grid-cols-4 md:grid-rows-2 gap-3"
       >
         <div className="z-10 grid gap-5 col-span-2 row-span-2">
-          <LazyImage className="border-0.5 border-black object-cover" imageUrl={introimg1}  alt="earth image surrounded by palms." />
-          <LazyImage className="border-0.5 border-black object-cover" imageUrl={introimg2} alt="a person drawing on an ipad." />
+          <LazyImage className="border-0.5 border-black object-cover" imageUrl={introimg1} alt="" />
+          <div className="rounded-xl border-0.5 border-black object-cover object-center overflow-clip">
+            <LazyImage className="scale-125" imageUrl={introimg2} alt="" />
+          </div>
         </div>
         <div className="z-10 grid gap-3 col-span-2 row-span-2">
-          <LazyImage className="border-0.5 border-black object-cover" imageUrl={introimg3} alt="a person using graphic editors on a desktop." />
-          <LazyImage className="border-0.5 border-black object-cover" imageUrl={introimg4} alt="handcraft tools." />
-          {/* Make the last div span two columns */}
+          <LazyImage className="border-0.5 border-black object-cover" imageUrl={introimg3} alt="" />
+          <LazyImage className="border-0.5 border-black object-cover" imageUrl={introimg4} alt="" />
+          {
+            // Make the last div span 2 columns
+          }
           <div className="z-10 grid gap-3 grid-cols-2 grid-rows-1">
-            <LazyImage className="border-0.5 border-black object-cover" imageUrl={introimg5} alt="basket full of brushes." />
-            <LazyImage className="border-0.5 border-black object-cover" imageUrl={introimg6} alt="basket full of pencils." />
+            <LazyImage className="border-0.5 border-black object-cover" imageUrl={introimg5} alt="" />
+            <LazyImage className="border-0.5 border-black object-cover object-left" imageUrl={introimg6} alt="" />
           </div>
         </div>
 
-        {/* BLOBS */}
+        {
+          // Blobs
+        }
 
-        {/* small tablet */}
+        {
+          // small tablet 
+        }
         <Image
           src={blueblob} alt="" width={525} height={486}
           className="hidden md:block lg:hidden absolute z-0 top-52 right-32"
@@ -74,7 +83,9 @@ export const Intro = () => {
           src={littlepinkblob} alt="" width={172} height={143}
           className="hidden md:block lg:hidden absolute z-0 -top-16 -right-12 "
         />
-        {/* >= big tablet */}
+        {
+          // Big tablet
+        }
         <Image
           src={blueblob} alt="" width={525} height={486}
           className="hidden lg:block absolute z-0 -bottom-24 -left-36"
@@ -90,7 +101,9 @@ export const Intro = () => {
 
       </figure>
 
-      {/* BLOB mobile */}
+      {
+        // Blob mobile
+      }
       <Image
         src={blueblob} alt="" width={300} height={260}
         className="absolute z-0 top-12 -left-16 md:hidden"

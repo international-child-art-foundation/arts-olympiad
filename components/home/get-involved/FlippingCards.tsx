@@ -21,42 +21,6 @@ export const FlippingCards = () => {
       <FlippingCard
         touchScreenPrimary={touchScreenPrimary}
         isFlippable={areFlippable}
-        heading1="Share"
-        heading2="Artists, ages 10-20: Share your creations!"
-        description="Unleash your creativity! Upload and share your artwork with the world. Join a community of young artists making their mark."
-        icon={monitorUp}
-        color="#EE2F4D"
-      />
-      <FlippingCard
-        touchScreenPrimary={touchScreenPrimary}
-        isFlippable={areFlippable}
-        heading1="Vote"
-        heading2="For your favorite artwork"
-        description="Channel your inner art critic and support the best creations. Celebrate boundless creativity with us – be a judge and champion young-at-heart artists!"
-        icon={vote}
-        color="#FBB22E"
-      />
-      <FlippingCard
-        touchScreenPrimary={touchScreenPrimary}
-        isFlippable={areFlippable}
-        heading1="Support"
-        heading2="Your support changes lives"
-        description="Join us in championing children's causes through charitable donations."
-        icon={heart}
-        color="#168C39"
-      >
-        <ButtonStyledLink className="my-1"
-          href={"https://www.icaf.org/donate"}
-          onTouchStart={(e: React.TouchEvent<HTMLAnchorElement>) => { e.stopPropagation();}}
-          onClick={(e: React.MouseEvent<HTMLAnchorElement>) => { e.stopPropagation();}}
-        >
-          <Image className="mr-2" src={littleHeart} alt="" width={24} height={24} />
-          Donate now
-        </ButtonStyledLink>
-      </FlippingCard>
-      <FlippingCard
-        touchScreenPrimary={touchScreenPrimary}
-        isFlippable={areFlippable}
         heading1="Register"
         heading2="For free"
         description="Join us to upload your art or vote – it's easy and completely free!"
@@ -71,6 +35,42 @@ export const FlippingCards = () => {
         >
           <Image className="mr-2" src={upload} alt="" width={24} height={24} />
           Register here
+        </ButtonStyledLink>
+      </FlippingCard>
+      <FlippingCard
+        touchScreenPrimary={touchScreenPrimary}
+        isFlippable={areFlippable}
+        heading1="Create & Share"
+        heading2="Artists, ages 10-20: Share your creations!"
+        description="Unleash your creativity! Upload and share your artwork with the world. Join a community of young artists making their mark."
+        icon={monitorUp}
+        color="#EE2F4D"
+      />
+      <FlippingCard
+        touchScreenPrimary={touchScreenPrimary}
+        isFlippable={areFlippable}
+        heading1="View & Vote"
+        heading2="For your favorite artwork"
+        description="Channel your inner art critic and support the best creations. Celebrate boundless creativity with us – be a judge and champion young-at-heart artists!"
+        icon={vote}
+        color="#FBB22E"
+      />
+      <FlippingCard
+        touchScreenPrimary={touchScreenPrimary}
+        isFlippable={areFlippable}
+        heading1="Sponsor or Donate"
+        heading2="Your support changes lives"
+        description="Join us in championing children's causes through charitable donations."
+        icon={heart}
+        color="#168C39"
+      >
+        <ButtonStyledLink className="my-1"
+          href={"https://www.icaf.org/donate"}
+          onTouchStart={(e: React.TouchEvent<HTMLAnchorElement>) => { e.stopPropagation();}}
+          onClick={(e: React.MouseEvent<HTMLAnchorElement>) => { e.stopPropagation();}}
+        >
+          <Image className="mr-2" src={littleHeart} alt="" width={24} height={24} />
+          Donate now
         </ButtonStyledLink>
       </FlippingCard>
     </div>
