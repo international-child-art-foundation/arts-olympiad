@@ -35,11 +35,6 @@ export default function Home() {
       {/* <AboutICAF /> */}
       <Guidelines />
       <div className="relative">       
-        <Image src={littleYellowBlob} alt="" className="-z-10 absolute top-96 -left-12 " />
-        <Image src={tinyYellowBlob} alt="" className="hidden md:block z-20 absolute top-[368px] left-24 " />
-        <Image src={tinyPinkBlob} alt="" className="hidden md:block -z-10 absolute top-[672px] right-44 " />
-        <Image src={bigPinkBlob} alt="" className="-z-10 w-[300px] md:w-[500px] absolute top-[576px] -right-12 md:-right-44" />
-        <Image src={bigBlueBlob} alt="" className="-z-10 w-[400px] md:w-[700px] absolute bottom-96 md:bottom-24 -left-12 md:-left-44" />
         <Timeline />
       </div>
       <Wisdom />
