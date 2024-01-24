@@ -15,7 +15,7 @@ import {ButtonStyledLink} from "../../common/ui/ButtonStyledLink";
 export const FlippingCards = () => {
 
   const { windowWidth, touchScreenPrimary } = useWindowDimensions();
-  const [areFlippable, setAreFlippable] = useState(windowWidth >= 768);
+  const [areFlippable, setAreFlippable] = useState(false);
 
   useEffect(() => {
     // Update the state whenever windowWidth changes
