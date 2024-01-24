@@ -11,7 +11,7 @@ import {AnimatedScribble} from "../../common/decorations/AnimatedScribble";
 
 export const Guidelines = () => {
   return (
-    <section aria-label="Submission guidelines." className="relative px-8 md:px-12 lg:px-16 xl:px-20 mt-36 flex flex-col max-w-screen-2xl m-auto">
+    <section aria-label="Submission guidelines." className="relative px-8 md:px-12 lg:px-16 xl:px-20 mt-16 md:mt-36 flex flex-col max-w-screen-2xl m-auto">
       <Image src={blob} alt="" width={1000} className="z-0 hidden md:block absolute -top-32 -left-28" />
       <H2m className="z-10 font-medium text-3xl md:text-4xl" >
         Submission Made
@@ -36,7 +36,7 @@ export const Guidelines = () => {
           heading={"How to submit"}
           description={"Follow our guide for hassle-free artwork submission."}
         >
-          <Link href="https://artsolympiad.info/artwok_registration.php" className="text-main-blue text-sm lg:text-lg flex flex-row">
+          <Link href="#" className="text-main-blue text-sm lg:text-lg flex flex-row">
             Learn more here
             <Image src={vector} alt="" className="ml-4" aria-hidden />
           </Link>

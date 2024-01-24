@@ -100,11 +100,11 @@ const MobileNav = () => {
         </a>
         <div className="heart-black me-auto ml-4"></div>
         
-        <a href="https://artsolympiad.info/artwok_registration.php" className="group mx-auto mb-4 h-fit w-5/6 border-new-blue border rounded text-center py-2 px-3 text-xs cursor-pointer tracking-wide text-new-blue hidden md:block">
+        <a href="#" className="group mx-auto mb-4 h-fit w-5/6 border-new-blue border rounded text-center py-2 px-3 text-xs cursor-pointer tracking-wide text-new-blue hidden md:block">
           Upload
         </a>
 
-        <a href="https://artsolympiad.info/artwok_select.php" className="group mx-auto mb-4 h-fit w-5/6 border-new-blue border rounded text-center py-2 px-3 text-xs cursor-pointer tracking-wide text-new-blue hidden md:block">
+        <a href="#" className="group mx-auto mb-4 h-fit w-5/6 border-new-blue border rounded text-center py-2 px-3 text-xs cursor-pointer tracking-wide text-new-blue hidden md:block">
           Vote
         </a>
 

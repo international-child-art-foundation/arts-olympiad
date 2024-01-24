@@ -24,7 +24,7 @@ export const WisdomCard = forwardRef<HTMLDivElement, IProps>(({ wisdom, onClick 
       onClick={onClick}
     >
       <div className="absolute inset-0 rounded-xl overflow-hidden">
-        <LazyImage className="thumbnail-image w-full h-full object-cover" imageUrl={wisdom.url} alt={wisdom.alt} />
+        <LazyImage className="thumbnail-image w-full h-full object-cover select-none" imageUrl={wisdom.url} alt={wisdom.alt} />
         <div
           className="
             cardLabel
@@ -41,7 +41,7 @@ export const WisdomCard = forwardRef<HTMLDivElement, IProps>(({ wisdom, onClick 
             font-semibold
           "
         >
-          <H3m>{wisdom.author}</H3m>
+          <H3m className="select-none">{wisdom.author}</H3m>
         </div>
       </div>
     </div>

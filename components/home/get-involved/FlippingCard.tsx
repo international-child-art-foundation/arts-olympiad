@@ -14,7 +14,7 @@ interface IProps extends React.HTMLProps<HTMLDivElement>{
   icon: string,
   heading1: string
   heading2: string
-  description: string
+  description: React.ReactNode
   color: string
 }
 

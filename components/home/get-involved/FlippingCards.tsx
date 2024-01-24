@@ -1,5 +1,6 @@
 "use client";
 import React from "react";
+import { useState, useEffect } from "react";
 import {FlippingCard} from "./FlippingCard";
 import useWindowDimensions from "@/hooks/useWindowDimensions";
 import monitorUp from "../../../public/svgs/monitor-up.svg";
@@ -14,7 +15,12 @@ import {ButtonStyledLink} from "../../common/ui/ButtonStyledLink";
 export const FlippingCards = () => {
 
   const { windowWidth, touchScreenPrimary } = useWindowDimensions();
-  const areFlippable = windowWidth >= 768;
+  const [areFlippable, setAreFlippable] = useState(windowWidth >= 768);
+
+  useEffect(() => {
+    // Update the state whenever windowWidth changes
+    setAreFlippable(windowWidth >= 768);
+  }, [windowWidth]); 
 
   return (
     <div className="z-10 md:grid grid-cols-2 grid-rows-2 gap-4 mt-6 card-grid" >
@@ -60,7 +66,15 @@ export const FlippingCards = () => {
         isFlippable={areFlippable}
         heading1="Sponsor or Donate"
         heading2="Your support changes lives"
-        description="Join us in championing children's causes through charitable donations."
+        description={
+          <span>
+            Join us in championing children's causes through charitable donations. Please{" "}
+            <a href="https://icaf.org/about/contact-us" target="_blank" rel="noopener noreferrer" className="text-blue-600 visited:text-purple-600">
+              contact us
+            </a>
+            {" for more information about partnership."}
+          </span>
+        }
         icon={heart}
         color="#168C39"
       >

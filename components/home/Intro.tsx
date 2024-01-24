@@ -26,20 +26,29 @@ export const Intro = () => {
               MyFavoriteSport<span className="sr-only">.</span>
           </h1>
         </div>
-        <div className=" mb-32 z-20 ">
+        <div className=" mb-12 md:mb-32 z-20 ">
           <H2m className=" z-20 mb-2 sm:mb-4 lg:mb6" >
-          A global art competition on Olympic sports
+            A global art competition on Olympic sports
           </H2m>
           <H3m className=" z-20 font-light mb-4 lg:mb8">
-          Any 10 to 20-year-old anywhere can create art on his or her most favorite sport, upload it, and share it with family and friends to get their votes.
+            Any 10 to 20-year-old anywhere can create art on his or her most favorite sport, upload it, and share it with family and friends to get their votes.
           </H3m>
           <H3m className="z-20 font-light mb-4 lg:mb8">
-          The gold, silver, and bronze winners selected through public votes will get to attend the Paris Olympics with our sponsors' support.
+            The gold, silver, and bronze winners selected through public votes will get to attend the Paris Olympics with our sponsors' support.
+          </H3m>
+          <H3m className="z-20 font-light mb-4 lg:mb8">
+            Our competition begins on <b className="font-[450]">April 14th, 2024</b>.
           </H3m>
           {/* <Link href="/about" className="text-main-blue text-sm lg:text-lg flex flex-row">
               Learn more<span className="invisible">.</span>
             <Image src={vector} alt="angle bracket right" className="ml-4" aria-hidden />
           </Link> */}
+          {/* <H3m className="z-20 font-light mb-4 lg:mb8">
+            <b className="font-medium">Contest begins:</b> April 14, 2024
+          </H3m>
+          <H3m className="z-20 font-light mb-4 lg:mb8">
+            <b className="font-medium">Contest ends:</b> June 15, 2024
+          </H3m> */}
         </div>
       </article>
 

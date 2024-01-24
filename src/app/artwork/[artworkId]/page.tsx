@@ -63,7 +63,7 @@ const ArtworkPage: NextPage<PageProps> = (props) => {
         />
       </div>
       <div className="pb-10 w-5/6 md:w-4/5 flex justify-center">
-        <Link href="https://artsolympiad.info/artwok_select.php" className="bg-blue-500 text-white py-2 rounded-full w-full md:w-1/3 block text-center">Vote</Link>
+        <Link href="#" className="bg-blue-500 text-white py-2 rounded-full w-full md:w-1/3 block text-center">Vote</Link>
       </div>
     </div>
   );
