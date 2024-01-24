@@ -14,7 +14,7 @@ interface IProps extends React.HTMLProps<HTMLDivElement>{
   icon: string,
   heading1: string
   heading2: string
-  description: React.ReactNode
+  description: React.ReactNode | string;
   color: string
 }
 
@@ -59,7 +59,7 @@ export const FlippingCard = ({touchScreenPrimary, isFlippable, icon, heading1, h
       style={{boxShadow: "0px 4px 15px 0px rgba(0, 0, 0, 0.07)"}}
       className={`
         ${isFlippable && flipped && "flip"}
-        my-4 md:my-0 relative md:min-h-[270px] lg:min-h-[430px] xl:min-h-[468px] 2xl:min-h-[370px]
+        my-4 md:my-0 relative md:min-h-[280px] lg:min-h-[430px] xl:min-h-[468px] 2xl:min-h-[398px]
         z-10 bg-neutral-white cursor-pointer rounded-xl
       `}
       onTouchStart={touchScreenPrimary ? handleTouchStart : noop}
@@ -104,7 +104,11 @@ export const FlippingCard = ({touchScreenPrimary, isFlippable, icon, heading1, h
         { // back of the card on md screens and bigger
           isFlippable && flipped &&
         <div className="back h-full flex flex-col justify-between">
-          <Pm className="my-12 font-light text-sm " >{description}</Pm>
+          {
+            typeof description === "string"
+              ?  <Pm className="my-12 font-light text-sm " > {description} </Pm>
+              : description
+          }
           {children}
         </div>
         }
@@ -112,7 +116,11 @@ export const FlippingCard = ({touchScreenPrimary, isFlippable, icon, heading1, h
         { // for small screen
           !isFlippable &&
         <>
-          <Pm className="my-2 font-light text-sm " >{description}</Pm>
+          {
+            typeof description === "string"
+              ?  <Pm className="my-12 font-light text-sm " > {description} </Pm>
+              : description
+          }
           {children}
         </>
         }

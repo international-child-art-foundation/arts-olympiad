@@ -36,8 +36,8 @@ export const Intro = () => {
           <H3m className="z-20 font-light mb-4 lg:mb8">
             The gold, silver, and bronze winners selected through public votes will get to attend the Paris Olympics with our sponsors' support.
           </H3m>
-          <H3m className="z-20 font-light mb-4 lg:mb8">
-            Our competition begins on <b className="font-[450]">April 14th, 2024</b>.
+          <H3m className="z-20 font-light mb-4 lg:mb8 flex flex-wrap"> {/* Use &nbsp to allow grid layout to work properly */}
+            The competition begins on&nbsp;<b className="font-[450]"> April 14th </b>&nbsp;and ends on&nbsp;<b className="font-[450]"> June 15th, 2024 </b>.
           </H3m>
           {/* <Link href="/about" className="text-main-blue text-sm lg:text-lg flex flex-row">
               Learn more<span className="invisible">.</span>

@@ -11,6 +11,7 @@ import littleHeart from "../../../public/home/get-involved/heart.svg";
 import upload from "../../../public/home/get-involved/upload.svg";
 import Image from "next/image";
 import {ButtonStyledLink} from "../../common/ui/ButtonStyledLink";
+import { Pm } from "../../common/texts/Pm";
 
 export const FlippingCards = () => {
 
@@ -29,7 +30,16 @@ export const FlippingCards = () => {
         isFlippable={areFlippable}
         heading1="Register"
         heading2="For free"
-        description="Join us to upload your art or vote – it's easy and completely free!"
+        description={
+          <div>
+            <Pm className="mt-4 md:mt-12 mb-1 font-light text-sm">
+              It's easy to register and completely free!
+            </Pm>
+            <Pm className="font-light text-sm mb-4 md:mb-0">
+              You must register to Upload your artwork or to Vote for your favorite artist or artwork.
+            </Pm>
+          </div>
+        }
         icon={clipboard}
         color="#0286C3"
       >
@@ -48,7 +58,16 @@ export const FlippingCards = () => {
         isFlippable={areFlippable}
         heading1="Create & Share"
         heading2="Artists, ages 10-20: Share your creations!"
-        description="Unleash your creativity! Upload and share your artwork with the world. Join a community of young artists making their mark."
+        description={
+          <div>
+            <Pm className="mt-4 md:mt-12 mb-1 font-light text-sm">
+              Unleash your creativity! Paint or draw your most favorite Olympic sport. You can use digital art or Artificial Intelligence if you want.
+            </Pm>
+            <Pm className="font-light text-sm mb-2 md:mb-4">
+              Register first to Upload your masterpiece. Then share it with family and friends to get their votes. The artist who gets the most votes wins!
+            </Pm>
+          </div>
+        }
         icon={monitorUp}
         color="#EE2F4D"
       />
@@ -57,7 +76,16 @@ export const FlippingCards = () => {
         isFlippable={areFlippable}
         heading1="View & Vote"
         heading2="For your favorite artwork"
-        description="Channel your inner art critic and support the best creations. Celebrate boundless creativity with us – be a judge and champion young-at-heart artists!"
+        description={
+          <div>
+            <Pm className="mt-4 md:mt-12 mb-1 font-light text-sm">
+            Any 10- to 100-year-old can be a judge.
+            </Pm>
+            <Pm className="font-light text-sm">
+            Register first, then search for the artists by name or country, and vote. You can vote only once.
+            </Pm>
+          </div>
+        }
         icon={vote}
         color="#FBB22E"
       />
@@ -67,25 +95,27 @@ export const FlippingCards = () => {
         heading1="Sponsor or Donate"
         heading2="Your support changes lives"
         description={
-          <span>
-            Join us in championing children's causes through charitable donations. Please{" "}
+          <Pm className="mt-4 md:mt-12 font-light text-sm">
+            Help democratize creativity and optimize children's creative potential with your donation today.
+            <ButtonStyledLink className="my-6 leading-5"
+              href={"https://www.icaf.org/donate"}
+              onTouchStart={(e: React.TouchEvent<HTMLAnchorElement>) => { e.stopPropagation();}}
+              onClick={(e: React.MouseEvent<HTMLAnchorElement>) => { e.stopPropagation();}}
+            >
+              <Image className="mr-2" src={littleHeart} alt="" width={24} height={24} />
+              Donate now
+            </ButtonStyledLink>
+
+            {"Please "} 
             <a href="https://icaf.org/about/contact-us" target="_blank" rel="noopener noreferrer" className="text-blue-600 visited:text-purple-600">
               contact us
             </a>
-            {" for more information about partnership."}
-          </span>
+            {" about partnership prospects."}
+          </Pm>
         }
         icon={heart}
         color="#168C39"
       >
-        <ButtonStyledLink className="my-1"
-          href={"https://www.icaf.org/donate"}
-          onTouchStart={(e: React.TouchEvent<HTMLAnchorElement>) => { e.stopPropagation();}}
-          onClick={(e: React.MouseEvent<HTMLAnchorElement>) => { e.stopPropagation();}}
-        >
-          <Image className="mr-2" src={littleHeart} alt="" width={24} height={24} />
-          Donate now
-        </ButtonStyledLink>
       </FlippingCard>
     </div>
   );

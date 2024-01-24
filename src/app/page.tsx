@@ -7,7 +7,7 @@ import {Intro} from "../../components/home/Intro";
 // import {artworks} from "../../mock/artworks";
 // import {AboutICAF} from "../../components/home/about/AboutICAF";
 import {GetInvolved} from "../../components/home/get-involved/GetInvolved";
-import {Guidelines} from "../../components/home/guidelines/Guidelines";
+// import {Guidelines} from "../../components/home/guidelines/Guidelines";
 import {Timeline} from "../../components/home/timeline/Timeline";
 import {Wisdom} from "../../components/home/wisdom/Wisdom";
 
@@ -33,7 +33,7 @@ export default function Home() {
       {/* <ImageCarousel width={150} mdwidth={250} aria-label="list of olimpyad participants' artworks." images={artworks} /> */}
       <GetInvolved />
       {/* <AboutICAF /> */}
-      <Guidelines />
+      {/* <Guidelines /> */}
       <div className="relative">       
         <Timeline />
       </div>
