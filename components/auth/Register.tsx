@@ -2,7 +2,7 @@
 
 import {RegisterForm} from "./RegisterForm";
 import Image from "next/image";
-import MFS_Logo from "../../public/MFS_Logo.svg";
+import MFS_Logo from "../../public/MFS_Logo_V3.svg";
 
 export const Register = () => {
 

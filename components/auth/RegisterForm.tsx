@@ -49,13 +49,14 @@ export const RegisterForm = () => {
     <div className="max-w-[90%] sm:max-w-[70%] lg:max-w-[40%]">
       <H2m>Create an account</H2m>
       <Pm className="my-2" >Join us! Create your account to either vote for inspiring art or enter your own work.</Pm>
+      <Pm className="my-2" >Registration begins on <b>April 14, 2024</b>.</Pm>
       <Formik
         initialValues={initialValues}
         validationSchema={validationSchema}
         onSubmit={onSubmit}
       >
         {({ errors, touched, values }) => (
-          <Form className="">
+          <Form className="pointer-events-none opacity-50"> {/* Disabled until contest begins*/}
             <TextInput inputType="email" className="mt-4" placeholder="johndoe@gmail.com" error={errors.email}  touched={touched.email} value={values.email} labelText="Email" id="email" />
             <div className="relative">
               <TextInput inputType={`${!showPassword && "password" }`} className="mb-4" placeholder="Squk1*Bn" error={errors.password}  touched={touched.password} value={values.password} labelText="Password" id="password" />
