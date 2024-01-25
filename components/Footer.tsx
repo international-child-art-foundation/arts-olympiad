@@ -63,7 +63,7 @@ const Footer = () => {
         <div className="text-sm w-full max-w-sm md:order-2 md:w-1/4 md:pl-11 lg:w-1/5 lg:pl-0 lg:w-auto text-neutral-white">
           <ol className="grid grid-cols-2 gap-y-5 md:gap-y-3 md:grid-cols-1">
             <div className="break-words"><Link href="/faq">FAQ's</Link></div>
-            <div className="break-words"><a href="https://icaf.org/about/contact-us">Contact Us</a></div>
+            <div className="break-words"><a href="https://icaf.org/about/contact-us" target="blank" rel="noopener noreferrer">Contact Us</a></div>
             <div className="break-words"><a href="#">Terms of use</a></div>
             <div className="break-words"><a href="#">Privacy policy</a></div>
           </ol>
@@ -76,7 +76,7 @@ const Footer = () => {
                 <HeartIcon />
                 Donate
               </a> */}
-              <a href="#" className="group w-32 lg:w-32 h-fit border-neutral-white border rounded text-center py-3 px-5 text-sm cursor-pointer tracking-wide bg-neutral-white text-new-blue">
+              <a href="https://icaf.org/donate" target="blank" rel="noopener noreferrer" className="group w-32 lg:w-32 h-fit border-neutral-white border rounded text-center py-3 px-5 text-sm cursor-pointer tracking-wide bg-neutral-white text-new-blue">
                 Donate
               </a>
               <div className="heart-white me-auto my-2"></div>
@@ -84,7 +84,7 @@ const Footer = () => {
           </div>
           <div className="w-1/2 md:w-auto">
             <div className="flex flex-col w-auto items-left md:items-center">
-              <a href="https://icaf.org/about/contact-us" className="w-32 h-fit border-neutral-white border rounded text-center py-3 px-6 text-sm cursor-pointer tracking-wide text-neutral-white">Contact Us</a>
+              <a href="https://icaf.org/about/contact-us" target="blank" rel="noopener noreferrer" className="w-32 h-fit border-neutral-white border rounded text-center py-3 px-6 text-sm cursor-pointer tracking-wide text-neutral-white">Contact Us</a>
             </div>
           </div> 
         </div> 
