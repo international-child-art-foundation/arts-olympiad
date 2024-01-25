@@ -93,7 +93,7 @@ export const FiveDrop = () => {
           <nav tabIndex={0} className="w-full">
             <UpIcon className="-mt-6"/>
             <p className="mt-4 font-light text-base leading-loose">
-              Art submission can start on March 15th, 2024.  This will coincide with our kickoff in Paris during our art exhibition! 
+              Art submission can start on April 14th, 2024.  This will coincide with our kickoff in Paris during our art exhibition! 
             </p>
           </nav>
           }

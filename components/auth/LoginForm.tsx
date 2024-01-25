@@ -46,13 +46,14 @@ export const LoginForm = () => {
   return (
     <div className="w-[90%] sm:w-[70%] lg:w-[40%]">
       <H2m>Log in to your account</H2m>
+      <Pm className="my-2" >Registration begins on <b>April 14, 2024</b>.</Pm>
       <Formik
         initialValues={initialValues}
         validationSchema={validationSchema}
         onSubmit={onSubmit}
       >
         {({ errors, touched, values }) => (
-          <Form className="">
+          <Form className="pointer-events-none opacity-50"> {/* Disabled until contest begins*/}
             <TextInput inputType="email" className="mt-4" placeholder="johndoe@gmail.com" error={errors.email}  touched={touched.email} value={values.email} labelText="Email" id="email" />
             <div className="relative">
               <TextInput inputType={`${!showPassword && "password" }`} placeholder="Squk1*Bn" error={errors.password}  touched={touched.password} value={values.password} labelText="Password" id="password" />

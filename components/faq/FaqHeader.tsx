@@ -1,6 +1,6 @@
 import Image from "next/image";
 import hashtag from "../../public/home/hashtag.svg";
-import FaqHeaderImage from "../../public/svgs/faq-svg/faq-hero.svg";
+import FaqHeaderImage from "../../public/MFS_Logo_V3.svg";
 import FaqHeaderImage2 from "../../public/svgs/faq-svg/faq-hero-2.svg";
 import FAQMobileHeaderBlob from "../../public/svgs/faq-svg/mobile-header-blob.svg";
 import FAQIpadTabletHeaderBlob from "../../public/svgs/faq-svg/ipad-tablet-header-blob.svg";
@@ -26,7 +26,7 @@ export const FaqHeader = () => {
           <h1 className="flex-col z-20 font-semibold mb-4 text-3xl xsm:text-4xl lg:text-5xl xl:text-6xl">
                         FAQ's
           </h1>
-          <p className="font-light leading-8">Discover, create and celebrate the Olympic spirit in your artistic expression.</p>
+          <p className="font-light leading-8 md:text-base lg:text-lg">Discover, create and celebrate the Olympic spirit in your artistic expression.</p>
         </div>
 
         <div className="z-20 sm:col-span-1 flex justify-center sm:justify-end items-center">            

@@ -30,20 +30,20 @@ const Header = () => {
       
       <div className="flex flex-wrap w-full">
 
-        <a href="https://artsolympiad.info/artwok_registration.php" className="group my-2 h-fit w-fit border-new-blue border rounded text-center py-2 px-3 text-xs cursor-pointer tracking-wide text-new-blue hidden md:block">
+        <a href="#" className="group my-2 h-fit w-fit border-new-blue border rounded text-center py-2 px-3 text-xs cursor-pointer tracking-wide text-new-blue hidden md:block">
           <UploadIcon />
           Upload
         </a>
 
-        <a href="https://artsolympiad.info/artwok_select.php" className="group my-2 ml-2 h-fit w-fit border-new-blue border rounded text-center py-2 px-3 text-xs cursor-pointer tracking-wide text-new-blue hidden md:block">
+        <a href="#" className="group my-2 ml-2 h-fit w-fit border-new-blue border rounded text-center py-2 px-3 text-xs cursor-pointer tracking-wide text-new-blue hidden md:block">
           <VoteIcon />
           Vote
         </a>
 
-        <a href="#" className="group my-2 ml-auto h-fit w-fit text-center py-2 px-3 text-xs cursor-pointer tracking-wide text-new-blue hidden md:block">
+        <Link href="/auth/login" className="group my-2 ml-auto h-fit w-fit text-center py-2 px-3 text-xs cursor-pointer tracking-wide text-new-blue hidden md:block">
           <LoginIcon />
           Login
-        </a>
+        </Link>
 
         <hr className="my-2 border-new-black border-t-0.5 w-full hidden md:block"></hr>
 
