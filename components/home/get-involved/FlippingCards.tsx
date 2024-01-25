@@ -31,7 +31,7 @@ export const FlippingCards = () => {
         heading1="Register"
         heading2="For free"
         description={
-          <div>
+          <div className="w-full">
             <Pm className="md:text-base mt-4 md:mt-12 mb-4 font-light text-sm">
               It's easy to register and completely free!
             </Pm>
