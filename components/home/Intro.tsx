@@ -62,7 +62,7 @@ export const Intro = () => {
         <div className="z-10 grid gap-5 col-span-2 row-span-2">
           <LazyImage className="border-0.5 border-black object-cover" imageUrl={introimg1} alt="" />
           <div className="rounded-xl border-0.5 border-black object-cover object-center overflow-clip">
-            <LazyImage className="scale-125" imageUrl={introimg2} alt="" />
+            <LazyImage className="scale-125 object-cover" imageUrl={introimg2} alt="" />
           </div>
         </div>
         <div className="z-10 grid gap-3 col-span-2 row-span-2">
@@ -86,26 +86,26 @@ export const Intro = () => {
         }
         <Image
           src={blueblob} alt="" width={525} height={486}
-          className="hidden md:block lg:hidden absolute z-0 top-52 right-32"
+          className="hidden md:block lg:hidden absolute z-0 top-52 right-32 select-none pointer-events-none"
         />
         <Image
           src={littlepinkblob} alt="" width={172} height={143}
-          className="hidden md:block lg:hidden absolute z-0 -top-16 -right-12 "
+          className="hidden md:block lg:hidden absolute z-0 -top-16 -right-12 select-none pointer-events-none"
         />
         {
           // Big tablet
         }
         <Image
           src={blueblob} alt="" width={525} height={486}
-          className="hidden lg:block absolute z-0 -bottom-24 -left-36"
+          className="hidden lg:block absolute z-0 -bottom-24 -left-36 select-none pointer-events-none"
         />
         <Image
           src={littlepinkblob} alt="" width={212} height={195}
-          className="hidden lg:block absolute z-0 -top-16 right-36 "
+          className="hidden lg:block absolute z-0 -top-16 right-36 select-none pointer-events-none"
         />
         <Image
           src={littlepinkblob} alt="" width={212} height={195}
-          className="hidden lg:block absolute z-0 -bottom-16 -right-24 "
+          className="hidden lg:block absolute z-0 -bottom-16 -right-24 select-none pointer-events-none"
         />
 
       </figure>
@@ -115,7 +115,7 @@ export const Intro = () => {
       }
       <Image
         src={blueblob} alt="" width={300} height={260}
-        className="absolute z-0 top-12 -left-16 md:hidden"
+        className="absolute z-0 top-12 -left-16 md:hidden select-none pointer-events-none"
       />
 
     </section>

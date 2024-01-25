@@ -59,7 +59,7 @@ export const FlippingCard = ({touchScreenPrimary, isFlippable, icon, heading1, h
       style={{boxShadow: "0px 4px 15px 0px rgba(0, 0, 0, 0.07)"}}
       className={`
         ${isFlippable && flipped && "flip"}
-        my-4 md:my-0 relative md:min-h-[280px] lg:min-h-[430px] xl:min-h-[468px] 2xl:min-h-[398px]
+        my-4 md:my-0 relative md:min-h-[330px] lg:min-h-[430px] xl:min-h-[398px] 2xl:min-h-[398px]
         z-10 bg-neutral-white cursor-pointer rounded-xl
       `}
       onTouchStart={touchScreenPrimary ? handleTouchStart : noop}

@@ -32,10 +32,10 @@ export const FlippingCards = () => {
         heading2="For free"
         description={
           <div>
-            <Pm className="mt-4 md:mt-12 mb-1 font-light text-sm">
+            <Pm className="md:text-base mt-4 md:mt-12 mb-4 font-light text-sm">
               It's easy to register and completely free!
             </Pm>
-            <Pm className="font-light text-sm mb-4 md:mb-0">
+            <Pm className="font-light text-sm md:text-base mb-4 md:mb-0">
               You must register to Upload your artwork or to Vote for your favorite artist or artwork.
             </Pm>
           </div>
@@ -57,14 +57,14 @@ export const FlippingCards = () => {
         touchScreenPrimary={touchScreenPrimary}
         isFlippable={areFlippable}
         heading1="Create & Share"
-        heading2="Artists, ages 10-20: Share your creations!"
+        heading2="For artists aged 10 to 20"
         description={
           <div>
-            <Pm className="mt-4 md:mt-12 mb-1 font-light text-sm">
-              Unleash your creativity! Paint or draw your most favorite Olympic sport. You can use digital art or Artificial Intelligence if you want.
+            <Pm className="mt-4 md:mt-12 mb-4 font-light text-sm md:text-base">
+              Unleash your creativity by painting or drawing your favorite Olympic sports. We accept digital or AI art.
             </Pm>
-            <Pm className="font-light text-sm mb-2 md:mb-4">
-              Register first to Upload your masterpiece. Then share it with family and friends to get their votes. The artist who gets the most votes wins!
+            <Pm className="font-light text-sm md:text-base mb-2 md:mb-4">
+              Register, Upload, and Share to get votes.
             </Pm>
           </div>
         }
@@ -78,11 +78,11 @@ export const FlippingCards = () => {
         heading2="For your favorite artwork"
         description={
           <div>
-            <Pm className="mt-4 md:mt-12 mb-1 font-light text-sm">
-            Any 10- to 100-year-old can be a judge.
+            <Pm className="mt-4 md:mt-12 mb-4 font-light text-sm md:text-base">
+              Any 10- to 100-year-old can be a judge.
             </Pm>
-            <Pm className="font-light text-sm">
-            Register first, then search for the artists by name or country, and vote. You can vote only once.
+            <Pm className="font-light text-sm md:text-base">
+              Register first, then search for the artists by name or country, and vote. You can vote only once.
             </Pm>
           </div>
         }
@@ -92,10 +92,10 @@ export const FlippingCards = () => {
       <FlippingCard
         touchScreenPrimary={touchScreenPrimary}
         isFlippable={areFlippable}
-        heading1="Sponsor or Donate"
-        heading2="Your support changes lives"
+        heading1="Sponsor or Partner"
+        heading2="You can change lives!"
         description={
-          <Pm className="mt-4 md:mt-12 font-light text-sm">
+          <Pm className="mt-4 md:mt-12 font-light text-sm md:text-base">
             Help democratize creativity and optimize children's creative potential with your donation today.
             <ButtonStyledLink className="my-6 leading-5"
               href={"https://www.icaf.org/donate"}
