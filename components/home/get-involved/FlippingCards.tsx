@@ -36,7 +36,7 @@ export const FlippingCards = () => {
               It's easy to register and completely free!
             </Pm>
             <Pm className="font-light text-sm md:text-base mb-4 md:mb-0">
-              You must register to Upload your artwork or to Vote for your favorite artist or artwork.
+              You must register to upload your artwork or to vote for your favorite artist or artwork.
             </Pm>
           </div>
         }
@@ -79,7 +79,7 @@ export const FlippingCards = () => {
         description={
           <div>
             <Pm className="mt-4 md:mt-12 mb-4 font-light text-sm md:text-base">
-              Any 10- to 100-year-old can be a judge.
+              Any 10 to 100-year-old can be a judge.
             </Pm>
             <Pm className="font-light text-sm md:text-base">
               Register first, then search for the artists by name or country, and vote. You can vote only once.
