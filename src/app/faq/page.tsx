@@ -6,6 +6,7 @@ import { FaqHeader } from "../../../components/faq/FaqHeader";
 import { FaqSubheader } from "../../../components/faq/FaqSubheader";
 import { FaqDropdowns } from "../../../components/faq/FaqDropdowns";
 import { Banner } from "../../../components/Banner";
+import icafLogo from "../../../public/svgs/Icaf-logo.svg";
 
 
 export const metadata: Metadata = {
@@ -26,6 +27,7 @@ export default function FAQPage() {
         backgroundColor="light-blue"
         title="Can’t find what you are looking for?" 
         description="Still have questions or need personalized assistance? Our dedicated team is ready to help you with any inquiries or special requests you might have, so please don't hesitate to reach out to us through our 'Contact Us' page." 
+        img={icafLogo}
         buttons={[
           {
             href: "https://icaf.org/about/contact-us", 

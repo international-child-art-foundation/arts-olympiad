@@ -9,7 +9,7 @@ import { FiveDrop } from "../../../components/sponsor/FiveDrop";
 import orangeBlob from "../../../public/svgs/sponsor-svg/orangeblob.svg";
 import greenBlob from "../../../public/svgs/sponsor-svg/greenblob.svg";
 import Image from "next/image";
-
+import icafLogo from "../../../public/svgs/Icaf-logo.svg";
 
 export const metadata: Metadata = {
   title: "Sponsor | My Favorite Sport",
@@ -33,6 +33,7 @@ export default function sponsorPage() {
         backgroundColor="light-blue"
         title="Want to get involved?" 
         description="All of ICAF's programs, festivals, and exhibitions are offered free of charge and are made possible through the support of empathic donors and creative sponsors." 
+        img={icafLogo}
         buttons={[
           {
             href: "#",

@@ -66,7 +66,7 @@ const Header = () => {
             <nav tabIndex={0} className="bg-neutral-white invisible rounded-b-xl w-max absolute left-0 top-full transition-all opacity-0 group-hover:visible group-hover:opacity-100 group-hover:translate-x-1 group-hover:duration-500 group-hover:ease-in-out">
               <ul className="py-1">
                 <li>
-                  <a href="#" className="text-new-blue block px-4 py-2 w-fit h-fit tracking-widest text-sm un focus-within:text-new-blue focus-within:font-bold">
+                  <a href="/ActiveEntries" className="text-new-blue block px-4 py-2 w-fit h-fit tracking-widest text-sm un focus-within:text-new-blue focus-within:font-bold">
                     Active entries to Vote on
                   </a>
                 </li>

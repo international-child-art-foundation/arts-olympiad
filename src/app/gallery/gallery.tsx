@@ -4,7 +4,7 @@ import { useSearchParams } from "next/navigation";
 import { artworks } from "../../../mock/artworks";
 import Image from "next/image";
 import Pagination from "../../../components/pagination/Pagination";
-import ArtworkCard from "../../../components/ArtworkCard";
+// import ArtworkCard from "../../../components/ArtworkCard";
 import GalleryImage from "../../../public/gallery/gallery-image.svg";
 
 export default function Gallery () {
@@ -71,12 +71,12 @@ export default function Gallery () {
         <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 md:gap-4">
           {pageData.map((artwork) =>
             <div className="h-full" key={artwork.id}>
-              <ArtworkCard
+              {/* <ArtworkCard
                 id={artwork.id.toString()}
                 name={artwork.name}
                 votes={artwork.votes}
                 url={artwork.url}
-              />
+              /> */}
             </div>
           )}
         </div>

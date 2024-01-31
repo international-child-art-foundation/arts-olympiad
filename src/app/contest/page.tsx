@@ -20,7 +20,7 @@ import bigPinkBlob from "../../../public/svgs/blobs/vertical-big-pink-blob.svg";
 import bigBlueBlob from "../../../public/svgs/blobs/blue-leg-down-blob.svg";
 import greenBlob from "../../../public/svgs/contest-svg/greenblob.svg";
 import lightYellowBlob from "../../../public/svgs/contest-svg/lightYellowblob.svg";
-
+import icafLogo from "../../../public/svgs/Icaf-logo.svg";
 
 export const metadata: Metadata = {
   title: "Contest | My Favorite Sport",
@@ -55,6 +55,7 @@ export default function contestPage() {
         backgroundColor="light-blue"
         title="Submit Your Artwork Today!" 
         description="Join the Art Competition and Showcase Your Talent in Anticipation of the 2024 Olympics." 
+        img={icafLogo}
         buttons={[
           {
             href: "#", // Will direct user to Login page

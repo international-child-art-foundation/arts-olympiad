@@ -1,6 +1,6 @@
 import { Metadata } from "next";
 import { sharedOpenGraph } from "../shared-metadata";
-import Gallery from "./gallery";
+// import Gallery from "./gallery";
 
 export const metadata: Metadata = {
   title: "Gallery | My Favorite Sport",
@@ -12,6 +12,7 @@ export const metadata: Metadata = {
 
 export default function page() {
   return (
-    <Gallery />
+    <></>
+    // <Gallery />
   );
 }
