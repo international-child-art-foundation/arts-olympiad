@@ -19,14 +19,14 @@ export const FaqHeader = () => {
         <div className="sm:col-span-1 md:mt-8">
           <div className="z-20 flex flex-row align-center ">
             <Image src={hashtag} alt="" width={32} height={32}  />
-            <h1 className="z-20 break-words font-semibold text-3xl xsm:text-4xl lg:text-5xl xl:text-6xl">
+            <h1 className="z-20 break-words font-semibold text-3xl xsm:text-4xl lg:text-5xl xl:text-6xl font-epilogue">
                             MyFavoriteSport<span className="sr-only">.</span>
             </h1>
           </div>
-          <h1 className="flex-col z-20 font-semibold mb-4 text-3xl xsm:text-4xl lg:text-5xl xl:text-6xl">
+          <h1 className="flex-col z-20 font-semibold mb-4 text-3xl xsm:text-4xl lg:text-5xl xl:text-6xl font-epilogue">
                         FAQ's
           </h1>
-          <p className="font-light leading-8 md:text-base lg:text-lg">Discover, create and celebrate the Olympic spirit in your artistic expression.</p>
+          <p className="font-inter font-light leading-8">Discover, create and celebrate the Olympic spirit in your artistic expression.</p>
         </div>
 
         <div className="z-20 sm:col-span-1 flex justify-center sm:justify-end items-center">            
