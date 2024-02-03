@@ -1,5 +1,5 @@
 import Image from "next/image";
-// import { gsap } from "gsap";
+import { gsap } from "gsap";
 
 type ArtworkCardProps = {
     id: string;
@@ -11,6 +11,13 @@ type ArtworkCardProps = {
 }
 
 const ArtworkCard = ({ id, name, age, country, votes, url }: ArtworkCardProps) => {
+  const manageEnter = (e : React.MouseEvent<HTMLElement>) => {
+    gsap.to(e.target, {scaleX: 1.5, scaleY: 1.5, duration: 1, ease: "power3.out"});
+  };
+  const manageLeave = (e : React.MouseEvent<HTMLElement>) => {
+    gsap.to(e.target, {scaleX: 1, scaleY: 1, duration: 1, ease: "power3.out"});
+  };
+
   return (
     <div id={id} className="relative w-full h-full rounded-lg">
       <div className="shadow-gray-400 shadow-md rounded-lg">
@@ -23,7 +30,10 @@ const ArtworkCard = ({ id, name, age, country, votes, url }: ArtworkCardProps) =
               fill
               src={url} 
               alt={name}
-              className="w-full h-fit object-cover object-center hover:scale-150"
+              onMouseEnter={(e) => manageEnter(e)}
+              onMouseLeave={(e) => manageLeave(e)}
+              className="w-full h-fit object-cover object-center"
+              // className="w-full h-fit object-cover object-center hover:scale-150"
             />
             <div className="w-fit max-w-full rounded-lg absolute bottom-0 right-0 bg-[#ffffff1a]">
               <p className="max-w-full py-2 px-4 text-right font-normal text-xs xl:text-sm truncate">
