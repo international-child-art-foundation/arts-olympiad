@@ -69,7 +69,7 @@ const MobileNav = () => {
                 </a>
               </li>
               <li>
-                <a href="#" className="text-new-blue block px-12 py-4 w-full h-fit tracking-widest text-sm hover:bg-gradient-to-b drop-shadow-md from-light-blue focus-within:text-new-blue focus-within:font-bold">
+                <a href="/ActiveEntries" className="text-new-blue block px-12 py-4 w-full h-fit tracking-widest text-sm hover:bg-gradient-to-b drop-shadow-md from-light-blue focus-within:text-new-blue focus-within:font-bold">
                   Active Entries to Voting
                 </a>
               </li>

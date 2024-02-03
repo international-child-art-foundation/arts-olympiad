@@ -1,4 +1,5 @@
 import Image from "next/image";
+// import { gsap } from "gsap";
 
 type ArtworkCardProps = {
     id: string;
@@ -22,7 +23,7 @@ const ArtworkCard = ({ id, name, age, country, votes, url }: ArtworkCardProps) =
               fill
               src={url} 
               alt={name}
-              className="w-full h-full hover:scale-150"
+              className="w-full h-fit object-cover object-center hover:scale-150"
             />
             <div className="w-fit max-w-full rounded-lg absolute bottom-0 right-0 bg-[#ffffff1a]">
               <p className="max-w-full py-2 px-4 text-right font-normal text-xs xl:text-sm truncate">
