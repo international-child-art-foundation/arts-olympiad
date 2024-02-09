@@ -6,6 +6,7 @@ import pinkBGtablet from "../../public/svgs/impact-svg/pinkBG-tablet.svg";
 import pinkBGsmall from "../../public/svgs/impact-svg/pinkBG-small.svg";
 import pinkBGlarge from "../../public/svgs/impact-svg/pinkBG-large.svg";
 import impactHeaderImage from "../../public/impact/impact_header_image.webp";
+import { BodyLayout, TitleLayout } from "@/app/ClientComponent";
 
 export const ImpactBegin = () => {
   return (
@@ -19,20 +20,24 @@ export const ImpactBegin = () => {
       <section className="relative grid grid-cols-2 z-20 mt-10 m-auto max-w-screen-2xl px-8 md:px-12 lg:px-16 xl:px-20">
 
         <div className="col-span-2 sm:col-span-1 md:mt-8">
-          <h1 className="flex-col z-20 font-semibold mb-4 text-3xl xsm:text-4xl lg:text-5xl xl:text-6xl">
-            Impact of ICAF and
-          </h1>
-          <div className="z-20 flex flex-row align-center mb-8">
-            <Image src={hashtag} alt="" width={32} height={32}  />
-            <h1 className="z-20 break-words font-semibold text-3xl xsm:text-4xl lg:text-5xl xl:text-6xl">
-              MyFavoriteSport<span className="sr-only">.</span>
+          <TitleLayout>
+            <h1 className="flex-col z-20 font-semibold mb-4 text-3xl xsm:text-4xl lg:text-5xl xl:text-6xl">
+              Impact of ICAF and
             </h1>
-          </div>
-          <div className="w-auto mb-8 z-20">
-            <h2 className="z-20 font-light text-lg lg:w-4/5 mxl:w-1/2">
-              Grow engagement in the Olympics through the art of sport.
-            </h2>
-          </div>
+            <div className="z-20 flex flex-row align-center mb-8">
+              <Image src={hashtag} alt="" width={32} height={32}  />
+              <h1 className="z-20 break-words font-semibold text-3xl xsm:text-4xl lg:text-5xl xl:text-6xl">
+                MyFavoriteSport<span className="sr-only">.</span>
+              </h1>
+            </div>
+          </TitleLayout>
+          <BodyLayout>
+            <div className="w-auto mb-8 z-20">
+              <h2 className="z-20 font-light text-lg lg:w-4/5 mxl:w-1/2">
+                Grow engagement in the Olympics through the art of sport.
+              </h2>
+            </div>
+          </BodyLayout>
         </div>
 
         <div className="col-span-2 z-20 sm:col-span-1">            
