@@ -76,7 +76,7 @@ export const Guidelines = () => {
   };
   
   return (
-    <section aria-label="Submission guidelines." className="relative px-8 md:px-12 lg:px-16 xl:px-20 flex flex-col max-w-screen-2xl lg:mx-auto mt-16 md:mt-36">
+    <section aria-label="Submission guidelines." className="relative px-8 md:px-12 lg:px-16 xl:px-20 flex flex-col max-w-screen-2xl lg:mx-auto mt-16 md:mt-36 mb-16">
       <Image src={guidelinesPinkBlob} alt="" width={1000} className="z-0 absolute -top-32 -left-12 md:left-0 w-[700px] max-w-[unset] " />
       <H2m className="z-10 font-medium text-3xl md:text-4xl font-montserrat" >
         Submission made
