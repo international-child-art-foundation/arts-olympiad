@@ -24,7 +24,7 @@ export const TimePointDescription = ({heading, color, description, isMobile, inv
       `}
     >
       <div className="min-h-[50%] flex flex-col justify-end">
-        <H2m className="time-point font-semibold md:font-normal " >{heading}</H2m>
+        <H2m className="time-point font-semibold md:font-normal font-montserrat " >{heading}</H2m>
       </div>
       <div className="relative border-1 my-4 border-black" >
         <div
@@ -35,7 +35,7 @@ export const TimePointDescription = ({heading, color, description, isMobile, inv
           `}
         />
       </div>
-      <Pm className="time-point font-light font-sans min-h-[50%]">{description}</Pm>
+      <Pm className="time-point font-light min-h-[50%]">{description}</Pm>
     </div>
   );
 };
