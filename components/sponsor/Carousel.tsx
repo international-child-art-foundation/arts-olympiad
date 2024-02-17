@@ -37,14 +37,14 @@ export const Carousel = () => {
   return (
     <>
       <div className="z-20 mt-28 relative lg:hidden m-auto max-w-screen-2xl px-8 md:px-12 lg:px-16 xl:px-20">
-        <Image src={medalIcon} alt="" width={100} height={100} className="z-0 absolute -top-12 left-1/2 transform -translate-x-1/2 w-[100px] h-[100px] md:hidden" />
+        {/* <Image src={medalIcon} alt="" width={100} height={100} className="z-0 absolute -top-12 left-1/2 transform -translate-x-1/2 w-[100px] h-[100px] md:hidden" /> */}
         <div className="bg-light-pink pt-20 rounded-2xl h-fit md:pt-8 ">
           <div className="mx-5%">
-            <h3 className="text-center font-medium text-3xl pb-10 md:hidden">Celebrate the Olympics!</h3>
+            {/* <h3 className="text-center font-medium text-3xl pb-10 md:hidden">Celebrate the Olympics!</h3> */}
             <div className="flex justify-center">
               <Image src={medalIcon} alt="" width={46} height={46} className="w-[46px] h-[46px] mr-4 hidden md:block" />
               <span className="font-medium text-3xl pb-4 hidden md:block mt-1">
-                Celebrate the Olympics!
+                Paris
               </span> 
             </div>
             <ul className="mx-5% list-disc font-light text-lg leading-loose mb-24 md:mb-8">
@@ -210,8 +210,8 @@ export const Carousel = () => {
               <label className="absolute inset-0" htmlFor="article-03"><span className="sr-only"></span></label>
               <article className="bg-light-pink p-6 rounded-2xl shadow-2xl">
                 <div className="mx-5%">
-                  <Image src={medalIcon} alt="" width={100} height={100} className="absolute left-1/2 transform -translate-x-1/2 w-[100px] h-[100px] -top-12" />
-                  <h3 className="text-center font-medium text-3xl py-10">Celebrate the Olympics!</h3>
+                  {/* <Image src={medalIcon} alt="" width={100} height={100} className="absolute left-1/2 transform -translate-x-1/2 w-[100px] h-[100px] -top-12" /> */}
+                  <h3 className="text-center font-medium text-3xl py-10">Paris</h3>
                   <ul className="mx-5% list-disc font-light text-lg leading-loose">
                     <li className="pb-1">
                       Promote Olympism in your company and the Olympic values of excellence, friendship, and respect.
