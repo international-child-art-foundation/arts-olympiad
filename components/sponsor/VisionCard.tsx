@@ -30,7 +30,7 @@ export const VisionCard = ({ icon, heading, description, color, texture, ...rest
       onTouchStart={() => touchScreenPrimary && setRevealTexture(!revealTexture)}
       {...restProps}
     >
-      <div className="w-full flex flex-row lg:flex-col justify-start items-center">
+      <div className="w-full mt-10 flex flex-row lg:flex-col justify-start items-center">
         <Image src={icon} alt="" width={isTablet ? 40 : 20} height={20} className={`${!isTablet && "mr-4"}`}/>
         <H3m className="font-semibold my-5">{heading}</H3m>
       </div>
