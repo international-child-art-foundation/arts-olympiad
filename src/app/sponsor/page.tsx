@@ -10,6 +10,7 @@ import {Benefits} from "../../../components/sponsor/Benefits";
 import orangeBlob from "../../../public/svgs/sponsor-svg/orangeblob.svg";
 import greenBlob from "../../../public/svgs/sponsor-svg/greenblob.svg";
 import Image from "next/image";
+import { VisionCards } from "../../../components/sponsor/VisionCards";
 
 
 export const metadata: Metadata = {
@@ -25,7 +26,8 @@ export default function sponsorPage() {
     <div className="overflow-hidden z-0 mx-auto">
       <SponsorBegin />
       {/* <Advantage />  */}
-      <Carousel />
+      {/* <Carousel /> */}
+      <VisionCards />
       <Benefits />
       <ContactUs />
       {/* <FiveDrop /> */}

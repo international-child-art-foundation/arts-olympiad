@@ -21,10 +21,6 @@ export const VisionCard = ({ icon, heading, description, color, texture, ...rest
   const isTablet = windowWidth >= 1024;
   const [revealTexture, setRevealTexture] = useState(false);
 
-  // const noop = () => {
-  //   return;
-  // };
-
   return (
     <article
       className={`relative lg:max-w-[30%] lg:min-h-[440px] flex flex-col justify-stretch items-center p-6 mb-6 rounded-xl border-1 ${restProps.className}`}
@@ -35,7 +31,7 @@ export const VisionCard = ({ icon, heading, description, color, texture, ...rest
       {...restProps}
     >
       <div className="w-full flex flex-row lg:flex-col justify-start items-center">
-        <Image src={icon} alt="" width={isTablet ? 50 : 30} height={30} className={`${!isTablet && "mr-4"}`}/>
+        <Image src={icon} alt="" width={isTablet ? 40 : 20} height={20} className={`${!isTablet && "mr-4"}`}/>
         <H3m className="font-semibold my-5">{heading}</H3m>
       </div>
       <Pm className="font-sans font-light">{description}</Pm>
