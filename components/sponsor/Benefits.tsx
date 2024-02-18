@@ -11,16 +11,16 @@ import BenefitsRight from "../../public/sponsor/BenefitsRight.png";
 export const Benefits = () => {
     return (
         <>
-        <div className="relative ">
-          <Image src={BenefitsMobile} alt="" width={767} height={446} className="absolute z-10 sm:hidden -top-50 w-full h-full" />
+        <div className="relative mt-20">
+          <Image src={BenefitsMobile} alt="" width={767} height={446} className="absolute z-10 sm:hidden -top-50 w-full " />
           <Image src={BenefitsIpadMini} alt="" width={1023} height={333} className="absolute -z-10 hidden sm:block lg:hidden w-full h-[400px] pb-10" />
-          <Image src={BenefitsTablet} alt="" width={1279} height={377} className="absolute z-10 hidden lg:block xl:hidden right-0 w-1/2 h-full" />
-          <Image src={BenefitsLaptop} alt="" width={1536} height={432} className="absolute z-10 hidden xl:block 2xl:hidden left-0 w-1/2 h-full" />
+          <Image src={BenefitsTablet} alt="" width={1279} height={377} className="absolute z-10 hidden lg:block xl:hidden left-0 w-2/3 h-[400px]" />
+          <Image src={BenefitsLaptop} alt="" width={1536} height={432} className="absolute z-10 hidden xl:block 2xl:hidden left-0 w-2/3 h-[500px]" />
           <Image src={BenefitsXL} alt="" width={1536} height={432} className="absolute z-10 hidden 2xl:block -top-50 left-0 w-2/3" />
 
 
           <section className=" relative grid grid-cols-2 z-20 m-auto max-w-screen-2xl px-8 md:px-12 lg:px-16 xl:px-20">
-            <div className="col-span-2 sm:col-span-1 md:mt-8 2xl:mt-20">
+            <div className="col-span-2 xsm:col-span-2 lg:col-span-1 xsm:mt-8 md:mt-8 2xl:mt-20">
               <h3 className="relative flex-col z-20 font-semibold mb-4 text-2xl xsm:text-2xl lg:text-3xl xl:text-4xl">
                 Sponsorship benefits
               </h3>
@@ -32,7 +32,7 @@ export const Benefits = () => {
               <a href="#" className="text-blue-600 hover:text-blue-700 font-bold underline hover:underline hover:bg-gray-300 p-2 rounded inline-block">Download PDF</a>
               <Image src={vector} alt="" width={10} height={10} className=" z-20  inline-block" />
             </div>
-            <Image src={BenefitsRight} className="inline-block z-20 w-full sm:w-auto 2xl:w-full mt-10" alt=""></Image>
+            <Image src={BenefitsRight} className="xsm:col-span-2 lg:col-span-1 z-20 w-full xl:w-full mt-10" alt=""></Image>
           </section>
         </div>
        

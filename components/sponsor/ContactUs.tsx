@@ -8,8 +8,8 @@ import blueBlobMobile from "../../public/sponsor/blueBlobMobile.png";
 export const ContactUs = () => {
   return (
     <>
-      <div className="relative mb-[500px] xsm:mb-[400px] z-30 mt-20 bg-light-blue" >
-        <Image src={blueBlobMobile} alt="" width={767} height={446} className="absolute z-0 hidden xsm:block w-full h-[1000px]" />
+      <div className="relative mt-[500px] z-30 bg-light-blue" >
+        <Image src={blueBlobMobile} alt="" width={767} height={446} className="absolute z-0 xsm:block w-full h-[1000px]" />
         <div className="absolute left-1/2 transform -translate-x-1/2 grid grid-cols-1 gap-y-6 xsm:mt-[50px] lg:mt-20 m-auto max-w-screen-2xl px-8 md:px-12 lg:px-16 xl:px-20">
           <h2 className="text-center font-medium text-3xl">Contact Us</h2>
           <h3 className="text-center font-light text-lg leading-loose">We will gladly answer any questions you have.</h3>    

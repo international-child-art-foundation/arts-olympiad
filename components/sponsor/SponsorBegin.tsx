@@ -10,12 +10,12 @@ export const SponsorBegin = () => {
   return (
     <>
       <section className="relative grid grid-cols-2 z-20 mt-10 m-auto max-w-screen-2xl px-8 md:px-12 lg:px-16 xl:px-20">
-        <div className="col-span-2 sm:col-span-1 md:mt-8">
+        <div className="col-span-2 lg:col-span-1 md:mt-8">
           <h1 className="flex-col z-20 font-semibold mb-4 text-3xl xsm:text-4xl lg:text-5xl xl:text-6xl">
             Sponsor
           </h1>
           <div className="w-auto mb-8 z-20">
-            <h2 className="z-20 font-light text-lg lg:w-4/5 md:w-1/2">
+            <h2 className="z-20 font-light text-lg  sm:w-full lg:w-4/5">
               A global emotional branding opportunity to win over young hearts and minds and grow lifelong customers or audiences.
             </h2>
           </div>

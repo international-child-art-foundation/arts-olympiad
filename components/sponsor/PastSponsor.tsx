@@ -7,7 +7,7 @@ import vector from "../../public/svgs/Vector.svg";
 export const PastSponsor = () => {
   return (
     <>
-        <div className="relative mt-40 mb-[1000px] grid grid-cols-2 z-20 m-auto  " >
+        <div className="relative mt-40 grid grid-cols-2 z-20 m-auto  " >
             <div className="xsm:col-span-2 lg:col-span-1 xsm:px-8 md:px-12 lg:px-16 xl:px-20 max-w-screen-2xl">
                 <Image src={PastLeft} alt="" width={767} height={446} className="relative z-20 " />
             </div>

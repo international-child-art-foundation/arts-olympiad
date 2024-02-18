@@ -26,8 +26,6 @@ export default function sponsorPage() {
     <div className="overflow-hidden z-0 mx-auto">
 
       <SponsorBegin />
-      {/* <Advantage />  */}
-      {/* <Carousel /> */}
       <VisionCards />
       <Benefits />
       <PastSponsor />
