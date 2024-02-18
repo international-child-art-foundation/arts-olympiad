@@ -11,7 +11,7 @@ import BenefitsRight from "../../public/sponsor/BenefitsRight.png";
 export const Benefits = () => {
     return (
         <>
-        <div className="relative mb-[500px]">
+        <div className="relative ">
           <Image src={BenefitsMobile} alt="" width={767} height={446} className="absolute z-10 sm:hidden -top-50 w-full h-full" />
           <Image src={BenefitsIpadMini} alt="" width={1023} height={333} className="absolute -z-10 hidden sm:block lg:hidden w-full h-[400px] pb-10" />
           <Image src={BenefitsTablet} alt="" width={1279} height={377} className="absolute z-10 hidden lg:block xl:hidden right-0 w-1/2 h-full" />

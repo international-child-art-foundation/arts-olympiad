@@ -11,7 +11,7 @@ import orangeBlob from "../../../public/svgs/sponsor-svg/orangeblob.svg";
 import greenBlob from "../../../public/svgs/sponsor-svg/greenblob.svg";
 import Image from "next/image";
 import { VisionCards } from "../../../components/sponsor/VisionCards";
-
+import { PastSponsor } from "../../../components/sponsor/PastSponsor";
 
 export const metadata: Metadata = {
   title: "Sponsor | My Favorite Sport",
@@ -24,11 +24,13 @@ export const metadata: Metadata = {
 export default function sponsorPage() {
   return (
     <div className="overflow-hidden z-0 mx-auto">
+
       <SponsorBegin />
       {/* <Advantage />  */}
       {/* <Carousel /> */}
       <VisionCards />
       <Benefits />
+      <PastSponsor />
       <ContactUs />
       {/* <FiveDrop /> */}
       {/* <Image src={greenBlob} alt="" width={442} height={417} className="absolute z-0 right-0 w-1/2 sm:w-1/3 mb-10 max-w-xl" /> */}
