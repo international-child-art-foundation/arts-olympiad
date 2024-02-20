@@ -79,7 +79,7 @@ export const FlippingCards = () => {
         description={
           <div>
             <Pm className="mt-4 md:mt-12 mb-4 font-light text-sm md:text-base">
-              Any 14 to 100-year-old can be a judge.
+              Any teen or adult can be a judge.
             </Pm>
             <Pm className="font-light text-sm md:text-base">
               Register first, then search for the artists by name or country, and vote. You can vote only once.
