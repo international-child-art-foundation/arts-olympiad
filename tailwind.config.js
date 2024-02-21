@@ -39,6 +39,7 @@ module.exports = {
         openSans: ["var(--font-open-sans)"],
         nunito: ["var(--font-nunito)"],
         epilogue: ["var(--font-epilogue)"],
+        montserrat: ["var(--font-montserrat)"],
       },
       spacing:{
         "5%": "5%",

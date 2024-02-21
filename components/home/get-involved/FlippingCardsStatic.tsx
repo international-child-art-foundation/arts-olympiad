@@ -1,41 +1,33 @@
 "use client";
 import React from "react";
-import { useState, useEffect } from "react";
-import {FlippingCard} from "./FlippingCard";
-import useWindowDimensions from "@/hooks/useWindowDimensions";
+import {FlippingCardStatic} from "./FlippingCardStatic";
 import monitorUp from "../../../public/svgs/monitor-up.svg";
 import vote from "../../../public/svgs/vote.svg";
 import heart from "../../../public/svgs/heart-handshake.svg";
 import clipboard from "../../../public/svgs/clipboard-edit.svg";
 import littleHeart from "../../../public/home/get-involved/heart.svg";
-import upload from "../../../public/home/get-involved/upload.svg";
 import Image from "next/image";
 import {ButtonStyledLink} from "../../common/ui/ButtonStyledLink";
 import { Pm } from "../../common/texts/Pm";
+import highlightSwimmer from "../../../public/home/Highlight_Swimmer.svg";
 
-export const FlippingCards = () => {
+export const FlippingCardsStatic = () => {
 
-  const { windowWidth, touchScreenPrimary } = useWindowDimensions();
-  const [areFlippable, setAreFlippable] = useState(false);
-
-  useEffect(() => {
-    // Update the state whenever windowWidth changes
-    setAreFlippable(windowWidth >= 768);
-  }, [windowWidth]); 
 
   return (
-    <div className="z-10 md:grid grid-cols-2 grid-rows-2 gap-4 mt-6 card-grid" >
-      <FlippingCard
-        touchScreenPrimary={touchScreenPrimary}
-        isFlippable={areFlippable}
+    <div className="relative z-10 md:grid grid-cols-2 grid-rows-1 gap-4 card-grid m-auto max-w-[400px] md:max-w-[720px] lg:max-w-[800px]" >
+      <div className="absolute -top-40 -left-24 md:-top-44 md:-left-12 lg:-top-28 lg:-left-40 hidden xsm:block">
+        <Image src={highlightSwimmer} alt="" className="" />
+      </div>
+
+      <FlippingCardStatic
         heading1="Register"
-        heading2="For free"
         description={
           <div className="w-full">
-            <Pm className="md:text-base mt-4 md:mt-12 mb-4 font-light text-sm">
+            <Pm className=" mt-4 md:mt-12 mb-4 font-light text-base">
               It's easy to register and completely free!
             </Pm>
-            <Pm className="font-light text-sm md:text-base mb-4 md:mb-0">
+            <Pm className="font-light text-base mb-4 md:mb-0">
               You must register to upload your artwork or to vote for your favorite artist or artwork.
             </Pm>
           </div>
@@ -43,21 +35,19 @@ export const FlippingCards = () => {
         icon={clipboard}
         color="#0286C3"
       >
+        <div className="flex-grow"></div> {/* Spacer element */}
         <ButtonStyledLink
           href={"/auth/register"}
-          className="my-1"
+          className="my-1 w-full"
           onTouchStart={(e: React.TouchEvent<HTMLAnchorElement>) => { e.stopPropagation();}}
           onClick={(e: React.MouseEvent<HTMLAnchorElement>) => { e.stopPropagation();}}
         >
-          <Image className="mr-2" src={upload} alt="" width={24} height={24} />
           Register here
         </ButtonStyledLink>
-      </FlippingCard>
-      <FlippingCard
-        touchScreenPrimary={touchScreenPrimary}
-        isFlippable={areFlippable}
+      </FlippingCardStatic>
+      <FlippingCardStatic
         heading1="Create & Share"
-        heading2="For artists aged 14 to 20"
+        heading2="Artists, aged 14 to 20: Share your creations!"
         description={
           <div>
             <Pm className="mt-4 md:mt-12 mb-4 font-light text-sm md:text-base">
@@ -71,15 +61,13 @@ export const FlippingCards = () => {
         icon={monitorUp}
         color="#EE2F4D"
       />
-      <FlippingCard
-        touchScreenPrimary={touchScreenPrimary}
-        isFlippable={areFlippable}
+      <FlippingCardStatic
         heading1="View & Vote"
         heading2="For your favorite artwork"
         description={
           <div>
             <Pm className="mt-4 md:mt-12 mb-4 font-light text-sm md:text-base">
-              Any teen or adult can be a judge.
+            Any teen or adult can be a judge.
             </Pm>
             <Pm className="font-light text-sm md:text-base">
               Register first, then search for the artists by name or country, and vote. You can vote only once.
@@ -89,15 +77,24 @@ export const FlippingCards = () => {
         icon={vote}
         color="#FBB22E"
       />
-      <FlippingCard
-        touchScreenPrimary={touchScreenPrimary}
-        isFlippable={areFlippable}
+      <FlippingCardStatic
         heading1="Sponsor or Partner"
         heading2="You can change lives!"
         description={
-          <Pm className="mt-4 md:mt-12 font-light text-sm md:text-base">
-            Help democratize creativity and optimize children's creative potential with your donation today.
-            <ButtonStyledLink className="my-6 leading-5"
+          <div className="flex flex-col justify-between">
+            <Pm className="mt-6 font-light text-sm md:text-base">
+              Help democratize creativity and optimize children's creative potential with your donation today.&nbsp;
+            </Pm>
+
+            <Pm className="mb-6 font-light text-sm md:text-base">
+              {"Please "} 
+              <a href="https://icaf.org/about/contact-us" target="_blank" rel="noopener noreferrer" className="underline ">
+                contact us
+              </a>
+              {" about partnership prospects."}
+            </Pm>
+
+            <ButtonStyledLink className="leading-5"
               href={"https://www.icaf.org/donate"}
               onTouchStart={(e: React.TouchEvent<HTMLAnchorElement>) => { e.stopPropagation();}}
               onClick={(e: React.MouseEvent<HTMLAnchorElement>) => { e.stopPropagation();}}
@@ -105,18 +102,12 @@ export const FlippingCards = () => {
               <Image className="mr-2" src={littleHeart} alt="" width={24} height={24} />
               Donate now
             </ButtonStyledLink>
-
-            {"Please "} 
-            <a href="https://icaf.org/about/contact-us" target="_blank" rel="noopener noreferrer" className="text-blue-600 visited:text-purple-600">
-              contact us
-            </a>
-            {" about partnership prospects."}
-          </Pm>
+          </div>
         }
         icon={heart}
         color="#168C39"
       >
-      </FlippingCard>
+      </FlippingCardStatic>
     </div>
   );
 };

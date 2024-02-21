@@ -17,31 +17,51 @@ export const WisdomCard = forwardRef<HTMLDivElement, IProps>(({ wisdom, onClick 
         overflow-hidden
         cursor-pointer
         absolute
-        border-1
-        border-black
         rounded-xl
+        font-montserrat
+        font-bold
       "
       onClick={onClick}
     >
-      <div className="absolute inset-0 rounded-xl overflow-hidden">
-        <LazyImage className="thumbnail-image w-full h-full object-cover select-none" imageUrl={wisdom.url} alt={wisdom.alt} />
+      <div className="absolute inset-0 overflow-hidden w-full h-full">
+        <LazyImage className="thumbnail-image w-full h-full object-cover select-none " imageUrl={wisdom.url} alt={wisdom.alt} /> {/* object-top for redesign*/}
         <div
           className="
             cardLabel
             thumbnail-textfield
+            h-[20%]
+            w-full
             absolute
             bottom-0
-            w-full
-            h-[20%]
-            bg-[#D9D9D9]
-            rounded-b-xl
-            flex
-            items-center
-            justify-center
-            font-semibold
           "
         >
-          <H3m className="select-none">{wisdom.author}</H3m>
+          <div className="
+            absolute
+            w-full
+            h-full
+            bg-gray-700 bg-opacity-100
+            rounded-b-xl
+            backdrop-blur-[5px]
+            "
+          ></div>
+          <div
+            className="
+              cardLabel
+              thumbnail-textfield
+              absolute
+              bottom-0
+              w-full
+              h-full
+              text-[#FAFAFA]
+              rounded-b-xl
+              flex
+              items-center
+              justify-center
+        
+            "
+          >
+            <H3m className="absolute select-none font-montserrat font-semibold z-10">{wisdom.author}</H3m>
+          </div>
         </div>
       </div>
     </div>

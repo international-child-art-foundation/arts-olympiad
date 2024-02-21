@@ -1,5 +1,5 @@
 import "./globals.css";
-import { Inter, Epilogue, Nunito, Open_Sans } from "next/font/google";
+import { Inter, Epilogue, Nunito, Open_Sans, Montserrat } from "next/font/google";
 import Footer from "../../components/Footer";
 import Header from "../../components/Header";
 import { Metadata } from "next";
@@ -22,9 +22,15 @@ export const nunito = Nunito({
   display: "swap",
 });
 
-export const open_sans = Open_Sans({
+export const openSans = Open_Sans({
   subsets: ["latin"],
   variable: "--font-open-sans",
+  display: "swap",
+});
+
+export const montserrat = Montserrat({
+  subsets: ["latin"],
+  variable: "--font-montserrat",
   display: "swap",
 });
 
@@ -40,7 +46,7 @@ export default function RootLayout({
   children: React.ReactNode
 }) {
   return (
-    <html lang="en" className={`${inter.variable} ${epilogue.variable} ${open_sans.variable} ${nunito.variable} bg-neutral-white`}>
+    <html lang="en" className={`${inter.variable} ${epilogue.variable} ${openSans.variable} ${nunito.variable} ${montserrat.variable} bg-neutral-white`}>
       <link
         rel="icon"
         href="/svgs/banner-image.svg"
@@ -48,7 +54,7 @@ export default function RootLayout({
       />
       <body>
         <Header/>
-        <main className={"font-inter overflow-hidden flex flex-col justify-center align-middle w-full m-auto"}>
+        <main className={"font-openSans overflow-hidden flex flex-col justify-center align-middle w-full m-auto"}>
           { children }
         </main>
         <Footer />

@@ -1,7 +1,7 @@
 import {StaticImageData} from "next/image";
 import mandela from "../public/home/wisdom/mandela.png";
 import angelou from "../public/home/wisdom/angelou.png";
-import proust from "../public/home/wisdom/proust.png";
+import proust from "../public/home/wisdom/proust.webp";
 
 export interface IWisdom {
   url: StaticImageData
