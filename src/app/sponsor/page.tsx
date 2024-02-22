@@ -1,15 +1,8 @@
 import { Metadata } from "next";
 import { sharedOpenGraph } from "../shared-metadata";
 import { SponsorBegin } from "../../../components/sponsor/SponsorBegin";
-import { Advantage } from "../../../components/sponsor/Advantage";
-import { Carousel } from "../../../components/sponsor/Carousel";
-import { Banner } from "../../../components/Banner";
 import { ContactUs } from "../../../components/sponsor/ContactUs";
-import { FiveDrop } from "../../../components/sponsor/FiveDrop";
 import {Benefits} from "../../../components/sponsor/Benefits";
-import orangeBlob from "../../../public/svgs/sponsor-svg/orangeblob.svg";
-import greenBlob from "../../../public/svgs/sponsor-svg/greenblob.svg";
-import Image from "next/image";
 import { VisionCards } from "../../../components/sponsor/VisionCards";
 import { PastSponsor } from "../../../components/sponsor/PastSponsor";
 
@@ -23,7 +16,7 @@ export const metadata: Metadata = {
 
 export default function sponsorPage() {
   return (
-    <div className="overflow-hidden z-0 mx-auto">
+    <div className=" z-0 ">
 
       <SponsorBegin />
       <VisionCards />

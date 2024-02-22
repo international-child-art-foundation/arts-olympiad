@@ -1,7 +1,5 @@
 import {VisionCard} from "./VisionCard";
 import Image from "next/image";
-import {H2m} from "../common/texts/H2m";
-import {AnimatedScribble} from "../common/decorations/AnimatedScribble";
 
 
 export const VisionCards = () => {
@@ -54,11 +52,6 @@ export const VisionCards = () => {
           }
         />
       </div>
-
-      <Image
-        src="/svgs/blobs/populated-green-arrow-blob.svg" alt="" width={645} height={903}
-        className="absolute -z-10 -top-20 -left-10"
-      />
 
     </section>
   );
