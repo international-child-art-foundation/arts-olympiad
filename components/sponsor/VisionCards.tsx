@@ -1,8 +1,5 @@
 import {VisionCard} from "./VisionCard";
 import Image from "next/image";
-import {H2m} from "../common/texts/H2m";
-import {AnimatedScribble} from "../common/decorations/AnimatedScribble";
-
 
 export const VisionCards = () => {
   return (
