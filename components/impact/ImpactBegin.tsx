@@ -6,7 +6,7 @@ import pinkBGtablet from "../../public/svgs/impact-svg/pinkBG-tablet.svg";
 import pinkBGsmall from "../../public/svgs/impact-svg/pinkBG-small.svg";
 import pinkBGlarge from "../../public/svgs/impact-svg/pinkBG-large.svg";
 import impactHeaderImage from "../../public/impact/impact_header_image.webp";
-import { BodyLayout, TitleLayout } from "@/app/ClientComponent";
+import { TitleLayout } from "@/app/HeaderLayout";
 
 export const ImpactBegin = () => {
   return (
@@ -31,13 +31,11 @@ export const ImpactBegin = () => {
               </h1>
             </div>
           </TitleLayout>
-          <BodyLayout>
-            <div className="w-auto mb-8 z-20">
-              <h2 className="z-20 font-light text-lg lg:w-4/5 mxl:w-1/2">
-                Grow engagement in the Olympics through the art of sport.
-              </h2>
-            </div>
-          </BodyLayout>
+          <div className="w-auto mb-8 z-20">
+            <h2 className="z-20 font-light text-xl lg:w-4/5 mxl:w-1/2">
+              Grow engagement in the Olympics through the art of sport.
+            </h2>
+          </div>
         </div>
 
         <div className="col-span-2 z-20 sm:col-span-1">            

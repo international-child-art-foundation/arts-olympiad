@@ -9,7 +9,7 @@ import icafLogo from "../../public/svgs/Icaf-logo.svg";
 import headsLarge from "../../public/impact/heads-large.webp";
 import headsSmall from "../../public/impact/heads-small.webp";
 import colorfulScribble from "../../public/svgs/colorful-scribble.svg";
-import { BodyLayout, TitleLayout } from "@/app/ClientComponent";
+import {SubsectionLayout } from "@/app/HeaderLayout";
 
 export const Empowering = () => {
   return (
@@ -26,19 +26,17 @@ export const Empowering = () => {
         <Image src={icafLogo} alt="ICAF Logo" className="col-span-3 sm:col-span-1 mx-auto my-auto w-full h-full lg:order-2" />
 
         <div className="mt-6 col-span-3 lg:col-span-2 lg:order-1">
-          <TitleLayout>
-            <h2 className="text-3xl font-normal ">
+          <SubsectionLayout>
+            <h2 className="text-3xl font-normal leading-normal">
               Empowering the Next <span className="inline-block">
                 Generation
                 <Image src={colorfulScribble} alt="" width={250} height={20} />
               </span>
             </h2>
-          </TitleLayout>
-          <BodyLayout>
-            <p className="mt-6 text-xl font-light">
-              ICAF has enhanced the self-esteem of over five million young people children by providing them opportunities to create original works and showcasing their art globally. Our initiatives foster bonds of friendship and understanding, empowering children to become globally competent citizens.
-            </p>
-          </BodyLayout>
+          </SubsectionLayout>
+          <p className="mt-6 text-xl font-light leading-8">
+            ICAF has enhanced the self-esteem of over five million young people children by providing them opportunities to create original works and showcasing their art globally. Our initiatives foster bonds of friendship and understanding, empowering children to become globally competent citizens.
+          </p>
         </div>
 
         <Image src={headsSmall} alt="" width={390} height={271} className="mt-10 col-span-3 mx-auto my-auto w-full h-fit lg:hidden" />
