@@ -24,7 +24,7 @@ export const VisionCards = () => {
           color="#F9E4EE"
 
           texture={
-            <div className=" w-full absolute bottom-0 left-0">
+            <div className=" w-full absolute bottom-0 left-0 select-none pointer-events-none">
               <Image src="/svgs/blobs/mission-blob.svg" className="w-[30%]" alt="" width={0} height={0}/>
               <div className="flex flex-row">
                 <Image src="/svgs/blobs/mission-blob.svg" className="w-[30%]" alt="" width={0} height={0}/>
@@ -39,7 +39,7 @@ export const VisionCards = () => {
           description="The ensuing online contest will spread worldwide and could go viral, engaging millions of young artists and voters of all ages."
           color="#E4F9EA"
           texture={
-            <Image src="/svgs/blobs/beginning-blob.svg" className="w-[60%] absolute bottom-0 left-0 opacity-40" alt="" width={0} height={0}/>
+            <Image src="/svgs/blobs/beginning-blob.svg" className="w-[60%] absolute bottom-0 left-0 opacity-40 select-none pointer-events-none" alt="" width={0} height={0}/>
           }
         />
         <VisionCard
@@ -48,7 +48,7 @@ export const VisionCards = () => {
           description="The gold, silver, and bronze winners selected by public votes will be announced on June 30th at the 7th World Children’s Festival on The National Mall. The winners will get to attend the Paris Olympics, thanks to our sponsors."
           color="#CCEBFF"
           texture={
-            <Image src="/svgs/blobs/blue-scar-blob.svg" className="w-[80%] absolute bottom-0 left-0 " alt="" width={0} height={0}/>
+            <Image src="/svgs/blobs/blue-scar-blob.svg" className="w-[80%] absolute bottom-0 left-0 select-none pointer-events-none" alt="" width={0} height={0}/>
           }
         />
       </div>
