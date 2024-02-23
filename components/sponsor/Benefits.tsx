@@ -5,8 +5,8 @@ import BenefitsTablet from "../../public/sponsor/BenefitsTablet.png";
 import BenefitsLaptop from "../../public/sponsor/BenefitsLaptop.png";
 import yellowBlob from "../../public/sponsor/yellowBlob.svg";
 import BenefitsRight from "../../public/sponsor/BenefitsRight.png";
-import React from 'react';
-import { FaArrowRight } from 'react-icons/fa';
+import React from "react";
+import ArrowRight from "../../public/sponsor/ArrowRight.svg";
 
 export const Benefits = () => {
   return (
@@ -29,7 +29,8 @@ export const Benefits = () => {
               Employees and stakeholders participate while the company makes it mark on The National Mall across the U.S. Capitol. Please browse this 10-page pdf (2-minutes) 
               </h2>
             </div>
-            <a href="#" className="text-blue-600 hover:text-blue-700 font-bold underline hover:underline hover:bg-gray-300 p-2 rounded inline-block z-10">Download PDF <FaArrowRight className="inline-block"/></a>
+            {/* <a href="#" className="text-blue-600 hover:text-blue-700 font-bold underline hover:underline hover:bg-gray-300 p-2 rounded inline-block z-10">Download PDF <FaArrowRight className="inline-block"/></a> */}
+            <a href="#" className="text-dark-blue hover:text-blue-700 font-bold underline hover:underline hover:bg-gray-300 p-2 rounded inline-block z-10">Download PDF <Image src={ArrowRight} alt="" className="inline-block"></Image></a>
           </div>
           <Image src={BenefitsRight} className="xsm:col-span-2 lg:col-span-1 z-20 w-full xl:w-full mt-10" alt=""></Image>
         </section>
