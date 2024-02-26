@@ -16,7 +16,7 @@ export const SponsorBegin = () => {
           </div>
         </div>
         <div className="col-span-2 z-20 lg:col-span-1 flex">            
-          <Image src={HeartEarth} width = {380} height = {323} className=" w-2/3 select-none pointer-events-none m-auto lg:ml-auto lg:m-[unset]" alt=""/>
+          <Image src={HeartEarth} width = {380} height = {323} className=" w-2/3 lg:w-5/6 max-w-[480px] select-none pointer-events-none m-auto lg:ml-auto lg:m-[unset]" alt=""/>
         </div>
       </section>
     </>

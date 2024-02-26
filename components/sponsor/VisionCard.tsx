@@ -2,7 +2,6 @@
 import "../../src/styles/fade-in-out-texture.css";
 import React, {StaticImageData} from "next/image";
 import {ReactNode, useState} from "react";
-import {H3m} from "../common/texts/H3m";
 import {Pm} from "../common/texts/Pm";
 import Image from "next/image";
 import useWindowDimensions from "@/hooks/useWindowDimensions";
@@ -33,9 +32,9 @@ export const VisionCard = ({ icon, heading, description, color, texture, ...rest
       <div className="w-full mt-10 flex flex-row xsm:flex-col justify-start items-center">
         {/* <Image src={icon} alt="" width={isTablet ? 40 : 20} height={20} className={`${!isTablet && "mr-4"}`}/> */}
         <Image src={icon} alt="" width={isTablet ? 40 : 20} height={20} className="select-none pointer-events-none"/>
-        <H3m className="font-semibold my-5 font-montserrat">{heading}</H3m>
+        <h3 className="font-medium lg:font-semibold text-3xl my-5 font-montserrat">{heading}</h3>
       </div>
-      <Pm className="font-sans font-light">{description}</Pm>
+      <Pm className="font-sans font-light text-base mb-6">{description}</Pm>
       {
         isTablet &&
         <div className={`${revealTexture ? "opacity-1" : "opacity-0" }`}>

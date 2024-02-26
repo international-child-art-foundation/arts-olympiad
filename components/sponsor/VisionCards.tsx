@@ -6,8 +6,7 @@ export const VisionCards = () => {
   return (
     <section
       aria-label="Our Vision and Our Goal"
-      className="mt-36 relative flex flex-col px-8 md:px-12 lg:px-16 xl:px-20 mt-36 max-w-screen-2xl m-auto"
-    >
+      className="relative flex flex-col px-8 md:px-12 lg:px-16 xl:px-20 mt-24 md:mt-30 lg:mt-32 xl:mt-36 2xl:mt-38 max-w-screen-2xl m-auto">
       {/* <article className=" text-center md:flex flex-col mr-10" >
         <H2m className="font-medium text-3xl md:text-4xl" >Our Vision & Our <span className="relative text-dark-blue">Goal
           <AnimatedScribble width={180} className="absolute -bottom-6 -right-20 stroke-new-blue" />
@@ -16,7 +15,7 @@ export const VisionCards = () => {
         </H2m>
       </article> */}
 
-      <div className="flex flex-nowrap flex-col lg:flex-row justify-between mt-12">
+      <div className="flex flex-nowrap flex-col lg:flex-row justify-between">
         <VisionCard
           icon="/sponsor/purpleParis.svg"
           heading="Paris"
