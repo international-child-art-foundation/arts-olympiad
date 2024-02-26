@@ -26,10 +26,10 @@ export const Benefits = () => {
             </h3>
             <div className="relative w-auto mb-8 z-20">
               <h2 className="z-20 font-light text-lg lg:w-4/5 mxl:w-4/5">
-              Employees and stakeholders participate while the company makes its mark on The National Mall across the U.S. Capitol. Please browse this 10-page pdf (2-minutes) 
+              Employees and stakeholders participate while the company makes its mark on The National Mall across the U.S. Capitol. Please browse this 10-page pdf (2-minutes)
               </h2>
             </div>
-            <ArrowCTA text="Download PDF" href="#"/>
+            <ArrowCTA text="Download PDF" href="https://www.icaf.org/resource/pdfs/Winning_Over_Young_Hearts_and_Minds_with_ICAF.pdf"/>
           </div>
           <Image src={BenefitsRight} className="xsm:col-span-2 lg:col-span-1 z-20 w-full xl:w-full mt-10" alt=""></Image>
         </section>
