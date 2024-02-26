@@ -26,7 +26,7 @@ export const Benefits = () => {
             </h3>
             <div className="relative w-auto mb-8 z-20">
               <h2 className="z-20 font-light text-lg lg:w-4/5 mxl:w-4/5">
-              Employees and stakeholders participate while the company makes it mark on The National Mall across the U.S. Capitol. Please browse this 10-page pdf (2-minutes) 
+              Employees and stakeholders participate while the company makes its mark on The National Mall across the U.S. Capitol. Please browse this 10-page pdf (2-minutes) 
               </h2>
             </div>
             <ArrowCTA text="Download PDF" href="#"/>

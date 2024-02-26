@@ -16,7 +16,7 @@ export const PastSponsor = () => {
             <h2 className="font-medium text-3xl font-montserrat">Past Sponsors and supporters</h2>
             <h3 className="font-light text-lg leading-loose mt-5">Some of the world’s leading companies have worked with ICAF. 
 Please browse this 16-page pdf (3-minutes). </h3> 
-            <ArrowCTA text="Download PDF" href="#"/>
+            <ArrowCTA text="Download PDF" href="https://www.icaf.org/resource/pdfs/ICAF_Forging%20Iconic%20Brands.pdf"/>
           </div>
           <div>
             {/* <Image src={PastMobile} alt="" width={767} height={446} className="absolute z-0 hidden xsm:block w-full right-0 lg:hidden" /> */}
