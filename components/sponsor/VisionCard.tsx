@@ -33,7 +33,7 @@ export const VisionCard = ({ icon, heading, description, color, texture, ...rest
       <div className="w-full mt-10 flex flex-row xsm:flex-col justify-start items-center">
         {/* <Image src={icon} alt="" width={isTablet ? 40 : 20} height={20} className={`${!isTablet && "mr-4"}`}/> */}
         <Image src={icon} alt="" width={isTablet ? 40 : 20} height={20} className="select-none pointer-events-none"/>
-        <H3m className="font-semibold my-5">{heading}</H3m>
+        <H3m className="font-semibold my-5 font-montserrat">{heading}</H3m>
       </div>
       <Pm className="font-sans font-light">{description}</Pm>
       {

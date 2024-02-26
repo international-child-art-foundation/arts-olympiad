@@ -21,7 +21,7 @@ export const Benefits = () => {
           <div className="col-span-2 xsm:col-span-2 lg:col-span-1 xsm:mt-8 md:mt-8 2xl:mt-20">
             <Image src={yellowBlob} alt="" width={1536} height={432} className="absolute hidden 2xl:block -top-4 -left-20 -z-10 w-2/3 max-w-[1061px]" />
 
-            <h3 className="relative flex-col z-20 font-semibold mb-4 text-2xl xsm:text-2xl lg:text-3xl xl:text-4xl">
+            <h3 className="relative flex-col z-20 font-semibold mb-4 text-2xl xsm:text-2xl lg:text-3xl xl:text-4xl font-montserrat">
               Sponsorship benefits
             </h3>
             <div className="relative w-auto mb-8 z-20">
