@@ -2,7 +2,7 @@ import Image from "next/image";
 import PastXL from "../../public/sponsor/PastXL.png";
 import PastLeft from "../../public/sponsor/PastLeft.png";
 import React from "react";
-import ArrowRight from "../../public/sponsor/ArrowRight.svg";
+import { ArrowCTA } from "../../components/ArrowCTA";
 
 export const PastSponsor = () => {
   return (
@@ -16,7 +16,7 @@ export const PastSponsor = () => {
             <h2 className="font-medium text-3xl ">Past Sponsors and supporters</h2>
             <h3 className="font-light text-lg leading-loose mt-5">Some of the world’s leading companies have worked with ICAF. 
 Please browse this 16-page pdf (3-minutes). </h3> 
-            <a href="#" className="text-new-blue hover:text-blue-700 font-bold underline hover:underline hover:bg-gray-300 p-2 rounded inline-block z-10">Download PDF <Image src={ArrowRight} alt="" className="inline-block"></Image></a>
+            <ArrowCTA text="Download PDF" href="#"/>
           </div>
           <div>
             {/* <Image src={PastMobile} alt="" width={767} height={446} className="absolute z-0 hidden xsm:block w-full right-0 lg:hidden" /> */}

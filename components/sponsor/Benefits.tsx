@@ -6,16 +6,16 @@ import BenefitsLaptop from "../../public/sponsor/BenefitsLaptop.png";
 import yellowBlob from "../../public/sponsor/yellowBlob.svg";
 import BenefitsRight from "../../public/sponsor/BenefitsRight.png";
 import React from "react";
-import ArrowRight from "../../public/sponsor/ArrowRight.svg";
+import { ArrowCTA } from "../../components/ArrowCTA";
 
 export const Benefits = () => {
   return (
     <>
       <div className="relative mt-20">
-        <Image src={BenefitsMobile} alt="" width={767} height={446} className="absolute z-10 sm:hidden -top-50 w-full " />
+        <Image src={BenefitsMobile} alt="" width={767} height={446} className="absolute z-10 sm:hidden -top-8 w-full " />
         <Image src={BenefitsIpadMini} alt="" width={1023} height={333} className="absolute -z-10 hidden sm:block lg:hidden w-full h-[400px] pb-10 -top-12" />
-        <Image src={BenefitsTablet} alt="" width={1279} height={377} className="absolute z-10 hidden lg:block xl:hidden left-0 w-2/3 h-[400px]" />
-        <Image src={BenefitsLaptop} alt="" width={1536} height={432} className="absolute z-10 hidden xl:block 2xl:hidden left-0 w-2/3 h-[500px]" />
+        <Image src={BenefitsTablet} alt="" width={1279} height={377} className="absolute z-10 hidden lg:block xl:hidden left-0 -top-4 w-2/3 h-[400px]" />
+        <Image src={BenefitsLaptop} alt="" width={1536} height={432} className="absolute z-10 hidden xl:block 2xl:hidden left-0 -top-8 w-2/3 h-[500px]" />
 
         <section className=" relative grid grid-cols-2 z-20 m-auto max-w-screen-2xl px-8 md:px-12 lg:px-16 xl:px-20">
           <div className="col-span-2 xsm:col-span-2 lg:col-span-1 xsm:mt-8 md:mt-8 2xl:mt-20">
@@ -29,8 +29,7 @@ export const Benefits = () => {
               Employees and stakeholders participate while the company makes it mark on The National Mall across the U.S. Capitol. Please browse this 10-page pdf (2-minutes) 
               </h2>
             </div>
-            {/* <a href="#" className="text-blue-600 hover:text-blue-700 font-bold underline hover:underline hover:bg-gray-300 p-2 rounded inline-block z-10">Download PDF <FaArrowRight className="inline-block"/></a> */}
-            <a href="#" className="text-dark-blue hover:text-blue-700 font-bold underline hover:underline hover:bg-gray-300 p-2 rounded inline-block z-10">Download PDF <Image src={ArrowRight} alt="" className="inline-block"></Image></a>
+            <ArrowCTA text="Download PDF" href="#"/>
           </div>
           <Image src={BenefitsRight} className="xsm:col-span-2 lg:col-span-1 z-20 w-full xl:w-full mt-10" alt=""></Image>
         </section>
