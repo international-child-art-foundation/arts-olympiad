@@ -14,7 +14,7 @@ export const PastSponsor = () => {
         <div className="relative xsm:col-span-2 lg:col-span-1 lg:pl-16 mt-0 xl:pl-20 max-w-screen-2xl order-1 lg:order-2">
           <div className="relative z-20 m-auto ">
             <h2 className="font-medium text-3xl font-montserrat">Past Sponsors and supporters</h2>
-            <h3 className="font-light text-lg leading-loose mt-5">Some of the world’s leading companies have worked with ICAF. 
+            <h3 className="font-regular md:font-light text-lg mt-5">Some of the world’s leading companies have worked with ICAF. 
 Please browse this 16-page pdf (3-minutes). </h3> 
             <ArrowCTA text="Download PDF" href="https://www.icaf.org/resource/pdfs/ICAF_Forging%20Iconic%20Brands.pdf"/>
           </div>
