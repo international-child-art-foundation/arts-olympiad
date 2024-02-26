@@ -6,7 +6,7 @@ export const SponsorBegin = () => {
     <>
       <section className="relative grid grid-cols-2 z-20 mt-10 m-auto max-w-screen-2xl px-8 md:px-12 lg:px-16 xl:px-20">
         <div className="col-span-2 lg:col-span-1 md:mt-8 max-w-[500px] lg:max-w-[unset] col-span-2 m-auto">
-          <h1 className="flex-col z-20 font-semibold mb-6 text-3xl xsm:text-4xl lg:text-5xl xl:text-6xl text-center lg:text-left font-montserrat">
+          <h1 className="flex-col z-20 font-semibold mb-6 text-4xl lg:text-5xl xl:text-6xl text-center lg:text-left font-montserrat">
             Sponsor
           </h1>
           <div className="w-auto mb-8 z-20">
