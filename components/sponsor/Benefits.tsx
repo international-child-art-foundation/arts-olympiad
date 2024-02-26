@@ -4,7 +4,7 @@ import BenefitsIpadMini from "../../public/sponsor/BenefitsIpadMini.png";
 import BenefitsTablet from "../../public/sponsor/BenefitsTablet.png";
 import BenefitsLaptop from "../../public/sponsor/BenefitsLaptop.png";
 import yellowBlob from "../../public/sponsor/yellowBlob.svg";
-import BenefitsRight from "../../public/sponsor/BenefitsRight.png";
+import BenefitsRight from "../../public/sponsor/BenefitsRight.webp";
 import React from "react";
 import { ArrowCTA } from "../../components/ArrowCTA";
 

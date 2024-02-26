@@ -1,6 +1,6 @@
 import Image from "next/image";
-import PastXL from "../../public/sponsor/PastXL.png";
-import PastLeft from "../../public/sponsor/PastLeft.png";
+import PastXL from "../../public/sponsor/PastXL.webp";
+import PastLeft from "../../public/sponsor/PastLeft.webp";
 import React from "react";
 import { ArrowCTA } from "../../components/ArrowCTA";
 

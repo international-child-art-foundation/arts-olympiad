@@ -1,4 +1,5 @@
 import Image from "next/image";
+import HeartEarth from "../../public/sponsor/HeartEarth.webp";
 
 export const SponsorBegin = () => {
   return (
@@ -15,7 +16,7 @@ export const SponsorBegin = () => {
           </div>
         </div>
         <div className="col-span-2 z-20 lg:col-span-1 flex justify-center item-center">            
-          <Image src="/sponsor/heart_earth_combination.svg" width = {380} height = {323} className="lg:ml-0 w-2/3 select-none pointer-events-none" alt=""/>
+          <Image src={HeartEarth} width = {380} height = {323} className="lg:ml-0 w-2/3 select-none pointer-events-none" alt=""/>
         </div>
       </section>
     </>
