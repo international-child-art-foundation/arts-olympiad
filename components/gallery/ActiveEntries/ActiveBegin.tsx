@@ -6,9 +6,10 @@ import {Countdown} from "./Countdown";
 import CountdownContainerMobile from "../CountdownContainerMobile";
 import CountdownContainer from "../CountdownContainer";
 import colorfulScribble from "../../../public/svgs/colorful-scribble.svg";
+import { artworks } from "../../../mock/artworks";
 
 export const ActiveBegin= () => {
-
+  
   return (
     <>
       <section className="relative flex scale-x-80 xsm:scale-x-100 justify-start xsm:justify-center mt-6 md:mt-20 max-h-[760px] bg-neutral-white m-auto max-w-screen-2xl px-8 md:px-12 lg:px-16 xl:px-20">
@@ -52,7 +53,7 @@ export const ActiveBegin= () => {
             Total votes:
           </div>
           <div className="text-3xl font-semibold lg:text-4xl lg:font-bold">
-            0
+            {artworks.map(artwork => artwork.votes).reduce((a, b) => a + b, 0)}
             <Image src={colorfulScribble} alt="" width={160} height={20} className="-ml-8"/>
           </div>
         </div>

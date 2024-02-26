@@ -17,6 +17,7 @@ export default function ActiveEntries() {
   return (
     <div className="overflow-hidden z-0 mx-auto w-screen">
       <ActiveBegin />
+      
       <Arts />
 
       <div className="bg-light-blue w-screen h-[150px] xsm:h-[200px] md:h-[0px] mt-24 sm:mt-40 md:mt-24 lg:mt-40 2xl:mt-72"></div>

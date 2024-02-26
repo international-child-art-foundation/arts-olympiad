@@ -9,9 +9,10 @@ interface IProps {
     name?: string,
     votes?: number
     url: string | StaticImageData,
-    country?: string,
-    age?: number
-    alt: string
+    country?: string[],
+    age?: number,
+    alt: string,
+    sport: string[]
   };
   width ?: number
   mdwidth?: number
