@@ -17,7 +17,7 @@ export const Intro = () => {
         </div>
         <div className=" mb-6 md:mb-12 z-20">
           <p className=" z-20 text-base mb-4 leading-8 lg:mb8">
-            Any <b>10 to 20-year-old</b> anywhere can create art on his or her most favorite sport, upload it, and share it with family and friends to get their votes.
+            Any <b>14- to 20-year-old</b> anywhere can create art on his or her most favorite sport, upload it, and share it with family and friends to get their votes.
           </p>
           <p className="z-20 text-base mb-4 leading-8 lg:mb8">
             The gold, silver, and bronze winners selected through public votes will get to attend the <b>Paris Olympics</b> with our sponsors' support.

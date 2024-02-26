@@ -16,7 +16,7 @@ export const Accordion = () => {
       background: yellowBG,
       color: "#FFF5AD",
       header: "Age Restrictions:",
-      element: "Participants must be between the ages of 10 and 20 to submit their artwork.",
+      element: "Participants must be between the ages of 14 and 20 to submit their artwork.",
       icon: <Face />
     },
     {
@@ -59,7 +59,7 @@ export const Accordion = () => {
                 </p>
                 <hr className="absolute top-[170px] sm:top-[170px] z-30 border-new-black border-1 border-t-0.5 w-11/12 sm:w-1/2"></hr>
                 <p className="absolute top-[190px] sm:top-[200px] z-30 font-light text-base leading-loose w-11/12 sm:w-1/2">
-                  Participants must be between the ages of 10 and 20 to submit their artwork.
+                  Participants must be between the ages of 14 and 20 to submit their artwork.
                 </p>
               </div>
             </div>
