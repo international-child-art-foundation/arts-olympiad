@@ -66,7 +66,7 @@ export default function Arts() {
     filteredArts = artworks;
   }
 
-  const updateFilters = (updatedParams: Record<string, string[]>) => {
+  const updateFilters = () => { //updatedParams: Record<string, string[]>
 
     //some code to remove a user-clicked filter
   };
