@@ -32,9 +32,14 @@ module.exports = {
         "accent-red": "#F72214",
         "accent-green": "#158737",
         "main-grey":"#6A7682",
+        "inactive-grey":"#8C8C8C",
       },
       fontFamily:{
-        body: ["Nunito"]
+        inter: ["var(--font-inter)"],
+        openSans: ["var(--font-open-sans)"],
+        nunito: ["var(--font-nunito)"],
+        epilogue: ["var(--font-epilogue)"],
+        montserrat: ["var(--font-montserrat)"],
       },
       spacing:{
         "5%": "5%",

@@ -101,13 +101,13 @@ export const WisdomCarousel = () => {
           position = leftPosition;
           if (cardRef.current) {
             cardRef.current.style.zIndex = "1";
-            gsap.to(cardRef.current.querySelector(".cardLabel"), { opacity: 0.8, duration: 0.4 });
+            gsap.to(cardRef.current.querySelector(".cardLabel"), { opacity: 1, duration: 0.4 });
           }
         } else {
           position = rightPosition;
           if (cardRef.current) {
             cardRef.current.style.zIndex = "1";
-            gsap.to(cardRef.current.querySelector(".cardLabel"), { opacity: 0.8, duration: 0.4 });
+            gsap.to(cardRef.current.querySelector(".cardLabel"), { opacity: 1, duration: 0.4 });
           }
         }
     
@@ -146,10 +146,10 @@ export const WisdomCarousel = () => {
         <div className=" z-40 relative w-full h-full">
           <div
             ref={wisdomTextRef}
-            className="flex flex-col md:flex-col text-white p-5 absolute right-0 bottom-0 text-black z-50 bg-gray-700 -translate-y-48 mb-1 md:-translate-y-52 opacity-90 rounded-xl w-full md:w-60 w-96 overflow-hidden max-w-full"
+            className="flex flex-col md:flex-col text-white p-5 absolute right-0 bottom-[-1px] z-50 bg-gray-700 -translate-y-48 mb-1 md:-translate-y-52 opacity-90 rounded-xl w-full md:w-60 w-96 overflow-hidden max-w-full"
           >
             <Pm className="text-sm z-20 row-span-1 text-end overflow-hidden  text-overflow-ellipsis">{wisdomText}</Pm>
-            <H3m className="z-20 mt-4 text-right font-semibold overline row-span-1 xl:text-2xl lg:text-xl overflow-hidden whitespace-nowrap text-overflow-ellipsis">{authorName}</H3m>
+            <H3m className="z-20 mt-4 text-right font-semibold overline row-span-1 xl:text-2xl lg:text-xl overflow-hidden whitespace-nowrap text-overflow-ellipsis font-montserrat pt-2">{authorName}</H3m>
           </div>
           {
             wisdomList
@@ -167,7 +167,7 @@ export const WisdomCarousel = () => {
 
       <div className="w-full flex flex-col md:flex-row justify-start items-center md:grid md:grid-rows-2 md:grid-cols-6 md:gap-4 justify-center mt-8">
         {/* Current item indicators */}
-        <div className="my-6 flex flex-row mx-[10%] md:mx-[0%] md:row-start-1 md:row-end-3 md:col-start-3 md:col-end-5 justify-self-center">
+        <div className="my-6 flex flex-row mx-[10%] md:mx-[0%] md:row-start-1 md:row-end-3 md:col-start-3 md:col-end-5 justify-self-center opacity-0 pointer-events-none ">
           {
             wisdomList.map((wisdom, i) => {
               return (
@@ -187,7 +187,7 @@ export const WisdomCarousel = () => {
 
         {/* Scroll arrow buttons */}
 
-        <div className="md:row-start-1 md:row-end-3 md:col-start-5 md:col-end-7 md:flex md:justify-end pointer-events-none opacity-0 sm:pointer-events-auto sm:opacity-100" >
+        <div className="md:row-start-1 md:row-end-3 md:col-start-5 md:col-end-7 md:flex md:justify-end pointer-events-none opacity-0" >
           <button
             ref={leftButtonRef}
             className="mr-2"
