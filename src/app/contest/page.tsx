@@ -17,8 +17,6 @@ import littleYellowBlob from "../../../public/svgs/blobs/little-yellow-blob.svg"
 import tinyYellowBlob from "../../../public/svgs/blobs/tiny-yellow-blob.svg";
 import tinyPinkBlob from "../../../public/svgs/blobs/tiny-vertical-pink-blob.svg";
 import bigBlueBlob from "../../../public/svgs/blobs/blue-leg-down-blob.svg";
-import greenBlob from "../../../public/svgs/contest-svg/greenblob.svg";
-import lightYellowBlob from "../../../public/svgs/contest-svg/lightYellowblob.svg";
 import icafLogo from "../../../public/svgs/Icaf-logo.svg";
 
 export const metadata: Metadata = {
