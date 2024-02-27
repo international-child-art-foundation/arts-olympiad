@@ -13,6 +13,7 @@ import blueBlobs from "../../../public/svgs/gallery-svg/blueBlobs.svg";
 import multiBlueblobs from "../../../public/svgs/gallery-svg/multiBlueblobs.svg";
 import Image from "next/image";
 import Filter from "./Filter";
+import { TagList } from "./TagList";
 
 function isArtworkAvailable(arr1?: string[], arr2?: string[]) {
   if (!arr1 || !arr2) {
@@ -65,6 +66,13 @@ export default function Arts() {
     filteredArts = artworks;
   }
 
+  const updateFilters = (updatedParams: Record<string, string[]>) => {
+
+    //some code to remove a user-clicked filter
+  };
+  
+  
+
   const pageData = filteredArts.slice(startIndex, endIndex);
 
   return (
@@ -80,6 +88,7 @@ export default function Arts() {
             Filter
             <span className="ml-6"><MenuIcon /></span>
           </button>
+          <TagList paramsObj={paramsObj} updateFilters={updateFilters} />
           <div className={` ${isDropdown ? "blur-lg" : ""} col-start-5 col-span-1 `} >
             <a href="/ActiveEntries/">
               <button className="px-5 py-2 text-black cursor-pointer font-semibold">
