@@ -83,15 +83,22 @@ export const FlippingCardsStatic = () => {
         description={
           <div className="flex flex-col justify-between">
             <Pm className="mt-6 font-light text-sm md:text-base">
-              Help democratize creativity and optimize children's creative potential with your donation today.&nbsp;
+            You can help reassure young people that their chaotic and divided world has hope.&nbsp;
             </Pm>
 
-            <Pm className="mb-6 font-light text-sm md:text-base">
-              {"Please "} 
-              <a href="https://icaf.org/about/contact-us" target="_blank" rel="noopener noreferrer" className="underline ">
-                contact us
+            <Pm className=" font-light text-sm md:text-base">
+              {"Click "} 
+              <a href="https://myfavoritesport.org/sponsor/" target="_blank" rel="noopener noreferrer" className="underline ">
+                here
               </a>
-              {" about partnership prospects."}
+              {" for sponsorship."}
+            </Pm>
+            <Pm className="mb-6 font-light text-sm md:text-base">
+              {" "} 
+              <a href="https://icaf.org/about/contact-us" target="_blank" rel="noopener noreferrer" className="underline ">
+                Contact us
+              </a>
+              {" for a partnership."}
             </Pm>
 
             <ButtonStyledLink className="leading-5"
