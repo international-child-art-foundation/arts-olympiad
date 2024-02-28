@@ -34,7 +34,7 @@ export const VisionCard = ({ icon, heading, description, color, texture, ...rest
         <Image src={icon} alt="" width={isTablet ? 40 : 20} height={20} className="select-none pointer-events-none"/>
         <h3 className="font-medium lg:font-semibold text-3xl my-5 font-montserrat">{heading}</h3>
       </div>
-      <Pm className="font-sans font-light text-base mb-6">{description}</Pm>
+      {typeof(description) == "string" ? <Pm className="font-sans font-light text-base mb-6">{description}</Pm> : description}
       {
         isTablet &&
         <div className={`${revealTexture ? "opacity-1" : "opacity-0" }`}>
