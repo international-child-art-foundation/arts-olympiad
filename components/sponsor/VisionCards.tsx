@@ -44,7 +44,13 @@ export const VisionCards = () => {
         <VisionCard
           icon="/sponsor/BlueDC.svg"
           heading="Washington, D.C."
-          description="The gold, silver, and bronze winners selected by public votes will be announced on June 30th at the 7th World Children’s Festival on The National Mall. The winners will get to attend the Paris Olympics, thanks to our sponsors."
+          description={
+            <p className="break-words lg:text-lg xl:text-xl font-sans font-light text-base mb-6">
+              {"The gold, silver, and bronze winners selected by public votes will be announced on June 30th at the "}
+              <a href="https://worldchildrensfestival.org/" target="_blank" rel="noopener noreferrer" className="underline pb-10">7th World Children's Festival</a>
+              {" on The National Mall. The winners will get to attend the Paris Olympics, thanks to our sponsors."}
+            </p>
+          }
           color="#CCEBFF"
           texture={
             <Image src="/svgs/blobs/blue-scar-blob.svg" className="w-[80%] absolute bottom-0 left-0 select-none pointer-events-none" alt="" width={0} height={0}/>
