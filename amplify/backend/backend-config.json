@@ -84,6 +84,56 @@
       "service": "Lambda"
     }
   },
+  "parameters": {
+    "AMPLIFY_function_createPresignedUrl_deploymentBucketName": {
+      "usedBy": [
+        {
+          "category": "function",
+          "resourceName": "createPresignedUrl"
+        }
+      ]
+    },
+    "AMPLIFY_function_createPresignedUrl_s3Key": {
+      "usedBy": [
+        {
+          "category": "function",
+          "resourceName": "createPresignedUrl"
+        }
+      ]
+    },
+    "AMPLIFY_function_processImage_deploymentBucketName": {
+      "usedBy": [
+        {
+          "category": "function",
+          "resourceName": "processImage"
+        }
+      ]
+    },
+    "AMPLIFY_function_processImage_s3Key": {
+      "usedBy": [
+        {
+          "category": "function",
+          "resourceName": "processImage"
+        }
+      ]
+    },
+    "AMPLIFY_function_usersLambda_deploymentBucketName": {
+      "usedBy": [
+        {
+          "category": "function",
+          "resourceName": "usersLambda"
+        }
+      ]
+    },
+    "AMPLIFY_function_usersLambda_s3Key": {
+      "usedBy": [
+        {
+          "category": "function",
+          "resourceName": "usersLambda"
+        }
+      ]
+    }
+  },
   "storage": {
     "dynamo22205621": {
       "providerPlugin": "awscloudformation",

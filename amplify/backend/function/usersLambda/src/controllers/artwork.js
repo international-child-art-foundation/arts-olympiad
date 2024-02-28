@@ -65,9 +65,25 @@ async function getArtworks(req, res) {
     const artworks = await ArtworkService.getArtworks(queryParams);
     res.status(200).json(artworks);
   } catch(error) {
-    res.status(500).json({error: error});
+    res.status(500).json({error: error.message });
   }
 }
+
+async function generatePresigned(req, res) {
+  const userId = req.params.userId;
+  const fileName = req.body.file_name;
+
+  try {
+    const { url, fields } = await ArtworkService.createUploadUrl(fileName, userId);
+    res.status(200).json({ 
+      s3_presigned_url:url, 
+      fields: fields 
+    });
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
+}
+
 
 
 module.exports = {
@@ -76,5 +92,6 @@ module.exports = {
   approveArtwork,
   voteArtwork,
   deleteArtwork,
-  getArtworks
+  getArtworks,
+  generatePresigned
 };

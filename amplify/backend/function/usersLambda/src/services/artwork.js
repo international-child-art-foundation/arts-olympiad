@@ -1,5 +1,8 @@
 const ArtworkModel = require("../models/artwork");
 
+const { s3Client } = require("../lib/s3Client");
+const { createPresignedPost } = require("@aws-sdk/s3-presigned-post"); 
+
 let tableName = "dynamo114508ab";
 if (process.env.ENV && process.env.ENV !== "NONE") {
   tableName = tableName + "-" + process.env.ENV;
@@ -68,6 +71,32 @@ async function getArtworks(queryParams) {
   return results;
 }
 
+async function createUrlAndFields(fileName, userId) {
+  const client = s3Client;
+  const Bucket = "artsolympiadf677eab9a54848dc8788ee9110a11839185846-staging"; // todo: load as env variable
+
+  const Key = "test/" + fileName; // change
+  const Expires = 900;
+  const Fields = {
+    "x-amz-meta-user-id": userId,
+  };
+  const Conditions = [
+    ["starts-with", "$key", Key],
+    ["content-length-range", 0, 1024 * 1024 * 5],
+    ["eq", "$x-amz-meta-user-id", userId],
+  ];
+
+  const { url, fields } = await createPresignedPost(client, {
+    Bucket,
+    Conditions,
+    Fields,
+    Key,
+    Expires,
+  });
+
+  return { url, fields };
+}
+
 // helper functions
 function parseQueryParams(queryParams) {
   let parameters = {};
@@ -106,5 +135,6 @@ module.exports = {
   deleteArtwork,
   voteArtwork,
   approveArtwork,
-  getArtworks
+  getArtworks,
+  createUrlAndFields
 };
