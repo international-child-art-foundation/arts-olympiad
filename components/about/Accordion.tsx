@@ -9,6 +9,7 @@ import {AboutArtworkCard} from "./AboutArtworkCard";
 import {H2m} from "../common/texts/H2m";
 import Image from "next/image";
 import useWindowDimensions from "@/hooks/useWindowDimensions";
+import PinkBlob from "../../public/about/PinkBlob.png";
 
 export const Accordion = () => {
 
@@ -27,19 +28,23 @@ export const Accordion = () => {
       aria-label="Our Commitment."
       className="w-full mt-36 relative flex flex-col px-8 md:px-12 lg:px-16 xl:px-20 max-w-screen-2xl m-auto"
     >
-      <article className="md:flex flex-col mr-10" >
+      <Image
+        src={PinkBlob} alt="" width={645} height={903}
+        className="absolute -z-10 select-none pointer-events-none w-full h-auto object-contain xsm:w-1/2 xsm:mt-52 xsm:-right-28 md:w-1/3 md:mt-28 md:-right-28 lg:w-1/2 xl:-mt-20"
+      />
+      <article className="md:flex flex-col mr-10 z-30" >
         <H2m className="font-medium text-3xl md:text-4xl" >#MyFavoriteSport: A  <span className="relative text-dark-blue">Creative <span className="text-black">Leap</span>
           <Image src="/svgs/colorful-scribble.svg" alt="" width={250} height={20} className="absolute -bottom-6 right-0" />
         </span>
         </H2m>
-        <Pm className="my-8">Discover #MyFavoriteSport's celebration of youthful imagination
+        <Pm className="my-8 sm:w-full md:w-5/6 2xl:w-3/5 xl:2/3">Discover #MyFavoriteSport's celebration of youthful imagination
           and physical vitality, nurturing the next generation of creative athletes.</Pm>
       </article>
     
       <div
         role="region"
         aria-live="polite"
-        className="flex flex-col lg:flex-row lg:h-accordion-narrow lg:max-h-accordion-narrow-max xl:h-accordion-wide xl:max-h-accordion-wide-max overflow-hidden"
+        className="z-30 flex flex-col lg:flex-row lg:h-accordion-narrow lg:max-h-accordion-narrow-max xl:h-accordion-wide xl:max-h-accordion-wide-max overflow-hidden"
       >
         <AccordionCard
           minimalContentWidth={minimalContentWidth}
