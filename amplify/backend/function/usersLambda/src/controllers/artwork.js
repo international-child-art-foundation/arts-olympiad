@@ -74,7 +74,7 @@ async function generatePresigned(req, res) {
   const fileName = req.body.file_name;
 
   try {
-    const { url, fields } = await ArtworkService.createUploadUrl(fileName, userId);
+    const { url, fields } = await ArtworkService.createUrlAndFields(fileName, userId);
     res.status(200).json({ 
       s3_presigned_url:url, 
       fields: fields 

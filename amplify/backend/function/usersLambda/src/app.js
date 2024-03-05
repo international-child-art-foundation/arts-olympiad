@@ -32,7 +32,7 @@ app.delete("/api/users/:userId/artworks/:artworkId", ArtworkController.deleteArt
 app.get("/api/artworks", ArtworkController.getArtworks);
 
 // s3 operations
-app.post("/api/users/:userId/presigned-url", ArtworkController.generatePresigned);
+app.get("/api/users/:userId/presigned-url", ArtworkController.generatePresigned);
 
 app.listen(3000, function() {
   console.log("App started");
