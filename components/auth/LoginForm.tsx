@@ -58,7 +58,7 @@ export const LoginForm = () => {
             <div className="relative">
               <TextInput inputType={`${!showPassword && "password" }`} placeholder="Squk1*Bn" error={errors.password}  touched={touched.password} value={values.password} labelText="Password" id="password" />
               <Image
-                className="absolute top-11 right-4 cursor-pointer"
+                className="absolute top-14 right-4 cursor-pointer"
                 onClick={() => setShowPassword(!showPassword)}
                 width={30} height={30}
                 src={showPassword ? OpenEye : ClosedEye }

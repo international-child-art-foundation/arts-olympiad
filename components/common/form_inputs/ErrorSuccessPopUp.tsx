@@ -11,21 +11,16 @@ interface IProps {
   required: boolean
 }
 
-export const ErrorSuccessPopUp = ({required, error, touched, value, id, className}: IProps) => {
+export const ErrorSuccessPopUp = ({required, error, touched, id, className}: IProps) => {
   return (
     <div className={`${className} flex flex-row min-h-6`}>
       {
         required && error && touched &&
         <div className="flex flex-row" aria-label="Error.">
-          <Image className="self-start" src="/contact/bx_error-circle.svg" alt="" width={20} height={20} />
+          <Image className="self-center" src="/contact/bx_error-circle.svg" alt="" width={20} height={20} />
           <ErrorMessage className="block text-accent-red" name={id} component="div" />
           <span className="sr-only">.</span>
         </div>
-      }
-
-      {
-        required &&!error && touched && value &&
-        <Image src="/contact/bx_check-circle.svg" alt="" width={20} height={20} />
       }
     </div>
   );

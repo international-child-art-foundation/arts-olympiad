@@ -5,20 +5,12 @@ import {useState} from "react";
 import {SendResetLinkForm} from "./SendResetLinkForm";
 import {ResetPasswordForm} from "./ResetPasswordForm";
 import {ResetPasswordSuccess} from "./ResetPasswordSuccess";
-// import BlueBlob from "../../public/auth/blobs/blue_blob.svg";
-// import BlueSmallBlob from "../../public/auth/blobs/blue_small_blob.svg";
-// import GreenBlob from "../../public/auth/blobs/green_blob.svg";
-// import PinkBlob from "../../public/auth/blobs/pink_blob.svg";
-// import PinkMobileBlob from "../../public/auth/blobs/pink_mobile_blob.svg";
-// import YellowBlob from "../../public/auth/blobs/yellow_blob.svg";
-// import useWindowDimensions from "@/hooks/useWindowDimensions";
 
 export type TFormStatus = "send-link" | "link-sent" | "reset-form" | "success";
 
 export const ResetPassword = () => {
 
-  // const {windowWidth} = useWindowDimensions();
-  const [formStatus, setFormStatus] = useState<TFormStatus>("success");
+  const [formStatus, setFormStatus] = useState<TFormStatus>("reset-form");
 
   const handleResetLinkSent = () => {
     setFormStatus("link-sent");
