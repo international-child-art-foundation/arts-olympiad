@@ -54,7 +54,7 @@ export const ResetPasswordForm = ({ onSubmitResetForm }: IProps) => {
         onSubmit={onSubmit}
       >
         {({ errors, touched, values }) => (
-          <Form className="pointer-events-none opacity-50"> {/*  Disabled until contest begins*/}
+          <Form className=""> {/*pointer-events-none opacity-50  Disabled until contest begins*/}
             <div className="relative">
               <NewPasswordInput inputType={`${!showPassword && "password" }`} className="mb-4" placeholder="Squk1*Bn" error={errors.password}  touched={touched.password} value={values.password} labelText="New Password*" id="password" />
               <Image
