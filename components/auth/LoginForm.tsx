@@ -58,7 +58,7 @@ export const LoginForm = () => {
             <div className="relative">
               <TextInput inputType={`${!showPassword && "password" }`} placeholder="Squk1*Bn" error={errors.password}  touched={touched.password} value={values.password} labelText="Password" id="password" />
               <Image
-                className="absolute top-11 right-4 cursor-pointer"
+                className="absolute top-14 right-4 cursor-pointer"
                 onClick={() => setShowPassword(!showPassword)}
                 width={30} height={30}
                 src={showPassword ? OpenEye : ClosedEye }
@@ -68,6 +68,7 @@ export const LoginForm = () => {
               <CheckBox name="remember" value="Remember me"/>
               <button onClick={() => setShowForgotPassword(true)} type="button" className="font-semibold bg-transparent border-none xsm:ml-8">
                 Forgot your password?
+                <span className="sr-only">.</span>
               </button>
             </div>
             <ButtonStd type="submit" className="w-full my-2">Log in</ButtonStd>
