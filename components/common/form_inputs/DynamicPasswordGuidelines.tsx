@@ -2,6 +2,7 @@ import React, {useEffect, useState} from "react";
 import {ErrorSuccessPopUp} from "./ErrorSuccessPopUp";
 import zxcvbn from "zxcvbn";
 import Image from "next/image";
+import {PasswordRequirement} from "./PasswordRequirement";
 
 interface IProps {
   required: boolean
@@ -63,39 +64,48 @@ export const DynamicPasswordGuidelines = ({
       )}
 
       {required && value && !showScore && (
-        <div className="flex flex-col">
+        <div className="flex flex-col" role="region" aria-live="assertive" aria-atomic="true">
 
-          <p className="font-semibold">Your password must contain:</p>
+          <h3 className="font-semibold">Your password must contain:</h3>
 
-          <p className={hasMinLength ? "text-accent-green" : "text-accent-red"}>
-            Minimum of 8 characters
-          </p>
+          <PasswordRequirement
+            isValid={hasMinLength as boolean}
+            id={id}
+            text="Minimum of 8 characters"
+          />
 
-          <p className={hasUpperCase ? "text-accent-green" : "text-accent-red"}>
-            One uppercase letter
-          </p>
+          <PasswordRequirement
+            isValid={hasUpperCase}
+            id={id}
+            text="One uppercase letter"
+          />
 
-          <p className={hasLowerCase ? "text-accent-green" : "text-accent-red"}>
-            One lowercase letter
-          </p>
+          <PasswordRequirement
+            isValid={hasLowerCase}
+            id={id}
+            text="One lowercase letter"
+          />
 
-          <p className={hasNumber ? "text-accent-green" : "text-accent-red"}>
-            One number
-          </p>
+          <PasswordRequirement
+            isValid={hasNumber}
+            id={id}
+            text="One number"
+          />
 
-          <p
-            className={hasSpecialChar ? "text-accent-green" : "text-accent-red"}
-          >
-            One special character
-          </p>
+          <PasswordRequirement
+            isValid={hasSpecialChar}
+            id={id}
+            text="One special character"
+          />
         </div>
       )}
 
       {showScore && (
-        <div className="flex flex-row">
+        <div className="flex flex-row" role="region" aria-live="assertive" aria-atomic="true">
           <Image style={{color: scoreColors[passwordStrength.score]}} className="self-center" src="/auth/check.svg" alt="" width={20} height={20} />
-          <p style={{color: scoreColors[passwordStrength.score]}}>
+          <p aria-live="assertive" aria-atomic="true" style={{color: scoreColors[passwordStrength.score]}}>
           Password Strength: {scores[passwordStrength.score]}
+            <span className="sr-only">.</span>
           </p>
         </div>
       )}

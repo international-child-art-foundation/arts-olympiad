@@ -46,7 +46,7 @@ export const SendResetLinkForm = ({formStatus, onSendResetLink} : IProps) => {
               onSubmit={onSubmit}
             >
               {({ errors, touched, values }) => (
-                <Form className="pointer-events-none opacity-50">
+                <Form className="pointer-events-none opacity-50"> {/* Disabled until contest begins*/}
                   <TextInput inputType="email" className="mt-4" placeholder="johndoe@gmail.com" error={errors.email}  touched={touched.email} value={values.email} labelText="Enter email" id="email" />
                   <ButtonStd type="submit" className="w-full my-2">Send reset link</ButtonStd>
                 </Form>

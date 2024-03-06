@@ -68,6 +68,7 @@ export const LoginForm = () => {
               <CheckBox name="remember" value="Remember me"/>
               <button onClick={() => setShowForgotPassword(true)} type="button" className="font-semibold bg-transparent border-none xsm:ml-8">
                 Forgot your password?
+                <span className="sr-only">.</span>
               </button>
             </div>
             <ButtonStd type="submit" className="w-full my-2">Log in</ButtonStd>
