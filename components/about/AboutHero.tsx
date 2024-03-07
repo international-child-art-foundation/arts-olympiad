@@ -1,22 +1,24 @@
 import Image from "next/image";
 import aboutHeaderImage from "../../public/about/about_header_image.png";
-import headerLine from "../../public/about/header_line.png"
+import headerLine from "../../public/about/header_line.png";
 
 export const AboutHero = () => {
   return (
-    <>
-      
+    <> 
       <section
         aria-label="hero."
         // className="overflow-visible grid grid-cols-2 md:flex-row justify-between mb-8 md:mb-36 mt-6 md:mt-20 max-h-[760px] relative px-8 md:px-12 lg:px-16 xl:px-20 w-full max-w-screen-2xl m-auto z-0"
         className="grid grid-cols-2 relative w-full px-6 md:px-8 lg:px-16 xl:px-20"
       >
-        <article role="banner" className="m-auto md:m-0 z-20 relative flex-col xsm:text-center lg:text-left lg:justify-left lg:mt-28 xsm:col-span-2 lg:col-span-1">
-          <h1 className=" z-20 break-words font-semibold text-3xl xsm:text-center lg:text-left xsm:text-4xl lg:text-5xl xl:text-6xl ">
-            About ICAF 
-          </h1>
-          <div className="flex justify-center lg:justify-start">
-            <Image src={headerLine} alt="" className="select-none pointer-events-none"></Image>
+        <article role="banner" className="m-auto md:m-0 z-20 relative flex-col xsm:justify-center xsm:text-center lg:text-left lg:justify-left lg:mt-28 xsm:col-span-2 lg:col-span-1">
+          <div className="flex flex-col justify-center items-centers">
+            <h1 className=" max-w-full z-20 break-words font-semibold text-3xl xsm:text-center lg:text-left xsm:text-4xl lg:text-5xl xl:text-6xl ">
+              About ICAF 
+             
+            </h1>
+            <div className="w-full flex justify-center lg:justify-start">
+              <Image src={headerLine} alt="" className="select-none pointer-events-none"></Image>
+            </div>
           </div>
           <p className="md:w-full lg:w-3/4 mt-8">Incorporated in the District of Columbia as a 501(c)(3) nonprofit in April 1997, the International Child Art Foundation serves American children as their national arts organization and the world’s children as their global arts organization.</p>
         </article>
@@ -25,7 +27,7 @@ export const AboutHero = () => {
             src={aboutHeaderImage}
             alt={"View over washington monument from side of capitolium "}
             // className="rounded-xl w-full h-full m-auto max-w-md md:max-w-fit md:ml-12 md:min-w-[30%]"
-            className="xsm:w-2/3 lg:w-auto lg:h-auto mt-8"
+            className="xsm:w-2/3 lg:w-auto lg:h-auto mt-8 lg:object-none lg:object-center lg:w-44% lg:h-27%"
             // style={{boxShadow: "10px 10px 0px 8px #689576", borderRadius: "46%"}}
             // width={100}
             // height={100}

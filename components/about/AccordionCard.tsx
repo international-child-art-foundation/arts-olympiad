@@ -109,7 +109,7 @@ export const AccordionCard = (
         >
           {
             displayhorizontally &&
-            <H2m>{header}</H2m>
+            <h2 className="font-light font-montserrat text-2xl lg:text-3xl">{header}</h2>
           }
           {paragraph}
           {images}

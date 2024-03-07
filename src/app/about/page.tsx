@@ -1,7 +1,6 @@
 import { Metadata } from "next";
 import { sharedOpenGraph } from "../shared-metadata";
 import {AboutHero} from "../../../components/about/AboutHero";
-import {VisionCards} from "../../../components/about/VisionCards";
 import {Commitment} from "../../../components/about/Commitment";
 import {Accordion} from "../../../components/about/Accordion";
 import ImageCarousel from "../../../components/about/MobileScroll";

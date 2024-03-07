@@ -3,9 +3,7 @@ import React from "next/image";
 import {AccordionCard} from "./AccordionCard";
 import {useEffect, useState} from "react";
 import {Pm} from "../common/texts/Pm";
-import {artworks} from "../../mock/artworks";
 import {LazyImage} from "../common/images/LazyImage";
-import {AboutArtworkCard} from "./AboutArtworkCard";
 import {H2m} from "../common/texts/H2m";
 import Image from "next/image";
 import useWindowDimensions from "@/hooks/useWindowDimensions";
@@ -103,9 +101,9 @@ The Arts Olympiad in Texas, China, Israel, and New Zealand.</Pm>
           color="#CCEBFF"
           number={3}
           header="Olympics"
-          paragraph={<><Pm className="mb-12 lg:my-12">ICAF has organized art exhibitions at Olympic venues and its Arts Olympiad was integral to New York City’s bid for the 2012 Olympics.</Pm>
-                    <button className="bg-dark-blue text-white h-10 whitespace-no-wrap inline-block max-w-max px-4">See pdf to learn more</button></>
-                    }
+          paragraph={<><Pm className="font-light font-openSans mb-12 lg:my-12">ICAF has organized art exhibitions at Olympic venues and its Arts Olympiad was integral to New York City’s bid for the 2012 Olympics.</Pm>
+            <button className="bg-dark-blue text-white h-10 whitespace-no-wrap inline-block max-w-max px-4">See pdf to learn more</button></>
+          }
           images={
             <Image src={OlympicRings} alt="" className="my-10"></Image>
           }
@@ -123,8 +121,8 @@ The Arts Olympiad in Texas, China, Israel, and New Zealand.</Pm>
           header="#MyFavoriteSports"
           paragraph={<>
             <Pm className="mb-12 lg:my-12">The Olympic art contest is inspired by Baron de Coubertin, founder of modern Olympics, who believed that Olympics must showcase humanity’s physical prowess and artistic talents.</Pm>
-            <button className="bg-dark-blue text-white whitespace-no-wrap w-auto inline-block max-w-max h-10 px-4">When the Olympics gave out medals for art</button>
-            </>}
+            <button className="bg-dark-blue text-white whitespace-no-wrap w-auto inline-block max-w-max h-auto px-4 py-4">When the Olympics gave out medals for art</button>
+          </>}
           images={
             <div className="flex flex-col my-10 md:flex-row mx-auto lg:mx-0">
               <LazyImage className="min-w-[230px] min-h-[300px] max-w-[230px] max-h-[300px] cursor-default" imageUrl="/about/olympic-monument.webp" alt="olympic-monument." />
