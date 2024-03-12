@@ -16,7 +16,7 @@ export const AboutHero = () => {
               About ICAF 
              
             </h1>
-            <div className="w-full flex justify-center lg:justify-start">
+            <div className="w-full flex justify-center lg:justify-start xsm:scale-75 lg:scale-100">
               <Image src={headerLine} alt="" className="select-none pointer-events-none"></Image>
             </div>
           </div>

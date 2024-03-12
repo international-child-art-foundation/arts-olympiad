@@ -1,5 +1,5 @@
 import {H3m} from "../common/texts/H3m";
-import {H2m} from "../common/texts/H2m";
+// import {H2m} from "../common/texts/H2m";
 import useWindowDimensions from "@/hooks/useWindowDimensions";
 import "../../src/styles/accordion.css";
 import React, {Dispatch, SetStateAction, useState, useEffect, useRef, useLayoutEffect} from "react";
