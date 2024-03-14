@@ -1,6 +1,7 @@
 import { useFormik } from "formik";
 import * as yup from "yup";
 import { HintIcon } from "../../svgs/HintIcon";
+import { CorrectIcon } from "../../svgs/CorrectIcon";
 
 export const Guardian = () => {
   const phonevalid= /^((\\+[1-9]{1,4}[ \\-]*)|(\\([0-9]{2,3}\\)[ \\-]*)|([0-9]{2,4})[ \\-]*)*?[0-9]{3,4}?[ \\-]*[0-9]{3,4}?$/;
@@ -55,6 +56,11 @@ export const Guardian = () => {
             <p className="text-xs font-normal text-[#C4384E] ml-2">{errors.guardianFirstName}</p>
           </div>
           }
+          {!errors.guardianFirstName && touched.guardianFirstName &&
+          <div className="inline-flex mt-1">
+            <CorrectIcon /> 
+          </div>
+          }
         </form>
 
         <form autoComplete="off" className="mt-6 grid grid-cols-1 w-full">
@@ -74,6 +80,11 @@ export const Guardian = () => {
             <p className="text-xs font-normal text-[#C4384E] ml-2">{errors.guardianLastName}</p>
           </div>
           }
+          {!errors.guardianLastName && touched.guardianLastName &&
+          <div className="inline-flex mt-1">
+            <CorrectIcon /> 
+          </div>
+          }
         </form>
 
         <form autoComplete="off" className="mt-6 grid grid-cols-1 w-full">
@@ -91,6 +102,11 @@ export const Guardian = () => {
           <div className="inline-flex mt-1">
             <HintIcon /> 
             <p className="text-xs font-normal text-[#C4384E] ml-2">{errors.guardianEmail}</p>
+          </div>
+          }
+          {!errors.guardianEmail && touched.guardianEmail &&
+          <div className="inline-flex mt-1">
+            <CorrectIcon /> 
           </div>
           }
         </form>
@@ -114,7 +130,7 @@ export const Guardian = () => {
           }
         </form>
 
-        <div class="mt-6 items-center w-full">
+        <div className="mt-6 items-center w-full">
           <input 
             value={values.termsCheck}
             onChange={handleChange}

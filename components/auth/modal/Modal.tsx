@@ -28,7 +28,9 @@ export default function Modal() {
     case 1:
       return <Age />;
     case 2:
-      return <Guardian />; //<Over18 /> <Under18 />
+      return <Guardian />; 
+      // return <Over18 />;
+      // return <Under18 />;
 
       // if(){
       //   how to return <div><Guardian />and<Under18 /> </div>;

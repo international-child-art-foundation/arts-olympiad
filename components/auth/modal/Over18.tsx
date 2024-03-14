@@ -1,6 +1,7 @@
 import { useFormik } from "formik";
 import * as yup from "yup";
 import { HintIcon } from "../../svgs/HintIcon";
+import { CorrectIcon } from "../../svgs/CorrectIcon";
 
 export const Over18 = () => {
   const phonevalid= /^((\\+[1-9]{1,4}[ \\-]*)|(\\([0-9]{2,3}\\)[ \\-]*)|([0-9]{2,4})[ \\-]*)*?[0-9]{3,4}?[ \\-]*[0-9]{3,4}?$/;
@@ -55,6 +56,11 @@ export const Over18 = () => {
             <p className="text-xs font-normal text-[#C4384E] ml-2">{errors.firstName}</p>
           </div>
           }
+          {!errors.firstName && touched.firstName &&
+          <div className="inline-flex mt-1">
+            <CorrectIcon /> 
+          </div>
+          }
         </form>
 
         <form autoComplete="off" className="mt-6 grid grid-cols-1 w-full">
@@ -74,6 +80,11 @@ export const Over18 = () => {
             <p className="text-xs font-normal text-[#C4384E] ml-2">{errors.lastName}</p>
           </div>
           }
+          {!errors.lastName && touched.lastName &&
+          <div className="inline-flex mt-1">
+            <CorrectIcon />  
+          </div>
+          }
         </form>
 
         <form autoComplete="off" className="mt-6 grid grid-cols-1 w-full">
@@ -91,6 +102,11 @@ export const Over18 = () => {
           <div className="inline-flex mt-1">
             <HintIcon /> 
             <p className="text-xs font-normal text-[#C4384E] ml-2">{errors.email}</p>
+          </div>
+          }
+          {!errors.email && touched.email &&
+          <div className="inline-flex mt-1">
+            <CorrectIcon /> 
           </div>
           }
         </form>
