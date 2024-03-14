@@ -36,7 +36,7 @@ export const Accordion = () => {
         className="absolute -z-10 select-none pointer-events-none w-full h-auto object-contain xsm:w-1/2 xsm:mt-52 xsm:-right-28 md:w-1/3 md:mt-28 md:-right-28 lg:w-1/2 xl:-mt-20"
       />
       <article className="md:flex flex-col mr-10 z-30" >
-        <H2m className="font-medium my-8 text-3xl md:text-4xl" >ICAF's U.S. and global initiatives</H2m>
+        <H2m className="font-medium font-montserrat my-8 text-3xl md:text-4xl" >ICAF's U.S. and global initiatives</H2m>
       </article>
     
       <div
@@ -54,10 +54,10 @@ export const Accordion = () => {
           setIsOpen={(i) => setCardOpen(i)}
           color="#E4F9EA"
           number={1}
-          header="Arts Plympiad"
+          header="Arts Olympiad"
           paragraph={
             <>
-              <Pm className="lg:my-12">For children’s creative development, ICAF organizes the Arts Olympiad, a free school 
+              <Pm className="lg:my-12 font-openSans font-light">For children’s creative development, ICAF organizes the Arts Olympiad, a free school 
 art program that has grown over the years into the world’s largest. The U.S. Olympic and Paralympic Committee has granted ICAF as exclusive license to use the “Arts Olympiad” mark. 
 The Arts Olympiad in Texas, China, Israel, and New Zealand.</Pm>
               <ArrowCTA text="See 5-page pdf" href="https://www.icaf.org/resource/pdfs/ICAF_Forging%20Iconic%20Brands.pdf"/>
@@ -81,7 +81,7 @@ The Arts Olympiad in Texas, China, Israel, and New Zealand.</Pm>
           header="World Children's Festival"
           paragraph={
             <>
-              <Pm className="my-12">For children’s empathic development, ICAF produces the World Children’s Festival every four years as 
+              <Pm className="my-12 font-openSans font-light">For children’s empathic development, ICAF produces the World Children’s Festival every four years as 
               the “Olympics” of children’s imagination. <Link href="https://icaf.org/mission/world-childrens-festival">https://icaf.org/mission/world-childrens-festival</Link>.</Pm>
             </>
           }
@@ -120,7 +120,7 @@ The Arts Olympiad in Texas, China, Israel, and New Zealand.</Pm>
           number={4}
           header="#MyFavoriteSports"
           paragraph={<>
-            <Pm className="mb-12 lg:my-12">The Olympic art contest is inspired by Baron de Coubertin, founder of modern Olympics, who believed that Olympics must showcase humanity’s physical prowess and artistic talents.</Pm>
+            <Pm className="mb-12 lg:my-12 font-openSans font-light">The Olympic art contest is inspired by Baron de Coubertin, founder of modern Olympics, who believed that Olympics must showcase humanity’s physical prowess and artistic talents.</Pm>
             <button className="bg-dark-blue text-white whitespace-no-wrap w-auto inline-block max-w-max h-auto px-4 py-4">When the Olympics gave out medals for art</button>
           </>}
           images={

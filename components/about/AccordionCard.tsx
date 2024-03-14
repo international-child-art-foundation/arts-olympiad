@@ -95,7 +95,7 @@ export const AccordionCard = (
       >
         <H3m useBreakNormal={true} className="font-bold text-center mr-6 lg:mr-0">0{number}</H3m>
         <H3m
-          className={!displayhorizontally ? "font-semibold" : ""}
+          className={!displayhorizontally ? "font-montserrat" : ""}
           style={{writingMode: displayhorizontally ? "vertical-lr": "horizontal-tb", transform: displayhorizontally ? "rotate(180deg)" : ""}}
         >
           {header}
