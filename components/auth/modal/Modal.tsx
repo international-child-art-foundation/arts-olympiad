@@ -5,8 +5,8 @@ import { Steps } from "./Steps";
 import { StepsControl } from "./StepsControl";
 import { Age } from "./Age";
 import { Guardian } from "./Guardian";
-// import { Under18 } from "./Under18";
-// import { Over18 } from "./Over18";
+import { Under18 } from "./Under18";
+import { Over18 } from "./Over18";
 import { Upload } from "./Upload";
 import { Review } from "./Review";
 import { Confirmation } from "./Confirmation";
@@ -14,10 +14,12 @@ import Image from "next/image";
 
 export default function Modal() {
   const [currentStep, setCurrStep] = useState(1);
+  const [isUnder18, setIsUnder18] = useState(true);
 
   const steps = [
     "Age confirmation",
     "Guardian's Consent",
+    "Terms & Donation Acknowledgment",
     "Upload Artwork",
     "Review",
     "Confirmation"
@@ -29,20 +31,16 @@ export default function Modal() {
       return <Age />;
     case 2:
       return <Guardian />; 
-      // return <Over18 />;
-      // return <Under18 />;
-
-      // if(){
-      //   how to return <div><Guardian />and<Under18 /> </div>;
-      // }
-      // else{
-      //   return <Over18 /> and showing different progress bar
-      // }
     case 3:
-      return <Upload />;
+      if(isUnder18){
+        return <Under18 />;
+      }
+      return <Over18 />;
     case 4:
-      return <Review />;
+      return <Upload />;
     case 5:
+      return <Review />;
+    case 6:
       return <Confirmation />;
     default:
     }
@@ -51,16 +49,30 @@ export default function Modal() {
   const handleClick = (direction) => {
     let newStep = currentStep;
     if(direction === "next"){
-      newStep++;
+      if(newStep === 1){
+        setIsUnder18(false);
+        newStep = 3;
+      }
+      else{
+        newStep++;
+      }
     }
     else{
-      newStep--;
-      // if(newStep === 1){
-      //   newStep++;
-      // }
-      // else{
-      //   newStep--;
-      // }
+      if(newStep === 1){
+        setIsUnder18(true);
+        newStep++;
+      }
+      else if(newStep === 3){
+        if(isUnder18){
+          newStep = 2;
+        }
+        else{
+          newStep = 1;
+        }
+      }
+      else{
+        newStep--;
+      }
     }
     newStep > 0 && newStep <= steps.length && setCurrStep(newStep);
   };
