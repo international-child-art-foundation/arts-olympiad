@@ -49,7 +49,7 @@ export const RegisterForm = () => {
     <div className="max-w-[90%] sm:max-w-[70%] lg:max-w-[40%]">
       <H2m>Create an account</H2m>
       <Pm className="my-2" >Join us! Create your account to either vote for inspiring art or enter your own work.</Pm>
-      <Pm className="my-2" >Registration begins on <b>April 14, 2024</b>.</Pm>
+      <Pm className="my-2" >Registration begins on <b>May 20, 2024</b>.</Pm>
       <Formik
         initialValues={initialValues}
         validationSchema={validationSchema}
