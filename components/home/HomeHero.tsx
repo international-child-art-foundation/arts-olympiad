@@ -23,7 +23,7 @@ export const Intro = () => {
             The gold, silver, and bronze winners selected through public votes will get to attend the <b>Paris Olympics</b> with our sponsors' support.
           </p>
           <p className="z-20 text-base mb-4 leading-8 lg:mb8 flex flex-wrap"> {/* Use &nbsp to allow grid layout to work properly */}
-            The competition begins on&nbsp;<b> April 14th </b>&nbsp;and ends on&nbsp;<b> June 15th, 2024.</b>
+            The competition begins on&nbsp;<b> May 20th </b>&nbsp;and ends on&nbsp;<b> June 15th, 2024.</b>
           </p>
 
         </div>
