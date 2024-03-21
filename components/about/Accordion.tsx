@@ -12,7 +12,6 @@ import { ArrowCTA } from "../../components/ArrowCTA";
 import Torch from "../../public/about/torch.png";
 import LightingIdea from "../../public/about/LightingIdea.png";
 import OlympicRings from "../../public/about/olympicRings.png";
-import Link from "next/link";
 
 export const Accordion = () => {
 
@@ -105,7 +104,7 @@ The Arts Olympiad in Texas, China, Israel, and New Zealand.</Pm>
           paragraph={<><Pm className="font-light font-openSans mb-12 lg:my-12">ICAF has organized art exhibitions at Olympic venues and its Arts Olympiad was integral to New York City’s bid for the 2012 Olympics.</Pm>
             {/* <button className="bg-dark-blue text-white h-10 whitespace-no-wrap inline-block max-w-max px-4"><Link href="https://www.icaf.org/resource/pdfs/new-york-olympic.pdf">See pdf to learn more</Link></button> */}
             <ArrowCTA text="See pdf to learn more" href="https://www.icaf.org/resource/pdfs/new-york-olympic.pdf"/>
-            </>
+          </>
             
           }
           images={
