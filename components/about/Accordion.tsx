@@ -60,7 +60,7 @@ export const Accordion = () => {
               <Pm className="lg:my-12 font-openSans font-light">For children’s creative development, ICAF organizes the Arts Olympiad, a free school 
 art program that has grown over the years into the world’s largest. The U.S. Olympic and Paralympic Committee has granted ICAF as exclusive license to use the “Arts Olympiad” mark. 
 The Arts Olympiad in Texas, China, Israel, and New Zealand.</Pm>
-              <ArrowCTA text="See 5-page pdf" href="https://www.icaf.org/resource/pdfs/ICAF_Forging%20Iconic%20Brands.pdf"/>
+              <ArrowCTA text="See 5-page pdf" href="https://icaf.org/resource/pdfs/Arts-Olympiad-Stories-Texas.pdf"/>
             </>
           }
           images={
@@ -82,7 +82,8 @@ The Arts Olympiad in Texas, China, Israel, and New Zealand.</Pm>
           paragraph={
             <>
               <Pm className="my-12 font-openSans font-light">For children’s empathic development, ICAF produces the World Children’s Festival every four years as 
-              the “Olympics” of children’s imagination. <Link href="https://icaf.org/mission/world-childrens-festival">https://icaf.org/mission/world-childrens-festival</Link>.</Pm>
+              the “Olympics” of children’s imagination. </Pm>
+              <ArrowCTA text="Learn more" href="https://icaf.org/mission/world-childrens-festival"/>
             </>
           }
           images={
@@ -102,7 +103,10 @@ The Arts Olympiad in Texas, China, Israel, and New Zealand.</Pm>
           number={3}
           header="Olympics"
           paragraph={<><Pm className="font-light font-openSans mb-12 lg:my-12">ICAF has organized art exhibitions at Olympic venues and its Arts Olympiad was integral to New York City’s bid for the 2012 Olympics.</Pm>
-            <button className="bg-dark-blue text-white h-10 whitespace-no-wrap inline-block max-w-max px-4">See pdf to learn more</button></>
+            {/* <button className="bg-dark-blue text-white h-10 whitespace-no-wrap inline-block max-w-max px-4"><Link href="https://www.icaf.org/resource/pdfs/new-york-olympic.pdf">See pdf to learn more</Link></button> */}
+            <ArrowCTA text="See pdf to learn more" href="https://www.icaf.org/resource/pdfs/new-york-olympic.pdf"/>
+            </>
+            
           }
           images={
             <Image src={OlympicRings} alt="" className="my-10"></Image>
@@ -118,10 +122,11 @@ The Arts Olympiad in Texas, China, Israel, and New Zealand.</Pm>
           setIsOpen={(i) => setCardOpen(i)}
           color="#F9E4EE"
           number={4}
-          header="#MyFavoriteSports"
+          header="#MyFavoriteSport"
           paragraph={<>
             <Pm className="mb-12 lg:my-12 font-openSans font-light">The Olympic art contest is inspired by Baron de Coubertin, founder of modern Olympics, who believed that Olympics must showcase humanity’s physical prowess and artistic talents.</Pm>
-            <button className="bg-dark-blue text-white whitespace-no-wrap w-auto inline-block max-w-max h-auto px-4 py-4">When the Olympics gave out medals for art</button>
+            {/* <button className="bg-dark-blue text-white whitespace-no-wrap w-auto inline-block max-w-max h-auto px-4 py-4"><Link href="https://www.smithsonianmag.com/arts-culture/when-the-olympics-gave-out-medals-for-art-6878965/">When the Olympics gave out medals for art</Link></button> */}
+            <ArrowCTA text="When the Olympics gave out medals for art" href="https://www.smithsonianmag.com/arts-culture/when-the-olympics-gave-out-medals-for-art-6878965/"/>
           </>}
           images={
             <div className="flex flex-col my-10 md:flex-row mx-auto lg:mx-0">

@@ -36,7 +36,7 @@ export const Commitment = () => {
             {/* <ButtonStyledLink className="max-w-fit px-6 my-8" href="/sponsor">
             Learn more about becoming a sponsor
             </ButtonStyledLink> */}
-            <ArrowCTA text="See 16-page pdf" href=""/>
+            <ArrowCTA text="See 16-page pdf" href="https://www.icaf.org/resource/pdfs/ICAF_Forging%20Iconic%20Brands.pdf"/>
           </div>
           {/* <div className=" md:min-w-[40%] mx-auto md:ml-12 lg:ml-auto">
             
@@ -54,7 +54,7 @@ export const Commitment = () => {
             <Pm className="font-sans font-light my-4">
               Learn more about ICAF’s impact nationally and globally.
             </Pm>
-            <ArrowCTA text="Take me there now" href=""/>
+            <ArrowCTA text="Take me there now" href="/impact"></ArrowCTA>
           </div>
         </article>
       </div>
