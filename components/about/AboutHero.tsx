@@ -20,7 +20,7 @@ export const AboutHero = () => {
               <Image src={headerLine} alt="" className="select-none pointer-events-none"></Image>
             </div>
           </div>
-          <p className="md:w-full lg:w-3/4 mt-8 font-openSans font-regular">Incorporated in the District of Columbia as a 501(c)(3) nonprofit in April 1997, the International Child Art Foundation serves American children as their national arts organization and the world’s children as their global arts organization.</p>
+          <p className="md:w-full lg:w-3/4 mt-8 font-regular">Incorporated in the District of Columbia as a 501(c)(3) nonprofit in April 1997, the International Child Art Foundation serves American children as their national arts organization and the world’s children as their global arts organization.</p>
         </article>
         <div className="flex xsm:justify-center lg:justify-end xsm:col-span-2 lg:col-span-1">
           <Image

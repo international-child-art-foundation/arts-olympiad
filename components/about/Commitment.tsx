@@ -24,10 +24,9 @@ export const Commitment = () => {
       <div className="min-w-full flex flex-nowrap flex-col lg:flex-row justify-between mt-12">
         <article
           className="
-          flex flex-col md:flex-row lg:flex-col
-          px-8 pt-8 rounded-xl bg-light-blue lg:w-[49%] min-h-fit overflow-hidden"
+          rounded-xl bg-light-blue lg:w-[49%] min-h-fit overflow-hidden"
         >
-          <div className="relative">
+          <div className="grid grid-col relative p-6 h-full justify-between">
             <Image src={BlueLine} className="absolute z-0 -top-10 -right-10 select-none pointer-events-none" alt=""></Image>
             <H2m className="z-20 font-regular font-montserrat text-3xl md:text-4xl" >Sponsors</H2m>
             <Pm className="z-20 font-sans font-light my-4">
@@ -45,16 +44,18 @@ export const Commitment = () => {
 
         <article
           className="relative
-          flex flex-row mt-12 lg:mt-0
-          px-8 pt-8 rounded-xl bg-light-blue lg:w-[49%] min-h-fit overflow-hidden"
+          mt-12 lg:mt-0
+          rounded-xl bg-light-blue lg:w-[49%] min-h-fit overflow-hidden justify-between"
         >
           <Image src={BlueDot} className="absolute z-0 top-0 right-0 h-full select-none pointer-events-none" alt=""></Image>
-          <div>
+          <div className="grid grid-col relative p-6 h-full">
             <H2m className="font-regular font-montserrat text-3xl md:text-4xl" >Impact</H2m>
             <Pm className="font-sans font-light my-4">
               Learn more about ICAF’s impact nationally and globally.
             </Pm>
-            <ArrowCTA text="Take me there now" href="/impact"></ArrowCTA>
+            <div className="">
+              <ArrowCTA text="Take me there now" href="/impact"></ArrowCTA>
+            </div>
           </div>
         </article>
       </div>

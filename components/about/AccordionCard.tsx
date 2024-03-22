@@ -91,15 +91,15 @@ export const AccordionCard = (
       onClick={() => setIsOpen(number)}
     >
       <div
-        className="flex flex-row lg:flex-col lg:justify-between min-w-[80px] p-6"
+        className="flex flex-row lg:flex-col lg:justify-between min-w-[80px] p-6 items-center"
       >
         <H3m useBreakNormal={true} className="font-bold text-center mr-6 lg:mr-0">0{number}</H3m>
-        <H3m
-          className={!displayhorizontally ? "font-montserrat" : ""}
+        <h3
+          className={`text-2xl ${!displayhorizontally ? "font-montserrat" : ""}`}
           style={{writingMode: displayhorizontally ? "vertical-lr": "horizontal-tb", transform: displayhorizontally ? "rotate(180deg)" : ""}}
         >
           {header}
-        </H3m>
+        </h3>
       </div>
 
       { contentVisible &&
