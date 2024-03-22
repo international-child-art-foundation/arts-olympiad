@@ -13,6 +13,7 @@ import OpenEye from "../../public/auth/eye_open.svg";
 import ClosedEye from "../../public/auth/eye_closed.svg";
 import Link from "next/link";
 import {useRouter} from "next/navigation";
+import {NewPasswordInput} from "../common/form_inputs/NewPasswordInput";
 
 export interface IContactFormValues {
   email: string,
@@ -23,9 +24,8 @@ const validationSchema = Yup.object().shape({
   email: Yup.string().email("Not a recognized email address").required("Email is required"),
   password: Yup.string()
     .required("Password is required")
-    .min(8, "Password must be at least 8 characters")
     .matches(
-      /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]+$/,
+      /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/,
       "Password must contain at least 1 uppercase letter, 1 lowercase letter, 1 digit, and 1 special character"
     ),
 });
@@ -49,7 +49,7 @@ export const RegisterForm = () => {
     <div className="max-w-[90%] sm:max-w-[70%] lg:max-w-[40%]">
       <H2m>Create an account</H2m>
       <Pm className="my-2" >Join us! Create your account to either vote for inspiring art or enter your own work.</Pm>
-      <Pm className="my-2" >Registration begins on <b>April 14, 2024</b>.</Pm>
+      <Pm className="my-2" >Registration begins on <b>May 20, 2024</b>.</Pm>
       <Formik
         initialValues={initialValues}
         validationSchema={validationSchema}
@@ -59,9 +59,9 @@ export const RegisterForm = () => {
           <Form className="pointer-events-none opacity-50"> {/* Disabled until contest begins*/}
             <TextInput inputType="email" className="mt-4" placeholder="johndoe@gmail.com" error={errors.email}  touched={touched.email} value={values.email} labelText="Email" id="email" />
             <div className="relative">
-              <TextInput inputType={`${!showPassword && "password" }`} className="mb-4" placeholder="Squk1*Bn" error={errors.password}  touched={touched.password} value={values.password} labelText="Password" id="password" />
+              <NewPasswordInput inputType={`${!showPassword && "password" }`} className="mb-4" placeholder="Squk1*Bn" error={errors.password}  touched={touched.password} value={values.password} labelText="Password" id="password" />
               <Image
-                className="absolute top-11 right-4 cursor-pointer"
+                className="absolute top-14 right-4 cursor-pointer"
                 onClick={() => setShowPassword(!showPassword)}
                 width={30} height={30}
                 src={showPassword ? OpenEye : ClosedEye }

@@ -17,6 +17,7 @@ export const ButtonStyledLink = ({children, className, borderColor, textColor, b
       {...restProps}
     >
       {children}
+      <span className="sr-only">.</span>
     </Link>
   );
 };

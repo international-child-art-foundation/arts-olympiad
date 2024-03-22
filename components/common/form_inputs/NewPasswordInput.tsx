@@ -1,7 +1,7 @@
 import React from "react";
 import { Field} from "formik";
 import {InputLabel} from "./InputLabel";
-import {ErrorSuccessPopUp} from "./ErrorSuccessPopUp";
+import {DynamicPasswordGuidelines} from "./DynamicPasswordGuidelines";
 
 interface IProps {
   className?: string
@@ -11,10 +11,10 @@ interface IProps {
   inputType?: string
   error: string | undefined
   touched: boolean | undefined
-  value: string | undefined
+  value: string
   required?: boolean
 }
-export const TextInput = ({className, labelText, id, placeholder, inputType, error, touched, value, required = true}: IProps) => {
+export const NewPasswordInput = ({className, labelText, id, placeholder, inputType, error, touched, value, required = true}: IProps) => {
 
   return (
     <div className={`${className} my-1 flex flex-col`} >
@@ -32,9 +32,9 @@ export const TextInput = ({className, labelText, id, placeholder, inputType, err
         className={`
           my-2 p-3 border-1 rounded-lg 
           ${
-    required && error && touched ? "border-accent-red placeholder:text-accent-red"  
+    required && error && touched ? "border-accent-red placeholder:text-accent-red"
       :
-      required &&!error && touched && value ? "border-accent-green" 
+      required &&!error && touched && value ? "border-accent-green"
         :
         "border-black"
     }
@@ -47,7 +47,7 @@ export const TextInput = ({className, labelText, id, placeholder, inputType, err
       >
       </Field>
 
-      <ErrorSuccessPopUp required={required} id={id} error={error} touched={touched} value={value} />
+      <DynamicPasswordGuidelines required={required} error={error} touched={touched} value={value} id={id} />
     </div>
   );
 };

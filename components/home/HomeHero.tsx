@@ -15,15 +15,15 @@ export const Intro = () => {
               MyFavoriteSport<span className="sr-only">.</span>
           </h1>
         </div>
-        <div className=" mb-6 md:mb-12 z-20">
-          <p className=" z-20 text-base mb-4 leading-8 lg:mb8">
+        <div className="font-normal text-base mb-6 md:mb-12 z-20">
+          <p className=" z-20 mb-4 leading-8 lg:mb8">
             Any <b>14- to 20-year-old</b> anywhere can create art on his or her most favorite sport, upload it, and share it with family and friends to get their votes.
           </p>
-          <p className="z-20 text-base mb-4 leading-8 lg:mb8">
+          <p className="z-20 mb-4 leading-8 lg:mb8">
             The gold, silver, and bronze winners selected through public votes will get to attend the <b>Paris Olympics</b> with our sponsors' support.
           </p>
-          <p className="z-20 text-base mb-4 leading-8 lg:mb8 flex flex-wrap"> {/* Use &nbsp to allow grid layout to work properly */}
-            The competition begins on&nbsp;<b> April 14th </b>&nbsp;and ends on&nbsp;<b> June 15th, 2024.</b>
+          <p className="z-20 mb-4 leading-8 lg:mb8 flex flex-wrap"> {/* Use &nbsp to allow grid layout to work properly */}
+            The competition begins on&nbsp;<b> May 20th </b>&nbsp;and ends on&nbsp;<b> June 15th, 2024.</b>
           </p>
 
         </div>
