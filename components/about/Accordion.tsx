@@ -9,9 +9,9 @@ import Image from "next/image";
 import useWindowDimensions from "@/hooks/useWindowDimensions";
 import PinkBlob from "../../public/about/PinkBlob.png";
 import { ArrowCTA } from "../../components/ArrowCTA";
-import Torch from "../../public/about/torch.png";
+import Torch from "../../public/about/Torch.png";
 import LightingIdea from "../../public/about/LightingIdea.png";
-import OlympicRings from "../../public/about/olympicRings.png";
+import OlympicRings from "../../public/about/OlympicRings.png";
 
 export const Accordion = () => {
 
