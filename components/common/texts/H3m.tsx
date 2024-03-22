@@ -14,7 +14,7 @@ export const H3m = ({ style, children, className, useBreakNormal, ...restProps }
   return (
     <h3
       style={style}
-      className={`${breakClass} text-base sm:text-xl lg:text-xl xl:text-2xl font-normal ${className}`}
+      className={`${breakClass} text-base sm:text-xl lg:text-xl xl:text-2xl font-montserrat ${className}`}
       {...restProps}
     >
       {children}

@@ -1,5 +1,5 @@
 import {H3m} from "../common/texts/H3m";
-import {H2m} from "../common/texts/H2m";
+// import {H2m} from "../common/texts/H2m";
 import useWindowDimensions from "@/hooks/useWindowDimensions";
 import "../../src/styles/accordion.css";
 import React, {Dispatch, SetStateAction, useState, useEffect, useRef, useLayoutEffect} from "react";
@@ -95,7 +95,7 @@ export const AccordionCard = (
       >
         <H3m useBreakNormal={true} className="font-bold text-center mr-6 lg:mr-0">0{number}</H3m>
         <H3m
-          className={!displayhorizontally ? "font-semibold" : ""}
+          className={!displayhorizontally ? "font-montserrat" : ""}
           style={{writingMode: displayhorizontally ? "vertical-lr": "horizontal-tb", transform: displayhorizontally ? "rotate(180deg)" : ""}}
         >
           {header}
@@ -109,7 +109,7 @@ export const AccordionCard = (
         >
           {
             displayhorizontally &&
-            <H2m>{header}</H2m>
+            <h2 className="font-light font-montserrat text-2xl lg:text-3xl">{header}</h2>
           }
           {paragraph}
           {images}
