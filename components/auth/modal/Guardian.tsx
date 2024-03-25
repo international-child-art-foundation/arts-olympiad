@@ -1,7 +1,9 @@
-import { useFormik } from "formik";
 import * as yup from "yup";
+import { Form, Formik } from "formik";
+import { CustomInput } from "./CustomInput";
+import { useContext } from "react";
+import { StepsContext } from "./StepsContext";
 import { HintIcon } from "../../svgs/HintIcon";
-import { CorrectIcon } from "../../svgs/CorrectIcon";
 
 export const Guardian = () => {
   const phonevalid= /^((\\+[1-9]{1,4}[ \\-]*)|(\\([0-9]{2,3}\\)[ \\-]*)|([0-9]{2,4})[ \\-]*)*?[0-9]{3,4}?[ \\-]*[0-9]{3,4}?$/;
@@ -11,20 +13,15 @@ export const Guardian = () => {
     guardianLastName: yup.string().required("Required"),
     guardianEmail: yup.string().email("Not a recognized email address").required("Not a recognized email address"),
     guardianPhone: yup.string().matches(phonevalid, "Not a valid phone number").max(10, "longer than 10 digit").optional("Not a valid phone number"),
-    termsCheck: yup.bool().oneOf([true], "Agreement to the Terms and Conditions is required")
+    guardianTermsCheck: yup.bool().oneOf([true], "Agreement to the Terms and Conditions is required")
   });
 
-  const {values, errors, touched, handleBlur, handleChange} = useFormik({
-    initialValues: {
-      guardianFirstName: "",
-      guardianLastName: "",
-      guardianEmail: "",
-      guardianPhone: "",
-      termsCheck: false
-    },
-    validationSchema: validationSchema,
-  });
+  const { userData, setUserData } = useContext(StepsContext);
+  const { setHasError } = useContext(StepsContext);
 
+  const handleData = (thisData) => {
+    setUserData(Object.assign(userData, thisData));
+  };
   
   return (
     <>
@@ -35,119 +32,95 @@ export const Guardian = () => {
         <div className="mb-4 text-base text-neutral-black font-normal"> 
           We need a little help from a parent or guardian before you proceed. 
         </div>
-        <div className="mb-10 text-base text-neutral-black font-normal"> 
+        <div className="mb-4 text-base text-neutral-black font-normal"> 
           They'll need to agree to our terms and understand that by submitting your artwork, it's being generously donated to ICAF for charitable objectives. 
         </div>
 
-        <form autoComplete="off" className="grid grid-cols-1 w-full">
-          <label htmlFor="guardianFirstName" className={`text-sm mb-1 ${errors.guardianFirstName && touched.guardianFirstName ? "text-[#C4384E] font-semibold" : !errors.guardianFirstName && touched.guardianFirstName ? "text-[#158737] font-semibold" : "font-light text-neutral-black"}`}>Parent or Guardian's First Name</label>
-          <input
-            value = {values.guardianFirstName}
-            onChange={handleChange}
-            id="guardianFirstName"
-            type="text"
-            placeholder="First name"
-            className={`placeholder-[#403F4C] border rounded pl-4 pr-4 pt-2 pb-2 ${errors.guardianFirstName && touched.guardianFirstName ? "border-[#C4384E]" : !errors.guardianFirstName && touched.guardianFirstName ? "border-[#158737]": "border-neutral-black"}`}
-            onBlur={handleBlur}
-          />
-          {errors.guardianFirstName && touched.guardianFirstName &&
-          <div className="inline-flex mt-1">
-            <HintIcon /> 
-            <p className="text-xs font-normal text-[#C4384E] ml-2">{errors.guardianFirstName}</p>
-          </div>
-          }
-          {!errors.guardianFirstName && touched.guardianFirstName &&
-          <div className="inline-flex mt-1">
-            <CorrectIcon /> 
-          </div>
-          }
-        </form>
+        <Formik 
+          initialValues={{ guardianFirstName:"", guardianLastName:"", guardianEmail: "", guardianPhone: "", guardianTermsCheck: false}}
+          validationSchema={validationSchema}
+        >
 
-        <form autoComplete="off" className="mt-6 grid grid-cols-1 w-full">
-          <label htmlFor="guardianLastName" className={`text-sm mb-1 ${errors.guardianLastName && touched.guardianLastName ? "text-[#C4384E] font-semibold" : !errors.guardianLastName && touched.guardianLastName ? "text-[#158737] font-semibold" : "font-light text-neutral-black"}`}>Parent or Guardian's Last Name</label>
-          <input
-            value = {values.guardianLastName}
-            onChange={handleChange}
-            id="guardianLastName"
-            type="text"
-            placeholder="Last name"
-            className={`placeholder-[#403F4C] border rounded pl-4 pr-4 pt-2 pb-2 ${errors.guardianLastName && touched.guardianLastName ? "border-[#C4384E]" : !errors.guardianLastName && touched.guardianLastName ? "border-[#158737]": "border-neutral-black"}`}
-            onBlur={handleBlur}
-          />
-          {errors.guardianLastName && touched.guardianLastName &&
-          <div className="inline-flex mt-1">
-            <HintIcon /> 
-            <p className="text-xs font-normal text-[#C4384E] ml-2">{errors.guardianLastName}</p>
-          </div>
-          }
-          {!errors.guardianLastName && touched.guardianLastName &&
-          <div className="inline-flex mt-1">
-            <CorrectIcon /> 
-          </div>
-          }
-        </form>
+          {props => (
+            <Form className="grid grid-cols-1">
+              {/* {(Object.keys(props.errors).length !== 0 || Object.keys(props.touched).length === 0) &&
+                <div onChange={setHasError(true)}></div>
+              } */}
+              {Object.keys(props.errors).length !== 0 && 
+                <div onChange={setHasError(true)}></div>
+              }
+              {Object.keys(props.errors).length === 0 && props.touched.guardianTermsCheck && 
+                <div onChange={setHasError(false)}></div>
+              }
 
-        <form autoComplete="off" className="mt-6 grid grid-cols-1 w-full">
-          <label htmlFor="guardianEmail" className={`text-sm mb-1 ${errors.guardianEmail && touched.guardianEmail ? "text-[#C4384E] font-semibold" : !errors.guardianEmail && touched.guardianEmail ? "text-[#158737] font-semibold" : "font-light text-neutral-black"}`}>Parent or Guardian's Email</label>
-          <input
-            value = {values.guardianEmail}
-            onChange={handleChange}
-            id="guardianEmail"
-            type="email"
-            placeholder="example@example.com"
-            className={`placeholder-[#403F4C] border rounded pl-4 pr-4 pt-2 pb-2 ${errors.guardianEmail && touched.guardianEmail ? "border-[#C4384E]" : !errors.guardianEmail && touched.guardianEmail ? "border-[#158737]": "border-neutral-black"}`}
-            onBlur={handleBlur}
-          />
-          {errors.guardianEmail && touched.guardianEmail &&
-          <div className="inline-flex mt-1">
-            <HintIcon /> 
-            <p className="text-xs font-normal text-[#C4384E] ml-2">{errors.guardianEmail}</p>
-          </div>
-          }
-          {!errors.guardianEmail && touched.guardianEmail &&
-          <div className="inline-flex mt-1">
-            <CorrectIcon /> 
-          </div>
-          }
-        </form>
+              <CustomInput 
+                label= "Parent or Guardian's First Name"
+                name= "guardianFirstName"
+                type= "text"
+                placeholder= "First name"
+              />
 
-        <form autoComplete="off" className="mt-6 grid grid-cols-1 w-full">
-          <label htmlFor="guardianPhone" className={`text-sm mb-1 ${errors.guardianPhone && touched.guardianPhone ? "text-[#C4384E] font-semibold" : !errors.guardianPhone && values.guardianPhone !== "" ? "text-[#158737] font-semibold" : "font-light text-neutral-black"}`}>Parent or Guardian's phone number* (optional)</label>
-          <input
-            value = {values.guardianPhone}
-            onChange={handleChange}
-            id="guardianPhone"
-            type="tel"
-            placeholder="(country code) 123-123-1234"
-            className={`placeholder-[#403F4C] border rounded pl-4 pr-4 pt-2 pb-2 ${errors.guardianPhone && touched.guardianPhone ? "border-[#C4384E]" : !errors.guardianPhone && values.guardianPhone ? "border-[#158737]": "border-neutral-black"}`}
-            onBlur={handleBlur}
-          />
-          {errors.guardianPhone && touched.guardianPhone &&
-          <div className="inline-flex mt-1">
-            <HintIcon /> 
-            <p className="text-xs font-normal text-[#C4384E] ml-2">{errors.guardianPhone}</p>
-          </div>
-          }
-        </form>
+              <CustomInput 
+                label= "Parent or Guardian's Last Name"
+                name= "guardianLastName"
+                type= "text"
+                placeholder= "Last name"
+              />
 
-        <div className="mt-6 items-center w-full">
-          <input 
-            value={values.termsCheck}
-            onChange={handleChange}
-            id="termsCheck" 
-            type="checkbox" 
-            className="w-6 h-6 rounded" 
-            onBlur={handleBlur}
-          />
-          <label for="termsCheck" className="ml-2 text-base font-light">I agree to ICAF's <span className="font-normal underline">Terms of use</span> and <span className="font-normal underline">Privacy Policy</span></label>
-        </div>
-        {values.termsCheck === false && touched.termsCheck &&
-          <div className="inline-flex mt-1 ml-8">
-            <HintIcon /> 
-            <p className="text-xs font-normal text-[#C4384E] ml-2">{errors.termsCheck}</p>
-          </div>
-        }
+              <CustomInput 
+                label= "Parent or Guardian's Email"
+                name= "guardianEmail"
+                type= "email"
+                placeholder= "example@example.com"
+              />
 
+              <div className="mt-6 items-center w-full">
+                <label htmlFor="guardianPhone" className={`text-sm mb-1 ${props.errors.guardianPhone && props.touched.guardianPhone ? "text-[#C4384E] font-semibold" : !props.errors.guardianPhone && props.values.guardianPhone !== "" ? "text-[#158737] font-semibold" : "font-light text-neutral-black"}`}>Parent or Guardian's phone number* (optional)</label>
+                <input 
+                  value={props.values.guardianPhone}
+                  onChange={props.handleChange}
+                  id="guardianPhone" 
+                  name="guardianPhone" 
+                  type="tel" 
+                  className={`placeholder-[#403F4C] border rounded w-full pl-4 pr-4 pt-2 pb-2 ${props.errors.guardianPhone && props.touched.guardianPhone ? "border-[#C4384E]" : !props.errors.guardianPhone && props.values.guardianPhone ? "border-[#158737]": "border-neutral-black"}`}
+                  onBlur={props.handleBlur}
+                  placeholder="(country code) 123-123-1234"
+                />
+
+              </div>
+              {props.errors.guardianPhone && props.touched.guardianPhone && 
+                <div className="inline-flex mt-1 ml-8">
+                  <HintIcon /> 
+                  <p className="text-xs font-normal text-[#C4384E] ml-2">{props.errors.guardianPhone}</p>
+                </div>
+              }
+              
+              <div className="mt-6 items-center w-full">
+                <input 
+                  value={props.values.guardianTermsCheck}
+                  onChange={props.handleChange}
+                  id="guardianTermsCheck" 
+                  name="guardianTermsCheck" 
+                  type="checkbox" 
+                  className="w-6 h-6 rounded" 
+                  onBlur={props.handleBlur}
+                />
+                <label for="guardianTermsCheck" className="ml-2 text-base font-light">I agree to ICAF's <span className="font-normal underline">Terms of use</span> and <span className="font-normal underline">Privacy Policy</span></label>
+              </div>
+              {props.values.guardianTermsCheck === false && props.touched.guardianTermsCheck &&
+                <div className="inline-flex mt-1 ml-8">
+                  <HintIcon /> 
+                  <p className="text-xs font-normal text-[#C4384E] ml-2">{props.errors.guardianTermsCheck}</p>
+                </div>
+              }
+
+              {Object.keys(props.errors).length === 0 && Object.keys(props.touched).length !== 0 &&
+                <div onChange={handleData(props.values)}></div>
+              }
+            </Form>
+          )}
+
+        </Formik>
         <div className="my-6">
           <label className="text-sm font-light text-neutral-black">
             Parent or Guardian's Digital Signature
@@ -156,7 +129,6 @@ export const Guardian = () => {
             Sign here
           </div>
         </div>
-        
       </section>
     </>
   );

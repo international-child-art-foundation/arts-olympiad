@@ -4,6 +4,7 @@ import { CorrectIcon } from "../../svgs/CorrectIcon";
 
 export const CustomInput = ({label, ...props}) => {
   const [field, meta] = useField(props);
+  // console.log(field);
   return(
     <>
       <label className={`mt-6 text-sm mb-1 ${meta.error && meta.touched ? "text-[#C4384E] font-semibold" : !meta.error && meta.touched ? "text-[#158737] font-semibold" : "font-light text-neutral-black"}`}>{label}</label>

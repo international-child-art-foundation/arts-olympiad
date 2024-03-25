@@ -1,7 +1,9 @@
-import { useFormik } from "formik";
 import * as yup from "yup";
+import { Form, Formik } from "formik";
+import { CustomInput } from "./CustomInput";
+import { useContext } from "react";
+import { StepsContext } from "./StepsContext";
 import { HintIcon } from "../../svgs/HintIcon";
-import { CorrectIcon } from "../../svgs/CorrectIcon";
 
 export const Over18 = () => {
   const phonevalid= /^((\\+[1-9]{1,4}[ \\-]*)|(\\([0-9]{2,3}\\)[ \\-]*)|([0-9]{2,4})[ \\-]*)*?[0-9]{3,4}?[ \\-]*[0-9]{3,4}?$/;
@@ -11,23 +13,18 @@ export const Over18 = () => {
     lastName: yup.string().required("Required"),
     email: yup.string().email("Not a recognized email address").required("Not a recognized email address"),
     phone: yup.string().matches(phonevalid, "Not a valid phone number").max(10, "longer than 10 digit").optional("Not a valid phone number"),
+    day: yup.string().required("Enter a day"),
+    month: yup.string().required("Enter a month"),
     year: yup.string().min(4, "4 digit").max(4, "4 digit").required("Not a valid Year"),
     termsCheck: yup.bool().oneOf([true], "Agreement to the Terms and Conditions is required")
   });
 
-  const {values, errors, touched, handleBlur, handleChange} = useFormik({
-    initialValues: {
-      firstName: "",
-      lastName: "",
-      email: "",
-      phone: "",
-      day:"",
-      month:"",
-      year:"",
-      termsCheck: false
-    },
-    validationSchema: validationSchema,
-  });
+  const { userData, setUserData } = useContext(StepsContext);
+  const { setHasError } = useContext(StepsContext);
+
+  const handleData = (thisData) => {
+    setUserData(Object.assign(userData, thisData));
+  };
   
   return (
     <>
@@ -39,164 +36,142 @@ export const Over18 = () => {
           Before we move forward, we need some details from you. Please review and agree to our <span className="underline">Terms of Use</span> and <span className="underline">Privacy Policy</span>. By submitting your artwork, you're also donating it to ICAF for charitable objectives. Thank you for your support!
         </div>
 
-        <form autoComplete="off" className="grid grid-cols-1 w-full">
-          <label htmlFor="firstName" className={`text-sm mb-1 ${errors.firstName && touched.firstName ? "text-[#C4384E] font-semibold" : !errors.firstName && touched.firstName ? "text-[#158737] font-semibold" : "font-light text-neutral-black"}`}>First Name</label>
-          <input
-            value = {values.firstName}
-            onChange={handleChange}
-            id="firstName"
-            type="text"
-            placeholder="First name"
-            className={`placeholder-[#403F4C] border rounded pl-4 pr-4 pt-2 pb-2 ${errors.firstName && touched.firstName ? "border-[#C4384E]" : !errors.firstName && touched.firstName ? "border-[#158737]": "border-neutral-black"}`}
-            onBlur={handleBlur}
-          />
-          {errors.firstName && touched.firstName &&
-          <div className="inline-flex mt-1">
-            <HintIcon /> 
-            <p className="text-xs font-normal text-[#C4384E] ml-2">{errors.firstName}</p>
-          </div>
-          }
-          {!errors.firstName && touched.firstName &&
-          <div className="inline-flex mt-1">
-            <CorrectIcon /> 
-          </div>
-          }
-        </form>
+        <Formik 
+          initialValues={{ firstName:"", lastName:"", email: "", phone: "", day:"", month:"", year:"", termsCheck:false}}
+          validationSchema={validationSchema}
+        >
 
-        <form autoComplete="off" className="mt-6 grid grid-cols-1 w-full">
-          <label htmlFor="lastName" className={`text-sm mb-1 ${errors.lastName && touched.lastName ? "text-[#C4384E] font-semibold" : !errors.lastName && touched.lastName ? "text-[#158737] font-semibold" : "font-light text-neutral-black"}`}>Last Name</label>
-          <input
-            value = {values.lastName}
-            onChange={handleChange}
-            id="lastName"
-            type="text"
-            placeholder="Last name"
-            className={`placeholder-[#403F4C] border rounded pl-4 pr-4 pt-2 pb-2 ${errors.lastName && touched.lastName ? "border-[#C4384E]" : !errors.lastName && touched.lastName ? "border-[#158737]": "border-neutral-black"}`}
-            onBlur={handleBlur}
-          />
-          {errors.lastName && touched.lastName &&
-          <div className="inline-flex mt-1">
-            <HintIcon /> 
-            <p className="text-xs font-normal text-[#C4384E] ml-2">{errors.lastName}</p>
-          </div>
-          }
-          {!errors.lastName && touched.lastName &&
-          <div className="inline-flex mt-1">
-            <CorrectIcon />  
-          </div>
-          }
-        </form>
+          {props => (
+            <Form className="grid grid-cols-1">
+              {Object.keys(props.errors).length !== 0 && Object.keys(props.touched).length === 0 &&
+                <div onChange={setHasError(true)}></div>
+              }
+              {Object.keys(props.errors).length === 0 && 
+                <div onChange={setHasError(false)}></div>
+              }
 
-        <form autoComplete="off" className="mt-6 grid grid-cols-1 w-full">
-          <label htmlFor="email" className={`text-sm mb-1 ${errors.email && touched.email ? "text-[#C4384E] font-semibold" : !errors.email && touched.email ? "text-[#158737] font-semibold" : "font-light text-neutral-black"}`}>Email</label>
-          <input
-            value = {values.email}
-            onChange={handleChange}
-            id="email"
-            type="email"
-            placeholder="example@example.com"
-            className={`placeholder-[#403F4C] border rounded pl-4 pr-4 pt-2 pb-2 ${errors.email && touched.email ? "border-[#C4384E]" : !errors.email && touched.email ? "border-[#158737]": "border-neutral-black"}`}
-            onBlur={handleBlur}
-          />
-          {errors.email && touched.email &&
-          <div className="inline-flex mt-1">
-            <HintIcon /> 
-            <p className="text-xs font-normal text-[#C4384E] ml-2">{errors.email}</p>
-          </div>
-          }
-          {!errors.email && touched.email &&
-          <div className="inline-flex mt-1">
-            <CorrectIcon /> 
-          </div>
-          }
-        </form>
-
-        <div className="mt-6 grid grid-cols-2 w-full">
-          <div className="inline-flex">
-            <form autoComplete="off" className="grid grid-cols-1 w-12 mr-4 ">
-              <label htmlFor="day" className="text-sm mb-1 font-light text-neutral-black">Day</label>
-              <input
-                value = {values.day}
-                onChange={handleChange}
-                id="day"
-                type="tel"
-                placeholder="DD"
-                className="placeholder-[#403F4C] border border-neutral-black rounded pl-2 pr-2 pt-3 pb-3"
-                onBlur={handleBlur}
+              <CustomInput 
+                label= "First Name"
+                name= "firstName"
+                type= "text"
+                placeholder= "First name"
               />
-            </form>
 
-            <form autoComplete="off" className="grid grid-cols-1 w-12 mr-4">
-              <label htmlFor="month" className="text-sm mb-1 font-light text-neutral-black">Month</label>
-              <input
-                value = {values.month}
-                onChange={handleChange}
-                id="month"
-                type="tel"
-                placeholder="MM"
-                className="placeholder-[#403F4C] border border-neutral-black rounded pl-2 pr-2 pt-3 pb-3"
-                onBlur={handleBlur}
+              <CustomInput 
+                label= "Last Name"
+                name= "lastName"
+                type= "text"
+                placeholder= "Last name"
               />
-            </form>
 
-            <form autoComplete="off" className="grid grid-cols-1 w-14 mr-20">
-              <label htmlFor="Yead" className="text-sm mb-1 font-light text-neutral-black">Year</label>
-              <input
-                value = {values.year}
-                onChange={handleChange}
-                id="year"
-                type="tel"
-                placeholder="YYYY"
-                className="placeholder-[#403F4C] border border-neutral-black rounded pl-2 pr-2 pt-3 pb-3"
-                onBlur={handleBlur}
+              <CustomInput 
+                label= "Email"
+                name= "email"
+                type= "email"
+                placeholder= "example@example.com"
               />
-            </form>
-          </div>
 
+              <div className="mt-6 grid grid-cols-2 w-full">
+                <div className="grid ">
+                  <div className="inline-flex">
+                    <form autoComplete="off" className="grid grid-cols-1 w-12 mr-4">
+                      <label htmlFor="day" className="text-sm mb-1 font-light text-neutral-black">Day</label>
+                      <input
+                        value = {props.values.day}
+                        onChange={props.handleChange}
+                        id="day"
+                        type="tel"
+                        placeholder="DD"
+                        className="placeholder-[#403F4C] border border-neutral-black rounded pl-2 pr-2 pt-3 pb-3"
+                        onBlur={props.handleBlur}
+                      />
+                    </form>
 
-          <form autoComplete="off" className="grid grid-cols-1 w-full">
-            <label htmlFor="phone" className={`text-sm mb-1 ${errors.phone && touched.phone ? "text-[#C4384E] font-semibold" : !errors.phone && values.phone !== "" ? "text-[#158737] font-semibold" : "font-light text-neutral-black"}`}>Phone number* (optional)</label>
-            <input
-              value = {values.phone}
-              onChange={handleChange}
-              id="phone"
-              type="tel"
-              placeholder="(country code) 123-123-1234"
-              className={`placeholder-[#403F4C] border rounded pl-4 pr-4 pt-2 pb-2 ${errors.phone && touched.phone ? "border-[#C4384E]" : !errors.phone && values.phone ? "border-[#158737]": "border-neutral-black"}`}
-              onBlur={handleBlur}
-            />
-            {errors.phone && touched.phone &&
-            <div className="inline-flex mt-1">
-              <HintIcon /> 
-              <p className="text-xs font-normal text-[#C4384E] ml-2">{errors.phone}</p>
-            </div>
-            }
-          </form>
-          {errors.year && touched.year &&
-            <div className="inline-flex mt-1">
-              <HintIcon /> 
-              <p className="text-xs font-normal text-[#C4384E] ml-2">{errors.year}</p>
-            </div>
-          }
-        </div>
+                    <form autoComplete="off" className="grid grid-cols-1 w-12 mr-4">
+                      <label htmlFor="month" className="text-sm mb-1 font-light text-neutral-black">Month</label>
+                      <input
+                        value = {props.values.month}
+                        onChange={props.handleChange}
+                        id="month"
+                        type="tel"
+                        placeholder="MM"
+                        className="placeholder-[#403F4C] border border-neutral-black rounded pl-2 pr-2 pt-3 pb-3"
+                        onBlur={props.handleBlur}
+                      />
+                    </form>
 
-        <div class="mt-6 items-center w-full">
-          <input 
-            value={values.termsCheck}
-            onChange={handleChange}
-            id="termsCheck" 
-            type="checkbox" 
-            className="w-6 h-6 rounded" 
-            onBlur={handleBlur}
-          />
-          <label for="termsCheck" className="ml-2 text-base font-light">I agree to ICAF's <span className="font-normal underline">Terms of use</span> and <span className="font-normal underline">Privacy Policy</span></label>
-        </div>
-        {values.termsCheck === false && touched.termsCheck &&
-          <div className="inline-flex mt-1 ml-8">
-            <HintIcon /> 
-            <p className="text-xs font-normal text-[#C4384E] ml-2">{errors.termsCheck}</p>
-          </div>
-        }
+                    <form autoComplete="off" className="grid grid-cols-1 w-14 mr-20">
+                      <label htmlFor="Yead" className="text-sm mb-1 font-light text-neutral-black">Year</label>
+                      <input
+                        value = {props.values.year}
+                        onChange={props.handleChange}
+                        id="year"
+                        type="tel"
+                        placeholder="YYYY"
+                        className="placeholder-[#403F4C] border border-neutral-black rounded pl-2 pr-2 pt-3 pb-3"
+                        onBlur={props.handleBlur}
+                      />
+                    </form>
+                  </div>
+                  {props.errors.year && props.touched.year &&
+                  <div className="inline-flex mt-1">
+                    <HintIcon /> 
+                    <p className="text-xs font-normal text-[#C4384E] ml-2">{props.errors.year}</p>
+                  </div>
+                  }
+                </div>
+
+                <div className="grid ">
+                  <div className="inline-flex">
+                    <form autoComplete="off" className="grid grid-cols-1 w-full">
+                      <label htmlFor="phone" className={`text-sm mb-1 ${props.errors.phone && props.touched.phone ? "text-[#C4384E] font-semibold" : !props.errors.phone && props.values.phone !== "" ? "text-[#158737] font-semibold" : "font-light text-neutral-black"}`}>Parent or Guardian's phone number* (optional)</label>
+                      <input 
+                        value={props.values.phone}
+                        onChange={props.handleChange}
+                        id="phone" 
+                        name="phone" 
+                        type="tel" 
+                        className={`placeholder-[#403F4C] border rounded w-full pl-4 pr-4 pt-2 pb-2 ${props.errors.phone && props.touched.phone ? "border-[#C4384E]" : !props.errors.phone && props.values.phone ? "border-[#158737]": "border-neutral-black"}`}
+                        onBlur={props.handleBlur}
+                        placeholder="(country code) 123-123-1234"
+                      />
+                    </form>
+                  </div>
+                  {props.errors.phone && props.touched.phone && 
+                    <div className="inline-flex mt-1 ml-8">
+                      <HintIcon /> 
+                      <p className="text-xs font-normal text-[#C4384E] ml-2">{props.errors.phone}</p>
+                    </div>
+                  }
+                </div>
+              </div>
+
+              <div className="mt-6 items-center w-full">
+                <input 
+                  value={props.values.termsCheck}
+                  onChange={props.handleChange}
+                  id="termsCheck" 
+                  name="termsCheck" 
+                  type="checkbox" 
+                  className="w-6 h-6 rounded" 
+                  onBlur={props.handleBlur}
+                />
+                <label for="termsCheck" className="ml-2 text-base font-light">I agree to ICAF's <span className="font-normal underline">Terms of use</span> and <span className="font-normal underline">Privacy Policy</span></label>
+              </div>
+              {props.values.termsCheck === false && props.touched.termsCheck &&
+                <div className="inline-flex mt-1 ml-8">
+                  <HintIcon /> 
+                  <p className="text-xs font-normal text-[#C4384E] ml-2">{props.errors.termsCheck}</p>
+                </div>
+              }
+
+              {Object.keys(props.errors).length === 0 && Object.keys(props.touched).length !== 0 &&
+                <div onChange={handleData(props.values)}></div>
+              }
+            </Form>
+          )}
+
+        </Formik>
 
         <div className="my-6">
           <label className="text-sm font-light text-neutral-black">

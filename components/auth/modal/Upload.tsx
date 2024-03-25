@@ -1,10 +1,13 @@
 import * as yup from "yup";
 import { UploadIcon } from "../../svgs/UploadIcon";
-import { Form, Formik } from "formik";
+import { Field, Form, Formik } from "formik";
 import { CustomInput } from "./CustomInput";
 import { CustomInputOptional } from "./CustomInputOptional";
 import { CustomSelect } from "./CustomSelect";
-import { CustomCheckbox } from "./CustomCheckbox";
+import { CustomCheckboxOptional } from "./CustomCheckboxOptional";
+
+import { useContext } from "react";
+import { StepsContext } from "./StepsContext";
 
 export const Upload = () => {
   // const SUPPORTED_FORMATS = ["image.jpg", "image.png"];
@@ -25,10 +28,18 @@ export const Upload = () => {
     description: yup.string().optional()
   });
 
+  const { userData, setUserData } = useContext(StepsContext);
+  const { setHasError } = useContext(StepsContext);
+
+  const handleData = (thisData) => {
+    setUserData(Object.assign(userData, thisData));
+  
+  };
+
   return (
     <>
       <section className="items-center justify-center m-auto max-w-screen-2xl px-8 md:px-12 lg:px-16 xl:px-20 w-3/5">
-        <div className="mt-16 mb-9 text-center text-2xl text-neutral-black font-bold">
+        <div className="mt-28 mb-9 text-center text-2xl text-neutral-black font-bold">
           <p>Now for the exciting part!</p>
           <p>Please fill in the details below and upload your masterpiece.</p>
         </div>
@@ -38,6 +49,12 @@ export const Upload = () => {
         >
           {props => (
             <Form className="grid grid-cols-1">
+              {Object.keys(props.errors).length !== 0 && 
+                <div onChange={setHasError(true)}></div>
+              }
+              {Object.keys(props.errors).length === 0 &&
+                <div onChange={setHasError(false)}></div>
+              }
               <div className="items-center justify-center w-full">
                 <label for="image" className="w-full h-64 mb-6 border border-neutral-black rounded pl-4 pr-4 pt-2 pb-2 flex flex-col items-center justify-center">
                   <div className="flex flex-col items-center justify-center pt-5 pb-6">
@@ -48,13 +65,18 @@ export const Upload = () => {
                     </div>
                     <p className="text-sm font-light text-neutral-black">PNG or JPG</p>
                   </div>
-                  <input 
+                  <Field 
                     id="image" 
                     type="file" 
                     name= "image"
-                    onChange={props.handleChange}
+                    accept="image/*"
+                    // onChange={props.handleChange}
+                    onChange={(event) => {
+                      props.setFieldValue("image", event.currentTarget.files[0]);
+                    }}
                     onBlur={props.handleBlur}
-                    value={props.values.image}
+                    // value={props.values.image}
+                    value={undefined}
                     className="hidden" 
                   />
                 </label>
@@ -106,7 +128,7 @@ export const Upload = () => {
                 placeholder= "Type city here"
               />
 
-              <CustomCheckbox 
+              <CustomCheckboxOptional 
                 label= "Is this image created using AI?"
                 sentence="Yes, I used AI."
                 type="checkbox"
@@ -170,6 +192,9 @@ export const Upload = () => {
                 name= "description" 
                 className= "w-full h-36 mb-6 border border-neutral-black rounded pl-4 pr-4 pt-2 pb-2"
               />
+              {Object.keys(props.errors).length === 0 && Object.keys(props.touched).length !== 0 &&
+                <div onChange={handleData(props.values)}></div>
+              }
             </Form>
           )}
 
