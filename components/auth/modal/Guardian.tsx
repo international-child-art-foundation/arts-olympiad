@@ -22,7 +22,14 @@ export const Guardian = () => {
   const handleData = (thisData) => {
     setUserData(Object.assign(userData, thisData));
   };
-  
+
+
+  // const [guardianFirstName, setGuardianFirstName] = useState(""); 
+  // const Update = () => {
+  //   if(userData.guardianFirstName !== ""){
+  //     setGuardianFirstName(userData.guardianFirstName)
+  //   }
+  // } 
   return (
     <>
       <section className="items-center justify-center m-auto max-w-screen-2xl px-8 md:px-12 lg:px-16 xl:px-20 w-3/5">
@@ -35,9 +42,15 @@ export const Guardian = () => {
         <div className="mb-4 text-base text-neutral-black font-normal"> 
           They'll need to agree to our terms and understand that by submitting your artwork, it's being generously donated to ICAF for charitable objectives. 
         </div>
-
+        <div>!!!!! {userData.guardianFirstName}</div>
         <Formik 
-          initialValues={{ guardianFirstName:"", guardianLastName:"", guardianEmail: "", guardianPhone: "", guardianTermsCheck: false}}
+          initialValues={{
+            guardianFirstName:"",
+            guardianLastName:"", 
+            guardianEmail: "", 
+            guardianPhone: "", 
+            guardianTermsCheck: false
+          }}
           validationSchema={validationSchema}
         >
 

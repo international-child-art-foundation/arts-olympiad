@@ -13,10 +13,9 @@ export const Over18 = () => {
     lastName: yup.string().required("Required"),
     email: yup.string().email("Not a recognized email address").required("Not a recognized email address"),
     phone: yup.string().matches(phonevalid, "Not a valid phone number").max(10, "longer than 10 digit").optional("Not a valid phone number"),
-    day: yup.string().required("Enter a day"),
-    month: yup.string().required("Enter a month"),
-    year: yup.string().min(4, "4 digit").max(4, "4 digit").required("Not a valid Year"),
-    termsCheck: yup.bool().oneOf([true], "Agreement to the Terms and Conditions is required")
+    day: yup.number().min(1).max(31).required("Not a valid Day"),
+    month: yup.number().min(1).max(12).required("Not a valid Month"),
+    year: yup.number().min(1900).max(2024).required("Not a valid Date")
   });
 
   const { userData, setUserData } = useContext(StepsContext);
@@ -72,51 +71,51 @@ export const Over18 = () => {
               />
 
               <div className="mt-6 grid grid-cols-2 w-full">
-                <div className="grid ">
+                <div className="grid">
                   <div className="inline-flex">
-                    <form autoComplete="off" className="grid grid-cols-1 w-12 mr-4">
+                    <form autoComplete="off" className="grid grid-cols-1 w-16 mr-4">
                       <label htmlFor="day" className="text-sm mb-1 font-light text-neutral-black">Day</label>
                       <input
                         value = {props.values.day}
                         onChange={props.handleChange}
                         id="day"
-                        type="tel"
+                        type="number"
                         placeholder="DD"
                         className="placeholder-[#403F4C] border border-neutral-black rounded pl-2 pr-2 pt-3 pb-3"
                         onBlur={props.handleBlur}
                       />
                     </form>
 
-                    <form autoComplete="off" className="grid grid-cols-1 w-12 mr-4">
+                    <form autoComplete="off" className="grid grid-cols-1 w-16 mr-4">
                       <label htmlFor="month" className="text-sm mb-1 font-light text-neutral-black">Month</label>
                       <input
                         value = {props.values.month}
                         onChange={props.handleChange}
                         id="month"
-                        type="tel"
+                        type="number"
                         placeholder="MM"
                         className="placeholder-[#403F4C] border border-neutral-black rounded pl-2 pr-2 pt-3 pb-3"
                         onBlur={props.handleBlur}
                       />
                     </form>
 
-                    <form autoComplete="off" className="grid grid-cols-1 w-14 mr-20">
+                    <form autoComplete="off" className="grid grid-cols-1 w-20 mr-20">
                       <label htmlFor="Yead" className="text-sm mb-1 font-light text-neutral-black">Year</label>
                       <input
                         value = {props.values.year}
                         onChange={props.handleChange}
                         id="year"
-                        type="tel"
+                        type="number"
                         placeholder="YYYY"
                         className="placeholder-[#403F4C] border border-neutral-black rounded pl-2 pr-2 pt-3 pb-3"
                         onBlur={props.handleBlur}
                       />
                     </form>
                   </div>
-                  {props.errors.year && props.touched.year &&
+                  {((props.errors.year && props.touched.year) || (props.errors.month && props.touched.month) || (props.errors.day && props.touched.day)) &&
                   <div className="inline-flex mt-1">
                     <HintIcon /> 
-                    <p className="text-xs font-normal text-[#C4384E] ml-2">{props.errors.year}</p>
+                    <p className="text-xs font-normal text-[#C4384E] ml-2">Please enter a valid date.</p>
                   </div>
                   }
                 </div>

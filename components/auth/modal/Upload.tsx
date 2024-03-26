@@ -5,19 +5,21 @@ import { CustomInput } from "./CustomInput";
 import { CustomInputOptional } from "./CustomInputOptional";
 import { CustomSelect } from "./CustomSelect";
 import { CustomCheckboxOptional } from "./CustomCheckboxOptional";
-
 import { useContext } from "react";
 import { StepsContext } from "./StepsContext";
+// import Image from "next/image";
+// import { ToDataString } from "./ToDataString";
+// import { useEffect } from "react";
 
 export const Upload = () => {
-  // const SUPPORTED_FORMATS = ["image.jpg", "image.png"];
-  // const FILE_SIZE = 3 * 1024 * 1024;
-  //image size and type undefined: version Formik?
+  const SUPPORTED_FORMATS = ["image/jpg", "image/png"];
+  const FILE_SIZE = 3 * 1024 * 1024;
+
   const validationSchema = yup.object().shape({
     image: yup.mixed()
       .required("Oops! Unsupported file format. Please upload as PNG or JPG, max size 3 MB.")
-      // .test("format", "Please upload as PNG or JPG", value => {console.log(value, value.name, value.size, value.type); return value && SUPPORTED_FORMATS.includes(value.type)})
-      // .test("size", "Max size 3 MB", value => value && value.size <= FILE_SIZE )
+      .test("format", "Please upload as PNG or JPG", value => value && SUPPORTED_FORMATS.includes(value.type))
+      .test("size", "Max size 3 MB", value => value && value.size <= FILE_SIZE )
     ,
     location: yup.string().oneOf(["Australia", "Belgium", "China", "Denmark", "Egypt", "France", "Germany", "Italy", "Japan", "Korea", "Malaysia", "New Zealand", "Pakistan", "Russia", "Singapore", "Thailand", "United States of America", "Vietnam"]).required("Please select a continent and country for your artwork's location."),
     city: yup.string().required("Please type in your city"),
@@ -33,9 +35,26 @@ export const Upload = () => {
 
   const handleData = (thisData) => {
     setUserData(Object.assign(userData, thisData));
-  
   };
+  // const [previewImageSrc, setPreviewImageSrc] = useState<string>();
+  // const showingImage:ChangeEventHandler<HTMLInputElement> = async (event) => {
+  //   const image = event.target.files[0];
+  //   setPreviewImageSrc(await ToDataString(image));
+  // }
+  // const [file, setFile] = useState(null);
+  // useEffect(() => {
+  //   if (!file) {
+  //     return
+  //   }
 
+  //   const reader = new FileReader()
+
+  //   reader.onloadend = () => {
+  //     setPreviewImageSrc(reader.result)
+  //   }
+
+  //   reader.readAsDataURL(file)
+  // }, [file])
   return (
     <>
       <section className="items-center justify-center m-auto max-w-screen-2xl px-8 md:px-12 lg:px-16 xl:px-20 w-3/5">
@@ -70,27 +89,25 @@ export const Upload = () => {
                     type="file" 
                     name= "image"
                     accept="image/*"
-                    // onChange={props.handleChange}
                     onChange={(event) => {
                       props.setFieldValue("image", event.currentTarget.files[0]);
+                      // setFile(event.target.files[0])
                     }}
                     onBlur={props.handleBlur}
-                    // value={props.values.image}
                     value={undefined}
                     className="hidden" 
                   />
                 </label>
-                {/* {props.errors.image && props.touched.image && */}
-                {/* props.touched.image not define????? */}
+                {/* {console.log(props.values.image)} */}
                 {props.errors.image &&
                   <div className="inline-flex mt-1 bg-[#FBF4F3] w-full rounded border-l-8 border-[#EE2F4D]"> 
                     <p className="my-5 mx-10 text-base font-normal text-[#C4384E] ml-2">{props.errors.image}</p>
                   </div>
                 }
-                {/* {!props.errors.image && props.touched.image &&
-                <div className="inline-flex mt-1">
-                  <CorrectIcon /> 
-                </div>
+                {/* {!props.errors.image && props.values.image !== "" &&
+                  <div className="h-64 w-full">
+                    <Image scr={previewImageSrc} alt=""/>
+                  </div>
                 } */}
               </div> 
 
