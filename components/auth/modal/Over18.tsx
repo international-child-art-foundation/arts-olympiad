@@ -1,7 +1,7 @@
 import * as yup from "yup";
 import { Form, Formik } from "formik";
 import { CustomInput } from "./CustomInput";
-import { useContext } from "react";
+import { useContext, useState } from "react";
 import { StepsContext } from "./StepsContext";
 import { HintIcon } from "../../svgs/HintIcon";
 
@@ -24,11 +24,30 @@ export const Over18 = () => {
   const handleData = (thisData) => {
     setUserData(Object.assign(userData, thisData));
   };
+
+  const [ dateValidError, setDateValidError ] = useState("");
+  const dateValid = (day, month, year) => {
+    if ((month === 4 || month === 6 || month == 9 || month == 11) && day == 31){
+      setDateValidError("This month doesn't have the date you entered");
+    }
+    else if(month === 2){
+      const isLeap = (year % 4 == 0 && (year % 100 != 0 || year % 400 == 0));
+      if (day > 29 || (day == 29 && !isLeap)){
+        setDateValidError("This February doesn't have the date you entered");
+      }
+    }
+    else if(2024 - year < 18){
+      setDateValidError("This is for user over 18, please go back to Age confimation");
+    }
+    else{
+      setDateValidError("");
+    }
+  };
   
   return (
     <>
       <section className="items-center justify-center m-auto max-w-screen-2xl px-8 md:px-12 lg:px-16 xl:px-20 w-3/5">
-        <div className="mt-16 mb-9 text-center text-2xl text-neutral-black font-bold">
+        <div className="mt-28 mb-9 text-center text-2xl text-neutral-black font-bold">
           Terms & Donation Acknowledgment (For Users 18 and Over)
         </div>
         <div className="mb-10 text-base text-neutral-black font-normal"> 
@@ -36,7 +55,16 @@ export const Over18 = () => {
         </div>
 
         <Formik 
-          initialValues={{ firstName:"", lastName:"", email: "", phone: "", day:"", month:"", year:"", termsCheck:false}}
+          initialValues={{ 
+            firstName: userData.firstName || "", 
+            lastName: userData.lastName || "",
+            email: userData.email || "",
+            phone: userData.phone || "",
+            day: userData.day || "",
+            month: userData.month || "",
+            year: userData.year || "",
+            termsCheck: userData.termsCheck || false
+          }}
           validationSchema={validationSchema}
         >
 
@@ -100,7 +128,7 @@ export const Over18 = () => {
                     </form>
 
                     <form autoComplete="off" className="grid grid-cols-1 w-20 mr-20">
-                      <label htmlFor="Yead" className="text-sm mb-1 font-light text-neutral-black">Year</label>
+                      <label htmlFor="Year" className="text-sm mb-1 font-light text-neutral-black">Year</label>
                       <input
                         value = {props.values.year}
                         onChange={props.handleChange}
@@ -112,25 +140,34 @@ export const Over18 = () => {
                       />
                     </form>
                   </div>
-                  {((props.errors.year && props.touched.year) || (props.errors.month && props.touched.month) || (props.errors.day && props.touched.day)) &&
+                  {((props.errors.year && props.touched.year) || (props.errors.month && props.touched.month)|| (props.errors.day && props.touched.day)) &&
                   <div className="inline-flex mt-1">
                     <HintIcon /> 
                     <p className="text-xs font-normal text-[#C4384E] ml-2">Please enter a valid date.</p>
                   </div>
+                  }
+                  {(!props.errors.year && !props.errors.month && !props.errors.day) && (props.touched.year || props.touched.month || props.touched.day) && 
+                    <div onChange={dateValid(props.values.day, props.values.month, props.values.year)}></div>
+                  }
+                  {dateValidError.trim().length !== 0 &&
+                    <div className="inline-flex mt-1">
+                      <HintIcon /> 
+                      <p className="text-xs font-normal text-[#C4384E] ml-2">{dateValidError}</p>
+                    </div>
                   }
                 </div>
 
                 <div className="grid ">
                   <div className="inline-flex">
                     <form autoComplete="off" className="grid grid-cols-1 w-full">
-                      <label htmlFor="phone" className={`text-sm mb-1 ${props.errors.phone && props.touched.phone ? "text-[#C4384E] font-semibold" : !props.errors.phone && props.values.phone !== "" ? "text-[#158737] font-semibold" : "font-light text-neutral-black"}`}>Parent or Guardian's phone number* (optional)</label>
+                      <label htmlFor="phone" className={`text-sm mb-1 ${props.errors.phone && props.touched.phone ? "text-[#C4384E] font-semibold" : !props.errors.phone && props.values.phone !== "" && props.touched.phone ? "text-[#158737] font-semibold" : "font-light text-neutral-black"}`}>Parent or Guardian's phone number* (optional)</label>
                       <input 
                         value={props.values.phone}
                         onChange={props.handleChange}
                         id="phone" 
                         name="phone" 
                         type="tel" 
-                        className={`placeholder-[#403F4C] border rounded w-full pl-4 pr-4 pt-2 pb-2 ${props.errors.phone && props.touched.phone ? "border-[#C4384E]" : !props.errors.phone && props.values.phone ? "border-[#158737]": "border-neutral-black"}`}
+                        className={`placeholder-[#403F4C] border rounded w-full pl-4 pr-4 pt-2 pb-2 ${props.errors.phone && props.touched.phone ? "border-[#C4384E]" : !props.errors.phone && props.values.phone && props.touched.phone ? "border-[#158737]": "border-neutral-black"}`}
                         onBlur={props.handleBlur}
                         placeholder="(country code) 123-123-1234"
                       />

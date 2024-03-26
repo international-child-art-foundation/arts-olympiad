@@ -63,7 +63,16 @@ export const Upload = () => {
           <p>Please fill in the details below and upload your masterpiece.</p>
         </div>
         <Formik 
-          initialValues={{ image:"", location:"", city: "", usingAI: false, source: "", prompt: "", category: "", description: ""}}
+          initialValues={{ 
+            image: userData.image || "", 
+            location: userData.location || "", 
+            city: userData.city || "", 
+            usingAI: userData.usingAI|| false, 
+            source: userData.source || "", 
+            prompt: userData.prompt || "", 
+            category: userData.category || "", 
+            description: userData.description || ""
+          }}
           validationSchema={validationSchema}
         >
           {props => (

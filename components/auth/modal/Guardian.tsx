@@ -23,17 +23,10 @@ export const Guardian = () => {
     setUserData(Object.assign(userData, thisData));
   };
 
-
-  // const [guardianFirstName, setGuardianFirstName] = useState(""); 
-  // const Update = () => {
-  //   if(userData.guardianFirstName !== ""){
-  //     setGuardianFirstName(userData.guardianFirstName)
-  //   }
-  // } 
   return (
     <>
       <section className="items-center justify-center m-auto max-w-screen-2xl px-8 md:px-12 lg:px-16 xl:px-20 w-3/5">
-        <div className="mt-16 mb-9 text-center text-2xl text-neutral-black font-bold">
+        <div className="mt-28 mb-9 text-center text-2xl text-neutral-black font-bold">
           Great, now we need your parent or guardian's OK
         </div>
         <div className="mb-4 text-base text-neutral-black font-normal"> 
@@ -42,14 +35,13 @@ export const Guardian = () => {
         <div className="mb-4 text-base text-neutral-black font-normal"> 
           They'll need to agree to our terms and understand that by submitting your artwork, it's being generously donated to ICAF for charitable objectives. 
         </div>
-        <div>!!!!! {userData.guardianFirstName}</div>
         <Formik 
           initialValues={{
-            guardianFirstName:"",
-            guardianLastName:"", 
-            guardianEmail: "", 
-            guardianPhone: "", 
-            guardianTermsCheck: false
+            guardianFirstName: userData.guardianFirstName || "",
+            guardianLastName: userData.guardianLastName || "", 
+            guardianEmail: userData.guardianEmail || "", 
+            guardianPhone: userData.guardianPhone || "", 
+            guardianTermsCheck: userData.guardianTermsCheck || false
           }}
           validationSchema={validationSchema}
         >
@@ -88,18 +80,17 @@ export const Guardian = () => {
               />
 
               <div className="mt-6 items-center w-full">
-                <label htmlFor="guardianPhone" className={`text-sm mb-1 ${props.errors.guardianPhone && props.touched.guardianPhone ? "text-[#C4384E] font-semibold" : !props.errors.guardianPhone && props.values.guardianPhone !== "" ? "text-[#158737] font-semibold" : "font-light text-neutral-black"}`}>Parent or Guardian's phone number* (optional)</label>
+                <label htmlFor="guardianPhone" className={`text-sm mb-1 ${props.errors.guardianPhone && props.touched.guardianPhone ? "text-[#C4384E] font-semibold" : !props.errors.guardianPhone && props.values.guardianPhone !== "" && props.touched.phone ? "text-[#158737] font-semibold" : "font-light text-neutral-black"}`}>Parent or Guardian's phone number* (optional)</label>
                 <input 
                   value={props.values.guardianPhone}
                   onChange={props.handleChange}
                   id="guardianPhone" 
                   name="guardianPhone" 
                   type="tel" 
-                  className={`placeholder-[#403F4C] border rounded w-full pl-4 pr-4 pt-2 pb-2 ${props.errors.guardianPhone && props.touched.guardianPhone ? "border-[#C4384E]" : !props.errors.guardianPhone && props.values.guardianPhone ? "border-[#158737]": "border-neutral-black"}`}
+                  className={`placeholder-[#403F4C] border rounded w-full pl-4 pr-4 pt-2 pb-2 ${props.errors.guardianPhone && props.touched.guardianPhone ? "border-[#C4384E]" : !props.errors.guardianPhone && props.values.guardianPhone !== "" && props.touched.phone ? "border-[#158737]": "border-neutral-black"}`}
                   onBlur={props.handleBlur}
                   placeholder="(country code) 123-123-1234"
                 />
-
               </div>
               {props.errors.guardianPhone && props.touched.guardianPhone && 
                 <div className="inline-flex mt-1 ml-8">
