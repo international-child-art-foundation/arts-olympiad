@@ -46,7 +46,7 @@ export const Under18 = () => {
 
   return (
     <>
-      <section className="items-center justify-center m-auto max-w-screen-2xl px-8 md:px-12 lg:px-16 xl:px-20 w-3/5">
+      <section className="items-center justify-center m-auto max-w-screen-2xl px-8 md:px-12 lg:px-16 xl:px-20 w-full lg:w-4/5 2xl:w-3/5">
         <div className="mt-28 mb-9 text-center text-2xl text-neutral-black font-bold">
           Terms & Donation Acknowledgment (For Users 18 and Under)
         </div>
@@ -95,7 +95,7 @@ export const Under18 = () => {
                 placeholder= "example@example.com"
               />
 
-              <div className="my-6 grid grid-cols-2 w-full">
+              <div className="my-6 grid md:grid-cols-2 w-full">
                 <div className="grid">
                   <div className="inline-flex">
                     <form autoComplete="off" className="grid grid-cols-1 w-16 mr-4">
@@ -154,7 +154,7 @@ export const Under18 = () => {
                   }
                 </div>
 
-                <div className="grid">
+                <div className="grid mt-6 md:mt-0">
                   <div className="inline-flex">
                     <form autoComplete="off" className="grid grid-cols-1 w-full">
                       <label htmlFor="phone" className={`text-sm mb-1 ${props.errors.phone && props.touched.phone ? "text-[#C4384E] font-semibold" : !props.errors.phone && props.values.phone !== "" && props.touched.phone ? "text-[#158737] font-semibold" : "font-light text-neutral-black"}`}>Parent or Guardian's phone number* (optional)</label>

@@ -1,7 +1,7 @@
 export const Confirmation = () => {
   return (
     <>
-      <section className="items-center justify-center m-auto max-w-screen-2xl px-8 md:px-12 lg:px-16 xl:px-20 w-3/5">
+      <section className="items-center justify-center m-auto max-w-screen-2xl px-8 md:px-12 lg:px-16 xl:px-20 w-full lg:w-4/5 2xl:w-3/5">
         <p className="mt-28 mb-10 text-center text-2xl text-neutral-black font-bold">
           Congratulations!
         </p>

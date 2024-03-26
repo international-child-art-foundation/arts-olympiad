@@ -85,8 +85,8 @@ export default function Popup(props){
   };
 
   return (props.trigger) ? (
-    <div className="rounded-2xl m-auto w-3/4 h-fit bg-white flex items-center justify-center z-50">
-      <button className="absolute right-15% top-[390px]" onClick={() => props.setTrigger(false)}>      
+    <div className="rounded-2xl m-auto w-11/12 md:w-3/4 h-fit bg-white flex items-center justify-center z-50">
+      <button className="absolute right-10% top-[350px] md:right-15% md:top-[390px]" onClick={() => props.setTrigger(false)}>      
         <Image src="/svgs/close.svg" alt="Close Modal System" width={24} height={24}/>
         { props.children }
       </button>
