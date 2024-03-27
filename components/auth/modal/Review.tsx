@@ -6,7 +6,7 @@ import React from "react";
 export const Review = () => {
   const { userData } = useContext(StepsContext);
   const age = 2024 - userData.year;
-
+  const categoryString = userData.category.join(" | ");
   return (
     <>
       <section className="w-3/5 m-auto max-w-screen-2xl px-8 md:px-12 lg:px-16 xl:px-20">
@@ -16,7 +16,7 @@ export const Review = () => {
         <div className="my-10 text-3xl font-semibold">{userData.firstName} {userData.lastName}</div>
 
         <div className="text-base font-light mb-2">{age} | {userData.location}</div>
-        <div className="text-base font-light mb-8">Sports categories | {userData.category}</div>
+        <div className="text-base font-light mb-8">Sports categories | {categoryString}</div>
         <div className="text-base font-light mb-8 italic">
           Further information about art (Artist Description)
           <p className="my-2">

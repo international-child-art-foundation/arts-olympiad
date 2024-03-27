@@ -7,6 +7,11 @@ import { CustomSelect } from "./CustomSelect";
 import { CustomCheckboxOptional } from "./CustomCheckboxOptional";
 import { useContext } from "react";
 import { StepsContext } from "./StepsContext";
+import { HintIcon } from "../../svgs/HintIcon";
+import { CorrectIcon } from "../../svgs/CorrectIcon";
+
+import React from "react";
+import Select from "react-select";
 // import Image from "next/image";
 // import { ToDataString } from "./ToDataString";
 // import { useEffect } from "react";
@@ -14,19 +19,29 @@ import { StepsContext } from "./StepsContext";
 export const Upload = () => {
   const SUPPORTED_FORMATS = ["image/jpg", "image/png"];
   const FILE_SIZE = 3 * 1024 * 1024;
-
+  const categories = [
+    "Archery", "Artistic Gymnastics", "Athletics", "Badminton", "Basketball", "Boxing", "Cycling Track", "Equestrian", "Fencing", "Football", "Golf", "High jump", "Hockey", "Judo", "Rowing", "Rugby", "Sailing", "Shooting", "Table Tennis", "Taekwondo", "Tennis", "Volleyball", "Wallball", "Weightlifting", "Yoga", "Zumba"
+  ];
+  
   const validationSchema = yup.object().shape({
     image: yup.mixed()
       .required("Oops! Unsupported file format. Please upload as PNG or JPG, max size 3 MB.")
       .test("format", "Please upload as PNG or JPG", value => value && SUPPORTED_FORMATS.includes(value.type))
       .test("size", "Max size 3 MB", value => value && value.size <= FILE_SIZE )
     ,
-    location: yup.string().oneOf(["Australia", "Belgium", "China", "Denmark", "Egypt", "France", "Germany", "Italy", "Japan", "Korea", "Malaysia", "New Zealand", "Pakistan", "Russia", "Singapore", "Thailand", "United States of America", "Vietnam"]).required("Please select a continent and country for your artwork's location."),
+    location: yup.string()
+      .oneOf([
+        "Australia", "Belgium", "China", "Denmark", "Egypt", "France", "Germany", "Italy", "Japan", "Korea", "Malaysia", "New Zealand", "Pakistan", "Russia", "Singapore", "Thailand", "United States of America", "Vietnam"
+      ])
+      .required("Please select a continent and country for your artwork's location."),
     city: yup.string().required("Please type in your city"),
     usingAI: yup.bool().optional(),
     source: yup.string().optional(),
     prompt: yup.string().optional(),
-    category: yup.string().oneOf(["Archery", "Artistic Gymnastics", "Athletics", "Badminton", "Basketball", "Boxing", "Cycling Track", "Equestrian", "Fencing", "Football", "Golf", "High jump", "Hockey", "Judo", "Rowing", "Rugby", "Sailing", "Shooting", "Table Tennis", "Taekwondo", "Tennis", "Volleyball", "Wallball", "Weightlifting", "Yoga", "Zumba"]).required("Please select the Sports category that best represents your artwork."),
+    category: yup.array()
+      .of(yup.string().oneOf(categories))
+      .min(1, "Please select the Sports category that best represents your artwork.")
+      .required("Please select the Sports category that best represents your artwork."),
     description: yup.string().optional()
   });
 
@@ -55,6 +70,35 @@ export const Upload = () => {
 
   //   reader.readAsDataURL(file)
   // }, [file])
+  const options = [
+    {label: "Archery", value: "Archery"},
+    {label: "Artistic Gymnastics", value: "Artistic Gymnastics"},
+    {label: "Athletics", value: "Athletics"},
+    {label: "Badminton", value: "Badminton"},
+    {label: "Basketball", value: "Basketball"},
+    {label: "Boxing", value: "Boxing"},
+    {label: "Cycling Track", value: "Cycling Track"},
+    {label: "Equestrian", value: "Equestrian"},
+    {label: "Fencing", value: "Fencing"},
+    {label: "Football", value: "Football"},
+    {label: "Golf", value: "Golf"},
+    {label: "High jump", value: "High jump"},
+    {label: "Hockey", value: "Hockey"},
+    {label: "Judo", value: "Judo"},
+    {label: "Rowing", value: "Rowing"},
+    {label: "Rugby", value: "Rugby"},
+    {label: "Sailing", value: "Sailing"},
+    {label: "Shooting", value: "Shooting"},
+    {label: "Table Tennis", value: "Table Tennis"},
+    {label: "Taekwondo", value: "Taekwondo"},
+    {label: "Tennis", value: "Tennis"},
+    {label: "Volleyball", value: "Volleyball"},
+    {label: "Wallball", value: "Wallball"},
+    {label: "Weightlifting", value: "Weightlifting"},
+    {label: "Yoga", value: "Yoga"},
+    {label: "Zumba", value: "Zumba"}
+  ];
+
   return (
     <>
       <section className="items-center justify-center m-auto max-w-screen-2xl px-8 md:px-12 lg:px-16 xl:px-20 w-full lg:w-4/5 2xl:w-3/5">
@@ -70,7 +114,7 @@ export const Upload = () => {
             usingAI: userData.usingAI|| false, 
             source: userData.source || "", 
             prompt: userData.prompt || "", 
-            category: userData.category || "", 
+            category: userData.category || [], 
             description: userData.description || ""
           }}
           validationSchema={validationSchema}
@@ -174,40 +218,34 @@ export const Upload = () => {
                 type= "text"
                 placeholder= "Type link here"
               />
-
-              <CustomSelect 
-                label= "Category"
-                name="category"
-                placeholder= ""
-              >
-                <option value=""></option>
-                <option value="Archery">Archery</option>
-                <option value="Artistic Gymnastics">Artistic Gymnastics</option>
-                <option value="Athletics">Athletics</option>
-                <option value="Badminton">Badminton</option>
-                <option value="Basketball">Basketball</option>
-                <option value="Boxing">Boxing</option>
-                <option value="Cycling Track">Cycling Track</option>
-                <option value="Equestrian">Equestrian</option>
-                <option value="Fencing">Fencing</option>
-                <option value="Football">Football</option>
-                <option value="Golf">Golf</option>
-                <option value="High jump">High jump</option>
-                <option value="Hockey">Hockey</option>
-                <option value="Judo">Judo</option>
-                <option value="Rowing">Rowing</option>
-                <option value="Rugby">Rugby</option>
-                <option value="Sailing">Sailing</option>
-                <option value="Shooting">Shooting</option>
-                <option value="Table Tennis">Table Tennis</option>
-                <option value="Taekwondo">Taekwondo</option>
-                <option value="Tennis">Tennis</option>
-                <option value="Volleybal">Volleybal</option>
-                <option value="Wallball">Wallball</option>
-                <option value="Weightlifting">Weightlifting</option>
-                <option value="Yoga">Yoga</option>
-                <option value="Zumba">Zumba</option>
-              </CustomSelect>
+              
+              <div className="mt-6">
+                <label htmlFor="category" className={`text-sm mb-1 ${props.errors.category && props.touched.category ? "text-[#C4384E] font-semibold" : !props.errors.category && props.touched.category ? "text-[#158737] font-semibold" : "font-light text-neutral-black"}`}>Category</label>
+                <Select
+                  label= "Category"
+                  name= "category"
+                  options={options}
+                  isMulti
+                  onChange={(selectedOptions) => {
+                    const values = selectedOptions ? selectedOptions.map(option => option.value) : [];
+                    props.setFieldValue("category", values);
+                  }}
+                  value={options.filter(option => props.values.category.includes(option.value))}
+                  className={`placeholder-neutral-black ${props.errors.category && props.touched.category ? "border-[#C4384E]" : !props.errors.category && props.touched.category ? "border-[#158737]": "border-neutral-black"}`}
+                />
+                {console.log(props.values.category)}
+                {props.errors.category &&
+                <div className="inline-flex mt-1">
+                  <HintIcon /> 
+                  <p className="text-xs font-normal text-[#C4384E] ml-2">{props.errors.category}</p>
+                </div>
+                }
+                {!props.errors.category && props.touched.category &&
+                <div className="inline-flex mt-1">
+                  <CorrectIcon /> 
+                </div>
+                }
+              </div> 
 
               <div className="mt-6 text-sm font-light text-neutral-black">Description* (Optional)</div>
               <textarea
