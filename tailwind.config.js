@@ -82,6 +82,9 @@ module.exports = {
         "accordion-wide-max": "43rem",
         "accordion-narrow-max": "46rem",
       },
+      gridColumn: {
+        "span-20": "span 20 / span 20",
+      },
       objectFit: {
         "none" : "none",
       }

@@ -38,8 +38,9 @@ export const LoginForm = () => {
   const [showForgotPassword, setShowForgotPassword] = useState(false);
   const router = useRouter();
 
+  // eslint-disable-next-line no-unused-vars, @typescript-eslint/no-unused-vars
   const onSubmit = (values: IContactFormValues) => {
-    console.log(values);
+    // API call occurs, using values
     router.push("/auth/login");
   };
 

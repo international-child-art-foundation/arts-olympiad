@@ -50,3 +50,7 @@
 .transition-color {
   transition: color 0.5s ease;
 }
+
+.checkbox-and-radio-item input[type="checkbox"]:checked + label {
+  font-weight: bold;
+}

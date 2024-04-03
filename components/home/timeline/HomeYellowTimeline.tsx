@@ -27,7 +27,7 @@ export const HomeYellowTimeline = () => {
     <>
       <div className="mt-72 md:mt-72 bg-[#fff5ad] absolute w-[100%] px-8 md:px-12 lg:px-16 xl:px-20 h-full -z-20"> </div>
       <div className="flex justify-center items-center relative">
-        <Image src={timelineYellowEllipse} alt=""         className="absolute -z-20 top-[950px] md:top-[950px] left-1/2 -translate-x-1/2 -translate-y-1/2 select-none pointer-events-none max-w-[unset]" />
+        <Image src={timelineYellowEllipse} alt="" className="absolute -z-20 top-[950px] md:top-[950px] left-1/2 -translate-x-1/2 -translate-y-1/2 select-none pointer-events-none max-w-[unset]" />
       </div>
       <section className=" relative px-8 md:px-12 lg:px-16 xl:px-20 mt-32 md:mt-36 flex flex-col max-w-screen-2xl mx-auto mb-20 " aria-label="Timeline.">
 

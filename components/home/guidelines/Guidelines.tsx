@@ -29,7 +29,6 @@ export const Guidelines = () => {
     if (currentActiveTextarea) {
       currentActiveTextarea.style.width = `${currentTextareaWidth}px`;
     }  
-    console.log(currentTextareaWidth);
 
     setActiveIndex(index); // Update the active card index
     
