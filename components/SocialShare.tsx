@@ -3,7 +3,7 @@ import Image from "next/image";
 
 const iconMap: { [key: string]: string } = {
   Instagram: "/svgs/instagram.svg",
-  Facebook: "/svgs/facebook.svg",
+  Facebook: "/svgs/facebook_icon.svg",
   X: "/svgs/x_fka_twitter.svg",
   WhatsApp: "/svgs/whatsapp_icon.svg",
   LinkedIn: "/svgs/linkedin.svg",
