@@ -54,7 +54,7 @@ export default function RootLayout({
       />
       <body>
         <Header/>
-        <main className={"font-openSans overflow-hidden flex flex-col justify-center align-middle w-full m-auto"}>
+        <main className={"font-openSans font-base overflow-hidden flex flex-col justify-center align-middle w-full m-auto leading-8"}>
           { children }
         </main>
         <Footer />
