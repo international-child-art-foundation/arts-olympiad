@@ -61,9 +61,9 @@ export const Accordion = () => {
           }
           images={
             <div className="flex flex-col sm:flex-row mx-auto xl:mx-0 cursor-default">
-              <AboutArtworkCard artwork={artworks[12]}/>
+              <AboutArtworkCard artwork={artworks["12"]}/>
               <div className="my-4 md:my-0 lg:my-4 xl:my-0 mx-4 cursor-default" />
-              <AboutArtworkCard artwork={artworks[13]}/>
+              <AboutArtworkCard artwork={artworks["13"]}/>
             </div>
           }
         />

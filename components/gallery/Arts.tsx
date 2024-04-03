@@ -1,7 +1,6 @@
 "use client";
 import { useSearchParams, useRouter } from "next/navigation";
 import React, { useEffect, useCallback, useState } from "react";
-import { saveAllUserOptions } from "./Checkbox";
 import { artworks } from "../../mock/artworks";
 import { MenuIcon } from "../../public/svgs/gallery-svg/MenuIcon";
 import Checkbox from "./Checkbox";
@@ -19,10 +18,13 @@ import useWindowDimensions from "@/hooks/useWindowDimensions";
 import { sortValue as sortValueType } from "../../mock/sortValueType";
 import { sortBy } from "../../mock/sortBy";
 import { ContestState } from "../../mock/contestState";
+import { filterableOptions as initialFilterableOptions } from "../../mock/filterableOptionsData";
 
 interface ArtsProps {
   contestState: ContestState;
 }
+
+type ParamsObjType = Record<string, string[]>;
 
 function isArtworkAvailable(arr1?: string[], arr2?: string[]) {
   if (!arr1 || !arr2) {
@@ -40,16 +42,39 @@ export const Arts: React.FC<ArtsProps> = ({ contestState }) => {
     sortValue, setsortValue,
     activeEntryId, setActiveEntryId } = useFilters();
 
+  const [paramsObj, setParamsObj] = useState<Record<string, string[]>>({});
+
   const { windowWidth, windowHeight } = useWindowDimensions();
   const isMobile = windowWidth < 1024;
   const isHorizontal = windowWidth > windowHeight;
   const searchParams = useSearchParams();
-  const queryPage = searchParams.get("page");
-  const page = queryPage ? parseInt(queryPage) : 1;
   const artworksPerPage = 20;
-  const startIndex = (page - 1) * artworksPerPage;
+  const startIndex = (pageNumber - 1) * artworksPerPage;
   const endIndex = startIndex + artworksPerPage;
-  const paramsObj = saveAllUserOptions(searchParams);
+
+  // paramsObj is derivable from filterableOptions and thus unnecessary.
+  // Will likely be removed during API integration.
+  function createParamsObj(filterableOptions: typeof initialFilterableOptions): ParamsObjType {
+    const paramsObj: { [key: string]: string[] } = {};
+    
+    filterableOptions.forEach(option => {
+      const activeOptions = option.options
+        .filter((item: { active: boolean }) => item.active)
+        .map((item: { name: string }) => item.name);
+  
+      if (activeOptions.length > 0) {
+        paramsObj[option.id] = activeOptions;
+      }
+    });
+  
+    return paramsObj;
+  }
+
+  useEffect(() => {
+    setParamsObj(createParamsObj(filterableOptions));
+  }, [filterableOptions]);
+  
+  
 
   // const [prevUrl, setPrevUrl] = useState("");
 
@@ -295,7 +320,7 @@ export const Arts: React.FC<ArtsProps> = ({ contestState }) => {
               </div>
               <Pagination
                 totalItems={filteredArts.length}
-                currentPage={page}
+                currentPage={pageNumber}
                 itemsPerPage={artworksPerPage}
                 updatePageNumber={updatePageNumber}
               />

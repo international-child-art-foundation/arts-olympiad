@@ -6,6 +6,7 @@ import { BannerImgOverflow } from "../../../components/BannerImgOverflow";
 import multiPic from "../../../public/svgs/gallery-svg/multiPic.webp";
 import multiPicSmall from "../../../public/svgs/gallery-svg/multiPicSmall.webp";
 import { FilterProvider } from "../../../components/gallery/FilterContext";
+import { Suspense } from "react";
 
 export const metadata: Metadata = {
   title: "Active Entries | My Favorite Sport",
@@ -21,7 +22,9 @@ export default function PastEntries() {
     <>
       <PastEntriesHeader />
       <FilterProvider>
-        <PastEntriesArts />
+        <Suspense>
+          <PastEntriesArts />
+        </Suspense>
       </FilterProvider>
       <BannerImgOverflow 
         backgroundColor="light-blue"

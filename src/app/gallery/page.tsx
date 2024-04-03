@@ -8,6 +8,7 @@ import multiPicSmall from "../../../public/svgs/gallery-svg/multiPicSmall.webp";
 import { FilterProvider } from "../../../components/gallery/FilterContext";
 import { ContestState } from "../../../mock/contestState";
 import { contestStartTime, contestEndTime } from "../../../mock/contestDates";
+import { Suspense } from "react";
 
 
 export const metadata: Metadata = {
@@ -38,9 +39,10 @@ export default function Gallery() {
   return (
     <>
       <GalleryHeader contestState={contestState} />
-
       <FilterProvider>
-        <Arts contestState={contestState} />
+        <Suspense>
+          <Arts contestState={contestState} />
+        </Suspense>
       </FilterProvider>
       
       <BannerImgOverflow 

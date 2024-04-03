@@ -27,7 +27,7 @@ export async function generateStaticParams() {
 }
 
 const ArtworkPage: NextPage<PageProps> = (props) => {
-  const artwork = artworks.find(artwork => artwork.id === Number(props.params.artworkId));
+  const artwork = artworks.find(artwork => artwork.id === props.params.artworkId);
 
   if (!artwork) {
     return <div>No artwork found.</div>;
