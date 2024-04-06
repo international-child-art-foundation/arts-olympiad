@@ -12,7 +12,7 @@ export const Over18 = () => {
     firstName: yup.string().required("Required"),
     lastName: yup.string().required("Required"),
     email: yup.string().email("Not a recognized email address").required("Not a recognized email address"),
-    phone: yup.string().matches(phonevalid, "Not a valid phone number").max(10, "longer than 10 digit").optional("Not a valid phone number"),
+    phone: yup.string().matches(phonevalid, "Not a valid phone number").max(10, "longer than 10 digit").optional(),
     day: yup.number().min(1).max(31).required("Not a valid Day"),
     month: yup.number().min(1).max(12).required("Not a valid Month"),
     year: yup.number().min(1900).max(2024).required("Not a valid Date")
@@ -197,7 +197,7 @@ export const Over18 = () => {
               {props.values.termsCheck === false && props.touched.termsCheck &&
                 <div className="inline-flex mt-1 ml-8">
                   <HintIcon /> 
-                  <p className="text-xs font-normal text-[#C4384E] ml-2">{props.errors.termsCheck}</p>
+                  <p className="text-xs font-normal text-[#C4384E] ml-2">Agreement to the Terms and Conditions is required</p>
                 </div>
               }
 

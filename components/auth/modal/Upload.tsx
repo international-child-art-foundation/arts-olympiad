@@ -3,7 +3,6 @@ import { UploadIcon } from "../../svgs/UploadIcon";
 import { Field, Form, Formik } from "formik";
 import { CustomInput } from "./CustomInput";
 import { CustomInputOptional } from "./CustomInputOptional";
-import { CustomSelect } from "./CustomSelect";
 import { CustomCheckboxOptional } from "./CustomCheckboxOptional";
 import { useContext } from "react";
 import { StepsContext } from "./StepsContext";
@@ -12,9 +11,6 @@ import { CorrectIcon } from "../../svgs/CorrectIcon";
 
 import React from "react";
 import Select from "react-select";
-// import Image from "next/image";
-// import { ToDataString } from "./ToDataString";
-// import { useEffect } from "react";
 
 export const Upload = () => {
   const SUPPORTED_FORMATS = ["image/jpg", "image/png"];
@@ -51,25 +47,30 @@ export const Upload = () => {
   const handleData = (thisData) => {
     setUserData(Object.assign(userData, thisData));
   };
-  // const [previewImageSrc, setPreviewImageSrc] = useState<string>();
-  // const showingImage:ChangeEventHandler<HTMLInputElement> = async (event) => {
-  //   const image = event.target.files[0];
-  //   setPreviewImageSrc(await ToDataString(image));
-  // }
-  // const [file, setFile] = useState(null);
-  // useEffect(() => {
-  //   if (!file) {
-  //     return
-  //   }
 
-  //   const reader = new FileReader()
+  const customStyles = {
+    control: (provided) => ({
+      ...provided,
+      border: "1px solid #1F1F23", // Assuming this is your border style
+      boxShadow: "none", // No shadow for a flat design
+      "&:hover": {
+        borderColor: "#1F1F23", // Custom hover border color
+      },  
+    }),
+    dropdownIndicator: (provided) => ({
+      ...provided,
+      color: "#495057"
+    }),
+    container: (provided) => ({
+      ...provided,
+      width: "100%", 
+      color: "#495057"
+    }),
+    menu: (provided) => ({
+      ...provided,
+    }),
+  };
 
-  //   reader.onloadend = () => {
-  //     setPreviewImageSrc(reader.result)
-  //   }
-
-  //   reader.readAsDataURL(file)
-  // }, [file])
   const options = [
     {label: "Archery", value: "Archery"},
     {label: "Artistic Gymnastics", value: "Artistic Gymnastics"},
@@ -97,6 +98,27 @@ export const Upload = () => {
     {label: "Weightlifting", value: "Weightlifting"},
     {label: "Yoga", value: "Yoga"},
     {label: "Zumba", value: "Zumba"}
+  ];
+
+  const countryOptions = [
+    { label: "Australia", value: "Australia" },
+    { label: "Belgium", value: "Belgium" },
+    { label: "China", value: "China" },
+    { label: "Denmark", value: "Denmark" },
+    { label: "Egypt", value: "Egypt" },
+    { label: "France", value: "France" },
+    { label: "Germany", value: "Germany" },
+    { label: "Italy", value: "Italy" },
+    { label: "Japan", value: "Japan" },
+    { label: "Korea", value: "Korea" },
+    { label: "Malaysia", value: "Malaysia" },
+    { label: "New Zealand", value: "New Zealand" },
+    { label: "Pakistan", value: "Pakistan" },
+    { label: "Russia", value: "Russia" },
+    { label: "Singapore", value: "Singapore" },
+    { label: "Thailand", value: "Thailand" },
+    { label: "United States of America", value: "United States of America" },
+    { label: "Vietnam", value: "Vietnam" },
   ];
 
   return (
@@ -151,45 +173,39 @@ export const Upload = () => {
                     className="hidden" 
                   />
                 </label>
-                {/* {console.log(props.values.image)} */}
                 {props.errors.image &&
                   <div className="inline-flex mt-1 bg-[#FBF4F3] w-full rounded border-l-8 border-[#EE2F4D]"> 
                     <p className="my-5 mx-10 text-base font-normal text-[#C4384E] ml-2">{props.errors.image}</p>
                   </div>
                 }
-                {/* {!props.errors.image && props.values.image !== "" &&
-                  <div className="h-64 w-full">
-                    <Image scr={previewImageSrc} alt=""/>
-                  </div>
-                } */}
               </div> 
 
-
-              <CustomSelect 
-                label= "Location"
-                name="location"
-                placeholder= "Country"
-              >
-                <option value="">Country</option>
-                <option value="Australia">Australia</option>
-                <option value="Belgium">Belgium</option>
-                <option value="China">China</option>
-                <option value="Denmark">Denmark</option>
-                <option value="Egypt">Egypt</option>
-                <option value="France">France</option>
-                <option value="Germany">Germany</option>
-                <option value="Italy">Italy</option>
-                <option value="Japan">Japan</option>
-                <option value="Korea">Korea</option>
-                <option value="Malaysia">Malaysia</option>
-                <option value="New Zealand">New Zealand</option>
-                <option value="Pakistan">Pakistan</option>
-                <option value="Russia">Russia</option>
-                <option value="Singapore">Singapore</option>
-                <option value="Thailand">Thailand</option>
-                <option value="United States of America">United States of America</option>
-                <option value="Vietnam">Vietnam</option>
-              </CustomSelect>
+              <div className="mt-6">
+                <label htmlFor="location" className={`text-sm mb-1 ${props.errors.location && props.touched.location ? "text-[#C4384E] font-semibold" : !props.errors.location && props.touched.location ? "text-[#158737] font-semibold" : "font-light text-neutral-black"}`}>Location</label>
+                <Select
+                  label= "Location"
+                  name= "location"
+                  options={countryOptions}
+                  onChange={(value) => props.setFieldValue("location", value.value)}
+                  value={countryOptions.find(option => option.value === props.values.location)}
+                  styles={customStyles}
+                  className="basic-multi-select"
+                  classNamePrefix="select"
+                  onBlur={() => props.setFieldTouched("location", true)}
+                  placeholder="Country"
+                />
+                {props.errors.location &&
+                <div className="inline-flex mt-1">
+                  <HintIcon /> 
+                  <p className="text-xs font-normal text-[#C4384E] ml-2">{props.errors.location}</p>
+                </div>
+                }
+                {!props.errors.location && props.touched.location &&
+                <div className="inline-flex mt-1">
+                  <CorrectIcon /> 
+                </div>
+                }
+              </div> 
 
               <CustomInput 
                 label= "City"
@@ -231,9 +247,12 @@ export const Upload = () => {
                     props.setFieldValue("category", values);
                   }}
                   value={options.filter(option => props.values.category.includes(option.value))}
-                  className={`placeholder-neutral-black ${props.errors.category && props.touched.category ? "border-[#C4384E]" : !props.errors.category && props.touched.category ? "border-[#158737]": "border-neutral-black"}`}
+                  onBlur={() => props.setFieldTouched("category", true)}
+                  styles={customStyles}
+                  className="basic-multi-select"
+                  classNamePrefix="select"
+                  placeholder=" "
                 />
-                {console.log(props.values.category)}
                 {props.errors.category &&
                 <div className="inline-flex mt-1">
                   <HintIcon /> 

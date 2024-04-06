@@ -6,12 +6,13 @@ import React from "react";
 export const Review = () => {
   const { userData } = useContext(StepsContext);
   const age = 2024 - userData.year;
-  const categoryString = userData.category.join(" | ");
+  const categoryString = Array.isArray(userData.category) ? userData.category.join(" | ") : "";
+  const imageUrl = userData.image ? URL.createObjectURL(userData.image) : null;
   return (
     <>
       <section className="w-3/5 m-auto max-w-screen-2xl px-8 md:px-12 lg:px-16 xl:px-20">
         <div className="mt-28 mb-10">
-          <Image src={userData.image} alt="" width={498} height={332} className="w-full h-fit" />
+          <Image src={imageUrl} alt="" width={498} height={332} className="w-full h-fit rounded-xl" />
         </div>
         <div className="my-10 text-3xl font-semibold">{userData.firstName} {userData.lastName}</div>
 

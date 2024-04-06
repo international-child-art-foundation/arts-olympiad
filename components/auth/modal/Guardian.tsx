@@ -12,7 +12,7 @@ export const Guardian = () => {
     guardianFirstName: yup.string().required("Required"),
     guardianLastName: yup.string().required("Required"),
     guardianEmail: yup.string().email("Not a recognized email address").required("Not a recognized email address"),
-    guardianPhone: yup.string().matches(phonevalid, "Not a valid phone number").max(10, "longer than 10 digit").optional("Not a valid phone number"),
+    guardianPhone: yup.string().matches(phonevalid, "Not a valid phone number").max(10, "longer than 10 digit").optional(),
     guardianTermsCheck: yup.bool().oneOf([true], "Agreement to the Terms and Conditions is required")
   });
 
@@ -48,13 +48,10 @@ export const Guardian = () => {
 
           {props => (
             <Form className="grid grid-cols-1">
-              {/* {(Object.keys(props.errors).length !== 0 || Object.keys(props.touched).length === 0) &&
-                <div onChange={setHasError(true)}></div>
-              } */}
               {Object.keys(props.errors).length !== 0 && 
                 <div onChange={setHasError(true)}></div>
               }
-              {Object.keys(props.errors).length === 0 && props.touched.guardianTermsCheck && 
+              {Object.keys(props.errors).length === 0 && props.values.guardianTermsCheck && 
                 <div onChange={setHasError(false)}></div>
               }
 
@@ -101,7 +98,7 @@ export const Guardian = () => {
               
               <div className="mt-6 items-center w-full">
                 <input 
-                  value={props.values.guardianTermsCheck}
+                  checked={props.values.guardianTermsCheck}
                   onChange={props.handleChange}
                   id="guardianTermsCheck" 
                   name="guardianTermsCheck" 
@@ -111,10 +108,10 @@ export const Guardian = () => {
                 />
                 <label for="guardianTermsCheck" className="ml-2 text-base font-light">I agree to ICAF's <span className="font-normal underline">Terms of use</span> and <span className="font-normal underline">Privacy Policy</span></label>
               </div>
-              {props.values.guardianTermsCheck === false && props.touched.guardianTermsCheck &&
+              {props.values.guardianTermsCheck === false && 
                 <div className="inline-flex mt-1 ml-8">
                   <HintIcon /> 
-                  <p className="text-xs font-normal text-[#C4384E] ml-2">{props.errors.guardianTermsCheck}</p>
+                  <p className="text-xs font-normal text-[#C4384E] ml-2">Agreement to the Terms and Conditions is required</p>
                 </div>
               }
 

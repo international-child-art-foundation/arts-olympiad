@@ -1,3 +1,8 @@
-import { createContext } from "react";
+import React from "react";
 
-export const StepsContext = createContext(null);
+const defaultContextValue: StepsContextType = {
+  userData: {}, 
+  setUserData: () => {},
+};
+
+export const StepsContext = React.createContext(defaultContextValue);

@@ -2,7 +2,15 @@ import { useField } from "formik";
 import { HintIcon } from "../../svgs/HintIcon";
 import { CorrectIcon } from "../../svgs/CorrectIcon";
 
-export const CustomInput = ({label, ...props}) => {
+interface CustomInputProps {
+  label: string;
+  name : string;
+  type : string;
+  placeholder: string;
+}
+
+
+export const CustomInput = ({label, ...props} : CustomInputProps) => {
   const [field, meta] = useField(props);
   // console.log(field);
   return(

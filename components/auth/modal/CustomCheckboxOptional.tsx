@@ -1,6 +1,13 @@
 import { useField } from "formik";
 
-export const CustomCheckboxOptional = ({label, sentence, ...props}) => {
+interface CustomCheckboxOptionalProps {
+  label: string;
+  sentence?: string;
+  type : string;
+  name : string;
+}
+
+export const CustomCheckboxOptional = ({label, sentence, ...props} : CustomCheckboxOptionalProps) => {
   const [field] = useField(props);
   return(
     <>
