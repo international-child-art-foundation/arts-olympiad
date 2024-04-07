@@ -4,9 +4,14 @@ import { CorrectIcon } from "../../svgs/CorrectIcon";
 
 interface CustomInputProps {
   label: string;
-  name : string;
-  type : string;
-  placeholder: string;
+  name: string;
+  type: string;
+  placeholder?: string;
+  value: string;
+  onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
+  onBlur: (e: React.FocusEvent<HTMLInputElement>) => void;
+  touched?: boolean;
+  error?: string;
 }
 
 

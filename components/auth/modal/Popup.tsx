@@ -3,7 +3,6 @@ import Image from "next/image";
 import { useState, useEffect } from "react";
 import { Steps } from "./Steps";
 import { StepsControl } from "./StepsControl";
-import { StepsContext } from "./StepsContext";
 import { Age } from "./Age";
 import { Guardian } from "./Guardian";
 import { Under18 } from "./Under18";
@@ -11,14 +10,16 @@ import { Over18 } from "./Over18";
 import { Upload } from "./Upload";
 import { Review } from "./Review";
 import { Confirmation } from "./Confirmation";
+import { useStepsContext } from "./StepsContext";
 
 export default function Popup(props){
   const [currentStep, setCurrStep] = useState(1);
   const [isUnder18, setIsUnder18] = useState(true);
 
-  const [userData, setUserData] = useState("");
-  const [hasError, setHasError] = useState(false);
-  
+  // const [userData, setUserData] = useState("");
+  // const [hasError, setHasError] = useState(false);
+
+  const { personalFormData, setPersonalFormData, hasError } = useStepsContext();
   const [guardianConsentObtained, setGuardianConsentObtained] = useState(false);
   const [steps, setSteps] = useState([
     "Age confirmation",
@@ -72,11 +73,11 @@ export default function Popup(props){
     if(direction === "next"){
       if(newStep === 1){
         setIsUnder18(false);
-        setUserData("");
-        setUserData(Object.assign(userData, {"isUnder18" : false}));
+        // setPersonalFormData("");
+        setPersonalFormData(Object.assign(personalFormData, {"isUnder18" : false}));
         newStep++;
       }
-      else if (newStep === 2 && isUnder18 && !guardianConsentObtained) {
+      else if (newStep === 2 && isUnder18 && hasError === false && !guardianConsentObtained) {
         setGuardianConsentObtained(true);
       }
       else{
@@ -86,11 +87,11 @@ export default function Popup(props){
     else{
       if(newStep === 1){
         setIsUnder18(true);
-        setUserData("");
-        setUserData(Object.assign(userData, {"isUnder18" : true}));
+        // setPersonalFormData("");
+        setPersonalFormData(Object.assign(personalFormData, {"isUnder18" : true}));
         newStep++;
       }
-      else if(newStep === 2 && isUnder18 && guardianConsentObtained) {
+      else if(newStep === 2 && isUnder18 && hasError === false && guardianConsentObtained ) {
         setGuardianConsentObtained(false);
       }
       else{
@@ -111,16 +112,11 @@ export default function Popup(props){
           steps = {steps}
           currentStep = {currentStep}
         />
-        <StepsContext.Provider value={{
-          userData,
-          setUserData,
-          hasError,
-          setHasError
-        }}>
-          {displayStep(currentStep)}
-        </StepsContext.Provider>
+        {/* <StepsProvider > */}
+        {displayStep(currentStep)}
+        {/* </StepsProvider> */}
         
-        {console.log(userData)}
+        {/* {console.log(userData)} */}
 
         {/* {displayStep(currentStep)} */}
         <StepsControl 
