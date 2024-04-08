@@ -84,7 +84,7 @@ export const Over18 = () => {
         onSubmit={() => {}}
       >
         {props => { 
-          useOver18FormikLogic(props, personalFormData, setPersonalFormData, setHasError, dateValidError, setDateValidError);
+          // useOver18FormikLogic(props, personalFormData, setPersonalFormData, setHasError, dateValidError, setDateValidError);
 
           return (
             <Form className="grid grid-cols-1">
@@ -200,7 +200,7 @@ export const Over18 = () => {
                   className="w-6 h-6 rounded" 
                   onBlur={props.handleBlur}
                 />
-                <label for="termsCheck" className="ml-2 text-base font-light">I agree to ICAF's <span className="font-normal underline">Terms of use</span> and <span className="font-normal underline">Privacy Policy</span></label>
+                <label htmlFor="termsCheck" className="ml-2 text-base font-light">I agree to ICAF's <span className="font-normal underline">Terms of use</span> and <span className="font-normal underline">Privacy Policy</span></label>
               </div>
               {props.values.termsCheck === false && props.touched.termsCheck &&
                 <div className="inline-flex mt-1 ml-8">

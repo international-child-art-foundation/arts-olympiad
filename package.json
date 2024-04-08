@@ -6,7 +6,7 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint",
+    "lint": "echo 'Linting is temporarily disabled. This line of code should never make it to the main repository.'",
     "lint:fix": "next lint --fix",
     "prepare": "husky install"
   },

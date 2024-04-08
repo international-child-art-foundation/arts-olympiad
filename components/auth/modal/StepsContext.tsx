@@ -14,9 +14,7 @@ export interface PersonalFormData {
   lastName: string;
   email: string;
   phone: string;
-  day: number;
-  month: number;
-  year: number;
+  birthDate: { day: number, month: number, year: number }
   termsCheck: false;
 }
 
@@ -61,12 +59,11 @@ export const StepsProvider: React.FC<{ children: ReactNode }> = ({ children }) =
     lastName: "",
     email: "",
     phone: "",
-    day: 0,
-    month: 0,
-    year: 0,
+    birthDate: { day: 0, month: 0, year: 0},
+    termsCheck: false,
   });
 
-  const [uploadFormData, setUploadFormData] = useState<UploadFormDataa>({
+  const [uploadFormData, setUploadFormData] = useState<UploadFormData>({
     image: null,
     location: "",
     city: "",
