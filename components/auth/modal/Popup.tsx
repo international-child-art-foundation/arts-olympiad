@@ -1,9 +1,8 @@
 import React from "react";
 import Image from "next/image";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Steps } from "./Steps";
 import { StepsControl } from "./StepsControl";
-import { StepsContext } from "./StepsContext";
 import { Age } from "./Age";
 import { Guardian } from "./Guardian";
 import { Under18 } from "./Under18";
@@ -11,39 +10,59 @@ import { Over18 } from "./Over18";
 import { Upload } from "./Upload";
 import { Review } from "./Review";
 import { Confirmation } from "./Confirmation";
+import { useStepsContext } from "./StepsContext";
 
 export default function Popup(props){
   const [currentStep, setCurrStep] = useState(1);
   const [isUnder18, setIsUnder18] = useState(true);
 
-  const [userData, setUserData] = useState("");
-  const [hasError, setHasError] = useState(false);
+  // const [userData, setUserData] = useState("");
+  // const [hasError, setHasError] = useState(false);
 
-  const steps = [
+  const { personalFormData, setPersonalFormData, hasError } = useStepsContext();
+  const [guardianConsentObtained, setGuardianConsentObtained] = useState(false);
+  const [steps, setSteps] = useState([
     "Age confirmation",
     "Guardian's Consent",
     "Terms & Donation Acknowledgment",
     "Upload Artwork",
     "Review",
-    "Confirmation"
-  ];
+    "Confirmation",
+  ]);
+  const updateSteps = () => {
+    const updatedSteps = [
+      "Age confirmation",
+      isUnder18 && !guardianConsentObtained ? "Guardian's Consent" : "Terms & Donation Acknowledgment",
+      "Upload Artwork",
+      "Review",
+      "Confirmation",
+    ];
+    setSteps(updatedSteps);
+  };
+
+  useEffect(() => {
+    updateSteps();
+  }, [isUnder18, guardianConsentObtained]);
   
   const displayStep = (steps) => {
     switch(steps) {
     case 1:
       return <Age />;
     case 2:
-      return <Guardian />; 
-    case 3:
       if(isUnder18){
-        return <Under18 />;
+        if (!guardianConsentObtained) {
+          return <Guardian />;
+        } 
+        else {
+          return <Under18 />;
+        }
       }
       return <Over18 />;
-    case 4:
+    case 3:
       return <Upload />;
-    case 5:
+    case 4:
       return <Review />;
-    case 6:
+    case 5:
       return <Confirmation />;
     default:
     }
@@ -54,9 +73,12 @@ export default function Popup(props){
     if(direction === "next"){
       if(newStep === 1){
         setIsUnder18(false);
-        setUserData("");
-        setUserData(Object.assign(userData, {"isUnder18" : false}));
-        newStep = 3;
+        // setPersonalFormData("");
+        setPersonalFormData(Object.assign(personalFormData, {"isUnder18" : false}));
+        newStep++;
+      }
+      else if (newStep === 2 && isUnder18 && hasError === false && !guardianConsentObtained) {
+        setGuardianConsentObtained(true);
       }
       else{
         newStep++;
@@ -65,17 +87,12 @@ export default function Popup(props){
     else{
       if(newStep === 1){
         setIsUnder18(true);
-        setUserData("");
-        setUserData(Object.assign(userData, {"isUnder18" : true}));
+        // setPersonalFormData("");
+        setPersonalFormData(Object.assign(personalFormData, {"isUnder18" : true}));
         newStep++;
       }
-      else if(newStep === 3){
-        if(isUnder18){
-          newStep = 2;
-        }
-        else{
-          newStep = 1;
-        }
+      else if(newStep === 2 && isUnder18 && hasError === false && guardianConsentObtained ) {
+        setGuardianConsentObtained(false);
       }
       else{
         newStep--;
@@ -95,16 +112,11 @@ export default function Popup(props){
           steps = {steps}
           currentStep = {currentStep}
         />
-        <StepsContext.Provider value={{
-          userData,
-          setUserData,
-          hasError,
-          setHasError
-        }}>
-          {displayStep(currentStep)}
-        </StepsContext.Provider>
+        {/* <StepsProvider > */}
+        {displayStep(currentStep)}
+        {/* </StepsProvider> */}
         
-        {console.log(userData)}
+        {/* {console.log(userData)} */}
 
         {/* {displayStep(currentStep)} */}
         <StepsControl 

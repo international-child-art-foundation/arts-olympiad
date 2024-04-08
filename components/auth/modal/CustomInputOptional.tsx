@@ -1,6 +1,13 @@
 import { useField } from "formik";
 
-export const CustomInputOptional = ({label, ...props}) => {
+interface CustomInputOptionalProps {
+  label: string;
+  sentence?: string;
+  type : string;
+  name : string;
+}
+
+export const CustomInputOptional = ({label, ...props} : CustomInputOptionalProps) => {
   const [field] = useField(props);
   return(
     <>

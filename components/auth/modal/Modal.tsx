@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import Popup from "./Popup";
+import { StepsProvider } from "./StepsContext";
 
 export default function Modal() {
   const [isPopUp, setIsPopUp] = useState(false);
@@ -12,8 +13,10 @@ export default function Modal() {
         <button onClick={() => setIsPopUp(true)} className={`mx-auto tracking-widest w-fit h-fit py-4 px-6 border-new-blue border rounded text-base font-normal cursor-pointer text-new-blue z-30 ${isPopUp ? "hidden" : ""}`}>
           Modal Systems
         </button>
-        <Popup trigger={isPopUp} setTrigger={setIsPopUp}>
-        </Popup>
+        <StepsProvider>
+          <Popup trigger={isPopUp} setTrigger={setIsPopUp}>
+          </Popup>
+        </StepsProvider>
       </div>
 
     </>
