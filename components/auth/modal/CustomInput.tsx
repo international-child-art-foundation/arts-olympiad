@@ -14,7 +14,6 @@ interface CustomInputProps {
 
 export const CustomInput = ({label, ...props} : CustomInputProps) => {
   const [field, meta] = useField(props);
-  console.log(field);
   return(
     <div className={`grid ${props.colSpan || props.colStart ? `${props.colSpan ? props.colSpan : ""} ${props.colStart ? props.colStart : ""}` : ""}`}>
       <label className={`mt-6 text-sm mb-1 ${meta.error && meta.touched ? "text-[#C4384E] font-semibold" : !meta.error && meta.touched ? "text-[#158737] font-semibold" : "font-light text-neutral-black"}`}>{label}</label>

@@ -5,6 +5,7 @@ import React, { useEffect, useState } from "react";
 // import { StepsContext } from "./StepsContext";
 import { HintIcon } from "../../svgs/HintIcon";
 import { useStepsContext } from "./StepsContext";
+import { FormikValidatedStepsControl } from "./FormikValidatedStepsControl";
 
 const phonevalid= /^((\\+[1-9]{1,4}[ \\-]*)|(\\([0-9]{2,3}\\)[ \\-]*)|([0-9]{2,4})[ \\-]*)*?[0-9]{3,4}?[ \\-]*[0-9]{3,4}?$/;
 
@@ -208,18 +209,20 @@ export const Over18 = () => {
                   <p className="text-xs font-normal text-[#C4384E] ml-2">Agreement to the Terms and Conditions is required</p>
                 </div>
               }
+              <div className="my-6">
+                <label className="text-sm font-light text-neutral-black">
+                  Parent or Guardian's Digital Signature
+                </label>
+                <div className="text-new-blue flex items-center justify-center border border-neutral-black w-full h-52 rounded-lg">
+                  Sign here
+                </div>
+              </div>
+
+              <FormikValidatedStepsControl/>
             </Form>
           );
         }}
       </Formik>
-      <div className="my-6">
-        <label className="text-sm font-light text-neutral-black">
-          Parent or Guardian's Digital Signature
-        </label>
-        <div className="text-new-blue flex items-center justify-center border border-neutral-black w-full h-52 rounded-lg">
-          Sign here
-        </div>
-      </div>
     </section>
   );
 };

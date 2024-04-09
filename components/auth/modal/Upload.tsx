@@ -16,6 +16,7 @@ const FILE_SIZE = 3 * 1024 * 1024;
 const categories = [
   "Archery", "Artistic Gymnastics", "Athletics", "Badminton", "Basketball", "Boxing", "Cycling Track", "Equestrian", "Fencing", "Football", "Golf", "High jump", "Hockey", "Judo", "Rowing", "Rugby", "Sailing", "Shooting", "Table Tennis", "Taekwondo", "Tennis", "Volleyball", "Wallball", "Weightlifting", "Yoga", "Zumba"
 ];
+import { FormikValidatedStepsControl } from "./FormikValidatedStepsControl";
   
 const validationSchema = yup.object().shape({
   image: yup.mixed()
@@ -283,10 +284,10 @@ export const Upload = () => {
                   name= "description" 
                   className= "w-full h-36 mb-6 border border-neutral-black rounded pl-4 pr-4 pt-2 pb-2"
                 />
+                <FormikValidatedStepsControl/>
               </Form>
             );
           }}
-
         </Formik>
 
       </section>

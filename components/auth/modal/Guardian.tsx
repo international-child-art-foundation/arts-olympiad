@@ -5,6 +5,7 @@ import { CustomInput } from "./CustomInput";
 import { HintIcon } from "../../svgs/HintIcon";
 import React, { useEffect } from "react";
 import { useStepsContext, GuardianFormData } from "./StepsContext";
+import { FormikValidatedStepsControl } from "./FormikValidatedStepsControl";
 
 const phonevalid= /^((\\+[1-9]{1,4}[ \\-]*)|(\\([0-9]{2,3}\\)[ \\-]*)|([0-9]{2,4})[ \\-]*)*?[0-9]{3,4}?[ \\-]*[0-9]{3,4}?$/;
 
@@ -118,18 +119,20 @@ export const Guardian = () => {
                 </div>
               }
 
+              <div className="my-6">
+                <label className="text-sm font-light text-neutral-black">
+                  Parent or Guardian's Digital Signature
+                </label>
+                <div className="text-new-blue flex items-center justify-center border border-neutral-black w-full h-52 rounded-lg">
+                  Sign here
+                </div>
+              </div>
+
+              <FormikValidatedStepsControl />
             </Form>
           );
         }}
       </Formik>
-      <div className="my-6">
-        <label className="text-sm font-light text-neutral-black">
-          Parent or Guardian's Digital Signature
-        </label>
-        <div className="text-new-blue flex items-center justify-center border border-neutral-black w-full h-52 rounded-lg">
-          Sign here
-        </div>
-      </div>
     </section>
   );
 };
