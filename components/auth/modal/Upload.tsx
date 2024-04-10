@@ -16,6 +16,7 @@ const FILE_SIZE = 3 * 1024 * 1024;
 const categories = [
   "Archery", "Artistic Gymnastics", "Athletics", "Badminton", "Basketball", "Boxing", "Cycling Track", "Equestrian", "Fencing", "Football", "Golf", "High jump", "Hockey", "Judo", "Rowing", "Rugby", "Sailing", "Shooting", "Table Tennis", "Taekwondo", "Tennis", "Volleyball", "Wallball", "Weightlifting", "Yoga", "Zumba"
 ];
+import { FormikValidatedStepsControl } from "./FormikValidatedStepsControl";
   
 const validationSchema = yup.object().shape({
   image: yup.mixed()
@@ -154,11 +155,11 @@ export const Upload = () => {
           onSubmit={() => {}}
         >
           {props => {
-            useUploadFormikLogic(props, uploadFormData, setUploadFormData, setHasError);
+            // useUploadFormikLogic(props, uploadFormData, setUploadFormData, setHasError);
             return (
               <Form className="grid grid-cols-1">
                 <div className="items-center justify-center w-full">
-                  <label for="image" className="w-full h-64 mb-6 border border-neutral-black rounded pl-4 pr-4 pt-2 pb-2 flex flex-col items-center justify-center">
+                  <label htmlFor="image" className="w-full h-64 mb-6 border border-neutral-black rounded pl-4 pr-4 pt-2 pb-2 flex flex-col items-center justify-center">
                     <div className="flex flex-col items-center justify-center pt-5 pb-6">
                       <p className="mb-6 text-md font-light text-neutral-black">Drag and drop files to upload</p>
                       <div className="mb-6 h-fit w-fit rounded text-center py-4 px-6 text-base font-normal bg-new-blue text-neutral-white">
@@ -283,10 +284,10 @@ export const Upload = () => {
                   name= "description" 
                   className= "w-full h-36 mb-6 border border-neutral-black rounded pl-4 pr-4 pt-2 pb-2"
                 />
+                <FormikValidatedStepsControl/>
               </Form>
             );
           }}
-
         </Formik>
 
       </section>

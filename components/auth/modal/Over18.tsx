@@ -5,6 +5,7 @@ import React, { useEffect, useState } from "react";
 // import { StepsContext } from "./StepsContext";
 import { HintIcon } from "../../svgs/HintIcon";
 import { useStepsContext } from "./StepsContext";
+import { FormikValidatedStepsControl } from "./FormikValidatedStepsControl";
 
 const phonevalid= /^((\\+[1-9]{1,4}[ \\-]*)|(\\([0-9]{2,3}\\)[ \\-]*)|([0-9]{2,4})[ \\-]*)*?[0-9]{3,4}?[ \\-]*[0-9]{3,4}?$/;
 
@@ -84,7 +85,7 @@ export const Over18 = () => {
         onSubmit={() => {}}
       >
         {props => { 
-          useOver18FormikLogic(props, personalFormData, setPersonalFormData, setHasError, dateValidError, setDateValidError);
+          // useOver18FormikLogic(props, personalFormData, setPersonalFormData, setHasError, dateValidError, setDateValidError);
 
           return (
             <Form className="grid grid-cols-1">
@@ -200,7 +201,7 @@ export const Over18 = () => {
                   className="w-6 h-6 rounded" 
                   onBlur={props.handleBlur}
                 />
-                <label for="termsCheck" className="ml-2 text-base font-light">I agree to ICAF's <span className="font-normal underline">Terms of use</span> and <span className="font-normal underline">Privacy Policy</span></label>
+                <label htmlFor="termsCheck" className="ml-2 text-base font-light">I agree to ICAF's <span className="font-normal underline">Terms of use</span> and <span className="font-normal underline">Privacy Policy</span></label>
               </div>
               {props.values.termsCheck === false && props.touched.termsCheck &&
                 <div className="inline-flex mt-1 ml-8">
@@ -208,18 +209,20 @@ export const Over18 = () => {
                   <p className="text-xs font-normal text-[#C4384E] ml-2">Agreement to the Terms and Conditions is required</p>
                 </div>
               }
+              <div className="my-6">
+                <label className="text-sm font-light text-neutral-black">
+                  Parent or Guardian's Digital Signature
+                </label>
+                <div className="text-new-blue flex items-center justify-center border border-neutral-black w-full h-52 rounded-lg">
+                  Sign here
+                </div>
+              </div>
+
+              <FormikValidatedStepsControl/>
             </Form>
           );
         }}
       </Formik>
-      <div className="my-6">
-        <label className="text-sm font-light text-neutral-black">
-          Parent or Guardian's Digital Signature
-        </label>
-        <div className="text-new-blue flex items-center justify-center border border-neutral-black w-full h-52 rounded-lg">
-          Sign here
-        </div>
-      </div>
     </section>
   );
 };

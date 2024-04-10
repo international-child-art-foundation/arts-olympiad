@@ -5,6 +5,7 @@ import { CustomInput } from "./CustomInput";
 import { HintIcon } from "../../svgs/HintIcon";
 import React, { useEffect } from "react";
 import { useStepsContext, GuardianFormData } from "./StepsContext";
+import { FormikValidatedStepsControl } from "./FormikValidatedStepsControl";
 
 const phonevalid= /^((\\+[1-9]{1,4}[ \\-]*)|(\\([0-9]{2,3}\\)[ \\-]*)|([0-9]{2,4})[ \\-]*)*?[0-9]{3,4}?[ \\-]*[0-9]{3,4}?$/;
 
@@ -16,31 +17,8 @@ const validationSchema = yup.object().shape({
   guardianTermsCheck: yup.bool().oneOf([true], "Agreement to the Terms and Conditions is required")
 });
 
-
-function useGuardianFormikLogic(
-  props: FormikProps<GuardianFormData>, 
-  guardianFormData: GuardianFormData, 
-  setGuardianFormData: (data: GuardianFormData) => void, 
-  setHasError: (error: boolean) => void) {
-  useEffect(() => {
-    const requiredFields: (keyof GuardianFormData)[] = ["guardianFirstName", "guardianLastName", "guardianEmail", "guardianTermsCheck"];
-    const hasPreviousData = requiredFields.every(field => guardianFormData[field]);
-    const hasSpecificFieldErrors = requiredFields.some(field => props.errors[field]);
-    const requiredFieldsTouched = requiredFields.some(field => props.touched[field]);
-    const noErrorsAtAll = Object.keys(props.errors).length === 0;
-    const nothingTouchedYet = Object.keys(props.touched).length === 0;
-    const shouldSetError = hasSpecificFieldErrors || (!hasPreviousData && nothingTouchedYet);
-    setHasError(shouldSetError);
-    if (noErrorsAtAll && requiredFieldsTouched) {
-      setGuardianFormData(Object.assign({}, guardianFormData, props.values));
-    }
-  }, [props, guardianFormData, setGuardianFormData, setHasError]);
-};
-
 export const Guardian = () => {
-  // const { guardianFormData, setGuardianFormData, setHasError } = useContext(StepsContext);
-
-  const { guardianFormData, setGuardianFormData, setHasError } = useStepsContext();
+  const { guardianFormData, setGuardianFormData, handleNavigation } = useStepsContext();
   return (
     <section className="items-center justify-center m-auto max-w-screen-2xl px-8 md:px-12 lg:px-16 xl:px-20 w-full lg:w-4/5 2xl:w-3/5">
       <div className="mt-28 mb-9 text-center text-2xl text-neutral-black font-bold">
@@ -61,11 +39,14 @@ export const Guardian = () => {
           guardianTermsCheck: guardianFormData.guardianTermsCheck || false
         }}
         validationSchema={validationSchema}
-        onSubmit={() => {}}
+        onSubmit={() => {
+          // TODO: Update correct context variable to include newly submitted data
+          console.log("Submission successful");
+          handleNavigation("next");
+
+        }}
       >
         {props => {
-          useGuardianFormikLogic(props, guardianFormData, setGuardianFormData, setHasError);
-
           return (
             <Form className="grid grid-cols-1">
               <CustomInput 
@@ -132,7 +113,7 @@ export const Guardian = () => {
                   className="w-6 h-6 rounded" 
                   onBlur={props.handleBlur}
                 />
-                <label for="guardianTermsCheck" className="ml-2 text-base font-light">I agree to ICAF's <span className="font-normal underline">Terms of use</span> and <span className="font-normal underline">Privacy Policy</span></label>
+                <label htmlFor="guardianTermsCheck" className="ml-2 text-base font-light">I agree to ICAF's <span className="font-normal underline">Terms of use</span> and <span className="font-normal underline">Privacy Policy</span></label>
               </div>
               {props.values.guardianTermsCheck === false && 
                 <div className="inline-flex mt-1 ml-8">
@@ -141,18 +122,20 @@ export const Guardian = () => {
                 </div>
               }
 
+              <div className="my-6">
+                <label className="text-sm font-light text-neutral-black">
+                  Parent or Guardian's Digital Signature
+                </label>
+                <div className="text-new-blue flex items-center justify-center border border-neutral-black w-full h-52 rounded-lg">
+                  Sign here
+                </div>
+              </div>
+
+              <FormikValidatedStepsControl />
             </Form>
           );
         }}
       </Formik>
-      <div className="my-6">
-        <label className="text-sm font-light text-neutral-black">
-          Parent or Guardian's Digital Signature
-        </label>
-        <div className="text-new-blue flex items-center justify-center border border-neutral-black w-full h-52 rounded-lg">
-          Sign here
-        </div>
-      </div>
     </section>
   );
 };

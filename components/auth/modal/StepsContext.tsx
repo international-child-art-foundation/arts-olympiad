@@ -1,46 +1,29 @@
 import React, { createContext, useState, ReactNode, useContext } from "react";
+import { GuardianFormData, PersonalFormData, UploadFormData, FormValues } from "../../../mock/formDataStructs";
 
-export interface GuardianFormData {
-  guardianFirstName: string;
-  guardianLastName: string;
-  guardianEmail: string;
-  guardianPhone: string;
-  guardianTermsCheck: boolean;
-}
-
-export interface PersonalFormData {
-  // isUnder18: boolean;
-  firstName: string;
-  lastName: string;
-  email: string;
-  phone: string;
-  day: number;
-  month: number;
-  year: number;
-  termsCheck: false;
-}
-
-export interface UploadFormData {
-  image: File | null;
-  location: string;
-  city: string;
-  usingAI: false;
-  source: string;
-  prompt: string;
-  category: string[];
-  description: string;
-}
 
 interface StepsContextType {
   guardianFormData: GuardianFormData;
   setGuardianFormData: React.Dispatch<React.SetStateAction<GuardianFormData>>;
-  hasError: boolean;
-  setHasError: (hasError: boolean) => void;
   personalFormData: PersonalFormData;
   setPersonalFormData: React.Dispatch<React.SetStateAction<PersonalFormData>>;
   uploadFormData: UploadFormData;
   setUploadFormData: React.Dispatch<React.SetStateAction<UploadFormData>>;
+  hasError: boolean;
+  setHasError: (hasError: boolean) => void;
+  steps: string[]; // Array of strings representing the steps
+  setSteps: React.Dispatch<React.SetStateAction<string[]>>; // Function to update steps
+  currentStep: number; // Number representing the current step
+  setCurrentStep: React.Dispatch<React.SetStateAction<number>>; // Function to update the current step
+  isUnder18: boolean | null; // Boolean indicating if the user is under 18
+  setIsUnder18: React.Dispatch<React.SetStateAction<boolean | null>>; // Function to update isUnder18
+  guardianConsentObtained: boolean; // Boolean indicating if guardian consent is obtained
+  setGuardianConsentObtained: React.Dispatch<React.SetStateAction<boolean>>; // Function to update guardianConsentObtained
+  handleNavigation: (direction: string) => void;
+  submitDataToContext: (values: FormValues, currentStep: number) => void;
 }
+
+
 
 export const StepsContext = createContext<StepsContextType | undefined>(undefined);
 
@@ -53,6 +36,19 @@ export const StepsProvider: React.FC<{ children: ReactNode }> = ({ children }) =
     guardianTermsCheck: false,
   });
 
+  const [steps, setSteps] = useState([
+    "Age confirmation",
+    "Guardian's Consent",
+    "Terms & Donation Acknowledgment",
+    "Upload Artwork",
+    "Review",
+    "Confirmation",
+  ]);
+
+  const [currentStep, setCurrentStep] = useState(1);
+  const [isUnder18, setIsUnder18] = useState<boolean | null>(null);
+  const [guardianConsentObtained, setGuardianConsentObtained] = useState(false);
+
   const [ hasError, setHasError ] = useState<boolean>(false);
 
   const [ personalFormData, setPersonalFormData] = useState<PersonalFormData>({
@@ -61,12 +57,11 @@ export const StepsProvider: React.FC<{ children: ReactNode }> = ({ children }) =
     lastName: "",
     email: "",
     phone: "",
-    day: 0,
-    month: 0,
-    year: 0,
+    date: { day: 0, month: 0, year: 0},
+    termsCheck: false,
   });
 
-  const [uploadFormData, setUploadFormData] = useState<UploadFormDataa>({
+  const [uploadFormData, setUploadFormData] = useState<UploadFormData>({
     image: null,
     location: "",
     city: "",
@@ -77,6 +72,60 @@ export const StepsProvider: React.FC<{ children: ReactNode }> = ({ children }) =
     description: "",
   });
 
+  const handleNavigation = (direction: string) => {
+    console.log("Handling navigation. " + currentStep);
+    let newStep = currentStep;
+    if(direction === "next"){
+      if(newStep === 1){
+        newStep++;
+      }
+      else if (newStep === 2 && isUnder18 && hasError === false && !guardianConsentObtained) {
+        setGuardianConsentObtained(true);
+      }
+      else{
+        newStep++;
+      }
+    }
+    else{
+      if(newStep === 1){
+        newStep++;
+      }
+      else if(newStep === 2 && isUnder18 && hasError === false && guardianConsentObtained ) {
+        setGuardianConsentObtained(false);
+      }
+      else{
+        newStep--;
+      }
+    }
+    newStep > 0 && newStep <= steps.length && hasError === false && setCurrentStep(newStep);
+  };
+
+  const submitDataToContext = (values: FormValues, currentStep: number) => {
+    console.log(values);
+    console.log(currentStep);
+    switch (currentStep) {
+    case 2: 
+      if ("guardianFirstName" in values && "guardianLastName" in values) {
+        console.log("Guardian page.");
+        setGuardianFormData(values as GuardianFormData);
+      }
+      break;
+    case 3:
+      if ("firstName" in values && "lastName" in values) {
+        setPersonalFormData(values as PersonalFormData);
+      }
+      break;
+    case 4:
+      if ("image" in values && "location" in values) {
+        setUploadFormData(values as UploadFormData);
+      }
+      break;
+  
+    default:
+      console.log("No matching step found for data submission");
+    }
+  };
+  
   const contextValue = {
     guardianFormData,
     setGuardianFormData,
@@ -85,7 +134,17 @@ export const StepsProvider: React.FC<{ children: ReactNode }> = ({ children }) =
     personalFormData,
     setPersonalFormData,
     uploadFormData, 
-    setUploadFormData
+    setUploadFormData,
+    steps,
+    setSteps,
+    currentStep,
+    setCurrentStep,
+    isUnder18,
+    setIsUnder18,
+    guardianConsentObtained,
+    setGuardianConsentObtained,
+    handleNavigation,
+    submitDataToContext
   };
 
   return (

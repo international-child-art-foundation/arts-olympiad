@@ -1,12 +1,26 @@
 import { LeftIcon } from "../../svgs/LeftIcon";
+import { useStepsContext } from "./StepsContext";
 
-export const StepsControl = ({handleClick, steps, currentStep, hasError}) => {
- 
+interface StepsControlProps { // Unnecessary for now
+}
+
+export const StepsControl: React.FC<StepsControlProps> = ({  }) => {
+
+  const { hasError,
+    steps,
+    currentStep,
+    handleNavigation
+  } = useStepsContext();
+
+  const handleButtonClick = (direction: string) => {
+    handleNavigation(direction);
+  };
+
   return (
     <>
-      <div className={`justify-around max-w-screen-2xl px-8 md:px-12 lg:px-16 xl:px-20 m-auto w-full lg:w-4/5 2xl:w-3/5 mb-16 ${currentStep === 1 ? "flex" : "md:flex"}`}>
+      <div className={`pt-8 justify-around m-auto w-full lg:w-4/5 2xl:w-3/5 mb-16 ${currentStep === 1 ? "flex" : "md:flex"}`}>
         <button 
-          onClick={() => handleClick()}
+          onClick={() => handleButtonClick("back")}
           className={`group flex text-center bg-neutral-white border-new-blue border rounded text-base font-normal text-new-blue w-full md:w-fit ${hasError === true ? "me-auto cursor-not-allowed" : currentStep === steps.length ? "hidden" : currentStep === 1 ? "ms-auto mr-5 cursor-pointer" : "me-auto"}`}
           disabled={hasError}
         >
@@ -17,7 +31,7 @@ export const StepsControl = ({handleClick, steps, currentStep, hasError}) => {
         </button>
         
         <button
-          onClick={() => handleClick("next")}
+          onClick={() => handleButtonClick("next")}
           className={`border rounded text-center text-base font-normal w-full md:w-fit py-4 px-10 ${
             hasError === true ? "ms-auto cursor-not-allowed bg-new-blue text-neutral-white" : currentStep === steps.length ? "cursor-pointer mx-auto bg-neutral-white text-new-blue border-new-blue" : currentStep === 1 ? "me-auto ml-5 bg-neutral-white text-new-blue border-new-blue cursor-pointer" : "bg-new-blue text-neutral-white"}`}
           disabled={hasError}

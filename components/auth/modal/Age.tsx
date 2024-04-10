@@ -1,4 +1,17 @@
+import { useStepsContext } from "./StepsContext";
+
 export const Age = () => {
+  const { setIsUnder18, handleNavigation } = useStepsContext();
+
+  const handleAgeClick = (direction: string) => {
+    if (direction === "under") {
+      setIsUnder18(true);
+    } else if (direction === "over") {
+      setIsUnder18(false);
+    }
+    handleNavigation(direction);
+  };
+
   return (
     <>
       <section className="items-center justify-center m-auto max-w-screen-2xl px-8 md:px-12 lg:px-16 xl:px-20 w-full lg:w-4/5 2xl:w-3/5">
@@ -12,6 +25,12 @@ export const Age = () => {
           First, how old are you? 
         </p>
       </section>
+      <button type="button" onClick={() => handleAgeClick("under")}>
+        Under 18
+      </button>
+      <button type="button" onClick={() => handleAgeClick("over")}>
+        Over 18
+      </button>
     </>
   );
 };
