@@ -12,7 +12,7 @@ export interface PersonalFormData {
   lastName: string;
   email: string;
   phone: string;
-  birthDate: { day: number, month: number, year: number }
+  date: { day: number, month: number, year: number }
   termsCheck: false;
 }
 

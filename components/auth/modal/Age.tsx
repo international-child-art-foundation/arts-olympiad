@@ -25,10 +25,10 @@ export const Age = () => {
           First, how old are you? 
         </p>
       </section>
-      <button onClick={() => handleAgeClick("under")}>
+      <button type="button" onClick={() => handleAgeClick("under")}>
         Under 18
       </button>
-      <button onClick={() => handleAgeClick("over")}>
+      <button type="button" onClick={() => handleAgeClick("over")}>
         Over 18
       </button>
     </>

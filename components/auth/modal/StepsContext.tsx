@@ -57,7 +57,7 @@ export const StepsProvider: React.FC<{ children: ReactNode }> = ({ children }) =
     lastName: "",
     email: "",
     phone: "",
-    birthDate: { day: 0, month: 0, year: 0},
+    date: { day: 0, month: 0, year: 0},
     termsCheck: false,
   });
 

@@ -13,13 +13,21 @@ const validationSchema = yup.object().shape({
   lastName: yup.string().required("Required"),
   email: yup.string().email("Not a recognized email address").required("Not a recognized email address"),
   phone: yup.string().matches(phonevalid, "Not a valid phone number").max(10, "longer than 10 digit").optional(),
-  day: yup.number().min(1).max(31).required("Not a valid Day"),
-  month: yup.number().min(1).max(12).required("Not a valid Month"),
-  year: yup.number().min(1900).max(2024).required("Not a valid Date")
+  date: yup.object().shape({
+    // Test that each date number is valid
+    day: yup.number().min(1).max(31).required(),
+    month: yup.number().min(1).max(12).required(),
+    year: yup.number().required()
+    // Test that the date is valid in its entirety
+  }).test("is-valid-date", "The date is invalid", (date) => {
+    const { day, month, year } = date || {};
+    const isValidDate = Date.parse(`${year}-${month}-${day}`);
+    return !isNaN(isValidDate);
+  }),
 });
 
 export const Under18 = () => {
-  const { personalFormData, setPersonalFormData } = useStepsContext();
+  const { personalFormData, setPersonalFormData, handleNavigation } = useStepsContext();
   
   return (
     <section className="items-center justify-center m-auto max-w-screen-2xl px-8 md:px-12 lg:px-16 xl:px-20 w-full lg:w-4/5 2xl:w-3/5">
@@ -34,15 +42,16 @@ export const Under18 = () => {
         initialValues={personalFormData}
         validationSchema={validationSchema}
         onSubmit={(values) => {
+          // On submit: Set our global context data according to form values and move to next page
           setPersonalFormData(prevState => ({
             ...prevState,
             firstName: values.firstName,
             lastName: values.lastName,
             email: values.email,
             phone: values.phone,
-            birthDate: { day: values.birthDate.day, month: values.birthDate.month, year: values.birthDate.year }
+            date: { day: values.date.day, month: values.date.month, year: values.date.year }
           }));
-          
+          handleNavigation("next");
         }}
       >
         {() => {
@@ -69,7 +78,7 @@ export const Under18 = () => {
               <div className="grid grid-cols-12 gap-3">
                 <DateInput
                   label="Date of Birth"
-                  name="birthDate"
+                  name="date"
                   colStart="col-start-1"
                   colSpan="col-span-6"
                 />
