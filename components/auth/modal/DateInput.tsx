@@ -40,12 +40,17 @@ export const DateInput = ({ name, label, colStart, colSpan }: DateInputProps) =>
               value={field.value[part] || ""}
               onChange={(e) => handleChange(e, part)}
               onBlur={() => handleBlur(part)}
-              className="border border-neutral-black rounded pl-2 pr-2 pt-3 pb-3"
+              className="w-full col-span-1 border border-neutral-black rounded pl-2 pr-2 pt-3 pb-3"
             />
             {getError(part) && getTouched(part) && (
               <div className="flex items-center mt-1">
                 <HintIcon />
                 <p className="ml-2 text-xs font-normal text-[#C4384E]">{getError(part)}</p>
+              </div>
+            )}
+            {!getError(part) && getTouched(part) && (
+              <div className="flex items-center mt-1">
+                <CorrectIcon />
               </div>
             )}
           </div>

@@ -63,18 +63,21 @@ export const Under18 = () => {
                 type= "text"
                 placeholder= "First name"
               />
+
               <CustomInput 
                 label= "Last Name"
                 name= "lastName"
                 type= "text"
                 placeholder= "Last name"
               />
+
               <CustomInput 
                 label= "Email"
                 name= "email"
                 type= "email"
                 placeholder= "example@example.com"
               />
+
               <div className="grid grid-cols-12 gap-3">
                 <DateInput
                   label="Date of Birth"
@@ -82,6 +85,7 @@ export const Under18 = () => {
                   colStart="col-start-1"
                   colSpan="col-span-6"
                 />
+
                 <CustomInput 
                   label= "Phone"
                   name= "phone"
@@ -91,7 +95,9 @@ export const Under18 = () => {
                   colSpan="col-span-6"
                 />
               </div>
+
               <FormikValidatedStepsControl />
+
             </Form>
           );
         }}

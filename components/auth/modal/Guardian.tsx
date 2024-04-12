@@ -1,11 +1,12 @@
 import * as yup from "yup";
 import { Form, Formik, FormikProps } from "formik";
 import { CustomInput } from "./CustomInput";
-// import { StepsContext } from "./StepsContext";
+import { CustomCheckbox } from "./CustomCheckbox";
 import { HintIcon } from "../../svgs/HintIcon";
-import React, { useEffect } from "react";
+import React from "react";
 import { useStepsContext, GuardianFormData } from "./StepsContext";
 import { FormikValidatedStepsControl } from "./FormikValidatedStepsControl";
+import { DateInput } from "./DateInput";
 
 const phonevalid= /^((\\+[1-9]{1,4}[ \\-]*)|(\\([0-9]{2,3}\\)[ \\-]*)|([0-9]{2,4})[ \\-]*)*?[0-9]{3,4}?[ \\-]*[0-9]{3,4}?$/;
 
@@ -19,6 +20,7 @@ const validationSchema = yup.object().shape({
 
 export const Guardian = () => {
   const { guardianFormData, setGuardianFormData, handleNavigation } = useStepsContext();
+
   return (
     <section className="items-center justify-center m-auto max-w-screen-2xl px-8 md:px-12 lg:px-16 xl:px-20 w-full lg:w-4/5 2xl:w-3/5">
       <div className="mt-28 mb-9 text-center text-2xl text-neutral-black font-bold">
@@ -31,22 +33,22 @@ export const Guardian = () => {
         They'll need to agree to our terms and understand that by submitting your artwork, it's being generously donated to ICAF for charitable objectives. 
       </div>
       <Formik
-        initialValues={{
-          guardianFirstName: guardianFormData.guardianFirstName || "",
-          guardianLastName: guardianFormData.guardianLastName || "", 
-          guardianEmail: guardianFormData.guardianEmail || "", 
-          guardianPhone: guardianFormData.guardianPhone || "", 
-          guardianTermsCheck: guardianFormData.guardianTermsCheck || false
-        }}
+        initialValues={guardianFormData}
         validationSchema={validationSchema}
-        onSubmit={() => {
-          // TODO: Update correct context variable to include newly submitted data
-          console.log("Submission successful");
+        onSubmit={(values) => {
+          // On submit: Set our global context data according to form values and move to next page
+          setGuardianFormData(prevState => ({
+            ...prevState,
+            guardianFirstName: values.guardianFirstName,
+            guardianLastName: values.guardianLastName,
+            guardianEmail: values.guardianEmail,
+            guardianPhone: values.guardianPhone,
+            guardianTermsCheck: values.guardianTermsCheck
+          }));
           handleNavigation("next");
-
         }}
       >
-        {props => {
+        {() => {
           return (
             <Form className="grid grid-cols-1">
               <CustomInput 
@@ -54,11 +56,6 @@ export const Guardian = () => {
                 name="guardianFirstName"
                 type="text"
                 placeholder="First name"
-                value={props.values.guardianFirstName}
-                onChange={props.handleChange}
-                onBlur={props.handleBlur}
-                touched={props.touched.guardianFirstName}
-                error={props.errors.guardianFirstName}
               />
               
               <CustomInput 
@@ -66,24 +63,20 @@ export const Guardian = () => {
                 name="guardianLastName"
                 type="text"
                 placeholder="Last name"
-                value={props.values.guardianLastName}
-                onChange={props.handleChange}
-                onBlur={props.handleBlur}
-                touched={props.touched.guardianLastName}
-                error={props.errors.guardianLastName}
               />
               <CustomInput 
                 label="Parent or Guardian's Email"
                 name="guardianEmail"
                 type="email"
                 placeholder="example@example.com"
-                value={props.values.guardianEmail}
-                onChange={props.handleChange}
-                onBlur={props.handleBlur}
-                touched={props.touched.guardianEmail}
-                error={props.errors.guardianEmail}
               />
-              <div className="mt-6 items-center w-full">
+              <CustomInput 
+                label= "Phone"
+                name= "guardianPhone"
+                type= "phone"
+                placeholder="(country code) 123-123-1234"
+              />
+              {/* <div className="mt-6 items-center w-full">
                 <label htmlFor="guardianPhone" className={`text-sm mb-1 ${props.errors.guardianPhone && props.touched.guardianPhone ? "text-[#C4384E] font-semibold" : !props.errors.guardianPhone && props.values.guardianPhone !== "" && props.touched.phone ? "text-[#158737] font-semibold" : "font-light text-neutral-black"}`}>Parent or Guardian's phone number* (optional)</label>
                 <input 
                   value={props.values.guardianPhone}
@@ -101,9 +94,13 @@ export const Guardian = () => {
                   <HintIcon /> 
                   <p className="text-xs font-normal text-[#C4384E] ml-2">{props.errors.guardianPhone}</p>
                 </div>
-              }
-              
-              <div className="mt-6 items-center w-full">
+              } */}
+              <CustomCheckbox
+                lbael="guardianTermsCheck"
+                name="guardianTermsCheck" 
+                type="checkbox" 
+              />
+              {/* <div className="mt-6 items-center w-full">
                 <input 
                   checked={props.values.guardianTermsCheck}
                   onChange={props.handleChange}
@@ -120,7 +117,7 @@ export const Guardian = () => {
                   <HintIcon /> 
                   <p className="text-xs font-normal text-[#C4384E] ml-2">Agreement to the Terms and Conditions is required</p>
                 </div>
-              }
+              } */}
 
               <div className="my-6">
                 <label className="text-sm font-light text-neutral-black">

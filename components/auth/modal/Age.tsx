@@ -25,12 +25,15 @@ export const Age = () => {
           First, how old are you? 
         </p>
       </section>
-      <button type="button" onClick={() => handleAgeClick("under")}>
-        Under 18
-      </button>
-      <button type="button" onClick={() => handleAgeClick("over")}>
-        Over 18
-      </button>
+      <div className="flex">
+        <button type="button" className= "border rounded text-center text-base font-normal w-full md:w-fit py-4 px-10 ms-auto mr-5 bg-neutral-white text-new-blue border-new-blue cursor-pointer" onClick={() => handleAgeClick("under")}>
+          Under 18
+        </button>
+        <button type="button" className="border rounded text-center text-base font-normal w-full md:w-fit py-4 px-10 me-auto ml-5 bg-neutral-white text-new-blue border-new-blue cursor-pointer" onClick={() => handleAgeClick("over")}>
+          Over 18
+        </button>
+      </div>
+
     </>
   );
 };

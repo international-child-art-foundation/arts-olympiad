@@ -2,42 +2,41 @@ import * as yup from "yup";
 import { UploadIcon } from "../../svgs/UploadIcon";
 import { Field, Form, Formik } from "formik";
 import { CustomInput } from "./CustomInput";
-import { CustomInputOptional } from "./CustomInputOptional";
-import { CustomCheckboxOptional } from "./CustomCheckboxOptional";
+import { CustomCheckbox } from "./CustomCheckbox";
 import React, {useEffect} from "react";
-// import { StepsContext } from "./StepsContext";
 import { HintIcon } from "../../svgs/HintIcon";
 import { CorrectIcon } from "../../svgs/CorrectIcon";
 import Select from "react-select";
 import { useStepsContext } from "./StepsContext";
+import { FormikValidatedStepsControl } from "./FormikValidatedStepsControl";
+import { CustomUploadImage } from "./CustomUploadImage";
 
 const SUPPORTED_FORMATS = ["image/jpg", "image/png"];
 const FILE_SIZE = 3 * 1024 * 1024;
 const categories = [
   "Archery", "Artistic Gymnastics", "Athletics", "Badminton", "Basketball", "Boxing", "Cycling Track", "Equestrian", "Fencing", "Football", "Golf", "High jump", "Hockey", "Judo", "Rowing", "Rugby", "Sailing", "Shooting", "Table Tennis", "Taekwondo", "Tennis", "Volleyball", "Wallball", "Weightlifting", "Yoga", "Zumba"
 ];
-import { FormikValidatedStepsControl } from "./FormikValidatedStepsControl";
-  
+
 const validationSchema = yup.object().shape({
   image: yup.mixed()
     .required("Oops! Unsupported file format. Please upload as PNG or JPG, max size 3 MB.")
     .test("format", "Please upload as PNG or JPG", value => value && SUPPORTED_FORMATS.includes(value.type))
     .test("size", "Max size 3 MB", value => value && value.size <= FILE_SIZE )
   ,
-  location: yup.string()
-    .oneOf([
-      "Australia", "Belgium", "China", "Denmark", "Egypt", "France", "Germany", "Italy", "Japan", "Korea", "Malaysia", "New Zealand", "Pakistan", "Russia", "Singapore", "Thailand", "United States of America", "Vietnam"
-    ])
-    .required("Please select a continent and country for your artwork's location."),
-  city: yup.string().required("Please type in your city"),
-  usingAI: yup.bool().optional(),
-  source: yup.string().optional(),
-  prompt: yup.string().optional(),
-  category: yup.array()
-    .of(yup.string().oneOf(categories))
-    .min(1, "Please select the Sports category that best represents your artwork.")
-    .required("Please select the Sports category that best represents your artwork."),
-  description: yup.string().optional()
+  // location: yup.string()
+  //   .oneOf([
+  //     "Australia", "Belgium", "China", "Denmark", "Egypt", "France", "Germany", "Italy", "Japan", "Korea", "Malaysia", "New Zealand", "Pakistan", "Russia", "Singapore", "Thailand", "United States of America", "Vietnam"
+  //   ])
+  //   .required("Please select a continent and country for your artwork's location."),
+  // city: yup.string().required("Please type in your city"),
+  // usingAI: yup.bool().optional(),
+  // source: yup.string().optional(),
+  // prompt: yup.string().optional(),
+  // category: yup.array()
+  //   .of(yup.string().oneOf(categories))
+  //   .min(1, "Please select the Sports category that best represents your artwork.")
+  //   .required("Please select the Sports category that best represents your artwork."),
+  // description: yup.string().optional()
 });
 
 const customStyles = {
@@ -113,25 +112,8 @@ const countryOptions = [
   { label: "Vietnam", value: "Vietnam" },
 ];
 
-function useUploadFormikLogic(props, uploadFormData, setUploadFormData, setHasError) {
-  useEffect(() => {
-    const requiredFields = ["image", "location", "city", "category"];
-    const hasPreviousData = requiredFields.every(field => uploadFormData[field]);
-    const hasSpecificFieldErrors = requiredFields.some(field => props.errors[field]);
-    const requiredFieldsTouched = requiredFields.some(field => props.touched[field]);
-    const noErrorsAtAll = Object.keys(props.errors).length === 0;
-    const nothingTouchedYet = Object.keys(props.touched).length === 0 && Object.keys(props.values).length !== 0;
-    const shouldSetError = hasSpecificFieldErrors || (!hasPreviousData && nothingTouchedYet);
-    setHasError(shouldSetError);
-    if (noErrorsAtAll && requiredFieldsTouched) {
-      setUploadFormData(Object.assign({}, uploadFormData, props.values));
-    }
-  }, [props, uploadFormData, setUploadFormData, setHasError]);
-};
-
 export const Upload = () => {
-  // const { uploadFormData, setUploadFormData, setHasError } = useContext(StepsContext);
-  const { uploadFormData, setUploadFormData, setHasError } = useStepsContext();
+  const { uploadFormData, setUploadFormData, handleNavigation } = useStepsContext();
   
   return (
     <>
@@ -141,25 +123,29 @@ export const Upload = () => {
           <p>Please fill in the details below and upload your masterpiece.</p>
         </div>
         <Formik 
-          initialValues={{ 
-            image: uploadFormData.image || "", 
-            location: uploadFormData.location || "", 
-            city: uploadFormData.city || "", 
-            usingAI: uploadFormData.usingAI|| false, 
-            source: uploadFormData.source || "", 
-            prompt: uploadFormData.prompt || "", 
-            category: uploadFormData.category || [], 
-            description: uploadFormData.description || ""
-          }}
+          initialValues={uploadFormData}
           validationSchema={validationSchema}
-          onSubmit={() => {}}
+          onSubmit={(values) => {
+            // On submit: Set our global context data according to form values and move to next page
+            setPersonalFormData(prevState => ({
+              ...prevState,
+              image: values.image,
+              // location: values.location,
+              // city: values.city,
+              // usingAI: values.usingAI,
+              // source: values.source,
+              // prompt: values.prompt,
+              // category: values.category,
+              // description: values.description
+            }));
+            handleNavigation("next");
+          }}
         >
-          {props => {
-            // useUploadFormikLogic(props, uploadFormData, setUploadFormData, setHasError);
+          {({handleBlur, setFieldValue, errors, values, touched}) => {
             return (
               <Form className="grid grid-cols-1">
                 <div className="items-center justify-center w-full">
-                  <label htmlFor="image" className="w-full h-64 mb-6 border border-neutral-black rounded pl-4 pr-4 pt-2 pb-2 flex flex-col items-center justify-center">
+                  {/* <label htmlFor="image" className="w-full h-64 mb-6 border border-neutral-black rounded pl-4 pr-4 pt-2 pb-2 flex flex-col items-center justify-center">
                     <div className="flex flex-col items-center justify-center pt-5 pb-6">
                       <p className="mb-6 text-md font-light text-neutral-black">Drag and drop files to upload</p>
                       <div className="mb-6 h-fit w-fit rounded text-center py-4 px-6 text-base font-normal bg-new-blue text-neutral-white">
@@ -174,22 +160,26 @@ export const Upload = () => {
                       name= "image"
                       accept="image/*"
                       onChange={(event) => {
-                        props.setFieldValue("image", event.currentTarget.files[0]);
-                        // setFile(event.target.files[0])
+                        setFieldValue("image", event.currentTarget.files[0]);
                       }}
-                      onBlur={props.handleBlur}
+                      onBlur={handleBlur}
                       value={undefined}
                       className="hidden" 
                     />
                   </label>
-                  {props.errors.image &&
+                  {errors.image &&
                     <div className="inline-flex mt-1 bg-[#FBF4F3] w-full rounded border-l-8 border-[#EE2F4D]"> 
-                      <p className="my-5 mx-10 text-base font-normal text-[#C4384E] ml-2">{props.errors.image}</p>
+                      <p className="my-5 mx-10 text-base font-normal text-[#C4384E] ml-2">{errors.image}</p>
                     </div>
-                  }
+                  } */}
+                  <CustomUploadImage
+                    label= "Drag and drop files to upload"
+                    name= "image"
+                    type= "file"
+                  />
                 </div> 
 
-                <div className="mt-6">
+                {/* <div className="mt-6">
                   <label htmlFor="location" className={`text-sm mb-1 ${props.errors.location && props.touched.location ? "text-[#C4384E] font-semibold" : !props.errors.location && props.touched.location ? "text-[#158737] font-semibold" : "font-light text-neutral-black"}`}>Location</label>
                   <Select
                     label= "Location"
@@ -223,21 +213,21 @@ export const Upload = () => {
                   placeholder= "Type city here"
                 />
 
-                <CustomCheckboxOptional 
+                <CustomCheckbox
                   label= "Is this image created using AI?"
                   sentence="Yes, I used AI."
                   type="checkbox"
                   name="usingAI"
                 />
 
-                <CustomInputOptional 
+                <CustomInput
                   label= "AI Source"
                   name= "source"
                   type= "text"
                   placeholder= "Type link here"
                 />
 
-                <CustomInputOptional 
+                <CustomInput
                   label= "AI Prompt"
                   name= "prompt"
                   type= "text"
@@ -272,10 +262,10 @@ export const Upload = () => {
                   <div className="inline-flex mt-1">
                     <CorrectIcon /> 
                   </div>
-                  }
-                </div> 
+                  } 
+                </div> */}
 
-                <div className="mt-6 text-sm font-light text-neutral-black">Description* (Optional)</div>
+                {/* <div className="mt-6 text-sm font-light text-neutral-black">Description* (Optional)</div>
                 <textarea
                   type="text"
                   onChange={props.handleChange}
@@ -283,8 +273,10 @@ export const Upload = () => {
                   value={props.values.description}
                   name= "description" 
                   className= "w-full h-36 mb-6 border border-neutral-black rounded pl-4 pr-4 pt-2 pb-2"
-                />
+                /> */}
+                
                 <FormikValidatedStepsControl/>
+              
               </Form>
             );
           }}

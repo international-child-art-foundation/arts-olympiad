@@ -37,7 +37,8 @@ export default function Popup(props){
   const displayStep = (steps: number) => {
     switch(steps) {
     case 1:
-      return <Age />;
+      // return <Age />;
+      return <Upload />;
     case 2:
       if(isUnder18){
         if (!guardianConsentObtained) {
