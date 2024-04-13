@@ -1,6 +1,4 @@
 import { useField } from "formik";
-import { HintIcon } from "../../svgs/HintIcon";
-import { CorrectIcon } from "../../svgs/CorrectIcon";
 import { UploadIcon } from "../../svgs/UploadIcon";
 import { Field } from "formik";
 
@@ -8,10 +6,11 @@ interface CustomUploadImageProps {
   label: string;
   name: string;
   type: string;
+  onChange: (event: React.ChangeEvent<HTMLInputElement>) => void; 
 }
 
 export const CustomUploadImage = ({label, ...props} : CustomUploadImageProps) => {
-  const [field, meta] = useField(props);
+  const [field, meta, helpers] = useField(props);
   return(
     <>
       <label htmlFor="image" className="w-full h-64 mb-6 border border-neutral-black rounded pl-4 pr-4 pt-2 pb-2 flex flex-col items-center justify-center">
@@ -30,13 +29,14 @@ export const CustomUploadImage = ({label, ...props} : CustomUploadImageProps) =>
           type="file" 
           name= "image"
           accept="image/*"
-          onChange={(event) => {
-            setFieldValue("image", event.currentTarget.files[0]);
-          }}
-          // onBlur={handleBlur}
-          onBlur={field.onBlur}
-          // value={undefined}
+          value={undefined}
           className="hidden" 
+          onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
+            const file = event.currentTarget.files && event.currentTarget.files[0];
+            if (file) {
+              helpers.setValue(file);
+            }
+          }}
         />
       </label>
       {meta.error &&

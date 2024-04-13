@@ -14,7 +14,7 @@ interface DateInputProps {
 
 export const DateInput = ({ name, label, colStart, colSpan }: DateInputProps) => {
   const { values, setFieldValue, setFieldTouched, errors, touched } = useFormikContext();
-  const [field, meta] = useField(name);
+  const [field] = useField(name);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>, part: keyof typeof field.value) => {
     const newValue = { ...field.value, [part]: e.target.value };

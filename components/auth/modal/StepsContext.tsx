@@ -23,8 +23,6 @@ interface StepsContextType {
   submitDataToContext: (values: FormValues, currentStep: number) => void;
 }
 
-
-
 export const StepsContext = createContext<StepsContextType | undefined>(undefined);
 
 export const StepsProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
@@ -63,13 +61,13 @@ export const StepsProvider: React.FC<{ children: ReactNode }> = ({ children }) =
 
   const [uploadFormData, setUploadFormData] = useState<UploadFormData>({
     image: null,
-    // location: "",
-    // city: "",
-    // usingAI: false,
-    // source: "",
-    // prompt: "",
-    // category: [],
-    // description: "",
+    location: "",
+    city: "",
+    usingAI: false,
+    source: "",
+    prompt: "",
+    category: [],
+    description: "",
   });
 
   const handleNavigation = (direction: string) => {

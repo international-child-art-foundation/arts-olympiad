@@ -136,14 +136,14 @@ export const Over18 = () => {
               </div>
 
               <CustomCheckbox
-                lbael="termsCheck"
+                label=""
                 name="termsCheck" 
                 type="checkbox" 
               />
 
               <div className="my-6">
                 <label className="text-sm font-light text-neutral-black">
-                  Parent or Guardian's Digital Signature
+                  Digital Signature
                 </label>
                 <div className="text-new-blue flex items-center justify-center border border-neutral-black w-full h-52 rounded-lg">
                   Sign here

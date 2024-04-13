@@ -6,7 +6,6 @@ interface CustomCheckboxProps {
   label: string;
   type : string;
   name: string;
-  checked: boolean;
 }
 
 export const CustomCheckbox = ({label, ...props} : CustomCheckboxProps) => {
