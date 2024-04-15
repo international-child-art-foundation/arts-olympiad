@@ -8,7 +8,7 @@ interface DashboardTabSectionProps {
 
 export const DashboardTabSection: React.FC<DashboardTabSectionProps> = ({ dashboardTab, handleTabClick }) => {
   return (
-    <div className="grid p-8">
+    <div className="flex flex-col p-8">
       {Object.entries(DashboardTabInfo).map(([key, title ]) => (
         <p
           key={key}

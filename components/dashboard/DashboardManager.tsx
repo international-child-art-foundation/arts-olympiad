@@ -6,7 +6,8 @@ import { DashboardMainTab } from "../../components/dashboard/DashboardMainTab";
 import { DashboardTabSection } from "./DashboardTabSection";
 import { YourVoteTab } from "./YourVoteTab";
 import { useRouter, useSearchParams } from "next/navigation";
-import { UserDataSchema } from "../../mock/userDataSchema";
+import { useDashboardContext } from "./DashboardContext";
+import { fakeUserArtworkData } from "../../mock/fakeUserArtworkData";
 
 export default function DashboardManager() {
   const router = useRouter();
@@ -15,15 +16,16 @@ export default function DashboardManager() {
   // Create our dashboard state variable
   const [dashboardTab, setDashboardTab] = useState<DashboardTabs>(DashboardTabs.Dashboard);
   const [dashboardLoadingState, setDashboardLoadingState] = useState<DashboardLoadingStates>(DashboardLoadingStates.Loading);
-  const [userData, setUserData] = useState<UserDataSchema>();
+  const {setUserData, setArtworkData} = useDashboardContext();
 
   // On page load, get and set user data once
   useEffect(() => {
-    setUserData(fakeUserData); // API call occurs here
     setTimeout(() => { // Simulate API call wait time
+      setUserData(fakeUserData);
+      setArtworkData(fakeUserArtworkData);
       setDashboardLoadingState(DashboardLoadingStates.Loaded);
     }, 1000);
-  }, []);
+  });
 
   const handleTabClick = (tabIdentity: DashboardTabs) => {
     setDashboardTab(tabIdentity);

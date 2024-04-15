@@ -2,20 +2,23 @@ import { Metadata } from "next";
 import { sharedOpenGraph } from "../shared-metadata";
 import DashboardManager from "../../../components/dashboard/DashboardManager";
 import { Suspense } from "react";
+import { DashboardContextProvider } from "../../../components/dashboard/DashboardContext";
 
 export const metadata: Metadata = {
-  title: "Contest | My Favorite Sport",
+  title: "Dashboard | My Favorite Sport",
   openGraph: {
     ...sharedOpenGraph,
-    title: "Contest | My Favorite Sport",
+    title: "Dashboard | My Favorite Sport",
   }
 };
 
 export default function DashboardPage() {
 
   return(
-    <Suspense>
-      <DashboardManager/>
-    </Suspense>
+    <DashboardContextProvider>
+      <Suspense>
+        <DashboardManager/>
+      </Suspense>
+    </DashboardContextProvider>
   );
 }
