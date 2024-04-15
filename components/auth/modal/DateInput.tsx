@@ -27,17 +27,17 @@ export const DateInput = ({ name, label, colStart, colSpan }: DateInputProps) =>
   const getError = (part: string) => get(errors, `${name}.${part}`);
   const getTouched = (part: string) => get(touched, `${name}.${part}`);
 
-  const labelMap1 = {
-    day: 'Day',
-    month: 'Month',
-    year: 'Year',
+  const labelMap1: { [key: string]: string } = {
+    day: "Day",
+    month: "Month",
+    year: "Year",
   };
 
-const labelMap2 = {
-  day: 'DD',
-  month: 'MM',
-  year: 'YYYY',
-};
+  const labelMap2 : { [key: string]: string } = {
+    day: "DD",
+    month: "MM",
+    year: "YYYY",
+  };
 
   return (
     <div className={`grid ${colSpan || colStart ? `${colSpan ? colSpan : ""} ${colStart ? colStart : ""}` : ""}`}>
@@ -48,7 +48,7 @@ const labelMap2 = {
             <label className="mb-1 font-light text-neutral-black">{labelMap1[part]}</label>
             <input
               type="number"
-              aria-label={`${part} of ${label}`}
+              aria-label={`${labelMap1[part]} of ${label}`}
               placeholder={labelMap2[part]}
               value={field.value[part] || ""}
               onChange={(e) => handleChange(e, part)}
@@ -59,7 +59,7 @@ const labelMap2 = {
               <div className="flex items-center mt-1">
                 <HintIcon />
                 <p className="ml-2 text-xs font-normal text-[#C4384E]">
-                  {typeof getError(part) === 'string' ? getError(part) : JSON.stringify(getError(part))}
+                  {typeof getError(part) === "string" ? getError(part) : JSON.stringify(getError(part))}
                 </p>
               </div>
             )}
@@ -71,7 +71,7 @@ const labelMap2 = {
           </div>
         ))}
       </div>
-      {typeof meta.error === 'string' && meta.touched && (
+      {typeof meta.error === "string" && meta.touched && (
         <div className="flex items-center mt-1">
           <HintIcon />
           <p className="ml-2 text-xs font-normal text-[#C4384E]">{meta.error}</p>

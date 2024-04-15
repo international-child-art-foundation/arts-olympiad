@@ -8,11 +8,11 @@ import { FormikValidatedStepsControl } from "./FormikValidatedStepsControl";
 
 const phonevalid= /^((\\+[1-9]{1,4}[ \\-]*)|(\\([0-9]{2,3}\\)[ \\-]*)|([0-9]{2,4})[ \\-]*)*?[0-9]{3,4}?[ \\-]*[0-9]{3,4}?$/;
 
-const isLeapYear = (year) => {
+const isLeapYear = (year: number) => {
   return ((year % 4 === 0 && year % 100 !== 0) || year % 400 === 0);
 };
 
-const calculateAge = (birthDate) => {
+const calculateAge = (birthDate: Date) => {
   const today = new Date();
   let age = today.getFullYear() - birthDate.getFullYear();
   const m = today.getMonth() - birthDate.getMonth();
@@ -32,14 +32,14 @@ const validationSchema = yup.object().shape({
     day: yup.number().min(1).max(31).required(),
     month: yup.number().min(1).max(12).required(),
     year: yup.number().min(1900).max(2024).required()
-  }).test('is-valid-date', 'The date is invalid', (value) => {
+  }).test("is-valid-date", "The date is invalid", (value) => {
     const { day, month, year } = value;
     if (month < 1 || month > 12) return false; 
     if (day < 1) return false; 
     const daysInMonth = isLeapYear(year) && month === 2 ? 29 : new Date(year, month, 0).getDate();
     if (day > daysInMonth) return false; 
     return true; 
-  }).test('is-old-enough', 'You need to be over 14 to enter this competition', (value) => {
+  }).test("is-old-enough", "You need to be over 14 to enter this competition", (value) => {
     const { day, month, year } = value;
     const birthDate = new Date(year, month - 1, day); 
     const age = calculateAge(birthDate);
