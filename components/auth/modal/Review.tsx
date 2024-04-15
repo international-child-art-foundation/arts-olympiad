@@ -30,7 +30,7 @@ interface FormValues extends PersonalFormData, UploadFormData {
 export const Review = () => {
   
   const { personalFormData, uploadFormData, handleNavigation } = useStepsContext();
-  // const age = 2024 - personalFormData.year;
+  const age = 2024 - personalFormData.date.year;
   const categoryString = Array.isArray(uploadFormData.category) ? uploadFormData.category.join(" | ") : "";
   const imageUrl = uploadFormData.image ? URL.createObjectURL(uploadFormData.image) : null;
   const handleSubmit = (values: FormValues, actions: FormikHelpers<FormValues>) => {
@@ -59,8 +59,7 @@ export const Review = () => {
               </div>
               <div className="my-10 text-3xl font-semibold">{personalFormData.firstName} {personalFormData.lastName}</div>
               
-              <div className="text-base font-light mb-2"> | {uploadFormData.location}</div>
-              {/* <div className="text-base font-light mb-2">{age} | {uploadFormData.location}</div> */}
+              <div className="text-base font-light mb-2">{age} | {uploadFormData.location}</div>
               <div className="text-base font-light mb-8">Sports categories | {categoryString}</div>
               <div className="text-base font-light mb-8 italic">
                 Further information about art (Artist Description)

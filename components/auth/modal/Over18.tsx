@@ -9,6 +9,20 @@ import { DateInput } from "./DateInput";
 
 const phonevalid= /^((\\+[1-9]{1,4}[ \\-]*)|(\\([0-9]{2,3}\\)[ \\-]*)|([0-9]{2,4})[ \\-]*)*?[0-9]{3,4}?[ \\-]*[0-9]{3,4}?$/;
 
+const isLeapYear = (year) => {
+  return ((year % 4 === 0 && year % 100 !== 0) || year % 400 === 0);
+};
+
+const calculateAge = (birthDate) => {
+  const today = new Date();
+  let age = today.getFullYear() - birthDate.getFullYear();
+  const m = today.getMonth() - birthDate.getMonth();
+  if (m < 0 || (m === 0 && today.getDate() < birthDate.getDate())) {
+    age--;
+  }
+  return age;
+};
+
 const validationSchema = yup.object().shape({
   firstName: yup.string().required("Required"),
   lastName: yup.string().required("Required"),
@@ -18,12 +32,19 @@ const validationSchema = yup.object().shape({
     // Test that each date number is valid
     day: yup.number().min(1).max(31).required(),
     month: yup.number().min(1).max(12).required(),
-    year: yup.number().required()
-    // Test that the date is valid in its entirety
-  }).test("is-valid-date", "The date is invalid", (date) => {
-    const { day, month, year } = date || {};
-    const isValidDate = Date.parse(`${year}-${month}-${day}`);
-    return !isNaN(isValidDate);
+    year: yup.number().min(1900).max(2024).required()
+  }).test('is-valid-date', 'The date is invalid', (value) => {
+    const { day, month, year } = value;
+    if (month < 1 || month > 12) return false; 
+    if (day < 1) return false; 
+    const daysInMonth = isLeapYear(year) && month === 2 ? 29 : new Date(year, month, 0).getDate();
+    if (day > daysInMonth) return false; 
+    return true; 
+  }).test('is-old-enough', 'You need to be over 14 to enter this competition', (value) => {
+    const { day, month, year } = value;
+    const birthDate = new Date(year, month - 1, day); 
+    const age = calculateAge(birthDate);
+    return age >= 14; 
   }),
   termsCheck: yup.bool().oneOf([true], "Agreement to the Terms and Conditions is required")
 });
