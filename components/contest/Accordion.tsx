@@ -1,102 +1,136 @@
 "use client";
+import React from "next/image";
+import {AccordionCard} from "./AccordionCard";
+import {useEffect, useState} from "react";
+import {Pm} from "../common/texts/Pm";
+import {LazyImage} from "../common/images/LazyImage";
+import {H2m} from "../common/texts/H2m";
 import Image from "next/image";
-import { useState } from "react";
-import { AccordionCard } from "./AccordionCard";
-import { Face } from "../../public/svgs/contest-svg/Face";
-import { Folder } from "../../public/svgs/contest-svg/Folder";
-import { Palette } from "../../public/svgs/contest-svg/Palette";
-import blueBG from "../../public/svgs/contest-svg/blueBG.svg";
-import yellowBG from "../../public/svgs/contest-svg/yellowBG.svg";
-import purpleBG from "../../public/svgs/contest-svg/purpleBG.svg";
+import useWindowDimensions from "@/hooks/useWindowDimensions";
+import { ArrowCTA } from "../../components/ArrowCTA";
+import Torch from "../../public/about/Torch.png";
+import LightingIdea from "../../public/about/LightingIdea.png";
+import OlympicRings from "../../public/about/OlympicRings.png";
+import turkey from "../../public/contest/turkey.png";
+
 
 export const Accordion = () => {
 
-  const [list] = useState([
-    {
-      background: yellowBG,
-      color: "#FFF5AD",
-      header: "Age Restrictions:",
-      element: "Participants must be between the ages of 14 and 20 to submit their artwork.",
-      icon: <Face />
-    },
-    {
-      background: purpleBG,
-      color: "#F9E4EE",
-      header: "Theme: Art on Sport and the Olympics",
-      element: "Create artwork that showcases the beauty and excitement of sports.",
-      icon: <Palette />
-    },
-    {
-      background: blueBG,
-      color: "#CCEBFF",
-      header: "Submission Format: Digital Only",
-      element: "You can submit your artwork in digital format only.  Please upload a photo image of your piece through the upload submission form.",
-      icon: <Folder />
-    }
-  ]);
+  const {windowWidth} = useWindowDimensions();
+  const [cardOpen, setCardOpen] = useState(1);
+  const [minimalContentWidth, setMinimalContentWidth] = useState<number | undefined>(300);
+  const [contentWidthWasSet, setContentWidthWasSet] = useState(false);
+
+  useEffect(() => {
+    setContentWidthWasSet(false);
+  }, [windowWidth]);
 
   return (
-    <>
-      <div className="mt-52 z-30 relative m-auto max-w-screen-2xl px-8 md:px-12 lg:px-16 xl:px-20">
-        <section className="hidden md:block"> 
-          <div className="overflow-hidden grid grid-cols-3 gap-6 ">
-            {
-              list.map((item, key) => (
-                <AccordionCard key={key} data={item}/>
-              ))
-            }
-          </div>
-        </section>
-
-        <section className="md:hidden"> 
-          <div className="grid grid-cols-3 gap-6">
-            <div className="col-span-3 md:col-span-1 h-full md:h-fit bg-light-yellow py-6 px-4 relative rounded-2xl">
-              <Image src={yellowBG} width = {390} height = {271} className="relative -top-6 -left-4 z-10 h-[330px]" alt="photo" />
-              <div className="absolute top-2 z-30"> <Face /> </div>
-              <div className="w-full">
-                <p className="absolute top-[60px] sm:top-[100px] z-30 group w-5/6 text-xl font-semibold">
-                  Age Restrictions:
-                </p>
-                <hr className="absolute top-[170px] sm:top-[170px] z-30 border-new-black border-1 border-t-0.5 w-11/12 sm:w-1/2"></hr>
-                <p className="absolute top-[190px] sm:top-[200px] z-30 font-light text-base leading-loose w-11/12 sm:w-1/2">
-                  Participants must be between the ages of 14 and 20 to submit their artwork.
-                </p>
-              </div>
+    <section
+      aria-label="Our Commitment."
+      className="w-full relative my-10 flex flex-col px-8 md:px-12 lg:px-16 lg:py-20 xl:px-20 max-w-screen-2xl m-auto"
+    >
+      <article className="md:flex flex-col mr-10 z-30" >
+        <H2m className="font-medium font-montserrat text-center my-8 text-3xl md:text-4xl" >How to Enter</H2m>
+      </article>
+    
+      <div
+        role="region"
+        aria-live="polite"
+        className="z-30 flex flex-col lg:flex-row lg:h-accordion-narrow lg:max-h-accordion-narrow-max xl:h-accordion-wide xl:max-h-accordion-wide-max overflow-hidden"
+      >
+        <AccordionCard
+          minimalContentWidth={minimalContentWidth}
+          setMinimalContentWidth={setMinimalContentWidth}
+          contentWidthWasSet={contentWidthWasSet}
+          setContentWidthWasSet={setContentWidthWasSet}
+          className="rounded-t-xl lg:rounded-l-xl lg:rounded-tr-none"
+          isOpen={cardOpen === 1}
+          setIsOpen={(i) => setCardOpen(i)}
+          color= "main-orange"
+          number={1}
+          header="Sign Up"
+          paragraph={
+            <>
+              <Pm className="lg:my-12 font-openSans font-light">Sign up for free to create your account. See “Login” on top right.</Pm>
+              {/* <ArrowCTA text="See 5-page pdf" href="https://icaf.org/resource/pdfs/Arts-Olympiad-Stories-Texas.pdf"/> */}
+            </>
+          }
+          images={
+            <div className="flex flex-col justify-center sm:flex-row mx-auto xl:mx-0 cursor-default">
+              <Image src={turkey} alt="" className=""></Image>
             </div>
-
-            <div className="col-span-3 md:col-span-1 h-fit bg-light-pink py-6 px-4 relative rounded-2xl">
-              <Image src={purpleBG} width = {390} height = {271} className="relative -top-6 -left-4 z-10 h-[330px]" alt="photo" />
-              <div className="absolute top-2 z-30"> <Palette /> </div>
-              <div className="w-full">
-                <p className="absolute top-[60px] sm:top-[100px] z-30 group w-5/6 text-xl font-semibold">
-                  Theme: Art on Sport and the Olympics
-                </p>
-                <hr className="absolute top-[170px] sm:top-[170px] z-30 border-new-black border-1 border-t-0.5 w-11/12 sm:w-1/2"></hr>
-                <p className="absolute top-[190px] sm:top-[200px] z-30 font-light text-base leading-loose w-11/12 sm:w-1/2">
-                  Create artwork that showcases the beauty and excitement of sports.
-                </p>
-              </div>
+          }
+        />
+        <AccordionCard
+          minimalContentWidth={minimalContentWidth}
+          setMinimalContentWidth={setMinimalContentWidth}
+          contentWidthWasSet={contentWidthWasSet}
+          setContentWidthWasSet={setContentWidthWasSet}
+          isOpen={cardOpen === 2}
+          setIsOpen={(i) => setCardOpen(i)}
+          color="main-purple"
+          number={2}
+          header="World Children's Festival"
+          paragraph={
+            <>
+              <Pm className="my-12 font-openSans font-light">For children’s empathic development, ICAF produces the World Children’s Festival every four years as 
+              the “Olympics” of children’s imagination. </Pm>
+              <ArrowCTA text="Learn more" href="https://icaf.org/mission/world-childrens-festival"/>
+            </>
+          }
+          images={
+            <div className="flex flex-col md:flex-row mx-auto lg:mx-0">
+              <Image src={LightingIdea} alt=""></Image>
             </div>
-
-
-            <div className="col-span-3 md:col-span-1 h-fit bg-light-blue py-6 px-4 relative rounded-2xl">
-              <Image src={blueBG} width = {390} height = {271} className="relative -top-6 -left-4 z-10 h-[330px]" alt="photo" />
-              <div className="absolute top-2 z-30"> <Folder /> </div>
-              <div className="w-full">
-                <p className="absolute top-[60px] sm:top-[100px] z-30 group w-5/6 text-xl font-semibold">
-                  Submission Format: Digital Only
-                </p>
-                <hr className="absolute top-[170px] sm:top-[170px] z-30 border-new-black border-1 border-t-0.5 w-11/12 sm:w-1/2"></hr>
-                <p className="absolute top-[190px] sm:top-[200px] z-30 font-light text-base leading-loose w-11/12 sm:w-1/2">
-                  You can submit your artwork in digital format only.  Please upload a photo image of your piece through the upload submission form.
-                </p>
-              </div>
+          }
+        />
+        <AccordionCard
+          minimalContentWidth={minimalContentWidth}
+          setMinimalContentWidth={setMinimalContentWidth}
+          contentWidthWasSet={contentWidthWasSet}
+          setContentWidthWasSet={setContentWidthWasSet}
+          isOpen={cardOpen === 3}
+          setIsOpen={(i) => setCardOpen(i)}
+          color="#CCEBFF"
+          number={3}
+          header="Olympics"
+          paragraph={<><Pm className="font-light font-openSans mb-12 lg:my-12">ICAF has organized art exhibitions at Olympic venues and its Arts Olympiad was integral to New York City’s bid for the 2012 Olympics.</Pm>
+            {/* <button className="bg-dark-blue text-white h-10 whitespace-no-wrap inline-block max-w-max px-4"><Link href="https://www.icaf.org/resource/pdfs/new-york-olympic.pdf">See pdf to learn more</Link></button> */}
+            <ArrowCTA text="See pdf to learn more" href="https://www.icaf.org/resource/pdfs/new-york-olympic.pdf"/>
+          </>
+            
+          }
+          images={
+            <Image src={OlympicRings} alt="" className="my-10"></Image>
+          }
+        />
+        <AccordionCard
+          minimalContentWidth={minimalContentWidth}
+          setMinimalContentWidth={setMinimalContentWidth}
+          contentWidthWasSet={contentWidthWasSet}
+          setContentWidthWasSet={setContentWidthWasSet}
+          className="rounded-b-xl lg:rounded-r-xl lg:rounded-bl-none"
+          isOpen={cardOpen === 4}
+          setIsOpen={(i) => setCardOpen(i)}
+          color="#F9E4EE"
+          number={4}
+          header="#MyFavoriteSport"
+          paragraph={<>
+            <Pm className="mb-12 lg:my-12 font-openSans font-light">The Olympic art contest is inspired by Baron de Coubertin, founder of modern Olympics, who believed that Olympics must showcase humanity’s physical prowess and artistic talents.</Pm>
+            {/* <button className="bg-dark-blue text-white whitespace-no-wrap w-auto inline-block max-w-max h-auto px-4 py-4"><Link href="https://www.smithsonianmag.com/arts-culture/when-the-olympics-gave-out-medals-for-art-6878965/">When the Olympics gave out medals for art</Link></button> */}
+            <ArrowCTA text="When the Olympics gave out medals for art" href="https://www.smithsonianmag.com/arts-culture/when-the-olympics-gave-out-medals-for-art-6878965/"/>
+          </>}
+          images={
+            <div className="flex flex-col my-10 md:flex-row mx-auto lg:mx-0">
+              <LazyImage className="min-w-[230px] min-h-[300px] max-w-[230px] max-h-[300px] cursor-default" imageUrl="/about/olympic-monument.webp" alt="olympic-monument." />
+              <div className="my-4 md:my-0 mx-4" />
+              <LazyImage className="min-w-[230px] min-h-[300px] max-w-[230px] max-h-[300px] cursor-default" imageUrl="/about/baron-de-couberin.jfif" alt="baron-de-couberin." />
             </div>
-          </div>
-
-        </section>
-
+          }
+        />
       </div>
-    </>
+
+    </section>
   );
 };
