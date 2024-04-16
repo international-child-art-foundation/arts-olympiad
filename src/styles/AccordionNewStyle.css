@@ -1,0 +1,154 @@
+    @import url('https://fonts.googleapis.com/css?family=Fjalla+One');
+    @import url('https://fonts.googleapis.com/css?family=Exo+2');
+    html {
+        height: 100vh;
+    }
+    body {
+        padding: 0;
+        margin: 0;
+        width: 100%;
+        overflow-x: hidden;
+        font-family: 'Fjalla One', sans-serif;
+    }
+    .accordion {
+        width: 90%;
+        max-width: 2400px;
+        background: white;
+        height: 320px;
+        margin: 20px auto;
+        display: flex;
+        flex-direction: row;
+        cursor: pointer;
+        /* margin-bottom: 50px; */
+    }
+    .box {
+        position: relative;
+        height: 100%;
+        flex: 1; 
+        min-width: 20px; /* 允许box缩小到很小的宽度，防止溢出 */
+        background-position: right;
+        background-size: cover;
+        transition: .7s;
+        border-right: 4px solid; 
+    }
+    .box:hover {
+        flex: 5;
+    }
+    .a1 {
+        flex:3;
+    }
+   
+    .a1 .text {
+        opacity: 1;
+    }
+    .accordion:hover .box {
+        flex: 1; 
+    }
+    .accordion:hover .box .text {
+        opacity: 0;
+    }
+
+    .accordion .box:hover {
+        flex: 4;
+    }
+
+    .accordion .box:hover .text{
+        opacity: 1;
+    }
+
+    .a1 {
+        border-right-color: #FBB22E;
+    }
+    .a2 {
+        border-right-color: #A25F9D;
+    }
+    .a3 {
+        border-right-color: #0286C3;
+    }
+    .a4 {
+        border-right-color: #EE2F4D;
+    }
+    .a5 {
+        border-right-color: #168C39;
+    }
+    .text {
+        position: absolute;
+        /* bottom: 0; */
+        opacity: 0;
+        padding: 10px;
+    }
+    .box:hover .text{
+        opacity:1;
+    }
+    .box:hover .border-header {
+        opacity: 0;
+    }
+
+    .accordion .box-image {
+        opacity: 0;
+        transition: opacity 0.3s ease;
+    }
+
+    .accordion .a1 .box-image {
+        opacity: 1;
+    }
+
+    .accordion:hover .box .box-image {
+        opacity: 0;
+    }
+
+    .accordion .box:hover .box-image{
+        opacity: 1;
+    }
+
+
+
+@media screen and (max-width: 768px){
+    body{
+        margin: 0;
+    }
+    .accordion {
+        width:90%;
+        flex-direction: column;
+        height: 774px;
+        /* flex:1; */
+        box-shadow: none;
+        margin-bottom: 120px;
+        margin:20px auto;
+    }
+    .box {
+        box-shadow: none;
+        /* border-top-width: 4px; */
+        flex:1;
+        min-height: 0;
+        background-position: left;
+        border-right: none;
+    }
+    .a1 {
+        flex:3;
+    }
+    .a1 .text {
+        opacity: 1;
+    }
+    .accordion:hover .box .text {
+        opacity: 0;
+    }
+    .accordion .box:hover .text{
+        opacity: 1;
+    }
+    .text {
+        position: absolute;
+        opacity: 0;
+        padding: 10px;
+    }
+    .box:hover .text{
+        opacity:1;
+    }
+    .box:hover .border-header {
+        opacity: 1;
+    }
+    
+    .accordion .box:hover .box-image{
+        opacity: 1;
+    }  
+}

@@ -17,8 +17,10 @@ module.exports = {
         "dark-blue": "#134380",
         "light-blue": "#CCEBFF",
         "baby-blue": "#E4F1F9",
+        "neutral-blue": "#0286C3",
         "light-pink": "#F9E4EE",
         "light-green": "#E4F9EA",
+        "main-green": "#168C39",
         "neutral-black": "#1F1F23",
         "new-black":"#000000",
         "neutral-white": "#F9FAF6",
@@ -30,9 +32,11 @@ module.exports = {
         "main-bronze": "#AD8122",
         "main-red": "#FF0000",
         "accent-red": "#F72214",
+        "neutral-red": "#EE2F4D",
         "accent-green": "#158737",
         "main-grey":"#6A7682",
         "inactive-grey":"#8C8C8C",
+        "main-purple": "#A25F9D"
       },
       fontFamily:{
         inter: ["var(--font-inter)"],

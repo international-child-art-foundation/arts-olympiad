@@ -11,6 +11,10 @@
     "prepare": "husky install"
   },
   "dependencies": {
+    "@emotion/react": "^11.11.4",
+    "@emotion/styled": "^11.11.5",
+    "@mui/material": "^5.4.3",
+    "@react-stately/collections": "^3.10.5",
     "@tailwindcss/line-clamp": "^0.4.4",
     "@types/node": "^20.8.7",
     "@types/react": "^18.2.31",
