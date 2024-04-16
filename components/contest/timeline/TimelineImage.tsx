@@ -1,5 +1,5 @@
-import React from 'react'
-import Image, { StaticImageData } from 'next/image'
+import React from "react";
+import Image, { StaticImageData } from "next/image";
 
 interface IProps {
   src:string | StaticImageData
@@ -8,21 +8,12 @@ interface IProps {
   inversed?: boolean
 }
 
-function TimelineImage({src, alt, isMobile, inversed}: IProps) {
+function TimelineImage({src, alt, inversed}: IProps) {
   return (
-    <div className='w-1/2 z-20'>
-      <Image src={src} alt={alt} 
-      className='z-20
-      {
-        inversed?
-        mr-0
-        :
-        left-0
-      }'>
-
-      </Image>
+    <div className={`w-1/2 z-20 ${inversed ? "px-6" : "px-0"} `}>
+      <Image src={src} alt={alt} className={`z-20 ${inversed ? "ml-auto" : "left-0" }`}/>
     </div>
-  )
+  );
 }
 
-export default TimelineImage
+export default TimelineImage;

@@ -43,7 +43,5 @@ export const TimePointDescription = ({heading, color, description, isMobile, inv
         <Pm className="font-openSans xsm:w-full md:w-[80%] ">{description}</Pm>
       </>
     </div>
-      
   );
-
-}
+};

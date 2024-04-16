@@ -1,6 +1,5 @@
 import "../../../src/styles/time-point.css";
 import {TimePointDescription} from "./TimePointDescription";
-import {TimePointDate} from "./TimePointDate";
 import {ReactNode} from "react";
 import useIntersectionObserver from "@/hooks/useIntersectionObserver";
 import TimelineImage from "./TimelineImage";

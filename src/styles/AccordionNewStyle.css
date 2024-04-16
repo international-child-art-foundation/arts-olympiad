@@ -1,5 +1,3 @@
-    @import url('https://fonts.googleapis.com/css?family=Fjalla+One');
-    @import url('https://fonts.googleapis.com/css?family=Exo+2');
     html {
         height: 100vh;
     }
@@ -8,12 +6,10 @@
         margin: 0;
         width: 100%;
         overflow-x: hidden;
-        font-family: 'Fjalla One', sans-serif;
     }
     .accordion {
         width: 90%;
-        max-width: 2400px;
-        background: white;
+        max-width: 1536px;
         height: 320px;
         margin: 20px auto;
         display: flex;
@@ -30,6 +26,7 @@
         background-size: cover;
         transition: .7s;
         border-right: 4px solid; 
+        overflow: hidden;
     }
     .box:hover {
         flex: 5;
@@ -38,13 +35,13 @@
         flex:3;
     }
    
-    .a1 .text {
+    .a1 .text-container {
         opacity: 1;
     }
     .accordion:hover .box {
         flex: 1; 
     }
-    .accordion:hover .box .text {
+    .accordion:hover .box .text-container {
         opacity: 0;
     }
 
@@ -52,7 +49,7 @@
         flex: 4;
     }
 
-    .accordion .box:hover .text{
+    .accordion .box:hover .text-container{
         opacity: 1;
     }
 
@@ -71,22 +68,19 @@
     .a5 {
         border-right-color: #168C39;
     }
-    .text {
+    .text-container {
         position: absolute;
         /* bottom: 0; */
         opacity: 0;
         padding: 10px;
     }
-    .box:hover .text{
+    .box:hover .text-container{
         opacity:1;
-    }
-    .box:hover .border-header {
-        opacity: 0;
     }
 
     .accordion .box-image {
         opacity: 0;
-        transition: opacity 0.3s ease;
+        transition: opacity 0.3s ease-out 0s;
     }
 
     .accordion .a1 .box-image {
@@ -95,60 +89,86 @@
 
     .accordion:hover .box .box-image {
         opacity: 0;
+        transition: opacity 0.3s;
     }
 
     .accordion .box:hover .box-image{
         opacity: 1;
+        transition: opacity 0.3s ease-in 0.3s;
     }
+    .accordion .a1 .border-header {
+      opacity: 0;
+    }
+    
+    .accordion:hover .a1 .border-header {
+      opacity: 1;
+    }
+    
+    .a1:hover .border-header {
+      opacity: 0 !important;
+    }
+        
+    .box:hover .border-header {
+      opacity: 0;
+      transition: opacity 0.3s ease;
+    }
+        
 
-
-
-@media screen and (max-width: 768px){
-    body{
+@media screen and (max-width: 768px) {
+    body {
         margin: 0;
     }
     .accordion {
-        width:90%;
+        width: 90%;
         flex-direction: column;
         height: 774px;
-        /* flex:1; */
         box-shadow: none;
         margin-bottom: 120px;
-        margin:20px auto;
+        margin: 20px auto;
     }
     .box {
         box-shadow: none;
-        /* border-top-width: 4px; */
-        flex:1;
+        flex: 1;
         min-height: 0;
         background-position: left;
         border-right: none;
     }
+    .accordion .box .border-header {
+      opacity: 1 !important; 
+      transition: none; 
+  }
     .a1 {
-        flex:3;
+        flex: 3;
     }
-    .a1 .text {
+    .a1 .text-container {
         opacity: 1;
     }
-    .accordion:hover .box .text {
-        opacity: 0;
-    }
-    .accordion .box:hover .text{
-        opacity: 1;
-    }
-    .text {
+    .text-container {
         position: absolute;
         opacity: 0;
         padding: 10px;
     }
-    .box:hover .text{
-        opacity:1;
+    .box:hover .text-container {
+        opacity: 1;
     }
     .box:hover .border-header {
         opacity: 1;
     }
-    
-    .accordion .box:hover .box-image{
-        opacity: 1;
-    }  
-}
+    .accordion .box .box-image {
+    opacity: 0; 
+    transition: opacity 0.3s ease-out;
+    }
+    .accordion .a1 .box-image {
+      opacity: 1;
+  }
+
+    .accordion .box:hover .box-image {
+    opacity: 1;
+    transition: opacity 0.2s ease-in 0.45s;
+    }
+
+    .accordion:not(:hover) .box .box-image {
+    opacity: 0;
+    transition: opacity 0s;
+    }
+};
