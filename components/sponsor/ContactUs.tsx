@@ -1,7 +1,3 @@
-// import icafLogo from "../../public/svgs/Icaf-logo.svg";
-// import orangeBlob from "../../public/svgs/sponsor-svg/orangeblob.svg";
-// import greenBlob from "../../public/svgs/sponsor-svg/greenblob.svg";
-
 export const ContactUs = () => {
   return (
     <>
