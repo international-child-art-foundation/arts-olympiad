@@ -48,7 +48,7 @@ export const Prizes = () => {
           <PrizesCards 
             src={HeartHandshake}
             heading="Announcement Day"
-            description="Join us to celebrate the winners on July 1 st at The National Mall across the U.S. Capitol."
+            description="Join us to celebrate the winners on July 1st at The National Mall across the U.S. Capitol."
             color="border-main-green"
             star={GreenStar}
           />
