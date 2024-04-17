@@ -51,11 +51,24 @@ export default function DashboardManager() {
   }, [dashboardTab, router]);
   
   return(
-    <div className="grid grid-cols-2 px-4 md:px-8 lg:px-12 xl:px-16
-     " style={{gridTemplateColumns: "20% 80%"}}>
-      <DashboardTabSection dashboardTab={dashboardTab} handleTabClick={handleTabClick}/>
-      {dashboardTab == DashboardTabs.Dashboard && <DashboardMainTab dashboardLoadingState={dashboardLoadingState} />}
-      {dashboardTab == DashboardTabs.YourVote && <YourVoteTab dashboardLoadingState={dashboardLoadingState} />}
+    <div className=" max-w-screen-2xl m-auto w-full " 
+      style={{
+        
+      }}>
+      <div className="flex flex-col md:grid md:grid-cols-2 md:px-8"style={{            gridTemplateColumns: "minmax(260px, 17%) 1fr",
+        boxShadow: "inset 0px 5px 10px 0px rgba(0, 0, 0, 0.05)",
+        clipPath: "inset(0px 10px)",
+        backdropFilter: "blur(15px)"
+      }}>
+        <DashboardTabSection dashboardTab={dashboardTab} handleTabClick={handleTabClick}/>
+        <div className="p-10">
+          <div className="xl:w-[80%] m-auto max-w-[800px]">
+
+            {dashboardTab == DashboardTabs.Dashboard && <DashboardMainTab dashboardLoadingState={dashboardLoadingState} />}
+            {dashboardTab == DashboardTabs.YourVote && <YourVoteTab dashboardLoadingState={dashboardLoadingState} />}
+          </div>
+        </div>
+      </div>
     </div>
   );
 }
