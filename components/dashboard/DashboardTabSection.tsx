@@ -34,7 +34,7 @@ export const DashboardTabSection: React.FC<DashboardTabSectionProps> = ({ dashbo
 
   return (
     <div ref={ref} 
-      className="flex md:flex-col flex-row md:py-8 md:px-8  sm:place-content-evenly hide-scrollbar px-4 md:px-0"
+      className="flex md:flex-col flex-row md:py-8 md:px-8  sm:place-content-evenly md:place-content-baseline hide-scrollbar px-4 md:px-0"
       style={{
         overflowX: "auto",
         boxShadow: "0px 5px 10px 0px rgba(0, 0, 0, 0.05)",
