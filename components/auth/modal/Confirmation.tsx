@@ -1,3 +1,5 @@
+import { FormikValidatedStepsControl } from "./FormikValidatedStepsControl";
+
 export const Confirmation = () => {
   return (
     <>
@@ -11,6 +13,7 @@ export const Confirmation = () => {
         <p className="mb-10 text-center text-base text-neutral-black font-normal"> 
           Your artwork is being reviewed, and will be posted to the gallery within 24 hours. Stay tuned for updates on the competition, and best of luck to you!
         </p>
+        <FormikValidatedStepsControl />
       </section>
     </>
   );

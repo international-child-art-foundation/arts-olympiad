@@ -1,10 +1,20 @@
 import React, {useState, useEffect, useRef } from "react";
 
-export const Steps = ({steps, currentStep}) => {
-  const [newStep, setNewStep] = useState([]);
-  const stepRef = useRef();
+interface Step {
+  description: string;
+  selected: boolean;
+}
 
-  const updateStep = (stepNumber, steps) => {
+interface StepsProps {
+  steps: string[]; 
+  currentStep: number;
+}
+
+export const Steps = ({ steps, currentStep }: StepsProps) => {
+  const [newStep, setNewStep] = useState<Step[]>([]);
+  const stepRef = useRef<Step[]>([]);
+
+  const updateStep = (stepNumber: number, steps: Step[]) => {
     const newSteps = [ ...steps];
     let count = 0;
     while (count < newSteps.length){

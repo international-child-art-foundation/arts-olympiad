@@ -23,19 +23,9 @@ interface StepsContextType {
   submitDataToContext: (values: FormValues, currentStep: number) => void;
 }
 
-
-
 export const StepsContext = createContext<StepsContextType | undefined>(undefined);
 
 export const StepsProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
-  const [ guardianFormData, setGuardianFormData ] = useState<GuardianFormData>({
-    guardianFirstName: "",
-    guardianLastName: "",
-    guardianEmail: "",
-    guardianPhone: "",
-    guardianTermsCheck: false,
-  });
-
   const [steps, setSteps] = useState([
     "Age confirmation",
     "Guardian's Consent",
@@ -50,6 +40,14 @@ export const StepsProvider: React.FC<{ children: ReactNode }> = ({ children }) =
   const [guardianConsentObtained, setGuardianConsentObtained] = useState(false);
 
   const [ hasError, setHasError ] = useState<boolean>(false);
+
+  const [ guardianFormData, setGuardianFormData ] = useState<GuardianFormData>({
+    guardianFirstName: "",
+    guardianLastName: "",
+    guardianEmail: "",
+    guardianPhone: "",
+    guardianTermsCheck: false,
+  });
 
   const [ personalFormData, setPersonalFormData] = useState<PersonalFormData>({
     // isUnder18: false,
