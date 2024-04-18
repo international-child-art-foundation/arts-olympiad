@@ -23,8 +23,9 @@ export const ForgotPasswordForm = () => {
 
   const [submitted, setSubmitted] = useState(false);
 
+  // eslint-disable-next-line no-unused-vars, @typescript-eslint/no-unused-vars
   const onSubmit = (values: IContactFormValues) => {
-    console.log(values);
+    // API call occurs, using values
     setSubmitted(true);
   };
 

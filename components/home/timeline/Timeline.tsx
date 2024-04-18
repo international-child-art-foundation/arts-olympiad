@@ -38,7 +38,7 @@ export const Timeline = () => {
           <TimePoint
             heading="When does it start?"
             description="#MyFavoriteSport event kicks off at an interactive exhibition in Paris."
-            date="April 14th, 2024"
+            date="May 20th, 2024"
             color={"#0286C3"}
             isMobile={isMobile}
           />
@@ -50,7 +50,7 @@ export const Timeline = () => {
                 <span className="font-bold text-dark-blue"> June 15th 2024</span>
               </>
             }
-            date="April to June"
+            date="May to June"
             color={"#FBB22E"}
             isMobile={isMobile}
             inversed

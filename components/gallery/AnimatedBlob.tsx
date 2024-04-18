@@ -27,13 +27,13 @@ export default function AnimatedBlob() {
     function animate(time: number) {
       if (startTime === null) startTime = time;
       const elapsedTime = (time - startTime) / 1000;
-      const roundedTime = parseFloat(elapsedTime.toFixed(2));
-      if ([0, 1.75, 3.5, 5.25].includes(roundedTime)) {
-        ellipses.forEach((ellipse, index) => {
-          const position = ellipse.rotation(elapsedTime);
-          console.log(`Ellipse ${index} at time ${elapsedTime.toFixed(2)}s: x=${position.x}, y=${position.y}`);
-        });
-      }
+      // const roundedTime = parseFloat(elapsedTime.toFixed(2));
+      // if ([0, 1.75, 3.5, 5.25].includes(roundedTime)) {
+      //   ellipses.forEach((ellipse, index) => {
+      //     const position = ellipse.rotation(elapsedTime);
+      //     console.log(`Ellipse ${index} at time ${elapsedTime.toFixed(2)}s: x=${position.x}, y=${position.y}`);
+      //   });
+      // }
       if (ctx) {
         ctx.clearRect(0, 0, canvas.width, canvas.height); 
         ellipses.forEach(ellipse => {

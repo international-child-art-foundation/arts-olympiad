@@ -1,0 +1,7 @@
+
+.selected_page {
+  background-image: url(../../public/svgs/gallery-svg/arrow.svg);
+  background-size: 98% 98%;  
+  background-position-x: 1px;
+  background-position-y: 2px;
+}

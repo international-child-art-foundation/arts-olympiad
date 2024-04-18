@@ -30,6 +30,7 @@ export default function sponsorPage() {
         backgroundColor="light-blue"
         title="Want to get involved?" 
         description="All of ICAF's programs, festivals, and exhibitions are offered free of charge and are made possible through the support of empathic donors and creative sponsors." 
+        img={icafLogo}
         buttons={[
           {
             href: "#",

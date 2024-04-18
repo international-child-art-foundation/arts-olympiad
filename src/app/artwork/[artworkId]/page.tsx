@@ -27,7 +27,7 @@ export async function generateStaticParams() {
 }
 
 const ArtworkPage: NextPage<PageProps> = (props) => {
-  const artwork = artworks.find(artwork => artwork.id === Number(props.params.artworkId));
+  const artwork = artworks.find(artwork => artwork.id === props.params.artworkId);
 
   if (!artwork) {
     return <div>No artwork found.</div>;
@@ -36,6 +36,7 @@ const ArtworkPage: NextPage<PageProps> = (props) => {
   return (
     <div className="flex flex-col items-center min-h-[600px] justify-evenly h-screen text-center bg-neutral-white">
       <div className="w-full flex items-left md:pt-10 sm:pl-5 md:pl-10 lg:pl-20">
+        {/* <Link href="/gallery" className="relative w-[40px] h-[40px]"> */}
         <Link href="/gallery" className="relative w-[40px] h-[40px]">
           <Image src="/gallery/back-button.svg" alt="A button to go back to the Gallery page" fill />
         </Link>

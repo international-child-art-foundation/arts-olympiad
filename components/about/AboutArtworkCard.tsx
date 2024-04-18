@@ -5,13 +5,14 @@ import {Pm} from "../common/texts/Pm";
 
 interface IProps {
   artwork: {
-    id?: number,
+    id?: string,
     name?: string,
     votes?: number
     url: string | StaticImageData,
-    country?: string,
-    age?: number
-    alt: string
+    country?: string[],
+    age?: number,
+    alt: string,
+    sport: string[]
   };
   width ?: number
   mdwidth?: number

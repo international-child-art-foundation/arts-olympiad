@@ -20,6 +20,7 @@ export const ButtonStd = ({children, className, borderColor, textColor, backGrou
       {...restProps}
     >
       {children}
+      <span className="sr-only">.</span>
     </button>
   );
 };

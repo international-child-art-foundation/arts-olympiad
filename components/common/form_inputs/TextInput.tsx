@@ -32,9 +32,9 @@ export const TextInput = ({className, labelText, id, placeholder, inputType, err
         className={`
           my-2 p-3 border-1 rounded-lg 
           ${
-    required && error && touched ? "border-accent-red placeholder:text-accent-red text-accent-red"  
+    required && error && touched ? "border-accent-red placeholder:text-accent-red"  
       :
-      required &&!error && touched && value ? "border-accent-green text-accent-green" 
+      required &&!error && touched && value ? "border-accent-green" 
         :
         "border-black"
     }

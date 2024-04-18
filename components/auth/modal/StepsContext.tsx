@@ -1,4 +1,4 @@
-import React, { createContext, useState, ReactNode, useContext } from "react";
+import React, { createContext, useState, ReactNode, useEffect, useContext } from "react";
 import { GuardianFormData, PersonalFormData, UploadFormData, FormValues } from "../../../mock/formDataStructs";
 
 
@@ -69,6 +69,46 @@ export const StepsProvider: React.FC<{ children: ReactNode }> = ({ children }) =
     category: [],
     description: "",
   });
+
+  // prefill the data from session storage on mount
+  useEffect(() => {
+    try {
+      const storedData = sessionStorage.getItem("artworkSubmissionData");
+      if (storedData) {
+        const parsedData = JSON.parse(storedData);
+        setSteps(parsedData.steps);
+        setCurrentStep(parsedData.currentStep);
+        setIsUnder18(parsedData.isUnder18);
+        setGuardianConsentObtained(parsedData.guardianConsentObtained);
+        setGuardianFormData(parsedData.guardianFormData);
+        setPersonalFormData(parsedData.personalFormData);
+        setUploadFormData(parsedData.uploadFormData);
+        setHasError(parsedData.hasError);
+      }
+    } catch(error) {
+      console.error("There was an error when reading parsing data from session storage:", error);
+    }
+
+  }, []);
+
+  // write data into session storage anytime new data is added to the context
+  useEffect(() => {
+    const dataToStore = JSON.stringify({
+      steps,
+      currentStep,
+      isUnder18,
+      guardianConsentObtained,
+      guardianFormData,
+      personalFormData,
+      uploadFormData,
+      hasError,
+    });
+    try {
+      sessionStorage.setItem("artworkSubmissionData", dataToStore);
+    } catch (error) {
+      console.error("There was an error when writing data into session storage:", error);
+    }
+  }, [steps, currentStep, isUnder18, guardianConsentObtained, guardianFormData, personalFormData, uploadFormData, hasError]);
 
   const handleNavigation = (direction: string) => {
     console.log("Handling navigation. " + currentStep);
