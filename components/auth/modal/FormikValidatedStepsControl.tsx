@@ -33,7 +33,7 @@ export const FormikValidatedStepsControl: React.FC<FormikValidatedStepsControlPr
         </button>
         
         <button type="submit"
-          className={`border rounded text-center text-base font-normal w-full md:w-fit py-4 px-10  cursor-pointer  ${currentStep === steps.length ? "bg-neutral-white border-new-blue text-new-blue" : "ms-auto text-neutral-white bg-new-blue ml-5 border-new-blue"}`}
+          className={`border rounded text-center text-base font-normal w-full mt-6 md:mt-0 md:w-fit py-4 px-10  cursor-pointer  ${currentStep === steps.length ? "bg-neutral-white border-new-blue text-new-blue" : "ms-auto text-neutral-white bg-new-blue ml-5 border-new-blue"}`}
         >
           {currentStep === steps.length ? "Go to gallery" :  "Agree and continue"}         
         </button>

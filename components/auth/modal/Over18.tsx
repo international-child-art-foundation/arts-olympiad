@@ -151,8 +151,8 @@ export const Over18 = () => {
                   name= "phone"
                   type= "phone"
                   placeholder="(country code) 123-123-1234"
-                  colStart="col-start-7"
-                  colSpan="col-span-6"
+                  colStart="col-start-1 md:col-start-7"
+                  colSpan="col-span-12 md:col-span-6"
                 />
               </div>
 
