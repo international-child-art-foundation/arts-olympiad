@@ -3,6 +3,8 @@ import { Inter, Epilogue, Nunito, Open_Sans, Montserrat } from "next/font/google
 import Footer from "../../components/Footer";
 import Header from "../../components/Header";
 import { Metadata } from "next";
+import {AppProvider, NavigationEvents} from "./NavigationEvents";
+import {Suspense} from "react";
 
 export const inter = Inter({
   subsets: ["latin"],
@@ -56,6 +58,7 @@ export default function RootLayout({
         <Header/>
         <main className={"font-openSans font-base overflow-hidden flex flex-col justify-center align-middle w-full m-auto leading-8"}>
           { children }
+          <NavigationEvents />
         </main>
         <Footer />
       </body>
