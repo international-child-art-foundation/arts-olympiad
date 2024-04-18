@@ -54,3 +54,14 @@
 .checkbox-and-radio-item input[type="checkbox"]:checked + label {
   font-weight: bold;
 }
+
+.hide-scrollbar {
+  overflow-x: auto;
+  scrollbar-width: none; /* Firefox */
+  -ms-overflow-style: none; /* Internet Explorer 10+ */
+
+  /* WebKit-based browsers */
+  &::-webkit-scrollbar {
+    display: none;
+  }
+}

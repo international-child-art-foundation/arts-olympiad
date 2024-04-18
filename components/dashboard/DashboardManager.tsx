@@ -6,7 +6,8 @@ import { DashboardMainTab } from "../../components/dashboard/DashboardMainTab";
 import { DashboardTabSection } from "./DashboardTabSection";
 import { YourVoteTab } from "./YourVoteTab";
 import { useRouter, useSearchParams } from "next/navigation";
-import { UserDataSchema } from "../../mock/userDataSchema";
+import { useDashboardContext } from "./DashboardContext";
+import { fakeUserArtworkData } from "../../mock/fakeUserArtworkData";
 
 export default function DashboardManager() {
   const router = useRouter();
@@ -15,15 +16,16 @@ export default function DashboardManager() {
   // Create our dashboard state variable
   const [dashboardTab, setDashboardTab] = useState<DashboardTabs>(DashboardTabs.Dashboard);
   const [dashboardLoadingState, setDashboardLoadingState] = useState<DashboardLoadingStates>(DashboardLoadingStates.Loading);
-  const [userData, setUserData] = useState<UserDataSchema>();
+  const {setUserData, setArtworkData} = useDashboardContext();
 
   // On page load, get and set user data once
   useEffect(() => {
-    setUserData(fakeUserData); // API call occurs here
     setTimeout(() => { // Simulate API call wait time
+      setUserData(fakeUserData);
+      setArtworkData(fakeUserArtworkData);
       setDashboardLoadingState(DashboardLoadingStates.Loaded);
     }, 1000);
-  }, []);
+  });
 
   const handleTabClick = (tabIdentity: DashboardTabs) => {
     setDashboardTab(tabIdentity);
@@ -49,11 +51,24 @@ export default function DashboardManager() {
   }, [dashboardTab, router]);
   
   return(
-    <div className="grid grid-cols-2 px-4 md:px-8 lg:px-12 xl:px-16
-     " style={{gridTemplateColumns: "20% 80%"}}>
-      <DashboardTabSection dashboardTab={dashboardTab} handleTabClick={handleTabClick}/>
-      {dashboardTab == DashboardTabs.Dashboard && <DashboardMainTab dashboardLoadingState={dashboardLoadingState} />}
-      {dashboardTab == DashboardTabs.YourVote && <YourVoteTab dashboardLoadingState={dashboardLoadingState} />}
+    <div className=" max-w-screen-2xl m-auto w-full " 
+      style={{
+        
+      }}>
+      <div className="flex flex-col md:grid md:grid-cols-2 md:px-8"style={{            gridTemplateColumns: "minmax(260px, 17%) 1fr",
+        boxShadow: "inset 0px 5px 10px 0px rgba(0, 0, 0, 0.05)",
+        clipPath: "inset(0px 10px)",
+        backdropFilter: "blur(15px)"
+      }}>
+        <DashboardTabSection dashboardTab={dashboardTab} handleTabClick={handleTabClick}/>
+        <div className="p-10">
+          <div className="xl:w-[80%] m-auto max-w-[800px]">
+
+            {dashboardTab == DashboardTabs.Dashboard && <DashboardMainTab dashboardLoadingState={dashboardLoadingState} />}
+            {dashboardTab == DashboardTabs.YourVote && <YourVoteTab dashboardLoadingState={dashboardLoadingState} />}
+          </div>
+        </div>
+      </div>
     </div>
   );
 }
