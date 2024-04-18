@@ -3,8 +3,7 @@ import { Inter, Epilogue, Nunito, Open_Sans, Montserrat } from "next/font/google
 import Footer from "../../components/Footer";
 import Header from "../../components/Header";
 import { Metadata } from "next";
-import {AppProvider, NavigationEvents} from "./NavigationEvents";
-import {Suspense} from "react";
+import {NavigationEvents} from "./NavigationEvents";
 
 export const inter = Inter({
   subsets: ["latin"],
