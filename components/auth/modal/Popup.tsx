@@ -19,9 +19,6 @@ interface PopupProps {
 
 export default function Popup({ trigger, setTrigger, children }: PopupProps){
 
-  // const [userData, setUserData] = useState("");
-  // const [hasError, setHasError] = useState(false);
-
   const { steps,
     setSteps,
     currentStep,
@@ -66,7 +63,7 @@ export default function Popup({ trigger, setTrigger, children }: PopupProps){
 
 
   return (trigger) ? (
-    <div className="rounded-2xl m-auto w-11/12 md:w-3/4 h-fit bg-white flex items-center justify-center z-50">
+    <div className="overflow-hidden rounded-2xl m-auto w-11/12 md:w-3/4 h-fit bg-white flex items-center justify-center z-50">
       <button className="absolute right-10% top-[350px] md:right-15% md:top-[390px]" onClick={() => setTrigger(false)}>
         <Image src="/svgs/close.svg" alt="Close Modal System" width={24} height={24}/>
         { children }

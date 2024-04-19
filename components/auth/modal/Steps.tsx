@@ -1,4 +1,5 @@
 import React, {useState, useEffect, useRef } from "react";
+import "../../../src/styles/home.css";
 
 interface Step {
   description: string;
@@ -65,7 +66,7 @@ export const Steps = ({ steps, currentStep }: StepsProps) => {
           <div className={`rounded-full h-5 w-5 flex items-center justify-center border  ${
             step.selected ? "bg-new-blue border-neutral-black" : "bg-neutral-white border-[#E6E6E6]"
           }`}></div>
-          <div className="absolute top-0 text-center mt-8 w-32 text-neutral-black text-base font-light">
+          <div className="absolute top-0 text-center mt-8 w-28 md:w-32 text-neutral-black text-base font-light">
             {step.description}
           </div>
         </div>
@@ -77,10 +78,15 @@ export const Steps = ({ steps, currentStep }: StepsProps) => {
 
   return (
     <>
-      <section className="m-auto max-w-screen-2xl px-8 md:px-12 lg:px-16 xl:px-20 w-full flex justify-between items-center">
+      <section className="m-auto ml-2 max-w-screen-2xl px-8 md:px-12 lg:px-16 xl:px-20 w-full justify-between items-center hidden sm:flex">
         {displaySteps}
       </section>
-      
+
+
+      <section className="no-scrollbar ml-5 m-auto max-w-[800px] overflow-x-auto overscroll-x-none sm:hidden">
+        <div className="w-[600px] h-[190px] flex object-scale-down">{displaySteps}</div>
+      </section>
+
     </>
   );
 };
