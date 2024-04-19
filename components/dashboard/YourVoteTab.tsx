@@ -8,12 +8,12 @@ export const YourVoteTab: React.FC<YourVoteTabProps> = ({ dashboardLoadingState 
 
   return (
     <div>
-      {dashboardLoadingState == DashboardLoadingStates.Loading && 
+      {dashboardLoadingState == "Loading" && 
       <div>
         Loading the Your Vote page...
       </div>
       }
-      {dashboardLoadingState == DashboardLoadingStates.Loaded && 
+      {dashboardLoadingState == "Loaded" && 
       <div>
         Your Vote page loaded.
       </div>
