@@ -71,7 +71,7 @@ export const AccordionCard = (
       setContentWidthWasSet(true);
       setMinimalContentWidth(cardRef.current?.clientWidth);
     }
-  }, [displayhorizontally, isOpen, contentWidthWasSet, setContentWidthWasSet]);
+  }, [displayhorizontally, isOpen, contentWidthWasSet, setContentWidthWasSet, setMinimalContentWidth]);
   
   return (
     <article
