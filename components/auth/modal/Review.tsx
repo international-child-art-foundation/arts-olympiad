@@ -32,7 +32,14 @@ export const Review = () => {
   const { personalFormData, uploadFormData, handleNavigation } = useStepsContext();
   const age = 2024 - personalFormData.date.year;
   const categoryString = Array.isArray(uploadFormData.category) ? uploadFormData.category.join(" | ") : "";
-  const imageUrl = uploadFormData.image ? URL.createObjectURL(uploadFormData.image) : null;
+  // const imageUrl = uploadFormData.image ? URL.createObjectURL(uploadFormData.image) : null;
+  const imageFile = uploadFormData.image;
+  let imageUrl: string | null = null;
+  if (imageFile instanceof Blob) {
+    imageUrl = URL.createObjectURL(imageFile);
+  } else {
+    console.error("uploadFormData.image is not a Blob or File.");
+  }
   const handleSubmit = (values: FormValues, actions: FormikHelpers<FormValues>) => {
     actions.setSubmitting(false);
     handleNavigation("next");

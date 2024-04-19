@@ -11,7 +11,7 @@ import { CustomMultiSelect } from "./CustomMultiSelect";
 import { CustomTextArea } from "./CustomTextArea";
 
 const SUPPORTED_FORMATS = ["image/jpg", "image/png"];
-const FILE_SIZE = 1024 * 1024 * 1024;
+const FILE_SIZE = 3 * 1024 * 1024;
 const categories = [
   "Archery", "Artistic Gymnastics", "Athletics", "Badminton", "Basketball", "Boxing", "Cycling Track", "Equestrian", "Fencing", "Football", "Golf", "High jump", "Hockey", "Judo", "Rowing", "Rugby", "Sailing", "Shooting", "Table Tennis", "Taekwondo", "Tennis", "Volleyball", "Wallball", "Weightlifting", "Yoga", "Zumba"
 ];
