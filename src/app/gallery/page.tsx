@@ -12,10 +12,10 @@ import { Suspense } from "react";
 
 
 export const metadata: Metadata = {
-  title: "Active Entries | My Favorite Sport",
+  title: "Gallery | My Favorite Sport",
   openGraph: {
     ...sharedOpenGraph,
-    title: "Active Entries | My Favorite Sport",
+    title: "Gallery | My Favorite Sport",
   }
 };
 
