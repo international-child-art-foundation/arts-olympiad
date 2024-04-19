@@ -1,44 +1,55 @@
 import { DashboardLoadingStates } from "../../mock/DashboardTypes";
 import { useDashboardContext } from "./DashboardContext";
+import { useState } from "react";
 import information from "../../public/svgs/information.svg";
 import uploadIcon from "../../public/svgs/upload.svg";
 import Image from "next/image";
-// import deleteIcon from "../../public/svgs/delete.svg";
+import deleteIcon from "../../public/svgs/delete.svg";
+import editIcon from "../../public/svgs/edit.svg";
 import placeholderImage from "../../public/dashboard/placeholder-image.png";
 import SocialShare from "../SocialShare";
+import * as yup from "yup";
+import { Formik } from "formik";
 
 interface DashboardMainTabProps {
   dashboardLoadingState: DashboardLoadingStates;
 }
 
 export const DashboardMainTab: React.FC<DashboardMainTabProps> = ({ dashboardLoadingState }) => {
-  const {userData, userHasActiveSubmission, artworkData } = useDashboardContext();
+  const {apiUserData, userHasActiveSubmission, apiArtworkData, dashboardMainTabSubmissionData, setDashboardMainTabSubmissionData } = useDashboardContext();
+  const [editMode, setEditMode] = useState(false);
+  const validationSchema = yup.object().shape({ 
+    source: yup.string().max(100, "Source must be no more than 100 characters long"),
+    prompt: yup.string().max(200, "Prompt must be no more than 200 characters long"),
+    description: yup.string().max(200, "Description must be no more than 200 characters long")
+  });
+
   return (
     <>
-      {dashboardLoadingState === DashboardLoadingStates.Loading && (
+      {dashboardLoadingState === "Loading" && (
         <div>Loading...</div>
       )}
-      {dashboardLoadingState === DashboardLoadingStates.Loaded && (
+      {dashboardLoadingState === "Loaded" && (
         <>
-          <p className="font-montserrat text-2xl font-regular text-[32px]">Welcome to your dashboard, {userData?.f_name}!</p>
+          <p className="font-montserrat text-2xl font-regular text-[32px]">Welcome to your dashboard, {apiUserData?.f_name}!</p>
           <p className="font-light text-base py-2 pb-4">See your account information here.</p>
           <p className="py-2 pt-4 font-montserrat font-semibold text-2xl">Your Artwork</p>
           {userHasActiveSubmission ? (
             <div>
               <div className="my-2 p-6 outline outline-1 rounded-3xl lg:h-[440px] max-h-full max-w-full font-light">
-                {userData && artworkData ? (
+                {apiUserData && apiArtworkData ? (
                   <div className="grid grid-cols-1 lg:grid-cols-2 h-full gap-6">
                     <div className="flex flex-col overflow-hidden gap-4">
                       <div className="flex justify-center items-center rounded-xl overflow-hidden relative flex-shrink">
                         <Image
-                          src={artworkData?.url ?? placeholderImage}
+                          src={apiArtworkData?.url ?? placeholderImage}
                           alt="Your submitted image"
                           width={200}
                           height={100}
                           className="z-10 max-h-full max-w-full object-contain"
                         />
                         <Image
-                          src={artworkData?.url ?? placeholderImage}
+                          src={apiArtworkData?.url ?? placeholderImage}
                           alt="Background"
                           width={200}
                           height={100}
@@ -46,26 +57,41 @@ export const DashboardMainTab: React.FC<DashboardMainTabProps> = ({ dashboardLoa
                         />
                       </div>
                       <div className="bg-main-orange rounded-[30px] w-[180px] p-2.5 gap-8 m-auto text-center">
-                        <p className="m-auto font-semibold">{artworkData?.votes} Votes</p>
+                        <p className="m-auto font-semibold">{apiArtworkData?.votes} Votes</p>
                       </div>
                     </div>
                     <div className="flex flex-col pl-4 justify-between gap-4">
-                      <p className="text-xl font-semibold">{userData?.f_name} {userData?.l_name}</p>
+                      <p className="text-xl font-semibold">{apiUserData?.f_name} {apiUserData?.l_name}</p>
                       <div>
-                        <p>{userData?.age} | {userData?.location}</p>
-                        <p>{artworkData.sport.join(" | ")}</p>
+                        <p>{apiUserData?.age} | {apiUserData?.location}</p>
+                        <p>{apiArtworkData.sport.join(" | ")}</p>
                       </div>
-                      {artworkData.is_ai_gen && (
+                      {apiArtworkData.is_ai_gen && !editMode && (
                         <div>
                           <p>* This image was created using AI</p>
-                          <p>Source: {artworkData.model}</p>
-                          <p>AI Prompt: "{artworkData.prompt}"</p>
+                          <p>Source: {apiArtworkData.model}</p>
+                          <p>AI Prompt: "{apiArtworkData.prompt}"</p>
                         </div>
                       )}
-                      {artworkData.is_approved ? (
+                      {editMode && (
+                        <Formik
+                          initialValues={dashboardMainTabSubmissionData}
+                          validationSchema={validationSchema}
+                          onSubmit={(values) => {
+                            setDashboardMainTabSubmissionData(prevState => ({
+                              ...prevState,
+                              source: values.source,
+                              prompt: values.prompt,
+                              description: values.description
+                            }));
+                          }}>
+                          {/* CustomInput forms go here */}
+                        </Formik>
+                      )}
+                      {apiArtworkData.is_approved ? (
                         <div>
                           <p className="font-semibold">Share This Post</p>
-                          <SocialShare shareUrl={"/gallery?id=" + artworkData.id} />
+                          <SocialShare shareUrl={"/gallery?id=" + apiArtworkData.id} />
                         </div>
                       ) : (
                         <div>
@@ -81,6 +107,14 @@ export const DashboardMainTab: React.FC<DashboardMainTabProps> = ({ dashboardLoa
                   </div>
                 )}
               </div>
+              {apiUserData && apiArtworkData && 
+              <div className="flex gap-4 justify-end">
+                <button onClick={() => setEditMode(!editMode)}>
+                  <Image src={editIcon} alt={"Pencil icon: Click to edit artwork"} width={16} height={16}/>
+                </button>
+                <Image src={deleteIcon} alt={"Trash icon: Click to delete artwork"} width={16} height={16}/>
+              </div>
+              }
               <div className="flex gap-2 py-3">
                 <Image src={information} alt="info" width={16} height={16} />
                 <p>Please upload as PNG or JPG, max size 3 MB.</p>
@@ -104,5 +138,4 @@ export const DashboardMainTab: React.FC<DashboardMainTabProps> = ({ dashboardLoa
       )}
     </>
   );
-
 };

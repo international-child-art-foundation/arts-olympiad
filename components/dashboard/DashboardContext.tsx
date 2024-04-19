@@ -2,14 +2,17 @@
 import React, { createContext, useState, ReactNode, useContext } from "react";
 import { UserDataSchema } from "../../mock/userDataSchema";
 import { userArtworkSchema } from "../../mock/userArtworkSchema";
+import { dashboardMainTabSubmissionSchema } from "../../mock/dashboardMainTabSubmissionSchema";
 
 interface DashboardContextType {
-  userData: UserDataSchema | undefined;
-  setUserData: React.Dispatch<React.SetStateAction<UserDataSchema | undefined>>;
+  apiUserData: UserDataSchema | undefined;
+  setApiUserData: React.Dispatch<React.SetStateAction<UserDataSchema | undefined>>;
   userHasActiveSubmission: boolean;
   setUserHasActiveSubmission: React.Dispatch<React.SetStateAction<boolean>>;
-  artworkData: userArtworkSchema | undefined;
-  setArtworkData: React.Dispatch<React.SetStateAction<userArtworkSchema | undefined>>;
+  apiArtworkData: userArtworkSchema | undefined;
+  setApiArtworkData: React.Dispatch<React.SetStateAction<userArtworkSchema | undefined>>;
+  dashboardMainTabSubmissionData: dashboardMainTabSubmissionSchema;
+  setDashboardMainTabSubmissionData: React.Dispatch<React.SetStateAction<dashboardMainTabSubmissionSchema>>;
 
 }
 
@@ -19,14 +22,20 @@ export const DashboardContextProvider: React.FC<{ children: ReactNode }> = ({ ch
   // These values refer to userData and artworkData as received from the API, our official source of truth.
   // Probably should not be used for form data; the form should submit its data, and upon a success response, we update userData and artworkData
   // Or we do another API call to retrieve them again, ensuring consistency 
-  const [userData, setUserData] = useState<UserDataSchema>();
-  const [artworkData, setArtworkData] = useState<userArtworkSchema>();
+  const [apiUserData, setApiUserData] = useState<UserDataSchema>();
+  const [apiArtworkData, setApiArtworkData] = useState<userArtworkSchema>();
   // TODO: Update userHasActiveSubmission to be set by API, or just replace usage with API data
   const [userHasActiveSubmission, setUserHasActiveSubmission] = useState(true); // harcoded to true for now, should change with API integration
+  const [dashboardMainTabSubmissionData, setDashboardMainTabSubmissionData] = useState<dashboardMainTabSubmissionSchema>({
+    source: "",
+    prompt:"",
+    description:""
+  });
   const contextValue ={
-    userData, setUserData,
+    apiUserData, setApiUserData,
     userHasActiveSubmission, setUserHasActiveSubmission,
-    artworkData, setArtworkData
+    apiArtworkData, setApiArtworkData,
+    dashboardMainTabSubmissionData, setDashboardMainTabSubmissionData
   };
 
   return (

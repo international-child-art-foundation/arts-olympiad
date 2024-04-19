@@ -1,6 +1,6 @@
 "use client";
 import React, { useState, useEffect } from "react";
-import { DashboardTabs, DashboardLoadingStates } from "../../mock/DashboardTypes";
+import { DashboardTabs, DashboardLoadingStates, dashboardTypeStringConversions, DashboardUrls } from "../../mock/DashboardTypes";
 import { fakeUserData } from "../../mock/fakeUserData";
 import { DashboardMainTab } from "../../components/dashboard/DashboardMainTab";
 import { DashboardTabSection } from "./DashboardTabSection";
@@ -14,16 +14,16 @@ export default function DashboardManager() {
   const searchParams = useSearchParams();
 
   // Create our dashboard state variable
-  const [dashboardTab, setDashboardTab] = useState<DashboardTabs>(DashboardTabs.Dashboard);
-  const [dashboardLoadingState, setDashboardLoadingState] = useState<DashboardLoadingStates>(DashboardLoadingStates.Loading);
-  const {setUserData, setArtworkData} = useDashboardContext();
+  const [dashboardTab, setDashboardTab] = useState<DashboardTabs>("Dashboard");
+  const [dashboardLoadingState, setDashboardLoadingState] = useState<DashboardLoadingStates>("Loading");
+  const {setApiUserData, setApiArtworkData} = useDashboardContext();
 
   // On page load, get and set user data once
   useEffect(() => {
     setTimeout(() => { // Simulate API call wait time
-      setUserData(fakeUserData);
-      setArtworkData(fakeUserArtworkData);
-      setDashboardLoadingState(DashboardLoadingStates.Loaded);
+      setApiUserData(fakeUserData);
+      setApiArtworkData(fakeUserArtworkData);
+      setDashboardLoadingState("Loaded" as DashboardLoadingStates);
     }, 1000);
   });
 
@@ -33,20 +33,24 @@ export default function DashboardManager() {
 
   // Set state based on URL on page load
   useEffect(() => {
-    const tabParam = searchParams.get("tab") as string;
-    if (tabParam && Object.values(DashboardTabs).includes(tabParam as DashboardTabs)) {
-      setDashboardTab(tabParam as DashboardTabs);
+    const tabParam = searchParams.get("tab") as DashboardUrls;
+    if (tabParam) {
+      const tabKey = Object.keys(dashboardTypeStringConversions).find(key => dashboardTypeStringConversions[key as DashboardTabs].url === tabParam);
+      if (tabKey) {
+        setDashboardTab(tabKey as DashboardTabs);
+      }
+    } else {
+      setDashboardTab("Dashboard" as DashboardTabs);
     }
-  }, [ searchParams ]);
+  }, [searchParams]);
     
 
   useEffect(() => {
     const updateDashboardURL = () => {
       const currentParams = new URLSearchParams();
-      currentParams.set("tab", dashboardTab.toString());
+      currentParams.set("tab", dashboardTypeStringConversions[dashboardTab].url.toString());
       router.push(`${window.location.pathname}?${currentParams.toString()}`, { scroll: false });
     };
-  
     updateDashboardURL();
   }, [dashboardTab, router]);
   
@@ -64,8 +68,8 @@ export default function DashboardManager() {
         <div className="p-10">
           <div className="xl:w-[80%] m-auto max-w-[800px]">
 
-            {dashboardTab == DashboardTabs.Dashboard && <DashboardMainTab dashboardLoadingState={dashboardLoadingState} />}
-            {dashboardTab == DashboardTabs.YourVote && <YourVoteTab dashboardLoadingState={dashboardLoadingState} />}
+            {dashboardTab == "Dashboard" && <DashboardMainTab dashboardLoadingState={dashboardLoadingState} />}
+            {dashboardTab == "YourVote" && <YourVoteTab dashboardLoadingState={dashboardLoadingState} />}
           </div>
         </div>
       </div>
