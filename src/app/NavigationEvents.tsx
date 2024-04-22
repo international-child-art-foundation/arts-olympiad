@@ -11,12 +11,14 @@ export function NavigationEvents() {
   const pathname = usePathname();
 
   useEffect(() => {
-    // Check if the current page is the dashboard page
-    if (pathname !== "/auth/modal") {
+    // Normalize pathname to remove leading slash
+    const normalizedPath = pathname.startsWith("/") ? pathname.slice(1) : pathname;
+    // Check if the current page is part of the dashboard
+    if (!normalizedPath.startsWith("dashboard")) {
       // if not - remove the artwork submission session storage item
       sessionStorage.removeItem("artworkSubmissionData");
     }
   }, [pathname]);
-
+  
   return null;
 }
