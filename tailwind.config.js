@@ -36,7 +36,8 @@ module.exports = {
         "accent-green": "#158737",
         "main-grey":"#6A7682",
         "inactive-grey":"#8C8C8C",
-        "main-purple": "#A25F9D"
+        "main-purple": "#A25F9D",
+        "warning-red": "#C4384E",
       },
       fontFamily:{
         inter: ["var(--font-inter)"],

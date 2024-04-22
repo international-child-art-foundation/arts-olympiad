@@ -13,7 +13,8 @@ interface DashboardContextType {
   setApiArtworkData: React.Dispatch<React.SetStateAction<userArtworkSchema | undefined>>;
   dashboardMainTabSubmissionData: dashboardMainTabSubmissionSchema;
   setDashboardMainTabSubmissionData: React.Dispatch<React.SetStateAction<dashboardMainTabSubmissionSchema>>;
-
+  displayModal: boolean;
+  setDisplayModal: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
 export const DashboardContext = createContext<DashboardContextType | undefined>(undefined);
@@ -26,6 +27,7 @@ export const DashboardContextProvider: React.FC<{ children: ReactNode }> = ({ ch
   const [apiArtworkData, setApiArtworkData] = useState<userArtworkSchema>();
   // TODO: Update userHasActiveSubmission to be set by API, or just replace usage with API data
   const [userHasActiveSubmission, setUserHasActiveSubmission] = useState(true); // harcoded to true for now, should change with API integration
+  const [displayModal, setDisplayModal] = useState(false);
   const [dashboardMainTabSubmissionData, setDashboardMainTabSubmissionData] = useState<dashboardMainTabSubmissionSchema>({
     source: "",
     prompt:"",
@@ -35,7 +37,8 @@ export const DashboardContextProvider: React.FC<{ children: ReactNode }> = ({ ch
     apiUserData, setApiUserData,
     userHasActiveSubmission, setUserHasActiveSubmission,
     apiArtworkData, setApiArtworkData,
-    dashboardMainTabSubmissionData, setDashboardMainTabSubmissionData
+    dashboardMainTabSubmissionData, setDashboardMainTabSubmissionData,
+    displayModal, setDisplayModal
   };
 
   return (

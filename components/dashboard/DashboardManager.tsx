@@ -8,6 +8,8 @@ import { YourVoteTab } from "./YourVoteTab";
 import { useRouter, useSearchParams } from "next/navigation";
 import { useDashboardContext } from "./DashboardContext";
 import { fakeUserArtworkData } from "../../mock/fakeUserArtworkData";
+import { DashboardModal } from "./DashboardModal";
+import { DeleteArtwork } from "./DeleteArtwork";
 
 export default function DashboardManager() {
   const router = useRouter();
@@ -16,7 +18,7 @@ export default function DashboardManager() {
   // Create our dashboard state variable
   const [dashboardTab, setDashboardTab] = useState<DashboardTabs>("Dashboard");
   const [dashboardLoadingState, setDashboardLoadingState] = useState<DashboardLoadingStates>("Loading");
-  const {setApiUserData, setApiArtworkData} = useDashboardContext();
+  const {setApiUserData, setApiArtworkData, displayModal} = useDashboardContext();
 
   // On page load, get and set user data once
   useEffect(() => {
@@ -44,7 +46,6 @@ export default function DashboardManager() {
     }
   }, [searchParams]);
     
-
   useEffect(() => {
     const updateDashboardURL = () => {
       const currentParams = new URLSearchParams();
@@ -53,12 +54,17 @@ export default function DashboardManager() {
     };
     updateDashboardURL();
   }, [dashboardTab, router]);
-  
+
   return(
     <div className=" max-w-screen-2xl m-auto w-full " 
       style={{
         
       }}>
+      {displayModal && 
+        <DashboardModal >
+          <DeleteArtwork />
+        </DashboardModal>
+      }
       <div className="flex flex-col md:grid md:grid-cols-2 md:px-8"style={{            gridTemplateColumns: "minmax(260px, 17%) 1fr",
         boxShadow: "inset 0px 5px 10px 0px rgba(0, 0, 0, 0.05)",
         clipPath: "inset(0px 10px)",
@@ -67,7 +73,6 @@ export default function DashboardManager() {
         <DashboardTabSection dashboardTab={dashboardTab} handleTabClick={handleTabClick}/>
         <div className="p-10">
           <div className="xl:w-[80%] m-auto max-w-[800px]">
-
             {dashboardTab == "Dashboard" && <DashboardMainTab dashboardLoadingState={dashboardLoadingState} />}
             {dashboardTab == "YourVote" && <YourVoteTab dashboardLoadingState={dashboardLoadingState} />}
           </div>

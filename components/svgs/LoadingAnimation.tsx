@@ -1,12 +1,12 @@
 import React from "react";
 import styles from "../../src/styles/LoadingAnimation.module.css";
 
-interface LoadingSpinnerProps {
+interface LoadingAnimationProps {
   scale: number;
   stroke: number;
 }
 
-const LoadingSpinner: React.FC<LoadingSpinnerProps> = ({ scale, stroke }) => {
+const LoadingAnimation: React.FC<LoadingAnimationProps> = ({ scale, stroke }) => {
   return (
     <div className={`${styles.wrapper} scale-[${scale}%]`}>
       <div className={styles.profileMainLoader}>
@@ -28,4 +28,4 @@ const LoadingSpinner: React.FC<LoadingSpinnerProps> = ({ scale, stroke }) => {
   );
 };
 
-export default LoadingSpinner;
+export default LoadingAnimation;
