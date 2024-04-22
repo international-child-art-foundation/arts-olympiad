@@ -1,4 +1,4 @@
-import Modal from "../../../../components/auth/modal/Modal";
+import Modal from "../../../../components/dashboard/modal/Modal";
 
 export default function Modalpage() {
   return (
