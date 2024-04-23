@@ -10,6 +10,7 @@ interface DeleteArtworkProps { // Empty for now
 export const DeleteArtwork: React.FC<DeleteArtworkProps> = ({  }) => {
   const [isLoading, setIsLoading] = useState(false);
   const { apiUserData, apiArtworkData, userHasActiveSubmission, setDisplayModal } = useDashboardContext();
+  const [successfulArtworkDeletion, setSuccessfulArtworkDeletion] = useState(false);
   const router = useRouter();
 
   const handleDeleteArtwork = async (artworkId: string) => {
@@ -20,8 +21,8 @@ export const DeleteArtwork: React.FC<DeleteArtworkProps> = ({  }) => {
       console.log("Deleting: ", artworkId);
       await simulateDelay(100);
       // Reload the page upon completion to display the empty dashboard page.
-      router.refresh(); // TODO: Need to set variables as well
-      setDisplayModal(false);
+      setSuccessfulArtworkDeletion(true);
+      router.refresh();
     } catch (error) {
       console.log("The artwork could not be deleted from the server.");
     }
@@ -35,7 +36,7 @@ export const DeleteArtwork: React.FC<DeleteArtworkProps> = ({  }) => {
           <LoadingAnimation scale={100} stroke={2} />
         </div>
       }
-      {userHasActiveSubmission && (
+      {userHasActiveSubmission && !successfulArtworkDeletion && (
         apiArtworkData && apiArtworkData.id ? (
           <div className={`max-w-[900px] px-2 sm:px-10 lg:px-20 py-10 flex flex-col gap-6 h-full w-full col-start-1 row-start-1 ${isLoading && "opacity-50"}`}>
             <p className="font-montserrat text-4xl">
@@ -67,6 +68,21 @@ export const DeleteArtwork: React.FC<DeleteArtworkProps> = ({  }) => {
           </div>
         )
       )}
+      {successfulArtworkDeletion && 
+        <div className="flex items-center justify-center flex-col gap-4">
+          <p className="font-montserrat text-4xl">
+            Your entry has been removed.
+          </p>
+          <div className="text-center">
+            <p>
+              It may take some time for your dashboard to update.
+            </p>
+            <p>
+              Reload the page to see the latest information.
+            </p>
+          </div>
+        </div>
+      }
     </div>
   );
 };

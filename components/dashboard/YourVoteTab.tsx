@@ -1,4 +1,5 @@
 import { DashboardLoadingStates } from "../../mock/DashboardTypes";
+import { VotedArtDisplay } from "./VotedArtDisplay";
 
 interface YourVoteTabProps {
   dashboardLoadingState: DashboardLoadingStates;
@@ -15,7 +16,8 @@ export const YourVoteTab: React.FC<YourVoteTabProps> = ({ dashboardLoadingState 
       }
       {dashboardLoadingState == "Loaded" && 
       <div>
-        Your Vote page loaded.
+        <p className="font-montserrat text-2xl font-regular text-[32px] my-3 mb-8"> Your Vote </p>
+        <VotedArtDisplay/>
       </div>
       }
     </div>
