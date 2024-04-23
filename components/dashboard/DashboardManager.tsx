@@ -56,7 +56,7 @@ export default function DashboardManager() {
   }, [dashboardTab, router]);
 
   return(
-    <div className=" max-w-screen-2xl m-auto w-full " 
+    <div className=" max-w-screen-2xl mx-auto w-full h-full" 
       style={{
         
       }}>
