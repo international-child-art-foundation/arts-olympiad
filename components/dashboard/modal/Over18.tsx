@@ -30,9 +30,9 @@ const validationSchema = yup.object().shape({
   phone: yup.string().matches(phonevalid, "Not a valid phone number").max(10, "longer than 10 digit").optional(),
   date: yup.object().shape({
     // Test that each date number is valid
-    day: yup.number().min(1).max(31).required(),
-    month: yup.number().min(1).max(12).required(),
-    year: yup.number().min(1900).max(2024).required()
+    day: yup.number().min(1, "Please enter a valid day").max(31, "Please enter a valid day").required(),
+    month: yup.number().min(1, "Please enter a valid month").max(12, "Please enter a valid month").required(),
+    year: yup.number().min(1900, "Please enter a valid year").max(2024, "Please enter a valid year").required()
   }).test("is-valid-date", "The date is invalid", (value) => {
     const { day, month, year } = value;
     if (month < 1 || month > 12) return false; 
