@@ -63,23 +63,17 @@ export default function Popup({ trigger, setTrigger, children }: PopupProps){
 
 
   return (trigger) ? (
-    <div className="overflow-hidden rounded-2xl m-auto w-11/12 md:w-3/4 h-fit bg-white flex items-center justify-center z-50">
-      <button className="absolute right-10% top-[350px] md:right-15% md:top-[390px]" onClick={() => setTrigger(false)}>
+    <div className="absolute overflow-hidden rounded-2xl m-auto w-11/12 md:w-3/4 h-fit bg-white z-50 left-1/2 transform -translate-x-1/2">
+      <button className="absolute top-0 right-0 text-5xl font-light p-4 cursor-pointer active:scale-90" onClick={() => setTrigger(false)}>
         <Image src="/svgs/close.svg" alt="Close Modal System" width={24} height={24}/>
         { children }
       </button>
-      <div className="mt-40 mb-40 grid gap-y-2 w-full">
+      <div className="my-20 grid gap-y-2 w-full">
         <Steps 
           steps = {steps}
           currentStep = {currentStep}
         />
-        {/* <StepsProvider > */}
         {displayStep(currentStep)}
-        {/* </StepsProvider> */}
-        
-        {/* {console.log(userData)} */}
-
-        {/* {displayStep(currentStep)} */}
       </div>
     </div>
   ) : "";
