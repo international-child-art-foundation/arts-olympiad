@@ -1,13 +1,10 @@
 import { useField } from "formik";
 import { UploadIcon } from "../../svgs/UploadIcon";
 import { Field } from "formik";
-import { useState } from "react";
-import { Loader0 } from "../../../public/auth/modal/Loader0";
-import { Loader9 } from "../../../public/auth/modal/Loader9";
-import { Loader33 } from "../../../public/auth/modal/Loader33";
-import { Loader63 } from "../../../public/auth/modal/Loader63";
-import { Loader87 } from "../../../public/auth/modal/Loader87";
-import { Loader100 } from "../../../public/auth/modal/Loader100";
+import { useEffect, useState } from "react";
+import Image from "next/image";
+import { useStepsContext } from "./StepsContext";
+import LoadingAnimation from "../../../components/svgs/LoadingAnimation";
 
 interface CustomUploadImageProps {
   label: string;
@@ -21,7 +18,7 @@ export const CustomUploadImage = ({label, ...props} : CustomUploadImageProps) =>
   const [uploadProgress, setUploadProgress] = useState(-1);
 
   const simulateUploadProgress = () => {
-    const progressValues = [0, 9, 33, 63, 87, 100];
+    const progressValues = [0, 9, 33, 63, 87, 100, 101];
     let currentProgressIndex = 0;
 
     const updateProgress = () => {
@@ -35,11 +32,46 @@ export const CustomUploadImage = ({label, ...props} : CustomUploadImageProps) =>
 
     updateProgress();
   };
+  const [imageFile, setImageFile] = useState<File | null>(null);
+  const [validImage, setValidImage] = useState(false);
+  const [hasImage, setHasImage] = useState(false);
+
+  const { uploadFormData } = useStepsContext();
+  useEffect(() => {
+    if(uploadFormData.image){
+      setImageFile(uploadFormData.image);
+      setHasImage(true);   
+      setValidImage(true);   
+    }
+  }, [uploadFormData.image]);
+
+
+  let imageUrl: string | null = null;
+  if (imageFile instanceof Blob) {
+    imageUrl = URL.createObjectURL(imageFile);
+  } else {
+    console.error("uploadFormData.image is not a Blob or File.");
+  }
+
+  function validateFile(file: File | null): string | null {
+    if (!file) {
+      return "Oops! Unsupported file format. Please upload as PNG or JPG, max size 3 MB.";
+    }
+    const validTypes = ["image/jpg", "image/png"];
+    if (!validTypes.includes(file.type)) {
+      return "Please upload as PNG or JPG";
+    }
+  
+    if (file.size > 3 * 1024 * 1024) { 
+      return "Max size 3 MB.";
+    }
+    return null;
+  }
 
   return(
     <>
-      <label htmlFor="image" className="w-full h-64 mb-6 border border-neutral-black rounded-lg pl-4 pr-4 pt-2 pb-2 flex flex-col items-center justify-center">
-        {uploadProgress === -1 &&        
+      <label htmlFor="image" className={`w-full h-64 mb-6 rounded-lg pl-4 pr-4 pt-2 pb-2 flex flex-col items-center justify-center ${(validImage === true) ? "" : "border border-neutral-black"}`}>
+        {((uploadProgress === -1 && validImage === false) || meta.error) &&
         <div className="flex flex-col items-center justify-center pt-5 pb-6">
           <p className="mb-6 text-md font-light text-neutral-black">{label}</p>
           <div className="mb-6 h-fit w-fit rounded text-center py-4 px-6 text-base font-normal bg-new-blue text-neutral-white">
@@ -59,24 +91,62 @@ export const CustomUploadImage = ({label, ...props} : CustomUploadImageProps) =>
           className="hidden" 
           onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
             const file = event.currentTarget.files && event.currentTarget.files[0];
-            if (file) {
-              helpers.setValue(file);
-              if(!meta.error){
-                simulateUploadProgress();
-              }
-            };
+            const error = validateFile(file);
+            if (!error) {
+              helpers.setValue(file);  
+              setImageFile(file);
+              setValidImage(true);
+              setHasImage(false);
+              simulateUploadProgress();
+            } else {
+              helpers.setError(error);  
+              setImageFile(null);
+              setValidImage(false);
+              setHasImage(false);
+            }
           }}
         />
-        <div className="flex ">
-          <div className="w-full m-auto">
-            {uploadProgress === 0 && <Loader0 />}
-            {uploadProgress === 9 && <Loader9 />}
-            {uploadProgress === 33 && <Loader33 />}
-            {uploadProgress === 63 && <Loader63 />}
-            {uploadProgress === 87 && <Loader87 />}
-            {uploadProgress === 100 && <Loader100 />}
-            {uploadProgress !== -1 && uploadProgress !== 100 && <p className="text-sm font-light mt-4">Your artwork is uploading...</p>}
-            {uploadProgress === 100 && <p className="text-sm font-light mt-4">Your artwork is uploaded!</p>}
+        <div className="flex w-full">
+          <div className="w-full">
+            <div className="flex justify-center">
+              {validImage === true && uploadProgress <= 100 && uploadProgress !== -1 &&
+                <div className="relative ">
+                  <LoadingAnimation scale={100} stroke={2}/>
+                  <p className="absolute w-full py-20 bottom-0 inset-x-0 flex items-center justify-center text-new-blue text-2xl font-normal">{uploadProgress}%</p>
+                </div>
+              }
+
+            </div>
+            {validImage === true && uploadProgress !== -1 && uploadProgress !== 100 && uploadProgress !== 101 && <p className="text-sm font-light mt-4 text-center">Your artwork is uploading...</p>}
+            {validImage === true && uploadProgress === 100 && <p className="text-sm font-light mt-4 text-center">Your artwork is uploaded!</p>}
+            {validImage === true && uploadProgress === 101 && 
+              <div className="w-2/3 mx-auto">
+                {imageUrl && 
+                  <Image
+                    src={imageUrl}
+                    alt=""
+                    width={800} 
+                    height={600}
+                    layout="responsive"
+                    className="rounded-xl"
+                  />
+                }
+              </div>
+            }
+            {hasImage === true && 
+              <div className="w-2/3 mx-auto">
+                {imageUrl && 
+                <Image
+                  src={imageUrl}
+                  alt=""
+                  width={800} 
+                  height={600}
+                  layout="responsive"
+                  className="rounded-xl mt-8"
+                />
+                }
+              </div>
+            }
           </div>
         </div>
       </label>
