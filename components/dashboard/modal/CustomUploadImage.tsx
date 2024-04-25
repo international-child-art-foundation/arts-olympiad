@@ -2,14 +2,9 @@ import { useField } from "formik";
 import { UploadIcon } from "../../svgs/UploadIcon";
 import { Field } from "formik";
 import { useEffect, useState } from "react";
-import { Loader0 } from "../../../public/auth/modal/Loader0";
-import { Loader9 } from "../../../public/auth/modal/Loader9";
-import { Loader33 } from "../../../public/auth/modal/Loader33";
-import { Loader63 } from "../../../public/auth/modal/Loader63";
-import { Loader87 } from "../../../public/auth/modal/Loader87";
-import { Loader100 } from "../../../public/auth/modal/Loader100";
 import Image from "next/image";
 import { useStepsContext } from "./StepsContext";
+import LoadingAnimation from "../../../components/svgs/LoadingAnimation";
 
 interface CustomUploadImageProps {
   label: string;
@@ -114,17 +109,18 @@ export const CustomUploadImage = ({label, ...props} : CustomUploadImageProps) =>
         <div className="flex w-full">
           <div className="w-full">
             <div className="flex justify-center">
-              {validImage === true && uploadProgress === 0 && <Loader0 />}
-              {validImage === true && uploadProgress === 9 && <Loader9 />}
-              {validImage === true && uploadProgress === 33 && <Loader33 />}
-              {validImage === true && uploadProgress === 63 && <Loader63 />}
-              {validImage === true && uploadProgress === 87 && <Loader87 />}
-              {validImage === true && uploadProgress === 100 && <Loader100 />}
+              {validImage === true && uploadProgress <= 100 && uploadProgress !== -1 &&
+                <div className="relative ">
+                  <LoadingAnimation scale={100} stroke={2}/>
+                  <p className="absolute w-full py-20 bottom-0 inset-x-0 flex items-center justify-center text-new-blue text-2xl font-normal">{uploadProgress}%</p>
+                </div>
+              }
+
             </div>
             {validImage === true && uploadProgress !== -1 && uploadProgress !== 100 && uploadProgress !== 101 && <p className="text-sm font-light mt-4 text-center">Your artwork is uploading...</p>}
             {validImage === true && uploadProgress === 100 && <p className="text-sm font-light mt-4 text-center">Your artwork is uploaded!</p>}
             {validImage === true && uploadProgress === 101 && 
-              <div className="w-3/4 mx-auto">
+              <div className="w-2/3 mx-auto">
                 {imageUrl && 
                   <Image
                     src={imageUrl}
@@ -138,7 +134,7 @@ export const CustomUploadImage = ({label, ...props} : CustomUploadImageProps) =>
               </div>
             }
             {hasImage === true && 
-              <div className="w-3/4 mx-auto">
+              <div className="w-2/3 mx-auto">
                 {imageUrl && 
                 <Image
                   src={imageUrl}
@@ -146,7 +142,7 @@ export const CustomUploadImage = ({label, ...props} : CustomUploadImageProps) =>
                   width={800} 
                   height={600}
                   layout="responsive"
-                  className="rounded-xl"
+                  className="rounded-xl mt-8"
                 />
                 }
               </div>
