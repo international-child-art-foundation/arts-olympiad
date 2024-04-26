@@ -70,7 +70,7 @@ export const CustomUploadImage = ({label, ...props} : CustomUploadImageProps) =>
 
   return(
     <>
-      <label htmlFor="image" className={`w-full h-64 mb-6 rounded-lg pl-4 pr-4 pt-2 pb-2 flex flex-col items-center justify-center ${(validImage === true) ? "" : "border border-neutral-black"}`}>
+      <label htmlFor="image" className="w-full aspect-video mb-6 rounded-lg flex flex-col items-center justify-center border border-neutral-black">
         {((uploadProgress === -1 && validImage === false) || meta.error) &&
         <div className="flex flex-col items-center justify-center pt-5 pb-6">
           <p className="mb-6 text-md font-light text-neutral-black">{label}</p>
@@ -98,7 +98,11 @@ export const CustomUploadImage = ({label, ...props} : CustomUploadImageProps) =>
               setValidImage(true);
               setHasImage(false);
               simulateUploadProgress();
-            } else {
+            } 
+            else if (error === "Oops! Unsupported file format. Please upload as PNG or JPG, max size 3 MB."){
+              return;
+            }
+            else {
               helpers.setError(error);  
               setImageFile(null);
               setValidImage(false);
@@ -106,49 +110,42 @@ export const CustomUploadImage = ({label, ...props} : CustomUploadImageProps) =>
             }
           }}
         />
-        <div className="flex w-full">
-          <div className="w-full">
-            <div className="flex justify-center">
-              {validImage === true && uploadProgress <= 100 && uploadProgress !== -1 &&
-                <div className="relative ">
-                  <LoadingAnimation scale={100} stroke={2}/>
-                  <p className="absolute w-full py-20 bottom-0 inset-x-0 flex items-center justify-center text-new-blue text-2xl font-normal">{uploadProgress}%</p>
-                </div>
-              }
-
-            </div>
-            {validImage === true && uploadProgress !== -1 && uploadProgress !== 100 && uploadProgress !== 101 && <p className="text-sm font-light mt-4 text-center">Your artwork is uploading...</p>}
-            {validImage === true && uploadProgress === 100 && <p className="text-sm font-light mt-4 text-center">Your artwork is uploaded!</p>}
-            {validImage === true && uploadProgress === 101 && 
-              <div className="w-2/3 mx-auto">
-                {imageUrl && 
-                  <Image
-                    src={imageUrl}
-                    alt=""
-                    width={800} 
-                    height={600}
-                    layout="responsive"
-                    className="rounded-xl"
-                  />
-                }
-              </div>
-            }
-            {hasImage === true && 
-              <div className="w-2/3 mx-auto">
-                {imageUrl && 
-                <Image
-                  src={imageUrl}
-                  alt=""
-                  width={800} 
-                  height={600}
-                  layout="responsive"
-                  className="rounded-xl mt-8"
-                />
-                }
-              </div>
+        {validImage === true && uploadProgress <= 100 && uploadProgress !== -1 &&
+          <div className="relative ">
+            <LoadingAnimation scale={100} stroke={2}/>
+            <p className="absolute w-full py-20 bottom-0 inset-x-0 flex items-center justify-center text-new-blue text-2xl font-normal">{uploadProgress}%</p>
+          </div>
+        }
+        {validImage === true && uploadProgress !== -1 && uploadProgress !== 100 && uploadProgress !== 101 && <p className="text-sm font-light mt-4 text-center">Your artwork is uploading...</p>}
+        {validImage === true && uploadProgress === 100 && <p className="text-sm font-light mt-4 text-center">Your artwork is uploaded!</p>}
+        {validImage === true && uploadProgress === 101 && 
+          <div className="w-full h-full overflow-hidden rounded-lg pointer-events-none">
+            {imageUrl && 
+              <Image
+                src={imageUrl}
+                alt=""
+                width={800} 
+                height={600}
+                layout="responsive"
+                className="object-contain rounded-lg"
+              />
             }
           </div>
-        </div>
+        }
+        {hasImage === true && 
+          <div className="w-full h-full overflow-hidden rounded-lg pointer-events-none">
+            {imageUrl && 
+            <Image
+              src={imageUrl}
+              alt=""
+              width={800} 
+              height={600}
+              layout="responsive"
+              className="object-contain rounded-lg"
+            />
+            }
+          </div>
+        }
       </label>
       {meta.error &&
         <div className="inline-flex mt-1 bg-[#FBF4F3] w-full rounded border-l-8 border-[#EE2F4D]"> 
