@@ -110,6 +110,7 @@ export const CustomUploadImage = ({label, ...props} : CustomUploadImageProps) =>
             }
           }}
         />
+
         {validImage === true && uploadProgress <= 100 && uploadProgress !== -1 &&
           <div className="relative ">
             <LoadingAnimation scale={100} stroke={2}/>
