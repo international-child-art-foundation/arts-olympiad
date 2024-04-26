@@ -1,0 +1,15 @@
+{
+  "resourceName": "s369dba687",
+  "policyUUID": "69dba687",
+  "bucketName": "artsolympiadf677eab9a54848dc8788ee9110a11839",
+  "storageAccess": "authAndGuest",
+  "guestAccess": [
+    "READ"
+  ],
+  "authAccess": [
+    "CREATE_AND_UPDATE",
+    "READ",
+    "DELETE"
+  ],
+  "groupAccess": {}
+}
