@@ -1,4 +1,4 @@
-import React from 'react'
+import React from "react";
 import {H2m} from "../common/texts/H2m";
 import {AnimatedScribble} from "../common/decorations/AnimatedScribble";
 import {Pm} from "../common/texts/Pm";
@@ -53,10 +53,10 @@ function TwoCards() {
         </article>
       </div>
     </section>
-  )
+  );
 }
 
-export default TwoCards
+export default TwoCards;
 
 
 

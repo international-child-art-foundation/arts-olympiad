@@ -1,6 +1,5 @@
 import "../../../src/styles/time-point.css";
 import {TimePointDescription} from "./TimePointDescription";
-import {TimePointDate} from "./TimePointDate";
 import {ReactNode} from "react";
 import useIntersectionObserver from "@/hooks/useIntersectionObserver";
 import TimelineImage from "./TimelineImage";
@@ -36,7 +35,7 @@ export const TimePoint = ({heading, description, date, color, src, alt, isMobile
       {
         inversed ?
           <>
-            <TimelineImage src={src} alt={alt} inversed/>
+            <TimelineImage src={src} alt={alt} />
             <div className="z-10 relative bg-black min-h-[287px] m-0  border-2 border-black" />
             <TimePointDescription color={color} heading={heading} date={date} colorforDate={color} description={description} inversed/>
             

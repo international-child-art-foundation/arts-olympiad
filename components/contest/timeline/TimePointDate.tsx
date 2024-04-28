@@ -4,10 +4,8 @@ import useIntersectionObserver from "@/hooks/useIntersectionObserver";
 interface IProps {
   date: string
   color: string
-  isMobile?: boolean
-  inversed?: boolean
 }
-export const TimePointDate = ({date, color, isMobile, inversed}: IProps) => {
+export const TimePointDate = ({date, color}: IProps) => {
 
   useIntersectionObserver({}, "time-point", "fade-into-focus");
 
