@@ -74,7 +74,7 @@ const SlideShow = () => {
 
 
   return (
-    <div className="relative flex flex-row justify-between px-6 -mt-24 lg:px-12 overflow-hidden">
+    <div className="relative flex flex-row justify-between px-6  lg:px-12 overflow-hidden">
       <Image src={BlueBlob} alt="" className="absolute z-0 pointer-event-none w-2/5 -right-36 overflow-hidden"></Image>
       <a className="prev z-20 my-auto cursor-pointer select-none" onClick={() => plusSlides(-1)}>
         {/* &#10094; */}

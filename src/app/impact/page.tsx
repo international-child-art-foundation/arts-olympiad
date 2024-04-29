@@ -4,11 +4,12 @@ import { ImpactBegin } from "../../../components/impact/ImpactBegin";
 import { Banner } from "../../../components/Banner";
 import { HeartIcon } from "../../../components/svgs/HeartIcon";
 import icafLogo from "../../../public/svgs/Icaf-logo.svg";
-import { Wisdom } from "../../../components/impact/wisdom/Wisdom";
+// import { Wisdom } from "../../../components/impact/wisdom/Wisdom";
 import SlideShow from "../../../components/impact/SlideShow";
 import Kids from "../../../public/impact/kids.png";
 import Image from "next/image";
 import { FaqDropdowns } from "../../../components/impact/FaqDropdowns";
+import { ArtistShowcase } from "../../../components/impact/ArtistShowcase/ArtistShowcase";
 
 export const metadata: Metadata = {
   title: "Impact | My Favorite Sport",
@@ -22,7 +23,8 @@ export default function impactPage() {
   return (
     <div className="overflow-hidden z-0">
       <ImpactBegin />
-      <Wisdom />
+      <ArtistShowcase/>
+      {/* <Wisdom /> */}
       <SlideShow />
       {/* <Grow /> */}
       {/* <Empowering /> */}
