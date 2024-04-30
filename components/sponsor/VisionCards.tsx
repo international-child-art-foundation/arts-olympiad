@@ -19,7 +19,7 @@ export const VisionCards = () => {
         <VisionCard
           icon="/sponsor/purpleParis.svg"
           heading="Paris"
-          description="The #MyFavoriteSport global art contest on Olympic sports launched on May 20th from an art exhibition in Paris will inspire young visitors to create their own artworks, upload them, and share with family and friends to gather votes."
+          description="The #MyFavoriteSport global art contest on Olympic sports launched on June 15th will inspire young visitors to create their own artworks, upload them, and share with family and friends to gather votes."
           color="#F9E4EE"
 
           texture={
