@@ -13,7 +13,6 @@ async function getArtwork(artworkId) {
   if (!artwork.Item) {
     throw new Error(`Artwork with ID ${artworkId} not found.`);
   }
-  // return artwork.Item;
   return formatArtwork(artwork.Item);
 }
 
@@ -25,12 +24,18 @@ async function addArtwork(artworkData) {
     id: artworkData.id,
     gsi1pk: 0,
     gsi1sk: artworkData.id,
+    id: artworkData.userId,
+    f_name: artworkData.f_name,
+    l_name: artworkData.l_name,
     title: artworkData.title,
     sport: artworkData.sport,
     location: artworkData.location,
     timestamp: timestamp,
     is_approved: false,
     votes: 0,
+    is_ai_gen: artworkData.is_ai_gen,
+    model: artworkData.model,
+    prompt: artworkData.prompt,
   };
   await ArtworkModel.createArtwork(item);
   return formatArtwork(item);
@@ -67,15 +72,14 @@ async function getArtworks(queryParams) {
     const { items: artworks } = await ArtworkModel.queryArtworks(input);
     results.push(...artworks);
   }
-  // console.log(results);
   return results;
 }
 
-async function createUrlAndFields(fileName, userId) {
+async function createUrlAndFields(userId, fileType="jpg") {
   const client = s3Client;
   const Bucket = "artsolympiadf677eab9a54848dc8788ee9110a11839185846-staging"; // todo: load as env variable
 
-  const Key = "test/" + fileName; // change
+  const Key = `${userId}/initial.${fileType}`;
   const Expires = 900;
   const Fields = {
     "x-amz-meta-user-id": userId,
@@ -121,11 +125,17 @@ function calculateTotalQueryCalls(params) {
 function formatArtwork(artwork) { 
   return {
     id: artwork.id,
+    f_name: artwork.f_name,
+    l_name: artwork.l_name,
+    age: artwork.age,
     title: artwork.title,
     sport: artwork.sport,
     location: artwork.location,
     is_approved: artwork.is_approved,
     votes: artwork.votes,
+    is_ai_gen: artwork.is_ai_gen,
+    model: artwork.model,
+    prompt: artwork.prompt,
   };
 }
 

@@ -13,10 +13,16 @@ async function getArtwork(req, res) {
 
 async function addArtwork(req, res) {
   const artworkData = {
-    id: req.params.userId,
+    id: req.body.id,
+    f_name: req.body.f_name,
+    l_name: req.body.l_name,
+    age: req.body.age,
     title: req.body.title,
     sport: req.body.sport,
     location: req.body.location,
+    is_ai_gen: req.body.is_ai_gen,
+    model: req.body.model,
+    prompt: req.body.prompt,
   };
   try {
     const artwork = await ArtworkService.addArtwork(artworkData);
@@ -71,10 +77,10 @@ async function getArtworks(req, res) {
 
 async function generatePresigned(req, res) {
   const userId = req.params.userId;
-  const fileName = req.body.file_name;
+  const fileType = req.body.file_type;
 
   try {
-    const { url, fields } = await ArtworkService.createUrlAndFields(fileName, userId);
+    const { url, fields } = await ArtworkService.createUrlAndFields(userId, fileType);
     res.status(200).json({ 
       s3_presigned_url:url, 
       fields: fields 

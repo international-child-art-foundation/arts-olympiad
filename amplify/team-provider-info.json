@@ -20,11 +20,11 @@
         },
         "processImage": {
           "deploymentBucketName": "amplify-amplify0c8bb601bc2b4-staging-185846-deployment",
-          "s3Key": "amplify-builds/processImage-7a36694a422b54754d76-build.zip"
+          "s3Key": "amplify-builds/processImage-4d766749707750495446-build.zip"
         },
         "usersLambda": {
           "deploymentBucketName": "amplify-amplify0c8bb601bc2b4-staging-185846-deployment",
-          "s3Key": "amplify-builds/usersLambda-476a31647848467a714b-build.zip"
+          "s3Key": "amplify-builds/usersLambda-66525973667747735250-build.zip"
         }
       },
       "storage": {
