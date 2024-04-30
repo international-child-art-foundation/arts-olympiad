@@ -20,10 +20,12 @@ export const Intro = () => {
             Any <b>14- to 20-year-old</b> anywhere can create art on his or her most favorite sport, upload it, and share it with family and friends to get their votes.
           </p>
           <p className="z-20 mb-4 leading-8 lg:mb8">
-            The gold, silver, and bronze winners selected through public votes will get to attend the <b>Paris Olympics</b> with our sponsors' support.
+            The gold, silver, and bronze winners selected through public votes will earn US$3000 (gold), $2000 (silver), and $1000 (bronze). Entry fee is $10.
           </p>
           <p className="z-20 mb-4 leading-8 lg:mb8 flex flex-wrap"> {/* Use &nbsp to allow grid layout to work properly */}
-            The competition begins on&nbsp;<b> May 20th </b>&nbsp;and ends on&nbsp;<b> June 15th, 2024.</b>
+            The competition begins on&nbsp;<b> June 15th </b>&nbsp;and ends on&nbsp;<b> August 15th.</b>             Winners will be announced on&nbsp;<b>August 20, 2024.</b>
+          </p>
+          <p className="z-20 mb-4 leading-8 lg:mb8">
           </p>
 
         </div>
