@@ -23,16 +23,15 @@ app.post("/api/verify", UserController.verifyUser);
 app.get("/api/users/:userId", UserController.getUser);
 app.patch("/api/users/:userId", UserController.updateUser);
 app.delete("/api/users/:userId", UserController.deleteUser);
-
-app.post("/api/users/:userId/artworks", ArtworkController.addArtwork);
-app.get("/api/users/:userId/artworks/:artworkId", ArtworkController.getArtwork);
-app.patch("/api/users/:userId/artworks/:artworkId", ArtworkController.approveArtwork);
-app.patch("/api/users/:userId/artworks/:artworkId/vote", ArtworkController.voteArtwork);
-app.delete("/api/users/:userId/artworks/:artworkId", ArtworkController.deleteArtwork);
-app.get("/api/artworks", ArtworkController.getArtworks);
-
-// s3 operations
 app.post("/api/users/:userId/presigned-url", ArtworkController.generatePresigned);
+
+app.get("/api/artworks", ArtworkController.getArtworks);
+app.post("/api/artworks", ArtworkController.addArtwork);
+app.get("/api/artworks/:artworkId", ArtworkController.getArtwork);
+app.patch("/api/artworks/:artworkId", ArtworkController.approveArtwork);
+app.patch("/api/artworks/:artworkId/vote", ArtworkController.voteArtwork);
+app.delete("/api/artworks/:artworkId", ArtworkController.deleteArtwork);
+
 
 app.listen(3000, function() {
   console.log("App started");
