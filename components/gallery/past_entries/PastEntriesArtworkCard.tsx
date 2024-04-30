@@ -38,7 +38,7 @@ const PastEntriesArtworkCard = ({ id, name, age, country, url, openModal }: Artw
                 onClick={() =>openModal(id)}
                 className="w-full h-fit object-cover object-center cursor-pointer"
               />
-              <div className="w-fit max-w-full rounded-tl-lg absolute bottom-0 right-0 bg-[#ffffff4d]" style={{
+              <div className="w-fit max-w-full rounded-tl-lg absolute bottom-0 right-0 bg-[#ffffff80]" style={{
                 backdropFilter: "blur(13px)",
               }}>
                 <p className="max-w-full py-2 px-4 text-right font-normal text-xs xl:text-sm truncate">
