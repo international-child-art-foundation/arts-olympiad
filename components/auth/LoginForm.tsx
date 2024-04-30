@@ -47,7 +47,7 @@ export const LoginForm = () => {
   return (
     <div className="w-[90%] sm:w-[70%] lg:w-[40%]">
       <H2m>Log in to your account</H2m>
-      <Pm className="my-2" >Registration begins on <b>May 20, 2024</b>.</Pm>
+      <Pm className="my-2" >Registration begins on <b>June 15, 2024</b>.</Pm>
       <Formik
         initialValues={initialValues}
         validationSchema={validationSchema}

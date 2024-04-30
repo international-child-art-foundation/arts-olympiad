@@ -7,7 +7,7 @@ export const LastTimePointHeading = () => {
 
   return (
     <>
-      Winner goes to the <span className="inline-block relative font-bold text-dark-blue"> Olympics!
+      The winner is  <span className="inline-block relative font-bold text-dark-blue"> announced!
         <AnimatedScribble
           smwidth={150}
           width={100}

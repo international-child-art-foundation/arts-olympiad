@@ -38,7 +38,7 @@ export const Timeline = () => {
           <TimePoint
             heading="When does it start?"
             description="#MyFavoriteSport event kicks off at an interactive exhibition in Paris."
-            date="May 20th, 2024"
+            date="June 15th, 2024"
             color={"#0286C3"}
             isMobile={isMobile}
           />
@@ -47,10 +47,10 @@ export const Timeline = () => {
             description={
               <>
             This is the time to create, and engage your creative mind. Make your entry before
-                <span className="font-bold text-dark-blue"> June 15th 2024</span>
+                <span className="font-bold text-dark-blue"> August 15th 2024</span>
               </>
             }
-            date="May to June"
+            date="June to August"
             color={"#FBB22E"}
             isMobile={isMobile}
             inversed
@@ -59,11 +59,10 @@ export const Timeline = () => {
             heading={<>Public Choice <span className="font-bold text-dark-blue">Winners</span></>}
             description={
               <>
-                The gold, silver, and bronze winners, selected through public votes, will be announced at a press conference on
-                <span className="font-bold text-dark-blue"> July 1, 2024 </span>
-                at the National Mall at the U.S. Capitol.
+                The gold, silver, and bronze winners, selected through public votes, will be announced on
+                <span className="font-bold text-dark-blue"> August 20th, 2024 </span>
               </>}
-            date="1st July, 2024"
+            date="20th August, 2024"
             color={"#168C39"}
             isMobile={isMobile}
           />

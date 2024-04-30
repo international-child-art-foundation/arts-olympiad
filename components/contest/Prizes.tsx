@@ -21,7 +21,7 @@ export const Prizes = () => {
           <H2m className="flex-col z-20 font-montserrat font-medium mb-6 xsm:text-center lg:text-left">
           Prizes
           </H2m>
-          <Pm className="font-openSans font-light z-30 text-center lg:text-left">Prizes for the gold, silver, and bronze winners will be announced soon.</Pm>
+          <Pm className="font-openSans font-light z-30 text-center lg:text-left">Prizes for the gold, silver, and bronze winners are $3000, $2000, and $1000 respectively.</Pm>
         </div>
         <div className="relative flex flex-col w-full px-6 md:grid md:grid-cols-2 lg:px-24 mxl:px-72 mx-auto my-20 z-10">
           <PrizesCards 
@@ -48,7 +48,7 @@ export const Prizes = () => {
           <PrizesCards 
             src={HeartHandshake}
             heading="Announcement Day"
-            description="Join us to celebrate the winners on July 1st at The National Mall across the U.S. Capitol."
+            description="The winners will be announced on the 20th of August, 2024."
             color="border-main-green"
             star={GreenStar}
           />

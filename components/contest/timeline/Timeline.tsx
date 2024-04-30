@@ -34,7 +34,7 @@ export const Timeline = () => {
                 <TimePoint
                   heading="Contest Begins"
                   description=""
-                  date="14th April, 2024"
+                  date="15th June, 2024"
                   color={"#0286C3"}
                   src={kid_ball}
                   alt=""
@@ -43,7 +43,7 @@ export const Timeline = () => {
                 <TimePoint
                   heading="Contest Ends"
                   description=""
-                  date="15th June, 2024"
+                  date="15th August, 2024"
                   color={"#FBB22E"}
                   src={kid_bending}
                   alt=""
@@ -52,8 +52,8 @@ export const Timeline = () => {
                 />
                 <TimePoint
                   heading="Winners Announced!"
-                  description="Monday 1 July 2024 Press conference at The National Mall across the U.S. Capitol to announce the gold, silver, and bronze winners."
-                  date="1st July, 2024"
+                  description=""
+                  date="20th August, 2024"
                   color={"#168C39"}
                   src={TorchBlue}
                   alt=""
