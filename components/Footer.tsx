@@ -64,8 +64,8 @@ const Footer = () => {
           <ol className="grid grid-cols-2 gap-y-5 md:gap-y-3 md:grid-cols-1">
             <div className="break-words"><Link href="/faq">FAQ's</Link></div>
             <div className="break-words"><a href="https://icaf.org/about/contact-us" target="blank" rel="noopener noreferrer">Contact Us</a></div>
-            <div className="break-words"><a href="#">Terms of use</a></div>
-            <div className="break-words"><a href="#">Privacy policy</a></div>
+            <div className="break-words"><a href="https://icaf.org/resource/documents/ICAF.website.-.Terms.of.Use.pdf">Terms of use</a></div>
+            <div className="break-words"><a href="https://icaf.org/resource/documents/ICAF.website.-.Privacy.Policy.pdf">Privacy policy</a></div>
           </ol>
         </div> 
 
