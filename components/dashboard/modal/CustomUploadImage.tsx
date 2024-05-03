@@ -129,9 +129,9 @@ export const CustomUploadImage = ({label, ...props} : CustomUploadImageProps) =>
         {validImage === true && uploadProgress === 100 && <p className="text-sm font-light mt-4 text-center">Your artwork is uploaded!</p>}
         {validImage === true && uploadProgress === 101 && 
           <div className="relative group w-full h-full overflow-hidden rounded-lg">
-            <div className="hidden group-hover:block absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 h-fit w-fit rounded text-center py-4 px-6 text-base font-normal bg-new-blue text-neutral-white z-50">
+            <div className="hidden group-hover:block absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 h-fit w-fit rounded text-center py-4 px-6 2xl:px-4 text-base font-normal bg-new-blue text-neutral-white z-50">
               <UploadIcon />
-              <span className="ml-4">Upload Artwork</span>
+              <span className="ml-4">Replace Artwork</span>
             </div>
             {imageUrl && 
               <Image
@@ -149,7 +149,7 @@ export const CustomUploadImage = ({label, ...props} : CustomUploadImageProps) =>
           <div className="relative group w-full h-full overflow-hidden rounded-lg">
             <div className="hidden group-hover:block absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 h-fit w-fit rounded text-center py-4 px-6 text-base font-normal bg-new-blue text-neutral-white z-50">
               <UploadIcon />
-              <span className="ml-4">Upload Artwork</span>
+              <span className="ml-2">Replace Artwork</span>
             </div>
             {imageUrl && 
             <Image
