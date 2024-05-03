@@ -83,8 +83,8 @@ export const Steps = ({ steps, currentStep }: StepsProps) => {
       </section>
 
 
-      <section className="no-scrollbar ml-5 m-auto max-w-[800px] overflow-x-auto overscroll-x-none sm:hidden">
-        <div className="w-[600px] h-[190px] flex object-scale-down">{displaySteps}</div>
+      <section className="no-scrollbar ml-5 m-auto max-w-[800px] overflow-x-visible overscroll-x-none sm:hidden">
+        <div className="w-[400px] h-[190px] flex object-scale-down">{displaySteps}</div>
       </section>
 
     </>

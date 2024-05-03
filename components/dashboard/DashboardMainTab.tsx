@@ -6,7 +6,9 @@ import Image from "next/image";
 import { ActiveArtDisplay } from "./ActiveArtDisplay";
 import Popup from "./modal/Popup";
 import { StepsProvider } from "./modal/StepsContext";
-import { useState, useEffect } from "react";
+import { useEffect } from "react";
+import { DashboardModal } from "./DashboardModal";
+
 interface DashboardMainTabProps {
   dashboardLoadingState: DashboardLoadingStates;
 }
@@ -14,11 +16,10 @@ interface DashboardMainTabProps {
 export const DashboardMainTab: React.FC<DashboardMainTabProps> = ({ dashboardLoadingState }) => {
   const { apiUserData, userHasActiveSubmission } = useDashboardContext();
 
-  const [isModalOpen, setModalOpen] = useState(false);
-
+  const {displayModal, setDisplayModal} = useDashboardContext();
   {/* If modal is open, prevent page scrolling */}
   useEffect(() => {
-    if (isModalOpen) {
+    if (displayModal === "mainTab") {
       document.body.style.overflow = "hidden";
     } else {
       document.body.style.overflow = "";
@@ -27,8 +28,7 @@ export const DashboardMainTab: React.FC<DashboardMainTabProps> = ({ dashboardLoa
     return () => {
       document.body.style.overflow = "";
     };
-  }, [isModalOpen]);
-
+  }, [displayModal]);
 
   return (
     <>
@@ -45,17 +45,17 @@ export const DashboardMainTab: React.FC<DashboardMainTabProps> = ({ dashboardLoa
           ) : (
             <div>
               <div className="my-2 w-full outline outline-1 rounded-3xl h-[400px] max-w-full content-center">
-                <button onClick={() => setModalOpen(true)} className="z-10 flex bg-new-blue rounded text-white p-4 m-auto items-center gap-8">
+                <button onClick={() => setDisplayModal("mainTab")} className="z-10 flex bg-new-blue rounded text-white p-4 m-auto items-center gap-8">
                   <p>Upload Artwork</p>
                   <Image src={uploadIcon} alt="upload" width={16} height={16} />
                 </button>
-                {isModalOpen && 
-                  <div className="fixed inset-0 z-50 max-h-full overflow-auto">
+                {displayModal === "mainTab" && 
+                  <DashboardModal> 
                     <StepsProvider>
-                      <Popup trigger={isModalOpen} setTrigger={setModalOpen}>
-                      </Popup>
+                      <Popup></Popup>
                     </StepsProvider>
-                  </div>}
+                  </DashboardModal>            
+                }
               </div>
               <div className="flex gap-2 py-3">
                 <Image src={information} alt="info" width={16} height={16} />

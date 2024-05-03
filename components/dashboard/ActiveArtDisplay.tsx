@@ -142,7 +142,7 @@ export const ActiveArtDisplay = () => {
         <button onClick={() => setEditMode(!editMode)}>
           <Image src={editIcon} alt={"Pencil icon: Click to edit artwork"} width={16} height={16}/>
         </button>
-        <button onClick={() => setDisplayModal(true)}>
+        <button onClick={() => setDisplayModal("deleteModal")}>
           <Image src={deleteIcon} alt={"Trash icon: Click to delete artwork"} width={16} height={16}/>
         </button>
       </div>

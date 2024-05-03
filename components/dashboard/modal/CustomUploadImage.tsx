@@ -80,6 +80,14 @@ export const CustomUploadImage = ({label, ...props} : CustomUploadImageProps) =>
           </div>
           <p className="text-sm font-light text-neutral-black">PNG or JPG</p>
         </div>}
+        {/* <div className={`flex flex-col items-center justify-center pt-5 pb-6 ${((uploadProgress === -1 && validImage === false) || meta.error) ? "opacity-100" : ""}`}>
+          <p className="mb-6 text-md font-light text-neutral-black">{label}</p>
+          <div className="mb-6 h-fit w-fit rounded text-center py-4 px-6 text-base font-normal bg-new-blue text-neutral-white">
+            <UploadIcon />
+            <span className="ml-4">Upload Artwork</span>
+          </div>
+          <p className="text-sm font-light text-neutral-black">PNG or JPG</p>
+        </div> */}
         <Field 
           {...field} 
           {...props} 
@@ -120,7 +128,11 @@ export const CustomUploadImage = ({label, ...props} : CustomUploadImageProps) =>
         {validImage === true && uploadProgress !== -1 && uploadProgress !== 100 && uploadProgress !== 101 && <p className="text-sm font-light mt-4 text-center">Your artwork is uploading...</p>}
         {validImage === true && uploadProgress === 100 && <p className="text-sm font-light mt-4 text-center">Your artwork is uploaded!</p>}
         {validImage === true && uploadProgress === 101 && 
-          <div className="w-full h-full overflow-hidden rounded-lg pointer-events-none">
+          <div className="relative group w-full h-full overflow-hidden rounded-lg">
+            <div className="hidden group-hover:block absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 h-fit w-fit rounded text-center py-4 px-6 text-base font-normal bg-new-blue text-neutral-white z-50">
+              <UploadIcon />
+              <span className="ml-4">Upload Artwork</span>
+            </div>
             {imageUrl && 
               <Image
                 src={imageUrl}
@@ -128,13 +140,17 @@ export const CustomUploadImage = ({label, ...props} : CustomUploadImageProps) =>
                 width={800} 
                 height={600}
                 layout="responsive"
-                className="object-contain rounded-lg"
+                className="object-contain rounded-lg group-hover:opacity-50"
               />
             }
           </div>
         }
         {hasImage === true && 
-          <div className="w-full h-full overflow-hidden rounded-lg pointer-events-none">
+          <div className="relative group w-full h-full overflow-hidden rounded-lg">
+            <div className="hidden group-hover:block absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 h-fit w-fit rounded text-center py-4 px-6 text-base font-normal bg-new-blue text-neutral-white z-50">
+              <UploadIcon />
+              <span className="ml-4">Upload Artwork</span>
+            </div>
             {imageUrl && 
             <Image
               src={imageUrl}
@@ -142,7 +158,7 @@ export const CustomUploadImage = ({label, ...props} : CustomUploadImageProps) =>
               width={800} 
               height={600}
               layout="responsive"
-              className="object-contain rounded-lg"
+              className="object-contain rounded-lg group-hover:opacity-50"
             />
             }
           </div>

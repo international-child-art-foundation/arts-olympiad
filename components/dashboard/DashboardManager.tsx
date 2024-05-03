@@ -60,7 +60,7 @@ export default function DashboardManager() {
       style={{
         
       }}>
-      {displayModal && 
+      {displayModal === "deleteModal" && 
         <DashboardModal >
           <DeleteArtwork />
         </DashboardModal>
