@@ -10,7 +10,6 @@ import tinyYellowBlob from "../../../public/svgs/blobs/tiny-yellow-blob.svg";
 import tinyPinkBlob from "../../../public/svgs/blobs/tiny-vertical-pink-blob.svg";
 import bigPinkBlob from "../../../public/svgs/blobs/vertical-big-pink-blob.svg";
 import bigBlueBlob from "../../../public/svgs/blobs/blue-leg-down-blob.svg";
-import {LastTimePointHeading} from "./LastTimePointHeading";
 import timelineYellowEllipse from "../../../public/home/timeline-yellow-ellipse.svg";
 import basketballPlayer from "../../../public/home/basketball-player.webp";
 import badmintonPlayer from "../../../public/home/badminton-player.webp";
@@ -36,8 +35,8 @@ export const HomeYellowTimeline = () => {
         <Image src={tinyPinkBlob} alt="" className="hidden md:block -z-10 absolute top-[672px] right-44 select-none pointer-events-none" />
         <Image src={bigPinkBlob} alt="" className="-z-10 w-[300px] md:w-[500px] absolute top-[576px] -right-12 md:-right-44 select-none pointer-events-none" />
         <Image src={bigBlueBlob} alt="" className="-z-10 w-[400px] md:w-[700px] absolute bottom-96 md:bottom-24 -left-12 md:-left-44 select-none pointer-events-none" />
-        <Image src={basketballPlayer} alt="Basketball player" className="z-10 absolute md:-bottom-12 md:left-8 lg:-bottom-12 lg:left-14 xl:left-24 2xl:left-32 hidden md:block"/>
-        <Image src={badmintonPlayer} alt="Badminton player" className="z-10 absolute md:right-8 md:bottom-72 lg:right-14 xl:right-24 2xl:right-32 hidden md:block"/>
+        <Image src={basketballPlayer} alt="Basketball player" className="z-10 absolute md:-bottom-12 md:right-8 lg:-bottom-12 lg:right-14 xl:right-24 2xl:right-32 hidden md:block"/>
+        <Image src={badmintonPlayer} alt="Badminton player" className="z-10 absolute md:left-8 md:bottom-64 lg:left-14 xl:left-24 2xl:left-32 hidden md:block"/>
         <Image src={dive} alt="" className="z-10 absolute md:left-8 md:bottom-[46rem] lg:left-14 xl:left-24 2xl:left-32 hidden md:block"/>
         <Image src={secondSwimmer} alt="" className="z-10 absolute md:right-8 md:top-60 lg:-right-4 xl:top-[17rem] xl:right-8 2xl:right-8 hidden md:block"/>
 
@@ -53,7 +52,7 @@ export const HomeYellowTimeline = () => {
             <TimePoint
               heading="When does it start?"
               description="The #MyFavoriteSport event kicks off at an interactive exhibition in Paris."
-              date="May 20th, 2024"
+              date="June 15th, 2024"
               color={"#0286C3"}
               isMobile={isMobile}
             />
@@ -62,10 +61,10 @@ export const HomeYellowTimeline = () => {
               description={
                 <>
               This is the time to engage your creative mind. Make your entry before
-                  <span className="font-bold text-dark-blue"> June 15th, 2024.</span>
+                  <span className="font-bold text-dark-blue"> August 15th, 2024.</span>
                 </>
               }
-              date="May to June"
+              date="June to August"
               color={"#FBB22E"}
               isMobile={isMobile}
               inversed
@@ -74,23 +73,12 @@ export const HomeYellowTimeline = () => {
               heading={<>Public Choice <span className="font-bold text-dark-blue">Winners</span></>}
               description={
                 <>
-                  The gold, silver, and bronze winners, selected through public votes, will be announced at a press conference on
-                  <span className="font-bold text-dark-blue"> July 1, 2024 </span>
-                  at the National Mall at the U.S. Capitol.
+                  The gold, silver, and bronze winners, selected through public votes, will be announced on
+                  <span className="font-bold text-dark-blue"> August 20th, 2024 </span>
                 </>}
-              date="1st July, 2024"
+              date="20th August, 2024"
               color={"#168C39"}
               isMobile={isMobile}
-            />
-            <TimePoint
-              heading={
-                <LastTimePointHeading />
-              }
-              description="These winners will be on their way to the Paris Olympics, thanks to generous sponsors!"
-              date="July 26, 2024"
-              color={"#EE2F4D"}
-              isMobile={isMobile}
-              inversed
             />
           </ul>
         </div>

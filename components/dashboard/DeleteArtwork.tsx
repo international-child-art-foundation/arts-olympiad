@@ -52,7 +52,7 @@ export const DeleteArtwork: React.FC<DeleteArtworkProps> = ({  }) => {
             </div>
             <div className={`flex gap-x-9 gap-y-5 w-full flex-col md:flex-row ${isLoading && "pointer-events-none opacity-50"}`}>
               <button className="p-4 text-new-blue outline outline-1 rounded flex-grow"
-                onClick={() => setDisplayModal(false)}>
+                onClick={() => setDisplayModal("")}>
                 No, go back
               </button>
               <button className="p-4 bg-warning-red text-white rounded flex-grow hover:bg-[#DB3952]"

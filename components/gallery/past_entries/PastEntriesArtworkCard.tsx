@@ -38,7 +38,9 @@ const PastEntriesArtworkCard = ({ id, name, age, country, url, openModal }: Artw
                 onClick={() =>openModal(id)}
                 className="w-full h-fit object-cover object-center cursor-pointer"
               />
-              <div className="w-fit max-w-full rounded-lg absolute bottom-0 right-0 bg-[#ffffff1a]">
+              <div className="w-fit max-w-full rounded-tl-lg absolute bottom-0 right-0 bg-[#ffffff80]" style={{
+                backdropFilter: "blur(13px)",
+              }}>
                 <p className="max-w-full py-2 px-4 text-right font-normal text-xs xl:text-sm truncate">
                   {country[1]}{country[0]}
                 </p>
@@ -48,7 +50,7 @@ const PastEntriesArtworkCard = ({ id, name, age, country, url, openModal }: Artw
           
           <section className="w-full h-36 xl:h-44 mxl:h-40 rounded-b-lg overflow-hidden relative">
             <p className="p-4 text-base font-semibold xl:texl-xl truncate">{name}</p>
-            <p className="px-4 pb-4 text-sm font-normal xl:texl-base truncate">{age} Years old</p>
+            <p className="px-4 pb-4 text-sm font-normal xl:texl-base truncate">Age {age}</p>
             <div className="flex -mt-1 xl:mt-4 mxl:mt-2">
               <button onClick={() =>openModal(id)} className="mx-4 bg-new-blue w-full py-3 rounded text-center text-sm cursor-pointer tracking-wide text-neutral-white">
                 View

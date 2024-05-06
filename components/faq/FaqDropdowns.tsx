@@ -22,17 +22,17 @@ const ContestSectionData: ExpandingDivProps = {
     {
       title: "Are there any fees?",
       description:
-        "No! This competition is completely free, thanks to our generous sponsors.",
+        "Yes, there is a $10 entry fee. ",
     },
     {
       title: "When can I submit?",
       description:
-        "Art submission can start on May 20th, 2024. This will coincide with our kickoff in Paris during our art exhibition! The submission deadline is June 15th 2024.",
+        "Art submission can start on June 15th, 2024. This will coincide with our kickoff in Paris during our art exhibition! The submission deadline is August 15th 2024.",
     },
     {
       title: "How will the winners be chosen?",
       description:
-        "The top 20 artworks will be selected based on public votes on this site, so be sure to share your submission on social media. These 20 finalists will make it to the next round where our sponsors will determine the top 3 winners.",
+        "The top 20 artworks will be selected based on public votes on this site, so be sure to share your submission on social media. These 20 finalists will make it to the next round where we will determine the top 3 winners.",
     },
   ],
 };

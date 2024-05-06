@@ -1,5 +1,4 @@
 import React from "react";
-import Image from "next/image";
 import { useEffect } from "react";
 import { Steps } from "./Steps";
 import { Age } from "./Age";
@@ -11,13 +10,7 @@ import { Review } from "./Review";
 import { Confirmation } from "./Confirmation";
 import { useStepsContext } from "./StepsContext";
 
-interface PopupProps {
-  trigger: boolean;
-  setTrigger: (value: boolean) => void;
-  children?: React.ReactNode;
-}
-
-export default function Popup({ trigger, setTrigger, children }: PopupProps){
+export default function Popup(){
 
   const { steps,
     setSteps,
@@ -62,25 +55,13 @@ export default function Popup({ trigger, setTrigger, children }: PopupProps){
   };
 
 
-  return (trigger) ? (
-    <div className="overflow-hidden rounded-2xl m-auto w-11/12 md:w-3/4 h-fit bg-white flex items-center justify-center z-50">
-      <button className="absolute right-10% top-[350px] md:right-15% md:top-[390px]" onClick={() => setTrigger(false)}>
-        <Image src="/svgs/close.svg" alt="Close Modal System" width={24} height={24}/>
-        { children }
-      </button>
-      <div className="mt-40 mb-40 grid gap-y-2 w-full">
-        <Steps 
-          steps = {steps}
-          currentStep = {currentStep}
-        />
-        {/* <StepsProvider > */}
-        {displayStep(currentStep)}
-        {/* </StepsProvider> */}
-        
-        {/* {console.log(userData)} */}
-
-        {/* {displayStep(currentStep)} */}
-      </div>
+  return (
+    <div className="my-10 sm:w-full">
+      <Steps 
+        steps = {steps}
+        currentStep = {currentStep}
+      />
+      {displayStep(currentStep)}
     </div>
-  ) : "";
+  );
 }
