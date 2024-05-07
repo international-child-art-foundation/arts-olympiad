@@ -15,7 +15,7 @@ interface IProps {
   required?: boolean
 }
 export const TextInput = ({className, labelText, id, placeholder, inputType, error, touched, value, required = true}: IProps) => {
-
+// test change to format staged file
   return (
     <div className={`${className} my-1 flex flex-col`} >
       <InputLabel
