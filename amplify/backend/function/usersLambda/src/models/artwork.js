@@ -1,5 +1,6 @@
 const { ddbDocClient } = require("../lib/dynamoDBClient");
 const { DeleteCommand, GetCommand, PutCommand, QueryCommand, UpdateCommand } = require("@aws-sdk/lib-dynamodb");
+const VotesModel = require("./votes");
 
 let tableName = "dynamo22205621";
 if (process.env.ENV && process.env.ENV !== "NONE") {
@@ -60,16 +61,18 @@ async function deleteArtworkById(artworkId) {
   }
 }
 
-async function voteArtworkById(artworkId) {
+async function updateVoteArtworkbyId(artworkId, decrement=false) {
+  operator = (decrement === true) ? "-" : "+";
+
   const input = {
     TableName: tableName,
     Key: {
       pk: "ART",
       sk: artworkId
     },
-    UpdateExpression: "ADD votes :increment",
+    UpdateExpression: `SET votes = votes ${operator} :value`,
     ExpressionAttributeValues: {
-      ":increment": 1,
+      ":value": 1,
     },
     ConditionExpression: "attribute_exists(pk) AND attribute_exists(sk)",
     ReturnValues: "ALL_NEW"
@@ -82,6 +85,16 @@ async function voteArtworkById(artworkId) {
     console.error(error.message);
     throw error;
   }
+}
+
+async function incrementVoteArtworkById(artworkId) {
+  VotesModel.incrementTotalVotes();
+  return updateVoteArtworkbyId(artworkId)
+}
+
+async function decrementVoteArtworkById(artworkId) {
+  VotesModel.decrementTotalVotes();
+  return updateVoteArtworkbyId(artworkId, decrement=true)
 }
 
 async function approveArtworkById(artworkId, approvalStatus) {
@@ -197,7 +210,7 @@ function addInput({indexName, keyConditionExpr, exprAtrValue, limit=20, orderBy}
   const scanIndexForward = (Array.isArray(orderBy) ? orderBy[0] : orderBy) !== "descending";
   const input = {
     TableName: tableName,
-    ProjectionExpression: "id, title, sport, #loc, is_approved, votes",
+    ProjectionExpression: "id, title, sport, #loc, is_approved, votes, f_name, l_name, age, is_ai_gen, model, prompt",
     ExpressionAttributeNames: { "#loc": "location" },
     IndexName: indexName,
     KeyConditionExpression: keyConditionExpr,
@@ -212,7 +225,8 @@ module.exports = {
   getArtworkById,
   createArtwork,
   deleteArtworkById,
-  voteArtworkById,
+  incrementVoteArtworkById,
+  decrementVoteArtworkById,
   approveArtworkById,
   queryArtworks,
   buildQueryInputs

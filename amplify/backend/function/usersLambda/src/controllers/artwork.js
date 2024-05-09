@@ -7,7 +7,7 @@ async function getArtwork(req, res) {
     res.status(200).json(artwork);
   } catch(error) {
     console.error(error);
-    res.status(500).json({message: "error fetching", error: error.message});
+    res.status(400).json({message: "error fetching", error: error.message});
   }
 }
 
@@ -28,7 +28,7 @@ async function addArtwork(req, res) {
     const artwork = await ArtworkService.addArtwork(artworkData);
     res.status(200).json(artwork);
   } catch(error) {
-    res.status(500).json({message: "error creating", error: error});
+    res.status(400).json({message: "error creating", error: error});
   }
 }
 
@@ -39,18 +39,29 @@ async function approveArtwork(req, res) {
     const artwork = await ArtworkService.approveArtwork(artworkId, approvalStatus);
     res.status(200).json(artwork);
   } catch(error) {
-    res.status(500).json({message: "error updating artwork", error: error});
+    res.status(400).json({message: "error updating artwork", error: error});
   }
 }
 
-async function voteArtwork(req, res) {
+async function incrementVoteArtwork(req, res) {
   const artworkId = req.params.artworkId;
   try {
-    const artwork = await ArtworkService.voteArtwork(artworkId);
+    const artwork = await ArtworkService.incrementVoteArtwork(artworkId);
     res.status(200).json(artwork);
   } catch(error) {
     console.error(error);
-    res.status(500).json({message: "error voting for artwork", error: error.message});
+    res.status(400).json({message: "Error incrementing vote for artwork", error: error.message});
+  }
+}
+
+async function decrementVoteArtwork(req, res) {
+  const artworkId = req.params.artworkId;
+  try {
+    const artwork = await ArtworkService.decrementVoteArtwork(artworkId);
+    res.status(200).json(artwork);
+  } catch(error) {
+    console.error(error);
+    res.status(400).json({message: "Error decrementing vote for artwork", error: error.message});
   }
 }
 
@@ -61,7 +72,7 @@ async function deleteArtwork(req, res) {
     res.status(204).json(response);
   } catch (error) {
     console.log(error);
-    res.status(500).json({ message: "error deleting artwork", error: error.message });
+    res.status(400).json({ message: "error deleting artwork", error: error.message });
   }
 }
 
@@ -71,7 +82,7 @@ async function getArtworks(req, res) {
     const artworks = await ArtworkService.getArtworks(queryParams);
     res.status(200).json(artworks);
   } catch(error) {
-    res.status(500).json({error: error.message });
+    res.status(400).json({error: error.message });
   }
 }
 
@@ -86,17 +97,16 @@ async function generatePresigned(req, res) {
       fields: fields 
     });
   } catch (error) {
-    res.status(500).json({ error: error.message });
+    res.status(400).json({ error: error.message });
   }
 }
-
-
 
 module.exports = {
   getArtwork,
   addArtwork,
   approveArtwork,
-  voteArtwork,
+  incrementVoteArtwork,
+  decrementVoteArtwork,
   deleteArtwork,
   getArtworks,
   generatePresigned

@@ -50,8 +50,13 @@ async function deleteArtwork(artworkId) {
   }
 }
 
-async function voteArtwork(artworkId) {
-  const artwork = await ArtworkModel.voteArtworkById(artworkId);
+async function incrementVoteArtwork(artworkId) {
+  const artwork = await ArtworkModel.incrementVoteArtworkById(artworkId);
+  return formatArtwork(artwork.Attributes);
+}
+
+async function decrementVoteArtwork(artworkId) {
+  const artwork = await ArtworkModel.decrementVoteArtworkById(artworkId);
   return formatArtwork(artwork.Attributes);
 }
 
@@ -143,7 +148,8 @@ module.exports = {
   getArtwork,
   addArtwork,
   deleteArtwork,
-  voteArtwork,
+  incrementVoteArtwork,
+  decrementVoteArtwork,
   approveArtwork,
   getArtworks,
   createUrlAndFields
