@@ -6,7 +6,6 @@ import PurpleEarth from "../../../public/impact/PurpleEarth.png";
 // import YellowThree from "../../../public/impact/YellowThree.png"
 import FootBall from "../../../public/impact/FootBall.png";
 import ColorfulButterfly from "../../../public/impact/ColorfulButterfly.png";
-import ColorfulBike from "../../../public/impact/ColorfulBike.png";
 import ChildrensWorld from "../../../public/impact/ChildrensWorld.png";
 import BlueRings from "../../../public/impact/BlueRings.png";
 import Tennessee from "../../../public/impact/Tennessee.png";

@@ -1,8 +1,8 @@
 import React, { forwardRef } from "react";
 import { LazyImage } from "../../common/images/LazyImage";
 import { IWisdom } from "../../../mock/wisdomItems";
-import { H3m } from "../../common/texts/H3m";
-import { Pm } from "../../common/texts/Pm";
+// import { H3m } from "../../common/texts/H3m";
+// import { Pm } from "../../common/texts/Pm";
 
 interface IProps {
   wisdom: IWisdom;
