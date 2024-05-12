@@ -176,14 +176,7 @@ export const WisdomCarousel = () => {
   return (
     <figure className="z-40 flex flex-col justify-center items-center bg-transparent h-visionary-thinkers-md overflow-hidden" ref={intersectionTarget}>
       {
-        <div className=" z-40 relative w-full h-full">
-          <div
-            ref={wisdomTextRef}
-            className="flex flex-col -mb-3 md:flex-col backdrop-blur-[30px] p-5 absolute bottom-[-1px] z-50 bg-white -translate-y-[412px] lg:-translate-y-[412px] opacity-25 w-full lg:w-1/2 overflow-hidden max-w-full"
-          >
-            <H3m className="z-20 mb-0 font-semibold row-span-1 xl:text-2xl lg:text-xl overflow-hidden whitespace-nowrap text-overflow-ellipsis font-montserrat">{authorName}</H3m>
-            <Pm className="text-sm font-openSans font-normal z-20 row-span-1 overflow-hidden text-overflow-ellipsis">{wisdomText}</Pm>
-          </div>
+        <div className=" z-40 relative w-full h-full">        
           {
             wisdomList
               .map((wisdom, i) =>
@@ -195,6 +188,13 @@ export const WisdomCarousel = () => {
                 />
               )
           }
+          <div
+            ref={wisdomTextRef}
+            className="flex flex-col space-y-3 py-4 lg:py-3 backdrop-blur-[30px] absolute top-1/2 -translate-y-24 lg:-translate-y-24 z-50 bg-white opacity-25 w-full lg:w-1/2 overflow-hidden max-w-full"
+          >
+            <H3m className="pl-4 z-20 mb-0 font-semibold row-span-1 xl:text-2xl lg:text-xl overflow-hidden whitespace-nowrap text-overflow-ellipsis font-montserrat">{authorName}</H3m>
+            <Pm className="pl-4 text-sm font-openSans font-normal z-20 row-span-1 overflow-hidden text-overflow-ellipsis">{wisdomText}</Pm>
+          </div>
         </div>
       }
 
