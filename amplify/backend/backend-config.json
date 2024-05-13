@@ -44,20 +44,6 @@
     }
   },
   "function": {
-    "createPresignedUrl": {
-      "build": true,
-      "dependsOn": [
-        {
-          "attributes": [
-            "BucketName"
-          ],
-          "category": "storage",
-          "resourceName": "s369dba687"
-        }
-      ],
-      "providerPlugin": "awscloudformation",
-      "service": "Lambda"
-    },
     "processImage": {
       "build": true,
       "dependsOn": [],
@@ -85,22 +71,6 @@
     }
   },
   "parameters": {
-    "AMPLIFY_function_createPresignedUrl_deploymentBucketName": {
-      "usedBy": [
-        {
-          "category": "function",
-          "resourceName": "createPresignedUrl"
-        }
-      ]
-    },
-    "AMPLIFY_function_createPresignedUrl_s3Key": {
-      "usedBy": [
-        {
-          "category": "function",
-          "resourceName": "createPresignedUrl"
-        }
-      ]
-    },
     "AMPLIFY_function_processImage_deploymentBucketName": {
       "usedBy": [
         {

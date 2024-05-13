@@ -7,7 +7,7 @@ Amplify Params - DO NOT EDIT */
  * @type {import('@types/aws-lambda').APIGatewayProxyHandler}
  */
 
-import { S3Client, GetObjectCommand, PutObjectCommand } from "@aws-sdk/client-s3";
+import { S3Client, GetObjectCommand, PutObjectCommand, ListObjectsV2Command } from "@aws-sdk/client-s3";
 import { Readable } from "stream";
 import sharp from "sharp";
 
@@ -16,28 +16,37 @@ const client = new S3Client();
 export const handler = async (event) => {
   console.log(`EVENT: ${JSON.stringify(event)}`);
   
-  const srcBucket = event.Records[0].s3.bucket.name;
-  const srcKey = decodeURIComponent(event.Records[0].s3.object.key.replace(/\+/g, " "));
-    
-  //Assuming input/output of images and thumbnails are of the same bucket   
-  const dstKey = srcKey.replace("public/original/", "public/thumbnail/");
-  const supportedTypes = ["jpg", "jpeg", "png", "webp", "tiff", "tif"];
-  const width = 200;
-    
-  
-  function getImageType(key) {
-    const match = key.match(/\.(jpg|jpeg|png|webp|tiff|tif)$/i);
-    return match ? match[1].toLowerCase() : null;
+  const bucket = "artsolympiadf677eab9a54848dc8788ee9110a11839185846-staging"; // todo: load as env variable
+  const userId = event.user_id;
+  // const srcKey = decodeURIComponent(event.Records[0].s3.object.key.replace(/\+/g, " "));
+
+  let srcKey;
+  try {
+    const data = await client.send(new ListObjectsV2Command({
+      Bucket: bucket,
+      Prefix: userId
+    }));
+
+    if (data.Contents.length != 1) {
+      const error = data.Contents.length ? "Image already processed." : "Image not found.";
+      console.log(error)
+      return {
+        statusCode: 400,
+        body: JSON.stringify({ error: error })
+      }
+    }
+
+    srcKey = data.Contents[0].Key;
+    console.log(srcKey);
+  } catch (error) {
+    console.log("Error", error);
+    return {
+      statusCode: 400,
+      body: JSON.stringify({ error: error })
+    }
   }
   
-  const imageType = getImageType(srcKey);
-  
-  if (!imageType || !supportedTypes.includes(imageType)) {
-    console.log(`Error with image type ${imageType}`);
-  }
-  
-  const getCommand = new GetObjectCommand({ Bucket: srcBucket, Key: srcKey });
-  
+  const getCommand = new GetObjectCommand({ Bucket: bucket, Key: srcKey });
   let contentBuffer;
   let metaData;
   try {
@@ -50,38 +59,52 @@ export const handler = async (event) => {
   
     if (stream instanceof Readable) {
       contentBuffer = Buffer.concat(await stream.toArray());
-          
     } else {
       throw new Error("Unknown object stream type");
     }
   } catch (error) {
     console.log(error);
-    return;
+    return {
+      statusCode: 400,
+      body: JSON.stringify({ error: error })
+    };
   }
-  
-  let outputBuffer;
-  try {
-    outputBuffer = await sharp(contentBuffer).resize(width).toFormat("webp").toBuffer();
-  } catch (error) {
-    console.log("Error processing image with sharp", error);
-    return;
+
+  const widthByName = {
+    'medium': 800,
+    'thumb': 400
   }
-    
-  // change file extension to .webp
-  const newDstKey = dstKey.replace(/\.\w+$/, ".webp");
-    
-  const putCommand = new PutObjectCommand({
-    Bucket: srcBucket,
-    Key: newDstKey,
-    Body: outputBuffer,
-    ContentType: "image/webp",
-    Metadata: metaData,
-  });
-  
-  try {
-    await client.send(putCommand);
-    console.log(`Image successfully processed and uploaded: ${newDstKey}`);
-  } catch (error) {
-    console.log("Error uploading processed image to S3:", error);
+
+  for (const [name, width] of Object.entries(widthByName)) {
+    const dstKey = `${userId}/${name}.webp`;
+    let outputBuffer;
+    try {
+      outputBuffer = await sharp(contentBuffer).resize(width).toFormat("webp").toBuffer();
+    } catch (error) {
+      console.log("Error processing image with sharp", error);
+      return {
+        statusCode: 400,
+        body: JSON.stringify({ error: error })
+      };
+    }
+
+    const putCommand = new PutObjectCommand({
+      Bucket: bucket,
+      Key: dstKey,
+      Body: outputBuffer,
+      ContentType: "image/webp",
+      Metadata: metaData,
+    });
+
+    try {
+      await client.send(putCommand);
+      console.log(`Image successfully processed and uploaded: ${dstKey}`);
+    } catch (error) {
+      console.log("Error uploading processed image to S3:", error);
+      return {
+        statusCode: 400,
+        body: JSON.stringify({ error: error })
+      }
+    }
   }
 };

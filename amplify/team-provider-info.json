@@ -14,13 +14,9 @@
     },
     "categories": {
       "function": {
-        "createPresignedUrl": {
-          "deploymentBucketName": "amplify-amplify0c8bb601bc2b4-staging-185846-deployment",
-          "s3Key": "amplify-builds/createPresignedUrl-433239304c5274703365-build.zip"
-        },
         "processImage": {
           "deploymentBucketName": "amplify-amplify0c8bb601bc2b4-staging-185846-deployment",
-          "s3Key": "amplify-builds/processImage-4d766749707750495446-build.zip"
+          "s3Key": "amplify-builds/processImage-6d36646d4b3477566158-build.zip"
         },
         "usersLambda": {
           "deploymentBucketName": "amplify-amplify0c8bb601bc2b4-staging-185846-deployment",

@@ -160,6 +160,18 @@
                   }
                 ]
               }
+            },
+            {
+              "Effect": "Allow",
+              "Action": [
+                "s3:GetObject",
+                "s3:PutObject",
+                "s3:ListBucket"
+              ],
+              "Resource": [
+                "arn:aws:s3:::artsolympiadf677eab9a54848dc8788ee9110a11839185846-staging",
+                "arn:aws:s3:::artsolympiadf677eab9a54848dc8788ee9110a11839185846-staging/*"
+              ]
             }
           ]
         }
