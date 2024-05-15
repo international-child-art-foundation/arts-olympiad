@@ -38,26 +38,28 @@ export const LoginForm = () => {
   const [showForgotPassword, setShowForgotPassword] = useState(false);
   const router = useRouter();
 
+  // eslint-disable-next-line no-unused-vars, @typescript-eslint/no-unused-vars
   const onSubmit = (values: IContactFormValues) => {
-    console.log(values);
+    // API call occurs, using values
     router.push("/auth/login");
   };
 
   return (
     <div className="w-[90%] sm:w-[70%] lg:w-[40%]">
       <H2m>Log in to your account</H2m>
+      <Pm className="my-2" >Registration begins on <b>June 15, 2024</b>.</Pm>
       <Formik
         initialValues={initialValues}
         validationSchema={validationSchema}
         onSubmit={onSubmit}
       >
         {({ errors, touched, values }) => (
-          <Form className="">
+          <Form className="pointer-events-none opacity-50"> {/* Disabled until contest begins*/}
             <TextInput inputType="email" className="mt-4" placeholder="johndoe@gmail.com" error={errors.email}  touched={touched.email} value={values.email} labelText="Email" id="email" />
             <div className="relative">
               <TextInput inputType={`${!showPassword && "password" }`} placeholder="Squk1*Bn" error={errors.password}  touched={touched.password} value={values.password} labelText="Password" id="password" />
               <Image
-                className="absolute top-11 right-4 cursor-pointer"
+                className="absolute top-14 right-4 cursor-pointer"
                 onClick={() => setShowPassword(!showPassword)}
                 width={30} height={30}
                 src={showPassword ? OpenEye : ClosedEye }
@@ -67,6 +69,7 @@ export const LoginForm = () => {
               <CheckBox name="remember" value="Remember me"/>
               <button onClick={() => setShowForgotPassword(true)} type="button" className="font-semibold bg-transparent border-none xsm:ml-8">
                 Forgot your password?
+                <span className="sr-only">.</span>
               </button>
             </div>
             <ButtonStd type="submit" className="w-full my-2">Log in</ButtonStd>

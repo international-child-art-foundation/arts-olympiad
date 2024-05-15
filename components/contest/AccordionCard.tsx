@@ -1,42 +1,69 @@
-"use client";
-import React, { useState } from "react";
+import React from "react";
+import { StaticImageData } from "next/image";
 import Image from "next/image";
-import { Down } from "../../public/svgs/contest-svg/Down";
-import { Up } from "../../public/svgs/contest-svg/Up";
+import { Pm } from "../common/texts/Pm";
+import { H2m } from "../common/texts/H2m";
 
-interface Item {
-  background: string;
-  color: string;
-  header: string;
-  element: string;
-  icon: JSX.Element;
-}
 
 interface AccordionCardProps {
-  data: Item;
+  heading:string
+  description: string
+  number: number
+  textColor: string
+  borderColor: string
+  image: string | StaticImageData
+  isMobile: boolean
 }
 
-export const AccordionCard = (props: AccordionCardProps) => {
-  const [isExpanded, SetIsExpanded] = useState(false);
-  const [item] = useState(props.data);
- 
-  return (
-    <>
-      <div onClick={() => SetIsExpanded(!isExpanded)} className="col-span-1 h-fit py-6 px-4 relative rounded-2xl cursor-pointer" style={{backgroundColor: item.color}}>
-        <Image src={item.background} width = {390} height = {271} className="relative -top-6 -left-4 z-0 h-[340px] xl:h-[300px]" alt="" />
-        <div className="absolute top-2 z-30"> {item.icon} </div>
-        <button className={`transition-all ease-in-out duration-500 grid grid-cols-5 absolute z-30 group w-5/6 text-xl lg:text-2xl font-semibold text-neutral-black ${isExpanded ?  "top-[60px] lg:top-[80px] xl:top-[100px]" : "top-[200px]"}`}>
-          <div className="col-span-4">{item.header}</div>
-          <div className={`col-span-1 ${isExpanded ? "hidden" : ""}`}><Down /> </div>
-          <div className={`col-span-1 ${isExpanded ? "" : "hidden"}`}><Up /> </div>
-        </button>
-        <div className={`transition-all Z-30 ${isExpanded ? "visible -translate-y-[330px] ease-in-out duration-500" : "invisible"}`}>
-          <hr className="absolute top-[120px] lg:top-[170px] xl:top-[200px] z-30 border-new-black border-1 border-t-0.5 w-11/12"></hr>
-          <p className="absolute top-[130px] lg:top-[180px] xl:top-[210px] z-30 font-light text-base leading-loose w-11/12">
-            {item.element}
-          </p>
+function AccordionCard({heading, description, number, textColor, borderColor, image, isMobile}: AccordionCardProps) {
+  if(isMobile) {
+    return (
+      <div className="flex flex-col justify-center">
+        <div className="box-header flex flex-row justify-between p-6 items-center" >
+          <h1 className={`font-bold text-center text-3xl md:text-5xl lg:text-6xl ${textColor}`}>0{`${number}`}</h1>
+          <h3
+            className="border-header text-2xl font-semibold font-montserrat whitespace-nowrap"
+          >
+            {heading}
+          </h3>
+        </div>
+        <div className={`border-2 ${borderColor}`}></div>
+        <div className="relative flex flex-col pl-8 py-8 w-full z-20 ">
+          <div className="text-container relative px-16 z-20">
+            <Pm className="font-openSans font-light py-4 z-20 "> 
+              {description}
+            </Pm>
+          </div>
+        </div>
+        <div className="box-image absolute self-center py-32 -bottom-32 z-0 w-1/2 ">
+          <Image src={image} alt="" className="relative z-0"></Image>
         </div>
       </div>
-    </>
+    );
+  }
+  return (
+    <div className="flex flex-row justify-between">
+      <div className="relative flex flex-col pl-8 py-8 w-full z-20">
+        <div className="box-header text-container relative px-16 z-20 md:w-[250px] lg:w-[350px] xl:w-[400px] ">
+          <H2m className="font-montserrat font-semibold">{heading}</H2m>
+          <Pm className="font-openSans font-light py-4 z-20 "> 
+            {description}
+          </Pm>
+        </div>
+      </div>
+      <div className="flex flex-col justify-between min-w-[80px] p-6 items-center" >
+        <h1 className={`font-bold text-center md:text-4xl md:mr-6 lg:mr-0 lg:text-6xl ${textColor}`}>0{`${number}`}</h1>
+        <h3
+          className="border-header text-2xl font-semibold font-montserrat rotate-90 whitespace-nowrap mt-36"
+        >
+          {heading}
+        </h3>
+      </div>
+      <div className="box-image absolute py-32 right-1 -bottom-32 z-0 w-1/2 ">
+        <Image src={image} alt="" className="relative z-0 float-right "></Image>
+      </div>
+    </div>
   );
-};
+}
+
+export default AccordionCard;

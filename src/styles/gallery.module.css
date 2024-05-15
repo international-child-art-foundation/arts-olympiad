@@ -1,0 +1,9 @@
+/* gallery.module.css */
+.countdownDisplayGrid {
+  grid-template-columns: 250px;
+  grid-template-rows: auto;
+
+  @media (min-width: 1024px) {
+    grid-template-columns: 150px 250px;
+  }
+}

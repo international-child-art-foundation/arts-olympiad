@@ -47,7 +47,7 @@ export const ExpandingDiv = ({ background, sections }: ExpandingDivProps) => {
               </button>
               {expandedSections[index] && (
                 <nav tabIndex={0} className="w-full">
-                  <p className="mt-4 font-light text-lg leading-normal md:leading-loose">
+                  <p className="mt-2 font-light text-lg leading-normal">
                     {section.description}
                   </p>
                   {section.buttons?.map((button, btnIndex) => (

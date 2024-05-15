@@ -5,6 +5,6 @@ const nextConfig = {
   images: {
     unoptimized: true,
   }, // Disable image optimization since the Image Optimization API is not available for exported apps
-}
+};
 
-module.exports = nextConfig
+module.exports = nextConfig;

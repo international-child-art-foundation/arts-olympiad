@@ -22,17 +22,17 @@ const ContestSectionData: ExpandingDivProps = {
     {
       title: "Are there any fees?",
       description:
-        "No! This competition is completely free, thanks to our generous sponsors.",
+        "Yes, there is a $10 entry fee. ",
     },
     {
       title: "When can I submit?",
       description:
-        "Art submission can start on March 15th, 2024. This will coincide with our kickoff in Paris during our art exhibition! The submission deadline is June 15th 2024.",
+        "Art submission can start on June 15th, 2024. This will coincide with our kickoff in Paris during our art exhibition! The submission deadline is August 15th 2024.",
     },
     {
       title: "How will the winners be chosen?",
       description:
-        "The top 20 artworks will be selected based on public votes on this site, so be sure to share your submission on social media. These 20 finalists will make it to the next round where our sponsors will determine the top 3 winners.",
+        "The top 20 artworks will be selected based on public votes on this site, so be sure to share your submission on social media. These 20 finalists will make it to the next round where we will determine the top 3 winners.",
     },
   ],
 };
@@ -112,7 +112,7 @@ const GeneralQueriesSectionData: ExpandingDivProps = {
     {
       title: "Who can participate in the #MyFavoriteSport competitions?",
       description:
-        "Our competitions are open to artists aged between 10 and 20 years old. We encourage individuals who are passionate about combining the themes of sports and art to participate..",
+        "Our competitions are open to artists aged between 14 and 20 years old. We encourage individuals who are passionate about combining the themes of sports and art to participate..",
     },
     {
       title: "How can I register for an account on the website?",

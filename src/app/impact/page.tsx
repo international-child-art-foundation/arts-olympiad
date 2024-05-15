@@ -6,6 +6,7 @@ import { Empowering } from "../../../components/impact/Empowering";
 import { Carousel } from "../../../components/impact/Carousel";
 import { Banner } from "../../../components/Banner";
 import { HeartIcon } from "../../../components/svgs/HeartIcon";
+import icafLogo from "../../../public/svgs/Icaf-logo.svg";
 
 export const metadata: Metadata = {
   title: "Impact | My Favorite Sport",
@@ -26,6 +27,7 @@ export default function impactPage() {
         backgroundColor="light-blue"
         title="Support ICAF's Global Mission" 
         description="Join us in making a positive impact on children's lives worldwide." 
+        img={icafLogo}
         buttons={[
           {
             href: "https://icaf.org/donate", 

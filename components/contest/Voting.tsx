@@ -54,7 +54,7 @@ export const Voting = () => {
             <span className="ml-3">Winner Announcement</span>
           </h3>
           <p className="mt-4 font-light text-base leading-loose">
-            Gold, Silver, and Bronze winners will be announced in Washington DC on July 1st.
+            Gold, Silver, and Bronze winners will be announced in Washington DC on August 20th.
           </p>
 
           <div className="flex justify-center lg:justify-start mt-10">              

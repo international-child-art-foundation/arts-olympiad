@@ -93,14 +93,14 @@ export const FiveDrop = () => {
           <nav tabIndex={0} className="w-full">
             <UpIcon className="-mt-6"/>
             <p className="mt-4 font-light text-base leading-loose">
-              Art submission can start on March 15th, 2024.  This will coincide with our kickoff in Paris during our art exhibition! 
+              Art submission can start on June 15th, 2024.  
             </p>
           </nav>
           }
         </div>
       </div>
 
-      <div className="z-40 relative mt-6 m-auto max-w-screen-2xl px-8 md:px-12 lg:px-16 xl:px-20">
+      <div className="z-40 relative mt-6 m-auto max-w-screen-2xl px-8 md:px-12 lg:px-16 xl:px-20 mb-6">
         <div onClick={() => SetIsExpanded5(!isExpanded5)} className="bg-light-green py-6 px-4 relative rounded-2xl cursor-pointer">
           <button className="group w-full text-xl font-semibold text-neutral-black inline-flex">
             How will winners be chosen?

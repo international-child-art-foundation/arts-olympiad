@@ -8,6 +8,7 @@ import blueBlob from "../../public/svgs/impact-svg/blueBlob.svg";
 import yellowDots from "../../public/svgs/impact-svg/yellowDots.svg";
 import childArt from "../../public/svgs/impact-svg/childArt.svg";
 import blub from "../../public/svgs/impact-svg/blub.svg";
+import { SubsectionLayout } from "@/app/HeaderLayout";
 
 export const Carousel = () => {
   const [checkedOption, setCheckedOption] = useState(3);
@@ -29,13 +30,14 @@ export const Carousel = () => {
     <>
       <Image src={purpleBG} alt="" width={1536} height={432} className="absolute -z-10 w-full md:w-4/5 lg:w-1/2 mxl:w-2/5 h-fit mt-28" />
       <div className="m-auto max-w-screen-2xl px-8 md:px-12 lg:px-16 xl:px-20">
-        <h2 className="text-3xl font-normal md:text-[42px] md:font-medium mt-48 z-10">
-          Elevating Youth Voices
-        </h2>
-        <p className="mt-4 text-base font-light md:text-lg md:font-normal z-10">
+        <SubsectionLayout>
+          <h2 className="text-3xl font-normal md:text-[32px] md:font-normal mt-48 z-10 leading-normal">
+            Elevating Youth Voices
+          </h2>
+        </SubsectionLayout>
+        <p className="mt-4 text-lg font-light md:text-lg md:font-normal z-10 leading-normal">
           Showcasing Children’s Talents
         </p>
-        
       </div>
 
       <div data-force-render={forceRender} className="realtive z-20 pt-8 pb-44 m-auto max-w-screen-2xl px-8 md:px-12 lg:px-16 xl:px-20">
@@ -62,21 +64,23 @@ export const Carousel = () => {
               <article className="bg-baby-blue p-6 rounded-2xl shadow-2xl">
                 <Image src={blueBlob} alt="" width={1536} height={432} className="absolute z-0 w-fit h-fit -mt-6 -ml-6 pointer-events-none rounded-2xl " />
                 <div className="relative mx-10% pointer-events-none">
-                  <h3 className="font-semibold text-2xl mt-14 xl:mt-12">
-                    World Children’s Festival
-                  </h3>                      
-                  <p className="text-base my-6">
-                    Learn more about the World Children’s Festival,  the World Children’s Award, and our research and publications promoting STEAMS education that integrates Arts and Sports with STEM disciplines.
+                  <SubsectionLayout>
+                    <h3 className="font-semibold text-3xl mt-14 xl:mt-12">
+                      World Children’s Festival
+                    </h3>       
+                  </SubsectionLayout>
+                  <p className="text-xl my-6 leading-8">
+                    Learn more about the World Children’s Festival, the World Children’s Award, and our research and publications promoting STEAMS education that integrates Arts and Sports with STEM disciplines.
                   </p>
-                  
+                    
                   <div className="mb-20 xl:mb-16">
                     {checkedOption != 1 && <a href="#" className="w-fit h-fit border rounded text-center py-3 px-4 text-xs font-normal cursor-pointer bg-new-blue text-neutral-white"> 
                       Learn More
                     </a>}
                     {checkedOption == 1 && <a href="https://worldchildrensfestival.org/" className="pointer-events-auto w-fit h-fit border rounded text-center py-3 px-4 text-xs font-normal cursor-pointer bg-new-blue text-neutral-white"> 
-                      Learn More
+                        Learn More
                     </a>}
-                  </div> 
+                  </div>    
                   <Image src={blub} alt="" width={1536} height={432} className="absolute z-10 w-1/4 -mt-28 ml-60" />
                 </div>
 
@@ -101,10 +105,12 @@ export const Carousel = () => {
               <article className="bg-light-green p-3 rounded-2xl shadow-2xl">
                 <Image src={greenBlob} alt="" width={1536} height={432} className="absolute z-0 w-fit h-fit -mt-3 -ml-3 pointer-events-none" />
                 <div className="relative mx-10% pointer-events-none">
-                  <h3 className="font-semibold text-2xl mt-14">
-                    Broaden Horizons with Art
-                  </h3>
-                  <p className="text-base my-9">
+                  <SubsectionLayout>
+                    <h3 className="font-semibold text-3xl mt-14 leading-normal">
+                      Broaden Horizons with Art
+                    </h3>
+                  </SubsectionLayout>
+                  <p className="text-xl my-9 leading-8">
                     Use teaching materials from ChildArt magazine to enrich your curriculum and introduce students to the power of art in understanding cultural diversity and global issues.
                   </p>
                   <div className="mb-20">
@@ -136,10 +142,12 @@ export const Carousel = () => {
               <article className="bg-[#FFEA8B] p-3 rounded-2xl shadow-2xl">
                 <Image src={yellowDots} alt="" width={1536} height={432} className="absolute z-0 w-fit h-fit -mt-3 -ml-3 pointer-events-none" />
                 <div className="relative mx-10% pointer-events-none">
-                  <h3 className="font-semibold text-2xl mt-14 2xl:mt-12">
-                    ChildArt Magazine’s Teaching Supplements
-                  </h3>
-                  <p className="text-base my-8">
+                  <SubsectionLayout>
+                    <h3 className="font-semibold text-3xl mt-14 2xl:mt-12 leading-normal">
+                      ChildArt Magazine’s Teaching Supplements
+                    </h3>
+                  </SubsectionLayout>
+                  <p className="text-xl my-8 leading-8">
                     ICAF offers a range of programs and initiatives that harness the power of art and creativity to positively impact children's lives.
                   </p>
                   <div className="mb-20 2xl:mb-16">
@@ -163,10 +171,12 @@ export const Carousel = () => {
           <article className="bg-light-green p-3 rounded-2xl relative overflow-hidden">
             <Image src={greenBlob} alt="" width={1536} height={432} className="absolute z-0 w-fit -mt-3 -ml-3" />
             <div className="relative mx-5%">
-              <h3 className="font-semibold text-2xl mt-10">
-                Broaden Horizons with Art
-              </h3>
-              <p className="text-base mt-6 w-11/12">
+              <SubsectionLayout>
+                <h3 className="font-semibold text-3xl mt-10 leading-norrmal">
+                  Broaden Horizons with Art
+                </h3>
+              </SubsectionLayout>
+              <p className="text-xl mt-6 w-11/12 leading-8">
                 Use teaching materials from ChildArt magazine to enrich your curriculum and introduce students to the power of art in understanding cultural diversity and global issues.
               </p>
               <div className="mt-8 mb-12">
@@ -180,10 +190,12 @@ export const Carousel = () => {
           <article className="bg-baby-blue p-3 rounded-2xl mt-10 relative overflow-hidden">
             <Image src={blueBlob} alt="" width={1536} height={432} className="absolute z-0 w-fit h-fit -mt-3 -ml-3 rounded-2xl" />
             <div className="relative mx-5%">
-              <h3 className="font-semibold text-2xl mt-10">
-                World Children’s Festival
-              </h3>                      
-              <p className="text-base mt-6 w-11/12">
+              <SubsectionLayout>
+                <h3 className="font-semibold text-3xl mt-10 leading-normal">
+                  World Children’s Festival
+                </h3>
+              </SubsectionLayout>                  
+              <p className="text-xl mt-6 w-11/12 leading-8">
                 Learn more about the World Children’s Festival,  the World Children’s Award, and our research and publications promoting STEAMS education that integrates Arts and Sports with STEM disciplines.
               </p>
               <div className="mt-8 mb-12">
@@ -198,10 +210,12 @@ export const Carousel = () => {
           <article className="bg-[#FFEA8B] p-3 rounded-2xl mt-10 relative overflow-hidden">
             <Image src={yellowDots} alt="" width={1536} height={432} className="absolute z-0 w-fit -mt-3 -ml-3" />
             <div className="relative mx-5%">
-              <h3 className="font-semibold text-2xl mt-10">
-                ChildArt Magazine’s Teaching Supplements
-              </h3>
-              <p className="text-base mt-6 w-11/12">
+              <SubsectionLayout>
+                <h3 className="font-semibold text-3xl mt-10 leading-normal">
+                  ChildArt Magazine’s Teaching Supplements
+                </h3>
+              </SubsectionLayout>
+              <p className="text-xl mt-6 w-11/12 leading-8">
                 ICAF offers a range of programs and initiatives that harness the power of art and creativity to positively impact children's lives.
               </p>
               <div className="mt-8 mb-12">
@@ -213,9 +227,7 @@ export const Carousel = () => {
             </div>
           </article>
         </section>
-
       </div>
-
       <Image src={purpleBlob} alt="" width={1536} height={432} className="absolute -z-10 -mt-52 sm:-mt-80 lg:-mt-96 right-0 w-1/4 h-fit" />
     </>
   );

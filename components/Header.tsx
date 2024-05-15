@@ -30,20 +30,20 @@ const Header = () => {
       
       <div className="flex flex-wrap w-full">
 
-        <a href="https://artsolympiad.info/artwok_registration.php" className="group my-2 h-fit w-fit border-new-blue border rounded text-center py-2 px-3 text-xs cursor-pointer tracking-wide text-new-blue hidden md:block">
+        <a href="#" className="group my-2 h-fit w-fit border-new-blue border rounded text-center py-2 px-3 text-xs cursor-pointer tracking-wide text-new-blue hidden md:block">
           <UploadIcon />
           Upload
         </a>
 
-        <a href="https://artsolympiad.info/artwok_select.php" className="group my-2 ml-2 h-fit w-fit border-new-blue border rounded text-center py-2 px-3 text-xs cursor-pointer tracking-wide text-new-blue hidden md:block">
+        <a href="#" className="group my-2 ml-2 h-fit w-fit border-new-blue border rounded text-center py-2 px-3 text-xs cursor-pointer tracking-wide text-new-blue hidden md:block">
           <VoteIcon />
           Vote
         </a>
 
-        <a href="#" className="group my-2 ml-auto h-fit w-fit text-center py-2 px-3 text-xs cursor-pointer tracking-wide text-new-blue hidden md:block">
+        <Link href="/auth/login" className="group my-2 ml-auto h-fit w-fit text-center py-2 px-3 text-xs cursor-pointer tracking-wide text-new-blue hidden md:block">
           <LoginIcon />
           Login
-        </a>
+        </Link>
 
         <hr className="my-2 border-new-black border-t-0.5 w-full hidden md:block"></hr>
 
@@ -66,14 +66,14 @@ const Header = () => {
             <nav tabIndex={0} className="bg-neutral-white invisible rounded-b-xl w-max absolute left-0 top-full transition-all opacity-0 group-hover:visible group-hover:opacity-100 group-hover:translate-x-1 group-hover:duration-500 group-hover:ease-in-out">
               <ul className="py-1">
                 <li>
-                  <a href="#" className="text-new-blue block px-4 py-2 w-fit h-fit tracking-widest text-sm un focus-within:text-new-blue focus-within:font-bold">
-                    Active entries to Vote on
-                  </a>
+                  <Link href="/gallery" className="text-new-blue block px-4 py-2 w-fit h-fit tracking-widest text-sm un focus-within:text-new-blue focus-within:font-bold">
+                    Active Entries to Vote on
+                  </Link>
                 </li>
                 <li>
-                  <a href="#" className="text-new-blue block px-4 py-2 w-fit h-fit tracking-widest text-sm un focus-within:text-new-blue focus-within:font-bold">
-                    Past entries for inspiration
-                  </a>
+                  <Link href="/past-entries" className="text-new-blue block px-4 py-2 w-fit h-fit tracking-widest text-sm un focus-within:text-new-blue focus-within:font-bold">
+                    Past Entries for Inspiration
+                  </Link>
                 </li>
               </ul>
             </nav>
