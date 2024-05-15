@@ -4,6 +4,11 @@ import Footer from "../../components/Footer";
 import Header from "../../components/Header";
 import { Metadata } from "next";
 import {NavigationEvents} from "./NavigationEvents";
+import { Amplify } from "aws-amplify";
+import config from "../amplifyconfiguration.json";
+
+Amplify.configure(config);
+// console.log(Amplify.getConfig());
 
 export const inter = Inter({
   subsets: ["latin"],

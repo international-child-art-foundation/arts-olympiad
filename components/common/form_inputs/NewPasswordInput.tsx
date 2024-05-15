@@ -44,6 +44,7 @@ export const NewPasswordInput = ({className, labelText, id, placeholder, inputTy
         type={inputType || "text" }
         id={id}
         name={id}
+        autoComplete="new-password"
       >
       </Field>
 

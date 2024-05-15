@@ -10,11 +10,12 @@ interface IProps {
   placeholder?: string
   inputType?: string
   error: string | undefined
+  autoComplete?: string | undefined;
   touched: boolean | undefined
   value: string | undefined
   required?: boolean
 }
-export const TextInput = ({className, labelText, id, placeholder, inputType, error, touched, value, required = true}: IProps) => {
+export const TextInput = ({className, labelText, id, placeholder, inputType, error, autoComplete, touched, value, required = true}: IProps) => {
 
   return (
     <div className={`${className} my-1 flex flex-col`} >
@@ -44,6 +45,7 @@ export const TextInput = ({className, labelText, id, placeholder, inputType, err
         type={inputType || "text" }
         id={id}
         name={id}
+        autoComplete={autoComplete}
       >
       </Field>
 

@@ -12,15 +12,19 @@ import apple from "../../public/auth/Apple.svg";
 import OpenEye from "../../public/auth/eye_open.svg";
 import ClosedEye from "../../public/auth/eye_closed.svg";
 import Link from "next/link";
-import {useRouter} from "next/navigation";
+// import {useRouter} from "next/navigation";
 import {NewPasswordInput} from "../common/form_inputs/NewPasswordInput";
+import { UserSignupInterface } from "@/interfaces/user_signup";
 
-export interface IContactFormValues {
-  email: string,
-  password: string,
-}
 
 const validationSchema = Yup.object().shape({
+  firstName: Yup.string()
+    .matches(/^[a-zA-ZàáâäãåąčćęèéêëėįìíîïłńòóôöõøùúûüųūÿýżźñçčšžÀÁÂÄÃÅĄĆČĖĘÈÉÊËÌÍÎÏĮŁŃÒÓÔÖÕØÙÚÛÜŲŪŸÝŻŹÑßÇŒÆČŠŽ∂ð ,."-]+$/u, "Invalid characters in first name")
+    .max(30, "First name must be no longer than 30 characters"),
+  lastName: Yup.string()
+    .matches(/^[a-zA-ZàáâäãåąčćęèéêëėįìíîïłńòóôöõøùúûüųūÿýżźñçčšžÀÁÂÄÃÅĄĆČĖĘÈÉÊËÌÍÎÏĮŁŃÒÓÔÖÕØÙÚÛÜŲŪŸÝŻŹÑßÇŒÆČŠŽ∂ð ,."-]+$/u, "Invalid characters in last name")
+    .max(30, "Last name must be no longer than 30 characters"),
+  //TODO: birthdate validation
   email: Yup.string().email("Not a recognized email address").required("Email is required"),
   password: Yup.string()
     .required("Password is required")
@@ -30,20 +34,41 @@ const validationSchema = Yup.object().shape({
     ),
 });
 
-const initialValues: IContactFormValues = {
+const initialValues: UserSignupInterface = {
+  firstName: "",
+  lastName: "",
   email: "",
+  birthdate: "",
   password: ""
 };
 
 export const RegisterForm = () => {
 
   const [showPassword, setShowPassword] = useState(false);
-  const router = useRouter();
+  // const router = useRouter();
 
-  // eslint-disable-next-line no-unused-vars, @typescript-eslint/no-unused-vars
-  const onSubmit = (values: IContactFormValues) => {
-    // API call occurs, using values
-    router.push("/auth/login");
+  const onSubmit = async (values: UserSignupInterface) => {
+    try {
+      const response = await fetch("/api/signup", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(values),
+      });
+
+      if (response.ok) {
+        
+        console.log("Signup has succeeded.");
+        // Notify user
+      } else {
+        // Handle error
+        const errorData = await response.json();
+        console.error("Signup failed:", errorData.error);
+      }
+    } catch (error) {
+      console.error("An error occurred during signup:", error);
+    }
   };
 
   return (
@@ -57,8 +82,12 @@ export const RegisterForm = () => {
         onSubmit={onSubmit}
       >
         {({ errors, touched, values }) => (
-          <Form className="pointer-events-none opacity-50"> {/* Disabled until contest begins*/}
-            <TextInput inputType="email" className="mt-4" placeholder="johndoe@gmail.com" error={errors.email}  touched={touched.email} value={values.email} labelText="Email" id="email" />
+          <Form > {/* Disabled until contest begins: className="pointer-events-none opacity-50"*/}
+            <div className="grid grid-cols-2 gap-4">
+              <TextInput inputType="string" className="mt-4" placeholder="John" error={errors.firstName}  touched={touched.firstName} value={values.firstName} labelText="First Name" id="firstName" />
+              <TextInput inputType="string" className="mt-4" placeholder="Doe" error={errors.lastName}  touched={touched.lastName} value={values.lastName} labelText="Last name" id="lastName" />
+            </div>
+            <TextInput inputType="email" className="" placeholder="johndoe@gmail.com" autoComplete="username" error={errors.email}  touched={touched.email} value={values.email} labelText="Email" id="email" />
             <div className="relative">
               <NewPasswordInput inputType={`${!showPassword && "password" }`} className="mb-4" placeholder="Squk1*Bn" error={errors.password}  touched={touched.password} value={values.password} labelText="Password" id="password" />
               <Image
