@@ -196,6 +196,28 @@
                   ]
                 }
               ]
+            },
+            {
+              "Effect": "Allow",
+              "Action": [
+                "lambda:InvokeFunction"
+              ],
+              "Resource": {
+                "Fn::Sub": [
+                  "arn:aws:lambda:${region}:${account}:function:processImage-${ENV}",
+                  {
+                    "region": {
+                      "Ref": "AWS::Region"
+                    },
+                    "account": {
+                      "Ref": "AWS::AccountId"
+                    },
+                    "ENV": {
+                      "Ref": "env"
+                    }
+                  }
+                ]
+              }
             }
           ]
         }

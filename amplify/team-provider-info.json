@@ -16,11 +16,11 @@
       "function": {
         "processImage": {
           "deploymentBucketName": "amplify-amplify0c8bb601bc2b4-staging-185846-deployment",
-          "s3Key": "amplify-builds/processImage-6d36646d4b3477566158-build.zip"
+          "s3Key": "amplify-builds/processImage-514a54745a4772497038-build.zip"
         },
         "usersLambda": {
           "deploymentBucketName": "amplify-amplify0c8bb601bc2b4-staging-185846-deployment",
-          "s3Key": "amplify-builds/usersLambda-557351344c3573305844-build.zip"
+          "s3Key": "amplify-builds/usersLambda-614f6c5a666159776653-build.zip"
         }
       },
       "storage": {

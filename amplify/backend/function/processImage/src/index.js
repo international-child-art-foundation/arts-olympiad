@@ -11,18 +11,17 @@ import { S3Client, GetObjectCommand, PutObjectCommand, ListObjectsV2Command } fr
 import { Readable } from "stream";
 import sharp from "sharp";
 
-const client = new S3Client();
+const s3Client = new S3Client();
 
 export const handler = async (event) => {
   console.log(`EVENT: ${JSON.stringify(event)}`);
   
-  const bucket = "artsolympiadf677eab9a54848dc8788ee9110a11839185846-staging"; // todo: load as env variable
+  const bucket = `artsolympiadf677eab9a54848dc8788ee9110a11839185846-${process.env.ENV}`;
   const userId = event.user_id;
-  // const srcKey = decodeURIComponent(event.Records[0].s3.object.key.replace(/\+/g, " "));
 
   let srcKey;
   try {
-    const data = await client.send(new ListObjectsV2Command({
+    const data = await s3Client.send(new ListObjectsV2Command({
       Bucket: bucket,
       Prefix: userId
     }));
@@ -37,7 +36,6 @@ export const handler = async (event) => {
     }
 
     srcKey = data.Contents[0].Key;
-    console.log(srcKey);
   } catch (error) {
     console.log("Error", error);
     return {
@@ -50,7 +48,7 @@ export const handler = async (event) => {
   let contentBuffer;
   let metaData;
   try {
-    const response = await client.send(getCommand);
+    const response = await s3Client.send(getCommand);
     console.log(response);
     console.log(response.Metadata);
     metaData = response.Metadata;
@@ -81,7 +79,7 @@ export const handler = async (event) => {
     try {
       outputBuffer = await sharp(contentBuffer).resize(width).toFormat("webp").toBuffer();
     } catch (error) {
-      console.log("Error processing image with sharp", error);
+      console.log("Error processing image with sharp.", error);
       return {
         statusCode: 400,
         body: JSON.stringify({ error: error })
@@ -97,7 +95,7 @@ export const handler = async (event) => {
     });
 
     try {
-      await client.send(putCommand);
+      await s3Client.send(putCommand);
       console.log(`Image successfully processed and uploaded: ${dstKey}`);
     } catch (error) {
       console.log("Error uploading processed image to S3:", error);
@@ -107,4 +105,8 @@ export const handler = async (event) => {
       }
     }
   }
+  return {
+    statusCode: 200,
+    body: JSON.stringify({ message: 'Success processing image.' })
+  };
 };
