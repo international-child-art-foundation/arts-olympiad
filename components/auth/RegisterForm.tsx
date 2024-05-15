@@ -15,7 +15,7 @@ import Link from "next/link";
 // import {useRouter} from "next/navigation";
 import {NewPasswordInput} from "../common/form_inputs/NewPasswordInput";
 import { UserSignupInterface } from "@/interfaces/user_signup";
-
+import RegisterDateOfBirth from "./RegisterDateOfBirth";
 
 const validationSchema = Yup.object().shape({
   firstName: Yup.string()
@@ -24,7 +24,27 @@ const validationSchema = Yup.object().shape({
   lastName: Yup.string()
     .matches(/^[a-zA-ZàáâäãåąčćęèéêëėįìíîïłńòóôöõøùúûüųūÿýżźñçčšžÀÁÂÄÃÅĄĆČĖĘÈÉÊËÌÍÎÏĮŁŃÒÓÔÖÕØÙÚÛÜŲŪŸÝŻŹÑßÇŒÆČŠŽ∂ð ,."-]+$/u, "Invalid characters in last name")
     .max(30, "Last name must be no longer than 30 characters"),
-  //TODO: birthdate validation
+  birthdate: Yup.object().shape({
+    // Test that each date number is valid
+    day: Yup.number().min(1, "Please enter a valid day").max(31, "Please enter a valid day").required("Day is required"),
+    month: Yup.number().min(1, "Please enter a valid month").max(12, "Please enter a valid month").required("Month is required"),
+    year: Yup.number().min(1900, "Please enter a valid year").max(2024, "Please enter a valid year").required("Year is required")
+  }).test("is-valid-date", "The date is invalid", value => {
+    if (!value) return true;
+    const { day, month, year } = value;
+    if (month < 1 || month > 12) return false;
+    if (day < 1) return false;
+    const daysInMonth = new Date(year, month, 0).getDate();
+    if (day > daysInMonth) return false;
+    return true;
+  // TODO: I believe users can sign up at any age - needs to be checked
+  // }).test("is-old-enough", "You need to be over 14 to enter this competition", value => {
+  //   if (!value) return true;
+  //   const { day, month, year } = value;
+  //   const birthDate = new Date(year, month - 1, day);
+  //   const age = calculateAge(birthDate);
+  //   return age >= 14;
+  }),
   email: Yup.string().email("Not a recognized email address").required("Email is required"),
   password: Yup.string()
     .required("Password is required")
@@ -38,7 +58,7 @@ const initialValues: UserSignupInterface = {
   firstName: "",
   lastName: "",
   email: "",
-  birthdate: "",
+  birthdate: {day: undefined, month: undefined, year: undefined},
   password: ""
 };
 
@@ -87,6 +107,12 @@ export const RegisterForm = () => {
               <TextInput inputType="string" className="mt-4" placeholder="John" error={errors.firstName}  touched={touched.firstName} value={values.firstName} labelText="First Name" id="firstName" />
               <TextInput inputType="string" className="mt-4" placeholder="Doe" error={errors.lastName}  touched={touched.lastName} value={values.lastName} labelText="Last name" id="lastName" />
             </div>
+            <RegisterDateOfBirth
+              name="birthdate"
+              errors={errors.birthdate ?? { day: undefined, month: undefined, year: undefined }}
+              touched={touched.birthdate ?? { day: false, month: false, year: false }}
+              values={values.birthdate}
+            />
             <TextInput inputType="email" className="" placeholder="johndoe@gmail.com" autoComplete="username" error={errors.email}  touched={touched.email} value={values.email} labelText="Email" id="email" />
             <div className="relative">
               <NewPasswordInput inputType={`${!showPassword && "password" }`} className="mb-4" placeholder="Squk1*Bn" error={errors.password}  touched={touched.password} value={values.password} labelText="Password" id="password" />
