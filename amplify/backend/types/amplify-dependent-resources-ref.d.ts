@@ -20,13 +20,6 @@ export type AmplifyDependentResourcesAttributes = {
     }
   },
   "function": {
-    "createPresignedUrl": {
-      "Arn": "string",
-      "LambdaExecutionRole": "string",
-      "LambdaExecutionRoleArn": "string",
-      "Name": "string",
-      "Region": "string"
-    },
     "processImage": {
       "Arn": "string",
       "LambdaExecutionRole": "string",

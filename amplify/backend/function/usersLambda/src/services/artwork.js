@@ -50,8 +50,13 @@ async function deleteArtwork(artworkId) {
   }
 }
 
-async function voteArtwork(artworkId) {
-  const artwork = await ArtworkModel.voteArtworkById(artworkId);
+async function incrementVoteArtwork(artworkId) {
+  const artwork = await ArtworkModel.incrementVoteArtworkById(artworkId);
+  return formatArtwork(artwork.Attributes);
+}
+
+async function decrementVoteArtwork(artworkId) {
+  const artwork = await ArtworkModel.decrementVoteArtworkById(artworkId);
   return formatArtwork(artwork.Attributes);
 }
 
@@ -77,7 +82,7 @@ async function getArtworks(queryParams) {
 
 async function createUrlAndFields(userId, fileType="jpg") {
   const client = s3Client;
-  const Bucket = "artsolympiadf677eab9a54848dc8788ee9110a11839185846-staging"; // todo: load as env variable
+  const Bucket = `artsolympiadf677eab9a54848dc8788ee9110a11839185846-${process.env.ENV}`;
 
   const Key = `${userId}/initial.${fileType}`;
   const Expires = 900;
@@ -143,7 +148,8 @@ module.exports = {
   getArtwork,
   addArtwork,
   deleteArtwork,
-  voteArtwork,
+  incrementVoteArtwork,
+  decrementVoteArtwork,
   approveArtwork,
   getArtworks,
   createUrlAndFields

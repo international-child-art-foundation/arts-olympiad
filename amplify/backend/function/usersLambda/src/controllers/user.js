@@ -8,7 +8,7 @@ async function getUser(req, res) {
     res.status(200).json(user);
   } catch (error) {
     console.error("Error from route" + error);
-    res.status(500).json({ error });
+    res.status(400).json({ error });
   }
 }
 
@@ -21,7 +21,7 @@ async function registerUser(req, res)  {
     res.status(201).json(user);
   } catch (error) {
     console.error(error);
-    res.status(500).json({ message: "Registration failed", error: error.message });
+    res.status(400).json({ message: "Registration failed", error: error.message });
   }
 }
 
@@ -33,7 +33,7 @@ async function verifyUser(req, res) {
     res.status(200).json(user);
   } catch (error) {
     console.error(error);
-    res.status(500).json({ message: "Registration failed", error: error.message });
+    res.status(400).json({ message: "Registration failed", error: error.message });
   }
 }
 
@@ -57,7 +57,7 @@ async function deleteUser(req, res) {
     res.status(204).send();
   } catch(error) {
     console.error("error deleting user");
-    res.status(500).json({message: "error deleting user", error: error});
+    res.status(400).json({message: "error deleting user", error: error});
   }
 }
 
@@ -69,7 +69,7 @@ async function updateUser(req, res) {
     res.status(200).json(updatedUser);
   } catch(error) {
     console.error(error);
-    res.status(500).json({message: "updating user failed" , error: error.message});
+    res.status(400).json({message: "updating user failed" , error: error.message});
   }
 }
 

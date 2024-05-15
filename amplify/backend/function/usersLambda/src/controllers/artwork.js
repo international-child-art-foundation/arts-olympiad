@@ -1,3 +1,4 @@
+const { LambdaClient, InvokeCommand } = require("@aws-sdk/client-lambda");
 const ArtworkService = require("../services/artwork");
 
 async function getArtwork(req, res) {
@@ -7,7 +8,7 @@ async function getArtwork(req, res) {
     res.status(200).json(artwork);
   } catch(error) {
     console.error(error);
-    res.status(500).json({message: "error fetching", error: error.message});
+    res.status(400).json({message: "Error getting artwork", error: error.message});
   }
 }
 
@@ -28,29 +29,56 @@ async function addArtwork(req, res) {
     const artwork = await ArtworkService.addArtwork(artworkData);
     res.status(200).json(artwork);
   } catch(error) {
-    res.status(500).json({message: "error creating", error: error});
+    res.status(400).json({message: "error creating", error: error});
   }
 }
 
 async function approveArtwork(req, res) {
   const artworkId = req.params.artworkId;
   const approvalStatus = req.body.is_approved;
+
+  // process images before approving artwork
   try {
+    const lambdaClient = new LambdaClient({ region: process.env.REGION });
+    const command = new InvokeCommand({
+      FunctionName: `arn:aws:lambda:us-east-1:011385746984:function:processImage-${process.env.ENV}`,
+      InvocationType: 'RequestResponse', // for synchronous execution
+      Payload: JSON.stringify({ user_id: artworkId }) // artwork id is the same as user id
+    });
+    const { Payload } = await lambdaClient.send(command);
+    const response = JSON.parse(Buffer.from(Payload));
+    console.log(response);
+    if (response.statusCode != 200) {
+      throw new Error(JSON.parse(response.body).error);
+    };
+
     const artwork = await ArtworkService.approveArtwork(artworkId, approvalStatus);
     res.status(200).json(artwork);
   } catch(error) {
-    res.status(500).json({message: "error updating artwork", error: error});
+    console.error(error);
+    res.status(400).json({message: "Error updating artwork", error: error});
   }
 }
 
-async function voteArtwork(req, res) {
+async function incrementVoteArtwork(req, res) {
   const artworkId = req.params.artworkId;
   try {
-    const artwork = await ArtworkService.voteArtwork(artworkId);
+    const artwork = await ArtworkService.incrementVoteArtwork(artworkId);
     res.status(200).json(artwork);
   } catch(error) {
     console.error(error);
-    res.status(500).json({message: "error voting for artwork", error: error.message});
+    res.status(400).json({message: "Error incrementing vote for artwork", error: error.message});
+  }
+}
+
+async function decrementVoteArtwork(req, res) {
+  const artworkId = req.params.artworkId;
+  try {
+    const artwork = await ArtworkService.decrementVoteArtwork(artworkId);
+    res.status(200).json(artwork);
+  } catch(error) {
+    console.error(error);
+    res.status(400).json({message: "Error decrementing vote for artwork", error: error.message});
   }
 }
 
@@ -61,7 +89,7 @@ async function deleteArtwork(req, res) {
     res.status(204).json(response);
   } catch (error) {
     console.log(error);
-    res.status(500).json({ message: "error deleting artwork", error: error.message });
+    res.status(400).json({ message: "error deleting artwork", error: error.message });
   }
 }
 
@@ -71,7 +99,7 @@ async function getArtworks(req, res) {
     const artworks = await ArtworkService.getArtworks(queryParams);
     res.status(200).json(artworks);
   } catch(error) {
-    res.status(500).json({error: error.message });
+    res.status(400).json({error: error.message });
   }
 }
 
@@ -86,17 +114,16 @@ async function generatePresigned(req, res) {
       fields: fields 
     });
   } catch (error) {
-    res.status(500).json({ error: error.message });
+    res.status(400).json({ error: error.message });
   }
 }
-
-
 
 module.exports = {
   getArtwork,
   addArtwork,
   approveArtwork,
-  voteArtwork,
+  incrementVoteArtwork,
+  decrementVoteArtwork,
   deleteArtwork,
   getArtworks,
   generatePresigned

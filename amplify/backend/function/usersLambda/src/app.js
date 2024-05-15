@@ -4,6 +4,7 @@ const express = require("express")
 
 const ArtworkController = require("./controllers/artwork");
 const UserController = require("./controllers/user");
+const VotesController = require("./controllers/votes")
 
 // declare a new express app
 const app = express();
@@ -29,8 +30,11 @@ app.get("/api/artworks", ArtworkController.getArtworks);
 app.post("/api/artworks", ArtworkController.addArtwork);
 app.get("/api/artworks/:artworkId", ArtworkController.getArtwork);
 app.patch("/api/artworks/:artworkId", ArtworkController.approveArtwork);
-app.patch("/api/artworks/:artworkId/vote", ArtworkController.voteArtwork);
 app.delete("/api/artworks/:artworkId", ArtworkController.deleteArtwork);
+app.patch("/api/artworks/:artworkId/votes/increment", ArtworkController.incrementVoteArtwork);
+app.patch("/api/artworks/:artworkId/votes/decrement", ArtworkController.decrementVoteArtwork);
+
+app.get("/api/votes", VotesController.getTotalVotes);
 
 
 app.listen(3000, function() {
