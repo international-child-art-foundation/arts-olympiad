@@ -59,7 +59,7 @@ export const DynamicPasswordGuidelines = ({
 
   return (
     <>
-      {required && error && touched && error === "Password is required" && (
+      {required && error && touched && (
         <ErrorSuccessPopUp id={id} error={error} touched={touched} value={value} required={required} />
       )}
 
@@ -102,11 +102,16 @@ export const DynamicPasswordGuidelines = ({
 
       {showScore && (
         <div className="flex flex-row" role="region" aria-live="assertive" aria-atomic="true">
-          <Image style={{color: scoreColors[passwordStrength.score]}} className="self-center" src="/auth/check.svg" alt="" width={20} height={20} />
-          <p aria-live="assertive" aria-atomic="true" style={{color: scoreColors[passwordStrength.score]}}>
-          Password Strength: {scores[passwordStrength.score]}
-            <span className="sr-only">.</span>
-          </p>
+          {!error && touched && 
+          <>
+            <Image style={{color: scoreColors[passwordStrength.score]}} className="self-center" src="/auth/check.svg" alt="" width={20} height={20} />
+          
+            <p aria-live="assertive" aria-atomic="true" style={{color: scoreColors[passwordStrength.score]}}>
+            Password Strength: {scores[passwordStrength.score]}
+              <span className="sr-only">.</span>
+            </p>
+          </>
+          }
         </div>
       )}
 

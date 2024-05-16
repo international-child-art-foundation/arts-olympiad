@@ -1,3 +1,4 @@
+"use client";
 import React, {useState} from "react";
 import * as Yup from "yup";
 import {Form, Formik} from "formik";
@@ -16,6 +17,7 @@ import Link from "next/link";
 import {NewPasswordInput} from "../common/form_inputs/NewPasswordInput";
 import { UserSignupInterface } from "@/interfaces/user_signup";
 import RegisterDateOfBirth from "./RegisterDateOfBirth";
+import { handleSignUp } from "@/utils/auth";
 
 const validationSchema = Yup.object().shape({
   firstName: Yup.string()
@@ -67,28 +69,34 @@ export const RegisterForm = () => {
   const [showPassword, setShowPassword] = useState(false);
   // const router = useRouter();
 
-  const onSubmit = async (values: UserSignupInterface) => {
-    try {
-      const response = await fetch("/api/signup", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(values),
-      });
+  // const onSubmit = async (values: UserSignupInterface) => {
+  //   try {
+  //     const response = await fetch("/api/signup", {
+  //       method: "POST",
+  //       headers: {
+  //         "Content-Type": "application/json",
+  //       },
+  //       body: JSON.stringify(values),
+  //     });
 
-      if (response.ok) {
+  //     if (response.ok) {
         
-        console.log("Signup has succeeded.");
-        // Notify user
-      } else {
-        // Handle error
-        const errorData = await response.json();
-        console.error("Signup failed:", errorData.error);
-      }
-    } catch (error) {
-      console.error("An error occurred during signup:", error);
-    }
+  //       console.log("Signup has succeeded. An email should have been sent to the provided address.");
+  //       // Notify user
+  //     } else {
+  //       // Handle error
+  //       const errorData = await response.json();
+  //       console.error("Signup failed:", errorData.error);
+  //     }
+  //   } catch (error) {
+  //     console.error("An error occurred during signup:", error);
+  //   }
+  // };
+
+  // Sign-up needs to be handled client-side.
+  const onSubmit = (values: UserSignupInterface) => {
+    const result = handleSignUp(values);
+    console.log(result);
   };
 
   return (

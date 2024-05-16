@@ -1,7 +1,6 @@
 import React from "react";
 import { Field } from "formik";
 import { ErrorSuccessPopUp } from "../common/form_inputs/ErrorSuccessPopUp";
-import { useEffect } from "react";
 
 interface RegisterDateOfBirthProps {
   name: string;
@@ -39,13 +38,6 @@ const RegisterDateOfBirth: React.FC<RegisterDateOfBirthProps> = ({
       : "border-black"
 }
   `;
-
-  useEffect(() => {
-
-    console.log(errors);
-    console.log(touched);
-    console.log(values);
-  }, [errors, touched, values]);
 
   const labelClass = () => {
     const errorExists = Object.values(errors).some(error => error);

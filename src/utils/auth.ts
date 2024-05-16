@@ -1,5 +1,6 @@
-import { UserSignupInterface } from "@/interfaces/user_signup";
+import { BirthdateInterface, UserSignupInterface } from "@/interfaces/user_signup";
 import { signUp } from "aws-amplify/auth";
+import { isValid, format } from "date-fns";
 // import { confirmSignUp, ConfirmSignUpInput, autoSignIn, signIn, type SignInInput, signOut  } from "aws-amplify/auth";
 
 // These functions are to be used by our server API files in /src/app/api/.
@@ -12,17 +13,34 @@ export async function handleSignUp({
   email,
   password,
 }: UserSignupInterface) {
+
+  // First convert our `birthdate` object to ISO 8601, the type Cognito uses for birthdate storage
+  function formatBirthdate(birthdate: BirthdateInterface): string | null {
+    const { day, month, year } = birthdate;
+    const date = new Date(year as number, month as number - 1, day); // month is 0-indexed in JS Date
+    // Validate the date
+    if (!isValid(date)) {
+      return null;
+    }
+    // Format the date to ISO 8601 format (YYYY-MM-DD)
+    return format(date, "yyyy-MM-dd");
+  }
+  const cognitoFormattedBirthdate = formatBirthdate(birthdate);
+  // Validate the birthdate format
+  if (!cognitoFormattedBirthdate) {
+    return { success: false, error: "Invalid birthdate. Please provide a valid date in YYYY-MM-DD format." };
+  }
+  
   try {
-    // TODO: validate birthdate as a date (or cognito-required format) here or somewhere
     const { userId, nextStep } = await signUp({
       username: email,
       password,
       options: {
         userAttributes: {
           email,
-          "GivenName": firstName,
-          "FamilyName": lastName,
-          "Birthdate": birthdate,
+          "given_name": firstName,
+          "family_name": lastName,
+          "birthdate": cognitoFormattedBirthdate,
         },
         autoSignIn: true
       }
