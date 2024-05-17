@@ -5,6 +5,9 @@ import { ContactUs } from "../../../components/sponsor/ContactUs";
 import {Benefits} from "../../../components/sponsor/Benefits";
 import { VisionCards } from "../../../components/sponsor/VisionCards";
 import { PastSponsor } from "../../../components/sponsor/PastSponsor";
+import GreenTable from "../../../components/sponsor/GreenTable";
+import SlideShow from "../../../components/sponsor/SlideShow";
+import { Slide } from "@mui/material";
 
 export const metadata: Metadata = {
   title: "Sponsor | My Favorite Sport",
@@ -21,7 +24,9 @@ export default function sponsorPage() {
       <SponsorBegin />
       <VisionCards />
       <Benefits />
-      <PastSponsor />
+      <GreenTable />
+      <SlideShow />
+      {/* <PastSponsor /> */}
       <ContactUs />
       {/* <FiveDrop /> */}
       {/* <Image src={greenBlob} alt="" width={442} height={417} className="absolute z-0 right-0 w-1/2 sm:w-1/3 mb-10 max-w-xl" /> */}
