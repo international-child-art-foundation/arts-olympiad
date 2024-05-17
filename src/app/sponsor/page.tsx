@@ -4,10 +4,8 @@ import { SponsorBegin } from "../../../components/sponsor/SponsorBegin";
 import { ContactUs } from "../../../components/sponsor/ContactUs";
 import {Benefits} from "../../../components/sponsor/Benefits";
 import { VisionCards } from "../../../components/sponsor/VisionCards";
-import { PastSponsor } from "../../../components/sponsor/PastSponsor";
 import GreenTable from "../../../components/sponsor/GreenTable";
 import SlideShow from "../../../components/sponsor/SlideShow";
-import { Slide } from "@mui/material";
 
 export const metadata: Metadata = {
   title: "Sponsor | My Favorite Sport",

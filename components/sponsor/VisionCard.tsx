@@ -2,7 +2,6 @@
 import "../../src/styles/fade-in-out-texture.css";
 import React, {StaticImageData} from "next/image";
 import {ReactNode, useState} from "react";
-import {Pm} from "../common/texts/Pm";
 import Image from "next/image";
 import useWindowDimensions from "@/hooks/useWindowDimensions";
 

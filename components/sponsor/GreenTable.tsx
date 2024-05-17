@@ -1,107 +1,104 @@
-"use client"
-import React, { useState } from 'react'
-import { H2m } from '../common/texts/H2m'
-import GreenTableRow from './GreenTableRow'
-import Image from 'next/image'
-import GreenTableCard from './GreenTableCard'
-import '../../src/styles/GreenTable.css'
-import check from '../../public/sponsor/check.png'
+"use client";
+import React, { useState } from "react";
+import { H2m } from "../common/texts/H2m";
+import GreenTableRow from "./GreenTableRow";
+import Image from "next/image";
+import GreenTableCard from "./GreenTableCard";
+import "../../src/styles/GreenTable.css";
+import check from "../../public/sponsor/check.png";
 
 function GreenTable() {
-    const cards = [
-        {id:'item-1', heading:'Gold Sponsor', money:'$300,000'},
-        {id:'item-2', heading:'Silver Sponsor', money:'$200,000'},
-        {id:'item-3', heading:'Bronze Sponsor', money:'$100,000'}
-    ]
+  // const cards = [
+  //   {id:"item-1", heading:"Gold Sponsor", money:"$300,000"},
+  //   {id:"item-2", heading:"Silver Sponsor", money:"$200,000"},
+  //   {id:"item-3", heading:"Bronze Sponsor", money:"$100,000"}
+  // ];
 
-    const drops = [
-        {description:'Logo placement on this website'},
-        {description:'Appreciation in press releases'},
-        {description:'Media exposure through sports and arts publications'},
-        {description:'New exciting content to social media channels'},
-        {description:'Announce winners at the National Press Club on August 8th'},
-        {description:'The gold, silver and bronze visit the corporate HQ in late August to collaboratively paint a mural and present it.'}
-    ]
+  const drops = [
+    {description:"Logo placement on this website"},
+    {description:"Appreciation in press releases"},
+    {description:"Media exposure through sports and arts publications"},
+    {description:"New exciting content to social media channels"},
+    {description:"Announce winners at the National Press Club on August 8th"},
+    {description:"The gold, silver and bronze visit the corporate HQ in late August to collaboratively paint a mural and present it."}
+  ];
 
-    const [active, setActive] = useState(0);
+  // const [active, setActive] = useState(0);
   
-    const [checkedOption, setCheckedOption] = useState(3);
-    const [forceRender, setForceRender] = useState(0);
-    const handleCheck = (option: number) => {
-      if (checkedOption === option) {
-        setForceRender(prev => prev + 1);
-        return;
-      }
-      setCheckedOption(option);
-    };
-
-    let slideIndex = 1;
-    showSlides(slideIndex);
-
-    function currentSlide(n: number) {
-        showSlides(slideIndex = n);
+  const [checkedOption, setCheckedOption] = useState(3);
+  const [forceRender, setForceRender] = useState(0);
+  const handleCheck = (option: number) => {
+    if (checkedOption === option) {
+      setForceRender(prev => prev + 1);
+      return;
     }
+    setCheckedOption(option);
+  };
 
-    function showSlides(n: number) {
-        let i;
-        if(typeof window === 'undefined') return;
-        let slides = document.getElementsByClassName("card");
-        let dots = document.getElementsByClassName("dot");
-        if (n > slides.length) {slideIndex = 1}
-        if (n < 1) {slideIndex = slides.length}
-        for (i = 0; i < slides.length; i++) {
-            slides[i].className += "scale-0.8";
-        }
-        for (i = 0; i < dots.length; i++) {
-            dots[i].className = dots[i].className.replace(" active", "");
-        }
-        // slides[slideIndex-1].setAttribute('style', 'display: block');
+  let slideIndex = 1;
+  showSlides(slideIndex);
 
-        // if(slideIndex === 1) {
-        //     slides[slideIndex-1].className += " scale-125 translate-x-64";
-        //     slides[slideIndex].className += " translate-x-64";
-        //     slides[slideIndex + 1].className += " -translate-x-[128x]";
-        // } else if(slideIndex === 2) {
-        //     slides[slideIndex-1].className += " scale-125";
-        //     slides[slideIndex-2].className.replace(" scale-125", " scale-100");
-        //     slides[slideIndex].className.replace(" scale-125"," scale-100");
-        // } else {
-        //     slides[slideIndex-1].className += " scale-125 -translate-x-64";
-        //     slides[slideIndex-2].className += " -translate-x-64";
-        //     slides[slideIndex - 3].className += " translate-x-[128px]";
-        // }
-        if (slideIndex > 0 && slideIndex <= dots.length) {
-            dots[slideIndex - 1].className += " active";
-        }
+
+  function showSlides(n: number) {
+    let i;
+    if(typeof window === "undefined") return;
+    const slides = document.getElementsByClassName("card");
+    const dots = document.getElementsByClassName("dot");
+    if (n > slides.length) {slideIndex = 1;}
+    if (n < 1) {slideIndex = slides.length;}
+    for (i = 0; i < slides.length; i++) {
+      slides[i].className += "scale-0.8";
     }
+    for (i = 0; i < dots.length; i++) {
+      dots[i].className = dots[i].className.replace(" active", "");
+    }
+    // slides[slideIndex-1].setAttribute('style', 'display: block');
+
+    // if(slideIndex === 1) {
+    //     slides[slideIndex-1].className += " scale-125 translate-x-64";
+    //     slides[slideIndex].className += " translate-x-64";
+    //     slides[slideIndex + 1].className += " -translate-x-[128x]";
+    // } else if(slideIndex === 2) {
+    //     slides[slideIndex-1].className += " scale-125";
+    //     slides[slideIndex-2].className.replace(" scale-125", " scale-100");
+    //     slides[slideIndex].className.replace(" scale-125"," scale-100");
+    // } else {
+    //     slides[slideIndex-1].className += " scale-125 -translate-x-64";
+    //     slides[slideIndex-2].className += " -translate-x-64";
+    //     slides[slideIndex - 3].className += " translate-x-[128px]";
+    // }
+    if (slideIndex > 0 && slideIndex <= dots.length) {
+      dots[slideIndex - 1].className += " active";
+    }
+  }
 
   return (
     <>
-        <div className='relative flex flex-col mx-auto justify-center items-center hidden lg:block z-40 py-36 lg:px-12 2xl:mt-56 xl:px-24'>
-        <H2m className='relative font-montserrat font-medium text-center pb-12'>Specific Benefits</H2m>
-        <table className='relative mx-auto py-12 bg-light-green text-center space-x-12 border-2 rounded-lg'>
-            <tbody>               
-                <tr className='border-2'>
-                    <td></td>
-                    <td className='px-6 xl:px-12 py-4 border-2'><div className='flex flex-col'><p className="whitespace-nowrap">Gold Sponsor</p><p>$300,000</p></div></td>
-                    <td className='px-6 xl:px-12 py-4 border-2'><div className='flex flex-col'><p className="whitespace-nowrap">Silver Sponsor</p><p>$300,000</p></div></td>
-                    <td className='px-6 xl:px-12 py-4 border-2'><div className='flex flex-col'><p className="whitespace-nowrap">Bronze Sponsor</p><p>$300,000</p></div></td>
-                </tr>
-                <GreenTableRow td="Logo placement on this website" td1='true' td2='true'/>
-                <GreenTableRow td="Appreciation in press releases" td1="true" td2='true'/>
-                <GreenTableRow td="Media exposure through sports and arts publications" td1="true" td2='true'/>
-                <GreenTableRow td="New exciting content to social media channels" td1="true" td2='true'/>
-                <GreenTableRow td="Announce winners at the National Press Club on August 8th " td1="true" td2=''/>
-                <GreenTableRow td="Announce winners at the National Press Club on August 8th " td1="true" td2=''/>
-                <GreenTableRow td="The gold, silver and bronze visit the corporate HQ in late August to collaboratively paint a mural and present it." td1="" td2=''/>
-            </tbody>            
+      <div className="relative flex flex-col mx-auto justify-center items-center hidden lg:block z-40 py-36 lg:px-12 2xl:mt-56 xl:px-24">
+        <H2m className="relative font-montserrat font-medium text-center pb-12">Specific Benefits</H2m>
+        <table className="relative mx-auto py-12 bg-light-green text-center space-x-12 border-2 rounded-lg">
+          <tbody>               
+            <tr className="border-2">
+              <td></td>
+              <td className="px-6 xl:px-12 py-4 border-2"><div className="flex flex-col"><p className="whitespace-nowrap">Gold Sponsor</p><p>$300,000</p></div></td>
+              <td className="px-6 xl:px-12 py-4 border-2"><div className="flex flex-col"><p className="whitespace-nowrap">Silver Sponsor</p><p>$300,000</p></div></td>
+              <td className="px-6 xl:px-12 py-4 border-2"><div className="flex flex-col"><p className="whitespace-nowrap">Bronze Sponsor</p><p>$300,000</p></div></td>
+            </tr>
+            <GreenTableRow td="Logo placement on this website" td1="true" td2="true"/>
+            <GreenTableRow td="Appreciation in press releases" td1="true" td2="true"/>
+            <GreenTableRow td="Media exposure through sports and arts publications" td1="true" td2="true"/>
+            <GreenTableRow td="New exciting content to social media channels" td1="true" td2="true"/>
+            <GreenTableRow td="Announce winners at the National Press Club on August 8th " td1="true" td2=""/>
+            <GreenTableRow td="Announce winners at the National Press Club on August 8th " td1="true" td2=""/>
+            <GreenTableRow td="The gold, silver and bronze visit the corporate HQ in late August to collaboratively paint a mural and present it." td1="" td2=""/>
+          </tbody>            
         </table>
-        </div>
-        {/* mobile */}
-        {/* <div className='relative flex flex-col lg:hidden justify-center items-center py-12 px-6'>
+      </div>
+      {/* mobile */}
+      {/* <div className='relative flex flex-col lg:hidden justify-center items-center py-12 px-6'>
             
             <H2m className='relative font-montserrat font-medium text-center pb-12'>Specific Benefits</H2m> */}
-            {/* <div className='cards flex flex-row justify-center mx-auto space-x-4'>   
+      {/* <div className='cards flex flex-row justify-center mx-auto space-x-4'>   
                 {cards.map((card, index) => (
                     <label
                         key={card.id}
@@ -115,8 +112,8 @@ function GreenTable() {
                         <GreenTableCard heading={card.heading} money={card.money} />
                     </label>
                 ))} */}
-            {/* </div> */}
-            {/* <div data-force-render={forceRender} className='flex flex-row px-4'>
+      {/* </div> */}
+      {/* <div data-force-render={forceRender} className='flex flex-row px-4'>
             <input id="article-01" type="checkbox" name="slider" className="sr-only peer/01" checked={checkedOption === 1} onChange={() => handleCheck(1)}/>
             <input id="article-02" type="checkbox" name="slider" className="sr-only peer/02" checked={checkedOption === 2} onChange={() => handleCheck(2)}/>
             <input id="article-03" type="checkbox" name="slider" className="sr-only peer/03" checked={checkedOption === 3} onChange={() => handleCheck(3)}/>
@@ -177,7 +174,7 @@ function GreenTable() {
                 <span className="dot" onClick={() => currentSlide(2)}></span>
                 <span className="dot" onClick={() => currentSlide(3)}></span>
             </div> */}
-            <div data-force-render={forceRender} className="relative z-20 pt-8 pb-24 mx-auto max-w-screen-2xl px-8 md:px-12 lg:px-16 xl:px-20">
+      <div data-force-render={forceRender} className="relative z-20 pt-8 pb-24 mx-auto max-w-screen-2xl px-8 md:px-12 lg:px-16 xl:px-20">
         <section className="relative lg:hidden mx-auto">
           <div className="lg:max-w-md xl:max-w-lg 2xl:max-w-xl mx-auto relative">
             <input id="article-01" type="checkbox" name="slider" className="sr-only peer/01" checked={checkedOption === 1} onChange={() => handleCheck(1)}/>
@@ -199,7 +196,7 @@ function GreenTable() {
               peer-checked/03:z-10
             ">
               <label className="absolute inset-0" htmlFor="article-01"><span className="sr-only"></span></label>
-              <GreenTableCard heading='Gold Sponsor' money="$300,000"/>
+              <GreenTableCard heading="Gold Sponsor" money="$300,000"/>
             </div>
 
             <div className="
@@ -218,7 +215,7 @@ function GreenTable() {
               peer-checked/03:z-10              
             ">
               <label className="absolute inset-0" htmlFor="article-02"><span className="sr-only"></span></label>
-              <GreenTableCard heading='Silver Sponsor' money="$200,000"/>
+              <GreenTableCard heading="Silver Sponsor" money="$200,000"/>
             </div>
 
             <div className="
@@ -236,29 +233,29 @@ function GreenTable() {
               peer-checked/03:[&>label]:pointer-events-none
             ">
               <label className="absolute inset-0" htmlFor="article-03"><span className="sr-only"></span></label>
-              <GreenTableCard heading='Bronze Sponsor' money="$100,000"/>
+              <GreenTableCard heading="Bronze Sponsor" money="$100,000"/>
             </div>  
             
           </div>
         </section>
 
 
-            <div className='relative pt-12 flex flex-col px-4 md:px-6 lg:hidden'>
-                <div>
-                    {drops.map((drop, index) => (
-                        <div>
-                            <div className='h-[0.5px] bg-black '></div>
-                            <div className='flex flex-row justify-between py-6'>
-                                <p className='font-normal font-openSans'>{drop.description}</p>
-                                <Image src={check} alt="" width={16} height={12} className='w-[16px] h-[14px]'></Image>
-                            </div>
-                        </div> 
-                    ))}
+        <div className="relative pt-12 flex flex-col px-4 md:px-6 lg:hidden">
+          <div>
+            {drops.map((drop, index) => (
+              <div key={index}>
+                <div className="h-[0.5px] bg-black "></div>
+                <div className="flex flex-row justify-between py-6">
+                  <p className="font-normal font-openSans">{drop.description}</p>
+                  <Image src={check} alt="" width={16} height={12} className="w-[16px] h-[14px]"></Image>
                 </div>
-            </div>
-        </div>     
+              </div> 
+            ))}
+          </div>
+        </div>
+      </div>     
     </>
-  )
+  );
 }
 
-export default GreenTable
+export default GreenTable;
