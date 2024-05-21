@@ -14,11 +14,6 @@ export const Carousel = () => {
   const [checkedOption, setCheckedOption] = useState(3);
   const [forceRender, setForceRender] = useState(0);
   const handleCheck = (option: number) => {
-    // There is a visual bug that occurs when the checkedOption is set to the same value as it currently has.
-    // This bug can occur due to next.js caching when the user navigates forward/back 
-    // in their browser when the user has a non-default state selected.
-    // To fix the bug, we re-render the component when we find that checkedOption has not been changed.
-    // This is a workaround to the root issue of the state being desynced with the component display due to caching.
     if (checkedOption === option) {
       setForceRender(prev => prev + 1);
       return;
