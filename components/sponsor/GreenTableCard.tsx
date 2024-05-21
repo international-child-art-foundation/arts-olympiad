@@ -8,7 +8,7 @@ interface IProps extends React.HTMLProps<HTMLDivElement> {
 
 function GreenTableCard({heading, money}:IProps) {
   return (
-    <div className="flex flex-col justify-center items-center bg-light-green rounded-2xl p-6 pt-12 w-[200px] md:w-full h-[236px] ">
+    <div className="flex flex-col justify-center items-center bg-light-green rounded-2xl p-6 pt-12 ">
       <article className="flex flex-col text-center">
         <Pm className="font-normal font-openSans">{heading}</Pm>
         <Pm className="font-normal font-openSans">{money}</Pm>

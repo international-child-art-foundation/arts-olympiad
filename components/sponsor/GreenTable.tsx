@@ -95,94 +95,15 @@ function GreenTable() {
         </table>
       </div>
       {/* mobile */}
-      {/* <div className='relative flex flex-col lg:hidden justify-center items-center py-12 px-6'>
-            
-            <H2m className='relative font-montserrat font-medium text-center pb-12'>Specific Benefits</H2m> */}
-      {/* <div className='cards flex flex-row justify-center mx-auto space-x-4'>   
-                {cards.map((card, index) => (
-                    <label
-                        key={card.id}
-                        htmlFor={card.id}
-                        id={card.id}
-                        onClick = {() => currentSlide(index+1)}
-                        // onClick={() => handleCardClick(index)}
-                        // className={`card cursor-pointer ${index === active ? 'scale-125' : ''}`} 
-                        className={`card cursor-pointer ${index === active ? '' :''}`} 
-                    >
-                        <GreenTableCard heading={card.heading} money={card.money} />
-                    </label>
-                ))} */}
-      {/* </div> */}
-      {/* <div data-force-render={forceRender} className='flex flex-row px-4'>
+      <div data-force-render={forceRender} className="realtive z-20 pt-8 pb-44 m-auto max-w-screen-2xl px-8 md:px-12 lg:px-16 xl:px-20">
+        <section className="relative lg:hidden">
+          <H2m className="relative font-montserrat font-medium pb-12">Specific Benefits</H2m>
+          <div className="max-w-sm lg:max-w-md xl:max-w-lg 2xl:max-w-xl mx-auto relative">
             <input id="article-01" type="checkbox" name="slider" className="sr-only peer/01" checked={checkedOption === 1} onChange={() => handleCheck(1)}/>
             <input id="article-02" type="checkbox" name="slider" className="sr-only peer/02" checked={checkedOption === 2} onChange={() => handleCheck(2)}/>
             <input id="article-03" type="checkbox" name="slider" className="sr-only peer/03" checked={checkedOption === 3} onChange={() => handleCheck(3)}/>
 
             <div className="
-              absolute inset-0 scale-100 z-10 mt-12  origin-center transition-all duration-500 ease-[cubic-bezier(0.25,1,0.5,1)]                    
-              peer-checked/01:relative
-              peer-checked/01:z-30
-              peer-checked/01:translate-x-64
-              peer-checked/01:scale-125
-              peer-checked/01:[&>label]:pointer-events-none
-              peer-checked/02:-translate-x-64
-              peer-checked/02:scale-100
-              peer-checked/02:z-10
-              peer-checked/03:translate-x-0
-              peer-checked/03:z-10
-            ">
-                <label className="absolute inset-0" htmlFor="article-01"><span className="sr-only"></span></label>
-                <GreenTableCard heading='Gold Sponsor' money="$300,000"/>
-            </div>  
-
-            <div className="
-              absolute inset-0 scale-100 z-10 origin-center transition-all duration-500 ease-[cubic-bezier(0.25,1,0.5,1)]                        
-              peer-checked/01:translate-x-0
-              peer-checked/01:scale-100
-              peer-checked/01:z-10
-              peer-checked/02:relative
-              peer-checked/02:z-30
-              peer-checked/02:translate-x-0
-              peer-checked/02:scale-125
-              peer-checked/02:[&>label]:pointer-events-none
-              peer-checked/03:-translate-x-0
-              peer-checked/03:scale-100
-              peer-checked/03:z-10              
-            ">
-                <label className="absolute inset-0" htmlFor="article-02"><span className="sr-only"></span></label>
-                <GreenTableCard heading='Silver Sponsor' money="$200,000"/>
-            </div>   
-            <div className="
-              absolute inset-0 scale-100 z-10 origin-center transition-all duration-500 ease-[cubic-bezier(0.25,1,0.5,1)]
-              peer-checked/01:-translate-x-0
-              peer-checked/01:z-10
-              peer-checked/02:translate-x-64
-              peer-checked/02:scale-100
-              peer-checked/02:z-10
-              peer-checked/03:relative
-              peer-checked/03:z-30
-              peer-checked/03:-translate-x-64
-              peer-checked/03:scale-125
-              peer-checked/03:[&>label]:pointer-events-none
-            ">
-                <label className="absolute inset-0" htmlFor="article-03"><span className="sr-only"></span></label>
-                <GreenTableCard heading='Bronze Sponsor' money="$100,000"/>
-            </div>
-            </div>
-            <div className='py-4'>
-                <span className="dot" onClick={() => currentSlide(1)}></span>
-                <span className="dot" onClick={() => currentSlide(2)}></span>
-                <span className="dot" onClick={() => currentSlide(3)}></span>
-            </div> */}
-      <div data-force-render={forceRender} className="relative z-20 pt-8 pb-24 mx-auto max-w-screen-2xl px-8 md:px-12 lg:px-16 xl:px-20">
-        <section className="relative lg:hidden mx-auto">
-          <div className="lg:max-w-md xl:max-w-lg 2xl:max-w-xl mx-auto relative">
-            <input id="article-01" type="checkbox" name="slider" className="sr-only peer/01" checked={checkedOption === 1} onChange={() => handleCheck(1)}/>
-            <input id="article-02" type="checkbox" name="slider" className="sr-only peer/02" checked={checkedOption === 2} onChange={() => handleCheck(2)}/>
-            <input id="article-03" type="checkbox" name="slider" className="sr-only peer/03" checked={checkedOption === 3} onChange={() => handleCheck(3)}/>
-
-            <div className="
-            w-[255px] left-20 md:left-1/3
               absolute inset-0 scale-[67%] z-10 transition-all duration-500 ease-[cubic-bezier(0.25,1,0.5,1)]                    
               peer-checked/01:relative
               peer-checked/01:z-30
@@ -200,7 +121,6 @@ function GreenTable() {
             </div>
 
             <div className="
-            w-[255px] left-20 md:left-1/3
               absolute inset-0 scale-[67%] z-10 transition-all duration-500 ease-[cubic-bezier(0.25,1,0.5,1)]                        
               peer-checked/01:translate-x-40
               peer-checked/01:scale-[67%]
@@ -219,7 +139,6 @@ function GreenTable() {
             </div>
 
             <div className="
-            w-[255px] left-20 md:left-1/3
               absolute inset-0 scale-[67%] z-10 transition-all duration-500 ease-[cubic-bezier(0.25,1,0.5,1)]
               peer-checked/01:-translate-x-40
               peer-checked/01:z-10
@@ -242,15 +161,27 @@ function GreenTable() {
 
         <div className="relative pt-12 flex flex-col px-4 md:px-6 lg:hidden">
           <div>
-            {drops.map((drop, index) => (
-              <div key={index}>
-                <div className="h-[0.5px] bg-black "></div>
-                <div className="flex flex-row justify-between py-6">
-                  <p className="font-normal font-openSans">{drop.description}</p>
-                  <Image src={check} alt="" width={16} height={12} className="w-[16px] h-[14px]"></Image>
-                </div>
-              </div> 
-            ))}
+            {drops.map((drop, index) => {
+              let maxIndex = 0;
+              if(checkedOption === 1) {
+                maxIndex = 5;
+              } else if(checkedOption === 2) {
+                maxIndex = 4;
+              } else {
+                maxIndex = 3;
+              }
+              if(index <= maxIndex) {
+                return (<div key={index}>
+                  <div className="h-[0.5px] bg-black "></div>
+                  <div className="flex flex-row justify-between py-6">
+                    <p className="font-normal font-openSans">{drop.description}</p>
+                    <Image src={check} alt="" width={16} height={12} className="w-[16px] h-[14px]"></Image>
+                  </div>
+                </div> );
+              }
+              return null;
+            } 
+            )}
           </div>
         </div>
       </div>     

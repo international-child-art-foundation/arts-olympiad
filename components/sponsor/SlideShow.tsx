@@ -10,7 +10,7 @@ import PinkBlob from "../../public/sponsor/PastPinkBlob.png";
 
 const SlideShow = () => {
   const { windowWidth } = useWindowDimensions();
-  const isMobile = windowWidth <= 768;
+  const isMobile = windowWidth < 1024;
 
   const [slideIndex, setSlideIndex] = useState(1);
   const [animationClass, setAnimationClass] = useState("slide-enter");
@@ -22,19 +22,17 @@ const SlideShow = () => {
 
   const plusSlides = (n:number) => {
     setAnimationClass("slide-exit");
-    setTimeout(() => {
       setSlideIndex((prevIndex) => {
         const newIndex = prevIndex + n;
         return newIndex <= 0 ? slides.length : newIndex > slides.length ? 1 : newIndex;
       });
       setAnimationClass("slide-enter");
-    }, 500); 
   };
 
 
   if(isMobile) {
     return (
-      <div className="relative flex flex-row justify-between pb-12 pt-0 px-4 overflow-hidden">
+      <div className="relative flex flex-row justify-between pb-24 pt-0 px-4 overflow-hidden">
         <Image src={PinkBlob} alt="" className="absolute z-0 pointer-event-none w-2/3 right-0 top-0 overflow-hidden"></Image>
         <div className="z-20 bg-white px-4 py-6 rounded-2xl shadow-2xl flex flex-row justify-between">
           <a className="prev z-20 my-auto cursor-pointer select-none" onClick={() => plusSlides(-1)}>
@@ -83,7 +81,7 @@ const SlideShow = () => {
 
 
   return (
-    <div className="relative flex flex-row justify-between py-12 px-6 -mt-24 lg:px-12 overflow-hidden">
+    <div className="relative flex flex-row justify-between pb-24 px-6 -mt-24 lg:px-12 overflow-hidden">
       <Image src={PinkBlob} alt="" className="absolute z-0 pointer-event-none w-1/3 right-0 top-0 overflow-hidden"></Image>
       <div className="z-20 bg-white px-12 py-6 rounded-2xl shadow-2xl flex flex-row justify-between">
         <a className="prev z-20 my-auto cursor-pointer select-none" onClick={() => plusSlides(-1)}>

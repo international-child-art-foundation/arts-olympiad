@@ -15,7 +15,7 @@ export const SponsorBegin = () => {
             <div className="z-20 flex flex-row align-center mb-8">
               <Image src={hashtag} alt="" width={32} height={32}  />
               <h1 className="z-20 break-words font-semibold text-3xl xsm:text-4xl lg:text-5xl xl:text-6xl">
-                MyFavoriteSports<span className="sr-only">.</span>
+                MyFavoriteSport<span className="sr-only">.</span>
               </h1>
             </div>
           </TitleLayout>

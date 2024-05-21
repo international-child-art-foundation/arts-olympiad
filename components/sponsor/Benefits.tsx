@@ -23,8 +23,8 @@ export const Benefits = () => {
             </div>
           </div>
           <div className="relative col-span-2">
-            <Image src={yellowBlob} alt="" width={1536} height={432} className="absolute lg:hidden -top-10 -left-36 -z-10 md:-left-24 md:-top-24 scale-125 md:scale-100" />
-            <Image src={HandsUp} alt="" width={1536} height={432} className="relative lg:hidden -z-10 w-2/3 my-12 mb-36 mx-auto scale-125 md:scale-100" />
+            <Image src={yellowBlob} alt="" width={1536} height={432} className="absolute lg:hidden -top-10 -left-36 -z-10 md:-left-24 md:-top-36 scale-100 md:scale-100" />
+            <Image src={HandsUp} alt="" width={1536} height={432} className="relative lg:hidden -z-10 w-2/3 my-12 mb-36 mx-auto scale-100 md:scale-100" />
           </div>
         </section>
       </div>   
