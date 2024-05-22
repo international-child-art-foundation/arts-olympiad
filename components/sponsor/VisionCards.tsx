@@ -1,25 +1,22 @@
+import { H2m } from "../common/texts/H2m";
 import {VisionCard} from "./VisionCard";
 import Image from "next/image";
-
 
 export const VisionCards = () => {
   return (
     <section
       aria-label="Our Vision and Our Goal"
       className="relative flex flex-col px-8 md:px-12 lg:px-16 xl:px-20 mt-24 md:mt-30 lg:mt-32 xl:mt-36 2xl:mt-38 max-w-screen-2xl m-auto">
-      {/* <article className=" text-center md:flex flex-col mr-10" >
-        <H2m className="font-medium text-3xl md:text-4xl" >Our Vision & Our <span className="relative text-dark-blue">Goal
-          <AnimatedScribble width={180} className="absolute -bottom-6 -right-20 stroke-new-blue" />
-        </span>
+      <article className=" text-center md:flex flex-col py-10" >
+        <H2m className="font-medium font-montserrat text-3xl hidden lg:block" >General Benefits</H2m>
+        <H2m className="font-medium font-montserrat text-3xl lg:hidden" >Participate for Free!</H2m>
+      </article>
 
-        </H2m>
-      </article> */}
-
-      <div className="flex flex-nowrap flex-col lg:flex-row justify-between">
+      <div className="flex flex-nowrap flex-col lg:space-x-6 lg:flex-row justify-between">
         <VisionCard
-          icon="/sponsor/purpleParis.svg"
-          heading="Paris"
-          description="The #MyFavoriteSport global art contest on Olympic sports launched on June 15th will inspire young visitors to create their own artworks, upload them, and share with family and friends to gather votes."
+          icon="/sponsor/PinkLogo.png"
+          heading="Attraction for Growth"
+          description="Win over young hearts and minds for business and audience growth."
           color="#F9E4EE"
 
           texture={
@@ -33,27 +30,31 @@ export const VisionCards = () => {
           }
         />
         <VisionCard
-          icon="/sponsor/GreenEarth.svg"
-          heading="Global"
-          description="The ensuing online contest will spread worldwide and could go viral, engaging millions of young artists and voters of all ages."
+          icon="/sponsor/GreenLogo.png"
+          heading="Employee Engagement"
+          description="Bring the Paris Olympics to your executive and employees through #MyFavoriteSport."
           color="#E4F9EA"
           texture={
             <Image src="/svgs/blobs/beginning-blob.svg" className="w-[60%] absolute bottom-0 left-0 opacity-40 select-none pointer-events-none" alt="" width={0} height={0}/>
           }
         />
         <VisionCard
-          icon="/sponsor/BlueDC.svg"
-          heading="Washington, D.C."
-          description={
-            <p className="break-words lg:text-lg xl:text-xl font-sans font-light text-base mb-6">
-              {"The gold, silver, and bronze winners selected by public votes will be announced on June 30th at the "}
-              <a href="https://worldchildrensfestival.org/" target="_blank" rel="noopener noreferrer" className="underline pb-10">7th World Children's Festival</a>
-              {" on The National Mall. The winners will get to attend the Paris Olympics, thanks to our sponsors."}
-            </p>
-          }
+          icon="/sponsor/BlueLogo.png"
+          heading="Viral Expansion"
+          description="Scale up your global emotional branding strategy through #MyFavoriteSport, which can go viral, effectively engaging millions worldwide."
+
           color="#CCEBFF"
           texture={
             <Image src="/svgs/blobs/blue-scar-blob.svg" className="w-[80%] absolute bottom-0 left-0 select-none pointer-events-none" alt="" width={0} height={0}/>
+          }
+        />
+        <VisionCard
+          icon="/sponsor/YellowLogo.png"
+          heading="Promotion of Excellence"
+          description="Foster the Olympic values of excellence, respect, and friendship in young people and employees."
+          color="#FFF5AD"
+          texture={
+            <Image src="/sponsor/YellowTexture.png" className="w-[50%] absolute bottom-0 left-0 select-none pointer-events-none" alt="" width={0} height={0}/>
           }
         />
       </div>
