@@ -6,7 +6,7 @@ export const VisionCards = () => {
   return (
     <section
       aria-label="Our Vision and Our Goal"
-      className="relative flex flex-col px-8 md:px-12 lg:px-16 xl:px-20 mt-24 md:mt-30 lg:mt-32 xl:mt-36 2xl:mt-38 max-w-screen-2xl m-auto">
+      className="relative flex flex-col px-8 md:px-12 lg:px-16 xl:px-20 mt-16 md:mt-22 lg:mt-24 xl:mt-28 2xl:mt-30 max-w-screen-2xl m-auto">
       <article className=" text-center md:flex flex-col py-10" >
         <H2m className="font-medium font-montserrat text-3xl hidden lg:block" >General Benefits</H2m>
         <H2m className="font-medium font-montserrat text-3xl lg:hidden" >Participate for Free!</H2m>

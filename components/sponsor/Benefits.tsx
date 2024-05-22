@@ -1,7 +1,7 @@
 import Image from "next/image";
 import yellowBlob from "../../public/sponsor/YellowBlob.png";
 import React from "react";
-import HandsUp from "../../public/sponsor/HandsUp.png";
+import HandsUp from "../../public/sponsor/HandsUp.webp";
 
 export const Benefits = () => {
   return (
@@ -18,7 +18,7 @@ export const Benefits = () => {
             </h3>
             <div className="relative w-auto z-20">
               <h2 className="z-20 font-light font-openSans text-lg">
-              Promote 5 critical UN Social Development Goals: Good Health, Quality Education, Gender Equality, Reduce Inequities, and Build Peace in Communities and the World.
+              Promote five critical UN Social Development Goals: Good Health, Quality Education, Gender Equality, Reduced Inequities, and Peacebuilding in Communities and the World.
               </h2>
             </div>
           </div>

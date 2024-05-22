@@ -74,21 +74,20 @@ function GreenTable() {
 
   return (
     <>
-      <div className="relative flex flex-col mx-auto justify-center items-center hidden lg:block z-40 py-36 lg:px-12 2xl:mt-56 xl:px-24">
+      <div className="relative flex flex-col mx-auto justify-center items-center hidden lg:block z-40 py-36 pb-12 lg:px-12 2xl:mt-56 xl:px-24">
         <H2m className="relative font-montserrat font-medium text-center pb-12">Specific Benefits</H2m>
         <table className="relative mx-auto py-12 bg-light-green text-center space-x-12 border-2 rounded-lg">
           <tbody>               
             <tr className="border-2">
               <td></td>
               <td className="px-6 xl:px-12 py-4 border-2"><div className="flex flex-col"><p className="whitespace-nowrap">Gold Sponsor</p><p>$300,000</p></div></td>
-              <td className="px-6 xl:px-12 py-4 border-2"><div className="flex flex-col"><p className="whitespace-nowrap">Silver Sponsor</p><p>$300,000</p></div></td>
-              <td className="px-6 xl:px-12 py-4 border-2"><div className="flex flex-col"><p className="whitespace-nowrap">Bronze Sponsor</p><p>$300,000</p></div></td>
+              <td className="px-6 xl:px-12 py-4 border-2"><div className="flex flex-col"><p className="whitespace-nowrap">Silver Sponsor</p><p>$200,000</p></div></td>
+              <td className="px-6 xl:px-12 py-4 border-2"><div className="flex flex-col"><p className="whitespace-nowrap">Bronze Sponsor</p><p>$100,000</p></div></td>
             </tr>
             <GreenTableRow td="Logo placement on this website" td1="true" td2="true"/>
             <GreenTableRow td="Appreciation in press releases" td1="true" td2="true"/>
             <GreenTableRow td="Media exposure through sports and arts publications" td1="true" td2="true"/>
             <GreenTableRow td="New exciting content to social media channels" td1="true" td2="true"/>
-            <GreenTableRow td="Announce winners at the National Press Club on August 8th " td1="true" td2=""/>
             <GreenTableRow td="Announce winners at the National Press Club on August 8th " td1="true" td2=""/>
             <GreenTableRow td="The gold, silver and bronze visit the corporate HQ in late August to collaboratively paint a mural and present it." td1="" td2=""/>
           </tbody>            
@@ -97,7 +96,7 @@ function GreenTable() {
       {/* mobile */}
       <div data-force-render={forceRender} className="realtive z-20 pt-8 pb-44 m-auto max-w-screen-2xl px-8 md:px-12 lg:px-16 xl:px-20">
         <section className="relative lg:hidden">
-          <H2m className="relative font-montserrat font-medium pb-12">Specific Benefits</H2m>
+          <H2m className="relative font-montserrat font-medium pb-12 text-center">Specific Benefits</H2m>
           <div className="max-w-sm lg:max-w-md xl:max-w-lg 2xl:max-w-xl mx-auto relative">
             <input id="article-01" type="checkbox" name="slider" className="sr-only peer/01" checked={checkedOption === 1} onChange={() => handleCheck(1)}/>
             <input id="article-02" type="checkbox" name="slider" className="sr-only peer/02" checked={checkedOption === 2} onChange={() => handleCheck(2)}/>
@@ -173,9 +172,9 @@ function GreenTable() {
               if(index <= maxIndex) {
                 return (<div key={index}>
                   <div className="h-[0.5px] bg-black "></div>
-                  <div className="flex flex-row justify-between py-6">
+                  <div className="flex flex-row justify-between py-6 gap-4">
                     <p className="font-normal font-openSans">{drop.description}</p>
-                    <Image src={check} alt="" width={16} height={12} className="w-[16px] h-[14px]"></Image>
+                    <Image src={check} alt="" width={16} height={12} className="w-[16px] h-[14px] self-center"></Image>
                   </div>
                 </div> );
               }

@@ -15,18 +15,18 @@ const SlideShow = () => {
   const [slideIndex, setSlideIndex] = useState(1);
   const [animationClass, setAnimationClass] = useState("slide-enter");
   const slides = [
-    { heading: "Youth Talent and Olympian Pride", author:"Michael McNally", position:"Brand Relations Director, LEGO", description: "What the International Child Art Foundation does to encourage a child’s inner creativity is something we passionately admire and are proud to support, because we believe children who are exposed to creative activities from a very young age go on to become the world’s most meaningful contributors.", src:"/sponsor/Michael.png"},
-    { heading: "2", author:"Marc Speichert", position:"Executive Vice President and Chief Commercial Officer, Four Seasons Hotels and Resorts", description: "The ICAF was the perfect choice for us. [It] has a 25-plus year history of providing free school art programs and educational events for children, and [its] mission is one that we are proud to support as we continue to inspire the world to lead with genuine heart.", src:"/sponsor/Marc.png"},
-    { heading: "3", author:"Lt. Gen. Joseph Cosumano", position:"Jr., Commanding General, US Army Space and Missile Defense  Command", description: "The positive message of peace and hope promised by the International Child Art Foundation is commendable and worthy of great recognition.", src:"/sponsor/Joseph.png"},
+    { heading: "Youth Talent and Olympian Pride", author:"Michael McNally", position:"Brand Relations Director, LEGO", description: "What the International Child Art Foundation does to encourage a child’s inner creativity is something we passionately admire and are proud to support, because we believe children who are exposed to creative activities from a very young age go on to become the world’s most meaningful contributors.", src:"/sponsor/Michael.webp"},
+    { heading: "2", author:"Marc Speichert", position:"Executive Vice President and Chief Commercial Officer, Four Seasons Hotels and Resorts", description: "The ICAF was the perfect choice for us. [It] has a 25-plus year history of providing free school art programs and educational events for children, and [its] mission is one that we are proud to support as we continue to inspire the world to lead with genuine heart.", src:"/sponsor/Marc.webp"},
+    { heading: "3", author:"Lt. Gen. Joseph Cosumano", position:"Jr., Commanding General, US Army Space and Missile Defense  Command", description: "The positive message of peace and hope promised by the International Child Art Foundation is commendable and worthy of great recognition.", src:"/sponsor/Joseph.webp"},
   ];
 
   const plusSlides = (n:number) => {
     setAnimationClass("slide-exit");
-      setSlideIndex((prevIndex) => {
-        const newIndex = prevIndex + n;
-        return newIndex <= 0 ? slides.length : newIndex > slides.length ? 1 : newIndex;
-      });
-      setAnimationClass("slide-enter");
+    setSlideIndex((prevIndex) => {
+      const newIndex = prevIndex + n;
+      return newIndex <= 0 ? slides.length : newIndex > slides.length ? 1 : newIndex;
+    });
+    setAnimationClass("slide-enter");
   };
 
 
@@ -108,7 +108,7 @@ const SlideShow = () => {
                   <div className="text-sm font-light font-open-sans leading-none">{slide.position}</div>
                 </div>
                 <div className="relative lg:scale-100 2xl:scale-100 flex justify-end items-end translate-y-12">
-                  <img src={slide.src} alt="" ></img>
+                  <Image src={slide.src} width={500} height={500} alt="" ></Image>
                 </div>
               </div>
                 
