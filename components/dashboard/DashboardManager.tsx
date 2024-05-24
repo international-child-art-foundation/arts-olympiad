@@ -10,10 +10,27 @@ import { useDashboardContext } from "./DashboardContext";
 import { fakeUserArtworkData } from "../../mock/fakeUserArtworkData";
 import { DashboardModal } from "./DashboardModal";
 import { DeleteArtwork } from "./DeleteArtwork";
+import { getAuthStatus } from "@/utils/auth";
 
 export default function DashboardManager() {
   const router = useRouter();
   const searchParams = useSearchParams();
+
+  // This state and function were used to test whether authentication can be verified
+  // in its current state. Authentication status should be checked upon login,
+  // authenticated page visits, and API requests. We will also need to manage refresh 
+  // token tasks manually which will likely occur when authentication status is checked. 
+  const [isAuthenticated, setIsAuthenticated] = useState(false);
+  async function checkAuthStatus() {
+    const authStatus = await getAuthStatus();
+    setIsAuthenticated(authStatus.isAuthenticated);
+    console.log("Authentication status:", authStatus.isAuthenticated);
+  }
+
+  useEffect(() => {
+    console.log("Authentication status:", isAuthenticated);
+  }, [isAuthenticated]); // Dependency array includes isAuthenticated to log its updates
+
 
   // Create our dashboard state variable
   const [dashboardTab, setDashboardTab] = useState<DashboardTabs>("Dashboard");
@@ -35,7 +52,7 @@ export default function DashboardManager() {
 
   // Set state based on URL on page load
   useEffect(() => {
-    const tabParam = searchParams.get("tab") as DashboardUrls;
+    const tabParam = searchParams?.get("tab") as DashboardUrls;
     if (tabParam) {
       const tabKey = Object.keys(dashboardTypeStringConversions).find(key => dashboardTypeStringConversions[key as DashboardTabs].url === tabParam);
       if (tabKey) {
@@ -73,6 +90,8 @@ export default function DashboardManager() {
         <DashboardTabSection dashboardTab={dashboardTab} handleTabClick={handleTabClick}/>
         <div className="p-10">
           <div className="xl:w-[80%] m-auto max-w-[800px]">
+            {/* Dummy button to test authentication status */}
+            <button className="w-64 bg-blue-500" onClick={checkAuthStatus}>Check auth status</button>
             {dashboardTab == "Dashboard" && <DashboardMainTab dashboardLoadingState={dashboardLoadingState} />}
             {dashboardTab == "YourVote" && <YourVoteTab dashboardLoadingState={dashboardLoadingState} />}
           </div>

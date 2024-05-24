@@ -16,45 +16,60 @@ import {useRouter} from "next/navigation";
 import {Modal} from "../common/ui/Modal";
 import {CheckBox} from "../common/form_inputs/CheckBox";
 import {ForgotPasswordForm} from "./ForgotPasswordForm";
+import { UserLoginInterface } from "@/interfaces/user_auth";
+import { handleLogin } from "@/utils/auth";
 
-export interface IContactFormValues {
-  email: string,
-  password: string,
-}
+import { allowedPasswordCharactersRegex } from "../../mock/passwordRegex";
+// import { signIn } from "aws-amplify/auth";
 
 const validationSchema = Yup.object().shape({
   email: Yup.string().email("Not a recognized email address").required("Email is required"),
-  password: Yup.string().required("Password is required")
+  password: Yup.string()
+    .required("Password is required")
+    .max(256, "Password must be at most 256 characters long")
+    .test(
+      "is-valid-password",
+      function(value) {
+        const { path, createError } = this;
+        if (!allowedPasswordCharactersRegex.test(value || "")) {
+          return createError({ path, message: "Password contains disallowed characters" });
+        }
+        return true;
+      }
+    )
 });
 
-const initialValues: IContactFormValues = {
+const initialValues: UserLoginInterface = {
   email: "",
   password: ""
 };
 
 export const LoginForm = () => {
 
-  const [showPassword, setShowPassword] = useState(false);
-  const [showForgotPassword, setShowForgotPassword] = useState(false);
   const router = useRouter();
 
+  const [showPassword, setShowPassword] = useState(false);
+  const [showForgotPassword, setShowForgotPassword] = useState(false);
+
   // eslint-disable-next-line no-unused-vars, @typescript-eslint/no-unused-vars
-  const onSubmit = (values: IContactFormValues) => {
-    // API call occurs, using values
-    router.push("/auth/login");
+  const onSubmit = (values: UserLoginInterface) => {
+    const loginAttempt = handleLogin(values);
+    console.log(loginAttempt);
+    //TODO: Delay router.push until after success, add loading state
+    router.push("/dashboard"); 
   };
 
   return (
     <div className="w-[90%] sm:w-[70%] lg:w-[40%]">
       <H2m>Log in to your account</H2m>
-      <Pm className="my-2" >Registration begins on <b>June 15, 2024</b>.</Pm>
+      {/* <Pm className="my-2" >Registration begins on <b>June 15, 2024</b>.</Pm> */}
       <Formik
         initialValues={initialValues}
         validationSchema={validationSchema}
         onSubmit={onSubmit}
       >
         {({ errors, touched, values }) => (
-          <Form className="pointer-events-none opacity-50"> {/* Disabled until contest begins*/}
+          <Form className=""> {/* Disabled until contest begins: pointer-events-none opacity-50*/}
             <TextInput inputType="email" className="mt-4" placeholder="johndoe@gmail.com" error={errors.email}  touched={touched.email} value={values.email} labelText="Email" id="email" />
             <div className="relative">
               <TextInput inputType={`${!showPassword && "password" }`} placeholder="Squk1*Bn" error={errors.password}  touched={touched.password} value={values.password} labelText="Password" id="password" />

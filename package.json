@@ -12,6 +12,8 @@
   },
   "dependencies": {
     "@aws-amplify/adapter-nextjs": "^1.1.8",
+    "@aws-sdk/client-cognito-identity-provider": "^3.583.0",
+    "@aws-sdk/credential-provider-node": "^3.583.0",
     "@emotion/react": "^11.11.4",
     "@emotion/styled": "^11.11.5",
     "@react-stately/collections": "^3.10.5",

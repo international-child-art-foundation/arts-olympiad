@@ -15,9 +15,10 @@ import ClosedEye from "../../public/auth/eye_closed.svg";
 import Link from "next/link";
 // import {useRouter} from "next/navigation";
 import {NewPasswordInput} from "../common/form_inputs/NewPasswordInput";
-import { UserSignupInterface } from "@/interfaces/user_signup";
+import { UserRegisterInterface } from "@/interfaces/user_auth";
 import RegisterDateOfBirth from "./RegisterDateOfBirth";
-import { handleSignUp } from "@/utils/auth";
+import { handleRegister } from "@/utils/auth";
+import { allowedPasswordCharactersRegex, passwordPolicyRegex } from "../../mock/passwordRegex";
 
 const validationSchema = Yup.object().shape({
   firstName: Yup.string()
@@ -50,13 +51,23 @@ const validationSchema = Yup.object().shape({
   email: Yup.string().email("Not a recognized email address").required("Email is required"),
   password: Yup.string()
     .required("Password is required")
-    .matches(
-      /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/,
-      "Password must contain at least 1 uppercase letter, 1 lowercase letter, 1 digit, and 1 special character"
-    ),
+    .max(256, "Password must be at most 256 characters long")
+    .test(
+      "is-valid-password",
+      function(value) {
+        const { path, createError } = this;
+        if (!allowedPasswordCharactersRegex.test(value || "")) {
+          return createError({ path, message: "Password contains disallowed characters" });
+        }
+        if (!passwordPolicyRegex.test(value || "")) {
+          return createError({ path, message: "Password must contain at least 1 uppercase letter, 1 lowercase letter, 1 digit, and 1 special character" });
+        }
+        return true;
+      }
+    )
 });
 
-const initialValues: UserSignupInterface = {
+const initialValues: UserRegisterInterface = {
   firstName: "",
   lastName: "",
   email: "",
@@ -93,9 +104,9 @@ export const RegisterForm = () => {
   //   }
   // };
 
-  // Sign-up needs to be handled client-side.
-  const onSubmit = (values: UserSignupInterface) => {
-    const result = handleSignUp(values);
+  // Submission will call our server endpoint which will return secure httpOnly cookies.
+  const onSubmit = (values: UserRegisterInterface) => {
+    const result = handleRegister(values);
     console.log(result);
   };
 

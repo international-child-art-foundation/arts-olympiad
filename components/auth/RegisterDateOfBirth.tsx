@@ -40,8 +40,9 @@ const RegisterDateOfBirth: React.FC<RegisterDateOfBirthProps> = ({
   `;
 
   const labelClass = () => {
-    const errorExists = Object.values(errors).some(error => error);
-    const allTouched = Object.values(touched).every(t => t);
+    const dobFields: Array<keyof RegisterDateOfBirthProps["errors"]> = ["day", "month", "year"];
+    const errorExists = dobFields.some(field => touched[field] && errors[field]);
+    const allTouched = dobFields.every(field => touched[field]);
     const allValid = allTouched && !errorExists;
   
     if (allValid) {

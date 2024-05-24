@@ -30,7 +30,7 @@ export const NewPasswordInput = ({className, labelText, id, placeholder, inputTy
       />
       <Field
         className={`
-          my-2 p-3 border-1 rounded-lg 
+          my-2 p-3 pr-14 border-1 rounded-lg 
           ${
     required && error && touched ? "border-accent-red placeholder:text-accent-red"
       :
