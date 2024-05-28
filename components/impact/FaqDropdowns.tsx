@@ -22,39 +22,47 @@ const ContestSectionData: ExpandingDivProps = {
   background: "bg-baby-blue",
   sections: [
     {
-      title: "Introduction to Art in the olympics",
-      description: "Baron Pierre de Coubertin, the founder of the modern Olympics, tried to include art competitions from the very beginning. He stated that in the ancient games, “sport exhibitions walked in equality with artistic exhibitions,” which sets the Olympics apart from other sporting events. In some of the earlier Olympics, artists also won gold medals. For more, see Smithsonian Magazine.",
+      title: "ICAF's work and scope",
+      description: "Founded in 1997, ICAF serves American children as their national arts organization and the world's children as their global arts organization. ICAF employs the arts for students' identity development as “artist-athletes” possessing a creative mind and healthy body.",
     },
     {
-      title: "ICAF’s Origin and Mission",
-      description: "Founded in 1997 as American children’s their national arts organization and the world’s children’s global arts organization, ICAF has endeavored to include youth artwork in the Olympics. The #MyFavoriteSport art contest related to the Paris Olympics will become even larger for LA28.",
+      title: "Baron de Coubertin's vision",
+      description: "Baron Pierre de Coubertin, the founder of the modern Olympics, tried to include art competitions from the very beginning. He stated that in the ancient games “sport exhibitions walked in equality with artistic exhibitions”. This sets the Olympics apart from other sporting events. In some of the earlier Olympics, artists also won gold medals.",
+      buttons: [
+        {
+          href: "https://www.smithsonianmag.com/arts-culture/when-the-olympics-gave-out-medals-for-art-6878965/", 
+          classNames: ["font-light", "text-lg", "leading-normal", "inline", "rounded", "underline"],
+          children: ["See Smithsonian Magazine."] 
+        }
+      ]
     },
+
     {
-      title: "The Arts Olympiad Program",
+      title: "Arts Olympiad",
       description:
-        "ICAF organizes a free school art program—the Arts Olympiad—which combines art and sport to motivate students to become &quot;artist-athletes&quot; who have a creative mind and healthy body. (mente sana in corpo sano).",
+        "ICAF organizes a free school art program—the Arts Olympiad—which combines art and sports to motivate students to become “artist-athletes” with creative mind and healthy body (mente sana in corpo sano).",
     },
     {
       title: "Olympic Licensing and Recognition",
       description:
-        "The U.S. Olympic and Paralympic Committee has granted ICAF an exclusive license to use the “Arts Olympiad” and “International Child Arts Olympiad” marks. The Arts Olympiad was included in New York City’s bid for the 2024 Olympiad. ",
+        "The United States Olympic and Paralympic Committee has granted ICAF an exclusive license to use the “Arts Olympiad” and “International Child Arts Olympiad” marks. The Arts Olympiad was included in New York City's bid for the 2024 Olympiad. ",
       buttons: [
         {
-          href: "#apply", 
-          classNames: ["font-light text-lg leading-normal", "inline", "rounded", "underline"],
-          children: ["See here for a 3-page except from New York’s Candidature File."] 
+          href: "https://www.icaf.org/resource/pdfs/new-york-olympic.pdf", 
+          classNames: ["font-light", "text-lg", "leading-normal", "inline", "rounded", "underline"],
+          children: ["See a 3-page except from New York's Candidature File."] 
         }
       ]
     },
     {
       title: "World Children's Festival",
       description:
-        "Every four years, ICAF produces the World Children’s Festival as the “Olympics” of children’s imagination at the National Mall in Washington, D.C.",
+        "Every four years, ICAF produces the World Children's Festival as the “Olympics” of children's imagination at the National Mall in Washington, D.C.",
       buttons: [
         {
-          href: "#learn-more",
+          href: "https://icaf.org/impact",
           classNames: ["text-white", "bg-dark-blue", "font-openSans", "px-4", "py-2", "inline-flex", "rounded"],
-          children: ["Learn More about ICAF"]
+          children: ["Learn More about ICAF's impact"]
         }
       ]
     },
@@ -229,7 +237,7 @@ export const FaqDropdowns = () => {
   return (
     <>
       <article className=" text-center md:flex flex-col mr-10 ml-10 mt-36 overflow-hidden" >
-        <H2m className="font-medium font-montserrat text-2xl md:text-4xl" >How ICAF became a part of the Olympics<span className="relative">Work?
+        <H2m className="font-medium font-montserrat text-2xl md:text-4xl" >How ICAF became a part of the Games<span className="relative">
           <AnimatedScribble width={180} className="absolute -bottom-6 -right-20 stroke-new-blue" />
         </span>
         </H2m>

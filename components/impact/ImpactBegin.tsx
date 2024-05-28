@@ -21,7 +21,7 @@ export const ImpactBegin = () => {
           </TitleLayout>
           <div className="w-full mb-8 z-20">
             <h2 className="z-20 font-light text-xl w-full text-center lg:text-left lg:w-4/5">
-              Grow engagement in the Olympics through the art of sport.
+              Grow your engagement through art and sports. 
             </h2>
           </div>
         </div>
