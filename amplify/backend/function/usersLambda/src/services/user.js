@@ -11,13 +11,13 @@ async function registerUser(userData) {
   const signUpResult = await UserModel.createCognitoUser(email, password);
   await UserModel.createUser(signUpResult, {email, ...userDetails});
 
-  const formattedUser = {
-    id: signUpResult.UserSub, // uuid created for User name if not specified
-    email,
-    ...userDetails,
-    can_submit_art: false 
-  };
-  return formattedUser;
+  // const formattedUser = {
+  //   id: signUpResult.UserSub, // uuid created for User name if not specified
+  //   email,
+  //   ...userDetails,
+  //   can_submit_art: false 
+  // };
+  return {message: "User has successfully been created."};
 }
 
 async function verifyUser(email, verificationCode) {

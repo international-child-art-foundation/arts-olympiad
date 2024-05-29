@@ -3,17 +3,86 @@
 import {RegisterForm} from "./RegisterForm";
 import Image from "next/image";
 import MFS_Logo from "../../public/MFS_Logo_V3.svg";
+import { useState } from "react";
+import { VerificationModal } from "./VerificationModal";
+import {Form, Formik} from "formik";
+import { VerificationCodeInterface } from "@/interfaces/user_auth";
+import { handleVerify } from "@/utils/auth";
+import * as Yup from "yup";
+import { TextInput } from "../common/form_inputs/TextInput";
+import { ButtonStd } from "../common/ui/ButtonStd";
+import LoadingAnimation from "../svgs/LoadingAnimation";
 
 export const Register = () => {
+  const [userEmail, setUserEmail] = useState("");
+  const [registerSuccess, setRegisterSuccess] = useState(false);
 
+
+  const verificationInitialValues: VerificationCodeInterface = {
+    email: "",
+    verificationCode: "",
+  };
+  const verificationValidationSchema = Yup.object().shape({
+    verificationCode: Yup.string()
+      .matches(/^[0-9]{6}$/, "Verification code must be exactly 6 digits and contain only numbers")
+      .required("Verification code is required")
+  });
+  const [verificationSubmissionLoading, setVerificationSubmissionLoading] = useState(false);
+  const verificationSubmit = async (values: VerificationCodeInterface) => {
+    setVerificationSubmissionLoading(true);
+    values.email = userEmail;
+    const result = await handleVerify(values);
+    console.log(result);
+    setVerificationSubmissionLoading(false);
+    // router.push(/dashboard)
+  };
+
+  
   return (
-    <section
-      className="w-full my-8 mb-24 sm:px-8 md:px-12 lg:px-16 xl:px-20 relative max-w-screen-2xl m-auto"
-    >
-      <div className="flex flex-row justify-center lg:justify-between">
-        <Image className="mx-auto h-fit hidden lg:block" width={500} src={MFS_Logo} alt="My favorite sport logo." />
-        <RegisterForm/>
-      </div>
-    </section>
+    <>
+      {registerSuccess && 
+        <VerificationModal>
+          <div className="p-6">
+            <p className="font-bold text-2xl text-center mb-4">
+              Verify your account
+            </p>
+            <p>
+              Please enter your six-digit verification code:
+            </p>
+            <div className="grid grid-cols-1 grid-rows-1">
+              {verificationSubmissionLoading && <div className="col-start-1 row-start-1">
+                <LoadingAnimation scale={100} stroke={2}/>
+              </div>
+              }
+              <Formik
+                initialValues={verificationInitialValues}
+                validationSchema={verificationValidationSchema}
+                onSubmit={verificationSubmit}
+              >
+                {({ errors, touched, values }) => (
+                  <Form
+                    className={`${verificationSubmissionLoading && "blur-sm opacity-80"} col-start-1 row-start-1`}
+                  >
+                    <div className="">
+                      <TextInput inputType="string" className="mt-4 w-60 mx-auto" placeholder="######" error={errors.verificationCode}  touched={touched.verificationCode} value={values.verificationCode} labelText="Verification code" id="verificationCode" />
+                    </div>
+                    <ButtonStd type="submit" className="w-full my-2">Submit code</ButtonStd>
+
+                  </Form>
+                )}
+              </Formik>
+            </div>
+          </div>      
+        </VerificationModal>
+      }
+      <section
+        className="w-full my-8 mb-24 sm:px-8 md:px-12 lg:px-16 xl:px-20 relative max-w-screen-2xl m-auto"
+      >
+        <div className="flex flex-row justify-center lg:justify-between">
+          <Image className="mx-auto h-fit hidden lg:block" width={500} src={MFS_Logo} alt="My favorite sport logo." />
+          <RegisterForm setUserEmail={setUserEmail} setRegisterSuccess={setRegisterSuccess}/>
+        </div>
+      </section>
+    </>
   );
 };

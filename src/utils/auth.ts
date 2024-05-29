@@ -1,8 +1,53 @@
-import { BirthdateInterface, UserLoginInterface, UserRegisterInterface } from "@/interfaces/user_auth";
+import { BirthdateInterface, UserLoginInterface, UserRegisterInterface, VerificationCodeInterface,
+  ApiConfig, ApiResponse, ApiResponseData, ErrorResponse
+} from "@/interfaces/user_auth";
+import { Amplify } from "aws-amplify";
+import { post } from "aws-amplify/api";
 
 // These functions are used to call our server API files in /src/app/api/, which interact
 // with the AWS SDK server-side and return information to the client.
 // https://docs.amplify.aws/gen1/javascript/build-a-backend/auth/enable-sign-up/
+
+function getApiConfig() {
+  const config = Amplify.getConfig();
+  return config.API?.REST;
+}
+
+function extractApiEndpoint(apiConfig: ApiConfig): { endpointPrefix?: string; apiName?: string } {
+  let endpointPrefix;
+  let apiName;
+  for (const name in apiConfig) {
+    if (apiConfig[name].endpoint) {
+      endpointPrefix = apiConfig[name].endpoint;
+      apiName = name;
+      break;
+    }
+  }
+  return { endpointPrefix, apiName };
+}
+
+function isApiResponseData(obj: unknown): obj is ApiResponseData {
+  return typeof obj === "object" &&
+         obj !== null &&
+         "message" in obj &&
+         typeof obj.message === "string" &&
+         ("error" in obj ? typeof obj.error === "string" : true);
+}
+
+function handleApiError(e: ErrorResponse): string {
+  let errorMessage;
+  try {
+    if (e.response && e.response.body) {
+      const responseBody = e.response.body;
+      errorMessage = typeof responseBody === "string" ? JSON.parse(responseBody) : responseBody;
+    } else {
+      errorMessage = e.message || "An unknown error occurred";
+    }
+  } catch (parseError) {
+    errorMessage = e.message || "An unknown error occurred";
+  }
+  return errorMessage;
+}
 
 export async function handleRegister({
   firstName,
@@ -10,49 +55,124 @@ export async function handleRegister({
   birthdate,
   email,
   password,
-}: UserRegisterInterface) {
+}: UserRegisterInterface): Promise<ApiResponse> {
+  const apiConfig = getApiConfig();
 
-  // First convert our `birthdate` object to ISO 8601, the type Cognito uses for birthdate storage
-  function formatBirthdate(birthdate: BirthdateInterface): string | null {
+  if (!apiConfig) {
+    return { success: false, data: {error: "API not properly configured client-side."} };
+  }
+
+  const { endpointPrefix, apiName } = extractApiEndpoint(apiConfig);
+
+  if (!endpointPrefix || !apiName) {
+    return { success: false, data: {error: "API not properly configured client-side."} };
+  }
+
+  const formatBirthdate = (birthdate: BirthdateInterface): string | null => {
     const { day, month, year } = birthdate;
-    const date = new Date(year as number, month as number - 1, day); // month is 0-indexed in JS Date
-    // Validate the date
+    if (year === undefined || month === undefined || day === undefined) {
+      return null;
+    }
+    const date = new Date(year, month - 1, day);
     if (isNaN(date.getTime())) {
       return null;
     }
-    // Format the date to ISO 8601 format (YYYY-MM-DD)
     return date.toISOString().split("T")[0];
-  }
+  };
+
   const cognitoFormattedBirthdate = formatBirthdate(birthdate);
-  // Validate the birthdate format
   if (!cognitoFormattedBirthdate) {
-    return { success: false, error: "Invalid birthdate. Please provide a valid date in YYYY-MM-DD format." };
+    return { success: false, data: {error: "Invalid birthdate. Please provide a valid date in YYYY-MM-DD format."} };
   }
+
   try {
-    const response = await fetch("/api/auth/register", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
+    const registerUserOperation = post({
+      apiName: apiName,
+      path: "/api/users",
+      options: {
+        body: {
+          email: email,
+          f_name: firstName,
+          l_name: lastName,
+          password: password,
+          birthdate: cognitoFormattedBirthdate,
+        },
       },
-      body: JSON.stringify({
-        email,
-        password,
-        given_name: firstName,
-        family_name: lastName,
-        birthdate: cognitoFormattedBirthdate,
-      }),
+    });
+  
+    const operation = await registerUserOperation;
+  
+    const { body, statusCode } = await operation.response;
+    const jsonResponse = await body.json();
+
+    if (jsonResponse && isApiResponseData(jsonResponse)) {
+      if (statusCode >= 200 && statusCode < 300) { 
+        return { success: true, data: { message: jsonResponse.message } };
+
+      } else {
+        return { success: false, data: { message: jsonResponse.message, error: jsonResponse.error}};
+      }
+
+    } else {
+      return { success: false, data: {message: "API did not return data of type ApiResponseData."}};
+    }
+  } catch (e) {
+    const errorResponse = e as ErrorResponse;
+    const errorMessage = handleApiError(errorResponse);
+  
+    return { success: false, data: {error: errorMessage }};
+  }
+}
+
+export async function handleVerify({
+  email,
+  verificationCode,
+}: VerificationCodeInterface): Promise<ApiResponse> {
+  const apiConfig = getApiConfig();
+
+  if (!apiConfig) {
+    return { success: false, data: { error: "API not properly configured client-side."} };
+  }
+
+  const { endpointPrefix, apiName } = extractApiEndpoint(apiConfig);
+
+  if (!endpointPrefix || !apiName) {
+    return { success: false, data: { error: "API not properly configured client-side."} };
+  }
+
+  try {
+    const verifyUserOperation = post({
+      apiName: apiName,
+      path: "/api/verify",
+      options: {
+        body: {
+          email: email,
+          verification: verificationCode,
+        },
+      },
     });
 
-    const result = await response.json();
+    const operation = await verifyUserOperation;
+  
+    const { body, statusCode } = await operation.response;
+    const jsonResponse = await body.json();
 
-    if (response.ok) {
-      return { success: true, userId: result.response.UserSub, nextStep: result.message };
+    if (jsonResponse && isApiResponseData(jsonResponse)) {
+      if (statusCode >= 200 && statusCode < 300) { 
+        return { success: true, data: { message: jsonResponse.message } };
+
+      } else {
+        return { success: false, data: { message: jsonResponse.message, error: jsonResponse.error}};
+      }
+
     } else {
-      return { success: false, error: result.error };
+      return { success: false, data: {message: "API did not return data of type ApiResponseData."}};
     }
-  } catch (error: string | unknown) {
-    console.log("error signing up:", error);
-    return { success: false, error: error };
+  } catch (e) {
+    const errorResponse = e as ErrorResponse;
+    const errorMessage = handleApiError(errorResponse);
+
+    return { success: false, data: {error: errorMessage }};
   }
 }
 

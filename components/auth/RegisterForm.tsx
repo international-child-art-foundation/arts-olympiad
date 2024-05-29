@@ -18,7 +18,13 @@ import {NewPasswordInput} from "../common/form_inputs/NewPasswordInput";
 import { UserRegisterInterface } from "@/interfaces/user_auth";
 import RegisterDateOfBirth from "./RegisterDateOfBirth";
 import { handleRegister } from "@/utils/auth";
+import LoadingAnimation from "../svgs/LoadingAnimation";
 import { allowedPasswordCharactersRegex, passwordPolicyRegex } from "../../mock/passwordRegex";
+
+interface RegisterFormProps {
+  setRegisterSuccess: React.Dispatch<React.SetStateAction<boolean>>
+  setUserEmail: React.Dispatch<React.SetStateAction<string>>
+}
 
 const validationSchema = Yup.object().shape({
   firstName: Yup.string()
@@ -75,104 +81,96 @@ const initialValues: UserRegisterInterface = {
   password: ""
 };
 
-export const RegisterForm = () => {
+export const RegisterForm: React.FC<RegisterFormProps> = ({setUserEmail, setRegisterSuccess}) => {
 
   const [showPassword, setShowPassword] = useState(false);
+  const [formSubmissionLoading, setFormSubmissionLoading] = useState(false);
   // const router = useRouter();
 
-  // const onSubmit = async (values: UserSignupInterface) => {
-  //   try {
-  //     const response = await fetch("/api/signup", {
-  //       method: "POST",
-  //       headers: {
-  //         "Content-Type": "application/json",
-  //       },
-  //       body: JSON.stringify(values),
-  //     });
-
-  //     if (response.ok) {
-        
-  //       console.log("Signup has succeeded. An email should have been sent to the provided address.");
-  //       // Notify user
-  //     } else {
-  //       // Handle error
-  //       const errorData = await response.json();
-  //       console.error("Signup failed:", errorData.error);
-  //     }
-  //   } catch (error) {
-  //     console.error("An error occurred during signup:", error);
-  //   }
-  // };
-
-  // Submission will call our server endpoint which will return secure httpOnly cookies.
-  const onSubmit = (values: UserRegisterInterface) => {
-    const result = handleRegister(values);
+  const onSubmit = async (values: UserRegisterInterface) => {
+    setFormSubmissionLoading(true);
+    setUserEmail(values.email); // Set user email for use in verificationSubmit
+    const result = await handleRegister(values);
     console.log(result);
+    setRegisterSuccess(result.success);
+    setFormSubmissionLoading(false);
   };
 
+
   return (
-    <div className="max-w-[90%] sm:max-w-[70%] lg:max-w-[40%]">
-      <H2m>Create an account</H2m>
-      <Pm className="my-2" >Join us! Create your account to either vote for inspiring art or enter your own work.</Pm>
-      <Pm className="my-2" >Registration begins on <b>June 15, 2024</b>.</Pm>
-      <Formik
-        initialValues={initialValues}
-        validationSchema={validationSchema}
-        onSubmit={onSubmit}
-      >
-        {({ errors, touched, values }) => (
-          <Form > {/* Disabled until contest begins: className="pointer-events-none opacity-50"*/}
-            <div className="grid grid-cols-2 gap-4">
-              <TextInput inputType="string" className="mt-4" placeholder="John" error={errors.firstName}  touched={touched.firstName} value={values.firstName} labelText="First Name" id="firstName" />
-              <TextInput inputType="string" className="mt-4" placeholder="Doe" error={errors.lastName}  touched={touched.lastName} value={values.lastName} labelText="Last name" id="lastName" />
+    <>
+      <div className="max-w-[90%] sm:max-w-[70%] lg:max-w-[40%]">
+        <H2m>Create an account</H2m>
+        <Pm className="my-2" >Join us! Create your account to either vote for inspiring art or enter your own work.</Pm>
+        <Pm className="my-2" >Registration begins on <b>June 15, 2024</b>.</Pm>
+        <div className="grid">
+          {formSubmissionLoading && 
+            <div className="col-start-1 row-start-1">
+              <LoadingAnimation scale={100} stroke={2}/>
             </div>
-            <RegisterDateOfBirth
-              name="birthdate"
-              errors={errors.birthdate ?? { day: undefined, month: undefined, year: undefined }}
-              touched={touched.birthdate ?? { day: false, month: false, year: false }}
-              values={values.birthdate}
-            />
-            <TextInput inputType="email" className="" placeholder="johndoe@gmail.com" autoComplete="username" error={errors.email}  touched={touched.email} value={values.email} labelText="Email" id="email" />
-            <div className="relative">
-              <NewPasswordInput inputType={`${!showPassword && "password" }`} className="mb-4" placeholder="Squk1*Bn" error={errors.password}  touched={touched.password} value={values.password} labelText="Password" id="password" />
-              <Image
-                className="absolute top-14 right-4 cursor-pointer"
-                onClick={() => setShowPassword(!showPassword)}
-                width={30} height={30}
-                src={showPassword ? OpenEye : ClosedEye }
-                alt="Show password button." />
-            </div>
-            <ButtonStd type="submit" className="w-full my-2">Sign up</ButtonStd>
-          </Form>
-        )}
-      </Formik>
-      <Pm className="font-semibold my-4 text-center">Already have an account?
-        <span className="text-main-blue font-semibold"><Link className="inline" href="/auth/login"> Log in here</Link></span>
-      </Pm>
-      <div className="invisible">
-        <div className="flex flex-row">
-          <div className=" mx-4 z-10 my-12 relative bg-main-grey w-full m-0 border-1 border-main-grey" />
-          <p className="font-light my-auto text-2xl min-w-24 text-center">Or With</p>
-          <div className="mx-4 z-10 my-auto relative bg-main-grey w-full m-0 border-1 border-main-grey" />
+          }
+          <Formik
+            initialValues={initialValues}
+            validationSchema={validationSchema}
+            onSubmit={onSubmit}
+          >
+            {({ errors, touched, values }) => (
+              <Form 
+                className={`${formSubmissionLoading && "blur-sm opacity-80"} col-start-1 row-start-1`}
+              > {/* Disabled until contest begins: className="pointer-events-none opacity-50"*/}
+                <div className="grid grid-cols-2 gap-4">
+                  <TextInput inputType="string" className="mt-4" placeholder="John" error={errors.firstName}  touched={touched.firstName} value={values.firstName} labelText="First Name" id="firstName" />
+                  <TextInput inputType="string" className="mt-4" placeholder="Doe" error={errors.lastName}  touched={touched.lastName} value={values.lastName} labelText="Last name" id="lastName" />
+                </div>
+                <RegisterDateOfBirth
+                  name="birthdate"
+                  errors={errors.birthdate ?? { day: undefined, month: undefined, year: undefined }}
+                  touched={touched.birthdate ?? { day: false, month: false, year: false }}
+                  values={values.birthdate}
+                />
+                <TextInput inputType="email" className="" placeholder="johndoe@gmail.com" autoComplete="username" error={errors.email}  touched={touched.email} value={values.email} labelText="Email" id="email" />
+                <div className="relative">
+                  <NewPasswordInput inputType={`${!showPassword && "password" }`} className="mb-4" placeholder="Squk1*Bn" error={errors.password}  touched={touched.password} value={values.password} labelText="Password" id="password" />
+                  <Image
+                    className="absolute top-14 right-4 cursor-pointer"
+                    onClick={() => setShowPassword(!showPassword)}
+                    width={30} height={30}
+                    src={showPassword ? OpenEye : ClosedEye }
+                    alt="Show password button." />
+                </div>
+                <ButtonStd type="submit" className="w-full my-2">Sign up</ButtonStd>
+              </Form>
+            )}
+          </Formik>
         </div>
-        <div>
-          <ButtonStd style={{borderRadius: "100px"}} className=" mb-6 w-full bg-neutral-white border-black">
-            <Image width={30} src={facebook} alt="Facebook logo." />
-            <Pm className="ml-4 text-black font-semibold">Sign up with Facebook</Pm>
-          </ButtonStd>
-          <ButtonStd style={{borderRadius: "100px"}} className="my-6 w-full bg-neutral-white border-black">
-            <Image width={30} src={google} alt="Google logo." />
-            <Pm className="ml-4 text-black font-semibold">Sign up with Google</Pm>
-          </ButtonStd>
-          <ButtonStd style={{borderRadius: "100px"}} className="my-6 w-full bg-neutral-white border-black">
-            <Image width={30} src={apple} alt="Apple logo." />
-            <Pm className="ml-4 text-black font-semibold">Sign up with Apple</Pm>
-          </ButtonStd>
+        <Pm className="font-semibold my-4 text-center">Already have an account?
+          <span className="text-main-blue font-semibold"><Link className="inline" href="/auth/login"> Log in here</Link></span>
+        </Pm>
+        <div className="invisible">
+          <div className="flex flex-row">
+            <div className=" mx-4 z-10 my-12 relative bg-main-grey w-full m-0 border-1 border-main-grey" />
+            <p className="font-light my-auto text-2xl min-w-24 text-center">Or With</p>
+            <div className="mx-4 z-10 my-auto relative bg-main-grey w-full m-0 border-1 border-main-grey" />
+          </div>
+          <div>
+            <ButtonStd style={{borderRadius: "100px"}} className=" mb-6 w-full bg-neutral-white border-black">
+              <Image width={30} src={facebook} alt="Facebook logo." />
+              <Pm className="ml-4 text-black font-semibold">Sign up with Facebook</Pm>
+            </ButtonStd>
+            <ButtonStd style={{borderRadius: "100px"}} className="my-6 w-full bg-neutral-white border-black">
+              <Image width={30} src={google} alt="Google logo." />
+              <Pm className="ml-4 text-black font-semibold">Sign up with Google</Pm>
+            </ButtonStd>
+            <ButtonStd style={{borderRadius: "100px"}} className="my-6 w-full bg-neutral-white border-black">
+              <Image width={30} src={apple} alt="Apple logo." />
+              <Pm className="ml-4 text-black font-semibold">Sign up with Apple</Pm>
+            </ButtonStd>
+          </div>
         </div>
+        {/*<Pm className="font-semibold my-4 text-center">Already have an account?*/}
+        {/*  <span className="text-main-blue font-semibold"><Link className="inline" href="/auth/login"> Log in here</Link></span>*/}
+        {/*</Pm>*/}
       </div>
-      {/*<Pm className="font-semibold my-4 text-center">Already have an account?*/}
-      {/*  <span className="text-main-blue font-semibold"><Link className="inline" href="/auth/login"> Log in here</Link></span>*/}
-      {/*</Pm>*/}
-    </div>
+    </>
   );
 };

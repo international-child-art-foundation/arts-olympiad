@@ -17,8 +17,8 @@ async function registerUser(req, res)  {
   const userData = { email, password, f_name, l_name, location, age, g_f_name, g_l_name, voted_id };
   
   try {
-    const user = await UserService.registerUser(userData);
-    res.status(201).json(user);
+    const userSuccessMessage = await UserService.registerUser(userData);
+    res.status(201).json(userSuccessMessage);
   } catch (error) {
     console.error(error);
     res.status(400).json({ message: "Registration failed", error: error.message });

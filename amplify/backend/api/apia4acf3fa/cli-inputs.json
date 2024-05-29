@@ -28,6 +28,13 @@
       "permissions": {
         "setting": "open"
       }
+    },
+    "/api/verify": {
+      "name": "/api/verify",
+      "lambdaFunction": "usersLambda",
+      "permissions": {
+        "setting": "open"
+      }
     }
   }
 }
