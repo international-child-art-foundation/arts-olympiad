@@ -208,7 +208,7 @@ export const WisdomCarousel = () => {
           }
           <div
             ref={wisdomTextRef}
-            className="flex flex-col space-y-3 py-5 lg:py-4 backdrop-blur-[30px] absolute top-1/2 -translate-y-[94px] md:-translate-y-[100px] lg:-translate-y-[108px] lg:translate-x-[8px] z-50 bg-white bg-opacity-25 overflow-hidden max-w-full rounded-b-xl"
+            className="flex flex-col space-y-3 py-5 lg:py-4 backdrop-blur-[30px] absolute top-1/2 -translate-y-[96px] sm:-translate-y-[100px] lg:-translate-y-[108px] lg:translate-x-[8px] xl:-translate-y-[112px] z-50 bg-white bg-opacity-25 overflow-hidden max-w-full rounded-b-xl"
             style={{ width: calculateWidth() }}
           >
             <H3m className="pl-4 z-20 mb-0 font-semibold row-span-1 xl:text-2xl lg:text-xl overflow-hidden whitespace-nowrap text-overflow-ellipsis font-montserrat">{authorName}</H3m>

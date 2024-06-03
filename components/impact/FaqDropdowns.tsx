@@ -236,13 +236,13 @@ export const FaqDropdowns = () => {
 
   return (
     <>
-      <article className=" text-center md:flex flex-col mr-10 ml-10 mt-36 overflow-hidden" >
-        <H2m className="font-medium font-montserrat text-2xl md:text-4xl" >How ICAF became a part of the Games<span className="relative">
+      <article className="mx-auto text-center md:flex flex-col mr-10 ml-10 mt-36 overflow-hidden" >
+        <H2m className="mx-auto font-medium font-montserrat text-2xl md:text-4xl" >How ICAF became a part of the Games<span className="relative">
           <AnimatedScribble width={180} className="absolute -bottom-6 -right-20 stroke-new-blue" />
         </span>
         </H2m>
       </article>
-      <section className="relative z-20 mt-10 overflow-x-visible max-w-screen-2xl px-4 md:px-4 lg:px-16 xl:px-20 pb-12">
+      <section className="mx-auto relative z-20 mt-10 overflow-x-visible max-w-screen-2xl px-4 md:px-4 lg:px-16 xl:px-20 pb-12">
         <div className="text-nowrap flex flex-row gap-x-6 sm:gap-x-10 z-10 overflow-x-auto ">
           {(Object.keys(sections) as SectionType[]).map((key) => (
             <p
@@ -282,7 +282,7 @@ export const FaqDropdowns = () => {
             </div>
           ))}
         </div> */}
-        <div className=" w-full min-h-[400px] rounded-lg ">
+        <div className="w-full min-h-[400px] rounded-lg ">
           <div
             ref={containerRef}
             className="px-4 sm:px-10 py-0 max-w-unset overflow-hidden bg-transparent rounded-lg"
