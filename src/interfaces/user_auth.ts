@@ -12,7 +12,16 @@ export interface UserRegisterInterface {
   password: string;
 }
 
+export interface UserRegisterInterfaceAfterFormatting {
+  firstName: string;
+  lastName: string;
+  email: string;
+  birthdate: string;
+  password: string;
+}
+
 export interface VerificationCodeInterface {
+  uuid: string;
   email: string;
   verificationCode: string;
 }
@@ -30,15 +39,7 @@ export interface ApiConfig {
   [key: string]: ApiEndpointConfig;
 }
 
-export interface ApiResponse {
-  success: boolean;
-  data?: ApiResponseData;
-}
 
-export interface ApiResponseData {
-  message?: string;
-  error?: string;
-}
 
 export interface ErrorResponse {
   response?: {

@@ -4,7 +4,7 @@ import Footer from "../../components/Footer";
 import Header from "../../components/Header";
 import { Metadata } from "next";
 import {NavigationEvents} from "./NavigationEvents";
-import ConfigureAmplifyClientSide from "@/utils/ConfigureAmplifyClientSide";
+// import ConfigureAmplifyClientSide from "@/utils/ConfigureAmplifyClientSide";
 
 export const inter = Inter({
   subsets: ["latin"],
@@ -55,7 +55,6 @@ export default function RootLayout({
         type="image/svg+xml"
       />
       <body>
-        <ConfigureAmplifyClientSide />
         <Header/>
         <main className={"font-openSans font-base overflow-hidden flex flex-col justify-center align-middle w-full m-auto leading-8"}>
           { children }

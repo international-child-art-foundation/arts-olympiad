@@ -9,7 +9,7 @@ async function getUser(userId) {
 async function registerUser(userData) {
   const { email, password, ...userDetails } = userData;
   const signUpResult = await UserModel.createCognitoUser(email, password);
-  await UserModel.createUser(signUpResult, {email, ...userDetails});
+  const uuid = await UserModel.createUser(signUpResult, {email, ...userDetails});
 
   // const formattedUser = {
   //   id: signUpResult.UserSub, // uuid created for User name if not specified
@@ -17,11 +17,12 @@ async function registerUser(userData) {
   //   ...userDetails,
   //   can_submit_art: false 
   // };
-  return {message: "User has successfully been created."};
+  return {message: uuid};
 }
 
-async function verifyUser(email, verificationCode) {
+async function verifyUser(uuid, email, verificationCode) {
   await UserModel.confirmCognitoUser(email, verificationCode);
+  await UserModel.updateUserById(uuid, "can_submit_art", true);
   return {message: "verified"};
 }
 

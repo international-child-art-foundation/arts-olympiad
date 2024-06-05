@@ -61,7 +61,7 @@ async function createUser(signUpResult, userDetails) {
     };
 
     await ddbDocClient.send(new PutCommand(input));
-    return;
+    return user.id;
   } catch (error) {
     console.error("error saving user info to db");
     throw error;

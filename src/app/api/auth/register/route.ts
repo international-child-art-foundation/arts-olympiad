@@ -1,41 +1,48 @@
 "use server";
 
 import { NextRequest, NextResponse } from "next/server";
-import { CognitoIdentityProviderClient, SignUpCommand } from "@aws-sdk/client-cognito-identity-provider";
-import awsExports from "../../../../aws-exports";
-
-interface ErrorResponse {
-  error: string;
-}
+import { UserRegisterInterfaceAfterFormatting } from "@/interfaces/user_auth";
+import { isGatewayResponse } from "@/utils/typeChecks";
+import { validate as uuidValidate } from "uuid";
 
 export async function POST(request: NextRequest) {
-  const { email, password, given_name, family_name, birthdate } = await request.json();
+  try  {
+    const userRegister = await request.json() as UserRegisterInterfaceAfterFormatting;
+    const apiId = process.env.API_ID;
+    const region = process.env.AWS_REGION;
+    const stage = process.env.STAGE;
+    const url = `https://${apiId}.execute-api.${region}.amazonaws.com/${stage}/api/users`;
 
-  const client = new CognitoIdentityProviderClient({
-    region: awsExports.aws_project_region,
-    credentials: {
-      accessKeyId: process.env.AWS_ACCESS_KEY_ID!,
-      secretAccessKey: process.env.AWS_SECRET_ACCESS_KEY!,
-    },
-  });
+    const requestOptions = {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(userRegister),
+    };
 
-  const command = new SignUpCommand({
-    ClientId: awsExports.aws_user_pools_web_client_id,
-    Username: email,
-    Password: password,
-    UserAttributes: [
-      { Name: "email", Value: email }, // redundancy intended
-      { Name: "given_name", Value: given_name },
-      { Name: "family_name", Value: family_name },
-      { Name: "birthdate", Value: birthdate },
-    ],
-  });
+    console.log(requestOptions);
+    const response = await fetch(url, requestOptions);
+    console.log(response);
+    const gatewayResponse = await response.json();
+    console.log(gatewayResponse);
+    if (!uuidValidate(gatewayResponse.message)) {
+      return new NextResponse(JSON.stringify({success: false, error: "Gateway error: Return value was not a UUID."}));
+    }
+    const statusCode = response.status;
 
-  try {
-    const response = await client.send(command);
-    return NextResponse.json({ message: "Sign-up successful", response });
+    if (gatewayResponse && isGatewayResponse(gatewayResponse) && gatewayResponse) {
+      if (statusCode >= 200 && statusCode < 300) {
+        return new NextResponse(JSON.stringify({ success: true, message: gatewayResponse.message}));
+      } else {
+        return new NextResponse(JSON.stringify({success: false, message: "Failed to contact the Gateway."}), {status: statusCode});
+      }
+    } else {
+      return new NextResponse(JSON.stringify({ success: false, message: "Unexpected Gateway response", error: gatewayResponse.error}), {status: 500});
+    }
   } catch (error) {
-    const errorResponse: ErrorResponse = { error: (error as Error).message };
-    return NextResponse.json(errorResponse, { status: 400 });
+    console.log("Next server has encountered an error");
+    const errorResponse = error;
+    return new NextResponse(JSON.stringify(errorResponse), {status: 400});
   }
 }

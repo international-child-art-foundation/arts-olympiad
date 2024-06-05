@@ -12,12 +12,13 @@ import apple from "../../public/auth/Apple.svg";
 import OpenEye from "../../public/auth/eye_open.svg";
 import ClosedEye from "../../public/auth/eye_closed.svg";
 import Link from "next/link";
-import {useRouter} from "next/navigation";
+// import {useRouter} from "next/navigation";
 import {Modal} from "../common/ui/Modal";
 import {CheckBox} from "../common/form_inputs/CheckBox";
 import {ForgotPasswordForm} from "./ForgotPasswordForm";
 import { UserLoginInterface } from "@/interfaces/user_auth";
 import { handleLogin } from "@/utils/auth";
+import LoadingAnimation from "../svgs/LoadingAnimation";
 
 import { allowedPasswordCharactersRegex } from "../../mock/passwordRegex";
 // import { signIn } from "aws-amplify/auth";
@@ -46,51 +47,63 @@ const initialValues: UserLoginInterface = {
 
 export const LoginForm = () => {
 
-  const router = useRouter();
+  // const router = useRouter();
 
   const [showPassword, setShowPassword] = useState(false);
   const [showForgotPassword, setShowForgotPassword] = useState(false);
+  const [loginLoading, setLoginLoading] = useState(false);
 
   // eslint-disable-next-line no-unused-vars, @typescript-eslint/no-unused-vars
-  const onSubmit = (values: UserLoginInterface) => {
-    const loginAttempt = handleLogin(values);
+  const onSubmit = async (values: UserLoginInterface) => {
+    setLoginLoading(true);
+    const loginAttempt = await handleLogin(values);
     console.log(loginAttempt);
     //TODO: Delay router.push until after success, add loading state
-    router.push("/dashboard"); 
+    setLoginLoading(false);
+    // router.push("/dashboard"); 
   };
 
   return (
     <div className="w-[90%] sm:w-[70%] lg:w-[40%]">
       <H2m>Log in to your account</H2m>
       {/* <Pm className="my-2" >Registration begins on <b>June 15, 2024</b>.</Pm> */}
-      <Formik
-        initialValues={initialValues}
-        validationSchema={validationSchema}
-        onSubmit={onSubmit}
-      >
-        {({ errors, touched, values }) => (
-          <Form className=""> {/* Disabled until contest begins: pointer-events-none opacity-50*/}
-            <TextInput inputType="email" className="mt-4" placeholder="johndoe@gmail.com" error={errors.email}  touched={touched.email} value={values.email} labelText="Email" id="email" />
-            <div className="relative">
-              <TextInput inputType={`${!showPassword && "password" }`} placeholder="Squk1*Bn" error={errors.password}  touched={touched.password} value={values.password} labelText="Password" id="password" />
-              <Image
-                className="absolute top-14 right-4 cursor-pointer"
-                onClick={() => setShowPassword(!showPassword)}
-                width={30} height={30}
-                src={showPassword ? OpenEye : ClosedEye }
-                alt="Show password button." />
-            </div>
-            <div className=" mb-4 flex flex-col xsm:flex-row items-center justify-between">
-              <CheckBox name="remember" value="Remember me"/>
-              <button onClick={() => setShowForgotPassword(true)} type="button" className="font-semibold bg-transparent border-none xsm:ml-8">
-                Forgot your password?
-                <span className="sr-only">.</span>
-              </button>
-            </div>
-            <ButtonStd type="submit" className="w-full my-2">Log in</ButtonStd>
-          </Form>
-        )}
-      </Formik>
+      <div className="grid">
+        {loginLoading && 
+          <div className="col-start-1 row-start-1">
+            <LoadingAnimation scale={100} stroke={2}/>
+          </div>
+        }
+        <Formik
+          initialValues={initialValues}
+          validationSchema={validationSchema}
+          onSubmit={onSubmit}
+        >
+          {({ errors, touched, values }) => (
+            <Form 
+              className={`${loginLoading && "blur-sm opacity-80"} col-start-1 row-start-1`}
+            > {/* Disabled until contest begins: className="pointer-events-none opacity-50"*/}
+              <TextInput inputType="email" className="mt-4" placeholder="johndoe@gmail.com" error={errors.email}  touched={touched.email} value={values.email} labelText="Email" id="email" />
+              <div className="relative">
+                <TextInput inputType={`${!showPassword && "password" }`} placeholder="Squk1*Bn" error={errors.password}  touched={touched.password} value={values.password} labelText="Password" id="password" />
+                <Image
+                  className="absolute top-14 right-4 cursor-pointer"
+                  onClick={() => setShowPassword(!showPassword)}
+                  width={30} height={30}
+                  src={showPassword ? OpenEye : ClosedEye }
+                  alt="Show password button." />
+              </div>
+              <div className=" mb-4 flex flex-col xsm:flex-row items-center justify-between">
+                <CheckBox name="remember" value="Remember me"/>
+                <button onClick={() => setShowForgotPassword(true)} type="button" className="font-semibold bg-transparent border-none xsm:ml-8">
+                  Forgot your password?
+                  <span className="sr-only">.</span>
+                </button>
+              </div>
+              <ButtonStd type="submit" className="w-full my-2">Log in</ButtonStd>
+            </Form>
+          )}
+        </Formik>
+      </div>
       <Pm className="font-semibold my-4 text-center">Don’t have an account?
         <span className="text-main-blue font-semibold"><Link className="inline" href="/auth/register"> Create one now</Link></span>
       </Pm>

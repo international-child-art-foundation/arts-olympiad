@@ -1,54 +1,48 @@
 "use server";
 
 import { NextRequest, NextResponse } from "next/server";
-import { CognitoIdentityProviderClient, InitiateAuthCommand } from "@aws-sdk/client-cognito-identity-provider";
-import awsExports from "../../../../aws-exports";
+import { UserLoginInterface } from "@/interfaces/user_auth";
+import { LoginResponse } from "@/interfaces/api_shapes";
+import { isGatewayResponse } from "@/utils/typeChecks";
 
-interface ErrorResponse {
-  error: string;
-}
-
-// This endpoint calls the Cognito API via aws-sdk for user login.
-// The endpoint returns httpOnly cookies along with a success/fail response. 
-// TOOD: Consider adding cookie expiration date
 export async function POST(request: NextRequest) {
-  const { email, password } = await request.json();
-
-  const client = new CognitoIdentityProviderClient({
-    region: awsExports.aws_project_region,
-    credentials: {
-      accessKeyId: process.env.AWS_ACCESS_KEY_ID!,
-      secretAccessKey: process.env.AWS_SECRET_ACCESS_KEY!,
-    },
-  });
-
-  const command = new InitiateAuthCommand({
-    AuthFlow: "USER_PASSWORD_AUTH",
-    ClientId: awsExports.aws_user_pools_web_client_id,
-    AuthParameters: {
-      USERNAME: email,
-      PASSWORD: password,
-    },
-  });
-
   try {
-    const response = await client.send(command);
-    const { AuthenticationResult } = response;
+    const userLogin = await request.json() as UserLoginInterface;
 
-    if (!AuthenticationResult) {
-      throw new Error("Authentication failed");
+    const apiId = process.env.API_ID;
+    const region = process.env.AWS_REGION;
+    const stage = process.env.STAGE;
+    const url = `https://${apiId}.execute-api.${region}.amazonaws.com/${stage}/api/login`;
+
+    const requestOptions = {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(userLogin),
+    };
+
+    const response = await fetch(url, requestOptions);
+    const gatewayResponse = await response.json();
+    const loginResponse = await gatewayResponse.body as LoginResponse;
+    const statusCode = response.status;
+
+    if (gatewayResponse && isGatewayResponse(gatewayResponse) && loginResponse) {
+      if (statusCode >= 200 && statusCode < 300) {
+        const responseHeaders = new Headers();
+        responseHeaders.append("Set-Cookie", `idToken=${loginResponse.idToken}; HttpOnly; Secure; Path=/; SameSite=Strict`);
+        responseHeaders.append("Set-Cookie", `accessToken=${loginResponse.accessToken}; HttpOnly; Secure; Path=/; SameSite=Strict`);
+        responseHeaders.append("Set-Cookie", `refreshToken=${loginResponse.refreshToken}; HttpOnly; Secure; Path=/; SameSite=Strict`);
+        return new NextResponse(JSON.stringify({ success: true, message: "Login successful" }), { headers: responseHeaders });
+      } else {
+        return new NextResponse(JSON.stringify(gatewayResponse), { status: statusCode });
+      }
+    } else {
+      return new NextResponse(JSON.stringify({ success: false, data: { message: "Unexpected Gateway response", error: gatewayResponse.error } }), { status: 500 });
     }
-
-    const { IdToken, AccessToken, RefreshToken } = AuthenticationResult;
-
-    const responseHeaders = new Headers();
-    responseHeaders.append("Set-Cookie", `idToken=${IdToken}; HttpOnly; Secure; Path=/; SameSite=Strict`);
-    responseHeaders.append("Set-Cookie", `accessToken=${AccessToken}; HttpOnly; Secure; Path=/; SameSite=Strict`);
-    responseHeaders.append("Set-Cookie", `refreshToken=${RefreshToken}; HttpOnly; Secure; Path=/; SameSite=Strict`);
-
-    return new NextResponse(JSON.stringify({ message: "Login successful" }), { headers: responseHeaders });
   } catch (error) {
-    const errorResponse: ErrorResponse = { error: (error as Error).message };
-    return NextResponse.json(errorResponse, { status: 400 });
+    console.log("Next server has encountered an error");
+    const errorResponse = error;
+    return new NextResponse(JSON.stringify(errorResponse), {status: 400});
   }
 }

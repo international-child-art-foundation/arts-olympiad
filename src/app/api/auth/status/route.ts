@@ -1,40 +1,50 @@
 "use server";
 
 import { NextRequest, NextResponse } from "next/server";
-import { CognitoIdentityProviderClient, GetUserCommand } from "@aws-sdk/client-cognito-identity-provider";
-import awsExports from "../../../../aws-exports";
+import { isGatewayResponse } from "@/utils/typeChecks";
 
+//Unsure of whether this endpoint will be used
 export async function GET(request: NextRequest) {
-  const cookies = request.cookies;
-
-  const idToken = cookies.get("idToken")?.value;
-  const accessToken = cookies.get("accessToken")?.value;
-  const refreshToken = cookies.get("refreshToken")?.value;
-
-  if (!idToken || !accessToken || !refreshToken) {
-    return NextResponse.json({ isAuthenticated: false, message: "No valid tokens found" });
-  }
-
-  const client = new CognitoIdentityProviderClient({
-    region: awsExports.aws_project_region,
-    credentials: {
-      accessKeyId: process.env.AWS_ACCESS_KEY_ID!,
-      secretAccessKey: process.env.AWS_SECRET_ACCESS_KEY!,
-    },
-  });
-
   try {
-    const command = new GetUserCommand({ AccessToken: accessToken });
-    const response = await client.send(command);
-    return NextResponse.json({ isAuthenticated: true, user: response });
-  } catch (error) {
-    // console.error("Error checking sign-in status:", error);
-    if (error instanceof Error) {
-      return NextResponse.json({ isAuthenticated: false, message: error.message });
-    } else if (typeof error === "string") {
-      return NextResponse.json({ isAuthenticated: false, message: error });
-    } else {
-      return NextResponse.json({ isAuthenticated: false, message: "An unknown error occurred" });
+    const cookies = request.cookies;
+
+    const idToken = cookies.get("idToken")?.value;
+    const accessToken = cookies.get("accessToken")?.value;
+    const refreshToken = cookies.get("refreshToken")?.value;
+
+    if (!idToken || !accessToken || !refreshToken) {
+      return new NextResponse(JSON.stringify({ isAuthenticated: false, message: "No valid tokens found" }), { status: 401 });
     }
+
+    const apiId = process.env.API_ID;
+    const region = process.env.AWS_REGION;
+    const stage = process.env.STAGE;
+    const url = `https://${apiId}.execute-api.${region}.amazonaws.com/${stage}/api/status`;
+
+    const requestOptions = {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+        "Authorization": `Bearer ${accessToken}`,
+      },
+    };
+
+    const response = await fetch(url, requestOptions);
+    const gatewayResponse = await response.json();
+    const statusCode = response.status;
+
+    if (gatewayResponse && isGatewayResponse(gatewayResponse)) {
+      if (statusCode >= 200 && statusCode < 300) {
+        return new NextResponse(JSON.stringify({ isAuthenticated: true, user: gatewayResponse.body }), { status: statusCode });
+      } else {
+        return new NextResponse(JSON.stringify(gatewayResponse), { status: statusCode });
+      }
+    } else {
+      return new NextResponse(JSON.stringify({ isAuthenticated: false, message: "Unexpected Gateway response", error: gatewayResponse.error }), { status: 500 });
+    }
+  } catch (error) {
+    console.log("Next server has encountered an error");
+    const errorResponse = error;
+    return new NextResponse(JSON.stringify(errorResponse), {status: 400});
   }
 }

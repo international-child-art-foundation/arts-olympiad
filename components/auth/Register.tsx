@@ -15,10 +15,13 @@ import LoadingAnimation from "../svgs/LoadingAnimation";
 
 export const Register = () => {
   const [userEmail, setUserEmail] = useState("");
+  const [userUuid, setUserUuid] = useState("");
   const [registerSuccess, setRegisterSuccess] = useState(false);
+  const [validationError, setValidationError] = useState(false);
 
 
   const verificationInitialValues: VerificationCodeInterface = {
+    uuid: "",
     email: "",
     verificationCode: "",
   };
@@ -29,12 +32,28 @@ export const Register = () => {
   });
   const [verificationSubmissionLoading, setVerificationSubmissionLoading] = useState(false);
   const verificationSubmit = async (values: VerificationCodeInterface) => {
+    setValidationError(false);
     setVerificationSubmissionLoading(true);
+    values.uuid = userUuid;
     values.email = userEmail;
-    const result = await handleVerify(values);
-    console.log(result);
+    if (values.uuid == "" || values.email == "") {
+      console.log("Values missing");
+      setVerificationSubmissionLoading(false);
+      setValidationError(true);
+      return;
+    }
+    const result = await handleVerify({
+      uuid: values.uuid,
+      email: values.email,
+      verificationCode: values.verificationCode
+    } as VerificationCodeInterface);
+    if (result?.success == false) {
+      console.log("Success is false");
+      setValidationError(true);
+    } else {
+      // router.push
+    }
     setVerificationSubmissionLoading(false);
-    // router.push(/dashboard)
   };
 
   
@@ -71,6 +90,16 @@ export const Register = () => {
                   </Form>
                 )}
               </Formik>
+              {validationError && 
+              <div>
+                <p className="text-red-300 max-w-full">
+                  An error occurred while attempting to validate your account.
+                </p>
+                <p className="text-red-300 max-w-full">
+                  Please reload the page and try again.
+                </p>
+              </div>
+              }
             </div>
           </div>      
         </VerificationModal>
@@ -80,7 +109,7 @@ export const Register = () => {
       >
         <div className="flex flex-row justify-center lg:justify-between">
           <Image className="mx-auto h-fit hidden lg:block" width={500} src={MFS_Logo} alt="My favorite sport logo." />
-          <RegisterForm setUserEmail={setUserEmail} setRegisterSuccess={setRegisterSuccess}/>
+          <RegisterForm setUserEmail={setUserEmail} setUserUuid={setUserUuid} setRegisterSuccess={setRegisterSuccess}/>
         </div>
       </section>
     </>

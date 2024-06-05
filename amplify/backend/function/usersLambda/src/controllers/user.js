@@ -1,7 +1,8 @@
 const UserService = require("../services/user");
+const { authenticateUserAndReturnId } = require("../utils");
 
 async function getUser(req, res) {
-  const userId = req.params.userId;
+  const userId = authenticateUserAndReturnId(req.body.accessToken);
   
   try {
     const user = await UserService.getUser(userId);
@@ -26,10 +27,10 @@ async function registerUser(req, res)  {
 }
 
 async function verifyUser(req, res) {
-  const { email, verification } = req.body;
+  const { uuid, email, verificationCode } = req.body;
 
   try {
-    const user = await UserService.verifyUser(email, verification);
+    const user = await UserService.verifyUser(uuid, email, verificationCode);
     res.status(200).json(user);
   } catch (error) {
     console.error(error);
@@ -42,14 +43,20 @@ async function login(req, res)  {
 
   try {
     const response = await UserService.login(email, password);
-    res.status(201).json(response);
+    const { AccessToken, IdToken, RefreshToken, ExpiresIn } = response;
+    res.status(201).json(
+      { 
+        message: "Login successful!", 
+        body: { accessToken: AccessToken, idToken: IdToken, refreshToken: RefreshToken, expiresIn: ExpiresIn } 
+      }
+    );
   } catch(error) {
-    res.status(401).json({ error: error.message });
+    res.status(401).json({ message: "Login failed", error: error.message });
   }
 }
 
 async function deleteUser(req, res) {
-  const userId = req.params.userId;
+  const userId = authenticateUserAndReturnId(req.body.accessToken);
   const token = req.headers.authentication?.split(" ")[1];
 
   try {
@@ -62,7 +69,7 @@ async function deleteUser(req, res) {
 }
 
 async function updateUser(req, res) {
-  const userId = req.params.userId;
+  const userId = authenticateUserAndReturnId(req.body.accessToken);
 
   try {
     const updatedUser = await UserService.updateUser(userId, req.body);

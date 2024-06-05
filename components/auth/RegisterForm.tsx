@@ -20,8 +20,10 @@ import RegisterDateOfBirth from "./RegisterDateOfBirth";
 import { handleRegister } from "@/utils/auth";
 import LoadingAnimation from "../svgs/LoadingAnimation";
 import { allowedPasswordCharactersRegex, passwordPolicyRegex } from "../../mock/passwordRegex";
+import { validate as uuidValidate } from "uuid";
 
 interface RegisterFormProps {
+  setUserUuid: React.Dispatch<React.SetStateAction<string>>
   setRegisterSuccess: React.Dispatch<React.SetStateAction<boolean>>
   setUserEmail: React.Dispatch<React.SetStateAction<string>>
 }
@@ -81,7 +83,7 @@ const initialValues: UserRegisterInterface = {
   password: ""
 };
 
-export const RegisterForm: React.FC<RegisterFormProps> = ({setUserEmail, setRegisterSuccess}) => {
+export const RegisterForm: React.FC<RegisterFormProps> = ({setUserEmail, setRegisterSuccess, setUserUuid}) => {
 
   const [showPassword, setShowPassword] = useState(false);
   const [formSubmissionLoading, setFormSubmissionLoading] = useState(false);
@@ -92,7 +94,12 @@ export const RegisterForm: React.FC<RegisterFormProps> = ({setUserEmail, setRegi
     setUserEmail(values.email); // Set user email for use in verificationSubmit
     const result = await handleRegister(values);
     console.log(result);
-    setRegisterSuccess(result.success);
+    if (result?.success) {
+      setRegisterSuccess(result.success);
+      if (result?.message && uuidValidate(result.message)) {
+        setUserUuid(result.message);
+      }  
+    }
     setFormSubmissionLoading(false);
   };
 
