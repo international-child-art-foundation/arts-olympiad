@@ -49,4 +49,5 @@ export const WisdomCard = forwardRef<HTMLDivElement, IProps>(({ wisdom, onClick 
   );
 });
 
+
 WisdomCard.displayName = "WisdomCard";

@@ -51,6 +51,7 @@ function AccordionCard({heading, description, number, textColor, borderColor, im
           </Pm>
         </div>
       </div>
+
       <div className="flex flex-col justify-between min-w-[80px] p-6 items-center" >
         <h1 className={`font-bold text-center md:text-4xl md:mr-6 lg:mr-0 lg:text-6xl ${textColor}`}>0{`${number}`}</h1>
         <h3
@@ -59,6 +60,7 @@ function AccordionCard({heading, description, number, textColor, borderColor, im
           {heading}
         </h3>
       </div>
+
       <div className="box-image absolute py-32 right-1 -bottom-32 z-0 w-1/2 ">
         <Image src={image} alt="" className="relative z-0 float-right "></Image>
       </div>
