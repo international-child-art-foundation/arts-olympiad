@@ -7,7 +7,7 @@ import { Timeline } from "../../../components/contest/timeline/Timeline";
 import { Participate } from "../../../components/contest/Participate";
 import TwoCards from "../../../components/contest/TwoCards";
 import {Prizes} from "../../../components/contest/Prizes";
-import AccorditionNew from "../../../components/contest/AccordionNew";
+import AccordionNew from "../../../components/contest/AccordionNew";
 
 export const metadata: Metadata = {
   title: "Contest | My Favorite Sport",
@@ -22,15 +22,10 @@ export default function contestPage() {
     <div className=" z-0 mx-auto w-screen">
       <ContestBegin />
       <TwoCards />
-      {/* <Accordion /> */}
-      <AccorditionNew />
-      {/* <Accordion />
-      {/* <Process /> */}
+      <AccordionNew />
       <Timeline />
       <Prizes />
       <Participate />
-      {/* <Voting /> */}
-      {/* <FiveDrop /> */}
     </div>
   );
 }

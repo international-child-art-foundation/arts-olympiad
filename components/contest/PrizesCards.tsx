@@ -11,7 +11,6 @@ interface Iprops {
     star: string | StaticImageData
 }
 
-
 function PrizesCards({src, heading, description, color, star}:Iprops) {
   return (
     <div className={`relative z-20 m-4 col-span-1 h-auto flex flex-col justify-center bg-white items-center border border-2 rounded-md ${color} `}>

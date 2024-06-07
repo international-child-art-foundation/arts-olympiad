@@ -21,13 +21,13 @@ export const ImpactBegin = () => {
           </TitleLayout>
           <div className="w-full mb-8 z-20">
             <h2 className="z-20 font-light text-xl w-full text-center lg:text-left lg:w-4/5">
-              Grow engagement in the Olympics through the art of sport.
+              Grow your engagement through art and sports. 
             </h2>
           </div>
         </div>
 
-        <div className="col-span-2 z-20 lg:col-span-1 flex justify-center w-full lg:justify-end">            
-          <Image src={impactHeader}  className="w-full sm:w-2/3" alt="photo" />
+        <div className="col-span-2 z-20 lg:col-span-1 w-fit lg:ml-12 lg:mt-12 mx-auto justify-center lg:justify-end">            
+          <Image src={impactHeader}  className="mx-auto w-fit sm:w-2/3" alt="photo" />
         </div>
 
       </section>

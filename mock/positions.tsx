@@ -25,39 +25,3 @@ export const leftPosition: Position = {
   width: "49.2%",
   height: "30%"
 };
-
-export const leftMain: Position = {
-  top: 0,
-  left: "0%",
-  width: "50%",
-  height: "50%"
-};
-
-export const RightLeftUpper: Position = {
-  top: 0,
-  left: "200%",
-  width: "25%",
-  height: "25%"
-};
-
-export const RightRightUpper: Position = {
-  top: 0,
-  left: "300%",
-  width: "25%",
-  height: "25%"
-};
-
-export const RightLeftLower: Position = {
-  top: "100%",
-  left: "200%",
-  width: "25%",
-  height: "25%"
-};
-
-export const RightRightLower: Position = {
-  top: "100%",
-  left: "300%",
-  width: "25%",
-  height: "25%"
-};
-

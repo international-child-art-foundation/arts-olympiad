@@ -10,7 +10,7 @@ import { WisdomCard } from "./WisdomCard";
 import {H3m} from "../../common/texts/H3m";
 import {Pm} from "../../common/texts/Pm";
 import { gsap } from "gsap";
-import { Position, centerPosition, rightPosition, leftPosition, leftMain, RightLeftUpper, RightLeftLower, RightRightUpper, RightRightLower} from "../../../mock/positions"; 
+import { Position, centerPosition, rightPosition, leftPosition, leftMain, LeftUpper, LeftLower, RightUpper, RightLower} from "../../../mock/positionsForImpact"; 
 import useWindowDimensions from "@/hooks/useWindowDimensions";
 
 export const WisdomCarousel = () => {
@@ -26,7 +26,14 @@ export const WisdomCarousel = () => {
 
   const { windowWidth } = useWindowDimensions();
   const isMobile = windowWidth < 1024;
-    
+  const calculateWidth = () => {
+    if (windowWidth >= 1024) {
+      return "calc(50% - 16px)";
+    } else {
+      return "100%";
+    }
+  };
+
   useEffect(() => {
     const handleKeyDown = (event: KeyboardEvent) => {
       if (event.key === "ArrowLeft" && leftButtonRef.current) {
@@ -66,6 +73,106 @@ export const WisdomCarousel = () => {
     }
   };
 
+  const animateCards = () => {
+    wisdomList.forEach((wisdom, i) => {
+      const cardRef = wisdomCardRefs.current[i];
+      let position: Position;
+      
+      if(isMobile) {
+        if (i === currentWisdom) {
+          position = centerPosition;
+          if (cardRef.current) {
+            cardRef.current.style.zIndex = "2";
+            gsap.to(cardRef.current.querySelector(".cardLabel"), { opacity: 0, duration: 0.4 });
+          }
+        } else if (i === (currentWisdom - 1 + wisdomList.length) % wisdomList.length) {
+          position = leftPosition;
+          if (cardRef.current) {
+            cardRef.current.style.zIndex = "1";
+            gsap.to(cardRef.current.querySelector(".cardLabel"), { opacity: 1, duration: 0.4 });
+          }
+        } else if (i === (currentWisdom + 1) % wisdomList.length) {
+          position = rightPosition;
+          if (cardRef.current) {
+            cardRef.current.style.zIndex = "1";
+            gsap.to(cardRef.current.querySelector(".cardLabel"), { opacity: 1, duration: 0.4 });
+          }
+        } else {
+          position = { left: 0, top: 0, width: 0, height: 0 };
+          if (cardRef.current) {
+            cardRef.current.style.zIndex = "-1";
+            gsap.to(cardRef.current.querySelector(".cardLabel"), { opacity: 0, duration: 0.4 });
+          }
+        }
+      } else {
+        if (i === currentWisdom) {
+          position = leftMain;
+          if (cardRef.current) {
+            cardRef.current.style.zIndex = "2";
+            gsap.to(cardRef.current.querySelector(".cardLabel"), { opacity: 0, duration: 0.4 });
+          }
+        } else if (i === (currentWisdom - 1 + wisdomList.length) % wisdomList.length) {
+          position = LeftLower;
+          if (cardRef.current) {
+            cardRef.current.style.zIndex = "1";
+            gsap.to(cardRef.current.querySelector(".cardLabel"), { opacity: 1, duration: 0.4 });
+          }
+        } else if (i === (currentWisdom - 2 + wisdomList.length) % wisdomList.length) {
+          position = RightLower;
+          if (cardRef.current) {
+            cardRef.current.style.zIndex = "0";
+            gsap.to(cardRef.current.querySelector(".cardLabel"), { opacity: 1, duration: 0.4 });
+          }
+        } else if (i === (currentWisdom + 1) % wisdomList.length) {
+          position = LeftUpper;
+          if (cardRef.current) {
+            cardRef.current.style.zIndex = "1";
+            gsap.to(cardRef.current.querySelector(".cardLabel"), { opacity: 1, duration: 0.4 });
+          }
+        } else if (i === (currentWisdom + 2) % wisdomList.length) {
+          position = RightUpper;
+          if (cardRef.current) {
+            cardRef.current.style.zIndex = "0";
+            gsap.to(cardRef.current.querySelector(".cardLabel"), { opacity: 1, duration: 0.4 });
+          }
+        } else {
+          position = { left: 0, top: 0, width: 0, height: 0 }; 
+          if (cardRef.current) {
+            cardRef.current.style.zIndex = "-1";
+            gsap.to(cardRef.current.querySelector(".cardLabel"), { opacity: 0, duration: 0.4 });
+          }
+        }
+      }
+
+      gsap.to(cardRef.current, {
+        x: position.left,
+        y: position.top,
+        width: position.width,
+        height: position.height,      
+        duration: 0.7,
+        ease: "slow(0.3,0.7,false)",
+      });
+    });
+
+    const textContainer = wisdomTextRef.current;
+    if (textContainer) {
+      gsap.to(textContainer, {
+        height: 0,
+        opacity: 0,
+        duration: 0.15,
+        ease: "power1.inOut",
+        onComplete: () => {
+          setWisdomText(wisdomList[currentWisdom].wisdomText);
+          setAuthorName(wisdomList[currentWisdom].author);
+        }
+      });
+    }
+  };
+
+  useEffect(() => {
+    animateCards();
+  }, [windowWidth, currentWisdom, isMobile]);
+
   useEffect(() => {
     const textContainer = wisdomTextRef.current;
     if (textContainer) {
@@ -84,141 +191,33 @@ export const WisdomCarousel = () => {
       });
     }
   }, [wisdomText, authorName]);
-  
-  useEffect(() => {
-    const animateCards = () => {
-      wisdomList.forEach((wisdom, i) => {
-        const cardRef = wisdomCardRefs.current[i];
-        let position: Position;
-        
-        if(isMobile) {
-          if (i === currentWisdom) {
-            position = centerPosition;
-            if (cardRef.current) {
-              cardRef.current.style.zIndex = "2";
-              gsap.to(cardRef.current.querySelector(".cardLabel"), { opacity: 0, duration: 0.4 });
-            }
-          } else if (i === currentWisdom - 1 || (currentWisdom === 0 && i === wisdomList.length - 1)) {
-            position = leftPosition;
-            if (cardRef.current) {
-              cardRef.current.style.zIndex = "1";
-              gsap.to(cardRef.current.querySelector(".cardLabel"), { opacity: 1, duration: 0.4 });
-            }
-          } else {
-            position = rightPosition;
-            if (cardRef.current) {
-              cardRef.current.style.zIndex = "1";
-              gsap.to(cardRef.current.querySelector(".cardLabel"), { opacity: 1, duration: 0.4 });
-            }
-          }
-        }
-        else {
-          if (i === currentWisdom) {
-            position = leftMain;
-            if (cardRef.current) {
-              cardRef.current.style.zIndex = "2";
-              gsap.to(cardRef.current.querySelector(".cardLabel"), { opacity: 0, duration: 0.4 });
-            }
-          } else if (i === currentWisdom - 1 || (currentWisdom === 0 && i === wisdomList.length - 1)) {
-            position = RightLeftUpper;
-            if (cardRef.current) {
-              cardRef.current.style.zIndex = "1";
-              gsap.to(cardRef.current.querySelector(".cardLabel"), { opacity: 1, duration: 0.4 });
-            }
-          } else if (i === currentWisdom - 2 || (currentWisdom === 0 && i === wisdomList.length - 2)){
-            position = RightLeftLower;
-            if (cardRef.current) {
-              cardRef.current.style.zIndex = "1";
-              gsap.to(cardRef.current.querySelector(".cardLabel"), { opacity: 1, duration: 0.4 });
-            }
-          } else if (i === currentWisdom - 3 || (currentWisdom === 0 && i === wisdomList.length - 3)){
-            position = RightRightLower;
-            if (cardRef.current) {
-              cardRef.current.style.zIndex = "1";
-              gsap.to(cardRef.current.querySelector(".cardLabel"), { opacity: 1, duration: 0.4 });
-            }
-          } else {
-            position = RightRightUpper;
-            if (cardRef.current) {
-              cardRef.current.style.zIndex = "1";
-              gsap.to(cardRef.current.querySelector(".cardLabel"), { opacity: 1, duration: 0.4 });
-            }
-          }
-        }
 
-        gsap.to(cardRef.current, {
-          x: position.left,
-          y: position.top,
-          width: position.width,
-          height: position.height,      
-          duration: 0.7,
-          ease: "slow(0.3,0.7,false)",});
-      });
-
-      const textContainer = wisdomTextRef.current;
-      if (textContainer) {
-        gsap.to(textContainer, {
-          height: 0,
-          opacity: 0,
-          duration: 0.15,
-          ease: "power1.inOut",
-          onComplete: () => {
-            setWisdomText(wisdomList[currentWisdom].wisdomText);
-            setAuthorName(wisdomList[currentWisdom].author);
-          }
-        });
-      }
-    };   
-
-    animateCards();
-  }, [currentWisdom]);
-  
   return (
     <figure className="z-40 flex flex-col justify-center items-center bg-transparent h-visionary-thinkers-md overflow-hidden" ref={intersectionTarget}>
       {
-        <div className=" z-40 relative w-full h-full">
+        <div className="z-40 relative w-full h-full">
+          {
+            wisdomList.map((wisdom, i) =>
+              <WisdomCard
+                ref={wisdomCardRefs.current[i]}
+                key={wisdom.author}
+                wisdom={wisdom}
+                onClick={() => handleIndicatorClick(i)}
+              />
+            )
+          }
           <div
             ref={wisdomTextRef}
-            className="flex flex-col -mb-3 md:flex-col backdrop-blur-[30px] p-5 absolute bottom-[-1px] z-50 bg-white -translate-y-[412px] lg:-translate-y-[412px] opacity-25 w-full lg:w-1/2 overflow-hidden max-w-full"
+            className="flex flex-col space-y-3 py-5 lg:py-4 backdrop-blur-[30px] absolute top-1/2 -translate-y-[96px] sm:-translate-y-[100px] lg:-translate-y-[108px] lg:translate-x-[8px] xl:-translate-y-[112px] z-50 bg-white bg-opacity-25 overflow-hidden max-w-full rounded-b-xl"
+            style={{ width: calculateWidth() }}
           >
-            <H3m className="z-20 mb-0 font-semibold row-span-1 xl:text-2xl lg:text-xl overflow-hidden whitespace-nowrap text-overflow-ellipsis font-montserrat">{authorName}</H3m>
-            <Pm className="text-sm font-openSans font-normal z-20 row-span-1 overflow-hidden text-overflow-ellipsis">{wisdomText}</Pm>
+            <H3m className="pl-4 z-20 mb-0 font-semibold row-span-1 xl:text-2xl lg:text-xl overflow-hidden whitespace-nowrap text-overflow-ellipsis font-montserrat">{authorName}</H3m>
+            <Pm className="pl-4 text-sm font-openSans font-normal z-20 row-span-1 overflow-hidden text-overflow-ellipsis">{wisdomText}</Pm>
           </div>
-          {
-            wisdomList
-              .map((wisdom, i) =>
-                <WisdomCard
-                  ref={wisdomCardRefs.current[i]}
-                  key={wisdom.author}
-                  wisdom={wisdom}
-                  onClick={() => handleIndicatorClick(i)}
-                />
-              )
-          }
         </div>
       }
 
-      {/* <div className="flex flex-col md:flex-row justify-center items-center md:grid md:grid-rows-2 justify-center">
-        <div className="mt-6 flex flex-row mx-[10%] md:mx-[0%] md:row-start-1 md:row-end-3 md:col-start-3 md:col-end-5 justify-self-center">
-          {
-            wisdomList.map((wisdom, i) => {
-              return (
-                <div
-                  key={wisdom.author}
-                  className={`
-                mx-2 rounded-full w-5 h-5 border-0.5 cursor-pointer
-                ${currentWisdom === i && "bg-dark-blue"}
-                ` }
-                  onClick={() => handleIndicatorClick(i)}
-                >
-                </div>
-              );
-            })
-          }
-        </div>    
-      </div> */}
-
-      <div className="relative -mt-24 lg:-mt-96 z-50" >
+      <div className="relative -mt-24 lg:-mt-96 z-50">
         <button
           ref={leftButtonRef}
           className="mr-6"
@@ -238,7 +237,7 @@ export const WisdomCarousel = () => {
             <Image src={RightIcon} alt="" className="w-6 h-6"></Image>
           </div>
         </button>
-      </div> 
+      </div>
     </figure>
   );
 };

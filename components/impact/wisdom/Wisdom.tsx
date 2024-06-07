@@ -1,5 +1,5 @@
 "use client";
-import {H2m} from "../../common/texts/H2m";
+// import {H2m} from "../../common/texts/H2m";
 import Image from "next/image";
 import {WisdomCarousel} from "./WisdomCarousel";
 import useIntersectionObserver from "@/hooks/useIntersectionObserver";
@@ -46,9 +46,6 @@ export const Wisdom = () => {
   return (
     <section className="font-montserrat font-semibold px-8 md:px-12 lg:px-16 xl:px-20 mt-24 md:mt-36 mb-24 flex flex-col max-w-screen-2xl m-auto overflow-hidden">
       <div className="self-center flex items-center justify-center relative ">
-        <H2m className="z-40 text-start lg:text-center relative font-montserrat">
-          Artists' Showcase: Credits & Acknowledgements for Site Imagery
-        </H2m>
       </div>
       <Image src={OrangeBlob} alt="" className="absolute z-0 pointer-event-none w-full lg:w-2/5 -left-36 mt-48 overflow-hidden"></Image>
       <div className="w-full justify-center items-center mt-12 lg:-mt-36 mx-auto">

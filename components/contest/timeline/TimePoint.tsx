@@ -35,7 +35,7 @@ export const TimePoint = ({heading, description, date, color, src, alt, isMobile
       {
         inversed ?
           <>
-            <TimelineImage src={src} alt={alt} />
+            <TimelineImage src={src} alt={alt} inversed/>
             <div className="z-10 relative bg-black min-h-[287px] m-0  border-2 border-black" />
             <TimePointDescription color={color} heading={heading} date={date} colorforDate={color} description={description} inversed/>
             

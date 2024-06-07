@@ -39,11 +39,9 @@ export const TimePointDescription = ({heading, color, description, isMobile, inv
             `}
           />
         </div>
-        <TimePointDate date={date} color={colorforDate}/>
-        <Pm className="font-openSans font-light xsm:w-full md:w-[80%] ">{description}</Pm>
+        <TimePointDate date={date} color={colorforDate} isMobile={isMobile} inversed={inversed}/>
+        <Pm className="font-openSans xsm:w-full md:w-[80%] ">{description}</Pm>
       </>
     </div>
-      
   );
-
 };

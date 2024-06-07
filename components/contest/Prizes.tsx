@@ -2,7 +2,7 @@ import React from "react";
 import { H2m } from "../common/texts/H2m";
 import { Pm } from "../common/texts/Pm";
 import Image from "next/image";
-import KidsBlue from "../../public/contest/kids_blue.png";
+import KidsBlue from "../../public/contest/kids_blue.webp";
 import PrizesCards from "./PrizesCards";
 import computer from "../../public/contest/computer.png";
 import Vote from "../../public/contest/vote.png";
@@ -21,7 +21,7 @@ export const Prizes = () => {
           <H2m className="flex-col z-20 font-montserrat font-medium mb-6 xsm:text-center lg:text-left">
           Prizes
           </H2m>
-          <Pm className="font-openSans font-light z-30 text-center lg:text-left">Prizes for the gold, silver, and bronze winners will be announced soon.</Pm>
+          <Pm className="font-openSans font-light z-30 text-center lg:text-left">Prizes for the gold, silver, and bronze winners are $3000, $2000, and $1000 respectively.</Pm>
         </div>
         <div className="relative flex flex-col w-full px-6 md:grid md:grid-cols-2 lg:px-24 mxl:px-72 mx-auto my-20 z-10">
           <PrizesCards 
@@ -48,15 +48,12 @@ export const Prizes = () => {
           <PrizesCards 
             src={HeartHandshake}
             heading="Announcement Day"
-            description="Join us to celebrate the winners on July 1 st at The National Mall across the U.S. Capitol."
+            description="The winners will be announced on the 20th of August, 2024."
             color="border-main-green"
             star={GreenStar}
           />
         </div>
-        <Image src={KidsBlue} width={1535} height={1491} className="absolute z-0 object-cover h-[1491px] w-screen xsm:top-40 left-0 md:object-none md:w-full md:-top-36 md:left-0" alt="photo" />
-        {/* <div className="col-span-2 z-0 sm:col-span-1">            
-            <Image src={KidsBlue} width = {390} height = {271} className="sm:ml-10 lg:ml-0 w-full" alt="photo" />
-        </div> */}
+        <Image src={KidsBlue} width={1535} height={1491} className="pointer-events-none select-none xl:scale-105 absolute z-0 object-cover h-[1491px] opacity-80 w-screen xsm:top-40 md:pb-20 md:object-none md:w-full md:-top-36 md:left-0" alt="photo" />
       </section>
     </>
   );

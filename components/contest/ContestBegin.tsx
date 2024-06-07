@@ -1,5 +1,5 @@
 import Image from "next/image";
-import contest_heading from "../../public/contest/contest_heading.png";
+import contest_heading from "../../public/contest/contest_heading.webp";
 
 export const ContestBegin = () => {
   return (
