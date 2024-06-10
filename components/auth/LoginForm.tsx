@@ -16,6 +16,7 @@ import {useRouter} from "next/navigation";
 import {Modal} from "../common/ui/Modal";
 import {CheckBox} from "../common/form_inputs/CheckBox";
 import {ForgotPasswordForm} from "./ForgotPasswordForm";
+import { formatDate } from "../../mock/dates";
 
 export interface IContactFormValues {
   email: string,
@@ -47,7 +48,9 @@ export const LoginForm = () => {
   return (
     <div className="w-[90%] sm:w-[70%] lg:w-[40%]">
       <H2m>Log in to your account</H2m>
-      <Pm className="my-2" >Registration begins on <b>June 15, 2024</b>.</Pm>
+      <Pm className="my-2">
+        Registration begins on <b>{formatDate("competitionBegin", "MMMM d, yyyy")}</b>.
+      </Pm>
       <Formik
         initialValues={initialValues}
         validationSchema={validationSchema}

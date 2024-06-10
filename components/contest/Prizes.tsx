@@ -12,6 +12,7 @@ import RedStar from "../../public/contest/red_star.png";
 import BlueStar from "../../public/contest/blue_star.png";
 import YellowStar from "../../public/contest/yellow_star.png";
 import GreenStar from "../../public/contest/green_star.png";
+import { formatDate } from "../../mock/dates";
 
 export const Prizes = () => {
   return (
@@ -48,7 +49,7 @@ export const Prizes = () => {
           <PrizesCards 
             src={HeartHandshake}
             heading="Announcement Day"
-            description="The winners will be announced on the 20th of August, 2024."
+            description={`The winners will be announced on the ${formatDate("winnerAnnounced", "do 'of' MMMM, yyyy")}.`}
             color="border-main-green"
             star={GreenStar}
           />

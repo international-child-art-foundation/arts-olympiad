@@ -15,6 +15,7 @@ import basketballPlayer from "../../../public/home/basketball-player.webp";
 import badmintonPlayer from "../../../public/home/badminton-player.webp";
 import secondSwimmer from "../../../public/home/swim2.webp";
 import dive from "../../../public/home/dive.webp";
+import { formatDate } from "../../../mock/dates";
 
 export const HomeYellowTimeline = () => {
 
@@ -52,7 +53,7 @@ export const HomeYellowTimeline = () => {
             <TimePoint
               heading="When does it start?"
               description="The #MyFavoriteSport event kicks off at an interactive exhibition in Paris."
-              date="June 15th, 2024"
+              date={formatDate("competitionBegin", "MMMM do, yyyy")}
               color={"#0286C3"}
               isMobile={isMobile}
             />
@@ -60,11 +61,11 @@ export const HomeYellowTimeline = () => {
               heading="Register to Enter and Vote"
               description={
                 <>
-              This is the time to engage your creative mind. Make your entry before
-                  <span className="font-bold text-dark-blue"> August 15th, 2024.</span>
+              This is the time to engage your creative mind. Make your entry before 
+                  <span className="font-bold text-dark-blue"> {formatDate("competitionEnd", "MMMM do, yyyy")}.</span>
                 </>
               }
-              date="June to August"
+              date={`${formatDate("competitionBegin", "MMMM")} to ${formatDate("competitionEnd", "MMMM")}`}
               color={"#FBB22E"}
               isMobile={isMobile}
               inversed
@@ -74,9 +75,9 @@ export const HomeYellowTimeline = () => {
               description={
                 <>
                   The gold, silver, and bronze winners, selected through public votes, will be announced on
-                  <span className="font-bold text-dark-blue"> August 20th, 2024 </span>
+                  <span className="font-bold text-dark-blue"> {formatDate("winnerAnnounced", "MMMM do, yyyy")}</span>
                 </>}
-              date="20th August, 2024"
+              date={formatDate("winnerAnnounced", "do MMMM, yyyy")}
               color={"#168C39"}
               isMobile={isMobile}
             />

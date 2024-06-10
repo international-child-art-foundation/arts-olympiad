@@ -5,6 +5,7 @@ import pinkBlob from "../../public/svgs/contest-svg/pinkblobDrop.svg";
 import { DownIcon } from "../svgs/DownIcon2";
 import { UpIcon } from "../svgs/UpIcon2";
 import { useState } from "react";
+import { formatDate } from "../../mock/dates";
 
 export const FiveDrop = () => {
   const [isExpanded1, SetIsExpanded1] = useState(false);
@@ -93,7 +94,7 @@ export const FiveDrop = () => {
           <nav tabIndex={0} className="w-full">
             <UpIcon className="-mt-6"/>
             <p className="mt-4 font-light text-base leading-loose">
-              Art submission can start on June 15th, 2024.  
+              Art submission can start on {formatDate("competitionBegin", "MMMM do, yyyy")}.  
             </p>
           </nav>
           }
