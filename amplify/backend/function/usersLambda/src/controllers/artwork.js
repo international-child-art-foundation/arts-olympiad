@@ -38,26 +38,32 @@ async function approveArtwork(req, res) {
   const artworkId = req.params.artworkId;
   const approvalStatus = req.body.is_approved;
 
-  // process images before approving artwork
   try {
-    const lambdaClient = new LambdaClient({ region: process.env.REGION });
-    const command = new InvokeCommand({
-      FunctionName: `arn:aws:lambda:us-east-1:011385746984:function:processImage-${process.env.ENV}`,
-      InvocationType: 'RequestResponse', // for synchronous execution
-      Payload: JSON.stringify({ user_id: artworkId }) // artwork id is the same as user id
-    });
-    const { Payload } = await lambdaClient.send(command);
-    const response = JSON.parse(Buffer.from(Payload));
-    console.log(response);
-    if (response.statusCode != 200) {
-      throw new Error(JSON.parse(response.body).error);
+    if (approvalStatus) {
+      // process images before approving artwork
+      const lambdaClient = new LambdaClient({ region: process.env.REGION });
+      const command = new InvokeCommand({
+        FunctionName: `arn:aws:lambda:us-east-1:011385746984:function:processImage-${process.env.ENV}`,
+        InvocationType: 'RequestResponse', // for synchronous execution
+        Payload: JSON.stringify({ user_id: artworkId }) // artwork id is the same as user id
+      });
+      const { Payload } = await lambdaClient.send(command);
+      const response = JSON.parse(Buffer.from(Payload));
+      console.log(response);
+      if (response.statusCode != 200) {
+        const error = JSON.parse(response.body).error;
+        if (error != 'Image already processed.') {
+          throw new Error(error);
+        }
+        console.error(error);
+      };
     };
 
     const artwork = await ArtworkService.approveArtwork(artworkId, approvalStatus);
     res.status(200).json(artwork);
   } catch(error) {
     console.error(error);
-    res.status(400).json({message: "Error updating artwork", error: error});
+    res.status(400).json({message: "Error updating artwork", error: error.message});
   }
 }
 
@@ -90,7 +96,7 @@ async function deleteArtwork(req, res) {
     res.status(204).json(response);
   } catch (error) {
     console.log(error);
-    res.status(400).json({ message: "error deleting artwork", error: error.message });
+    res.status(400).json({ message: "Error deleting artwork", error: error.message });
   }
 }
 
