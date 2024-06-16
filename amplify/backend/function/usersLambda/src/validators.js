@@ -31,6 +31,19 @@ const verifyUserValidator = [
     body('verificationCode').isInt().withMessage('verificationCode must be an integer')
 ]
 
+const updateUserValidator = [
+    body('location').isString().withMessage('location must be a string'),
+    body('age').isInt().withMessage('age must be an integer'),
+    body('g_f_name').isString().withMessage('g_f_name must be a string'),
+    body('g_l_name').isString().withMessage('g_l_name must be a string'),
+]
+
+const generatePresignedValidator = [
+    body('file_type')
+        .isString().withMessage('file_type must be a string')
+        .isIn(['jpg', 'png']).withMessage('file_type contains invalid values')
+]
+
 const addArtworkValidator = [
     ...uuidValidator,
     ...nameValidator,
@@ -43,7 +56,9 @@ const addArtworkValidator = [
     body('prompt').optional().isString().withMessage('prompt must be a string'),
 ];
 
-// TODO: add the rest of the validators
+const approveArtworkValidator = [
+    body('is_approved').isBoolean().withMessage('is_approved must be a boolean')
+]
 
 function validationMiddleware(req, res, next) {
     const errors = validationResult(req);
@@ -57,6 +72,9 @@ module.exports = {
     loginUserValidator,
     registerUserValidator,
     verifyUserValidator,
+    updateUserValidator,
+    generatePresignedValidator,
     addArtworkValidator,
+    approveArtworkValidator,
     validationMiddleware
 }

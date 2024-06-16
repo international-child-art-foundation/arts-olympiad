@@ -8,8 +8,8 @@ const UserController = require("./controllers/user");
 const VotesController = require("./controllers/votes");
 
 const {
-  loginUserValidator, registerUserValidator, verifyUserValidator, addArtworkValidator,
-  validationMiddleware
+  loginUserValidator, registerUserValidator, verifyUserValidator, updateUserValidator,
+  generatePresignedValidator, addArtworkValidator, approveArtworkValidator, validationMiddleware
 } = require('./validators');
 
 // declare a new express app
@@ -30,14 +30,14 @@ app.post("/api/login", loginUserValidator, validationMiddleware, UserController.
 app.post("/api/verify", verifyUserValidator, validationMiddleware, UserController.verifyUser);
 app.get("/api/auth-status", UserController.getAuthStatus);
 app.get("/api/users/:userId", UserController.getUser);
-app.patch("/api/users/:userId", UserController.updateUser);
+app.patch("/api/users/:userId", updateUserValidator, validationMiddleware, UserController.updateUser);
 app.delete("/api/users/:userId", UserController.deleteUser);
-app.post("/api/users/:userId/presigned-url", ArtworkController.generatePresigned);
+app.post("/api/users/:userId/presigned-url",generatePresignedValidator, validationMiddleware, ArtworkController.generatePresigned);
 
 app.get("/api/artworks", ArtworkController.getArtworks);
 app.post("/api/artworks", addArtworkValidator, validationMiddleware, ArtworkController.addArtwork);
 app.get("/api/artworks/:artworkId", ArtworkController.getArtwork);
-app.patch("/api/artworks/:artworkId", ArtworkController.approveArtwork);
+app.patch("/api/artworks/:artworkId", approveArtworkValidator, validationMiddleware, ArtworkController.approveArtwork);
 app.delete("/api/artworks/:artworkId", ArtworkController.deleteArtwork);
 app.patch("/api/artworks/:artworkId/votes/increment", ArtworkController.incrementVoteArtwork);
 app.patch("/api/artworks/:artworkId/votes/decrement", ArtworkController.decrementVoteArtwork);
