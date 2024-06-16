@@ -34,6 +34,11 @@ yarn-error.log*
 *.tsbuildinfo
 next-env.d.ts
 
+
+# Additional Amplify files
+amplify/team-provider-info.json
+amplify/backend-config.json
+
 #amplify-do-not-edit-begin
 amplify/\#current-cloud-backend
 amplify/.config/local-*
@@ -55,7 +60,3 @@ amplifytools.xcconfig
 .secret-*
 **.sample
 #amplify-do-not-edit-end
-
-# Additional Amplify files
-amplify/team-provider-info.json
-amplify/backend-config.json
