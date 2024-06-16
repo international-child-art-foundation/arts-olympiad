@@ -29,13 +29,15 @@ async function getUserById(userId) {
   }
 }
 
-async function createCognitoUser(email, password) {
+async function createCognitoUser(email, password, f_name) {
   try {
     const command = new SignUpCommand({
       ClientId: "26h0ul3gca5v4kevgl13dhhsur", 
       Username: email,
       Password: password,
-      UserAttributes: [] 
+      UserAttributes: [
+        { Name: "given_name", Value: f_name }
+      ] 
     }); 
     const response = await client.send(command);
     return response;
@@ -51,7 +53,9 @@ async function createUser(signUpResult, userDetails) {
       pk: "USER",
       sk: signUpResult.UserSub,
       id: signUpResult.UserSub, // uuid created for User name if not specified
-      ...userDetails,
+      f_name: userDetails.firstName,
+      l_name: userDetails.lastName,
+      birthdate: userDetails.birthdate,
       can_submit_art: false 
     };
 

@@ -42,6 +42,13 @@
       "permissions": {
         "setting": "open"
       }
+    },
+    "/api/auth-status": {
+      "name": "/api/auth-status",
+      "lambdaFunction": "usersLambda",
+      "permissions": {
+        "setting": "open"
+      }
     }
   }
 }

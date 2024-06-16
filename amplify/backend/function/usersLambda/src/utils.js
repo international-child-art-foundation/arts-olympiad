@@ -2,7 +2,7 @@ const { CognitoIdentityProviderClient, GetUserCommand } = require("@aws-sdk/clie
 
 const client = new CognitoIdentityProviderClient();
 
-async function authenticateUserAndReturnId(authToken) {
+async function getUserCognitoData(authToken) {
   try {
     const command = new GetUserCommand({
       AccessToken: authToken
@@ -14,12 +14,12 @@ async function authenticateUserAndReturnId(authToken) {
       return acc;
     }, {});
 
-    return userAttributes.sub; // User's UUID
+    return userAttributes; // userAttributes.sub = UUID
   } catch (error) {
     throw new Error("Unauthorized");
   }
 }
 
 module.exports = {
-  authenticateUserAndReturnId
+  getUserCognitoData
 };

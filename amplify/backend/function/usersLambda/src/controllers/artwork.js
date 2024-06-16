@@ -1,4 +1,5 @@
 const { LambdaClient, InvokeCommand } = require("@aws-sdk/client-lambda");
+
 const ArtworkService = require("../services/artwork");
 
 async function getArtwork(req, res) {
@@ -29,7 +30,7 @@ async function addArtwork(req, res) {
     const artwork = await ArtworkService.addArtwork(artworkData);
     res.status(200).json(artwork);
   } catch(error) {
-    res.status(400).json({message: "error creating", error: error});
+    res.status(400).json({message: "Error adding artwork", error: error});
   }
 }
 

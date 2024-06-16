@@ -1,8 +1,9 @@
 const UserService = require("../services/user");
-const { authenticateUserAndReturnId } = require("../utils");
+const { getUserCognitoData } = require("../utils");
 
 async function getUser(req, res) {
-  const userId = authenticateUserAndReturnId(req.body.accessToken);
+  const userCognitoData = getUserCognitoData(req.cookies.accessToken);
+  const userId = userCognitoData.sub;
   
   try {
     const user = await UserService.getUser(userId);
@@ -14,8 +15,8 @@ async function getUser(req, res) {
 }
 
 async function registerUser(req, res)  {
-  const { email, password, f_name, l_name, location, age, g_f_name, g_l_name, voted_id } = req.body;
-  const userData = { email, password, f_name, l_name, location, age, g_f_name, g_l_name, voted_id };
+  const { email, password, f_name, l_name, birthdate } = req.body;
+  const userData = { email, password, f_name, l_name, birthdate };
   
   try {
     const userSuccessMessage = await UserService.registerUser(userData);
@@ -38,16 +39,60 @@ async function verifyUser(req, res) {
   }
 }
 
+async function getAuthStatus(req, res) {
+  try {
+    const accessToken = req.cookies.accessToken;
+    if (!accessToken) {
+      return res.status(401).json({ message: "User is not logged in"});
+    }
+    const userCognitoData = await getUserCognitoData(req.cookies.accessToken); // May need to accept refresh token too
+    if (userCognitoData) {
+      if (userCognitoData.given_name) {
+        res.status(200).json({message: userCognitoData.given_name});
+      } else {
+        res.status(400).json({message: "First name not available"});
+      }
+    } else {
+      res.status(401).json({message: "Invalid or expired access token"});
+    }
+  } catch(error) {
+    console.error(error);
+    res.status(400).json({ message: "Authentication failed", error: error.message});
+  }
+}
+
 async function login(req, res)  {
   const { email, password } = req.body;
 
   try {
     const response = await UserService.login(email, password);
     const { AccessToken, IdToken, RefreshToken, ExpiresIn } = response;
+    let sameSiteValue = "Lax";
+    // if (process.env.ENV && process.env.ENV == "staging") {
+    //   sameSiteValue = "None"; // In production, this value should be "Lax" to prevent CSRF
+    // }
+    
+    res.cookie("accessToken", AccessToken, {
+      httpOnly: true,
+      secure: true,
+      sameSite: sameSiteValue,
+      maxAge: ExpiresIn * 1000
+    });
+    res.cookie("idToken", IdToken, {
+      httpOnly: true,
+      secure: true,
+      sameSite: sameSiteValue,
+      maxAge: ExpiresIn * 1000
+    });
+    res.cookie("refreshToken", RefreshToken, {
+      httpOnly: true,
+      secure: true,
+      sameSite: sameSiteValue,
+      maxAge: 86400000
+    });
     res.status(201).json(
       { 
         message: "Login successful!", 
-        body: { accessToken: AccessToken, idToken: IdToken, refreshToken: RefreshToken, expiresIn: ExpiresIn } 
       }
     );
   } catch(error) {
@@ -56,7 +101,8 @@ async function login(req, res)  {
 }
 
 async function deleteUser(req, res) {
-  const userId = authenticateUserAndReturnId(req.body.accessToken);
+  const userCognitoData = getUserCognitoData(req.cookies.accessToken);
+  const userId = userCognitoData.sub;
   const token = req.headers.authentication?.split(" ")[1];
 
   try {
@@ -69,7 +115,8 @@ async function deleteUser(req, res) {
 }
 
 async function updateUser(req, res) {
-  const userId = authenticateUserAndReturnId(req.body.accessToken);
+  const userCognitoData = getUserCognitoData(req.cookies.accessToken);
+  const userId = userCognitoData.sub;
 
   try {
     const updatedUser = await UserService.updateUser(userId, req.body);
@@ -88,4 +135,5 @@ module.exports = {
   login,
   deleteUser,
   updateUser,
+  getAuthStatus
 };

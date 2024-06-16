@@ -7,9 +7,9 @@ async function getUser(userId) {
 }
 
 async function registerUser(userData) {
-  const { email, password, ...userDetails } = userData;
-  const signUpResult = await UserModel.createCognitoUser(email, password);
-  const uuid = await UserModel.createUser(signUpResult, {email, ...userDetails});
+  const { email, password, f_name } = userData;
+  const signUpResult = await UserModel.createCognitoUser(email, password, f_name);
+  const uuid = await UserModel.createUser(signUpResult, userData);
 
   // const formattedUser = {
   //   id: signUpResult.UserSub, // uuid created for User name if not specified
