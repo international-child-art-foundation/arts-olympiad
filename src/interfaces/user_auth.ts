@@ -13,8 +13,8 @@ export interface UserRegisterInterface {
 }
 
 export interface UserRegisterInterfaceAfterFormatting {
-  firstName: string;
-  lastName: string;
+  f_name: string;
+  l_name: string;
   email: string;
   birthdate: string;
   password: string;

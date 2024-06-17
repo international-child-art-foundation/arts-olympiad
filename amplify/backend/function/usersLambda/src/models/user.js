@@ -105,6 +105,24 @@ async function signIn(email, password) {
   }
 }
 
+async function getNewTokens(refreshToken) {
+  try {
+    const command = new InitiateAuthCommand({
+      AuthFlow: AuthFlowType.REFRESH_TOKEN_AUTH,
+      AuthParameters: {
+        REFRESH_TOKEN: refreshToken,
+      },
+      ClientId: "26h0ul3gca5v4kevgl13dhhsur", // ** double check clientId
+    });
+
+    const response = await client.send(command);
+    return response;
+  } catch (error) {
+    console.error("error signing into cognito");
+    throw error;
+  }
+}
+
 async function deleteCognitoUser(token) {
   try {
     const command = new DeleteUserCommand({ AccessToken: token });
@@ -166,5 +184,6 @@ module.exports = {
   signIn,
   deleteCognitoUser,
   deleteUserData,
-  updateUserById
+  updateUserById,
+  getNewTokens
 };

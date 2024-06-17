@@ -14,6 +14,12 @@ const uuidValidator = [
     body('id').isUUID().withMessage('id must be a UUID string'),
 ]
 
+const verificationCodeValidator = [
+    body('verificationCode')
+      .isNumeric().withMessage('Verification code must be numeric')
+      .isLength({ min: 6, max: 6 }).withMessage('Verification code must be exactly six digits')
+  ];
+  
 const loginUserValidator = [
     ...emailValidator,
     body('password').isString().withMessage('password must be a string'),
@@ -26,9 +32,8 @@ const registerUserValidator = [
 ]
 
 const verifyUserValidator = [
-    ...uuidValidator,
+    ...verificationCodeValidator,
     ...emailValidator,
-    body('verificationCode').isInt().withMessage('verificationCode must be an integer')
 ]
 
 const updateUserValidator = [

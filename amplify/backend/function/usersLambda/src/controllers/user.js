@@ -1,5 +1,5 @@
 const UserService = require("../services/user");
-const { getUserCognitoData } = require("../utils");
+const { getUserCognitoData, handleRefreshTokenFlow } = require("../utils");
 
 async function getUser(req, res) {
   const userCognitoData = getUserCognitoData(req.cookies.accessToken);
@@ -41,11 +41,13 @@ async function verifyUser(req, res) {
 
 async function getAuthStatus(req, res) {
   try {
-    const accessToken = req.cookies.accessToken;
-    if (!accessToken) {
+    const {accessToken, refreshToken} = req.cookies;
+    if (!accessToken && !refreshToken) {
       return res.status(401).json({ message: "User is not logged in"});
     }
-    const userCognitoData = await getUserCognitoData(req.cookies.accessToken); // May need to accept refresh token too
+    await handleRefreshTokenFlow(req, res);
+    if (res.headersSent) return; // Exit execution if response has already been sent
+    const userCognitoData = await getUserCognitoData(req.cookies.accessToken);
     if (userCognitoData) {
       if (userCognitoData.given_name) {
         res.status(200).json({message: userCognitoData.given_name});

@@ -5,6 +5,12 @@ import { BirthdateInterface, UserLoginInterface, UserRegisterInterface, Verifica
 
 // These functions are used to call our server API files in /src/app/api/, which interact
 // with the AWS SDK server-side and return information to the client.
+
+// const apiId = process.env.NEXT_PUBLIC_API_ID;
+// const region = process.env.NEXT_PUBLIC_AWS_REGION;
+// const stage = process.env.NEXT_PUBLIC_STAGE;
+// const baseUrl = `https://${apiId}.execute-api.${region}.amazonaws.com/${stage}`;
+
 export async function handleRegister({
   firstName,
   lastName,
@@ -33,13 +39,13 @@ export async function handleRegister({
   const bodyContents = {
     email: email,
     password: password, 
-    firstName: firstName,
-    lastName: lastName,
+    f_name: firstName,
+    l_name: lastName,
     birthdate: cognitoFormattedBirthdate
   } as UserRegisterInterfaceAfterFormatting;
 
   try {
-    const nextServerResponse = await fetch("/api/auth/register", {
+    const gatewayServerResponse = await fetch("/next-proxy/api/users", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -47,9 +53,9 @@ export async function handleRegister({
       body: JSON.stringify(bodyContents)
     });
 
-    const result = await nextServerResponse.json();
-    if (nextServerResponse.ok) {
-      return { success: result.success, message: result.message };
+    const result = await gatewayServerResponse.json();
+    if (gatewayServerResponse.ok) {
+      return { success: gatewayServerResponse.ok, message: result.message };
     }
   } catch (error) {
     console.log("error checking authentication status", error);
@@ -81,7 +87,7 @@ export async function handleVerify({
   });
 
   try {
-    const nextServerResponse = await fetch("/api/auth/verify", {
+    const gatewayServerResponse = await fetch("/next-proxy/api/verify", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -89,9 +95,10 @@ export async function handleVerify({
       body: verifyBody
     });
 
-    const result = await nextServerResponse.json();
-    if (nextServerResponse.ok) {
-      return { success: result.success, message: result.message };
+    const result = await gatewayServerResponse.json();
+    console.log(result);
+    if (gatewayServerResponse.ok) {
+      return { success: gatewayServerResponse.ok, message: result.message };
     }
   } catch (error) {
     console.log("error checking authentication status", error);
@@ -113,7 +120,7 @@ export async function handleVerify({
 
 export async function handleLogin({ email, password }: UserLoginInterface) {
   try {
-    const nextServerResponse = await fetch("/api/auth/login", {
+    const gatewayServerResponse = await fetch("/next-proxy/api/login", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -124,9 +131,9 @@ export async function handleLogin({ email, password }: UserLoginInterface) {
       })
     });
 
-    const result = await nextServerResponse.json();
-    if (nextServerResponse.ok) {
-      return { isAuthenticated: true, success: result.success, message: result.message };
+    const result = await gatewayServerResponse.json();
+    if (gatewayServerResponse.ok) {
+      return { isAuthenticated: true, success: gatewayServerResponse.ok, message: result.message };
     } else {
       return { isAuthenticated: false, message: result.message };
     }
@@ -150,7 +157,7 @@ export async function handleLogin({ email, password }: UserLoginInterface) {
 
 export async function getAuthStatus() {
   try {
-    const response = await fetch("/api/auth/status", {
+    const response = await fetch("/next-proxy/api/auth-status", {
       method: "GET",
       headers: {
         "Content-Type": "application/json",
@@ -161,7 +168,7 @@ export async function getAuthStatus() {
     const result = await response.json();
 
     if (response.ok) {
-      return { isAuthenticated: true, user: result.user };
+      return { isAuthenticated: true, name: result.f_name };
     } else {
       return { isAuthenticated: false, message: result.message };
     }

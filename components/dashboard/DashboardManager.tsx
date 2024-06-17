@@ -21,15 +21,19 @@ export default function DashboardManager() {
   // authenticated page visits, and API requests. We will also need to manage refresh 
   // token tasks manually which will likely occur when authentication status is checked. 
   const [isAuthenticated, setIsAuthenticated] = useState(false);
-  async function checkAuthStatus() {
-    const authStatus = await getAuthStatus();
-    setIsAuthenticated(authStatus.isAuthenticated);
-    console.log("Authentication status:", authStatus.isAuthenticated);
-  }
 
+  // async function getFakeAuthStatus() {
+  //   return true;
+  // }
   useEffect(() => {
-    console.log("Authentication status:", isAuthenticated);
-  }, [isAuthenticated]); // Dependency array includes isAuthenticated to log its updates
+    async function asyncGetAuthStatus() {
+      const authStatus = await getAuthStatus();
+      setIsAuthenticated(authStatus.isAuthenticated);
+      console.log(authStatus.isAuthenticated);
+    }
+    asyncGetAuthStatus();
+  }, []);
+
 
 
   // Create our dashboard state variable
@@ -91,7 +95,8 @@ export default function DashboardManager() {
         <div className="p-10">
           <div className="xl:w-[80%] m-auto max-w-[800px]">
             {/* Dummy button to test authentication status */}
-            <button className="w-64 bg-blue-500" onClick={checkAuthStatus}>Check auth status</button>
+            {isAuthenticated && <div>Authenticated!</div>}
+            {/* <button className="w-64 bg-blue-500" onClick={checkAuthStatus}>Check auth status</button> */}
             {dashboardTab == "Dashboard" && <DashboardMainTab dashboardLoadingState={dashboardLoadingState} />}
             {dashboardTab == "YourVote" && <YourVoteTab dashboardLoadingState={dashboardLoadingState} />}
           </div>

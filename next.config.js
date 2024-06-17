@@ -22,6 +22,22 @@ const nextConfig = {
   //     },
   //   ];
   // },
+
+  // TODO
+  // This function makes next.js view our APIGateway instance as a member of its same origin.
+  // Security is much simpler when we can use SameSite=Lax cookies, which this rewrite rule enables.
+  // The original plan was to proxy the APIGateway URL to myfavoritesport.org/api.
+  // Unsure if this method is secure or will be altered in prod, but good enough for
+  // local development for now.
+  async rewrites() {
+    return [
+      {
+        source: "/next-proxy/:path*",
+        destination: `${process.env.API_URL}/:path*`
+      },
+    ];
+  },
+
 };
 
 module.exports = nextConfig;

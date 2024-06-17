@@ -60,3 +60,8 @@ amplifytools.xcconfig
 .secret-*
 **.sample
 #amplify-do-not-edit-end
+
+# Additional Amplify files
+amplify/team-provider-info.json
+amplify/backend-config.json
+certificates
