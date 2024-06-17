@@ -49,6 +49,7 @@ export async function handleRegister({
       method: "POST",
       headers: {
         "Content-Type": "application/json",
+        "x-api-key": process.env.NEXT_PUBLIC_AK || "",
       },
       body: JSON.stringify(bodyContents)
     });
@@ -91,6 +92,7 @@ export async function handleVerify({
       method: "POST",
       headers: {
         "Content-Type": "application/json",
+        "x-api-key": process.env.NEXT_PUBLIC_AK || "",
       },
       body: verifyBody
     });
@@ -124,6 +126,7 @@ export async function handleLogin({ email, password }: UserLoginInterface) {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
+        "x-api-key": process.env.NEXT_PUBLIC_AK || "",
       },
       body: JSON.stringify({
         email: email,
@@ -161,6 +164,7 @@ export async function getAuthStatus() {
       method: "GET",
       headers: {
         "Content-Type": "application/json",
+        "x-api-key": process.env.NEXT_PUBLIC_AK || "",
       },
       credentials: "include",
     });
