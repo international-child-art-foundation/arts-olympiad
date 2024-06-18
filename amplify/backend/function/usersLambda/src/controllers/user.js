@@ -2,15 +2,19 @@ const UserService = require("../services/user");
 const { getUserCognitoData, handleRefreshTokenFlow } = require("../utils");
 
 async function getUser(req, res) {
-  const userCognitoData = getUserCognitoData(req.cookies.accessToken);
-  const userId = userCognitoData.sub;
-  
   try {
+    const {accessToken, refreshToken} = req.cookies;
+    if (!accessToken && !refreshToken) {
+      return res.status(401).json({ message: "User is not logged in"});
+    }
+    await handleRefreshTokenFlow(req, res);
+    const userCognitoData = await getUserCognitoData(req.cookies.accessToken);
+    const userId = userCognitoData.sub;
     const user = await UserService.getUser(userId);
     res.status(200).json(user);
   } catch (error) {
-    console.error("Error from route" + error);
-    res.status(400).json({ error });
+    console.error("Error from route:", error.message || error);
+    res.status(400).json({ error: error.message || "An unknown error occurred" });  
   }
 }
 
@@ -103,7 +107,7 @@ async function login(req, res)  {
 }
 
 async function deleteUser(req, res) {
-  const userCognitoData = getUserCognitoData(req.cookies.accessToken);
+  const userCognitoData = await getUserCognitoData(req.cookies.accessToken);
   const userId = userCognitoData.sub;
   const token = req.headers.authentication?.split(" ")[1];
 
@@ -117,7 +121,7 @@ async function deleteUser(req, res) {
 }
 
 async function updateUser(req, res) {
-  const userCognitoData = getUserCognitoData(req.cookies.accessToken);
+  const userCognitoData = await getUserCognitoData(req.cookies.accessToken);
   const userId = userCognitoData.sub;
 
   try {

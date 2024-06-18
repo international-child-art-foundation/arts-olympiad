@@ -1,16 +1,16 @@
 "use client";
 import React, { useState, useEffect } from "react";
 import { DashboardTabs, DashboardLoadingStates, dashboardTypeStringConversions, DashboardUrls } from "../../mock/DashboardTypes";
-import { fakeUserData } from "../../mock/fakeUserData";
+// import { fakeUserData } from "../../mock/fakeUserData";
+// import { fakeUserArtworkData } from "../../mock/fakeUserArtworkData";
 import { DashboardMainTab } from "../../components/dashboard/DashboardMainTab";
 import { DashboardTabSection } from "./DashboardTabSection";
 import { YourVoteTab } from "./YourVoteTab";
 import { useRouter, useSearchParams } from "next/navigation";
 import { useDashboardContext } from "./DashboardContext";
-import { fakeUserArtworkData } from "../../mock/fakeUserArtworkData";
 import { DashboardModal } from "./DashboardModal";
 import { DeleteArtwork } from "./DeleteArtwork";
-import { getAuthStatus } from "@/utils/auth";
+import { getAuthStatus, getUserData } from "@/utils/auth";
 
 export default function DashboardManager() {
   const router = useRouter();
@@ -25,14 +25,6 @@ export default function DashboardManager() {
   // async function getFakeAuthStatus() {
   //   return true;
   // }
-  useEffect(() => {
-    async function asyncGetAuthStatus() {
-      const authStatus = await getAuthStatus();
-      setIsAuthenticated(authStatus.isAuthenticated);
-      console.log(authStatus.isAuthenticated);
-    }
-    asyncGetAuthStatus();
-  }, []);
 
 
 
@@ -41,14 +33,32 @@ export default function DashboardManager() {
   const [dashboardLoadingState, setDashboardLoadingState] = useState<DashboardLoadingStates>("Loading");
   const {setApiUserData, setApiArtworkData, displayModal} = useDashboardContext();
 
-  // On page load, get and set user data once
   useEffect(() => {
-    setTimeout(() => { // Simulate API call wait time
-      setApiUserData(fakeUserData);
-      setApiArtworkData(fakeUserArtworkData);
-      setDashboardLoadingState("Loaded" as DashboardLoadingStates);
-    }, 1000);
-  });
+    async function asyncGetAuthStatus() {
+      const authStatus = await getAuthStatus();
+      setIsAuthenticated(authStatus.isAuthenticated);
+      console.log(authStatus.isAuthenticated);
+    }
+    async function asyncGetUserData() {
+      const userData = await getUserData();
+      console.log(userData);
+      setApiUserData(userData);
+    }
+    asyncGetAuthStatus();
+    asyncGetUserData();
+    // setApiArtworkData(fakeUserArtworkData);
+    setDashboardLoadingState("Loaded" as DashboardLoadingStates);
+  }, [setApiUserData, setApiArtworkData]);
+
+
+  // // Old code for setting fake user data
+  // useEffect(() => {
+  //   setTimeout(() => { // Simulate API call wait time
+  //     setApiUserData(fakeUserData);
+  //     setApiArtworkData(fakeUserArtworkData);
+  //     setDashboardLoadingState("Loaded" as DashboardLoadingStates);
+  //   }, 1000);
+  // });
 
   const handleTabClick = (tabIdentity: DashboardTabs) => {
     setDashboardTab(tabIdentity);

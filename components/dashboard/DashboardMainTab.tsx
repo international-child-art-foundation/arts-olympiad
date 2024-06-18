@@ -10,7 +10,7 @@ interface DashboardMainTabProps {
 }
 
 export const DashboardMainTab: React.FC<DashboardMainTabProps> = ({ dashboardLoadingState }) => {
-  const { apiUserData, userHasActiveSubmission } = useDashboardContext();
+  const { apiUserData } = useDashboardContext();
 
   return (
     <>
@@ -22,7 +22,7 @@ export const DashboardMainTab: React.FC<DashboardMainTabProps> = ({ dashboardLoa
           <p className="font-montserrat text-2xl font-regular text-[32px]">Welcome to your dashboard, {apiUserData?.f_name}!</p>
           <p className="font-light text-base py-2 pb-4">See your account information here.</p>
           <p className="py-2 pt-4 font-montserrat font-semibold text-2xl">Your Artwork</p>
-          {userHasActiveSubmission ? (
+          {apiUserData?.has_active_submission == true ? (
             <ActiveArtDisplay/>
           ) : (
             <div>

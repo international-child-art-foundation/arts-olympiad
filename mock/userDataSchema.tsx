@@ -9,4 +9,5 @@ export interface UserDataSchema
   g_l_name: string,
   voted_id: string,
   can_submit_art: boolean;
+  has_active_submission: boolean;
 }

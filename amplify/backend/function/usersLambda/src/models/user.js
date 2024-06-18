@@ -11,13 +11,24 @@ const client = new CognitoIdentityProviderClient({});
 
 
 async function getUserById(userId) {
+  // Validation checks mostly for debugging
+  if (!userId) {
+    throw new Error("Absent userId: userId is required.");
+  }
+  if (typeof userId !== "string") {
+    throw new Error("Invalid userId: userId must be a string.");
+  }
+  if (userId.length <= 5) {
+    throw new Error("Invalid userId: userId must be longer than 5 characters.");
+  }
+
   const input = {
     TableName: tableName,
     Key: {
       pk: "USER",
       sk: userId
     },
-    ProjectionExpression: "id, f_name, l_name, #loc, age, email, g_f_name, g_l_name, voted_id, can_submit_art",
+    ProjectionExpression: "id, f_name, l_name, #loc, age, email, g_f_name, g_l_name, voted_id, can_submit_art, has_active_submission",
     ExpressionAttributeNames: { "#loc": "location" },
   };
   try {
@@ -53,9 +64,10 @@ async function createUser(signUpResult, userDetails) {
       pk: "USER",
       sk: signUpResult.UserSub,
       id: signUpResult.UserSub, // uuid created for User name if not specified
-      f_name: userDetails.firstName,
-      l_name: userDetails.lastName,
+      f_name: userDetails.f_name,
+      l_name: userDetails.l_name,
       birthdate: userDetails.birthdate,
+      has_active_submission: false,
       can_submit_art: false 
     };
 
