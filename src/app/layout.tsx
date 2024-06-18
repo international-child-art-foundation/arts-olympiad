@@ -54,10 +54,12 @@ export default function RootLayout({
       />
       <body>
         <Header/>
-        <main className={"font-openSans font-base overflow-hidden flex flex-col justify-center align-middle w-full m-auto leading-8"}>
-          { children }
-        </main>
-        <Footer />
+        <div className={"font-openSans font-base overflow-hidden flex flex-col justify-center align-middle w-full m-auto leading-8 flex flex-col relative layout-height"}>
+          <main className="flex-grow">
+            { children }
+          </main>
+          <Footer />
+        </div>
       </body>
     </html>
   );
