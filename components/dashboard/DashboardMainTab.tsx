@@ -4,6 +4,10 @@ import information from "../../public/svgs/information.svg";
 import uploadIcon from "../../public/svgs/upload.svg";
 import Image from "next/image";
 import { ActiveArtDisplay } from "./ActiveArtDisplay";
+import Popup from "./modal/Popup";
+import { StepsProvider } from "./modal/StepsContext";
+import { useEffect } from "react";
+import { DashboardModal } from "./DashboardModal";
 
 interface DashboardMainTabProps {
   dashboardLoadingState: DashboardLoadingStates;
@@ -11,6 +15,20 @@ interface DashboardMainTabProps {
 
 export const DashboardMainTab: React.FC<DashboardMainTabProps> = ({ dashboardLoadingState }) => {
   const { apiUserData } = useDashboardContext();
+
+  const {displayModal, setDisplayModal} = useDashboardContext();
+  {/* If modal is open, prevent page scrolling */}
+  useEffect(() => {
+    if (displayModal === "mainTab") {
+      document.body.style.overflow = "hidden";
+    } else {
+      document.body.style.overflow = "";
+    }
+    
+    return () => {
+      document.body.style.overflow = "";
+    };
+  }, [displayModal]);
 
   return (
     <>
@@ -26,11 +44,18 @@ export const DashboardMainTab: React.FC<DashboardMainTabProps> = ({ dashboardLoa
             <ActiveArtDisplay/>
           ) : (
             <div>
-              <div className="my-2 w-full outline outline-1 rounded-3xl h-[400px] w-[81%] max-h-full max-w-full content-center">
-                <button className="flex bg-new-blue rounded text-white p-4 m-auto items-center gap-8">
+              <div className="my-2 w-full outline outline-1 rounded-3xl h-[400px] max-w-full content-center">
+                <button onClick={() => setDisplayModal("mainTab")} className="z-10 flex bg-new-blue rounded text-white p-4 m-auto items-center gap-8">
                   <p>Upload Artwork</p>
                   <Image src={uploadIcon} alt="upload" width={16} height={16} />
                 </button>
+                {displayModal === "mainTab" && 
+                  <DashboardModal> 
+                    <StepsProvider>
+                      <Popup></Popup>
+                    </StepsProvider>
+                  </DashboardModal>            
+                }
               </div>
               <div className="flex gap-2 py-3">
                 <Image src={information} alt="info" width={16} height={16} />
