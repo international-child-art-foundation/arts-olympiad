@@ -6,6 +6,7 @@ import { ThreeDot } from "../../public/svgs/contest-svg/ThreeDot";
 import { ThreePerson } from "../../public/svgs/contest-svg/ThreePerson";
 import { ThreeMedal } from "../../public/svgs/contest-svg/ThreeMedal";
 import hands from "../../public/contest/hands.webp";
+import { formatDate } from "../../mock/dates";
 
 export const Voting = () => {
   return (
@@ -54,7 +55,7 @@ export const Voting = () => {
             <span className="ml-3">Winner Announcement</span>
           </h3>
           <p className="mt-4 font-light text-base leading-loose">
-            Gold, Silver, and Bronze winners will be announced in Washington DC on August 20th.
+            Gold, Silver, and Bronze winners will be announced in Washington DC on {formatDate("winnerAnnounced", "MMMM do")}.
           </p>
 
           <div className="flex justify-center lg:justify-start mt-10">              

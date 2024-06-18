@@ -14,6 +14,7 @@ import ClosedEye from "../../public/auth/eye_closed.svg";
 import Link from "next/link";
 import {useRouter} from "next/navigation";
 import {NewPasswordInput} from "../common/form_inputs/NewPasswordInput";
+import { formatDate } from "../../mock/dates";
 
 export interface IContactFormValues {
   email: string,
@@ -50,7 +51,9 @@ export const RegisterForm = () => {
     <div className="max-w-[90%] sm:max-w-[70%] lg:max-w-[40%]">
       <H2m>Create an account</H2m>
       <Pm className="my-2" >Join us! Create your account to either vote for inspiring art or enter your own work.</Pm>
-      <Pm className="my-2" >Registration begins on <b>June 15, 2024</b>.</Pm>
+      <Pm className="my-2">
+        Registration begins on <b>{formatDate("competitionBegin", "MMMM d, yyyy")}</b>.
+      </Pm>
       <Formik
         initialValues={initialValues}
         validationSchema={validationSchema}

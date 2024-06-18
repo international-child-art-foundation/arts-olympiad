@@ -2,6 +2,7 @@
 import Image from "next/image";
 import hashtag from "../../public/home/hashtag.svg";
 import bicycleHero from "../../public/home/MFS_Bicycle_Hero.webp";
+import { formatDate }  from "../../mock/dates";
 
 export const Intro = () => {
 
@@ -23,7 +24,7 @@ export const Intro = () => {
             The gold, silver, and bronze winners selected through public votes will earn US$3000 (gold), $2000 (silver), and $1000 (bronze). Entry fee is $10.
           </p>
           <p className="z-20 mb-4 leading-8 lg:mb8 flex flex-wrap"> {/* Use &nbsp to allow grid layout to work properly */}
-            The competition begins on&nbsp;<b> June 15th </b>&nbsp;and ends on&nbsp;<b> August 15th.</b>             Winners will be announced on&nbsp;<b>August 20, 2024.</b>
+            The competition begins on&nbsp;<b> {formatDate("competitionBegin", "MMMM do")} </b>&nbsp;and ends on&nbsp;<b> {formatDate("competitionEnd", "MMMM do")}.</b>             Winners will be announced on&nbsp;<b>{formatDate("winnerAnnounced", "MMMM d, yyyy")}.</b>
           </p>
           <p className="z-20 mb-4 leading-8 lg:mb8">
           </p>

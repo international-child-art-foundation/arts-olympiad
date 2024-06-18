@@ -11,6 +11,7 @@ import TorchBlue from "../../../public/contest/torch_blue.webp";
 import { H2m } from "../../common/texts/H2m";
 import BlueBlob from "../../../public/contest/blue_blob.webp";
 import OrangeBlob from "../../../public/contest/orange_blob.svg";
+import { formatDate } from "../../../mock/dates";
 
 export const Timeline = () => {
 
@@ -34,7 +35,7 @@ export const Timeline = () => {
                 <TimePoint
                   heading="Contest Begins"
                   description=""
-                  date="15th June, 2024"
+                  date={`${formatDate("competitionBegin", "MMMM do, yyyy")}`}
                   color={"#0286C3"}
                   src={kid_ball}
                   alt=""
@@ -43,7 +44,7 @@ export const Timeline = () => {
                 <TimePoint
                   heading="Contest Ends"
                   description=""
-                  date="15th August, 2024"
+                  date={`${formatDate("competitionEnd", "MMMM do, yyyy")}`}
                   color={"#FBB22E"}
                   src={kid_bending}
                   alt=""
@@ -53,7 +54,7 @@ export const Timeline = () => {
                 <TimePoint
                   heading="Winners Announced!"
                   description=""
-                  date="20th August, 2024"
+                  date={`${formatDate("winnerAnnounced", "MMMM do, yyyy")}`}
                   color={"#168C39"}
                   src={TorchBlue}
                   alt=""

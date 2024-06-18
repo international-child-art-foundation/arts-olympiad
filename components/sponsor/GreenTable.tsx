@@ -6,6 +6,7 @@ import Image from "next/image";
 import GreenTableCard from "./GreenTableCard";
 import "../../src/styles/GreenTable.css";
 import check from "../../public/sponsor/check.png";
+import { formatDate } from "../../mock/dates";
 
 function GreenTable() {
   // const cards = [
@@ -19,8 +20,8 @@ function GreenTable() {
     {description:"Appreciation in press releases"},
     {description:"Media exposure through sports and arts publications"},
     {description:"New exciting content to social media channels"},
-    {description:"Announce winners at the National Press Club on August 8th"},
-    {description:"The gold, silver and bronze visit the corporate HQ in late August to collaboratively paint a mural and present it."}
+    {description:`Announce winners at the National Press Club on ${formatDate("winnerAnnounced", "MMMM do")}`},
+    {description:`The gold, silver and bronze visit the corporate HQ in late ${formatDate("winnerAnnounced", "MMMM")} to collaboratively paint a mural and present it.`}
   ];
 
   // const [active, setActive] = useState(0);
@@ -88,8 +89,8 @@ function GreenTable() {
             <GreenTableRow td="Appreciation in press releases" td1="true" td2="true"/>
             <GreenTableRow td="Media exposure through sports and arts publications" td1="true" td2="true"/>
             <GreenTableRow td="New exciting content to social media channels" td1="true" td2="true"/>
-            <GreenTableRow td="Announce winners at the National Press Club on August 8th " td1="true" td2=""/>
-            <GreenTableRow td="The gold, silver and bronze visit the corporate HQ in late August to collaboratively paint a mural and present it." td1="" td2=""/>
+            <GreenTableRow td={`Announce winners at the National Press Club on  ${formatDate("winnerAnnounced", "MMMM do")}`} td1="true" td2=""/>
+            <GreenTableRow td={`The gold, silver and bronze visit the corporate HQ in late ${formatDate("winnerAnnounced", "MMMM")} to collaboratively paint a mural and present it.`} td1="" td2=""/>
           </tbody>            
         </table>
       </div>

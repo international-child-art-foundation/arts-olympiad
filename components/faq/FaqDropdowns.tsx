@@ -7,6 +7,7 @@ import { useState, useRef, useEffect, useCallback } from "react";
 import { gsap } from "gsap";
 import faqYelBlob from "../../public/svgs/blobs/faq-yel-blob.svg";
 import faqPinkBlob from "../../public/svgs/blobs/faq-pink-blob.svg";
+import { formatDate } from "../../mock/dates";
 
 const ContestSectionData: ExpandingDivProps = {
   background: "bg-baby-blue",
@@ -27,7 +28,7 @@ const ContestSectionData: ExpandingDivProps = {
     {
       title: "When can I submit?",
       description:
-        "Art submission can start on June 15th, 2024. This will coincide with our kickoff in Paris during our art exhibition! The submission deadline is August 15th 2024.",
+        `Art submission can start on ${formatDate("competitionBegin", "MMMM do, yyyy")}. The submission deadline is ${formatDate("competitionEnd", "MMMM do, yyyy")}.`,
     },
     {
       title: "How will the winners be chosen?",
