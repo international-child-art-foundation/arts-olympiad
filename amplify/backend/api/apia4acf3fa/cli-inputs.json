@@ -49,6 +49,13 @@
       "permissions": {
         "setting": "open"
       }
+    },
+    "/api/users/presigned-url": {
+      "name": "/api/users/presigned-url",
+      "lambdaFunction": "usersLambda",
+      "permissions": {
+        "setting": "open"
+      }
     }
   }
 }

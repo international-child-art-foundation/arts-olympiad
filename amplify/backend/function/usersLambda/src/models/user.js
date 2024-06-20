@@ -1,6 +1,6 @@
 const { ddbDocClient } = require("../lib/dynamoDBClient");
 const { DeleteCommand, GetCommand, PutCommand, UpdateCommand } = require("@aws-sdk/lib-dynamodb");
-const { SignUpCommand, ConfirmSignUpCommand, CognitoIdentityProviderClient, AuthFlowType, InitiateAuthCommand, DeleteUserCommand } = require("@aws-sdk/client-cognito-identity-provider");
+const { SignUpCommand, ConfirmSignUpCommand, CognitoIdentityProviderClient, AuthFlowType, InitiateAuthCommand, DeleteUserCommand, ForgotPasswordCommand } = require("@aws-sdk/client-cognito-identity-provider");
 
 let tableName = "dynamo22205621";
 if (process.env.ENV && process.env.ENV !== "NONE") {
@@ -28,7 +28,7 @@ async function getUserById(userId) {
       pk: "USER",
       sk: userId
     },
-    ProjectionExpression: "id, f_name, l_name, #loc, age, email, g_f_name, g_l_name, voted_id, can_submit_art, has_active_submission",
+    ProjectionExpression: "id, f_name, l_name, birthdate, #loc, age, email, g_f_name, g_l_name, voted_id, can_submit_art, has_active_submission",
     ExpressionAttributeNames: { "#loc": "location" },
   };
   try {
@@ -145,6 +145,20 @@ async function deleteCognitoUser(token) {
   }
 }
 
+async function forgotPassword(username) {
+  try {
+    const input = {
+      ClientId: "26h0ul3gca5v4kevgl13dhhsur",
+      Username: username,
+    };
+    const command = new ForgotPasswordCommand(input);
+    return await client.send(command);
+  } catch (error) {
+    console.error("Error initiating the forgot password flow.");
+    throw error;
+  }
+}
+
 async function deleteUserData(userId) {
   try {
     const input = {
@@ -195,6 +209,7 @@ module.exports = {
   confirmCognitoUser,
   signIn,
   deleteCognitoUser,
+  forgotPassword,
   deleteUserData,
   updateUserById,
   getNewTokens

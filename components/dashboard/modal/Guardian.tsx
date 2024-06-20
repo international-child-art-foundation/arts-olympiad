@@ -6,13 +6,13 @@ import React from "react";
 import { useStepsContext } from "./StepsContext";
 import { FormikValidatedStepsControl } from "./FormikValidatedStepsControl";
 
-const phonevalid= /^((\\+[1-9]{1,4}[ \\-]*)|(\\([0-9]{2,3}\\)[ \\-]*)|([0-9]{2,4})[ \\-]*)*?[0-9]{3,4}?[ \\-]*[0-9]{3,4}?$/;
+// const phonevalid= /^((\\+[1-9]{1,4}[ \\-]*)|(\\([0-9]{2,3}\\)[ \\-]*)|([0-9]{2,4})[ \\-]*)*?[0-9]{3,4}?[ \\-]*[0-9]{3,4}?$/;
 
 const validationSchema = yup.object().shape({
   guardianFirstName: yup.string().required("Required"),
   guardianLastName: yup.string().required("Required"),
-  guardianEmail: yup.string().email("Not a recognized email address").required("Not a recognized email address"),
-  guardianPhone: yup.string().matches(phonevalid, "Not a valid phone number").max(10, "longer than 10 digit").optional(),
+  // guardianEmail: yup.string().email("Not a recognized email address").required("Not a recognized email address"),
+  // guardianPhone: yup.string().matches(phonevalid, "Not a valid phone number").max(10, "longer than 10 digit").optional(),
   guardianTermsCheck: yup.bool().oneOf([true], "Agreement to the Terms and Conditions is required")
 });
 
@@ -39,8 +39,8 @@ export const Guardian = () => {
             ...prevState,
             guardianFirstName: values.guardianFirstName,
             guardianLastName: values.guardianLastName,
-            guardianEmail: values.guardianEmail,
-            guardianPhone: values.guardianPhone,
+            // guardianEmail: values.guardianEmail,
+            // guardianPhone: values.guardianPhone,
             guardianTermsCheck: values.guardianTermsCheck
           }));
           handleNavigation("next");
@@ -62,7 +62,7 @@ export const Guardian = () => {
                 type="text"
                 placeholder="Last name"
               />
-              <CustomInput 
+              {/* <CustomInput 
                 label="Parent or Guardian's Email"
                 name="guardianEmail"
                 type="email"
@@ -74,7 +74,7 @@ export const Guardian = () => {
                 type= "phone"
                 placeholder="(country code) 123-123-1234"
               />
-
+ */}
               <CustomCheckbox
                 label=""
                 name="guardianTermsCheck" 

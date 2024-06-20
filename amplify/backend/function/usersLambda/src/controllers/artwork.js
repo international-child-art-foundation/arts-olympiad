@@ -1,4 +1,6 @@
 const { LambdaClient, InvokeCommand } = require("@aws-sdk/client-lambda");
+const { getUserCognitoData, handleRefreshTokenFlow } = require("../utils");
+
 
 const ArtworkService = require("../services/artwork");
 
@@ -14,10 +16,14 @@ async function getArtwork(req, res) {
 }
 
 async function addArtwork(req, res) {
+  await handleRefreshTokenFlow(req, res);
+  const userCognitoData = await getUserCognitoData(req.cookies.accessToken);
+  const userId = userCognitoData.sub;
+
   const artworkData = {
-    id: req.body.id,
+    id: userId,
     f_name: req.body.f_name,
-    l_name: req.body.l_name,
+    // l_name: req.body.l_name,
     age: req.body.age,
     title: req.body.title,
     sport: req.body.sport,
@@ -111,14 +117,15 @@ async function getArtworks(req, res) {
 }
 
 async function generatePresigned(req, res) {
-  const userId = req.params.userId;
+  const userCognitoData = await getUserCognitoData(req.cookies.accessToken);
+  const userId = userCognitoData.sub;
   const fileType = req.body.file_type;
 
   try {
     const { url, fields } = await ArtworkService.createUrlAndFields(userId, fileType);
     res.status(200).json({ 
       s3_presigned_url:url, 
-      fields: fields 
+      fields: fields,
     });
   } catch (error) {
     res.status(400).json({ error: error.message });

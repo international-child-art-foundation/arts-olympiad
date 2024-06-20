@@ -32,6 +32,7 @@ app.get("/api/auth-status", UserController.getAuthStatus);
 app.get("/api/users", UserController.getUser);
 app.patch("/api/users", updateUserValidator, validationMiddleware, UserController.updateUser);
 app.delete("/api/users", UserController.deleteUser);
+app.post("/api/forgot-password", forgotPasswordValidator, validationMiddleware, UserController.forgotPassword);
 app.post("/api/users/presigned-url", generatePresignedValidator, validationMiddleware, ArtworkController.generatePresigned);
 
 app.get("/api/artworks", ArtworkController.getArtworks);

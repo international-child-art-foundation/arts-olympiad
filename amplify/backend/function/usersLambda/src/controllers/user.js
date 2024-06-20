@@ -120,6 +120,16 @@ async function deleteUser(req, res) {
   }
 }
 
+async function forgotPassword(req, res) {
+  try {
+    const forgotPasswordResponse = await UserService.forgotPassword(req.body.email);
+    res.status(200).json(forgotPasswordResponse);
+  } catch (error) {
+    console.error(error);
+    res.status(400).json({message: "failed to initiate forgot password flow", error: error.message});
+  }
+}
+
 async function updateUser(req, res) {
   const userCognitoData = await getUserCognitoData(req.cookies.accessToken);
   const userId = userCognitoData.sub;
@@ -140,6 +150,7 @@ module.exports = {
   verifyUser,
   login,
   deleteUser,
+  forgotPassword,
   updateUser,
   getAuthStatus
 };

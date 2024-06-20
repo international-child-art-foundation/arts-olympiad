@@ -1,15 +1,30 @@
+import { useDashboardContext } from "../DashboardContext";
 import { useStepsContext } from "./StepsContext";
+import { differenceInYears, parseISO } from "date-fns";
+
 
 export const Age = () => {
-  const { setIsUnder18, handleNavigation } = useStepsContext();
+  const { handleNavigation, userAge, setUserAge } = useStepsContext();
+  const { apiUserData } = useDashboardContext();
 
-  const handleAgeClick = (direction: string) => {
-    if (direction === "under") {
-      setIsUnder18(true);
-    } else if (direction === "over") {
-      setIsUnder18(false);
+  function calculateAge(birthdate: string) {
+    const today = new Date();
+    const birthDate = parseISO(birthdate);
+    setUserAge(differenceInYears(today, birthDate));
+    return userAge;
+  }
+  
+  const handleFirstNavigation = () => {
+    console.log(apiUserData?.birthdate);
+    if (apiUserData && apiUserData.birthdate && typeof apiUserData.birthdate === "string") {
+      const userAge = calculateAge(apiUserData.birthdate);
+      console.log(userAge);
+      if (userAge >= 18) {
+        handleNavigation("over");
+      } else {
+        handleNavigation("under");
+      }  
     }
-    handleNavigation(direction);
   };
 
   return (
@@ -26,11 +41,8 @@ export const Age = () => {
         </p>
       </section>
       <div className="px-8 pt-8 justify-around mx-auto w-fit mb-16 sm:flex">
-        <button type="button" className= "border rounded text-center text-base font-normal w-full md:w-fit py-4 px-10 ms-auto mx-0 sm:mr-5 bg-neutral-white text-new-blue border-new-blue cursor-pointer" onClick={() => handleAgeClick("under")}>
-          Under 18
-        </button>
-        <button type="button" className="border rounded text-center text-base font-normal w-full md:w-fit py-4 px-10 me-auto mx-0 sm:ml-5 mt-4 sm:mt-0 bg-neutral-white text-new-blue border-new-blue cursor-pointer" onClick={() => handleAgeClick("over")}>
-          Over 18
+        <button type="button" className="border rounded text-center text-base font-normal w-full md:w-fit py-4 px-10 me-auto mx-0 sm:ml-5 mt-4 sm:mt-0 bg-neutral-white text-new-blue border-new-blue cursor-pointer" onClick={() => handleFirstNavigation()}>
+          Next
         </button>
       </div>
 

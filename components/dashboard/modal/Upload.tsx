@@ -10,7 +10,7 @@ import { CustomSingleSelect } from "./CustomSingleSelect";
 import { CustomMultiSelect } from "./CustomMultiSelect";
 import { CustomTextArea } from "./CustomTextArea";
 
-const SUPPORTED_FORMATS = ["image/jpg", "image/png"];
+const SUPPORTED_FORMATS = ["image/jpg", "image/jpeg", "image/png"];
 const FILE_SIZE = 3 * 1024 * 1024;
 const categories = [
   "Archery", "Artistic Gymnastics", "Athletics", "Badminton", "Basketball", "Boxing", "Cycling Track", "Equestrian", "Fencing", "Football", "Golf", "High jump", "Hockey", "Judo", "Rowing", "Rugby", "Sailing", "Shooting", "Table Tennis", "Taekwondo", "Tennis", "Volleyball", "Wallball", "Weightlifting", "Yoga", "Zumba"
@@ -130,7 +130,7 @@ export const Upload = () => {
             handleNavigation("next");
           }}
         >
-          {({ setFieldValue }) => {
+          {({ values, setFieldValue }) => {
             return (
               <Form className="grid grid-cols-1">
                 <div className="items-center justify-center w-full">
@@ -169,19 +169,23 @@ export const Upload = () => {
                   name="usingAI"
                 />
 
-                <CustomInput
-                  label= "AI Source"
-                  name= "source"
-                  type= "text"
-                  placeholder= "Type link here"
-                />
+                {values.usingAI && 
+                  <>
+                    <CustomInput
+                      label= "AI Source"
+                      name= "source"
+                      type= "text"
+                      placeholder= "Type link here"
+                    />
 
-                <CustomInput
-                  label= "AI Prompt"
-                  name= "prompt"
-                  type= "text"
-                  placeholder= "Type link here"
-                />
+                    <CustomInput
+                      label= "AI Prompt"
+                      name= "prompt"
+                      type= "text"
+                      placeholder= "Type link here"
+                    />
+                  </>
+                }
 
                 <CustomMultiSelect
                   label="Category"

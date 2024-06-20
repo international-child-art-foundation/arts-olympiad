@@ -21,6 +21,8 @@ interface StepsContextType {
   setGuardianConsentObtained: React.Dispatch<React.SetStateAction<boolean>>; // Function to update guardianConsentObtained
   handleNavigation: (direction: string) => void;
   submitDataToContext: (values: FormValues, currentStep: number) => void;
+  userAge: number;
+  setUserAge: React.Dispatch<React.SetStateAction<number>>;
 }
 
 export const StepsContext = createContext<StepsContextType | undefined>(undefined);
@@ -36,6 +38,7 @@ export const StepsProvider: React.FC<{ children: ReactNode }> = ({ children }) =
   ]);
 
   const [currentStep, setCurrentStep] = useState(1);
+  const [userAge, setUserAge] = useState(0);
   const [isUnder18, setIsUnder18] = useState<boolean | null>(null);
   const [guardianConsentObtained, setGuardianConsentObtained] = useState(false);
 
@@ -182,7 +185,9 @@ export const StepsProvider: React.FC<{ children: ReactNode }> = ({ children }) =
     guardianConsentObtained,
     setGuardianConsentObtained,
     handleNavigation,
-    submitDataToContext
+    submitDataToContext,
+    userAge,
+    setUserAge,
   };
 
   return (

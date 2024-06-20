@@ -1,22 +1,25 @@
 import { LeftIcon } from "../../svgs/LeftIcon";
 import { useStepsContext } from "./StepsContext";
 import React, { useState } from "react";
+import { generatePresignedUrl, uploadImageToS3, postArtworkEntryToDDB } from "@/utils/artwork-upload";
+import { useDashboardContext } from "../DashboardContext";
+import { ModifiedUploadFormData } from "../../../mock/formDataStructs";
 
 interface FormikValidatedStepsControlProps { // Unnecessary for now
 }
 
-function simulateApiCall() {
-  return new Promise((resolve, reject) => {
-    setTimeout(() => {
-      const isSuccess = Math.random() > 0.5;  // Simulating 50% chance of success
-      if (isSuccess) {
-        resolve("API Call Success");
-      } else {
-        reject("An error occurred. Please contact support.");
-      }
-    }, 2000);  // Simulate 2 seconds delay
-  });
-}
+// function simulateApiCall() {
+//   return new Promise((resolve, reject) => {
+//     setTimeout(() => {
+//       const isSuccess = Math.random() > 0.5;  // Simulating 50% chance of success
+//       if (isSuccess) {
+//         resolve("API Call Success");
+//       } else {
+//         reject("An error occurred. Please contact support.");
+//       }
+//     }, 2000);  // Simulate 2 seconds delay
+//   });
+// }
 
 export const FormikValidatedStepsControl: React.FC<FormikValidatedStepsControlProps> = ({  }) => {
 
@@ -24,23 +27,56 @@ export const FormikValidatedStepsControl: React.FC<FormikValidatedStepsControlPr
     steps,
     currentStep,
     handleNavigation,
+    uploadFormData,
+    userAge
   } = useStepsContext();
 
-  const handleButtonClick = (direction: string) => { 
-    // The direction === "next" case is handled by Formik as the form is submitted.
+  const {
+    apiUserData,
+  } = useDashboardContext();
+
+  const modifiedUploadFormData =  {
+    f_name: apiUserData?.f_name,
+    age: userAge,
+    sport: uploadFormData.category,
+    location: uploadFormData.location,
+    is_ai_gen: uploadFormData.usingAI,
+    model: uploadFormData.source,
+    prompt: uploadFormData.prompt,
+  } as ModifiedUploadFormData;
+
+  const handleButtonClick = async (direction: string) => { 
     if (direction === "back") {
       handleNavigation("back");
     }
     else if (direction === "next" && currentStep === 4) {
       setIsLoading(true);
-      setErrorMessage("");
-      simulateApiCall().then(() => {
-        setIsLoading(false);
-        handleNavigation("next");
-      }).catch(error => {
-        setIsLoading(false);
-        setErrorMessage(error);
-      });
+      if (!uploadFormData.image) {
+        setErrorMessage("Artwork not found. Cannot continue with uploading to server.");
+        return;
+      }
+      const fileType = uploadFormData.image ? uploadFormData.image.type.split("/")[1] : "unknown";
+      try {
+        const presignedData = await generatePresignedUrl({fileType: fileType});
+        console.log("Presigned URL generated:", presignedData);
+    
+        const uploadedImage = await uploadImageToS3(uploadFormData.image, presignedData);
+        console.log("Image uploaded to S3:", uploadedImage);
+    
+        const postDB = await postArtworkEntryToDDB(modifiedUploadFormData);
+        console.log("Artwork entry posted to DynamoDB:", postDB);
+    
+      } catch (error) {
+        console.error("An error occurred:", error);
+      }
+      setIsLoading(false);
+      // simulateApiCall().then(() => {
+      //   setIsLoading(false);
+      //   handleNavigation("next");
+      // }).catch(error => {
+      //   setIsLoading(false);
+      //   setErrorMessage(error);
+      // });
     }
   };
 

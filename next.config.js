@@ -35,9 +35,13 @@ const nextConfig = {
         source: "/next-proxy/:path*",
         destination: `${process.env.API_URL}/:path*`
       },
+      {
+        // Rewrite for S3 bucket to not fail CORS
+        source: "/s3",
+        destination: `${process.env.S3_PRESIGNED_URL}/:path*`
+      }
     ];
   },
-
 };
 
 module.exports = nextConfig;

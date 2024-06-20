@@ -2,7 +2,8 @@ export interface UserDataSchema
 {
   f_name: string;
   l_name: string;
-  location: string;  
+  location: string;
+  birthdate: string;
   age: number;
   email: string,  
   g_f_name: string,

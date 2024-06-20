@@ -19,8 +19,10 @@ export const CustomInput = ({label, ...props} : CustomInputProps) => {
       <label className={`text-sm mb-1 ${meta.error && meta.touched ? "text-[#C4384E] font-semibold" : !meta.error && meta.touched && meta.value ? "text-[#158737] font-semibold" : "font-light text-neutral-black"}`}>{label}</label>
       <input 
         {...field} 
-        {...props} 
-        className={`w-full placeholder-[#403F4C] border rounded pl-4 pr-4 pt-2 pb-2 ${meta.error && meta.touched ? "border-[#C4384E]" : !meta.error && meta.touched && meta.value ? "border-[#158737]": "border-neutral-black"}`}
+        name={props.name} 
+        type={props.type} 
+        placeholder={props.placeholder} 
+        className="w-full placeholder-[#403F4C] border rounded pl-4 pr-4 pt-2 pb-2 border-neutral-black" 
       />
       {meta.error && meta.touched &&
       <div className="inline-flex mt-1">

@@ -218,6 +218,22 @@
                   }
                 ]
               }
+            },
+            {
+              "Effect": "Allow",
+              "Action": [
+                "s3:PutObject"
+              ],
+              "Resource": {
+                "Fn::Sub": [
+                  "arn:aws:s3:::artsolympiadf677eab9a54848dc8788ee9110a11839185846-${ENV}/*",
+                  {
+                    "ENV": {
+                      "Ref": "env"
+                    }
+                  }
+                ]
+              }
             }
           ]
         }

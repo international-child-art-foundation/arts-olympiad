@@ -39,6 +39,11 @@ async function deleteUser(userId, token) {
   return;
 }
 
+async function forgotPassword(username) {
+  const forgotPasswordResult = await UserModel.forgotPassword(username);
+  return forgotPasswordResult;
+}
+
 async function updateUser(userId, updateField) {
   const fieldName = Object.keys(updateField)[0];
   const fieldValue = updateField[fieldName];
@@ -55,5 +60,6 @@ module.exports = {
   verifyUser,
   login,
   deleteUser,
+  forgotPassword,
   updateUser
 };

@@ -49,15 +49,14 @@ export const CustomUploadImage = ({label, ...props} : CustomUploadImageProps) =>
   let imageUrl: string | null = null;
   if (imageFile instanceof Blob) {
     imageUrl = URL.createObjectURL(imageFile);
-  } else {
-    console.error("uploadFormData.image is not a Blob or File.");
   }
 
   function validateFile(file: File | null): string | null {
     if (!file) {
       return "Oops! Unsupported file format. Please upload as PNG or JPG, max size 3 MB.";
     }
-    const validTypes = ["image/jpg", "image/png"];
+    const validTypes = ["image/jpg", "image/jpeg", "image/png"];
+    console.log(file.type);
     if (!validTypes.includes(file.type)) {
       return "Please upload as PNG or JPG";
     }
@@ -70,7 +69,7 @@ export const CustomUploadImage = ({label, ...props} : CustomUploadImageProps) =>
 
   return(
     <>
-      <label htmlFor="image" className="w-full aspect-video mb-6 rounded-lg flex flex-col items-center justify-center border border-neutral-black">
+      <label htmlFor="image" className={`w-full ${validImage == false && uploadProgress != 101 && "aspect-video"} mb-6 rounded-lg flex flex-col items-center justify-center border border-neutral-black`}>
         {((uploadProgress === -1 && validImage === false) || meta.error) &&
         <div className="flex flex-col items-center justify-center pt-5 pb-6">
           <p className="mb-6 text-md font-light text-neutral-black">{label}</p>
@@ -139,7 +138,6 @@ export const CustomUploadImage = ({label, ...props} : CustomUploadImageProps) =>
                 alt=""
                 width={800} 
                 height={600}
-                layout="responsive"
                 className="object-contain rounded-lg group-hover:opacity-50"
               />
             }
@@ -152,14 +150,13 @@ export const CustomUploadImage = ({label, ...props} : CustomUploadImageProps) =>
               <span className="ml-2">Replace Artwork</span>
             </div>
             {imageUrl && 
-            <Image
-              src={imageUrl}
-              alt=""
-              width={800} 
-              height={600}
-              layout="responsive"
-              className="object-contain rounded-lg group-hover:opacity-50"
-            />
+              <Image
+                src={imageUrl}
+                alt=""
+                width={800} 
+                height={600}
+                className="object-contain rounded-lg group-hover:opacity-50"
+              />
             }
           </div>
         }
