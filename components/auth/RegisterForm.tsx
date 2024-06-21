@@ -21,12 +21,24 @@ import { handleRegister } from "@/utils/auth";
 import LoadingAnimation from "../svgs/LoadingAnimation";
 import { allowedPasswordCharactersRegex, passwordPolicyRegex } from "../../mock/passwordRegex";
 import { validate as uuidValidate } from "uuid";
+import "react-phone-number-input/style.css";
+import { CustomPhoneInput } from "../common/form_inputs/CustomPhoneInput";
+import { isPossiblePhoneNumber } from "react-phone-number-input";
 
 interface RegisterFormProps {
   setUserUuid: React.Dispatch<React.SetStateAction<string>>
   setRegisterSuccess: React.Dispatch<React.SetStateAction<boolean>>
   setUserEmail: React.Dispatch<React.SetStateAction<string>>
 }
+
+Yup.addMethod(Yup.string, "isPossiblePhoneNumber", function (errorMessage) {
+  return this.test("is-possible-phone-number", errorMessage, function (value) {
+    const { path, createError } = this;
+    return (
+      value == null || isPossiblePhoneNumber(value) || createError({ path, message: errorMessage })
+    );
+  });
+});
 
 const validationSchema = Yup.object().shape({
   firstName: Yup.string()
@@ -56,6 +68,9 @@ const validationSchema = Yup.object().shape({
   //   const age = calculateAge(birthDate);
   //   return age >= 14;
   }),
+  phone: Yup.string()
+    // .required("Phone number is required") // Not yet set up, may not make it to prod
+    .isPossiblePhoneNumber("Phone number is invalid"),
   email: Yup.string().email("Not a recognized email address").required("Email is required"),
   password: Yup.string()
     .required("Password is required")
@@ -80,6 +95,7 @@ const initialValues: UserRegisterInterface = {
   lastName: "",
   email: "",
   birthdate: {day: undefined, month: undefined, year: undefined},
+  phone: "",
   password: ""
 };
 
@@ -121,7 +137,7 @@ export const RegisterForm: React.FC<RegisterFormProps> = ({setUserEmail, setRegi
             validationSchema={validationSchema}
             onSubmit={onSubmit}
           >
-            {({ errors, touched, values }) => (
+            {({ errors, touched, values, setFieldValue, setFieldTouched }) => (
               <Form 
                 className={`${formSubmissionLoading && "blur-sm opacity-80"} col-start-1 row-start-1`}
               > {/* Disabled until contest begins: className="pointer-events-none opacity-50"*/}
@@ -135,6 +151,18 @@ export const RegisterForm: React.FC<RegisterFormProps> = ({setUserEmail, setRegi
                   touched={touched.birthdate ?? { day: false, month: false, year: false }}
                   values={values.birthdate}
                 />
+                <CustomPhoneInput
+                  placeholder="+1 1234567890"
+                  error={errors.phone}
+                  touched={touched.phone}
+                  value={values.phone}
+                  labelText="Phone number"
+                  required={true}
+                  id="phone"
+                  setFieldTouched={setFieldTouched}
+                  setFieldValue={setFieldValue}
+                />
+
                 <TextInput inputType="email" className="" placeholder="johndoe@gmail.com" autoComplete="username" error={errors.email}  touched={touched.email} value={values.email} labelText="Email" id="email" />
                 <div className="relative">
                   <NewPasswordInput inputType={`${!showPassword && "password" }`} className="mb-4" placeholder="Squk1*Bn" error={errors.password}  touched={touched.password} value={values.password} labelText="Password" id="password" />

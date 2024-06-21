@@ -9,7 +9,8 @@ const VotesController = require("./controllers/votes");
 
 const {
   loginUserValidator, registerUserValidator, verifyUserValidator, updateUserValidator,
-  generatePresignedValidator, addArtworkValidator, approveArtworkValidator, validationMiddleware
+  generatePresignedValidator, addArtworkValidator, approveArtworkValidator, validationMiddleware,
+  forgotPasswordValidator
 } = require('./validators');
 
 // declare a new express app

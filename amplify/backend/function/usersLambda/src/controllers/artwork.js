@@ -25,7 +25,7 @@ async function addArtwork(req, res) {
     f_name: req.body.f_name,
     // l_name: req.body.l_name,
     age: req.body.age,
-    title: req.body.title,
+    description: req.body.description,
     sport: req.body.sport,
     location: req.body.location,
     is_ai_gen: req.body.is_ai_gen,

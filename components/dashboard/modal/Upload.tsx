@@ -7,7 +7,6 @@ import { useStepsContext } from "./StepsContext";
 import { FormikValidatedStepsControl } from "./FormikValidatedStepsControl";
 import { CustomUploadImage } from "./CustomUploadImage";
 import { CustomSingleSelect } from "./CustomSingleSelect";
-import { CustomMultiSelect } from "./CustomMultiSelect";
 import { CustomTextArea } from "./CustomTextArea";
 
 const SUPPORTED_FORMATS = ["image/jpg", "image/jpeg", "image/png"];
@@ -44,9 +43,8 @@ const validationSchema = yup.object().shape({
   usingAI: yup.bool().optional(),
   source: yup.string().optional(),
   prompt: yup.string().optional(),
-  category: yup.array()
-    .of(yup.string().oneOf(categories))
-    .min(1, "Please select the Sports category that best represents your artwork.")
+  category: yup.string()
+    .oneOf(categories)
     .required("Please select the Sports category that best represents your artwork."),
   description: yup.string().optional()
 });
@@ -103,7 +101,6 @@ const countryOptions = [
 
 export const Upload = () => {
   const { uploadFormData, setUploadFormData, handleNavigation } = useStepsContext();
-  
   return (
     <>
       <section className="items-center justify-center m-auto max-w-screen-2xl px-8 md:px-12 lg:px-16 xl:px-20 w-full lg:w-4/5 2xl:w-3/5">
@@ -184,10 +181,11 @@ export const Upload = () => {
                       type= "text"
                       placeholder= "Type link here"
                     />
+                    <br/>
                   </>
                 }
 
-                <CustomMultiSelect
+                <CustomSingleSelect
                   label="Category"
                   name="category"
                   options={options}

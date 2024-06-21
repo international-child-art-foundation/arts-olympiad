@@ -9,6 +9,7 @@ export interface UserRegisterInterface {
   lastName: string;
   email: string;
   birthdate: BirthdateInterface;
+  phone: string | undefined;
   password: string;
 }
 
@@ -17,6 +18,7 @@ export interface UserRegisterInterfaceAfterFormatting {
   l_name: string;
   email: string;
   birthdate: string;
+  phone: string | undefined;
   password: string;
 }
 

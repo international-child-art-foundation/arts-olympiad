@@ -1,7 +1,7 @@
 import { useField } from "formik";
 import { UploadIcon } from "../../svgs/UploadIcon";
-import { Field } from "formik";
-import { useEffect, useState } from "react";
+import { FastField } from "formik";
+import { useState, useEffect } from "react";
 import Image from "next/image";
 import { useStepsContext } from "./StepsContext";
 import LoadingAnimation from "../../../components/svgs/LoadingAnimation";
@@ -35,6 +35,7 @@ export const CustomUploadImage = ({label, ...props} : CustomUploadImageProps) =>
   const [imageFile, setImageFile] = useState<File | null>(null);
   const [validImage, setValidImage] = useState(false);
   const [hasImage, setHasImage] = useState(false);
+  const [imageUrl, setImageUrl] = useState<string | null>(null);
 
   const { uploadFormData } = useStepsContext();
   useEffect(() => {
@@ -45,11 +46,13 @@ export const CustomUploadImage = ({label, ...props} : CustomUploadImageProps) =>
     }
   }, [uploadFormData.image]);
 
-
-  let imageUrl: string | null = null;
-  if (imageFile instanceof Blob) {
-    imageUrl = URL.createObjectURL(imageFile);
-  }
+  useEffect(() => {
+    if (imageFile) {
+      const url = URL.createObjectURL(imageFile);
+      setImageUrl(url);
+      return () => URL.revokeObjectURL(url);
+    }
+  }, [imageFile]);
 
   function validateFile(file: File | null): string | null {
     if (!file) {
@@ -87,7 +90,7 @@ export const CustomUploadImage = ({label, ...props} : CustomUploadImageProps) =>
           </div>
           <p className="text-sm font-light text-neutral-black">PNG or JPG</p>
         </div> */}
-        <Field 
+        <FastField 
           {...field} 
           {...props} 
           id="image" 

@@ -52,8 +52,8 @@ const generatePresignedValidator = [
 const addArtworkValidator = [
     body('f_name').isString().withMessage('f_name must be a string'),
     body('age').isInt().withMessage('age must be an integer'),
-    // body('title').isString().withMessage('title must be a string'), // Likely no title
-    body('sport').isString().withMessage('sport must be a string'), // Maybe array unsure
+    body('description').isString().withMessage('description must be a string'),
+    body('sport').isString().withMessage('sport must be a string'),
     body('location').isString().withMessage('location must be a string'),
     body('is_ai_gen').isBoolean().withMessage('is_ai_gen must be a boolean'),
     body('model').optional().isString().withMessage('model must be a string'),
@@ -86,5 +86,6 @@ module.exports = {
     generatePresignedValidator,
     addArtworkValidator,
     approveArtworkValidator,
-    validationMiddleware
+    validationMiddleware,
+    forgotPasswordValidator
 }

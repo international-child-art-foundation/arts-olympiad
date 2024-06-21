@@ -43,6 +43,7 @@ export const FormikValidatedStepsControl: React.FC<FormikValidatedStepsControlPr
     is_ai_gen: uploadFormData.usingAI,
     model: uploadFormData.source,
     prompt: uploadFormData.prompt,
+    description: uploadFormData.description,
   } as ModifiedUploadFormData;
 
   const handleButtonClick = async (direction: string) => { 

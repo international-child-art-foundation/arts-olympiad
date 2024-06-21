@@ -69,7 +69,7 @@ export const StepsProvider: React.FC<{ children: ReactNode }> = ({ children }) =
     usingAI: false,
     source: "",
     prompt: "",
-    category: [],
+    category: "",
     description: "",
   });
 

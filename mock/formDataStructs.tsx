@@ -23,15 +23,16 @@ export interface UploadFormData {
   usingAI: boolean;
   source: string | null;
   prompt: string | null;
-  category: string[];
+  category: string;
   description: string;
 }
 
 export interface ModifiedUploadFormData {
   f_name: string | null;
   age: number;
-  sport: string[];
+  sport: string;
   location: string;
+  description: string;
   is_ai_gen: boolean;
   model: string | null;
   prompt: string | null

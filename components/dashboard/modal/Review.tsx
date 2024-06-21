@@ -2,26 +2,9 @@ import Image from "next/image";
 import React from "react";
 import { useStepsContext } from "./StepsContext";
 import { FormikValidatedStepsControl } from "./FormikValidatedStepsControl";
+import { PersonalFormData, UploadFormData } from "../../../mock/formDataStructs";
 
 import { Formik , FormikHelpers} from "formik";
-
-
-interface PersonalFormData {
-  // Define the types for personalFormData properties
-  firstName: string;
-  lastName: string;
-  // ... other properties as they are defined
-}
-
-interface UploadFormData {
-  image: File | null;
-  category: string[]; // Assuming it's an array of strings
-  description: string;
-  usingAI: boolean;
-  source: string;
-  prompt: string;
-  // ... other properties as they are defined
-}
 
 interface FormValues extends PersonalFormData, UploadFormData {
   // This will combine both PersonalFormData and UploadFormData into one type
