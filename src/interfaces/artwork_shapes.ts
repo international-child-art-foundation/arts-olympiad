@@ -18,4 +18,11 @@ interface PresignedUrlBody {
   fields: S3PresignedFields;
 }
 
-export type UploadResponse = number | { message: string }; // Success = 204 response as number, fail = message
+export interface UploadResponse {
+  success: boolean;
+  message: string;
+}
+
+export interface ApproveArtworkInterface {
+  artwork_id: string;
+}

@@ -9,7 +9,6 @@ async function getUserCognitoData(authToken) {
       AccessToken: authToken
     });
     const response = await client.send(command);
-
     const userAttributes = response.UserAttributes.reduce((acc, attribute) => {
       acc[attribute.Name] = attribute.Value;
       return acc;

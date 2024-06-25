@@ -17,6 +17,7 @@ async function getArtwork(req, res) {
 
 async function addArtwork(req, res) {
   await handleRefreshTokenFlow(req, res);
+  if (res.headersSent) return; // Exit execution if response has already been sent
   const userCognitoData = await getUserCognitoData(req.cookies.accessToken);
   const userId = userCognitoData.sub;
 
@@ -31,6 +32,7 @@ async function addArtwork(req, res) {
     is_ai_gen: req.body.is_ai_gen,
     model: req.body.model,
     prompt: req.body.prompt,
+    file_type: req.body.file_type
   };
   try {
     const artwork = await ArtworkService.addArtwork(artworkData);
@@ -44,8 +46,26 @@ async function approveArtwork(req, res) {
   const artworkId = req.params.artworkId;
   const approvalStatus = req.body.is_approved;
 
+  // Ensure user is authenticated as a volunteer
   try {
-    if (approvalStatus) {
+    const {accessToken, refreshToken} = req.cookies;
+    if (!accessToken && !refreshToken) {
+      return res.status(401).json({ message: "User is not logged in"});
+    }
+    await handleRefreshTokenFlow(req, res);
+    if (res.headersSent) return;
+
+    const userCognitoData = await getUserCognitoData(req.cookies.accessToken);
+    if (!userCognitoData || userCognitoData.nickname !== "Volunteer") {
+      return res.status(403).json({ message: "User is not authenticated as a volunteer."});
+    }
+  } catch(error) {
+    console.error("Authentication error:", error);
+    return res.status(500).json({ message: "Error during authentication", error: error.message});
+  }
+  
+  try {
+    if (approvalStatus === true) {
       // process images before approving artwork
       const lambdaClient = new LambdaClient({ region: process.env.REGION });
       const command = new InvokeCommand({

@@ -58,6 +58,9 @@ const addArtworkValidator = [
     body('is_ai_gen').isBoolean().withMessage('is_ai_gen must be a boolean'),
     body('model').optional().isString().withMessage('model must be a string'),
     body('prompt').optional().isString().withMessage('prompt must be a string'),
+    body('file_type')
+      .isString().withMessage('file_type must be a string')
+      .isIn(['jpg', 'png', 'jpeg']).withMessage('file_type contains invalid values')
 ];
 
 const approveArtworkValidator = [

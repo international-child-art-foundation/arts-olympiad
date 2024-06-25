@@ -210,7 +210,7 @@ function addInput({indexName, keyConditionExpr, exprAtrValue, limit=20, orderBy}
   const scanIndexForward = (Array.isArray(orderBy) ? orderBy[0] : orderBy) !== "descending";
   const input = {
     TableName: tableName,
-    ProjectionExpression: "id, description, sport, #loc, is_approved, votes, f_name, l_name, age, is_ai_gen, model, prompt",
+    ProjectionExpression: "sk, id, description, sport, #loc, is_approved, votes, f_name, l_name, age, is_ai_gen, model, prompt, file_type",
     ExpressionAttributeNames: { "#loc": "location" },
     IndexName: indexName,
     KeyConditionExpression: keyConditionExpr,

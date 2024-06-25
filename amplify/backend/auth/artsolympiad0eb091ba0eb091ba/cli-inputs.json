@@ -34,7 +34,8 @@
     "userpoolClientReadAttributes": [
       "birthdate",
       "family_name",
-      "given_name"
+      "given_name",
+      "nickname"
     ],
     "userpoolClientLambdaRole": "artsol0eb091ba_userpoolclient_lambda_role",
     "userpoolClientSetAttributes": true,

@@ -52,9 +52,9 @@ export async function generatePresignedUrl({
   }
 }
 
-export async function uploadImageToS3(imageFile: File, presignedUrlResponse: PresignedUrlResponse): Promise<UploadResponse> {
+export async function uploadImageToS3(imageFile: File, fileType: string, presignedUrlResponse: PresignedUrlResponse): Promise<UploadResponse> {
   if (!presignedUrlResponse.body || !presignedUrlResponse.body.s3_presigned_url || !presignedUrlResponse.body.fields) {
-    return { message: "Presigned URL data is incomplete or not received." };
+    return { success: false, message: "Presigned URL data is incomplete or not received." };
   }
   const { fields } = presignedUrlResponse.body; // can also grab presigned_url but don't need
   const formData = new FormData();
@@ -69,11 +69,10 @@ export async function uploadImageToS3(imageFile: File, presignedUrlResponse: Pre
       method: "POST",
       body: formData
     });
-
-    return response.status;
+    return { success: true, message: response.status.toString() };
   } catch (error) {
     console.error("Failed to upload image using presigned URL", error);
-    return { message: "Upload failed: " + (error instanceof Error ? error.message : "Unknown error") };
+    return { success: false, message: "Upload failed: " + (error instanceof Error ? error.message : "Unknown error") };
   }
 }
 

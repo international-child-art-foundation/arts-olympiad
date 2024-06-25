@@ -56,6 +56,13 @@
       "permissions": {
         "setting": "open"
       }
+    },
+    "/api/volunteer-auth-status": {
+      "name": "/api/volunteer-auth-status",
+      "lambdaFunction": "usersLambda",
+      "permissions": {
+        "setting": "open"
+      }
     }
   }
 }

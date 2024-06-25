@@ -39,7 +39,15 @@ const nextConfig = {
         // Rewrite for S3 bucket to not fail CORS
         source: "/s3",
         destination: `${process.env.S3_PRESIGNED_URL}/:path*`
-      }
+      },
+      // {
+      //   source: "/volunteer/:path*",
+      //   destination: `${process.env.S3_PRESIGNED_URL}/volunteer/:path*`
+      // },
+      // {
+      //   source: "/gallery/:path*",
+      //   destination: `${process.env.S3_PRESIGNED_URL}/gallery/:path*`
+      // }
     ];
   },
 };

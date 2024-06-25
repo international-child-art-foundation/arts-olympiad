@@ -25,6 +25,7 @@ export interface UploadFormData {
   prompt: string | null;
   category: string;
   description: string;
+  file_type: string;
 }
 
 export interface ModifiedUploadFormData {
@@ -35,7 +36,8 @@ export interface ModifiedUploadFormData {
   description: string;
   is_ai_gen: boolean;
   model: string | null;
-  prompt: string | null
+  prompt: string | null;
+  file_type: string;
 }
 
 export type FormValues = PersonalFormData | GuardianFormData | UploadFormData;

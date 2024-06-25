@@ -35,6 +35,8 @@ export const FormikValidatedStepsControl: React.FC<FormikValidatedStepsControlPr
     apiUserData,
   } = useDashboardContext();
 
+  const fileType = uploadFormData.image ? uploadFormData.image.type.split("/")[1] : "unknown";
+
   const modifiedUploadFormData =  {
     f_name: apiUserData?.f_name,
     age: userAge,
@@ -44,6 +46,7 @@ export const FormikValidatedStepsControl: React.FC<FormikValidatedStepsControlPr
     model: uploadFormData.source,
     prompt: uploadFormData.prompt,
     description: uploadFormData.description,
+    file_type: fileType,
   } as ModifiedUploadFormData;
 
   const handleButtonClick = async (direction: string) => { 
@@ -56,17 +59,25 @@ export const FormikValidatedStepsControl: React.FC<FormikValidatedStepsControlPr
         setErrorMessage("Artwork not found. Cannot continue with uploading to server.");
         return;
       }
-      const fileType = uploadFormData.image ? uploadFormData.image.type.split("/")[1] : "unknown";
       try {
+
         const presignedData = await generatePresignedUrl({fileType: fileType});
-        console.log("Presigned URL generated:", presignedData);
-    
-        const uploadedImage = await uploadImageToS3(uploadFormData.image, presignedData);
-        console.log("Image uploaded to S3:", uploadedImage);
-    
+        if (presignedData.success !== true) {
+          throw new Error("Failed to generate presigned URL");
+        }
+  
+        const uploadedImage = await uploadImageToS3(uploadFormData.image, fileType, presignedData);
+        if (uploadedImage.success !== true) {
+          throw new Error("Failed to upload image to S3");
+        }
+  
         const postDB = await postArtworkEntryToDDB(modifiedUploadFormData);
-        console.log("Artwork entry posted to DynamoDB:", postDB);
-    
+        if (postDB.success !== true) {
+          throw new Error("Failed to post artwork entry to DynamoDB");
+        }
+  
+        handleNavigation("next");
+      
       } catch (error) {
         console.error("An error occurred:", error);
       }

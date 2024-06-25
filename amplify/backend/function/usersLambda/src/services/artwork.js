@@ -36,6 +36,7 @@ async function addArtwork(artworkData) {
     is_ai_gen: artworkData.is_ai_gen,
     model: artworkData.model,
     prompt: artworkData.prompt,
+    file_type: artworkData.file_type
   };
   await ArtworkModel.createArtwork(item);
   return formatArtwork(item);

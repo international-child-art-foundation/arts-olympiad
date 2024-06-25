@@ -8,6 +8,7 @@ async function getUser(req, res) {
       return res.status(401).json({ message: "User is not logged in"});
     }
     await handleRefreshTokenFlow(req, res);
+    if (res.headersSent) return; // Exit execution if response has already been sent
     const userCognitoData = await getUserCognitoData(req.cookies.accessToken);
     const userId = userCognitoData.sub;
     const user = await UserService.getUser(userId);
@@ -60,6 +61,30 @@ async function getAuthStatus(req, res) {
       }
     } else {
       res.status(401).json({message: "Invalid or expired access token"});
+    }
+  } catch(error) {
+    console.error(error);
+    res.status(400).json({ message: "Authentication failed", error: error.message});
+  }
+}
+
+async function getVolunteerAuthStatus(req, res) {
+  try {
+    const {accessToken, refreshToken} = req.cookies;
+    if (!accessToken && !refreshToken) {
+      return res.status(401).json({ message: "User is not logged in"});
+    }
+    await handleRefreshTokenFlow(req, res);
+    if (res.headersSent) return; // Exit execution if response has already been sent
+    const userCognitoData = await getUserCognitoData(req.cookies.accessToken);
+    if (userCognitoData) {
+      if (userCognitoData.nickname == "Volunteer") {
+        res.status(200).json({message: "Authenticated as a volunteer."});
+      } else {
+        res.status(400).json({ message: "User is not a volunteer."});
+      }
+    } else {
+      res.status(401).json({ message: "Invalid or expired access token" });
     }
   } catch(error) {
     console.error(error);
@@ -152,5 +177,6 @@ module.exports = {
   deleteUser,
   forgotPassword,
   updateUser,
-  getAuthStatus
+  getAuthStatus,
+  getVolunteerAuthStatus
 };

@@ -194,6 +194,42 @@ export async function getAuthStatus() {
   }
 }
 
+export async function getVolunteerAuthStatus() {
+  try {
+    const response = await fetch("/next-proxy/api/volunteer-auth-status", {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+        "x-api-key": process.env.NEXT_PUBLIC_AK || "",
+      },
+      credentials: "include",
+    });
+
+    const result = await response.json();
+
+    if (response.ok) {
+      return { isVolunteerAuthenticated: true, message: result.message };
+    } else {
+      return { isVolunteerAuthenticated: false };
+    }
+  } catch (error) {
+    console.log("error checking volunteer authentication status", error);
+    let errorMessage: string;
+
+    if (error instanceof Error) {
+      errorMessage = error.message;
+    } else if (typeof error === "string") {
+      errorMessage = error;
+    } else if (typeof error === "object" && error !== null && "message" in error) {
+      errorMessage = (error as { message: string }).message;
+    } else {
+      errorMessage = "Unknown error";
+    }
+
+    return { isVolunteerAuthenticated: false, message: errorMessage };
+  }
+}
+
 export async function getUserData() {
   try {
     const response = await fetch("/next-proxy/api/users", {
