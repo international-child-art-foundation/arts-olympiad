@@ -14,7 +14,7 @@ export const Review = () => {
   
   const { personalFormData, uploadFormData, handleNavigation } = useStepsContext();
   const age = 2024 - personalFormData.date.year;
-  const categoryString = Array.isArray(uploadFormData.category) ? uploadFormData.category.join(" | ") : "";
+  const categoryString = uploadFormData.category;
   // const imageUrl = uploadFormData.image ? URL.createObjectURL(uploadFormData.image) : null;
   const imageFile = uploadFormData.image;
   let imageUrl: string | null = null;
@@ -42,7 +42,8 @@ export const Review = () => {
         >
           {formik => (
             <>
-              <div className="mt-28 mb-10">
+              <p className="mt-28 text-3xl mx-auto text-center">Review your submission</p>
+              <div className="mt-10 mb-10">
                 {imageUrl && 
                   <Image src={imageUrl} alt="" width={498} height={332} className="w-full h-fit rounded-xl" />
                 }
@@ -50,9 +51,9 @@ export const Review = () => {
               <div className="my-10 text-3xl font-semibold">{personalFormData.firstName} {personalFormData.lastName}</div>
               
               <div className="text-base font-light mb-2">{age} | {uploadFormData.location}</div>
-              <div className="text-base font-light mb-8">Sports categories | {categoryString}</div>
+              <div className="text-base font-light mb-8">Sport category: {categoryString}</div>
               <div className="text-base font-light mb-8 italic">
-                Further information about art (Artist Description)
+                Description:
                 <p className="my-2">
                   {uploadFormData.description}
                 </p>

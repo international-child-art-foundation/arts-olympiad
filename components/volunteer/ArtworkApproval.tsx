@@ -69,11 +69,14 @@ export const ArtworkApproval = () => {
     <div className="p-4">
       <div className="text-center mb-4">Hello from the artwork approval component! You are authenticated as a volunteer.</div>
       <div className="w-full text-center py-4">
-        <button className="bg-new-blue text-white p-2 rounded-lg mx-auto" onClick={handleFetchArtworks}>
+        <button className="bg-new-blue text-white p-2 px-4 rounded-lg mx-auto active:scale-95" onClick={handleFetchArtworks}>
           Fetch Unapproved Artworks
         </button>
       </div>
       
+      {(result?.message.length === 0) && (
+        <p className="text-center my-4">Found zero unapproved artworks. We're all caught up!</p>
+      )}
       {result?.message && (
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
           {result.message.map((artwork, index) => (

@@ -44,7 +44,7 @@ export const VotedArtDisplay = () => {
               <p className="text-xl font-semibold">{apiUserData?.f_name} {apiUserData?.l_name}</p>
               <div>
                 <p>{apiUserData?.age} | {apiUserData?.location}</p>
-                <p>{apiArtworkVoteData.sport.join(" | ")}</p>
+                <p>{apiArtworkVoteData.sport}</p>
               </div>
               {apiArtworkVoteData.is_ai_gen && (
                 <div>

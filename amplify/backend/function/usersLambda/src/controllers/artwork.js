@@ -137,6 +137,8 @@ async function getArtworks(req, res) {
 }
 
 async function generatePresigned(req, res) {
+  await handleRefreshTokenFlow(req, res);
+  if (res.headersSent) return;
   const userCognitoData = await getUserCognitoData(req.cookies.accessToken);
   const userId = userCognitoData.sub;
   const fileType = req.body.file_type;
