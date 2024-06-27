@@ -1,5 +1,5 @@
 const { ddbDocClient } = require("../lib/dynamoDBClient");
-const { DeleteCommand, GetCommand, PutCommand, QueryCommand, UpdateCommand } = require("@aws-sdk/lib-dynamodb");
+const { DeleteCommand, GetCommand, PutCommand, QueryCommand, UpdateCommand, TransactWriteCommand } = require("@aws-sdk/lib-dynamodb");
 const VotesModel = require("./votes");
 
 let tableName = "dynamo22205621";
@@ -40,6 +40,45 @@ async function createArtwork(item) {
     return;
   } catch (error) {
     console.error("Error adding artwork", error);
+    throw error;
+  }
+}
+
+async function createArtworkAndUpdateUser(item, userId) {
+  const transactItems = [
+    {
+      Put: {
+        TableName: tableName,
+        Item: item,
+        ConditionExpression: "attribute_not_exists(pk) AND attribute_not_exists(sk)"
+      }
+    },
+    {
+      Update: {
+        TableName: tableName,
+        Key: {
+          pk: "USER",
+          sk: userId
+        },
+        UpdateExpression: "SET has_active_submission = :true",
+        ExpressionAttributeValues: {
+          ":true": true
+        },
+        ConditionExpression: "attribute_exists(pk) AND attribute_exists(sk)"
+      }
+    }
+  ];
+
+  const command = new TransactWriteCommand({ TransactItems: transactItems });
+
+  try {
+    await ddbDocClient.send(command);
+    return {
+      artwork: item,
+      userUpdated: true
+    };
+  } catch (error) {
+    console.error("Error adding artwork and updating user", error);
     throw error;
   }
 }
@@ -224,6 +263,7 @@ function addInput({indexName, keyConditionExpr, exprAtrValue, limit=20, orderBy}
 module.exports = {
   getArtworkById,
   createArtwork,
+  createArtworkAndUpdateUser,
   deleteArtworkById,
   incrementVoteArtworkById,
   decrementVoteArtworkById,

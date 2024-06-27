@@ -42,6 +42,35 @@ async function addArtwork(artworkData) {
   return formatArtwork(item);
 }
 
+async function addArtworkAndUpdateUser(artworkData, userId) {
+  const timestamp = (Date.now() / 1000).toFixed(2);
+  const item = {
+    pk: "ART",
+    sk: artworkData.id,
+    id: artworkData.id,
+    gsi1pk: 0,
+    gsi1sk: artworkData.id,
+    f_name: artworkData.f_name,
+    l_name: artworkData.l_name,
+    description: artworkData.description,
+    sport: artworkData.sport,
+    location: artworkData.location,
+    timestamp: timestamp,
+    is_approved: false,
+    votes: 0,
+    is_ai_gen: artworkData.is_ai_gen,
+    model: artworkData.model,
+    prompt: artworkData.prompt,
+    file_type: artworkData.file_type
+  };
+
+  const result = await ArtworkModel.createArtworkAndUpdateUser(item, userId);
+  return {
+    artwork: formatArtwork(result.artwork),
+    userUpdated: result.userUpdated
+  };
+}
+
 async function deleteArtwork(artworkId) {
   try {
     await ArtworkModel.deleteArtworkById(artworkId);
@@ -153,5 +182,6 @@ module.exports = {
   decrementVoteArtwork,
   approveArtwork,
   getArtworks,
-  createUrlAndFields
+  createUrlAndFields,
+  addArtworkAndUpdateUser
 };

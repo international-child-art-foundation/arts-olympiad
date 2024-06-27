@@ -6,29 +6,47 @@ import { ApiArtworksResponse, userArtworkSchema } from "../../mock/userArtworkSc
 import { SelectedArtworkDisplay} from "./SelectedArtworkDisplay";
 import { handleApproveArtwork } from "@/utils/volunteer-artwork-functions";
 
+type ArtworkStatus = "approved" | "denied" | "banned" | null;
 
 export const ArtworkApproval = () => {
+  const [result, setResult] = useState<ApiArtworksResponse | null>(null);
+  const [selectedArtwork, setSelectedArtwork] = useState<userArtworkSchema | null>(null);
+  const [artworkStatuses, setArtworkStatuses] = useState<Record<string, ArtworkStatus>>({});
 
   async function onApprove(artwork_id: string) {
     console.log(artwork_id);
     const artworkStatus = await handleApproveArtwork({artwork_id});
     if (artworkStatus?.success == true) {
       setSelectedArtwork(null);
+      setArtworkStatuses(prev => ({...prev, [artwork_id]: "approved"}));
+      // TODO: Then, set has_active_submission to true in user db entry
       console.log(artwork_id + " has successfully been approved.");
     } else {
       console.log("Failed to approve artwork " + artwork_id);
     }
   }
-  function onDeny(artwork_id: string) { // TODO
+
+  async function onDeny(artwork_id: string) {
+    // TODO: Implement actual denial logic:
+    // 1. Delete the ART entry
+    // 2. Delete the image/bucket from our s3 server (unlink cloudfront? unsure)
     console.log(artwork_id);
-  }
-  function onBanUser(artwork_id: string) { // TODO
-    console.log(artwork_id);
+    setSelectedArtwork(null);
+    setArtworkStatuses(prev => ({...prev, [artwork_id]: "denied"}));
+    console.log(artwork_id + " has been denied.");
   }
 
-
-  const [result, setResult] = useState<ApiArtworksResponse | null>(null);
-  const [selectedArtwork, setSelectedArtwork] = useState<userArtworkSchema | null>(null);
+  async function onBanUser(artwork_id: string) {
+    // TODO: Implement actual ban logic:
+    // 1. Delete the ART entry
+    // 2. Delete the image/bucket from s3 (unlink cloudfront?)
+    // 3. Modify the USER entry associated with that ID to set can_submit_art = false
+    // 4. Delete user from Cognito?
+    console.log(artwork_id);
+    setSelectedArtwork(null);
+    setArtworkStatuses(prev => ({...prev, [artwork_id]: "banned"}));
+    console.log("User associated with " + artwork_id + " has been banned.");
+  }
 
   const handleFetchArtworks = async () => {
     const response = await handleFetchUnapprovedArtworks({});
@@ -61,8 +79,12 @@ export const ArtworkApproval = () => {
           {result.message.map((artwork, index) => (
             <div 
               key={index} 
-              className="border border-gray-200 rounded-lg overflow-hidden shadow-md hover:shadow-lg transition-shadow duration-300 cursor-pointer"
-              onClick={() => handleArtworkClick(artwork)}
+              className={`relative border border-gray-200 rounded-lg overflow-hidden shadow-md hover:shadow-lg transition-shadow duration-300 cursor-pointer ${
+                artworkStatuses[artwork.sk] === "approved" ? "bg-green-200 opacity-50" :
+                  artworkStatuses[artwork.sk] === "denied" ? "bg-red-200 opacity-50" :
+                    artworkStatuses[artwork.sk] === "banned" ? "bg-gray-200 opacity-50" : ""
+              }`}
+              onClick={() => !artworkStatuses[artwork.sk] && handleArtworkClick(artwork)}
             >
               <div className="relative h-48">
                 <Image 
@@ -78,6 +100,16 @@ export const ArtworkApproval = () => {
                 <p className="text-xs text-gray-600">{artwork.location}</p>
                 <p className="text-xs text-gray-600">{artwork.sport}</p>
               </div>
+              {artworkStatuses[artwork.sk] && (
+                <div className={`absolute top-2 right-2 px-2 py-1 rounded-full text-xs text-white ${
+                  artworkStatuses[artwork.sk] === "approved" ? "bg-green-500" :
+                    artworkStatuses[artwork.sk] === "denied" ? "bg-red-500" :
+                      "bg-gray-500"
+                }`}>
+                  {artworkStatuses[artwork.sk] === "approved" ? "Approved" :
+                    artworkStatuses[artwork.sk] === "denied" ? "Denied" : "User Banned"}
+                </div>
+              )}
             </div>
           ))}
         </div>

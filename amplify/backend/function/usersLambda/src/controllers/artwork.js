@@ -17,14 +17,13 @@ async function getArtwork(req, res) {
 
 async function addArtwork(req, res) {
   await handleRefreshTokenFlow(req, res);
-  if (res.headersSent) return; // Exit execution if response has already been sent
+  if (res.headersSent) return;
   const userCognitoData = await getUserCognitoData(req.cookies.accessToken);
   const userId = userCognitoData.sub;
 
   const artworkData = {
     id: userId,
     f_name: req.body.f_name,
-    // l_name: req.body.l_name,
     age: req.body.age,
     description: req.body.description,
     sport: req.body.sport,
@@ -34,11 +33,12 @@ async function addArtwork(req, res) {
     prompt: req.body.prompt,
     file_type: req.body.file_type
   };
+
   try {
-    const artwork = await ArtworkService.addArtwork(artworkData);
-    res.status(200).json(artwork);
+    const result = await ArtworkService.addArtworkAndUpdateUser(artworkData, userId);
+    res.status(200).json(result);
   } catch(error) {
-    res.status(400).json({message: "Error adding artwork", error: error});
+    res.status(400).json({message: "Error adding artwork and updating user", error: error.message});
   }
 }
 
