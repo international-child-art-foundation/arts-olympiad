@@ -118,7 +118,7 @@ async function decrementVoteArtwork(req, res) {
 async function deleteArtwork(req, res) {
   const artworkId = req.params.artworkId;
   try {
-    const response = await ArtworkService.deleteArtwork(artworkId);
+    const response = await ArtworkService.deleteArtworkCompletely(artworkId);
     res.status(204).json(response);
   } catch (error) {
     console.log(error);

@@ -38,9 +38,12 @@ const verifyUserValidator = [
 
 const updateUserValidator = [
     body('location').isString().withMessage('location must be a string'),
-    body('age').isInt().withMessage('age must be an integer'),
     body('g_f_name').isString().withMessage('g_f_name must be a string'),
     body('g_l_name').isString().withMessage('g_l_name must be a string'),
+]
+
+const volunteerUpdateUserValidator = [
+    body('can_submit_art').isBoolean().withMessage('can_submit_art must be a boolean'),
 ]
 
 const generatePresignedValidator = [
@@ -86,6 +89,7 @@ module.exports = {
     registerUserValidator,
     verifyUserValidator,
     updateUserValidator,
+    volunteerUpdateUserValidator,
     generatePresignedValidator,
     addArtworkValidator,
     approveArtworkValidator,

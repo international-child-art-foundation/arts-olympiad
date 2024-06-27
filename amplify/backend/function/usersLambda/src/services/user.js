@@ -47,11 +47,47 @@ async function forgotPassword(username) {
 async function updateUser(userId, updateField) {
   const fieldName = Object.keys(updateField)[0];
   const fieldValue = updateField[fieldName];
+  
+  const allowedFields = ["g_f_name", "g_l_name"];
+  
+  if (allowedFields.includes(fieldName)) {
+    try {
+      const user = await UserModel.updateUserById(userId, fieldName, fieldValue);
+      const {pk, sk, ...formattedUser} = user.Attributes;
+    
+      return formattedUser;
+    } catch (error) {
+      console.error(`Error updating user ${userId}:`, error);
+      throw error;
+    }
+  } else {
+    const error = new Error("Field is not available for user modification.");
+    console.error(error.message);
+    throw error;
+  }
+}
 
-  const user = await UserModel.updateUserById(userId, fieldName, fieldValue);
-  const {pk, sk, ...formattedUser} = user.Attributes;
-
-  return formattedUser;
+async function volunteerUpdateUser(userId, updateField) {
+  const fieldName = Object.keys(updateField)[0];
+  const fieldValue = updateField[fieldName];
+  
+  const allowedFields = ["can_submit_art"];
+  
+  if (allowedFields.includes(fieldName)) {
+    try {
+      const user = await UserModel.updateUserById(userId, fieldName, fieldValue);
+      const {pk, sk, ...formattedUser} = user.Attributes;
+    
+      return formattedUser;
+    } catch (error) {
+      console.error(`Error updating user ${userId}:`, error);
+      throw error;
+    }
+  } else {
+    const error = new Error("Field is not available for volunteer modification.");
+    console.error(error.message);
+    throw error;
+  }
 }
 
 module.exports = {
@@ -61,5 +97,6 @@ module.exports = {
   login,
   deleteUser,
   forgotPassword,
-  updateUser
+  updateUser,
+  volunteerUpdateUser
 };

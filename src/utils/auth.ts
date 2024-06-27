@@ -196,7 +196,7 @@ export async function getAuthStatus() {
 
 export async function getVolunteerAuthStatus() {
   try {
-    const response = await fetch("/next-proxy/api/volunteer-auth-status", {
+    const response = await fetch("/next-proxy/api/volunteer/auth-status", {
       method: "GET",
       headers: {
         "Content-Type": "application/json",

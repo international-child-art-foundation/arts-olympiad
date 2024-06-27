@@ -80,6 +80,16 @@ async function deleteArtwork(artworkId) {
   }
 }
 
+// Does not currently invalidate CloudFront URLs. 
+async function deleteArtworkCompletely(artworkId) {
+  try {
+    await ArtworkModel.deleteArtworkAndFiles(artworkId);
+    return {message: "successfully deleted"};
+  } catch(error) {
+    console.log(error);
+  }
+}
+
 async function incrementVoteArtwork(artworkId) {
   const artwork = await ArtworkModel.incrementVoteArtworkById(artworkId);
   return formatArtwork(artwork.Attributes);
@@ -178,6 +188,7 @@ module.exports = {
   getArtwork,
   addArtwork,
   deleteArtwork,
+  deleteArtworkCompletely,
   incrementVoteArtwork,
   decrementVoteArtwork,
   approveArtwork,

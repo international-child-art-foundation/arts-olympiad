@@ -222,18 +222,33 @@
             {
               "Effect": "Allow",
               "Action": [
-                "s3:PutObject"
+                "s3:PutObject",
+                "s3:GetObject",
+                "s3:ListBucket",
+                "s3:DeleteObject"
               ],
-              "Resource": {
-                "Fn::Sub": [
-                  "arn:aws:s3:::artsolympiadf677eab9a54848dc8788ee9110a11839185846-${ENV}/*",
-                  {
-                    "ENV": {
-                      "Ref": "env"
+              "Resource": [
+                {
+                  "Fn::Sub": [
+                    "arn:aws:s3:::artsolympiadf677eab9a54848dc8788ee9110a11839185846-${ENV}",
+                    {
+                      "ENV": {
+                        "Ref": "env"
+                      }
                     }
-                  }
-                ]
-              }
+                  ]
+                },
+                {
+                  "Fn::Sub": [
+                    "arn:aws:s3:::artsolympiadf677eab9a54848dc8788ee9110a11839185846-${ENV}/*",
+                    {
+                      "ENV": {
+                        "Ref": "env"
+                      }
+                    }
+                  ]
+                }
+              ]
             }
           ]
         }

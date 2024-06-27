@@ -99,9 +99,6 @@ async function login(req, res)  {
     const response = await UserService.login(email, password);
     const { AccessToken, IdToken, RefreshToken, ExpiresIn } = response;
     let sameSiteValue = "Lax";
-    // if (process.env.ENV && process.env.ENV == "staging") {
-    //   sameSiteValue = "None"; // In production, this value should be "Lax" to prevent CSRF
-    // }
     
     res.cookie("accessToken", AccessToken, {
       httpOnly: true,
@@ -168,6 +165,33 @@ async function updateUser(req, res) {
   }
 }
 
+async function volunteerUpdateUser(req, res) {
+  const userId = req.params.userId;
+  
+  if (!req.cookies.accessToken) {
+    return res.status(401).json({message: "No access token provided"});
+  }
+
+  try {
+    const userCognitoData = await getUserCognitoData(req.cookies.accessToken);
+    const userNick = userCognitoData.nickname;
+    
+    if (userNick === "Volunteer") {
+      try {
+        const updatedUser = await UserService.volunteerUpdateUser(userId, req.body);
+        res.status(200).json(updatedUser);
+      } catch(error) {
+        console.error(error);
+        res.status(400).json({message: "Updating user failed", error: error.message});
+      }
+    } else {
+      res.status(403).json({message: "User is not authenticated as a volunteer."});
+    }
+  } catch (error) {
+    console.error("Error getting user Cognito data:", error);
+    res.status(500).json({message: "Error authenticating user", error: error.message});
+  }
+}
 
 module.exports = {
   getUser,
@@ -177,6 +201,7 @@ module.exports = {
   deleteUser,
   forgotPassword,
   updateUser,
+  volunteerUpdateUser,
   getAuthStatus,
   getVolunteerAuthStatus
 };

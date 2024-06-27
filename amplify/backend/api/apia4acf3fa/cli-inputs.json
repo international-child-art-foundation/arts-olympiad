@@ -57,8 +57,15 @@
         "setting": "open"
       }
     },
-    "/api/volunteer-auth-status": {
-      "name": "/api/volunteer-auth-status",
+    "/api/volunteer/auth-status": {
+      "name": "/api/volunteer/auth-status",
+      "lambdaFunction": "usersLambda",
+      "permissions": {
+        "setting": "open"
+      }
+    },
+    "/api/volunteer/update-user": {
+      "name": "/api/volunteer/update-user",
       "lambdaFunction": "usersLambda",
       "permissions": {
         "setting": "open"

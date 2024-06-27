@@ -23,6 +23,10 @@ export interface UploadResponse {
   message: string;
 }
 
-export interface ApproveArtworkInterface {
+export interface VolunteerArtworkInterface {
   artwork_id: string;
+}
+
+export interface VolunteerUserInterface {
+  user_id: string;
 }

@@ -1,10 +1,9 @@
 "use client";
 import React, { useState } from "react";
-import { handleFetchUnapprovedArtworks } from "@/utils/volunteer-artwork-functions";
+import { handleBanUser, handleFetchUnapprovedArtworks, handleApproveArtwork, handleDenyArtwork } from "@/utils/volunteer-artwork-functions";
 import Image from "next/image";
 import { ApiArtworksResponse, userArtworkSchema } from "../../mock/userArtworkSchema";
 import { SelectedArtworkDisplay} from "./SelectedArtworkDisplay";
-import { handleApproveArtwork } from "@/utils/volunteer-artwork-functions";
 
 type ArtworkStatus = "approved" | "denied" | "banned" | null;
 
@@ -19,7 +18,6 @@ export const ArtworkApproval = () => {
     if (artworkStatus?.success == true) {
       setSelectedArtwork(null);
       setArtworkStatuses(prev => ({...prev, [artwork_id]: "approved"}));
-      // TODO: Then, set has_active_submission to true in user db entry
       console.log(artwork_id + " has successfully been approved.");
     } else {
       console.log("Failed to approve artwork " + artwork_id);
@@ -27,25 +25,27 @@ export const ArtworkApproval = () => {
   }
 
   async function onDeny(artwork_id: string) {
-    // TODO: Implement actual denial logic:
-    // 1. Delete the ART entry
-    // 2. Delete the image/bucket from our s3 server (unlink cloudfront? unsure)
     console.log(artwork_id);
-    setSelectedArtwork(null);
-    setArtworkStatuses(prev => ({...prev, [artwork_id]: "denied"}));
-    console.log(artwork_id + " has been denied.");
+    const artworkStatus = await handleDenyArtwork({artwork_id});
+    if (artworkStatus?.success == true) {
+    
+      setArtworkStatuses(prev => ({...prev, [artwork_id]: "denied"}));
+      console.log(artwork_id + " has been denied.");
+    } else {
+      console.log("Failed to delete artwork " + artwork_id);
+    }
   }
 
   async function onBanUser(artwork_id: string) {
-    // TODO: Implement actual ban logic:
-    // 1. Delete the ART entry
-    // 2. Delete the image/bucket from s3 (unlink cloudfront?)
-    // 3. Modify the USER entry associated with that ID to set can_submit_art = false
-    // 4. Delete user from Cognito?
-    console.log(artwork_id);
-    setSelectedArtwork(null);
-    setArtworkStatuses(prev => ({...prev, [artwork_id]: "banned"}));
-    console.log("User associated with " + artwork_id + " has been banned.");
+    const user_id = artwork_id;
+    const artworkStatus = await handleBanUser({user_id});
+    if (artworkStatus?.success == true) {
+      console.log(artwork_id);
+      setArtworkStatuses(prev => ({...prev, [artwork_id]: "banned"}));
+      console.log("User associated with " + artwork_id + " has been banned.");
+    } else {
+      console.log("Failed to ban user " + artwork_id);
+    }
   }
 
   const handleFetchArtworks = async () => {

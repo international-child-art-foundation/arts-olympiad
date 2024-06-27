@@ -1,10 +1,16 @@
 const { ddbDocClient } = require("../lib/dynamoDBClient");
 const { DeleteCommand, GetCommand, PutCommand, QueryCommand, UpdateCommand, TransactWriteCommand } = require("@aws-sdk/lib-dynamodb");
 const VotesModel = require("./votes");
+const { s3Client } = require("../lib/s3Client");
+const { ListObjectsV2Command, DeleteObjectsCommand } = require("@aws-sdk/client-s3");
+
+
 
 let tableName = "dynamo22205621";
+let bucketName = "artsolympiadf677eab9a54848dc8788ee9110a11839185846";
 if (process.env.ENV && process.env.ENV !== "NONE") {
   tableName = tableName + "-" + process.env.ENV;
+  bucketName = bucketName + "-" + process.env.ENV;
 }
 
 async function getArtworkById(artworkId) {
@@ -96,6 +102,88 @@ async function deleteArtworkById(artworkId) {
     return;
   } catch(error) {
     console.error(`Error deleting artwork with id ${artworkId}`);
+    throw error;
+  }
+}
+
+async function deleteArtworkAndFiles(artworkId) {
+  try {
+    // Delete from DynamoDB
+    await deleteArtworkFromDynamoDB(artworkId);
+
+    // Delete folder from S3
+    await deleteArtworkFolderFromS3(artworkId);
+
+    return { message: "Successfully deleted artwork and associated files" };
+  } catch (error) {
+    console.error("Error deleting artwork and files", error);
+    throw error;
+  }
+}
+
+async function deleteArtworkFromDynamoDB(artworkId) {
+  const transactItems = [
+    {
+      Delete: {
+        TableName: tableName,
+        Key: {
+          pk: "ART",
+          sk: artworkId
+        },
+        ConditionExpression: "attribute_exists(pk) AND attribute_exists(sk)"
+      }
+    },
+    {
+      Update: {
+        TableName: tableName,
+        Key: {
+          pk: "USER",
+          sk: artworkId
+        },
+        UpdateExpression: "SET has_active_submission = :false",
+        ExpressionAttributeValues: {
+          ":false": false
+        },
+        ConditionExpression: "attribute_exists(pk) AND attribute_exists(sk)"
+      }
+    }
+  ];
+
+  const command = new TransactWriteCommand({ TransactItems: transactItems });
+
+  try {
+    await ddbDocClient.send(command);
+    console.log(`Successfully deleted artwork ${artworkId} and updated user status`);
+  } catch (error) {
+    console.error(`Error in transactional delete for artwork ${artworkId}:`, error);
+    throw error;
+  }
+}
+
+async function deleteArtworkFolderFromS3(artworkId) {
+  const listParams = {
+    Bucket: bucketName,
+    Prefix: `${artworkId}/`
+  };
+
+  try {
+    const listedObjects = await s3Client.send(new ListObjectsV2Command(listParams));
+    if (listedObjects.Contents.length === 0) return;
+    const deleteParams = {
+      Bucket: bucketName,
+      Delete: { Objects: [] }
+    };
+
+    listedObjects.Contents.forEach(({ Key }) => {
+      deleteParams.Delete.Objects.push({ Key });
+    });
+
+    await s3Client.send(new DeleteObjectsCommand(deleteParams));
+
+    if (listedObjects.IsTruncated) await deleteArtworkFolderFromS3(artworkId);
+
+  } catch (error) {
+    console.error(`Error deleting S3 folder for artwork ${artworkId}`, error);
     throw error;
   }
 }
@@ -265,6 +353,7 @@ module.exports = {
   createArtwork,
   createArtworkAndUpdateUser,
   deleteArtworkById,
+  deleteArtworkAndFiles,
   incrementVoteArtworkById,
   decrementVoteArtworkById,
   approveArtworkById,
