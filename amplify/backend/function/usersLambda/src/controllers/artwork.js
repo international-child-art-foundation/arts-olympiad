@@ -117,12 +117,20 @@ async function decrementVoteArtwork(req, res) {
 
 async function deleteArtwork(req, res) {
   const artworkId = req.params.artworkId;
-  try {
-    const response = await ArtworkService.deleteArtworkCompletely(artworkId);
-    res.status(204).json(response);
-  } catch (error) {
-    console.log(error);
-    res.status(400).json({ message: "Error deleting artwork", error: error.message });
+  await handleRefreshTokenFlow(req, res);
+  if (res.headersSent) return;
+  const userCognitoData = await getUserCognitoData(req.cookies.accessToken);
+  const userId = userCognitoData.sub;
+  if ((userCognitoData && userCognitoData.nickname && userCognitoData.nickname === "Volunteer") || (userId && userId === req.params.artworkId)) {
+    try {
+      const response = await ArtworkService.deleteArtworkCompletely(artworkId);
+      res.status(204).json(response);
+    } catch (error) {
+      console.log(error);
+      res.status(400).json({ message: "Error deleting artwork", error: error.message });
+    }  
+  } else {
+    res.status(400).json({ message: "User is not authenticated to perform this action."});
   }
 }
 

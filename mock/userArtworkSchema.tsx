@@ -1,7 +1,7 @@
 export interface userArtworkSchema {
-	sk: string;
+	id: string;
 	f_name: string;
-	// title: string;
+	age: number;
 	sport: string;
 	location: string;
 	is_ai_gen: boolean;
@@ -9,7 +9,6 @@ export interface userArtworkSchema {
 	prompt?: string;
 	is_approved: boolean;
 	votes: number;
-  url: string;
 	description: string;
 	file_type: string;
 }

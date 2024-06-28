@@ -1,24 +1,15 @@
 import { useDashboardContext } from "../DashboardContext";
 import { useStepsContext } from "./StepsContext";
-import { differenceInYears, parseISO } from "date-fns";
-
+import { calculateAgeFromString } from "@/utils/helper-functions";
 
 export const Age = () => {
-  const { handleNavigation, userAge, setUserAge } = useStepsContext();
+  const { handleNavigation, setUserAge } = useStepsContext();
   const { apiUserData } = useDashboardContext();
-
-  function calculateAge(birthdate: string) {
-    const today = new Date();
-    const birthDate = parseISO(birthdate);
-    setUserAge(differenceInYears(today, birthDate));
-    return userAge;
-  }
-  
   const handleFirstNavigation = () => {
     console.log(apiUserData?.birthdate);
     if (apiUserData && apiUserData.birthdate && typeof apiUserData.birthdate === "string") {
-      const userAge = calculateAge(apiUserData.birthdate);
-      console.log(userAge);
+      const userAge = calculateAgeFromString(apiUserData.birthdate);
+      setUserAge(userAge);
       if (userAge >= 18) {
         handleNavigation("over");
       } else {
@@ -26,7 +17,6 @@ export const Age = () => {
       }  
     }
   };
-
   return (
     <>
       <section className="justify-around sm:items-center sm:justify-center m-auto max-w-screen-2xl px-8 md:px-12 lg:px-16 xl:px-20 w-fit lg:w-4/5 2xl:w-3/5 min-w-fit sm:min-w-[640px]">

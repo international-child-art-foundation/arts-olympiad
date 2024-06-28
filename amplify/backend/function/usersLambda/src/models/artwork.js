@@ -16,7 +16,7 @@ if (process.env.ENV && process.env.ENV !== "NONE") {
 async function getArtworkById(artworkId) {
   const input = {
     TableName: tableName,
-    ProjectionExpression: "id, description, sport, #loc, is_approved, votes, f_name, l_name, age, is_ai_gen, model, prompt",
+    ProjectionExpression: "id, description, sport, #loc, is_approved, votes, f_name, age, is_ai_gen, model, prompt, file_type",
     ExpressionAttributeNames: { "#loc": "location" },
     Key: {
       pk: "ART",

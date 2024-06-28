@@ -18,6 +18,8 @@ export interface PersonalFormData {
 
 export interface UploadFormData {
   image: File | null;
+  g_f_name: string | null;
+  g_l_name: string | null;
   location: string;
   city: string;
   usingAI: boolean;

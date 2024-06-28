@@ -4,11 +4,35 @@ export interface BirthdateInterface {
   year: number | undefined;
 }
 
-export interface UserRegisterInterface {
+export interface BirthdateFormInterface {
+  birthdate: BirthdateInterface
+}
+
+export interface UserRegisterInterfaceOver18 {
   firstName: string;
   lastName: string;
   email: string;
+  phone: string | undefined;
+  password: string;
+}
+
+export interface UserRegisterInterfaceUnder18 {
+  firstName: string;
+  lastName: string;
+  guardianFirstName: string;
+  guardianLastName: string;
+  email: string;
+  phone: string | undefined;
+  password: string;
+}
+
+export interface UserRegisterInterface {
+  firstName: string;
+  lastName: string;
   birthdate: BirthdateInterface;
+  guardianFirstName: string | undefined;
+  guardianLastName: string | undefined;
+  email: string;
   phone: string | undefined;
   password: string;
 }
@@ -17,6 +41,8 @@ export interface UserRegisterInterfaceAfterFormatting {
   f_name: string;
   l_name: string;
   email: string;
+  g_f_name: string | undefined;
+  g_l_name: string | undefined;
   birthdate: string;
   phone: string | undefined;
   password: string;

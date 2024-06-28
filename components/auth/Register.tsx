@@ -47,7 +47,7 @@ export const Register = () => {
       email: values.email,
       verificationCode: values.verificationCode
     } as VerificationCodeInterface);
-    if (result?.success == false) {
+    if (result?.success != true) {
       console.log("Success is false");
       setValidationError(true);
     } else {

@@ -15,6 +15,8 @@ export async function handleRegister({
   firstName,
   lastName,
   birthdate,
+  guardianFirstName,
+  guardianLastName,
   email,
   password,
 }: UserRegisterInterface) {
@@ -41,6 +43,8 @@ export async function handleRegister({
     password: password, 
     f_name: firstName,
     l_name: lastName,
+    g_f_name: guardianFirstName,
+    g_l_name: guardianLastName,
     birthdate: cognitoFormattedBirthdate
   } as UserRegisterInterfaceAfterFormatting;
 

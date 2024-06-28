@@ -74,7 +74,7 @@ export async function handleApproveArtwork({
   }
 }
 
-export async function handleDenyArtwork({
+export async function handleDeleteArtwork({
   artwork_id,
 }: VolunteerArtworkInterface) {
   console.log(artwork_id);

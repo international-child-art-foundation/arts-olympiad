@@ -51,7 +51,7 @@ async function addArtworkAndUpdateUser(artworkData, userId) {
     gsi1pk: 0,
     gsi1sk: artworkData.id,
     f_name: artworkData.f_name,
-    l_name: artworkData.l_name,
+    age: artworkData.age,
     description: artworkData.description,
     sport: artworkData.sport,
     location: artworkData.location,
@@ -171,7 +171,6 @@ function formatArtwork(artwork) {
   return {
     id: artwork.id,
     f_name: artwork.f_name,
-    l_name: artwork.l_name,
     age: artwork.age,
     description: artwork.description,
     sport: artwork.sport,
@@ -181,6 +180,7 @@ function formatArtwork(artwork) {
     is_ai_gen: artwork.is_ai_gen,
     model: artwork.model,
     prompt: artwork.prompt,
+    file_type: artwork.file_type,
   };
 }
 

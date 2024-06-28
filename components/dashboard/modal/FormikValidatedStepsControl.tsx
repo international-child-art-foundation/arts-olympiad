@@ -97,6 +97,7 @@ export const FormikValidatedStepsControl: React.FC<FormikValidatedStepsControlPr
     } else if (direction === "next" && currentStep === 5) {
       console.log("Was step 5");
       setDisplayModal("");
+      window.location.reload();
 
     }
   };

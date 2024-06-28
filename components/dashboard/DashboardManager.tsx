@@ -11,6 +11,7 @@ import { useDashboardContext } from "./DashboardContext";
 import { DashboardModal } from "./DashboardModal";
 import { DeleteArtwork } from "./DeleteArtwork";
 import { getAuthStatus, getUserData } from "@/utils/auth";
+import { getSingleArtworkData } from "@/utils/artworks";
 
 export default function DashboardManager() {
   const router = useRouter();
@@ -41,8 +42,16 @@ export default function DashboardManager() {
     }
     async function asyncGetUserData() {
       const userData = await getUserData();
-      console.log(userData);
-      setApiUserData(userData);
+      if (userData) {
+
+        console.log(userData);
+        setApiUserData(userData);
+      }
+      if (userData.id && userData.has_active_submission) {
+        const artworkData = await getSingleArtworkData(userData.id);
+        console.log(artworkData);
+        setApiArtworkData(artworkData);
+      }
     }
     asyncGetAuthStatus();
     asyncGetUserData();

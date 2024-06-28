@@ -1,6 +1,6 @@
 "use client";
 import React, { useState } from "react";
-import { handleBanUser, handleFetchUnapprovedArtworks, handleApproveArtwork, handleDenyArtwork } from "@/utils/volunteer-artwork-functions";
+import { handleBanUser, handleFetchUnapprovedArtworks, handleApproveArtwork, handleDeleteArtwork } from "@/utils/volunteer-artwork-functions";
 import Image from "next/image";
 import { ApiArtworksResponse, userArtworkSchema } from "../../mock/userArtworkSchema";
 import { SelectedArtworkDisplay} from "./SelectedArtworkDisplay";
@@ -26,7 +26,7 @@ export const ArtworkApproval = () => {
 
   async function onDeny(artwork_id: string) {
     console.log(artwork_id);
-    const artworkStatus = await handleDenyArtwork({artwork_id});
+    const artworkStatus = await handleDeleteArtwork({artwork_id});
     if (artworkStatus?.success == true) {
     
       setArtworkStatuses(prev => ({...prev, [artwork_id]: "denied"}));
@@ -83,34 +83,34 @@ export const ArtworkApproval = () => {
             <div 
               key={index} 
               className={`relative border border-gray-200 rounded-lg overflow-hidden shadow-md hover:shadow-lg transition-shadow duration-300 cursor-pointer ${
-                artworkStatuses[artwork.sk] === "approved" ? "bg-green-200 opacity-50" :
-                  artworkStatuses[artwork.sk] === "denied" ? "bg-red-200 opacity-50" :
-                    artworkStatuses[artwork.sk] === "banned" ? "bg-gray-200 opacity-50" : ""
+                artworkStatuses[artwork.id] === "approved" ? "bg-green-200 opacity-50" :
+                  artworkStatuses[artwork.id] === "denied" ? "bg-red-200 opacity-50" :
+                    artworkStatuses[artwork.id] === "banned" ? "bg-gray-200 opacity-50" : ""
               }`}
-              onClick={() => !artworkStatuses[artwork.sk] && handleArtworkClick(artwork)}
+              onClick={() => !artworkStatuses[artwork.id] && handleArtworkClick(artwork)}
             >
               <div className="relative h-48">
                 <Image 
-                  src={`${process.env.NEXT_PUBLIC_CLOUDFRONT_DISTRIBUTION_URL}/${artwork.sk}/initial.${artwork.file_type}`} 
+                  src={`${process.env.NEXT_PUBLIC_CLOUDFRONT_DISTRIBUTION_URL}/${artwork.id}/initial.${artwork.file_type}`} 
                   layout="fill"
                   objectFit="cover"
                   alt={`Artwork titled: ${artwork.f_name}`} 
                 />
               </div>
               <div className="p-4">
-                <p className="text-xs text-gray-600">{artwork.sk}</p>
+                <p className="text-xs text-gray-600">{artwork.id}</p>
                 <p className="text-sm mb-2">{truncateDescription(artwork.description)}</p>
                 <p className="text-xs text-gray-600">{artwork.location}</p>
                 <p className="text-xs text-gray-600">{artwork.sport}</p>
               </div>
-              {artworkStatuses[artwork.sk] && (
+              {artworkStatuses[artwork.id] && (
                 <div className={`absolute top-2 right-2 px-2 py-1 rounded-full text-xs text-white ${
-                  artworkStatuses[artwork.sk] === "approved" ? "bg-green-500" :
-                    artworkStatuses[artwork.sk] === "denied" ? "bg-red-500" :
+                  artworkStatuses[artwork.id] === "approved" ? "bg-green-500" :
+                    artworkStatuses[artwork.id] === "denied" ? "bg-red-500" :
                       "bg-gray-500"
                 }`}>
-                  {artworkStatuses[artwork.sk] === "approved" ? "Approved" :
-                    artworkStatuses[artwork.sk] === "denied" ? "Denied" : "User Banned"}
+                  {artworkStatuses[artwork.id] === "approved" ? "Approved" :
+                    artworkStatuses[artwork.id] === "denied" ? "Denied" : "User Banned"}
                 </div>
               )}
             </div>

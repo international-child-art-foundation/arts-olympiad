@@ -1,5 +1,5 @@
 import { useDashboardContext } from "./DashboardContext";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import information from "../../public/svgs/information.svg";
 import Image from "next/image";
 import deleteIcon from "../../public/svgs/delete.svg";
@@ -12,16 +12,28 @@ import { CustomInput } from "./modal/CustomInput";
 import { FormControlButtons } from "./FormControlButtons";
 import { simulateDelay } from "../SimulateDelay";
 import LoadingAnimation from "../../components/svgs/LoadingAnimation";
+import { buildLgImageUrl, buildMdImageUrl } from "@/utils/url-builders";
 
 export const ActiveArtDisplay = () => {
   const [editMode, setEditMode] = useState(false);
   const [formSubmissionLoading, setFormSubmissionLoading] = useState(false);
+  const [imageUrl, setImageUrl] = useState("");
   const validationSchema = yup.object().shape({ 
     source: yup.string().max(100, "Source must be no more than 100 characters long"),
     prompt: yup.string().max(200, "Prompt must be no more than 200 characters long"),
     description: yup.string().max(200, "Description must be no more than 200 characters long")
   });
   const {apiUserData, apiArtworkData, dashboardMainTabSubmissionData, setDashboardMainTabSubmissionData, setDisplayModal } = useDashboardContext();
+
+  useEffect(() => {
+    if (apiArtworkData && apiArtworkData.id && apiArtworkData.is_approved == true) {
+      setImageUrl(buildMdImageUrl(apiArtworkData.id));
+    }
+    if (apiArtworkData && apiArtworkData.id) {
+      setImageUrl(buildLgImageUrl(apiArtworkData.id, apiArtworkData.file_type) ?? placeholderImage);
+    }
+  }, [apiArtworkData]);
+  
 
   return (
     <div>
@@ -31,14 +43,14 @@ export const ActiveArtDisplay = () => {
             <div className="flex flex-col overflow-hidden gap-4">
               <div className="flex justify-center items-center rounded-xl overflow-hidden relative flex-grow ">
                 <Image
-                  src={apiArtworkData?.url ?? placeholderImage}
+                  src={imageUrl ?? placeholderImage}
                   alt="Your submitted image"
                   width={400}
                   height={400}
                   className="z-10 max-h-full max-w-full object-contain"
                 />
                 <Image
-                  src={apiArtworkData?.url ?? placeholderImage}
+                  src={imageUrl ?? placeholderImage}
                   alt="Background"
                   width={400}
                   height={400}
@@ -52,8 +64,8 @@ export const ActiveArtDisplay = () => {
             <div className="flex flex-col pl-4 justify-between gap-4">
               <p className="text-xl font-semibold">{apiUserData?.f_name} {apiUserData?.l_name}</p>
               <div>
-                <p>{apiUserData?.age} | {apiUserData?.location}</p>
-                <p>{apiArtworkData.sport.join(" | ")}</p>
+                <p>{apiArtworkData?.age} | {apiArtworkData?.location}</p>
+                <p>{apiArtworkData.sport}</p>
               </div>
               {apiArtworkData.is_ai_gen && !editMode && (
                 <div>

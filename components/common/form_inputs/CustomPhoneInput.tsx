@@ -21,9 +21,6 @@ interface IProps {
 }
 
 export const CustomPhoneInput = ({ className, labelText, id, placeholder, error, touched, value, setFieldValue, setFieldTouched, required = true }: IProps) => {
-  console.log(error);
-  console.log(touched);
-  console.log(value);
   return (
     <div className={`${className} my-1 flex flex-col`}>
       <InputLabel

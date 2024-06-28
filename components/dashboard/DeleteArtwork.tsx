@@ -1,26 +1,27 @@
 import { useDashboardContext } from "./DashboardContext";
-import { simulateDelay } from "../SimulateDelay";
 import LoadingAnimation from "../svgs/LoadingAnimation";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
+import { handleDeleteArtwork } from "@/utils/volunteer-artwork-functions";
 
 interface DeleteArtworkProps { // Empty for now
 }
 
 export const DeleteArtwork: React.FC<DeleteArtworkProps> = ({  }) => {
   const [isLoading, setIsLoading] = useState(false);
-  const { apiUserData, apiArtworkData, userHasActiveSubmission, setDisplayModal } = useDashboardContext();
+  const { apiUserData, apiArtworkData, setDisplayModal } = useDashboardContext();
   const [successfulArtworkDeletion, setSuccessfulArtworkDeletion] = useState(false);
   const router = useRouter();
 
-  const handleDeleteArtwork = async (artworkId: string) => {
+  const deleteArtwork = async (artwork_id: string) => {
     setIsLoading(true);
     try {
-      // API request to delete artwork from database occurs
-      // DELETE /users/<userId>/artworks/<artworkId>
-      console.log("Deleting: ", artworkId);
-      await simulateDelay(100);
-      // Reload the page upon completion to display the empty dashboard page.
+      const artworkStatus = await handleDeleteArtwork({artwork_id});
+      if (artworkStatus?.success == true) {
+        console.log(artwork_id + " has been deleted.");
+      } else {
+        console.log("Failed to delete artwork " + artwork_id);
+      }
       setSuccessfulArtworkDeletion(true);
       router.refresh();
     } catch (error) {
@@ -36,7 +37,7 @@ export const DeleteArtwork: React.FC<DeleteArtworkProps> = ({  }) => {
           <LoadingAnimation scale={100} stroke={2} />
         </div>
       }
-      {userHasActiveSubmission && !successfulArtworkDeletion && (
+      {!successfulArtworkDeletion && (
         apiArtworkData && apiArtworkData.id ? (
           <div className={`max-w-[900px] px-2 sm:px-10 lg:px-20 py-10 flex flex-col gap-6 h-full w-full col-start-1 row-start-1 ${isLoading && "opacity-50"}`}>
             <p className="font-montserrat text-4xl">
@@ -47,7 +48,7 @@ export const DeleteArtwork: React.FC<DeleteArtworkProps> = ({  }) => {
                 By withdrawing, your entry is removed from the competition, and you cannot re-enter.
               </p>
               <p>
-                Do you still want to proceed?
+                Do you still wish to proceed?
               </p>
             </div>
             <div className={`flex gap-x-9 gap-y-5 w-full flex-col md:flex-row ${isLoading && "pointer-events-none opacity-50"}`}>
@@ -56,7 +57,7 @@ export const DeleteArtwork: React.FC<DeleteArtworkProps> = ({  }) => {
                 No, go back
               </button>
               <button className="p-4 bg-warning-red text-white rounded flex-grow hover:bg-[#DB3952]"
-                onClick={() => handleDeleteArtwork(apiArtworkData.id)}
+                onClick={() => deleteArtwork(apiArtworkData.id)}
               >
                 Yes, remove my art now
               </button>
