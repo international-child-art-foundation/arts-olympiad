@@ -1,7 +1,8 @@
 "use client";
 import Image from "next/image";
 import hashtag from "../../public/home/hashtag.svg";
-import bicycleHero from "../../public/home/MFS_Bicycle_Hero.webp";
+// import bicycleHero from "../../public/home/MFS_Bicycle_Hero.webp";
+import HeroHeader from "../../public/home/Hero_Header.jpg";
 import { formatDate }  from "../../mock/dates";
 
 export const Intro = () => {
@@ -18,15 +19,21 @@ export const Intro = () => {
         </div>
         <div className="font-normal text-base mb-6 md:mb-12 z-20">
           <p className=" z-20 mb-4 leading-8 lg:mb8">
-            Any <b>14- to 20-year-old</b> anywhere can create art on his or her most favorite sport, upload it, and share it with family and friends to get their votes.
+          Artists  <b>aged 14 to 20</b>  create and upload your art and get your family and friends to vote for your masterpiece.
           </p>
           <p className="z-20 mb-4 leading-8 lg:mb8">
-            The gold, silver, and bronze winners selected through public votes will earn US$3000 (gold), $2000 (silver), and $1000 (bronze). Entry fee is $10.
+          Sports fans and art lovers vote for the artwork you like the most for it to win the Gold (US$3,000), Silver ($2,000), or Bronze ($1,000). 
           </p>
-          <p className="z-20 mb-4 leading-8 lg:mb8 flex flex-wrap"> {/* Use &nbsp to allow grid layout to work properly */}
-            The competition begins on&nbsp;<b> {formatDate("competitionBegin", "MMMM do")} </b>&nbsp;and ends on&nbsp;<b> {formatDate("competitionEnd", "MMMM do")}.</b>             Winners will be announced on&nbsp;<b>{formatDate("winnerAnnounced", "MMMM d, yyyy")}.</b>
+          <p className="z-20 mb-4 leading-8 lg:mb8 "> {/* Use &nbsp to allow grid layout to work properly */}
+          This history-making global contest starts on&nbsp;<b> {formatDate("competitionBegin", "MMMM do")} </b>
+          — the Games kick off in Paris. Artists must act soon to get more public votes. The contest ends on <b> {formatDate("competitionEnd", "MMMM do")}. </b>             
+          Winners receive the cash prizes on&nbsp;<b>{formatDate("winnerAnnounced", "MMMM d, yyyy")}.</b>
           </p>
           <p className="z-20 mb-4 leading-8 lg:mb8">
+          This #MyFavoriteSport campaign is launched by ICAF.org, a Washington DC-based charity. The entry fee for artists is <b>$10</b> but voters register for free. 
+          </p>
+          <p className="z-20 mb-4 leading-8 lg:mb8">
+          Your donation helps unite artists and athletes by reassuring them that their chaotic and divided world has hope.
           </p>
 
         </div>
@@ -37,8 +44,11 @@ export const Intro = () => {
         aria-label="Bicycle art"
         className="relative z-10 md:grid col-span-8 md:col-start-2 md:col-span-6 lg:col-span-5 xl:col-span-6 "
       >
-        <div className="z-10">
-          <Image className="m-auto" src={bicycleHero} alt=""/>
+        <div className="z-10 image-container">
+          <Image className="m-auto" src={HeroHeader} alt=""/>
+          <div className="text-right">
+            Eric Liang, age 11, Illinois
+          </div>
         </div>
       </figure>
     </section>

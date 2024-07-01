@@ -7,7 +7,7 @@ export const GetInvolvedStatic = () => {
 
   return (
     <div className="relative">
-      <H2m className="z-10 font-medium text-3xl md:text-4xl text-center mb-16 font-montserrat" >Participate for Free!</H2m>
+      <H2m className="z-10 font-medium text-3xl md:text-4xl text-center mb-16 font-montserrat" >Join our #MyFavoriteSport campaign</H2m>
       <div className="absolute inset-x-0 mx-auto h-full w-auto md:max-w-[1536px] overflow-hidden">
         <Image src={swimmerBackground} alt="" className="w-full h-full object-cover object-center blur-sm md:blur-none" />
       </div>
