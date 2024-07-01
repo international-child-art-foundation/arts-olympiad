@@ -1,7 +1,8 @@
 import Image from "next/image";
 import {H2m} from "../../common/texts/H2m";
 import sponsorLogo from "../../../public/home/sponsor/icaf_sponsor_logo_large.png";
-import yourLogoHere from "../../../public/home/sponsor/your-logo-here.webp";
+// import yourLogoHere from "../../../public/home/sponsor/your-logo-here.webp";
+import waterColor from "../../../public/home/sponsor/WaterColor.png";
 import gymnast from "../../../public/home/sponsor/Gymnast.webp";
 
 export const Sponsor = () => {
@@ -14,7 +15,7 @@ export const Sponsor = () => {
         <div className="block lg:flex flex-col">
           <div className="flex gap-4 max-w-80% md:max-w-[50%]">
             <Image className="w-1/2" src={sponsorLogo} alt="" width={280} height={232}/>
-            <Image className="w-1/2" src={yourLogoHere} alt="" width={280} height={232}/>
+            <Image className="w-1/2" src={waterColor} alt="" width={280} height={232}/>
           </div>
           <Image className="mx-auto lg:absolute -bottom-16 right-0 lg:max-w-[38%] max-w-[100%] w-[500px] lg:w-[50%] lg:max-w-unset" src={gymnast} alt=""/>
         </div>
