@@ -1,18 +1,18 @@
 import React from "react";
 import { H2m } from "../common/texts/H2m";
 import { Pm } from "../common/texts/Pm";
-import Image from "next/image";
-import KidsBlue from "../../public/contest/kids_blue.webp";
-import PrizesCards from "./PrizesCards";
-import computer from "../../public/contest/computer.png";
-import Vote from "../../public/contest/vote.png";
-import HeartHandshake from "../../public/contest/heart_handshake.png";
-import ClipBoard from "../../public/contest/clipboard.svg";
-import RedStar from "../../public/contest/red_star.png";
-import BlueStar from "../../public/contest/blue_star.png";
-import YellowStar from "../../public/contest/yellow_star.png";
-import GreenStar from "../../public/contest/green_star.png";
-import { formatDate } from "../../mock/dates";
+// import Image from "next/image";
+// import KidsBlue from "../../public/contest/kids_blue.webp";
+// import PrizesCards from "./PrizesCards";
+// import computer from "../../public/contest/computer.png";
+// import Vote from "../../public/contest/vote.png";
+// import HeartHandshake from "../../public/contest/heart_handshake.png";
+// import ClipBoard from "../../public/contest/clipboard.svg";
+// import RedStar from "../../public/contest/red_star.png";
+// import BlueStar from "../../public/contest/blue_star.png";
+// import YellowStar from "../../public/contest/yellow_star.png";
+// import GreenStar from "../../public/contest/green_star.png";
+// import { formatDate } from "../../mock/dates";
 
 export const Prizes = () => {
   return (
@@ -22,9 +22,9 @@ export const Prizes = () => {
           <H2m className="flex-col z-20 font-montserrat font-medium mb-6 xsm:text-center lg:text-left">
           Prizes
           </H2m>
-          <Pm className="font-openSans font-light z-30 text-center lg:text-left">People around the world through their votes will select who wins the Gold (US$3,000), Silver ($2,000) or Bronze ($1,000)</Pm>
+          <Pm className="font-openSans font-light z-30 text-center lg:text-left mb-8">People around the world through their votes will select who wins the Gold (US$3,000), Silver ($2,000) or Bronze ($1,000)</Pm>
         </div>
-        <div className="relative flex flex-col w-full px-6 md:grid md:grid-cols-2 lg:px-24 mxl:px-72 mx-auto my-20 z-10">
+        {/* <div className="relative flex flex-col w-full px-6 md:grid md:grid-cols-2 lg:px-24 mxl:px-72 mx-auto my-20 z-10">
           <PrizesCards 
             src={ClipBoard}
             heading="Make it count"
@@ -54,7 +54,7 @@ export const Prizes = () => {
             star={GreenStar}
           />
         </div>
-        <Image src={KidsBlue} width={1535} height={1491} className="pointer-events-none select-none xl:scale-105 absolute z-0 object-cover h-[1491px] opacity-80 w-screen xsm:top-40 md:pb-20 md:object-none md:w-full md:-top-36 md:left-0" alt="photo" />
+        <Image src={KidsBlue} width={1535} height={1491} className="pointer-events-none select-none xl:scale-105 absolute z-0 object-cover h-[1491px] opacity-80 w-screen xsm:top-40 md:pb-20 md:object-none md:w-full md:-top-36 md:left-0" alt="photo" /> */}
       </section>
     </>
   );
