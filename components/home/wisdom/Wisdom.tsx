@@ -13,7 +13,7 @@ export const Wisdom = () => {
     <section className=" px-8 md:px-12 lg:px-16 xl:px-20 mt-16 md:mt-36 mb-6 flex flex-col max-w-screen-2xl m-auto">
       <div className="self-center flex items-center justify-center relative">
         <H2m className="z-40 text-center inline-block relative mb-6 font-montserrat">
-          The Art of Living: Wisdom from <span className="z-40 inline-block font-bold text-dark-blue">Visionary Thinkers</span>
+        The Power of  <span className="z-40 inline-block font-bold text-dark-blue">Art and Sports</span>
           <div
             className="hidden md:block draw-line-bottom z-30 bg-neutral-white w-[145px] h-[200px] absolute top-0 -right-36 mxl:-right-36 2xl:-right-40"
           />
