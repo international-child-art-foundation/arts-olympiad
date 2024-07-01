@@ -18,18 +18,16 @@ export const Sponsor = () => {
               <Image 
                 src={sponsorLogo} 
                 alt=""
-                layout="fill"
-                objectFit="contain"
-                className="w-full h-auto"
+                fill
+                className="w-full h-auto object-contain"
               />
             </div>
             <div className="w-[54%] relative">
               <Image 
                 src={waterColor} 
                 alt=""
-                layout="fill"
-                objectFit="contain"
-                className="w-full h-auto"
+                fill
+                className="w-full h-auto object-contain"
               />
             </div>
           </div>
