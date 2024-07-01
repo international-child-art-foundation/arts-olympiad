@@ -128,6 +128,34 @@ async function login(req, res)  {
   }
 }
 
+async function logout(req, res) {
+  try {
+    const {accessToken, refreshToken} = req.cookies;
+    if (!accessToken && !refreshToken) {
+      return res.status(401).json({ message: "User is not logged in"});
+    }
+
+    await handleRefreshTokenFlow(req, res);
+    if (res.headersSent) return; // Exit execution if response has already been sent
+
+    // Clear the cookies
+    res.clearCookie("accessToken");
+    res.clearCookie("idToken");
+    res.clearCookie("refreshToken");
+
+    // Invalidate the token on the Cognito side
+    const currentAccessToken = req.cookies.accessToken;
+    if (currentAccessToken) {
+      await UserService.logout(currentAccessToken);
+    }
+
+    res.status(200).json({ message: "Logout successful" });
+  } catch (error) {
+    console.error("Logout error:", error);
+    res.status(500).json({ message: "Logout failed", error: error.message });
+  }
+}
+
 async function deleteUser(req, res) {
   const userCognitoData = await getUserCognitoData(req.cookies.accessToken);
   const userId = userCognitoData.sub;
@@ -198,6 +226,7 @@ module.exports = {
   registerUser,
   verifyUser,
   login,
+  logout,
   deleteUser,
   forgotPassword,
   updateUser,

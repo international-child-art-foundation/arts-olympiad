@@ -39,7 +39,7 @@ export const DeleteArtwork: React.FC<DeleteArtworkProps> = ({  }) => {
       }
       {!successfulArtworkDeletion && (
         apiArtworkData && apiArtworkData.id ? (
-          <div className={`max-w-[900px] px-2 sm:px-10 lg:px-20 py-10 flex flex-col gap-6 h-full w-full col-start-1 row-start-1 ${isLoading && "opacity-50"}`}>
+          <div className={`max-w-[900px] px-2 sm:px-10 lg:px-20 py-10 flex flex-col gap-6 h-full w-full col-start-1 row-start-1 mx-auto ${isLoading && "opacity-50"}`}>
             <p className="font-montserrat text-4xl">
               {apiUserData && apiUserData.f_name}, are you sure?
             </p>

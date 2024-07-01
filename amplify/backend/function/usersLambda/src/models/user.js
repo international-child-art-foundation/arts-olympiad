@@ -1,6 +1,8 @@
 const { ddbDocClient } = require("../lib/dynamoDBClient");
 const { DeleteCommand, GetCommand, PutCommand, UpdateCommand } = require("@aws-sdk/lib-dynamodb");
-const { SignUpCommand, ConfirmSignUpCommand, CognitoIdentityProviderClient, AuthFlowType, InitiateAuthCommand, DeleteUserCommand, ForgotPasswordCommand } = require("@aws-sdk/client-cognito-identity-provider");
+const { SignUpCommand, ConfirmSignUpCommand, CognitoIdentityProviderClient, 
+  AuthFlowType, InitiateAuthCommand, DeleteUserCommand, ForgotPasswordCommand,
+  GlobalSignOutCommand, } = require("@aws-sdk/client-cognito-identity-provider");
 
 let tableName = "dynamo22205621";
 if (process.env.ENV && process.env.ENV !== "NONE") {
@@ -117,6 +119,19 @@ async function signIn(email, password) {
   }
 }
 
+async function globalSignOut(accessToken) {
+  try {
+    const command = new GlobalSignOutCommand({
+      AccessToken: accessToken
+    });
+    const response = await client.send(command);
+    return response;
+  } catch (error) {
+    console.error("Error signing out from Cognito");
+    throw error;
+  }
+}
+
 async function getNewTokens(refreshToken) {
   try {
     const command = new InitiateAuthCommand({
@@ -208,6 +223,7 @@ module.exports = {
   createUser,
   confirmCognitoUser,
   signIn,
+  globalSignOut,
   deleteCognitoUser,
   forgotPassword,
   deleteUserData,

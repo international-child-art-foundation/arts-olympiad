@@ -70,6 +70,13 @@
       "permissions": {
         "setting": "open"
       }
+    },
+    "/api/logout": {
+      "name": "/api/logout",
+      "lambdaFunction": "usersLambda",
+      "permissions": {
+        "setting": "open"
+      }
     }
   }
 }

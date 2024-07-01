@@ -1,14 +1,32 @@
+"use client";
 import Link from "next/link";
 import MobileNav from "./MobileNav";
 import "../src/app/globals.css"; 
 // import { HeartIconWhite } from "./svgs/HeartIconWhite";
 import { UploadIcon } from "./svgs/UploadIcon";
+import { UserIcon } from "./svgs/UserIcon";
 import { VoteIcon } from "./svgs/VoteIcon";
 import { LoginIcon } from "./svgs/LoginIcon";
 import { DownIcon } from "./svgs/DownIcon";
 import { UpIcon } from "./svgs/UpIcon";
+import { useEffect, useState } from "react";
+import { handleSignOut } from "@/utils/auth";
+import { useRouter } from "next/navigation";
 
 const Header = () => {
+  const router = useRouter();
+  const [isAuthenticated, setIsAuthenticated] = useState(0);
+
+  async function localHandleSignOut() {
+    const signout = await handleSignOut();
+    console.log(signout);
+    localStorage.setItem("isAuthenticated", "false");
+    router.push("/");
+  }
+
+  useEffect(() => {
+    setIsAuthenticated(localStorage.getItem("isAuthenticated") == "true" ? 1 : 2);
+  }, [setIsAuthenticated]);
   const links1 = [
     { name: "About", url: "/about" },
     { name: "Contest", url: "/contest" },
@@ -40,10 +58,26 @@ const Header = () => {
           Vote
         </a>
 
-        <Link href="/auth/login" className="group my-2 ml-auto h-fit w-fit text-center py-2 px-3 text-xs cursor-pointer tracking-wide text-new-blue hidden md:block">
-          <LoginIcon />
-          Login
-        </Link>
+        {isAuthenticated == 1 ? (
+          <>
+            <div className="group ml-auto flex">
+              <Link href="#" className="group my-2 h-fit w-fit border-new-blue border rounded text-center py-2 px-3 text-xs cursor-pointer tracking-wide text-new-blue hidden md:inline-flex items-center">
+                <UserIcon />
+                Dashboard
+              </Link>
+
+              <a onClick={localHandleSignOut} className="group gap-2 my-2 ml-2 h-fit w-fit border-new-blue border rounded text-center py-2 px-3 text-xs cursor-pointer tracking-wide text-new-blue hidden md:inline-flex items-center">
+              Logout
+                <LoginIcon transform="scale(-0.9, 0.9)" />
+              </a>
+            </div>
+          </>
+        ) : (
+          <Link href="/auth/login" className="group my-2 ml-auto h-fit w-fit text-center py-2 px-3 text-xs cursor-pointer tracking-wide text-new-blue hidden md:block">
+            <LoginIcon transform="scale(-0.9, 0.9)" />
+            Login
+          </Link>
+        )}
 
         <hr className="my-2 border-new-black border-t-0.5 w-full hidden md:block"></hr>
 

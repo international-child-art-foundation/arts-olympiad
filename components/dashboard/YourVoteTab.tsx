@@ -1,24 +1,31 @@
-import { DashboardLoadingStates } from "../../mock/DashboardTypes";
+import { DashboardLoadingStates, DashboardAuthenticationStates } from "../../mock/DashboardTypes";
 import { VotedArtDisplay } from "./VotedArtDisplay";
 import { useDashboardContext } from "./DashboardContext";
 import Link from "next/link";
 
 interface YourVoteTabProps {
   dashboardLoadingState: DashboardLoadingStates;
+  isAuthenticated: DashboardAuthenticationStates;
 }
 
-export const YourVoteTab: React.FC<YourVoteTabProps> = ({ dashboardLoadingState }) => {
+export const YourVoteTab: React.FC<YourVoteTabProps> = ({ dashboardLoadingState, isAuthenticated }) => {
 
   const { apiUserData } = useDashboardContext();
 
   return (
     <div>
-      {dashboardLoadingState == "Loading" && 
+      {isAuthenticated == "Unauthenticated" &&
+          <>
+            <div>You're not logged in!</div>
+            <Link href="/auth/login">Return to login page</Link>
+          </>
+      }
+      {isAuthenticated == "Authenticated" && dashboardLoadingState == "Loading" && 
       <div>
         Loading the Your Vote page...
       </div>
       }
-      {dashboardLoadingState == "Loaded" && 
+      {dashboardLoadingState == "Loaded" && isAuthenticated == "Authenticated" && 
       <div>
         <p className="font-montserrat text-2xl font-regular text-[32px] my-3 mb-8"> Your Vote </p>
         {apiUserData && !apiUserData.voted_id ?

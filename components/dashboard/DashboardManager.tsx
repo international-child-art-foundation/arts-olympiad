@@ -1,6 +1,6 @@
 "use client";
 import React, { useState, useEffect } from "react";
-import { DashboardTabs, DashboardLoadingStates, dashboardTypeStringConversions, DashboardUrls } from "../../mock/DashboardTypes";
+import { DashboardTabs, DashboardLoadingStates, dashboardTypeStringConversions, DashboardUrls, DashboardAuthenticationStates } from "../../mock/DashboardTypes";
 // import { fakeUserData } from "../../mock/fakeUserData";
 // import { fakeUserArtworkData } from "../../mock/fakeUserArtworkData";
 import { DashboardMainTab } from "../../components/dashboard/DashboardMainTab";
@@ -21,13 +21,7 @@ export default function DashboardManager() {
   // in its current state. Authentication status should be checked upon login,
   // authenticated page visits, and API requests. We will also need to manage refresh 
   // token tasks manually which will likely occur when authentication status is checked. 
-  const [isAuthenticated, setIsAuthenticated] = useState(false);
-
-  // async function getFakeAuthStatus() {
-  //   return true;
-  // }
-
-
+  const [isAuthenticated, setIsAuthenticated] = useState<DashboardAuthenticationStates>("Loading");
 
   // Create our dashboard state variable
   const [dashboardTab, setDashboardTab] = useState<DashboardTabs>("Dashboard");
@@ -37,13 +31,17 @@ export default function DashboardManager() {
   useEffect(() => {
     async function asyncGetAuthStatus() {
       const authStatus = await getAuthStatus();
-      setIsAuthenticated(authStatus.isAuthenticated);
-      console.log(authStatus.isAuthenticated);
+      if (authStatus.isAuthenticated === true) {
+        setIsAuthenticated("Authenticated");
+      } else {
+        setIsAuthenticated("Unauthenticated");
+      }
+      return authStatus.isAuthenticated;
     }
+  
     async function asyncGetUserData() {
       const userData = await getUserData();
       if (userData) {
-
         console.log(userData);
         setApiUserData(userData);
       }
@@ -53,22 +51,17 @@ export default function DashboardManager() {
         setApiArtworkData(artworkData);
       }
     }
-    asyncGetAuthStatus();
-    asyncGetUserData();
-    // setApiArtworkData(fakeUserArtworkData);
-    setDashboardLoadingState("Loaded" as DashboardLoadingStates);
+    async function init() {
+      const authStatus = await asyncGetAuthStatus();
+      if (authStatus === true) {
+        await asyncGetUserData();
+        setDashboardLoadingState("Loaded" as DashboardLoadingStates);
+      }
+    }
+
+    init();
   }, [setApiUserData, setApiArtworkData]);
-
-
-  // // Old code for setting fake user data
-  // useEffect(() => {
-  //   setTimeout(() => { // Simulate API call wait time
-  //     setApiUserData(fakeUserData);
-  //     setApiArtworkData(fakeUserArtworkData);
-  //     setDashboardLoadingState("Loaded" as DashboardLoadingStates);
-  //   }, 1000);
-  // });
-
+  
   const handleTabClick = (tabIdentity: DashboardTabs) => {
     setDashboardTab(tabIdentity);
   };
@@ -113,11 +106,9 @@ export default function DashboardManager() {
         <DashboardTabSection dashboardTab={dashboardTab} handleTabClick={handleTabClick}/>
         <div className="p-10">
           <div className="xl:w-[80%] m-auto max-w-[800px]">
-            {/* Dummy button to test authentication status */}
-            {isAuthenticated && <div>Authenticated!</div>}
-            {/* <button className="w-64 bg-blue-500" onClick={checkAuthStatus}>Check auth status</button> */}
-            {dashboardTab == "Dashboard" && <DashboardMainTab dashboardLoadingState={dashboardLoadingState} />}
-            {dashboardTab == "YourVote" && <YourVoteTab dashboardLoadingState={dashboardLoadingState} />}
+            {/* {isAuthenticated && <div>Authenticated!</div>} */}
+            {dashboardTab == "Dashboard" && <DashboardMainTab dashboardLoadingState={dashboardLoadingState} isAuthenticated={isAuthenticated}/>}
+            {dashboardTab == "YourVote" && <YourVoteTab dashboardLoadingState={dashboardLoadingState} isAuthenticated={isAuthenticated}/>}
           </div>
         </div>
       </div>

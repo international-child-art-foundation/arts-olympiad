@@ -31,6 +31,10 @@ async function login(email, password) {
   return authResponse.AuthenticationResult;
 }
 
+async function logout(accessToken) {
+  return await UserModel.globalSignOut(accessToken);
+}
+
 async function deleteUser(userId, token) {
   await UserModel.deleteCognitoUser(token);
   await UserModel.deleteUserData(userId);
@@ -95,6 +99,7 @@ module.exports = {
   registerUser,
   verifyUser,
   login,
+  logout,
   deleteUser,
   forgotPassword,
   updateUser,

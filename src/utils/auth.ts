@@ -176,8 +176,10 @@ export async function getAuthStatus() {
     const result = await response.json();
 
     if (response.ok) {
-      return { isAuthenticated: true, name: result.f_name };
+      localStorage.setItem("isAuthenticated", "true");
+      return { isAuthenticated: true, name: result.message };
     } else {
+      localStorage.setItem("isAuthenticated", "false");
       return { isAuthenticated: false, message: result.message };
     }
   } catch (error) {
@@ -193,7 +195,7 @@ export async function getAuthStatus() {
     } else {
       errorMessage = "Unknown error";
     }
-
+    localStorage.setItem("isAuthenticated", "false");
     return { isAuthenticated: false, message: errorMessage };
   }
 }
@@ -270,10 +272,37 @@ export async function getUserData() {
   }
 }
 
-// export async function handleSignOut() {
-//   try {
-//     await signOut({ global: true });
-//   } catch (error) {
-//     console.log("error signing out: ", error);
-//   }
-// }
+export async function handleSignOut() {
+  try {
+    const response = await fetch("/next-proxy/api/logout", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        "x-api-key": process.env.NEXT_PUBLIC_AK || "",
+      },
+      credentials: "include",
+    });
+
+    await response.json();
+    localStorage.setItem("isAuthenticated", "false");
+    if (response.ok) {
+      return { success: true };
+    } else {
+      return { success: false };
+    }
+  } catch (error) {
+    console.log("error checking authentication status", error);
+    let errorMessage: string;
+
+    if (error instanceof Error) {
+      errorMessage = error.message;
+    } else if (typeof error === "string") {
+      errorMessage = error;
+    } else if (typeof error === "object" && error !== null && "message" in error) {
+      errorMessage = (error as { message: string }).message;
+    } else {
+      errorMessage = "Unknown error";
+    }
+    return { success: false, error: errorMessage };
+  }
+}

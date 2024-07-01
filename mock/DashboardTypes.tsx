@@ -8,6 +8,8 @@ export type DashboardDisplay = "Dashboard" | "Your Vote"
 
 export type DashboardLoadingStates = "Loading" | "Loaded";
 
+export type DashboardAuthenticationStates = "Unauthenticated" | "Loading" | "Authenticated"
+
 export type DashboardTypeConversions = {
   [key in DashboardTabs]: {
     url: DashboardUrls;

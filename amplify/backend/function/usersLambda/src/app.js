@@ -29,6 +29,7 @@ app.use(function(req, res, next) {
 
 app.post("/api/users", registerUserValidator, validationMiddleware, UserController.registerUser);
 app.post("/api/login", loginUserValidator, validationMiddleware, UserController.login);
+app.post("/api/logout", UserController.logout);
 app.post("/api/verify", verifyUserValidator, validationMiddleware, UserController.verifyUser);
 app.get("/api/users", UserController.getUser);
 app.patch("/api/users", updateUserValidator, validationMiddleware, UserController.updateUser);

@@ -8,12 +8,15 @@ import Popup from "./modal/Popup";
 import { StepsProvider } from "./modal/StepsContext";
 import { useEffect } from "react";
 import { DashboardModal } from "./DashboardModal";
+import Link from "next/link";
+import { DashboardAuthenticationStates } from "../../mock/DashboardTypes";
 
 interface DashboardMainTabProps {
   dashboardLoadingState: DashboardLoadingStates;
+  isAuthenticated: DashboardAuthenticationStates;
 }
 
-export const DashboardMainTab: React.FC<DashboardMainTabProps> = ({ dashboardLoadingState }) => {
+export const DashboardMainTab: React.FC<DashboardMainTabProps> = ({ dashboardLoadingState, isAuthenticated }) => {
   const { apiUserData } = useDashboardContext();
 
   const {displayModal, setDisplayModal} = useDashboardContext();
@@ -32,10 +35,20 @@ export const DashboardMainTab: React.FC<DashboardMainTabProps> = ({ dashboardLoa
 
   return (
     <>
-      {dashboardLoadingState === "Loading" && (
+
+      {isAuthenticated == "Loading" && 
+      <div>
         <div>Loading...</div>
-      )}
-      {dashboardLoadingState === "Loaded" && (
+      </div>
+      }
+
+      {isAuthenticated == "Unauthenticated" &&
+          <>
+            <div>You're not logged in!</div>
+            <Link href="/auth/login">Return to login page</Link>
+          </>
+      }
+      {dashboardLoadingState === "Loaded" && isAuthenticated == "Authenticated" && (
         <>
           <p className="font-montserrat text-2xl font-regular text-[32px]">Welcome to your dashboard, {apiUserData?.f_name}!</p>
           <p className="font-light text-base py-2 pb-4">See your account information here.</p>
