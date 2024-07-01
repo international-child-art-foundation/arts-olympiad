@@ -26,8 +26,8 @@ export const Intro = () => {
           </p>
           <p className="z-20 mb-4 leading-8 lg:mb8 "> {/* Use &nbsp to allow grid layout to work properly */}
           This history-making global contest starts on&nbsp;<b> {formatDate("competitionBegin", "MMMM do")} </b>
-          —the Games kick off in Paris. Artists must act soon to get more public votes. The contest ends on <b> {formatDate("competitionEnd", "MMMM do")}.</b>             
-          Winners receive the cash prizes on &nbsp;<b>{formatDate("winnerAnnounced", "MMMM d, yyyy")}.</b>
+          — the Games kick off in Paris. Artists must act soon to get more public votes. The contest ends on <b> {formatDate("competitionEnd", "MMMM do")}. </b>             
+          Winners receive the cash prizes on&nbsp;<b>{formatDate("winnerAnnounced", "MMMM d, yyyy")}.</b>
           </p>
           <p className="z-20 mb-4 leading-8 lg:mb8">
           This #MyFavoriteSport campaign is launched by ICAF.org, a Washington DC-based charity. The entry fee for artists is <b>$10</b> but voters register for free. 
