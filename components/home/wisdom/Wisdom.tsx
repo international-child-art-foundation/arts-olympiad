@@ -10,7 +10,7 @@ export const Wisdom = () => {
   useIntersectionObserver({}, "draw-line-bottom", "animate-drawing-bottom");
 
   return (
-    <section className=" px-8 md:px-12 lg:px-16 xl:px-20 mt-16 md:mt-36 mb-6 flex flex-col max-w-screen-2xl m-auto">
+    <section className=" px-8 md:px-12 lg:px-16 xl:px-20 mt-16 md:mt-36 mb-6 flex flex-col max-w-screen-2xl m-auto w-full md:w-[670px] lg:w-[900px]">
       <div className="self-center flex items-center justify-center relative">
         <H2m className="z-40 text-center inline-block relative mb-6 font-montserrat">
         The Power of  <span className="z-40 inline-block font-bold text-dark-blue">Art and Sports</span>
@@ -21,7 +21,7 @@ export const Wisdom = () => {
             width={80}
             src={arrow}
             alt="Arrow pointing down."
-            className="hidden md:block z-20 absolute top-10 -right-20 mxl:-right-36 2xl:-right-40 select-none"
+            className="hidden md:block z-20 absolute top-10 -right-48 lg:-right-60 mxl:-right-60 2xl:-right-60 select-none"
           />
         </H2m>
         <Image width={30} src={arrow} alt=" Arrow pointing down." className="block md:hidden ml-2" />

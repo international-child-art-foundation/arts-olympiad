@@ -13,9 +13,25 @@ export const Sponsor = () => {
       <section className="relative py-0 my-0 px-8 md:px-12 lg:px-16 xl:px-20 max-w-screen-2xl m-auto w-full">
         <H2m className="z-10 font-medium text-3xl md:text-4xl  my-8 font-montserrat" >Sponsors</H2m>
         <div className="block lg:flex flex-col">
-          <div className="flex gap-4 max-w-80% md:max-w-[50%]">
-            <Image className="w-1/2" src={sponsorLogo} alt="" width={280} height={232}/>
-            <Image className="w-1/2" src={waterColor} alt="" width={280} height={232}/>
+          <div className="flex gap-4 max-w-80% lg:max-w-[50%] h-[200px] sm:h-[250px]">
+            <div className="w-[46%] relative">
+              <Image 
+                src={sponsorLogo} 
+                alt=""
+                layout="fill"
+                objectFit="contain"
+                className="w-full h-auto"
+              />
+            </div>
+            <div className="w-[54%] relative">
+              <Image 
+                src={waterColor} 
+                alt=""
+                layout="fill"
+                objectFit="contain"
+                className="w-full h-auto"
+              />
+            </div>
           </div>
           <Image className="mx-auto lg:absolute -bottom-16 right-0 lg:max-w-[38%] max-w-[100%] w-[500px] lg:w-[50%] lg:max-w-unset" src={gymnast} alt=""/>
         </div>
