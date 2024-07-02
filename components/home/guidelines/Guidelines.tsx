@@ -11,7 +11,6 @@ import {GuidelineCard} from "./GuidelineCard";
 import {AnimatedScribble} from "../../common/decorations/AnimatedScribble";
 import { gsap } from "gsap";
 import { Flip } from "gsap/all";
-import YellowBlob from "../../../public/home/YellowBlob.png";
 
 gsap.registerPlugin(Flip);
 const cardData = [

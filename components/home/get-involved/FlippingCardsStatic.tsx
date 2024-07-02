@@ -26,10 +26,10 @@ export const FlippingCardsStatic = () => {
         description={
           <div className="w-full">
             <Pm className=" mt-4 md:mt-12 mb-4 font-light text-base">
-            It's easy to register and completely free!
+              It's easy to register and completely free!
             </Pm>
             <Pm className="font-light text-base mb-4 md:mb-0">
-            You must register to upload your artwork or to vote for your favorite artist or artwork.
+              You must register to upload your artwork or to vote for your favorite artist or artwork.
             </Pm>
           </div>
         }
@@ -52,7 +52,7 @@ export const FlippingCardsStatic = () => {
         description={
           <div>
             <Pm className="mt-4 md:mt-12 mb-4 font-light text-sm md:text-base">
-            Unleash your creativity by painting or drawing your favorite Olympic Sportss. We accept digital or AI art.
+              Unleash your creativity by painting or drawing your favorite Olympic Sportss. We accept digital or AI art.
             </Pm>
             <Pm className="font-light text-sm md:text-base mb-2 md:mb-4">
               Register, Upload, and Share to get votes.
@@ -70,10 +70,10 @@ export const FlippingCardsStatic = () => {
         description={
           <div>
             <Pm className="mt-4 md:mt-12 mb-4 font-light text-sm md:text-base">
-            Any 10 to 100-year-old can be a judge.
+              Any 10 to 100-year-old can be a judge.
             </Pm>
             <Pm className="font-light text-sm md:text-base">
-            Register first, then search for the artists by name or country, and vote. You can vote only once.
+              Register first, then search for the artists by name or country, and vote. You can vote only once.
             </Pm>
           </div>
         }
@@ -86,12 +86,12 @@ export const FlippingCardsStatic = () => {
         description={
           <div className="flex flex-col justify-between">
             <Pm className="mt-6 font-light text-sm md:text-base">
-            Help democratize creativity and optimize children's creative potential with your donation today.
+              Help democratize creativity and optimize children's creative potential with your donation today.
             </Pm>
 
             <Pm className=" font-light text-sm md:text-base">
-             {"Please "} 
-               {/* <a href="https://myfavoritesport.org/sponsor/" target="_blank" rel="noopener noreferrer" className="underline ">
+              {"Please "}
+              {/* <a href="https://myfavoritesport.org/sponsor/" target="_blank" rel="noopener noreferrer" className="underline ">
                 here
               </a>
               {" for sponsorship."}
@@ -106,8 +106,8 @@ export const FlippingCardsStatic = () => {
 
             <ButtonStyledLink className="leading-5"
               href={"https://www.icaf.org/donate"}
-              onTouchStart={(e: React.TouchEvent<HTMLAnchorElement>) => { e.stopPropagation();}}
-              onClick={(e: React.MouseEvent<HTMLAnchorElement>) => { e.stopPropagation();}}
+              onTouchStart={(e: React.TouchEvent<HTMLAnchorElement>) => { e.stopPropagation(); }}
+              onClick={(e: React.MouseEvent<HTMLAnchorElement>) => { e.stopPropagation(); }}
             >
               <Image className="mr-2" src={littleHeart} alt="" width={24} height={24} />
               Donate now
