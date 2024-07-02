@@ -2,10 +2,10 @@
 import React from "react";
 import { FlippingCardStatic } from "./FlippingCardStatic";
 import monitorUp from "../../../public/svgs/monitor-up.svg";
-// import vote from "../../../public/svgs/vote.svg";
-// import heart from "../../../public/svgs/heart-handshake.svg";
+import vote from "../../../public/svgs/vote.svg";
+import heart from "../../../public/svgs/heart-handshake.svg";
 import clipboard from "../../../public/svgs/clipboard-edit.svg";
-// import littleHeart from "../../../public/home/get-involved/heart.svg";
+import littleHeart from "../../../public/home/get-involved/heart.svg";
 import Image from "next/image";
 import { ButtonStyledLink } from "../../common/ui/ButtonStyledLink";
 import { Pm } from "../../common/texts/Pm";
@@ -21,16 +21,16 @@ export const FlippingCardsStatic = () => {
       </div>
 
       <FlippingCardStatic
-        heading1="View & Vote"
+        heading1="Register"
         heading2="All sports fans and art lovers"
         description={
           <div className="w-full">
             <Pm className=" mt-4 md:mt-12 mb-4 font-light text-base">
-              Search your favorite artwork by sports category or country.
+            It's easy to register and completely free!
             </Pm>
-            {/* <Pm className="font-light text-base mb-4 md:mb-0">
-              You must register to upload your artwork or to vote for your favorite artist or artwork.
-            </Pm> */}
+            <Pm className="font-light text-base mb-4 md:mb-0">
+            You must register to upload your artwork or to vote for your favorite artist or artwork.
+            </Pm>
           </div>
         }
         icon={clipboard}
@@ -48,40 +48,32 @@ export const FlippingCardsStatic = () => {
       </FlippingCardStatic>
       <FlippingCardStatic
         heading1="Create & Share"
-        heading2="Artists, aged 14 to 20"
+        heading2="Artists, ages 14-20: Share your creations!"
         description={
           <div>
             <Pm className="mt-4 md:mt-12 mb-4 font-light text-sm md:text-base">
-              Unleash your creativity by producing art on your favorite sport in any medium for upload.
+            Unleash your creativity by painting or drawing your favorite Olympic Sportss. We accept digital or AI art.
             </Pm>
-            {/* <Pm className="font-light text-sm md:text-base mb-2 md:mb-4">
+            <Pm className="font-light text-sm md:text-base mb-2 md:mb-4">
               Register, Upload, and Share to get votes.
-            </Pm> */}
+            </Pm>
           </div>
         }
         icon={monitorUp}
         color="#EE2F4D"
       >
         <div className="flex-grow"></div> {/* Spacer element */}
-        <ButtonStyledLink
-          href={"/auth/register"}
-          className="my-1 w-full"
-          onTouchStart={(e: React.TouchEvent<HTMLAnchorElement>) => { e.stopPropagation(); }}
-          onClick={(e: React.MouseEvent<HTMLAnchorElement>) => { e.stopPropagation(); }}
-        >
-          Register here
-        </ButtonStyledLink>
       </FlippingCardStatic>
-      {/* <FlippingCardStatic
+      <FlippingCardStatic
         heading1="View & Vote"
         heading2="For your favorite artwork"
         description={
           <div>
             <Pm className="mt-4 md:mt-12 mb-4 font-light text-sm md:text-base">
-            Any teen or adult can be a judge.
+            Any 10 to 100-year-old can be a judge.
             </Pm>
             <Pm className="font-light text-sm md:text-base">
-              Register first, then search for the artists by name or country, and vote. You can vote only once.
+            Register first, then search for the artists by name or country, and vote. You can vote only once.
             </Pm>
           </div>
         }
@@ -89,27 +81,27 @@ export const FlippingCardsStatic = () => {
         color="#FBB22E"
       />
       <FlippingCardStatic
-        heading1="Sponsor or Partner"
-        heading2="You can change lives!"
+        heading1="Sponsor or Donate"
+        heading2="Your support changes lives"
         description={
           <div className="flex flex-col justify-between">
             <Pm className="mt-6 font-light text-sm md:text-base">
-            You can help reassure young people that their chaotic and divided world has hope.&nbsp;
+            Help democratize creativity and optimize children's creative potential with your donation today.
             </Pm>
 
             <Pm className=" font-light text-sm md:text-base">
-              {"Click "} 
-              <a href="https://myfavoritesport.org/sponsor/" target="_blank" rel="noopener noreferrer" className="underline ">
+             {"Please "} 
+               {/* <a href="https://myfavoritesport.org/sponsor/" target="_blank" rel="noopener noreferrer" className="underline ">
                 here
               </a>
               {" for sponsorship."}
             </Pm>
             <Pm className="mb-6 font-light text-sm md:text-base">
-              {" "} 
+              {" "}  */}
               <a href="https://icaf.org/about/contact-us" target="_blank" rel="noopener noreferrer" className="underline ">
-                Contact us
+                contact us
               </a>
-              {" for a partnership."}
+              {" about partnership prospects."}
             </Pm>
 
             <ButtonStyledLink className="leading-5"
@@ -125,7 +117,7 @@ export const FlippingCardsStatic = () => {
         icon={heart}
         color="#168C39"
       >
-      </FlippingCardStatic> */}
+      </FlippingCardStatic>
     </div>
   );
 };
