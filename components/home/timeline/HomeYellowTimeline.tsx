@@ -38,7 +38,7 @@ export const HomeYellowTimeline = () => {
         <Image src={bigBlueBlob} alt="" className="-z-10 w-[400px] md:w-[700px] absolute bottom-96 md:bottom-24 -left-12 md:-left-44 select-none pointer-events-none" />
         <Image src={basketballPlayer} alt="Basketball player" className="z-10 absolute md:-bottom-12 md:right-8 lg:-bottom-12 lg:right-14 xl:right-24 2xl:right-32 hidden md:block"/>
         <Image src={badmintonPlayer} alt="Badminton player" className="z-10 absolute md:left-8 md:bottom-64 lg:left-14 xl:left-24 2xl:left-32 hidden md:block"/>
-        <Image src={dive} alt="" className="z-10 absolute md:left-8 md:bottom-[46rem] lg:left-14 xl:left-24 2xl:left-32 hidden md:block"/>
+        <Image src={dive} alt="" className="z-10 absolute md:left-8 md:bottom-[48rem] lg:left-14 xl:left-24 2xl:left-32 hidden md:block"/>
         <Image src={secondSwimmer} alt="" className="z-10 absolute md:right-8 md:top-60 lg:-right-4 xl:top-[17rem] xl:right-8 2xl:right-8 hidden md:block"/>
 
         <h3 className="m-auto font-montserrat text-[2rem] ">Timeline</h3>
@@ -52,7 +52,7 @@ export const HomeYellowTimeline = () => {
           <ul aria-label="participation timeline.">
             <TimePoint
               heading="When does it start?"
-              description="The #MyFavoriteSport event kicks off at an interactive exhibition in Paris."
+              description=""
               date={formatDate("competitionBegin", "MMMM do, yyyy")}
               color={"#0286C3"}
               isMobile={isMobile}

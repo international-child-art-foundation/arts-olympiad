@@ -6,6 +6,7 @@ import HeroHeader from "../../public/home/Hero_Header.jpg";
 import { formatDate } from "../../mock/dates";
 import ranbowLine from "../../public/home/rainbowLine.png";
 
+
 export const Intro = () => {
 
   return (
@@ -56,6 +57,5 @@ export const Intro = () => {
         <Image src={ranbowLine} alt="" className="absolute inset-x-0 -bottom-6 lg:bottom-0 z-0 object-cover object-center w-full"></Image>
       </section>
     </>
-
   );
 };
