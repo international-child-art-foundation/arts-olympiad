@@ -17,7 +17,7 @@ const cardData = [
   { imgUrl: img1, className: "border-[#0286C3]", heading: "How to Submit", description: "Create an account with us, go to your dashboard and upload your work.", button:["Learn more", "/auth/register"] },
   { imgUrl: img2, className: "border-[#168C39]", heading: "Accepted Formats", description: "All entries will be submitted digitally, but you're free to choose any format you'd like. Let your imagination take the lead on how to create your work.", button:["Learn more", "/contest"]},
   { imgUrl: img3, className: "border-[#EE2F4D]", heading: "Share your Favorites", description: "Everyone gets 1 vote. You can share your favorite piece through social media for more votes.", button:["Learn more", "/faq"], gradientStrength: 0.6 },
-  { imgUrl: img4, className: "border-[#F5AB35]", heading: "How much does it cost?", description: "All entires and votes are free!  This is thanks to our generous sponsors and donors supporting this amazing event!", button:["Learn more", "/sponsor"]}
+  { imgUrl: img4, className: "border-[#F5AB35]", heading: "How much does it cost?", description: "The entry fee for artists is $10 but voters register for free."}
 ];
 
 export const Guidelines = () => {

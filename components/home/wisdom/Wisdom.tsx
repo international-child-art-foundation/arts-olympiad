@@ -24,7 +24,7 @@ export const Wisdom = () => {
             width={80}
             src={arrow}
             alt="Arrow pointing down."
-            className="hidden md:block z-20 absolute top-10 -right-20 mxl:-right-36 2xl:-right-40 select-none"
+            className="hidden md:block z-20 absolute top-10 -right-48 lg:-right-60 mxl:-right-60 2xl:-right-60 select-none"
           />
         </H2m>
         <Image width={30} src={arrow} alt=" Arrow pointing down." className="block md:hidden ml-2" />
