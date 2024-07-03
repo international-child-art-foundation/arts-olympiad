@@ -1,7 +1,7 @@
 "use client";
 import { useSearchParams, useRouter } from "next/navigation";
 import React, { useEffect, useCallback, useState } from "react";
-import { artworks } from "../../mock/artworks";
+// import { artworks } from "../../mock/artworks";
 import { MenuIcon } from "../../public/svgs/gallery-svg/MenuIcon";
 import Checkbox from "./Checkbox";
 import ArtworkCard from "./ArtworkCard";
@@ -18,19 +18,13 @@ import useWindowDimensions from "@/hooks/useWindowDimensions";
 import { sortValue as sortValueType } from "../../mock/sortValueType";
 import { sortBy } from "../../mock/sortBy";
 import { ContestState } from "../../mock/contestState";
+import { getArtworkData } from "@/utils/artworks";
+import { artworkDataRequest } from "@/interfaces/gallery_shapes";
+import { artworkDataResponse } from "@/interfaces/gallery_shapes";
 import { filterableOptions as initialFilterableOptions } from "../../mock/filterableOptionsData";
 
 interface ArtsProps {
   contestState: ContestState;
-}
-
-type ParamsObjType = Record<string, string[]>;
-
-function isArtworkAvailable(arr1?: string[], arr2?: string[]) {
-  if (!arr1 || !arr2) {
-    return true;
-  }
-  return arr1.some((item) => arr2?.includes(item));
 }
 
 export const Arts: React.FC<ArtsProps> = ({ contestState }) => {
@@ -39,58 +33,48 @@ export const Arts: React.FC<ArtsProps> = ({ contestState }) => {
   const [isFilterOpen, setIsFilterOpen] = useState(false);
   const { filterableOptions, setFilterOption, bulkAlterCategoryOptions, resetAllFilters, //activateOptionsByName,
     pageNumber, setPageNumber,
-    sortValue, setsortValue,
+    sortValue, setSortValue,
     activeEntryId, setActiveEntryId } = useFilters();
-
-  const [paramsObj, setParamsObj] = useState<Record<string, string[]>>({});
+  const [mostRecentFilterState, setMostRecentFilterState] = useState(filterableOptions);
 
   const { windowWidth, windowHeight } = useWindowDimensions();
   const isMobile = windowWidth < 1024;
   const isHorizontal = windowWidth > windowHeight;
   const searchParams = useSearchParams();
   const artworksPerPage = 20;
-  const startIndex = (pageNumber - 1) * artworksPerPage;
-  const endIndex = startIndex + artworksPerPage;
+  // const startIndex = (pageNumber - 1) * artworksPerPage;
+  // const endIndex = startIndex + artworksPerPage;
 
-  // paramsObj is derivable from filterableOptions and thus unnecessary.
-  // Will likely be removed during API integration.
-  function createParamsObj(filterableOptions: typeof initialFilterableOptions): ParamsObjType {
-    const paramsObj: { [key: string]: string[] } = {};
-    
-    filterableOptions.forEach(option => {
-      const activeOptions = option.options
-        .filter((item: { active: boolean }) => item.active)
-        .map((item: { name: string }) => item.name);
-  
-      if (activeOptions.length > 0) {
-        paramsObj[option.id] = activeOptions;
+  const [artworks, setArtworks] = useState({data: []} as artworkDataResponse);
+  const [isLoading, setIsLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
+
+  // These variables will be used to render conditional JSX
+  console.log(error);
+  console.log(isLoading);
+
+
+  // Function to fetch artwork data from API given current variable values
+  const fetchArtworkData = useCallback(async (filterableOptions = initialFilterableOptions, pageNumber = 1, sortValue = "Newest") => {
+    setIsLoading(true);
+    setError(null);
+    const filterState = {filterableOptions, pageNumber, sortValue} as artworkDataRequest;
+    try {
+      const response = await getArtworkData(filterState);
+      setArtworks(response);
+    } catch (err) {
+      if (typeof err == "string") {
+        setError(err);
       }
-    });
-  
-    return paramsObj;
-  }
+    } finally {
+      setIsLoading(false);
+    }
+  }, []);
 
+  // Populate artwork data on page load
   useEffect(() => {
-    setParamsObj(createParamsObj(filterableOptions));
-  }, [filterableOptions]);
-  
-  
-
-  // const [prevUrl, setPrevUrl] = useState("");
-
-  // When filter list is opened, snapshot our data objects. When filter list is closed, compare to snapshot, and call API if changed.
-  // useEffect(() => {
-  //   if (isFilterOpen) {
-  //     // Capture the current URL when the dropdown is opened
-  //     setPrevUrl(window.location.href);
-  //   } else {
-  //     // When the dropdown is closed, check if the URL has changed
-  //     const currentUrl = window.location.href;
-  //     if (prevUrl !== currentUrl) {
-  //       // API call occurs
-  //     }
-  //   }
-  // }, [isFilterOpen, prevUrl]);
+    fetchArtworkData();
+  }, [fetchArtworkData]);
 
   {/* The state of our application is handled by our FilterContext.tsx file. Variables imported from useFilters() represent our state.*/}
   {/* Generally when an action occurs that changes the state of our application, we update the URL to reflect those changes to the user. */}
@@ -129,6 +113,7 @@ export const Arts: React.FC<ArtsProps> = ({ contestState }) => {
   
   useEffect(() => {
     updateURLFromState();
+    // Prob remove dependency array, unsure of interaction with the one above
   }, [updateURLFromState, filterableOptions, pageNumber, sortValue, isModalOpen, activeEntryId]);
 
   const getShareUrl = () => {
@@ -142,12 +127,11 @@ export const Arts: React.FC<ArtsProps> = ({ contestState }) => {
   const updatePageNumber = (currentPageNumber: number, newPageNumber: number) => {
     setPageNumber(newPageNumber);
     // console.log("Page number has been updated to " + pageNumber);
-    {/* API call: Receive next/previous set of page results based on delta between current and new page number */}
+    fetchArtworkData(filterableOptions, pageNumber, sortValue);
   };
   const updateActiveEntryId = (id: string) => {
     setActiveEntryId(id);
     // console.log("Active entry ID has been updated to " + id);
-    {/* API call: Receive enlarged image data/extra attributes of specified artwork of id=id */}
   };
 
   const openModal = (id: string) => {
@@ -158,9 +142,10 @@ export const Arts: React.FC<ArtsProps> = ({ contestState }) => {
     }
   };
 
-  const closeModal = useCallback(() => {
+  const closeModal = () => {
+    fetchArtworkData();
     setModalOpen(false);
-  }, []);
+  };
 
   {/* If modal is open, prevent page scrolling */}
   useEffect(() => {
@@ -175,23 +160,15 @@ export const Arts: React.FC<ArtsProps> = ({ contestState }) => {
     };
   }, [isModalOpen]);
   
-  {/* Listen for "Esc" key to close modal if open*/}
-  useEffect(() => {
-    const handleKeyDown = (event: KeyboardEvent) => {
-      if (event.key === "Escape") {
-        closeModal();
-      }
-    };
-    document.addEventListener("keydown", handleKeyDown);
-    return () => document.removeEventListener("keydown", handleKeyDown);
-  }, [closeModal]);
 
   {/* Open modal to artwork ID if provided in URl */}
   useEffect(() => {
-    const idFromUrl = searchParams.get("id");
-    if (idFromUrl) {
-      updateActiveEntryId(idFromUrl);
-      setModalOpen(true);
+    if (searchParams) {
+      const idFromUrl = searchParams.get("id");
+      if (idFromUrl) {
+        updateActiveEntryId(idFromUrl);
+        setModalOpen(true);
+      }
     }
   // We ignore the dependency warning because we only intend to run this function one time at page load
   // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -199,9 +176,9 @@ export const Arts: React.FC<ArtsProps> = ({ contestState }) => {
   
 
   const updateSortValue = (sortValue: sortValueType) => {
-    setsortValue(sortValue);
+    setSortValue(sortValue);
     // console.log("The new sort value is: " + sortValue);
-    {/* API call: Get artwork with sort value applied */}
+    fetchArtworkData(filterableOptions, pageNumber, sortValue);
   };
 
   const updateFilterOption = (optionName: string, updates: Partial<{ number: number; active: boolean; }>) => {
@@ -227,48 +204,55 @@ export const Arts: React.FC<ArtsProps> = ({ contestState }) => {
     // console.log("All filters have been cleared.");
   };
 
-
-  let filteredArts = artworks.filter((artwork) => {
-    const hasSport = isArtworkAvailable(artwork.sport, paramsObj?.sport);
-    const isLocationAvailable = isArtworkAvailable(artwork.country, paramsObj?.country);
-    return isLocationAvailable && hasSport;
-  });
-  filteredArts = filteredArts.sort((artwork1, artwork2) => {
-    switch (paramsObj?.sort?.[0]) {
-    case "Oldest":
-      return Date.parse(artwork1.uploadAt) - Date.parse(artwork2.uploadAt);
-    case "Newest":
-      return Date.parse(artwork2.uploadAt) - Date.parse(artwork1.uploadAt);
-    case "Most Popular":
-      return artwork2.votes - artwork1.votes;
-    default:
-      return 0;
-    }
-  });
-
-  if (Object.keys(paramsObj).length === 0) {
-    filteredArts = artworks;
-  }
   // Closes filter if background of grid is clicked by the user
   const handleGridClick = (e: React.MouseEvent<HTMLDivElement>) => {
     const target = e.target as HTMLElement;
     if (!target.classList.contains("background-area")) {
       if (isFilterOpen) {
-        setIsFilterOpen(false);
+        handleModifyFilterState(false);
       }
     }
   };
-  const pageData = filteredArts.slice(startIndex, endIndex);
+  // const pageData = filteredArts.slice(startIndex, endIndex);
+
+  const handleModifyFilterState = (setValue: boolean) => {
+    
+    // Handle default behavior
+    setIsFilterOpen(setValue);
+
+    // Optionally perform API call if filterableOptions has changed
+    if (setValue == false && filterableOptions != mostRecentFilterState) {
+      fetchArtworkData(filterableOptions, pageNumber, sortValue);
+    } else {
+      setMostRecentFilterState(filterableOptions);
+    }
+  };
+
+  useEffect(() => {
+    const handleKeyDown = (ev: globalThis.KeyboardEvent) => {
+      if (ev.key === "Escape") {
+        handleModifyFilterState(false);
+      }
+    };
+  
+    document.addEventListener("keydown", handleKeyDown);
+  
+    return () => {
+      document.removeEventListener("keydown", handleKeyDown);
+    };
+  
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   return (
     <div className={`${contestState == ContestState.Inactive && "opacity-60 pointer-events-none select-none blur-sm relative"} `}>
       <ArtworkModal id={activeEntryId} closeModal={closeModal} isMobile={isMobile} isHorizontal={isHorizontal} modalState={isModalOpen} getShareUrl={getShareUrl}/>
-      {isMobile && <MobileFilter isFilterOpen={isFilterOpen} setIsFilterOpen={setIsFilterOpen} updateFilterOption={updateFilterOption} updateSortValue={updateSortValue} alterFiltersByCategory={alterFiltersByCategory} resetAllFilters={resetAllFilters} /> }
+      {isMobile && <MobileFilter isFilterOpen={isFilterOpen} handleModifyFilterState={handleModifyFilterState} updateFilterOption={updateFilterOption} updateSortValue={updateSortValue} alterFiltersByCategory={alterFiltersByCategory} resetAllFilters={resetAllFilters} /> }
       <div className="relative px-8 md:px-12 lg:px-16 xl:px-20 max-w-screen-2xl z-0 m-auto w-screen">
         {/* Flexbox 1 - Contains filter open/close button on left side, and Sort title/maybe options on right side */}
         <div className="relative z-[100] flex justify-between" >
           <button
-            onClick={() => setIsFilterOpen(!isFilterOpen)}
+            onClick={() => handleModifyFilterState(!isFilterOpen)}
             className="w-[200px] max-w-[40%] h-[50px] text-base font-medium px-5 py-2 border border-gray-600 rounded-md text-neutral-black text-center items-center inline-flex justify-between ">
             {isFilterOpen ? "Hide Filter" : "Filter"}
             <span className="ml-6"><MenuIcon /></span>
@@ -302,24 +286,19 @@ export const Arts: React.FC<ArtsProps> = ({ contestState }) => {
               <Image src={blueBlobs} alt="" className="-z-10 absolute top-1/4 right-0" />
               <Image src={multiBlueblobs} alt="" className="-z-10 absolute top-1/4 left-0" />
               <div className="grid grid-cols-2 gap-x-2 gap-y-6 xl:grid-cols-4 xl:gap-x-6 xl:gap-y-10">
-                {pageData.map((artwork) =>
+                {artworks?.data ? artworks.data.map((artwork) =>
                   <div className="flex h-full bg-neutral-white" key={artwork.id}>
                     <ArtworkCard
-                      paramsObj={paramsObj}
-                      id={artwork.id.toString()}
-                      name={artwork.name}
-                      votes={artwork.votes}
-                      url={artwork.url}
-                      country={artwork.country}
-                      age={artwork.age}
-                      sport={artwork.sport}
+                      data={artwork}
                       openModal={openModal}
                     />
                   </div>
+                ) : (
+                  <div> No artworks found to match those criteria. </div>
                 )}
               </div>
               <Pagination
-                totalItems={filteredArts.length}
+                totalItems={artworks?.data?.length || 0}
                 currentPage={pageNumber}
                 itemsPerPage={artworksPerPage}
                 updatePageNumber={updatePageNumber}
@@ -337,7 +316,7 @@ export const Arts: React.FC<ArtsProps> = ({ contestState }) => {
             </div>
           </section>
           {/* Active filters */}
-          <TagList paramsObj={paramsObj} updateFilterOption={updateFilterOption} clearAllFilters={clearAllFilters} dropdownActive={isFilterOpen}/>
+          <TagList filterableOptions={filterableOptions} updateFilterOption={updateFilterOption} clearAllFilters={clearAllFilters} dropdownActive={isFilterOpen}/>
         </div>
       </div>
     </div>
