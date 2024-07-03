@@ -93,7 +93,7 @@ export const FlippingCardsStatic = () => {
           Partner with ICAF
         </ButtonStyledLink>
       </FlippingCardStatic>
-      <FlippingCardStatic>
+      <FlippingCardStatic
         heading1="Sponsor or Donate"
         heading2="Your support changes lives"
         description={
