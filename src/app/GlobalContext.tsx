@@ -20,7 +20,11 @@ export const GlobalContextProvider: React.FC<GlobalContextProviderProps> = ({ ch
   const [isAuthenticated, setIsAuthenticated] = useState<boolean>(false);
 
   useEffect(() => {
-    const storedAuth = localStorage.getItem("isAuthenticated") === "true";
+    // If isAuthenticated exists and is a string, we are authenticated.
+    // This is not a foolproof solution, just prevents superfluous API calls.
+    // To actually determine if we are authenticated for things that matter,
+    // the getAuthStatus function from auth.ts should be used.
+    const storedAuth = typeof(localStorage.getItem("isAuthenticated")) == "string";
     setIsAuthenticated(storedAuth);
   }, []);
 
@@ -29,7 +33,7 @@ export const GlobalContextProvider: React.FC<GlobalContextProviderProps> = ({ ch
 
     if (signInStatus.success === true) {
       setIsAuthenticated(true);
-      localStorage.setItem("isAuthenticated", "true");
+      localStorage.setItem("isAuthenticated", signInStatus.message);
     }
     return signInStatus;
   }, []);
@@ -37,7 +41,7 @@ export const GlobalContextProvider: React.FC<GlobalContextProviderProps> = ({ ch
   const signOut = useCallback(async () => {
     await handleSignOut();
     setIsAuthenticated(false);
-    localStorage.setItem("isAuthenticated", "false");
+    localStorage.removeItem("isAuthenticated");
   }, []);
 
   const value = React.useMemo<GlobalContextType>(

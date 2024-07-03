@@ -8,6 +8,4 @@ export interface artworkDataRequest {
   sortValue: sortValueType;
 }
 
-export interface artworkDataResponse {
-  data: userArtworkSchema[] | undefined;
-}
+export type artworkDataResponse = userArtworkSchema[] | undefined;

@@ -22,7 +22,6 @@ const MobileNav = () => {
     router.push("/");
   }
 
-  console.log(isAuthenticated);
   const links1 = [
     { name: "About", url: "/about" },
     { name: "Contest", url: "/contest" },

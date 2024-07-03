@@ -177,10 +177,10 @@ export async function getAuthStatus() {
     const result = await response.json();
 
     if (response.ok) {
-      localStorage.setItem("isAuthenticated", "true");
+      localStorage.setItem("isAuthenticated", result.message);
       return { isAuthenticated: true, name: result.message };
     } else {
-      localStorage.setItem("isAuthenticated", "false");
+      localStorage.setItem("isAuthenticated", result.message);
       return { isAuthenticated: false, message: result.message };
     }
   } catch (error) {
@@ -196,7 +196,7 @@ export async function getAuthStatus() {
     } else {
       errorMessage = "Unknown error";
     }
-    localStorage.setItem("isAuthenticated", "false");
+    localStorage.removeItem("isAuthenticated");
     return { isAuthenticated: false, message: errorMessage };
   }
 }
@@ -285,7 +285,7 @@ export async function handleSignOut() {
     });
 
     await response.json();
-    localStorage.setItem("isAuthenticated", "false");
+    localStorage.removeItem("isAuthenticated");
     if (response.ok) {
       return { success: true };
     } else {

@@ -27,7 +27,7 @@ export const FilterProvider: React.FC<FilterProviderProps> = ({ children }) => {
   const [filterableOptions, setFilterableOptions] = useState(initialFilterableOptions);
   const [pageNumber, setPageNumber] = useState(1);
   const [sortValue, setSortValue] = useState<sortValueType>("Newest");
-  const [activeEntryId, setActiveEntryId] = useState("");
+  const [activeEntryId, setActiveEntryId] = useState<string>("");
 
   // Sets the attributes of one filter option
   const setFilterOption = (optionName: string, updates: Partial<{ number: number; active: boolean; }>) => {

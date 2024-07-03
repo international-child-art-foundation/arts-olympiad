@@ -18,10 +18,11 @@ import useWindowDimensions from "@/hooks/useWindowDimensions";
 import { sortValue as sortValueType } from "../../mock/sortValueType";
 import { sortBy } from "../../mock/sortBy";
 import { ContestState } from "../../mock/contestState";
-import { getArtworkData } from "@/utils/artworks";
+import { getArtworkData, getSingleArtworkData } from "@/utils/artworks";
 import { artworkDataRequest } from "@/interfaces/gallery_shapes";
 import { artworkDataResponse } from "@/interfaces/gallery_shapes";
 import { filterableOptions as initialFilterableOptions } from "../../mock/filterableOptionsData";
+import { userArtworkSchema } from "../../mock/userArtworkSchema";
 
 interface ArtsProps {
   contestState: ContestState;
@@ -36,6 +37,8 @@ export const Arts: React.FC<ArtsProps> = ({ contestState }) => {
     sortValue, setSortValue,
     activeEntryId, setActiveEntryId } = useFilters();
   const [mostRecentFilterState, setMostRecentFilterState] = useState(filterableOptions);
+  const [pageLoadArtwork, setPageLoadArtwork] = useState<userArtworkSchema | undefined>(undefined);
+  const [currentUserId, setCurrentUserId] = useState<string | null>(null);
 
   const { windowWidth, windowHeight } = useWindowDimensions();
   const isMobile = windowWidth < 1024;
@@ -45,14 +48,9 @@ export const Arts: React.FC<ArtsProps> = ({ contestState }) => {
   // const startIndex = (pageNumber - 1) * artworksPerPage;
   // const endIndex = startIndex + artworksPerPage;
 
-  const [artworks, setArtworks] = useState({data: []} as artworkDataResponse);
+  const [artworks, setArtworks] = useState([] as artworkDataResponse);
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
-
-  // These variables will be used to render conditional JSX
-  console.log(error);
-  console.log(isLoading);
-
 
   // Function to fetch artwork data from API given current variable values
   const fetchArtworkData = useCallback(async (filterableOptions = initialFilterableOptions, pageNumber = 1, sortValue = "Newest") => {
@@ -61,6 +59,12 @@ export const Arts: React.FC<ArtsProps> = ({ contestState }) => {
     const filterState = {filterableOptions, pageNumber, sortValue} as artworkDataRequest;
     try {
       const response = await getArtworkData(filterState);
+      console.log("Arts.tsx received artwork data: " + response);
+      response?.map((responseItem) => {
+        console.log(responseItem.id);
+        console.log(responseItem);
+      });
+      console.log(response);
       setArtworks(response);
     } catch (err) {
       if (typeof err == "string") {
@@ -73,6 +77,24 @@ export const Arts: React.FC<ArtsProps> = ({ contestState }) => {
 
   // Populate artwork data on page load
   useEffect(() => {
+    async function handleIdUponPageLoad() {
+      if (searchParams) {
+        const idFromUrl = searchParams.get("id");
+        if (idFromUrl) {
+          updateActiveEntryId(idFromUrl);
+          setModalOpen(true);
+          const singleArtworkData = await getSingleArtworkData(idFromUrl);
+          setPageLoadArtwork(singleArtworkData);
+        }
+      }
+    }
+
+    // Set current user ID from local storage
+    setCurrentUserId(localStorage.getItem("isAuthenticated"));
+  
+    // If 'id' is in the search params, load that id
+    handleIdUponPageLoad();
+    console.log("Initial page load population of artwork:");
     fetchArtworkData();
   }, [fetchArtworkData]);
 
@@ -109,12 +131,11 @@ export const Arts: React.FC<ArtsProps> = ({ contestState }) => {
   
     // Push the updated URL
     router.push(`${window.location.pathname}?${currentParams.toString()}`, { scroll: false });
-  }, [filterableOptions, pageNumber, sortValue, isModalOpen, activeEntryId, router]);
+  }, [filterableOptions, pageNumber, sortValue, isModalOpen, activeEntryId]);
   
   useEffect(() => {
     updateURLFromState();
-    // Prob remove dependency array, unsure of interaction with the one above
-  }, [updateURLFromState, filterableOptions, pageNumber, sortValue, isModalOpen, activeEntryId]);
+  }, [updateURLFromState]);
 
   const getShareUrl = () => {
     const baseUrl = `${window.location.protocol}//${window.location.host}${window.location.pathname}`;
@@ -129,21 +150,21 @@ export const Arts: React.FC<ArtsProps> = ({ contestState }) => {
     // console.log("Page number has been updated to " + pageNumber);
     fetchArtworkData(filterableOptions, pageNumber, sortValue);
   };
+
   const updateActiveEntryId = (id: string) => {
     setActiveEntryId(id);
     // console.log("Active entry ID has been updated to " + id);
   };
 
-  const openModal = (id: string) => {
+  const openModal = useCallback((id: string) => {
     // Only allow user to view artwork if the filter list is closed and the contest has begun.
-    if (!isFilterOpen && contestState != ContestState.Inactive) {
+    if (!isFilterOpen && contestState !== ContestState.Inactive) {
       setModalOpen(true);
       updateActiveEntryId(id);
     }
-  };
-
+  }, []);
+  
   const closeModal = () => {
-    fetchArtworkData();
     setModalOpen(false);
   };
 
@@ -159,21 +180,6 @@ export const Arts: React.FC<ArtsProps> = ({ contestState }) => {
       document.body.style.overflow = "";
     };
   }, [isModalOpen]);
-  
-
-  {/* Open modal to artwork ID if provided in URl */}
-  useEffect(() => {
-    if (searchParams) {
-      const idFromUrl = searchParams.get("id");
-      if (idFromUrl) {
-        updateActiveEntryId(idFromUrl);
-        setModalOpen(true);
-      }
-    }
-  // We ignore the dependency warning because we only intend to run this function one time at page load
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);  
-  
 
   const updateSortValue = (sortValue: sortValueType) => {
     setSortValue(sortValue);
@@ -246,7 +252,7 @@ export const Arts: React.FC<ArtsProps> = ({ contestState }) => {
 
   return (
     <div className={`${contestState == ContestState.Inactive && "opacity-60 pointer-events-none select-none blur-sm relative"} `}>
-      <ArtworkModal id={activeEntryId} closeModal={closeModal} isMobile={isMobile} isHorizontal={isHorizontal} modalState={isModalOpen} getShareUrl={getShareUrl}/>
+      <ArtworkModal artworks={artworks} pageLoadArtwork={pageLoadArtwork} id={activeEntryId} closeModal={closeModal} isMobile={isMobile} isHorizontal={isHorizontal} modalState={isModalOpen} currentUserId={currentUserId} getShareUrl={getShareUrl}/>
       {isMobile && <MobileFilter isFilterOpen={isFilterOpen} handleModifyFilterState={handleModifyFilterState} updateFilterOption={updateFilterOption} updateSortValue={updateSortValue} alterFiltersByCategory={alterFiltersByCategory} resetAllFilters={resetAllFilters} /> }
       <div className="relative px-8 md:px-12 lg:px-16 xl:px-20 max-w-screen-2xl z-0 m-auto w-screen">
         {/* Flexbox 1 - Contains filter open/close button on left side, and Sort title/maybe options on right side */}
@@ -285,20 +291,28 @@ export const Arts: React.FC<ArtsProps> = ({ contestState }) => {
             <div className="">
               <Image src={blueBlobs} alt="" className="-z-10 absolute top-1/4 right-0" />
               <Image src={multiBlueblobs} alt="" className="-z-10 absolute top-1/4 left-0" />
+              {error && <div className="text-red-600 py-6 text-lg mx-auto text-center">We're having some difficulty fetching artworks. Try refreshing the page. </div>}
               <div className="grid grid-cols-2 gap-x-2 gap-y-6 xl:grid-cols-4 xl:gap-x-6 xl:gap-y-10">
-                {artworks?.data ? artworks.data.map((artwork) =>
-                  <div className="flex h-full bg-neutral-white" key={artwork.id}>
-                    <ArtworkCard
-                      data={artwork}
-                      openModal={openModal}
-                    />
-                  </div>
+                {isLoading ? (
+                  <div>Loading...</div>
                 ) : (
-                  <div> No artworks found to match those criteria. </div>
+                  Array.isArray(artworks) && artworks.length > 0 ? (
+                    artworks.map((artwork) => (
+                      artwork.id != null ? (
+                        <ArtworkCard
+                          data={artwork}
+                          openModal={openModal}
+                          key={artwork.id}
+                        />
+                      ) : null
+                    ))
+                  ) : (
+                    <div>No artworks found to match those criteria.</div>
+                  )
                 )}
               </div>
               <Pagination
-                totalItems={artworks?.data?.length || 0}
+                totalItems={artworks?.length || 0}
                 currentPage={pageNumber}
                 itemsPerPage={artworksPerPage}
                 updatePageNumber={updatePageNumber}

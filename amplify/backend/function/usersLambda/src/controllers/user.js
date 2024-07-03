@@ -54,8 +54,8 @@ async function getAuthStatus(req, res) {
     if (res.headersSent) return; // Exit execution if response has already been sent
     const userCognitoData = await getUserCognitoData(req.cookies.accessToken);
     if (userCognitoData) {
-      if (userCognitoData.given_name) {
-        res.status(200).json({message: userCognitoData.given_name});
+      if (userCognitoData.sub) {
+        res.status(200).json({message: userCognitoData.sub});
       } else {
         res.status(400).json({message: "First name not available"});
       }
@@ -118,11 +118,7 @@ async function login(req, res)  {
       sameSite: sameSiteValue,
       maxAge: 86400000
     });
-    res.status(201).json(
-      { 
-        message: "Login successful!", 
-      }
-    );
+    res.status(201).json(response);
   } catch(error) {
     res.status(401).json({ message: "Login failed", error: error.message });
   }

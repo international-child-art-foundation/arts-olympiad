@@ -56,7 +56,7 @@ const SocialShare: React.FC<SocialShareProps> = ({ shareUrl }) => {
           {iconMap[name] && <Image src={iconMap[name]} alt={`${name} icon`} width={32} height={32} />}
         </button>
       ))}
-      <div className={`absolute top-10 z-10 bg-white border rounded p-2 px-4 transition-all ${showCopiedPopup ? "opacity-100" : "opacity-0 pointer-events-none"}`}>
+      <div className={`absolute -top-14 z-10 bg-white border rounded p-2 px-4 transition-all ${showCopiedPopup ? "opacity-100" : "opacity-0 pointer-events-none"}`}>
         <p>Link copied!</p>
       </div>
     </div>

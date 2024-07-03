@@ -1,21 +1,26 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, memo } from "react";
 import Image from "next/image";
 import SocialShare from "../SocialShare";
 import Link from "next/link";
 
-import { artworks } from "../../mock/artworks";
+// import { artworks } from "../../mock/artworks";
 import LoadingAnimation from "../svgs/LoadingAnimation";
 import { userArtworkSchema } from "../../mock/userArtworkSchema";
+import { artworkDataResponse } from "@/interfaces/gallery_shapes";
+import { getSingleArtworkData } from "@/utils/artworks";
+import { useGlobalContext } from "@/app/GlobalContext";
 
 type ArtworkModalProps = {
-  id: string;
+  artworks: artworkDataResponse
+  pageLoadArtwork: userArtworkSchema | undefined;
+  id: string | null;
   modalState: boolean;
   isMobile: boolean;
   isHorizontal: boolean;
+  currentUserId: string | null;
   closeModal: () => void;
   getShareUrl: () => string;
 };
-
 
 // Define the enum for modal states
 enum ModalState {
@@ -24,19 +29,61 @@ enum ModalState {
   Submitted,
 }
 
-const ArtworkModal: React.FC<ArtworkModalProps> = ({ id, modalState, isHorizontal, closeModal, getShareUrl }) => {
+function checkSameProps(prevProps: ArtworkModalProps, nextProps: ArtworkModalProps) {
+  // We memoize this function to be efficient. If any of `id`, `modalState`, or `pageLoadArtwork` have changed, re-render. 
+  // May need to include `artworks` as well.
+  // isMobile/isHorizontal currently bugged with this solution, but adding them here may be expensive, so more thought has to be done.
+  return prevProps.id == nextProps.id && prevProps.modalState == nextProps.modalState && prevProps.pageLoadArtwork == nextProps.pageLoadArtwork;
+}
+
+const ArtworkModal: React.FC<ArtworkModalProps> = ({ artworks, pageLoadArtwork, id, modalState, isHorizontal, closeModal, getShareUrl, currentUserId }) => {
+  const {isAuthenticated} = useGlobalContext();
   const [artworkData, setArtworkData] = useState<userArtworkSchema | undefined>(undefined);
   const [currentState, setCurrentState] = useState<ModalState>(ModalState.Default);
 
-  {/* Placeholder artwork data retrieval; will be replaced by API call with possibly different returned object */}
   useEffect(() => {
-    const data = artworks.find(artwork => artwork.id == id);
-    setArtworkData(data);
-    setCurrentState(ModalState.Default); // Reset to default state when modal is opened or the artwork changes
-  }, [id, modalState]);
 
-  {/* Sign-in status, to be replaced by global context AWS authentication */}
-  const signedIn = false;
+    setCurrentState(ModalState.Loading);
+
+    async function handleMissingArtData() {
+      if (id) {
+        const singleArtworkData = await getSingleArtworkData(id);
+        return singleArtworkData();
+      }
+    }
+
+    async function setModalData() {
+  
+      // If we're supplied an ID for the individual artwork on page load, set our data to that
+      if (pageLoadArtwork) {
+        setArtworkData(pageLoadArtwork);
+        setCurrentState(ModalState.Default);
+        // If we're supplied an array of artworks and no ID on page load, find the clicked artwork from the array
+      } else if (artworks) {
+        console.log("Received no individual artwork data");
+        const data = artworks.find(artwork => artwork.id == id);
+        if (data) {
+          setArtworkData(data);
+        }
+        setCurrentState(ModalState.Default);
+        // Else, if somehow the artwork wasn't clicked by the user nor supplied via the URL, fetch it manually
+      } else {
+        try {
+          const fetchedArtworkData = await handleMissingArtData();
+          if (fetchedArtworkData) {
+            setArtworkData(fetchedArtworkData);
+            setCurrentState(ModalState.Default);
+          }
+        } catch (error) {
+          console.error("Error fetching artwork data:", error);
+        }
+      }
+    }
+  
+    setModalData();
+    setCurrentState(ModalState.Default);
+    
+  }, [id, modalState, artworks, pageLoadArtwork]);
 
   {/* submitVote needs to be updated when API calls are officially added. */}
   const submitVote = async () => {
@@ -82,7 +129,7 @@ const ArtworkModal: React.FC<ArtworkModalProps> = ({ id, modalState, isHorizonta
   }
   
   function renderDefaultState() {
-    if (!artworkData || artworkData == undefined) {
+    if (!artworkData || artworkData == undefined || id == null) {
       return (
         <>
           <p className="mx-auto font-semibold font-montserrat text-xl mt-auto">Oops! An error has occurred. This artwork may be unavailable.</p>
@@ -103,6 +150,7 @@ const ArtworkModal: React.FC<ArtworkModalProps> = ({ id, modalState, isHorizonta
             <p>{artworkData.age} | {artworkData.location}</p>
             <p className="mt-2">{artworkData.sport}</p>
           </div>
+          <p className="italic mt-10">{artworkData.description}</p>
           {artworkData.is_ai_gen && (
             <div className="mt-5">
               <p>* This image was created using AI</p>
@@ -114,20 +162,20 @@ const ArtworkModal: React.FC<ArtworkModalProps> = ({ id, modalState, isHorizonta
             <p className="font-semibold text-xl pt-4">Share this post</p>
             <SocialShare shareUrl={getShareUrl()} />
           </div>
-          {!signedIn ? (
+          {!isAuthenticated ? (
             <>
               <p className="text-sm text-new-blue mt-4">Ready to vote for this artwork? Please sign in or create an account to participate.</p>
-              <Link className="bg-new-blue text-white text-base p-4 rounded mt-4 text-center opacity-100 active:opacity-60" href="/auth/login">
-                Sign in
-              </Link>
+              <Link className="bg-new-blue text-white text-base p-4 rounded mt-4 text-center" href="/auth/login">Sign in</Link>
             </>
           ) : (
-            <button className="bg-new-blue text-white text-base p-4 rounded mt-4" onClick={submitVote}>Vote for this artwork</button>
+            currentUserId != id && (
+              <button className="bg-new-blue text-white text-base p-4 rounded mt-4" onClick={submitVote}>Vote for this artwork</button>
+            )
           )}
         </div>
         <div className="flex justify-center items-center rounded-xl overflow-hidden relative flex-shrink">
-          <Image src={artworkData.id} alt={artworkData.f_name} width={500} height={300} className="max-w-full max-h-full col-start-2 z-20 object-contain" />
-          <Image src={artworkData.id} objectFit="cover" layout="fill" alt={artworkData.f_name} className="col-start-2 z-10 rounded-xl blur-3xl opacity-50" />
+          <Image src={`${process.env.NEXT_PUBLIC_CLOUDFRONT_DISTRIBUTION_URL}/${artworkData.id}/medium.webp`} alt={artworkData.f_name} width={800} height={500} className="max-w-full max-h-full col-start-2 z-20 object-contain" />
+          <Image src={`${process.env.NEXT_PUBLIC_CLOUDFRONT_DISTRIBUTION_URL}/${artworkData.id}/medium.webp`} fill alt={artworkData.f_name} className="col-start-2 z-10 rounded-xl blur-3xl opacity-50 object-cover" />
         </div>
       </div>
     );
@@ -178,13 +226,15 @@ const ArtworkModal: React.FC<ArtworkModalProps> = ({ id, modalState, isHorizonta
           <p className="font-semibold text-xl">Share this post</p>
           <SocialShare shareUrl={getShareUrl()} />
         </div>
-        {!signedIn ? (
+        {!isAuthenticated ? (
           <>
             <p className="text-sm text-new-blue mt-4">Ready to vote for this artwork? Please sign in or create an account to participate.</p>
             <Link className="bg-new-blue text-white text-base p-4 rounded mt-4 text-center" href="/auth/login">Sign in</Link>
           </>
         ) : (
-          <button className="bg-new-blue text-white text-base p-4 rounded mt-4" onClick={submitVote}>Vote for this artwork</button>
+          currentUserId != id && (
+            <button className="bg-new-blue text-white text-base p-4 rounded mt-4" onClick={submitVote}>Vote for this artwork</button>
+          )
         )}
       </div>
     );
@@ -211,4 +261,4 @@ const ArtworkModal: React.FC<ArtworkModalProps> = ({ id, modalState, isHorizonta
   );
 };
 
-export default ArtworkModal;
+export default memo(ArtworkModal, checkSameProps);

@@ -6,7 +6,7 @@ export interface GatewayResponse {
 
 export interface LoginResponse {
   success: boolean;
-  message?: string;
+  message: string;
 }
 
 export interface RegisterResponse {

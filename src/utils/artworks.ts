@@ -36,8 +36,10 @@ export async function getSingleArtworkData(artwork_id: string) {
   }
 }
 
-import { artworks } from "../../mock/artworks";
+// import { artworks } from "../../mock/artworks";
 
+// Create a cache object to store results
+const cache: Record<string, artworkDataResponse> = {};
 
 export async function getArtworkData(data: artworkDataRequest): Promise<artworkDataResponse> {
   try {
@@ -45,10 +47,9 @@ export async function getArtworkData(data: artworkDataRequest): Promise<artworkD
     const queryParams = new URLSearchParams();
 
     // Always include is_approved=true
-    queryParams.append("is_approved", "true");
+    // queryParams.append("is_approved", "true");
 
     // Handle sport filters
-    console.log(data.filterableOptions);
     const activeSports = data.filterableOptions
       .find(category => category.id === "sport")?.options
       .filter(option => option.active)
@@ -65,6 +66,13 @@ export async function getArtworkData(data: artworkDataRequest): Promise<artworkD
       queryParams.append("location", activeLocations.join(","));
     }
 
+    // Include is_approved == true if there are no active locations or sports
+    // API requires one or the other to be provided, otherwise no artwork is returned
+    if (activeLocations.length == 0 && (!activeSports || activeSports.length == 0)) {
+      queryParams.append("is_approved", "true");
+    }
+
+
     // Handle sorting
     if (data.sortValue) {
       queryParams.append("order_by", data.sortValue === "Oldest" ? "ascending" : "descending");
@@ -72,30 +80,37 @@ export async function getArtworkData(data: artworkDataRequest): Promise<artworkD
 
     // Add pagination
     queryParams.append("page", data.pageNumber.toString());
-    queryParams.append("per_page", "20"); // Assuming 20 items per page
-    console.log("API Call Occurred");
-    console.log(`/next-proxy/api/artworks?${queryParams.toString()}`);
+    queryParams.append("per_page", "20");
 
+    // Construct the full URL
+    const url = `/next-proxy/api/artworks?${queryParams.toString()}`;
+
+    // Check if the result is already in the cache
+    if (cache[url]) {
+      console.log("Returning cached API result");
+      return cache[url];
+    }
 
     // Prevent API calls during testing
-    return {data: artworks};
-    // // Construct the full URL
-    // const url = `/next-proxy/api/artworks?${queryParams.toString()}`;
+    // const result = { data: artworks };
 
-    // // const response = await fetch(url, {
-    // //   method: "GET",
-    // //   headers: {
-    // //     "Content-Type": "application/json",
-    // //     "x-api-key": process.env.NEXT_PUBLIC_AK || "",
-    // //   },
-    // // });
+    const response = await fetch(url, {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+        "x-api-key": process.env.NEXT_PUBLIC_AK || "",
+      },
+    });
 
-    // if (!response.ok) {
-    //   throw new Error(`HTTP error! status: ${response.status}`);
-    // }
+    if (!response.ok) {
+      throw new Error(`HTTP error! status: ${response.status}`);
+    }
 
-    // const result = await response.json();
-    // return { data: result };
+    const result = await response.json();
+    // Cache the result
+    cache[url] = result;
+
+    return result;
 
   } catch (error) {
     console.error("Error fetching artwork data:", error);
