@@ -53,7 +53,7 @@ export default function Gallery() {
         alt={["Artwork of Olympic sports", "Artwork of Olympic sports"]}
         buttons={[
           {
-            href: "#",
+            href: "/dashboard",
             localLink: true,
             text: "Submit",
             icon: <></>,

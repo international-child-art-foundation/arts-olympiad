@@ -5,6 +5,7 @@ import Header from "../../components/Header";
 import { Metadata } from "next";
 import {NavigationEvents} from "./NavigationEvents";
 // import ConfigureAmplifyClientSide from "@/utils/ConfigureAmplifyClientSide";
+import { GlobalContextProvider } from "./GlobalContext";
 
 export const inter = Inter({
   subsets: ["latin"],
@@ -55,12 +56,14 @@ export default function RootLayout({
         type="image/svg+xml"
       />
       <body>
-        <Header/>
-        <main className={"font-openSans font-base overflow-hidden flex flex-col justify-center align-middle w-full m-auto leading-8"}>
-          { children }
-          <NavigationEvents />
-        </main>
-        <Footer />
+        <GlobalContextProvider>
+          <Header/>
+          <main className={"font-openSans font-base overflow-hidden flex flex-col justify-center align-middle w-full m-auto leading-8"}>
+            { children }
+            <NavigationEvents />
+          </main>
+          <Footer />
+        </GlobalContextProvider>
       </body>
     </html>
   );

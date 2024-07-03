@@ -1,7 +1,7 @@
 "use client";
 import React, { createContext, useContext, useState, ReactNode } from "react";
-import { filterableOptions as initialFilterableOptions } from "../../mock/filterableOptionsData";
-import { sortValue as sortValueType } from "../../mock/sortValueType";
+import { filterableOptions as initialFilterableOptions } from "../../../mock/filterableOptionsData";
+import { sortValue as sortValueType } from "../../../mock/sortValueType";
 
 interface FilterContextType {
   filterableOptions: typeof initialFilterableOptions;
@@ -12,7 +12,7 @@ interface FilterContextType {
   pageNumber: number;
   setPageNumber: (newPageNumber: number) => void;
   sortValue: sortValueType; 
-  setSortValue: (newSortOption: sortValueType) => void;
+  setsortValue: (newSortOption: sortValueType) => void;
   activeEntryId: string;
   setActiveEntryId: (newActiveEntryId: string) => void;
 }
@@ -26,7 +26,7 @@ interface FilterProviderProps {
 export const FilterProvider: React.FC<FilterProviderProps> = ({ children }) => {
   const [filterableOptions, setFilterableOptions] = useState(initialFilterableOptions);
   const [pageNumber, setPageNumber] = useState(1);
-  const [sortValue, setSortValue] = useState<sortValueType>("Newest");
+  const [sortValue, setsortValue] = useState<sortValueType>("Newest");
   const [activeEntryId, setActiveEntryId] = useState("");
 
   // Sets the attributes of one filter option
@@ -94,7 +94,7 @@ export const FilterProvider: React.FC<FilterProviderProps> = ({ children }) => {
       activateOptionsByName, bulkAlterCategoryOptions,
       resetAllFilters,
       pageNumber, setPageNumber,
-      sortValue, setSortValue,
+      sortValue, setsortValue,
       activeEntryId, setActiveEntryId
     }}>
       {children}

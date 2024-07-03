@@ -9,24 +9,23 @@ import { VoteIcon } from "./svgs/VoteIcon";
 import { LoginIcon } from "./svgs/LoginIcon";
 import { DownIcon } from "./svgs/DownIcon";
 import { UpIcon } from "./svgs/UpIcon";
-import { useEffect, useState } from "react";
-import { handleSignOut } from "@/utils/auth";
-import { useRouter } from "next/navigation";
+import { useGlobalContext } from "@/app/GlobalContext";
+import {useRouter} from "next/navigation";
+import { useState } from "react";
 
 const Header = () => {
-  const router = useRouter();
-  const [isAuthenticated, setIsAuthenticated] = useState(0);
+  const {isAuthenticated, signOut} = useGlobalContext();
+  const [logoutLoading, setLogoutLoading] = useState(false);
 
-  async function localHandleSignOut() {
-    const signout = await handleSignOut();
-    console.log(signout);
-    localStorage.setItem("isAuthenticated", "false");
+  const router = useRouter();
+
+  async function handleSignOut() {
+    setLogoutLoading(true);
+    await signOut();
     router.push("/");
+    setLogoutLoading(false);
   }
 
-  useEffect(() => {
-    setIsAuthenticated(localStorage.getItem("isAuthenticated") == "true" ? 1 : 2);
-  }, [setIsAuthenticated]);
   const links1 = [
     { name: "About", url: "/about" },
     { name: "Contest", url: "/contest" },
@@ -48,34 +47,39 @@ const Header = () => {
       
       <div className="flex flex-wrap w-full">
 
-        <a href="#" className="group my-2 h-fit w-fit border-new-blue border rounded text-center py-2 px-3 text-xs cursor-pointer tracking-wide text-new-blue hidden md:block">
+        <Link href={isAuthenticated ? "/dashboard" : "/auth/login"} className="group my-2 h-fit w-fit border-new-blue border rounded text-center py-2 px-3 text-xs cursor-pointer tracking-wide text-new-blue hidden md:block">
           <UploadIcon />
           Upload
-        </a>
+        </Link>
 
-        <a href="#" className="group my-2 ml-2 h-fit w-fit border-new-blue border rounded text-center py-2 px-3 text-xs cursor-pointer tracking-wide text-new-blue hidden md:block">
+        <Link href="/gallery" className="group my-2 ml-2 h-fit w-fit border-new-blue border rounded text-center py-2 px-3 text-xs cursor-pointer tracking-wide text-new-blue hidden md:block">
           <VoteIcon />
           Vote
-        </a>
+        </Link>
 
-        {isAuthenticated == 1 ? (
+        {isAuthenticated === true ? (
           <>
             <div className="group ml-auto flex">
-              <Link href="#" className="group my-2 h-fit w-fit border-new-blue border rounded text-center py-2 px-3 text-xs cursor-pointer tracking-wide text-new-blue hidden md:inline-flex items-center">
+              <Link href="/dashboard" className={`group my-2 h-fit w-fit border-new-blue border rounded text-center py-2 px-3 text-xs cursor-pointer tracking-wide text-new-blue hidden md:inline-flex items-center ${logoutLoading ? "opacity-50 pointer-events-none" : ""}`}>
                 <UserIcon />
                 Dashboard
               </Link>
 
-              <a onClick={localHandleSignOut} className="group gap-2 my-2 ml-2 h-fit w-fit border-new-blue border rounded text-center py-2 px-3 text-xs cursor-pointer tracking-wide text-new-blue hidden md:inline-flex items-center">
-              Logout
-                <LoginIcon transform="scale(-0.9, 0.9)" />
+              <a
+                onClick={logoutLoading ? undefined : handleSignOut}
+                className={`group gap-2 my-2 ml-2 h-fit w-fit border-new-blue border rounded text-center py-2 px-3 text-xs cursor-pointer tracking-wide text-new-blue hidden md:inline-flex items-center ${logoutLoading ? "opacity-50 pointer-events-none" : ""}`}
+              >
+                <p>Logout</p>
+                <LoginIcon
+                  transform="scale(-0.9, 0.9)"
+                />
               </a>
             </div>
           </>
         ) : (
-          <Link href="/auth/login" className="group my-2 ml-auto h-fit w-fit text-center py-2 px-3 text-xs cursor-pointer tracking-wide text-new-blue hidden md:block">
-            <LoginIcon transform="scale(-0.9, 0.9)" />
-            Login
+          <Link href="/auth/login" className=" flex flex-row gap-2 my-2 ml-auto h-fit w-fit text-center py-2 px-3 text-xs cursor-pointer tracking-wide text-new-blue hidden md:block active:scale-95">
+            <LoginIcon transform="scale(0.9, 0.9)" />
+            <p>Login</p>
           </Link>
         )}
 

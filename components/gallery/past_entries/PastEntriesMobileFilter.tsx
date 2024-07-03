@@ -1,15 +1,15 @@
 "use client";
 import React, { useState, useEffect } from "react";
 
-import CheckBox from "./Checkbox";
-import { filterableOptions } from "../../mock/filterableOptionsData";
-import { sortValue as sortValueType } from "../../mock/sortValueType";
-import Checkbox from "./Checkbox";
-import { sortBy } from "../../mock/sortBy";
+import CheckBox from "./PastEntriesCheckbox";
+import { filterableOptions } from "../../../mock/filterableOptionsData";
+import { sortValue as sortValueType } from "../../../mock/sortValueType";
+import Checkbox from "./PastEntriesCheckbox";
+import { sortBy } from "../../../mock/sortBy";
 
 interface FilterProps {
   isFilterOpen: boolean;
-  handleModifyFilterState: (setValue: boolean) => void;
+  setIsFilterOpen: (drop: boolean) => void;
   updateFilterOption: (optionName: string, updates: Partial<{ number: number; active: boolean; }>) => void;
   updateSortValue: (sortValue: sortValueType) => void;
   alterFiltersByCategory: (categoryId: string, activeStatus: boolean) => void;
@@ -39,7 +39,7 @@ export const MobileFilter = (props: FilterProps) => {
       <div className="w-full text-right">
 
         <span className="cursor-pointer text-4xl p-4 select-none" onClick={() => {
-          props.handleModifyFilterState(false);
+          props.setIsFilterOpen(false);
         }}> &times; </span>
       </div>
       <section className="overflow-y-auto mt-4">
@@ -78,7 +78,7 @@ export const MobileFilter = (props: FilterProps) => {
         <button 
           className="font-semibold rounded-md border-1 border-black p-2"
           onClick={() => {props.resetAllFilters();}}>Reset Filters</button>
-        <button className="rounded-md font-semibold text-white bg-new-blue" onClick={() => {props.handleModifyFilterState(false);}}>
+        <button className="rounded-md font-semibold text-white bg-new-blue" onClick={() => {props.setIsFilterOpen(false);}}>
           Apply
         </button>
       </div>

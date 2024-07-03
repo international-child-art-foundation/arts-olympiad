@@ -1,6 +1,7 @@
 import { BirthdateInterface, UserLoginInterface, UserRegisterInterface, VerificationCodeInterface,
   UserRegisterInterfaceAfterFormatting
 } from "@/interfaces/user_auth";
+import { LoginResponse } from "@/interfaces/api_shapes";
 
 
 // These functions are used to call our server API files in /src/app/api/, which interact
@@ -124,7 +125,7 @@ export async function handleVerify({
   }
 }
 
-export async function handleLogin({ email, password }: UserLoginInterface) {
+export async function handleLogin({ email, password }: UserLoginInterface): Promise<LoginResponse> {
   try {
     const gatewayServerResponse = await fetch("/next-proxy/api/login", {
       method: "POST",
@@ -140,9 +141,9 @@ export async function handleLogin({ email, password }: UserLoginInterface) {
 
     const result = await gatewayServerResponse.json();
     if (gatewayServerResponse.ok) {
-      return { isAuthenticated: true, success: gatewayServerResponse.ok, message: result.message };
+      return { success: gatewayServerResponse.ok, message: result.message };
     } else {
-      return { isAuthenticated: false, message: result.message };
+      return { success: false, message: result.message };
     }
   } catch (error) {
     console.log("error checking authentication status", error);
@@ -158,7 +159,7 @@ export async function handleLogin({ email, password }: UserLoginInterface) {
       errorMessage = "Unknown error";
     }
 
-    return { isAuthenticated: false, message: errorMessage };
+    return { success: false, message: errorMessage };
   }
 }
 

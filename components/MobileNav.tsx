@@ -7,10 +7,22 @@ import { LoginIcon } from "./svgs/LoginIcon";
 import { DownIcon } from "./svgs/DownIcon";
 import { UpIcon } from "./svgs/UpIcon";
 import Image from "next/image";
+import { useGlobalContext } from "@/app/GlobalContext";
+import {useRouter} from "next/navigation";
 
 
 const MobileNav = () => {
   const [isOpen, setIsOpen] = useState(false);
+  const {isAuthenticated, signOut} = useGlobalContext();
+  const router = useRouter();
+
+  async function handleSignOut() {
+    await signOut();
+    closeMenu();
+    router.push("/");
+  }
+
+  console.log(isAuthenticated);
   const links1 = [
     { name: "About", url: "/about" },
     { name: "Contest", url: "/contest" },
@@ -95,23 +107,37 @@ const MobileNav = () => {
           <HeartIconWhite />
           Donate
         </a> */}
-        <a href="https://icaf.org/donate" className="group mx-auto mb-4 w-5/6 h-fit border-neutral-white border rounded text-center py-2 px-4 text-sm cursor-pointer tracking-wide bg-new-blue text-neutral-white">
+        <a href="https://icaf.org/donate" className="group mx-auto mb-4 w-5/6 h-fit border-neutral-white border rounded text-center py-2 px-4 text-sm cursor-pointer tracking-wide bg-new-blue active:scale-95 text-neutral-white">
           Donate
         </a>
         <div className="heart-black me-auto ml-4"></div>
         
-        <a href="#" className="group mx-auto mb-4 h-fit w-5/6 border-new-blue border rounded text-center py-2 px-3 text-xs cursor-pointer tracking-wide text-new-blue hidden md:block">
+        <Link onClick={closeMenu} href={isAuthenticated ? "/dashboard" : "/auth/login"} className="group mx-auto mb-4 h-fit w-5/6 border-new-blue border rounded text-center py-2 px-3 text-xs cursor-pointer tracking-wide text-new-blue active:scale-95">
           Upload
-        </a>
+        </Link>
 
-        <a href="#" className="group mx-auto mb-4 h-fit w-5/6 border-new-blue border rounded text-center py-2 px-3 text-xs cursor-pointer tracking-wide text-new-blue hidden md:block">
+        <Link onClick={closeMenu} href="/gallery" className="group mx-auto mb-4 h-fit w-5/6 border-new-blue border rounded text-center py-2 px-3 text-xs cursor-pointer tracking-wide text-new-blue active:scale-95">
           Vote
-        </a>
+        </Link>
 
-        <a href="/auth/login" className="group mx-auto mb-2 h-fit w-5/6 text-center py-2 px-3 text-xs cursor-pointer tracking-wide text-new-blue hidden md:block">
+        {isAuthenticated === true ? (
+          <a onClick={handleSignOut} style={{display: "flex"}} className="group items-center justify-center flex gap-2 mx-auto mb-4 h-fit w-5/6 border-new-blue border rounded text-center py-2 px-3 text-xs cursor-pointer tracking-wide text-new-blue">
+            <p>Logout</p>
+            <LoginIcon transform="scale(-0.9, 0.9)" />
+          </a>
+        ) : (
+          <Link onClick={closeMenu} href={"/auth/login"} style={{display: "flex"}} className="group flex gap-1 items-center justify-center mx-auto mb-4 h-fit w-5/6 border-new-blue border rounded text-center py-2 px-3 text-xs cursor-pointer tracking-wide text-new-blue active:scale-95">
+            <p>Login</p>
+            <LoginIcon transform="scale(0.9, 0.9)" />
+          </Link>
+        )
+
+        }
+
+        {/* <a href="/auth/login" className="group mx-auto mb-2 h-fit w-5/6 text-center py-2 px-3 text-xs cursor-pointer tracking-wide text-new-blue hidden md:block">
           Login
           <LoginIcon />
-        </a>
+        </a> */}
 
       </Menu>
     </div>

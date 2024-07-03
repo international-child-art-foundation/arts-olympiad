@@ -3,7 +3,7 @@ import Image from "next/image";
 import SocialShare from "../../SocialShare";
 import Link from "next/link";
 
-import { artworks } from "../../../mock/artworks";
+import { artworks } from "./past-artworks";
 import LoadingAnimation from "../../svgs/LoadingAnimation";
 
 type ArtworkModalProps = {

@@ -2,21 +2,20 @@
 import { useSearchParams, useRouter } from "next/navigation";
 import React, { useEffect, useCallback } from "react";
 import { useState } from "react";
-import { saveAllUserOptions } from "../Checkbox";
-import { artworks } from "../../../mock/artworks";
+import Checkbox, { saveAllUserOptions } from "./PastEntriesCheckbox";
+import { artworks } from "./past-artworks";
 import { MenuIcon } from "../../../public/svgs/gallery-svg/MenuIcon";
-import Checkbox from "../Checkbox";
 import ArtworkCard from "./PastEntriesArtworkCard";
 import Pagination from "../../pagination/Pagination";
 import blueBlobs from "../../../public/svgs/gallery-svg/blueBlobs.svg";
 import multiBlueblobs from "../../../public/svgs/gallery-svg/multiBlueblobs.svg";
 import Image from "next/image";
-import Filter from "../Filter";
-import { TagList } from "../TagList";
+import Filter from "./PastEntriesFilter";
+import { TagList } from "./PastEntriesTagList";
 import ArtworkModal from "./PastEntriesArtworkModal";
-import { useFilters } from "../FilterContext";
+import { useFilters } from "./PastEntriesFilterContext";
 import { sortValue as sortValueType } from "../../../mock/sortValueType";
-import MobileFilter from "../MobileFilter";
+import MobileFilter from "./PastEntriesMobileFilter";
 import useWindowDimensions from "@/hooks/useWindowDimensions";
 import { sortBy } from "../../../mock/sortBy";
 
@@ -132,7 +131,7 @@ export const PastEntriesArts = () => {
 
   {/* Open modal to artwork ID if provided in URl */}
   useEffect(() => {
-    const idFromUrl = searchParams.get("id");
+    const idFromUrl = searchParams?.get("id");
     if (idFromUrl) {
       updateActiveEntryId(idFromUrl);
       setModalOpen(true);
@@ -164,7 +163,7 @@ export const PastEntriesArts = () => {
     resetAllFilters();
   };
   const searchParams = useSearchParams();
-  const queryPage = searchParams.get("page");
+  const queryPage = searchParams?.get("page");
   const page = queryPage ? parseInt(queryPage) : 1;
   const artworksPerPage = 20;
   const startIndex = (page - 1) * artworksPerPage;

@@ -1,34 +1,19 @@
 import React from "react";
-import { Tag } from "./Tag"; 
+import { Tag } from "../Tag"; 
 import { gsap } from "gsap";
 import { Flip } from "gsap/all";
 import { useEffect, useRef } from "react";
-import { filterableOptions as initialFilterableOptions } from "../../mock/filterableOptionsData";
-
 
 gsap.registerPlugin(Flip);
 
 interface TagListProps {
-  filterableOptions: typeof initialFilterableOptions;
+  paramsObj: Record<string, string[]>;
   updateFilterOption: (optionName: string, updates: Partial<{ number: number; active: boolean; }>) => void;
   clearAllFilters: () => void;
   dropdownActive: boolean;
 }
 
 export const TagList = (props: TagListProps) => {
-
-  const paramsObj: { [key: string]: string[] } = {};
-    
-  props.filterableOptions.forEach(option => {
-    const activeOptions = option.options
-      .filter((item: { active: boolean }) => item.active)
-      .map((item: { name: string }) => item.name);
-
-    if (activeOptions.length > 0) {
-      paramsObj[option.id] = activeOptions;
-    }
-  });
-
   const containerRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
@@ -55,7 +40,7 @@ export const TagList = (props: TagListProps) => {
   }, [props.dropdownActive]);
 
   const removeTag = (filterType: string, filterValue: string) => {
-    const updatedParams = paramsObj;
+    const updatedParams = props.paramsObj;
     Object.keys(updatedParams).forEach(key => {
       updatedParams[key] = updatedParams[key].filter(value => value !== filterValue);
       if (updatedParams[key].length === 0) {
@@ -66,10 +51,10 @@ export const TagList = (props: TagListProps) => {
   };
 
   // Ignore keys that shouldn't be displayed as filters to the user 
-  const filteredKeys = Object.keys(paramsObj).filter(key => key !== "page" && key !== "sort" && key !== "id");
+  const filteredKeys = Object.keys(props.paramsObj).filter(key => key !== "page" && key !== "sort" && key !== "id");
 
   // Check if there are multiple active filters
-  const hasMultipleActiveFilters = filteredKeys.some(key => paramsObj[key].length > 1);
+  const hasMultipleActiveFilters = filteredKeys.some(key => props.paramsObj[key].length > 1);
 
   return (
     <div ref={containerRef} className="relative flex flex-wrap gap-2 row-start-1 ">
@@ -79,7 +64,7 @@ export const TagList = (props: TagListProps) => {
         </button>
       )}
       {filteredKeys.map(key =>
-        paramsObj[key].map(value => <Tag key={value} label={value} filterType={key} onRemove={() => removeTag(key, value)} />)
+        props.paramsObj[key].map(value => <Tag key={value} label={value} filterType={key} onRemove={() => removeTag(key, value)} />)
       )}
     </div>
   );

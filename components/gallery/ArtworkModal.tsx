@@ -5,6 +5,7 @@ import Link from "next/link";
 
 import { artworks } from "../../mock/artworks";
 import LoadingAnimation from "../svgs/LoadingAnimation";
+import { userArtworkSchema } from "../../mock/userArtworkSchema";
 
 type ArtworkModalProps = {
   id: string;
@@ -15,20 +16,6 @@ type ArtworkModalProps = {
   getShareUrl: () => string;
 };
 
-type Artwork = {
-  id: string;
-  name: string;
-  votes: number;
-  url: string;
-  country: string[];
-  age: number;
-  uploadAt: string;
-  alt: string;
-  sport: string[];
-  aiGenerated: boolean;
-  aiSource: string;
-  aiPrompt: string;
-};
 
 // Define the enum for modal states
 enum ModalState {
@@ -38,7 +25,7 @@ enum ModalState {
 }
 
 const ArtworkModal: React.FC<ArtworkModalProps> = ({ id, modalState, isHorizontal, closeModal, getShareUrl }) => {
-  const [artworkData, setArtworkData] = useState<Artwork | undefined>(undefined);
+  const [artworkData, setArtworkData] = useState<userArtworkSchema | undefined>(undefined);
   const [currentState, setCurrentState] = useState<ModalState>(ModalState.Default);
 
   {/* Placeholder artwork data retrieval; will be replaced by API call with possibly different returned object */}
@@ -111,16 +98,16 @@ const ArtworkModal: React.FC<ArtworkModalProps> = ({ id, modalState, isHorizonta
           <div className="inline-block py-2">
             <span className="bg-[#fbb22e] rounded-3xl p-2 px-8">{artworkData.votes} Votes</span>
           </div>
-          <p className="font-bold text-xl mt-5">{artworkData.name}</p>
+          <p className="font-bold text-xl mt-5">{artworkData.f_name}</p>
           <div className="mt-5">
-            <p>{artworkData.age} | {artworkData.country.join(", ")}</p>
-            <p className="mt-2">{artworkData.sport.join(" | ")}</p>
+            <p>{artworkData.age} | {artworkData.location}</p>
+            <p className="mt-2">{artworkData.sport}</p>
           </div>
-          {artworkData.aiGenerated && (
+          {artworkData.is_ai_gen && (
             <div className="mt-5">
               <p>* This image was created using AI</p>
-              <p>Source: {artworkData.aiSource}</p>
-              <p>Prompt: {artworkData.aiPrompt}</p>
+              <p>Source: {artworkData.model}</p>
+              <p>Prompt: {artworkData.prompt}</p>
             </div>
           )}
           <div className="mt-auto">
@@ -139,8 +126,8 @@ const ArtworkModal: React.FC<ArtworkModalProps> = ({ id, modalState, isHorizonta
           )}
         </div>
         <div className="flex justify-center items-center rounded-xl overflow-hidden relative flex-shrink">
-          <Image src={artworkData.url} alt={artworkData.alt} width={500} height={300} className="max-w-full max-h-full col-start-2 z-20 object-contain" />
-          <Image src={artworkData.url} objectFit="cover" layout="fill" alt={artworkData.alt} className="col-start-2 z-10 rounded-xl blur-3xl opacity-50" />
+          <Image src={artworkData.id} alt={artworkData.f_name} width={500} height={300} className="max-w-full max-h-full col-start-2 z-20 object-contain" />
+          <Image src={artworkData.id} objectFit="cover" layout="fill" alt={artworkData.f_name} className="col-start-2 z-10 rounded-xl blur-3xl opacity-50" />
         </div>
       </div>
     );
@@ -172,19 +159,19 @@ const ArtworkModal: React.FC<ArtworkModalProps> = ({ id, modalState, isHorizonta
           <span className="bg-[#fbb22e] rounded-3xl p-2 px-8">{artworkData.votes} Votes</span>
         </div>
         <div className="flex justify-center items-center rounded-xl overflow-hidden relative flex-shrink">
-          <Image src={artworkData.url} alt={artworkData.alt} width={500} height={300} className="max-w-full max-h-full col-start-2 z-20 object-contain" />
-          <Image src={artworkData.url} objectFit="cover" layout="fill" alt={artworkData.alt} className="col-start-2 z-10 rounded-xl blur-3xl opacity-50" />
+          <Image src={artworkData.id} alt={artworkData.f_name} width={500} height={300} className="max-w-full max-h-full col-start-2 z-20 object-contain" />
+          <Image src={artworkData.id} objectFit="cover" layout="fill" alt={artworkData.f_name} className="col-start-2 z-10 rounded-xl blur-3xl opacity-50" />
         </div>
-        <p className="font-bold text-xl mt-9">{artworkData.name}</p>
+        <p className="font-bold text-xl mt-9">{artworkData.f_name}</p>
         <div className="mt-2">
-          <p>{artworkData.age} | {artworkData.country.join(", ")}</p>
-          <p className="">{artworkData.sport.join(" | ")}</p>
+          <p>{artworkData.age} | {artworkData.location}</p>
+          <p className="">{artworkData.sport}</p>
         </div>
-        {artworkData.aiGenerated && (
+        {artworkData.is_ai_gen && (
           <div className="mt-5">
             <p>* This image was created using AI</p>
-            <p>Source: {artworkData.aiSource}</p>
-            <p>Prompt: {artworkData.aiPrompt}</p>
+            <p>Source: {artworkData.model}</p>
+            <p>Prompt: {artworkData.prompt}</p>
           </div>
         )}
         <div className="mt-auto">

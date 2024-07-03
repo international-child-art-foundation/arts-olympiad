@@ -12,16 +12,15 @@ import apple from "../../public/auth/Apple.svg";
 import OpenEye from "../../public/auth/eye_open.svg";
 import ClosedEye from "../../public/auth/eye_closed.svg";
 import Link from "next/link";
-// import {useRouter} from "next/navigation";
+import {useRouter} from "next/navigation";
 import {Modal} from "../common/ui/Modal";
 import {CheckBox} from "../common/form_inputs/CheckBox";
 import {ForgotPasswordForm} from "./ForgotPasswordForm";
 import { UserLoginInterface } from "@/interfaces/user_auth";
-import { handleLogin } from "@/utils/auth";
 import LoadingAnimation from "../svgs/LoadingAnimation";
 
 import { allowedPasswordCharactersRegex } from "../../mock/passwordRegex";
-// import { signIn } from "aws-amplify/auth";
+import { useGlobalContext } from "@/app/GlobalContext";
 
 const validationSchema = Yup.object().shape({
   email: Yup.string().email("Not a recognized email address").required("Email is required"),
@@ -47,20 +46,25 @@ const initialValues: UserLoginInterface = {
 
 export const LoginForm = () => {
 
-  // const router = useRouter();
+  const router = useRouter();
+  const {signIn} = useGlobalContext();
 
   const [showPassword, setShowPassword] = useState(false);
   const [showForgotPassword, setShowForgotPassword] = useState(false);
   const [loginLoading, setLoginLoading] = useState(false);
+  const [loginError, setLoginError] = useState(false);
 
-  // eslint-disable-next-line no-unused-vars, @typescript-eslint/no-unused-vars
   const onSubmit = async (values: UserLoginInterface) => {
     setLoginLoading(true);
-    const loginAttempt = await handleLogin(values);
-    console.log(loginAttempt);
-    //TODO: Delay router.push until after success, add loading state
+    setLoginError(false);
+    const loginAttempt = await signIn(values);
+    if (loginAttempt.success == true) {
+      setLoginError(false);
+      router.push("/dashboard");
+    } else {
+      setLoginError(true);
+    }
     setLoginLoading(false);
-    // router.push("/dashboard"); 
   };
 
   return (
@@ -107,6 +111,7 @@ export const LoginForm = () => {
       <Pm className="font-semibold my-4 text-center">Don’t have an account?
         <span className="text-main-blue font-semibold"><Link className="inline" href="/auth/register"> Create one now</Link></span>
       </Pm>
+      {loginError && <p className="text-red-600">Couldn't log in. Is your password correct?</p>}
       <div className="invisible">
         <div className="flex flex-row">
           <div className=" mx-4 z-10 my-12 relative bg-main-grey w-full m-0 border-1 border-main-grey" />

@@ -5,9 +5,8 @@ export interface GatewayResponse {
 }
 
 export interface LoginResponse {
-  accessToken: string;
-  idToken: string;
-  refreshToken: string;
+  success: boolean;
+  message?: string;
 }
 
 export interface RegisterResponse {
