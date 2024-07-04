@@ -84,7 +84,6 @@ export async function getArtworkData(data: artworkDataRequest): Promise<artworkD
 
     // Construct the full URL
     const url = `/next-proxy/api/artworks?${queryParams.toString()}`;
-
     // Check if the result is already in the cache
     if (cache[url]) {
       console.log("Returning cached API result");

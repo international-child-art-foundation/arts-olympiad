@@ -1,4 +1,4 @@
-import React, { useEffect, useState, memo } from "react";
+import React, { useEffect, useState, memo, useRef } from "react";
 import Image from "next/image";
 import SocialShare from "../SocialShare";
 import Link from "next/link";
@@ -9,85 +9,103 @@ import { userArtworkSchema } from "../../mock/userArtworkSchema";
 import { artworkDataResponse } from "@/interfaces/gallery_shapes";
 import { getSingleArtworkData } from "@/utils/artworks";
 import { useGlobalContext } from "@/app/GlobalContext";
+import useWindowDimensions from "@/hooks/useWindowDimensions";
+import { gsap } from "gsap";
+import "@/styles/home.css";
 
 type ArtworkModalProps = {
   artworks: artworkDataResponse
   pageLoadArtwork: userArtworkSchema | undefined;
   id: string | null;
-  modalState: boolean;
+  isModalOpen: boolean;
   isMobile: boolean;
-  isHorizontal: boolean;
   currentUserId: string | null;
   closeModal: () => void;
   getShareUrl: () => string;
 };
 
 // Define the enum for modal states
-enum ModalState {
-  Default,
-  Loading,
-  Submitted,
-}
+type ModalState = 
+  | { status: "loading" }
+  | { status: "error" }
+  | { status: "loaded", data: userArtworkSchema }
+  | { status: "submitted" };
 
 function checkSameProps(prevProps: ArtworkModalProps, nextProps: ArtworkModalProps) {
   // We memoize this function to be efficient. If any of `id`, `modalState`, or `pageLoadArtwork` have changed, re-render. 
   // May need to include `artworks` as well.
   // isMobile/isHorizontal currently bugged with this solution, but adding them here may be expensive, so more thought has to be done.
-  return prevProps.id == nextProps.id && prevProps.modalState == nextProps.modalState && prevProps.pageLoadArtwork == nextProps.pageLoadArtwork;
+  return prevProps.id == nextProps.id && prevProps.isModalOpen == nextProps.isModalOpen && prevProps.pageLoadArtwork == nextProps.pageLoadArtwork;
 }
 
-const ArtworkModal: React.FC<ArtworkModalProps> = ({ artworks, pageLoadArtwork, id, modalState, isHorizontal, closeModal, getShareUrl, currentUserId }) => {
+const ArtworkModal: React.FC<ArtworkModalProps> = ({ artworks, pageLoadArtwork, id, isModalOpen, closeModal, getShareUrl, currentUserId, isMobile }) => {
   const {isAuthenticated} = useGlobalContext();
-  const [artworkData, setArtworkData] = useState<userArtworkSchema | undefined>(undefined);
-  const [currentState, setCurrentState] = useState<ModalState>(ModalState.Default);
+  const { windowWidth, windowHeight } = useWindowDimensions();
+  const isHorizontal = windowWidth > windowHeight;
+  const [modalState, setModalState] = useState<ModalState>({ status: "loading" });
 
-  useEffect(() => {
-
-    setCurrentState(ModalState.Loading);
-
-    async function handleMissingArtData() {
-      if (id) {
-        const singleArtworkData = await getSingleArtworkData(id);
-        return singleArtworkData();
-      }
-    }
-
-    async function setModalData() {
+  async function handleCloseModal() {
+    await setModalState({status: "loading"});
+    closeModal();
+  }
   
-      // If we're supplied an ID for the individual artwork on page load, set our data to that
-      if (pageLoadArtwork) {
-        setArtworkData(pageLoadArtwork);
-        setCurrentState(ModalState.Default);
-        // If we're supplied an array of artworks and no ID on page load, find the clicked artwork from the array
+  useEffect(() => {
+    if (!isModalOpen || !id) {
+      setModalState({ status: "loading" });
+      return;
+    }
+  
+    const fetchArtworkData = async () => {
+      let data;
+      if (pageLoadArtwork && pageLoadArtwork.id === id) {
+        data = pageLoadArtwork;
       } else if (artworks) {
-        console.log("Received no individual artwork data");
-        const data = artworks.find(artwork => artwork.id == id);
-        if (data) {
-          setArtworkData(data);
-        }
-        setCurrentState(ModalState.Default);
-        // Else, if somehow the artwork wasn't clicked by the user nor supplied via the URL, fetch it manually
-      } else {
+        data = artworks.find(artwork => artwork.id === id);
+      }
+  
+      if (!data && id) {
         try {
-          const fetchedArtworkData = await handleMissingArtData();
-          if (fetchedArtworkData) {
-            setArtworkData(fetchedArtworkData);
-            setCurrentState(ModalState.Default);
-          }
+          data = await getSingleArtworkData(id);
         } catch (error) {
           console.error("Error fetching artwork data:", error);
+          setModalState({ status: "error" });
+          return;
         }
       }
-    }
   
-    setModalData();
-    setCurrentState(ModalState.Default);
-    
-  }, [id, modalState, artworks, pageLoadArtwork]);
+      if (data) {
+        setModalState({ status: "loaded", data });
+        let delay;
+        if (isMobile) {
+          delay = "-=0.4";
+        } else {
+          delay = "-=0.1";
+        }
+        const timeline = gsap.timeline();
+        timeline
+          .set(modalContentRef.current, { opacity: 0 })
+          // .set(gridContainerRef.current, { gridTemplateRows: "0.7fr" })
+          .to(gridContainerRef.current, { 
+            gridTemplateRows: "1fr", 
+            duration: isMobile ? 0.8 : 0.4, 
+            ease: isMobile ? "power1.out": "power4.out" 
+          })
+          .to(modalContentRef.current, { 
+            opacity: 1, 
+            duration: 0.2, 
+            ease: "power4.out" 
+          }, delay); // Start slightly before the grid animation ends  
+      } else {
+        setModalState({ status: "error" });
+      }
+    };
+  
+    fetchArtworkData();
+  }, [isModalOpen, id, pageLoadArtwork, artworks]);
 
   {/* submitVote needs to be updated when API calls are officially added. */}
   const submitVote = async () => {
-    setCurrentState(ModalState.Loading); // Transition to loading state
+    setModalState({status: "loading"}); // Transition to loading state
     try {
       const response = await new Promise<{ ok: boolean }>((resolve) => {
         setTimeout(() => {
@@ -95,19 +113,27 @@ const ArtworkModal: React.FC<ArtworkModalProps> = ({ artworks, pageLoadArtwork, 
         }, 1000); // Simulate network delay
       });
       if (response.ok) {
-        setCurrentState(ModalState.Submitted); // Transition to submitted state on success
+        setModalState({status: "submitted"}); // Transition to submitted state on success
       }
     } catch (error) {
       console.error("Failed to submit vote", error);
-      setCurrentState(ModalState.Default); // Handle error by reverting to default state or showing an error state
     }
   };
 
-  if (!modalState) return null;
+  const modalContentRef = useRef(null);
+  const modalWrapperRef = useRef(null);
+  const gridContainerRef = useRef(null);
+
+  useEffect(() => {
+    if (modalState.status == "loaded" && modalState.data) {
+    }
+  }, [modalState]);
+
+  if (!isModalOpen) return null;
 
   function renderLoadingState() {
     return (
-      <div className="absolute inset-0 flex justify-center items-center pointer-events-none">
+      <div className="relative inset-0 flex justify-center items-center pointer-events-none h-[0px]">
         <LoadingAnimation scale={90} stroke={2}/>
       </div>
     );
@@ -115,7 +141,7 @@ const ArtworkModal: React.FC<ArtworkModalProps> = ({ artworks, pageLoadArtwork, 
   
   function renderSubmittedState() {
     return (
-      <div className="flex flex-col overflow-auto items-center justify-center h-full w-[410px] max-w-full mx-auto">
+      <div className="flex flex-col overflow-auto no-scrollbar items-center justify-center h-full w-[410px] max-w-full mx-auto">
         <p className="font-montserrat font-semibold text-3xl pb-7">Thank you for your vote.</p>
         <p className="text-xl pb-10 font-light">Your vote is cast – thank you for participating! You've just helped an artist get one step closer to the spotlight. Share their work to spread the word!</p>
         <div className="">
@@ -123,39 +149,39 @@ const ArtworkModal: React.FC<ArtworkModalProps> = ({ artworks, pageLoadArtwork, 
           <SocialShare shareUrl={getShareUrl()} />
         </div>
 
-        <button className="bg-new-blue w-full text-base text-white text-base p-4 rounded mt-6 cursor-pointer" onClick={closeModal}>Return to Gallery</button>
+        <button className="bg-new-blue w-full text-base text-white text-base p-4 rounded mt-6 cursor-pointer" onClick={handleCloseModal}>Return to Gallery</button>
       </div>
     );
   }
   
   function renderDefaultState() {
-    if (!artworkData || artworkData == undefined || id == null) {
+    if (modalState.status != "loaded" || id == null) {
       return (
         <>
           <p className="mx-auto font-semibold font-montserrat text-xl mt-auto">Oops! An error has occurred. This artwork may be unavailable.</p>
           <p className="mx-auto py-4 text-slate-400">error: artworkData not found.</p>
           <p className="mx-auto py-4 mt-auto text-xl">If this error persists, please let us know.</p>
-          <button className="bg-new-blue w-[200px] text-base text-white text-base p-2 rounded mt-4 mx-auto" onClick={closeModal}>Contact Us</button>
+          <button className="bg-new-blue w-[200px] text-base text-white text-base p-2 rounded mt-4 mx-auto" onClick={handleCloseModal}>Contact Us</button>
         </>
       );
     }  
     return (
       <div className="grid grid-cols-2 gap-5 md:gap-10 grid-rows-1 overflow-hidden max-h-full mx-auto px-6">
-        <div className="flex flex-col overflow-auto">
+        <div className="flex flex-col overflow-auto no-scrollbar">
           <div className="inline-block py-2">
-            <span className="bg-[#fbb22e] rounded-3xl p-2 px-8">{artworkData.votes} Votes</span>
+            <span className="bg-[#fbb22e] rounded-3xl p-2 px-8">{modalState.data.votes} Votes</span>
           </div>
-          <p className="font-bold text-xl mt-5">{artworkData.f_name}</p>
+          <p className="font-bold text-xl mt-5">{modalState.data.f_name}</p>
           <div className="mt-5">
-            <p>{artworkData.age} | {artworkData.location}</p>
-            <p className="mt-2">{artworkData.sport}</p>
+            <p>{modalState.data.age} | {modalState.data.location}</p>
+            <p className="mt-2">{modalState.data.sport}</p>
           </div>
-          <p className="italic mt-10">{artworkData.description}</p>
-          {artworkData.is_ai_gen && (
+          <p className="italic mt-10">{modalState.data.description}</p>
+          {modalState.data.is_ai_gen && (
             <div className="mt-5">
               <p>* This image was created using AI</p>
-              <p>Source: {artworkData.model}</p>
-              <p>Prompt: {artworkData.prompt}</p>
+              <p>Source: {modalState.data.model}</p>
+              <p>Prompt: {modalState.data.prompt}</p>
             </div>
           )}
           <div className="mt-auto">
@@ -174,8 +200,8 @@ const ArtworkModal: React.FC<ArtworkModalProps> = ({ artworks, pageLoadArtwork, 
           )}
         </div>
         <div className="flex justify-center items-center rounded-xl overflow-hidden relative flex-shrink">
-          <Image src={`${process.env.NEXT_PUBLIC_CLOUDFRONT_DISTRIBUTION_URL}/${artworkData.id}/medium.webp`} alt={artworkData.f_name} width={800} height={500} className="max-w-full max-h-full col-start-2 z-20 object-contain" />
-          <Image src={`${process.env.NEXT_PUBLIC_CLOUDFRONT_DISTRIBUTION_URL}/${artworkData.id}/medium.webp`} fill alt={artworkData.f_name} className="col-start-2 z-10 rounded-xl blur-3xl opacity-50 object-cover" />
+          <Image src={`${process.env.NEXT_PUBLIC_CLOUDFRONT_DISTRIBUTION_URL}/${modalState.data.id}/medium.webp`} alt={modalState.data.f_name} width={800} height={500} className="max-w-full max-h-full col-start-2 z-20 object-contain" />
+          <Image src={`${process.env.NEXT_PUBLIC_CLOUDFRONT_DISTRIBUTION_URL}/${modalState.data.id}/medium.webp`} fill alt={modalState.data.f_name} className="col-start-2 z-10 rounded-xl blur-3xl opacity-50 object-cover" />
         </div>
       </div>
     );
@@ -184,42 +210,51 @@ const ArtworkModal: React.FC<ArtworkModalProps> = ({ artworks, pageLoadArtwork, 
   // Mobile rendering for the loading state
   function renderLoadingStateMobile() {
     return (
-      <div className="absolute inset-0 flex justify-center items-center pointer-events-none">
+      <div className="relative inset-0 flex justify-center items-center pointer-events-none h-[0px]">
         <LoadingAnimation scale={90} stroke={2}/>
       </div>
     );
   }
+  
+  function renderErrorState() {
+    return (
+      <div className="absolute inset-0 flex justify-center items-center pointer-events-none">
+        <p>Something went wrong. It may help to reload the page.</p>
+      </div>
+    );
+  }
+
   // Mobile rendering for the default state
   function renderDefaultStateMobile() {
-    if (!artworkData) {
+    if (modalState.status != "loaded") {
       return (
         <>
           <p className="mx-auto font-semibold font-montserrat text-xl mt-auto">Oops! An error has occurred. This artwork may be unavailable.</p>
           <p className="mx-auto py-4 text-slate-400">error: artworkData not found.</p>
           <p className="mx-auto py-4 mt-auto text-xl">If this error persists, please let us know.</p>
-          <button className="bg-new-blue w-[200px] text-base text-white text-base p-2 rounded mt-4 mx-auto" onClick={closeModal}>Contact Us</button>
+          <button className="bg-new-blue w-[200px] text-base text-white text-base p-2 rounded mt-4 mx-auto" onClick={handleCloseModal}>Contact Us</button>
         </>
       );
     }  
     return (
       <div className="grid max-h-full overflow-auto gap-y-2">
         <div className="inline-block py-2 mb-4">
-          <span className="bg-[#fbb22e] rounded-3xl p-2 px-8">{artworkData.votes} Votes</span>
+          <span className="bg-[#fbb22e] rounded-3xl p-2 px-8">{modalState.data.votes} Votes</span>
         </div>
         <div className="flex justify-center items-center rounded-xl overflow-hidden relative flex-shrink">
-          <Image src={artworkData.id} alt={artworkData.f_name} width={500} height={300} className="max-w-full max-h-full col-start-2 z-20 object-contain" />
-          <Image src={artworkData.id} objectFit="cover" layout="fill" alt={artworkData.f_name} className="col-start-2 z-10 rounded-xl blur-3xl opacity-50" />
+          <Image src={`${process.env.NEXT_PUBLIC_CLOUDFRONT_DISTRIBUTION_URL}/${modalState.data.id}/medium.webp`} alt={modalState.data.f_name} width={500} height={300} className="max-w-full max-h-full col-start-2 z-20 object-contain" />
+          <Image src={`${process.env.NEXT_PUBLIC_CLOUDFRONT_DISTRIBUTION_URL}/${modalState.data.id}/medium.webp`} fill alt={modalState.data.f_name} className="col-start-2 z-10 rounded-xl blur-3xl opacity-50 object-cover" />
         </div>
-        <p className="font-bold text-xl mt-9">{artworkData.f_name}</p>
+        <p className="font-bold text-xl mt-9">{modalState.data.f_name}</p>
         <div className="mt-2">
-          <p>{artworkData.age} | {artworkData.location}</p>
-          <p className="">{artworkData.sport}</p>
+          <p>{modalState.data.age} | {modalState.data.location}</p>
+          <p className="">{modalState.data.sport}</p>
         </div>
-        {artworkData.is_ai_gen && (
+        {modalState.data.is_ai_gen && (
           <div className="mt-5">
             <p>* This image was created using AI</p>
-            <p>Source: {artworkData.model}</p>
-            <p>Prompt: {artworkData.prompt}</p>
+            <p>Source: {modalState.data.model}</p>
+            <p>Prompt: {modalState.data.prompt}</p>
           </div>
         )}
         <div className="mt-auto">
@@ -242,20 +277,32 @@ const ArtworkModal: React.FC<ArtworkModalProps> = ({ artworks, pageLoadArtwork, 
 
   const handleClick = (e: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
     if (e.target === e.currentTarget) {
-      closeModal();
+      handleCloseModal();
     }
   };
+
+  function renderContent() {
+    switch (modalState.status) {
+    case "loading":
+      return isHorizontal ? renderLoadingState() : renderLoadingStateMobile();
+    case "error":
+      return renderErrorState();
+    case "submitted":
+      return renderSubmittedState();
+    case "loaded":
+      return isHorizontal ? renderDefaultState() : renderDefaultStateMobile();
+    }
+  }
     
   return (
-    <div
-      className="fixed inset-0 bg-black bg-opacity-50 z-50 flex justify-center items-center h-auto"
-      onClick={handleClick} 
-    >
-      <div className={`bg-white rounded-3xl ${isHorizontal ? "w-[80%] max-w-[1100px] p-16" : "w-[480px] p-8 max-w-[95%]"} min-h-[400px] max-h-full flex flex-col relative overflow-hidden`}>
-        <span onClick={closeModal} className="absolute top-0 right-0 text-5xl font-light p-4 cursor-pointer active:scale-90">&times;</span>
-        {currentState === ModalState.Loading && (isHorizontal ? renderLoadingState() : renderLoadingStateMobile())}
-        {currentState === ModalState.Submitted && renderSubmittedState()}
-        {currentState === ModalState.Default && (isHorizontal ? artworkData && renderDefaultState() : renderDefaultStateMobile())}
+    <div className="fixed inset-0 bg-black bg-opacity-50 z-50 flex justify-center items-center h-auto" onClick={handleClick}>
+      <div ref={modalWrapperRef} className={`max-h-[93%] bg-white rounded-3xl ${isHorizontal ? "w-[80%] max-w-[1100px]" : "w-[480px] max-w-[95%]"} flex flex-col relative overflow-hidden`}>
+        <span onClick={handleCloseModal} className="absolute top-0 right-0 text-5xl font-light p-4 cursor-pointer active:scale-90">&times;</span>
+        <div ref={gridContainerRef} className="grid overflow-scroll no-scrollbar " style={{gridTemplateRows:"0.2fr"}}>
+          <div ref={modalContentRef} className={`min-h-[200px] ${isHorizontal ? "p-16" : "p-8"}`}>
+            {renderContent()}
+          </div>
+        </div>
       </div>
     </div>
   );

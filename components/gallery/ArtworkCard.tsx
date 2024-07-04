@@ -9,11 +9,11 @@ type ArtworkCardProps = {
 };
 
 function checkSameProps(prevProps: ArtworkCardProps, nextProps: ArtworkCardProps) {
-  if (prevProps.data.id === nextProps.data.id) {
-    console.log("Found that prevProps were the same as nextProps. Not re-rendering.");
-  } else {
-    console.log("Found different artwork card props. re-rendering.");
-  }
+  // if (prevProps.data.id === nextProps.data.id) {
+  //   console.log("Found that prevProps were the same as nextProps. Not re-rendering.");
+  // } else {
+  //   console.log("Found different artwork card props. re-rendering.");
+  // }
   return prevProps.data.id === nextProps.data.id;
 }
 
@@ -39,7 +39,7 @@ const ArtworkCard = ({ data, openModal }: ArtworkCardProps) => {
     <div id={data.id} className="relative w-full h-full rounded-lg bg-neutral-white">
       <div className="shadow-gray-400 shadow-md rounded-lg">
         <section className="w-full h-32 md:h-60 xl:h-52 mxl:h-56 rounded-t-lg overflow-hidden relative select-none">
-          <div className="z-20">
+          <div className="z-20 w-full h-full relative">
             <p className="rounded-lg py-2 px-4 z-40 absolute top-0 left-0 bg-[#ffffff1a] font-normal text-xs xl:text-sm">
               {data.votes} Votes
             </p>

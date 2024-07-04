@@ -23,6 +23,8 @@ import { artworkDataRequest } from "@/interfaces/gallery_shapes";
 import { artworkDataResponse } from "@/interfaces/gallery_shapes";
 import { filterableOptions as initialFilterableOptions } from "../../mock/filterableOptionsData";
 import { userArtworkSchema } from "../../mock/userArtworkSchema";
+import no_results_found from "../../public/svgs/no_results_found_bg.svg";
+import LoadingAnimation from "../svgs/LoadingAnimation";
 
 interface ArtsProps {
   contestState: ContestState;
@@ -40,9 +42,9 @@ export const Arts: React.FC<ArtsProps> = ({ contestState }) => {
   const [pageLoadArtwork, setPageLoadArtwork] = useState<userArtworkSchema | undefined>(undefined);
   const [currentUserId, setCurrentUserId] = useState<string | null>(null);
 
-  const { windowWidth, windowHeight } = useWindowDimensions();
+  const { windowWidth } = useWindowDimensions();
   const isMobile = windowWidth < 1024;
-  const isHorizontal = windowWidth > windowHeight;
+  // const isHorizontal = windowWidth > windowHeight;
   const searchParams = useSearchParams();
   const artworksPerPage = 20;
   // const startIndex = (pageNumber - 1) * artworksPerPage;
@@ -53,18 +55,23 @@ export const Arts: React.FC<ArtsProps> = ({ contestState }) => {
   const [error, setError] = useState<string | null>(null);
 
   // Function to fetch artwork data from API given current variable values
-  const fetchArtworkData = useCallback(async (filterableOptions = initialFilterableOptions, pageNumber = 1, sortValue = "Newest") => {
+  const fetchArtworkData = useCallback(async (filterableOptions = initialFilterableOptions, pageNumber = 1, sortValue = "Newest", isFilterOpen=false) => {
+    console.log(isFilterOpen);
+    if (isFilterOpen) {
+      // If filter menu is ever open, we don't want to make API calls.
+      return;
+    }
     setIsLoading(true);
     setError(null);
     const filterState = {filterableOptions, pageNumber, sortValue} as artworkDataRequest;
     try {
       const response = await getArtworkData(filterState);
-      console.log("Arts.tsx received artwork data: " + response);
-      response?.map((responseItem) => {
-        console.log(responseItem.id);
-        console.log(responseItem);
-      });
-      console.log(response);
+      // console.log("Arts.tsx received artwork data: " + response);
+      // response?.map((responseItem) => {
+      //   console.log(responseItem.id);
+      //   console.log(responseItem);
+      // });
+      // console.log(response);
       setArtworks(response);
     } catch (err) {
       if (typeof err == "string") {
@@ -126,7 +133,9 @@ export const Arts: React.FC<ArtsProps> = ({ contestState }) => {
   
     // If modal is open, add ID to the url
     if (isModalOpen) {
-      currentParams.set("id", activeEntryId);
+      if (activeEntryId) {
+        currentParams.set("id", activeEntryId);
+      }
     }
   
     // Push the updated URL
@@ -140,7 +149,9 @@ export const Arts: React.FC<ArtsProps> = ({ contestState }) => {
   const getShareUrl = () => {
     const baseUrl = `${window.location.protocol}//${window.location.host}${window.location.pathname}`;
     const shareUrl = new URL(baseUrl);
-    shareUrl.searchParams.set("id", activeEntryId); // Append the activeEntryId as a query parameter
+    if (activeEntryId) {
+      shareUrl.searchParams.set("id", activeEntryId); // Append the activeEntryId as a query parameter
+    }
   
     return shareUrl.toString();
   };
@@ -148,7 +159,7 @@ export const Arts: React.FC<ArtsProps> = ({ contestState }) => {
   const updatePageNumber = (currentPageNumber: number, newPageNumber: number) => {
     setPageNumber(newPageNumber);
     // console.log("Page number has been updated to " + pageNumber);
-    fetchArtworkData(filterableOptions, pageNumber, sortValue);
+    fetchArtworkData(filterableOptions, pageNumber, sortValue, isFilterOpen);
   };
 
   const updateActiveEntryId = (id: string) => {
@@ -159,13 +170,16 @@ export const Arts: React.FC<ArtsProps> = ({ contestState }) => {
   const openModal = useCallback((id: string) => {
     // Only allow user to view artwork if the filter list is closed and the contest has begun.
     if (!isFilterOpen && contestState !== ContestState.Inactive) {
-      setModalOpen(true);
       updateActiveEntryId(id);
+      setModalOpen(true);
     }
   }, []);
   
   const closeModal = () => {
+    // If user has closed the modal, we no longer need pageLoadArtwork.
+    setPageLoadArtwork(undefined);
     setModalOpen(false);
+    setActiveEntryId(null);
   };
 
   {/* If modal is open, prevent page scrolling */}
@@ -184,7 +198,7 @@ export const Arts: React.FC<ArtsProps> = ({ contestState }) => {
   const updateSortValue = (sortValue: sortValueType) => {
     setSortValue(sortValue);
     // console.log("The new sort value is: " + sortValue);
-    fetchArtworkData(filterableOptions, pageNumber, sortValue);
+    fetchArtworkData(filterableOptions, pageNumber, sortValue, isFilterOpen);
   };
 
   const updateFilterOption = (optionName: string, updates: Partial<{ number: number; active: boolean; }>) => {
@@ -207,7 +221,8 @@ export const Arts: React.FC<ArtsProps> = ({ contestState }) => {
 
   const clearAllFilters = () => {
     resetAllFilters();
-    // console.log("All filters have been cleared.");
+    // This API call should always be returned from cache by default
+    fetchArtworkData(initialFilterableOptions, pageNumber, sortValue, isFilterOpen);
   };
 
   // Closes filter if background of grid is clicked by the user
@@ -228,7 +243,7 @@ export const Arts: React.FC<ArtsProps> = ({ contestState }) => {
 
     // Optionally perform API call if filterableOptions has changed
     if (setValue == false && filterableOptions != mostRecentFilterState) {
-      fetchArtworkData(filterableOptions, pageNumber, sortValue);
+      fetchArtworkData(filterableOptions, pageNumber, sortValue, setValue);
     } else {
       setMostRecentFilterState(filterableOptions);
     }
@@ -252,9 +267,9 @@ export const Arts: React.FC<ArtsProps> = ({ contestState }) => {
 
   return (
     <div className={`${contestState == ContestState.Inactive && "opacity-60 pointer-events-none select-none blur-sm relative"} `}>
-      <ArtworkModal artworks={artworks} pageLoadArtwork={pageLoadArtwork} id={activeEntryId} closeModal={closeModal} isMobile={isMobile} isHorizontal={isHorizontal} modalState={isModalOpen} currentUserId={currentUserId} getShareUrl={getShareUrl}/>
+      <ArtworkModal artworks={artworks} pageLoadArtwork={pageLoadArtwork} id={activeEntryId} closeModal={closeModal} isMobile={isMobile} isModalOpen={isModalOpen} currentUserId={currentUserId} getShareUrl={getShareUrl}/>
       {isMobile && <MobileFilter isFilterOpen={isFilterOpen} handleModifyFilterState={handleModifyFilterState} updateFilterOption={updateFilterOption} updateSortValue={updateSortValue} alterFiltersByCategory={alterFiltersByCategory} resetAllFilters={resetAllFilters} /> }
-      <div className="relative px-8 md:px-12 lg:px-16 xl:px-20 max-w-screen-2xl z-0 m-auto w-screen">
+      <div className="relative px-8 md:px-12 lg:px-16 xl:px-20 max-w-screen-2xl z-0 m-auto w-screen min-h-[800px]">
         {/* Flexbox 1 - Contains filter open/close button on left side, and Sort title/maybe options on right side */}
         <div className="relative z-[100] flex justify-between" >
           <button
@@ -288,27 +303,39 @@ export const Arts: React.FC<ArtsProps> = ({ contestState }) => {
             style={{gridColumn: "1 / 21"}} 
           >
             <hr className="my-10 border-new-black border-t-0.5 w-full"></hr>
-            <div className="">
-              <Image src={blueBlobs} alt="" className="-z-10 absolute top-1/4 right-0" />
-              <Image src={multiBlueblobs} alt="" className="-z-10 absolute top-1/4 left-0" />
+            {isLoading &&
+            <div className="absolute mx-auto left-0 right-0 ml-auto mr-auto ">
+
+              <LoadingAnimation scale={100} stroke={2}/>
+            </div>
+            }
+            {(!artworks || artworks.length == 0) && !isLoading ? 
+              <div>
+                <Image className="text-center mx-auto pt-10 " src={no_results_found} width={500} alt="No results found."/>
+                <p className="font-bold text-xl mx-auto text-center py-10 font-montserrat">No Result Found</p>
+                <p className="font-light text-xl mx-auto text-center">We can’t find any results matching your filter.</p>
+              </div>
+              : (
+                <>
+                  <Image src={blueBlobs} alt="" className="-z-10 absolute top-1/4 right-0" />
+                  <Image src={multiBlueblobs} alt="" className="-z-10 absolute top-1/4 left-0" />      
+                </>
+              )} 
+            {/* <Image src={blueBlobs} alt="" className="-z-10 absolute top-1/4 right-0" /> */}
+            {/* <Image src={multiBlueblobs} alt="" className="-z-10 absolute top-1/4 left-0" /> */}
+            <div className={`${isLoading && "opacity-60"} `}>
               {error && <div className="text-red-600 py-6 text-lg mx-auto text-center">We're having some difficulty fetching artworks. Try refreshing the page. </div>}
               <div className="grid grid-cols-2 gap-x-2 gap-y-6 xl:grid-cols-4 xl:gap-x-6 xl:gap-y-10">
-                {isLoading ? (
-                  <div>Loading...</div>
-                ) : (
-                  Array.isArray(artworks) && artworks.length > 0 ? (
-                    artworks.map((artwork) => (
-                      artwork.id != null ? (
-                        <ArtworkCard
-                          data={artwork}
-                          openModal={openModal}
-                          key={artwork.id}
-                        />
-                      ) : null
-                    ))
-                  ) : (
-                    <div>No artworks found to match those criteria.</div>
-                  )
+                {Array.isArray(artworks) && artworks.length > 0 && (
+                  artworks.map((artwork) => (
+                    artwork.id != null ? (
+                      <ArtworkCard
+                        data={artwork}
+                        openModal={openModal}
+                        key={artwork.id}
+                      />
+                    ) : null
+                  ))
                 )}
               </div>
               <Pagination
@@ -321,7 +348,7 @@ export const Arts: React.FC<ArtsProps> = ({ contestState }) => {
           </section>
           {/* Filter */}
           <section className={`relative z-50 row-start-1 row-span-2 col-start-1  lg:col-span-5 lg:col-start-1 xl:col-span-4 xl:col-start-1 
-          ${isFilterOpen ? "relative visible ease-in-out duration-500 pointer-events-auto " : "absolute col-span-0 invisible ease-in-out duration-500 pointer-events-none select-none "}
+          ${isFilterOpen ? "relative visible ease-in-out duration-500 pointer-events-auto " : "h-0 absolute col-span-0 invisible ease-in-out duration-500 pointer-events-none select-none "}
           `}>
             <div className="relative z-50 flex-wrap w-full">
               <section className="relative max-w-screen-2xl m-auto">
