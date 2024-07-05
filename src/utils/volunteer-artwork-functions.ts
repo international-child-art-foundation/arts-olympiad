@@ -35,11 +35,11 @@ export async function handleFetchUnapprovedArtworks({}) {
 }
 
 export async function handleApproveArtwork({
-  artwork_id,
+  artwork_sk,
 }: VolunteerArtworkInterface) {
-  console.log(artwork_id);
+  console.log(artwork_sk);
   try {
-    const gatewayServerResponse = await fetch(`/next-proxy/api/artworks/${artwork_id}`, {
+    const gatewayServerResponse = await fetch(`/next-proxy/api/artworks/${artwork_sk}`, {
       method: "PATCH",
       headers: {
         "Content-Type": "application/json",
@@ -75,11 +75,11 @@ export async function handleApproveArtwork({
 }
 
 export async function handleDeleteArtwork({
-  artwork_id,
+  artwork_sk,
 }: VolunteerArtworkInterface) {
-  console.log(artwork_id);
+  console.log(artwork_sk);
   try {
-    const gatewayServerResponse = await fetch(`/next-proxy/api/artworks/${artwork_id}`, {
+    const gatewayServerResponse = await fetch(`/next-proxy/api/artworks/${artwork_sk}`, {
       method: "DELETE",
       headers: {
         "Content-Type": "application/json",
@@ -110,11 +110,11 @@ export async function handleDeleteArtwork({
 }
 
 export async function handleBanUser({
-  user_id,
+  user_sk,
 }: VolunteerUserInterface) {
-  console.log(user_id);
+  console.log(user_sk);
   try {
-    const gatewayServerResponse = await fetch(`/next-proxy/api/volunteer/update-user/${user_id}`, {
+    const gatewayServerResponse = await fetch(`/next-proxy/api/volunteer/update-user/${user_sk}`, {
       method: "PATCH",
       headers: {
         "Content-Type": "application/json",

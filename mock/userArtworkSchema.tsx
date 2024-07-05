@@ -1,5 +1,5 @@
 export interface userArtworkSchema {
-	id: string;
+	sk: string; // This is ID
 	f_name: string;
 	age: number;
 	sport: string;

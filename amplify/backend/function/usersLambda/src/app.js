@@ -38,16 +38,17 @@ app.post("/api/users/presigned-url", generatePresignedValidator, validationMiddl
 app.post("/api/forgot-password", forgotPasswordValidator, validationMiddleware, UserController.forgotPassword);
 app.get("/api/auth-status", UserController.getAuthStatus);
 
-app.patch("/api/volunteer/update-user/:userId", volunteerUpdateUserValidator, validationMiddleware, UserController.volunteerUpdateUser);
+app.patch("/api/volunteer/update-user/:userSk", volunteerUpdateUserValidator, validationMiddleware, UserController.volunteerUpdateUser);
 app.get("/api/volunteer/auth-status", UserController.getVolunteerAuthStatus);
 
 app.get("/api/artworks", ArtworkController.getArtworks);
 app.post("/api/artworks", addArtworkValidator, validationMiddleware, ArtworkController.addArtwork);
-app.get("/api/artworks/:artworkId", ArtworkController.getArtwork);
-app.patch("/api/artworks/:artworkId", approveArtworkValidator, validationMiddleware, ArtworkController.approveArtwork);
-app.delete("/api/artworks/:artworkId", ArtworkController.deleteArtwork);
-app.patch("/api/artworks/:artworkId/votes/increment", ArtworkController.incrementVoteArtwork);
-app.patch("/api/artworks/:artworkId/votes/decrement", ArtworkController.decrementVoteArtwork);
+app.get("/api/artworks/:artworkSk", ArtworkController.getArtwork);
+app.patch("/api/artworks/:artworkSk", approveArtworkValidator, validationMiddleware, ArtworkController.approveArtwork);
+app.delete("/api/artworks/:artworkSk", ArtworkController.deleteArtwork);
+app.patch("/api/artworks/:artworkSk/votes/increment", ArtworkController.incrementVoteArtwork);
+app.patch("/api/artworks/:artworkSk/votes/decrement", ArtworkController.decrementVoteArtwork);
+app.patch("/api/vote/:artworkSk", ArtworkController.voteArtwork);
 
 app.get("/api/votes", VotesController.getTotalVotes);
 

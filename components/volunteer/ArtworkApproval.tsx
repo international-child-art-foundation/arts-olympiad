@@ -12,39 +12,39 @@ export const ArtworkApproval = () => {
   const [selectedArtwork, setSelectedArtwork] = useState<userArtworkSchema | null>(null);
   const [artworkStatuses, setArtworkStatuses] = useState<Record<string, ArtworkStatus>>({});
 
-  async function onApprove(artwork_id: string) {
-    console.log(artwork_id);
-    const artworkStatus = await handleApproveArtwork({artwork_id});
+  async function onApprove(artwork_sk: string) {
+    console.log(artwork_sk);
+    const artworkStatus = await handleApproveArtwork({artwork_sk});
     if (artworkStatus?.success == true) {
       setSelectedArtwork(null);
-      setArtworkStatuses(prev => ({...prev, [artwork_id]: "approved"}));
-      console.log(artwork_id + " has successfully been approved.");
+      setArtworkStatuses(prev => ({...prev, [artwork_sk]: "approved"}));
+      console.log(artwork_sk + " has successfully been approved.");
     } else {
-      console.log("Failed to approve artwork " + artwork_id);
+      console.log("Failed to approve artwork " + artwork_sk);
     }
   }
 
-  async function onDeny(artwork_id: string) {
-    console.log(artwork_id);
-    const artworkStatus = await handleDeleteArtwork({artwork_id});
+  async function onDeny(artwork_sk: string) {
+    console.log(artwork_sk);
+    const artworkStatus = await handleDeleteArtwork({artwork_sk});
     if (artworkStatus?.success == true) {
     
-      setArtworkStatuses(prev => ({...prev, [artwork_id]: "denied"}));
-      console.log(artwork_id + " has been denied.");
+      setArtworkStatuses(prev => ({...prev, [artwork_sk]: "denied"}));
+      console.log(artwork_sk + " has been denied.");
     } else {
-      console.log("Failed to delete artwork " + artwork_id);
+      console.log("Failed to delete artwork " + artwork_sk);
     }
   }
 
-  async function onBanUser(artwork_id: string) {
-    const user_id = artwork_id;
-    const artworkStatus = await handleBanUser({user_id});
+  async function onBanUser(artwork_sk: string) {
+    const user_sk = artwork_sk;
+    const artworkStatus = await handleBanUser({user_sk});
     if (artworkStatus?.success == true) {
-      console.log(artwork_id);
-      setArtworkStatuses(prev => ({...prev, [artwork_id]: "banned"}));
-      console.log("User associated with " + artwork_id + " has been banned.");
+      console.log(artwork_sk);
+      setArtworkStatuses(prev => ({...prev, [artwork_sk]: "banned"}));
+      console.log("User associated with " + artwork_sk + " has been banned.");
     } else {
-      console.log("Failed to ban user " + artwork_id);
+      console.log("Failed to ban user " + artwork_sk);
     }
   }
 
@@ -83,34 +83,34 @@ export const ArtworkApproval = () => {
             <div 
               key={index} 
               className={`relative border border-gray-200 rounded-lg overflow-hidden shadow-md hover:shadow-lg transition-shadow duration-300 cursor-pointer ${
-                artworkStatuses[artwork.id] === "approved" ? "bg-green-200 opacity-50" :
-                  artworkStatuses[artwork.id] === "denied" ? "bg-red-200 opacity-50" :
-                    artworkStatuses[artwork.id] === "banned" ? "bg-gray-200 opacity-50" : ""
+                artworkStatuses[artwork.sk] === "approved" ? "bg-green-200 opacity-50" :
+                  artworkStatuses[artwork.sk] === "denied" ? "bg-red-200 opacity-50" :
+                    artworkStatuses[artwork.sk] === "banned" ? "bg-gray-200 opacity-50" : ""
               }`}
-              onClick={() => !artworkStatuses[artwork.id] && handleArtworkClick(artwork)}
+              onClick={() => !artworkStatuses[artwork.sk] && handleArtworkClick(artwork)}
             >
               <div className="relative h-48">
                 <Image 
-                  src={`${process.env.NEXT_PUBLIC_CLOUDFRONT_DISTRIBUTION_URL}/${artwork.id}/initial.${artwork.file_type}`} 
+                  src={`${process.env.NEXT_PUBLIC_CLOUDFRONT_DISTRIBUTION_URL}/${artwork.sk}/initial.${artwork.file_type}`} 
                   layout="fill"
                   objectFit="cover"
                   alt={`Artwork titled: ${artwork.f_name}`} 
                 />
               </div>
               <div className="p-4">
-                <p className="text-xs text-gray-600">{artwork.id}</p>
+                <p className="text-xs text-gray-600">{artwork.sk}</p>
                 <p className="text-sm mb-2">{truncateDescription(artwork.description)}</p>
                 <p className="text-xs text-gray-600">{artwork.location}</p>
                 <p className="text-xs text-gray-600">{artwork.sport}</p>
               </div>
-              {artworkStatuses[artwork.id] && (
+              {artworkStatuses[artwork.sk] && (
                 <div className={`absolute top-2 right-2 px-2 py-1 rounded-full text-xs text-white ${
-                  artworkStatuses[artwork.id] === "approved" ? "bg-green-500" :
-                    artworkStatuses[artwork.id] === "denied" ? "bg-red-500" :
+                  artworkStatuses[artwork.sk] === "approved" ? "bg-green-500" :
+                    artworkStatuses[artwork.sk] === "denied" ? "bg-red-500" :
                       "bg-gray-500"
                 }`}>
-                  {artworkStatuses[artwork.id] === "approved" ? "Approved" :
-                    artworkStatuses[artwork.id] === "denied" ? "Denied" : "User Banned"}
+                  {artworkStatuses[artwork.sk] === "approved" ? "Approved" :
+                    artworkStatuses[artwork.sk] === "denied" ? "Denied" : "User Banned"}
                 </div>
               )}
             </div>

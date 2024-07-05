@@ -7,7 +7,7 @@ import Link from "next/link";
 import LoadingAnimation from "../svgs/LoadingAnimation";
 import { userArtworkSchema } from "../../mock/userArtworkSchema";
 import { artworkDataResponse } from "@/interfaces/gallery_shapes";
-import { getSingleArtworkData } from "@/utils/artworks";
+import { getSingleArtworkData, voteForArtwork } from "@/utils/artworks";
 import { useGlobalContext } from "@/app/GlobalContext";
 import useWindowDimensions from "@/hooks/useWindowDimensions";
 import { gsap } from "gsap";
@@ -16,10 +16,10 @@ import "@/styles/home.css";
 type ArtworkModalProps = {
   artworks: artworkDataResponse
   pageLoadArtwork: userArtworkSchema | undefined;
-  id: string | null;
+  sk: string | null;
   isModalOpen: boolean;
   isMobile: boolean;
-  currentUserId: string | null;
+  currentUserSk: string | null;
   closeModal: () => void;
   getShareUrl: () => string;
 };
@@ -35,37 +35,39 @@ function checkSameProps(prevProps: ArtworkModalProps, nextProps: ArtworkModalPro
   // We memoize this function to be efficient. If any of `id`, `modalState`, or `pageLoadArtwork` have changed, re-render. 
   // May need to include `artworks` as well.
   // isMobile/isHorizontal currently bugged with this solution, but adding them here may be expensive, so more thought has to be done.
-  return prevProps.id == nextProps.id && prevProps.isModalOpen == nextProps.isModalOpen && prevProps.pageLoadArtwork == nextProps.pageLoadArtwork;
+  return prevProps.sk == nextProps.sk && prevProps.isModalOpen == nextProps.isModalOpen && prevProps.pageLoadArtwork == nextProps.pageLoadArtwork;
 }
 
-const ArtworkModal: React.FC<ArtworkModalProps> = ({ artworks, pageLoadArtwork, id, isModalOpen, closeModal, getShareUrl, currentUserId, isMobile }) => {
+const ArtworkModal: React.FC<ArtworkModalProps> = ({ artworks, pageLoadArtwork, sk, isModalOpen, closeModal, getShareUrl, currentUserSk, isMobile }) => {
   const {isAuthenticated} = useGlobalContext();
   const { windowWidth, windowHeight } = useWindowDimensions();
   const isHorizontal = windowWidth > windowHeight;
   const [modalState, setModalState] = useState<ModalState>({ status: "loading" });
+  const [alreadyVoted, setAlreadyVoted] = useState(false);
 
   async function handleCloseModal() {
     await setModalState({status: "loading"});
+    setAlreadyVoted(false);
     closeModal();
   }
   
   useEffect(() => {
-    if (!isModalOpen || !id) {
+    if (!isModalOpen || !sk) {
       setModalState({ status: "loading" });
       return;
     }
   
     const fetchArtworkData = async () => {
       let data;
-      if (pageLoadArtwork && pageLoadArtwork.id === id) {
+      if (pageLoadArtwork && pageLoadArtwork.sk === sk) {
         data = pageLoadArtwork;
       } else if (artworks) {
-        data = artworks.find(artwork => artwork.id === id);
+        data = artworks.find(artwork => artwork.sk === sk);
       }
   
-      if (!data && id) {
+      if (!data && sk) {
         try {
-          data = await getSingleArtworkData(id);
+          data = await getSingleArtworkData(sk);
         } catch (error) {
           console.error("Error fetching artwork data:", error);
           setModalState({ status: "error" });
@@ -87,7 +89,7 @@ const ArtworkModal: React.FC<ArtworkModalProps> = ({ artworks, pageLoadArtwork, 
           // .set(gridContainerRef.current, { gridTemplateRows: "0.7fr" })
           .to(gridContainerRef.current, { 
             gridTemplateRows: "1fr", 
-            duration: isMobile ? 0.8 : 0.4, 
+            duration: isMobile ? 0.7 : 0.4, 
             ease: isMobile ? "power1.out": "power4.out" 
           })
           .to(modalContentRef.current, { 
@@ -101,22 +103,28 @@ const ArtworkModal: React.FC<ArtworkModalProps> = ({ artworks, pageLoadArtwork, 
     };
   
     fetchArtworkData();
-  }, [isModalOpen, id, pageLoadArtwork, artworks]);
+  }, [isModalOpen, sk, pageLoadArtwork, artworks]);
 
-  {/* submitVote needs to be updated when API calls are officially added. */}
-  const submitVote = async () => {
-    setModalState({status: "loading"}); // Transition to loading state
-    try {
-      const response = await new Promise<{ ok: boolean }>((resolve) => {
-        setTimeout(() => {
-          resolve({ ok: true }); // Simulate successful API response
-        }, 1000); // Simulate network delay
-      });
-      if (response.ok) {
-        setModalState({status: "submitted"}); // Transition to submitted state on success
+
+  const submitVote = async (artwork_sk: string) => {
+    if (modalState.status == "loaded") {
+      const currentData = modalState.data;
+      setModalState({status: "loading"}); // Transition to loading state
+      try {
+        const response = await voteForArtwork(artwork_sk);
+        if (response.success === true) {
+          setModalState({status: "submitted"}); // Transition to submitted state on success
+        } else {
+          if (response.message == "Cannot vote on the same artwork twice") {
+            setModalState({status: "loaded", data: currentData});
+            setAlreadyVoted(true);
+          } else {
+            setModalState({status: "error"});
+          }
+        }
+      } catch (error) {
+        console.error("Failed to submit vote", error);
       }
-    } catch (error) {
-      console.error("Failed to submit vote", error);
     }
   };
 
@@ -133,7 +141,7 @@ const ArtworkModal: React.FC<ArtworkModalProps> = ({ artworks, pageLoadArtwork, 
 
   function renderLoadingState() {
     return (
-      <div className="relative inset-0 flex justify-center items-center pointer-events-none h-[0px]">
+      <div className="relative inset-0 flex justify-center items-center pointer-events-none h-[100px]">
         <LoadingAnimation scale={90} stroke={2}/>
       </div>
     );
@@ -155,7 +163,7 @@ const ArtworkModal: React.FC<ArtworkModalProps> = ({ artworks, pageLoadArtwork, 
   }
   
   function renderDefaultState() {
-    if (modalState.status != "loaded" || id == null) {
+    if (modalState.status != "loaded" || sk == null) {
       return (
         <>
           <p className="mx-auto font-semibold font-montserrat text-xl mt-auto">Oops! An error has occurred. This artwork may be unavailable.</p>
@@ -194,14 +202,17 @@ const ArtworkModal: React.FC<ArtworkModalProps> = ({ artworks, pageLoadArtwork, 
               <Link className="bg-new-blue text-white text-base p-4 rounded mt-4 text-center" href="/auth/login">Sign in</Link>
             </>
           ) : (
-            currentUserId != id && (
-              <button className="bg-new-blue text-white text-base p-4 rounded mt-4" onClick={submitVote}>Vote for this artwork</button>
+            currentUserSk != sk && (
+              <>
+                {alreadyVoted && <p className="text-md pt-4 text-green-700">You've already voted for this artwork!</p>}
+                <button className={`bg-new-blue text-white text-base p-4 rounded mt-4 ${alreadyVoted && "opacity-60 pointer-events-none"}`} onClick={() => submitVote(sk)}>Vote for this artwork</button>
+              </>
             )
           )}
         </div>
         <div className="flex justify-center items-center rounded-xl overflow-hidden relative flex-shrink">
-          <Image src={`${process.env.NEXT_PUBLIC_CLOUDFRONT_DISTRIBUTION_URL}/${modalState.data.id}/medium.webp`} alt={modalState.data.f_name} width={800} height={500} className="max-w-full max-h-full col-start-2 z-20 object-contain" />
-          <Image src={`${process.env.NEXT_PUBLIC_CLOUDFRONT_DISTRIBUTION_URL}/${modalState.data.id}/medium.webp`} fill alt={modalState.data.f_name} className="col-start-2 z-10 rounded-xl blur-3xl opacity-50 object-cover" />
+          <Image src={`${process.env.NEXT_PUBLIC_CLOUDFRONT_DISTRIBUTION_URL}/${modalState.data.sk}/medium.webp`} alt={modalState.data.f_name} width={800} height={500} className="max-w-full max-h-full col-start-2 z-20 object-contain" />
+          <Image src={`${process.env.NEXT_PUBLIC_CLOUDFRONT_DISTRIBUTION_URL}/${modalState.data.sk}/medium.webp`} fill alt={modalState.data.f_name} className="col-start-2 z-10 rounded-xl blur-3xl opacity-50 object-cover" />
         </div>
       </div>
     );
@@ -237,13 +248,13 @@ const ArtworkModal: React.FC<ArtworkModalProps> = ({ artworks, pageLoadArtwork, 
       );
     }  
     return (
-      <div className="grid max-h-full overflow-auto gap-y-2">
+      <div className="grid max-h-full p-4 overflow-auto gap-y-2">
         <div className="inline-block py-2 mb-4">
           <span className="bg-[#fbb22e] rounded-3xl p-2 px-8">{modalState.data.votes} Votes</span>
         </div>
         <div className="flex justify-center items-center rounded-xl overflow-hidden relative flex-shrink">
-          <Image src={`${process.env.NEXT_PUBLIC_CLOUDFRONT_DISTRIBUTION_URL}/${modalState.data.id}/medium.webp`} alt={modalState.data.f_name} width={500} height={300} className="max-w-full max-h-full col-start-2 z-20 object-contain" />
-          <Image src={`${process.env.NEXT_PUBLIC_CLOUDFRONT_DISTRIBUTION_URL}/${modalState.data.id}/medium.webp`} fill alt={modalState.data.f_name} className="col-start-2 z-10 rounded-xl blur-3xl opacity-50 object-cover" />
+          <Image src={`${process.env.NEXT_PUBLIC_CLOUDFRONT_DISTRIBUTION_URL}/${modalState.data.sk}/medium.webp`} alt={modalState.data.f_name} width={500} height={300} className="max-w-full max-h-full col-start-2 z-20 object-contain" />
+          <Image src={`${process.env.NEXT_PUBLIC_CLOUDFRONT_DISTRIBUTION_URL}/${modalState.data.sk}/medium.webp`} fill alt={modalState.data.f_name} className="col-start-2 z-10 rounded-xl blur-3xl opacity-50 object-cover" />
         </div>
         <p className="font-bold text-xl mt-9">{modalState.data.f_name}</p>
         <div className="mt-2">
@@ -267,8 +278,11 @@ const ArtworkModal: React.FC<ArtworkModalProps> = ({ artworks, pageLoadArtwork, 
             <Link className="bg-new-blue text-white text-base p-4 rounded mt-4 text-center" href="/auth/login">Sign in</Link>
           </>
         ) : (
-          currentUserId != id && (
-            <button className="bg-new-blue text-white text-base p-4 rounded mt-4" onClick={submitVote}>Vote for this artwork</button>
+          currentUserSk != sk && sk && (
+            <>
+              {alreadyVoted && <p className="text-md pt-4 text-green-700">You've already voted for this artwork!</p>}
+              <button className={`bg-new-blue text-white text-base p-4 rounded mt-4 ${alreadyVoted && "opacity-60 pointer-events-none"}`} onClick={() => submitVote(sk)}>Vote for this artwork</button>
+            </>
           )
         )}
       </div>

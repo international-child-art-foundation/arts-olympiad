@@ -45,8 +45,8 @@ export default function DashboardManager() {
         console.log(userData);
         setApiUserData(userData);
       }
-      if (userData.id && userData.has_active_submission) {
-        const artworkData = await getSingleArtworkData(userData.id);
+      if (userData.sk && userData.has_active_submission) {
+        const artworkData = await getSingleArtworkData(userData.sk);
         console.log(artworkData);
         setApiArtworkData(artworkData);
       }

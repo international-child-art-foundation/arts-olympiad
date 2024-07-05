@@ -13,14 +13,14 @@ export const DeleteArtwork: React.FC<DeleteArtworkProps> = ({  }) => {
   const [successfulArtworkDeletion, setSuccessfulArtworkDeletion] = useState(false);
   const router = useRouter();
 
-  const deleteArtwork = async (artwork_id: string) => {
+  const deleteArtwork = async (artwork_sk: string) => {
     setIsLoading(true);
     try {
-      const artworkStatus = await handleDeleteArtwork({artwork_id});
+      const artworkStatus = await handleDeleteArtwork({artwork_sk});
       if (artworkStatus?.success == true) {
-        console.log(artwork_id + " has been deleted.");
+        console.log(artwork_sk + " has been deleted.");
       } else {
-        console.log("Failed to delete artwork " + artwork_id);
+        console.log("Failed to delete artwork " + artwork_sk);
       }
       setSuccessfulArtworkDeletion(true);
       router.refresh();
@@ -38,7 +38,7 @@ export const DeleteArtwork: React.FC<DeleteArtworkProps> = ({  }) => {
         </div>
       }
       {!successfulArtworkDeletion && (
-        apiArtworkData && apiArtworkData.id ? (
+        apiArtworkData && apiArtworkData.sk ? (
           <div className={`max-w-[900px] px-2 sm:px-10 lg:px-20 py-10 flex flex-col gap-6 h-full w-full col-start-1 row-start-1 mx-auto ${isLoading && "opacity-50"}`}>
             <p className="font-montserrat text-4xl">
               {apiUserData && apiUserData.f_name}, are you sure?
@@ -57,7 +57,7 @@ export const DeleteArtwork: React.FC<DeleteArtworkProps> = ({  }) => {
                 No, go back
               </button>
               <button className="p-4 bg-warning-red text-white rounded flex-grow hover:bg-[#DB3952]"
-                onClick={() => deleteArtwork(apiArtworkData.id)}
+                onClick={() => deleteArtwork(apiArtworkData.sk)}
               >
                 Yes, remove my art now
               </button>

@@ -12,25 +12,25 @@ if (process.env.ENV && process.env.ENV !== "NONE") {
 const client = new CognitoIdentityProviderClient({});
 
 
-async function getUserById(userId) {
+async function getUserBySk(userSk) {
   // Validation checks mostly for debugging
-  if (!userId) {
-    throw new Error("Absent userId: userId is required.");
+  if (!userSk) {
+    throw new Error("Absent userSk: userSk is required.");
   }
-  if (typeof userId !== "string") {
-    throw new Error("Invalid userId: userId must be a string.");
+  if (typeof userSk !== "string") {
+    throw new Error("Invalid userSk: userSk must be a string.");
   }
-  if (userId.length <= 5) {
-    throw new Error("Invalid userId: userId must be longer than 5 characters.");
+  if (userSk.length <= 5) {
+    throw new Error("Invalid userSk: userSk must be longer than 5 characters.");
   }
 
   const input = {
     TableName: tableName,
     Key: {
       pk: "USER",
-      sk: userId
+      sk: userSk
     },
-    ProjectionExpression: "id, f_name, l_name, birthdate, #loc, age, email, g_f_name, g_l_name, voted_id, can_submit_art, has_active_submission",
+    ProjectionExpression: "sk, f_name, l_name, birthdate, #loc, age, email, g_f_name, g_l_name, voted_id, can_submit_art, has_active_submission",
     ExpressionAttributeNames: { "#loc": "location" },
   };
   try {
@@ -65,7 +65,6 @@ async function createUser(signUpResult, userDetails) {
     const user = {
       pk: "USER",
       sk: signUpResult.UserSub,
-      id: signUpResult.UserSub, // uuid created for User name if not specified
       f_name: userDetails.f_name,
       l_name: userDetails.l_name,
       birthdate: userDetails.birthdate,
@@ -79,7 +78,7 @@ async function createUser(signUpResult, userDetails) {
     };
 
     await ddbDocClient.send(new PutCommand(input));
-    return user.id;
+    return user.sk;
   } catch (error) {
     console.error("error saving user info to db");
     throw error;
@@ -174,13 +173,13 @@ async function forgotPassword(username) {
   }
 }
 
-async function deleteUserData(userId) {
+async function deleteUserData(userSk) {
   try {
     const input = {
       TableName: tableName,
       Key: {
         pk: "USER",
-        sk: userId
+        sk: userSk
       }
     };
     await ddbDocClient.send(new DeleteCommand(input));
@@ -190,12 +189,12 @@ async function deleteUserData(userId) {
   }
 }
 
-async function updateUserById(userId, fieldName, fieldValue) {
+async function updateUserById(userSk, fieldName, fieldValue) {
   const input = {
     TableName: tableName,
     Key: {
       pk: "USER",
-      sk: userId
+      sk: userSk
     },
     ConditionExpression: "attribute_exists(pk) AND attribute_exists(sk)",
     UpdateExpression: "set #fieldName = :fieldValue",
@@ -218,7 +217,7 @@ async function updateUserById(userId, fieldName, fieldValue) {
 }
 
 module.exports = {
-  getUserById,
+  getUserBySk,
   createCognitoUser,
   createUser,
   confirmCognitoUser,

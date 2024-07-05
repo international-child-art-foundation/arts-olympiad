@@ -29,11 +29,12 @@ export const ActiveArtDisplay = () => {
   const {apiUserData, apiArtworkData, dashboardMainTabSubmissionData, setDashboardMainTabSubmissionData, setDisplayModal } = useDashboardContext();
 
   useEffect(() => {
-    if (apiArtworkData && apiArtworkData.id && apiArtworkData.is_approved == true) {
-      setImageUrl(buildMdImageUrl(apiArtworkData.id));
+    if (apiArtworkData && apiArtworkData.sk && apiArtworkData.is_approved == true) {
+      console.log(apiArtworkData);
+      setImageUrl(buildMdImageUrl(apiArtworkData.sk));
     }
-    if (apiArtworkData && apiArtworkData.id) {
-      setImageUrl(buildLgImageUrl(apiArtworkData.id, apiArtworkData.file_type) ?? placeholderImage);
+    if (apiArtworkData && apiArtworkData.sk) {
+      setImageUrl(buildLgImageUrl(apiArtworkData.sk, apiArtworkData.file_type) ?? placeholderImage);
     }
   }, [apiArtworkData]);
   
@@ -154,7 +155,7 @@ export const ActiveArtDisplay = () => {
                 {apiArtworkData.is_approved ? (
                   <div>
                     <p className="font-semibold">Share This Post</p>
-                    <SocialShare shareUrl={"/gallery?id=" + apiArtworkData.id} />
+                    <SocialShare shareUrl={"/gallery?id=" + apiArtworkData.sk} />
                   </div>
                 ) : (
                   <div>

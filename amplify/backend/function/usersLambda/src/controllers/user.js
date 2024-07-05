@@ -10,8 +10,8 @@ async function getUser(req, res) {
     await handleRefreshTokenFlow(req, res);
     if (res.headersSent) return; // Exit execution if response has already been sent
     const userCognitoData = await getUserCognitoData(req.cookies.accessToken);
-    const userId = userCognitoData.sub;
-    const user = await UserService.getUser(userId);
+    const userSk = userCognitoData.sub;
+    const user = await UserService.getUser(userSk);
     res.status(200).json(user);
   } catch (error) {
     console.error("Error from route:", error.message || error);
@@ -154,11 +154,11 @@ async function logout(req, res) {
 
 async function deleteUser(req, res) {
   const userCognitoData = await getUserCognitoData(req.cookies.accessToken);
-  const userId = userCognitoData.sub;
+  const userSk = userCognitoData.sub;
   const token = req.headers.authentication?.split(" ")[1];
 
   try {
-    await UserService.deleteUser(userId, token);
+    await UserService.deleteUser(userSk, token);
     res.status(204).send();
   } catch(error) {
     console.error("error deleting user");
@@ -178,10 +178,10 @@ async function forgotPassword(req, res) {
 
 async function updateUser(req, res) {
   const userCognitoData = await getUserCognitoData(req.cookies.accessToken);
-  const userId = userCognitoData.sub;
+  const userSk = userCognitoData.sub;
 
   try {
-    const updatedUser = await UserService.updateUser(userId, req.body);
+    const updatedUser = await UserService.updateUser(userSk, req.body);
     res.status(200).json(updatedUser);
   } catch(error) {
     console.error(error);
@@ -190,7 +190,7 @@ async function updateUser(req, res) {
 }
 
 async function volunteerUpdateUser(req, res) {
-  const userId = req.params.userId;
+  const userSk = req.params.userSk;
   
   if (!req.cookies.accessToken) {
     return res.status(401).json({message: "No access token provided"});
@@ -202,7 +202,7 @@ async function volunteerUpdateUser(req, res) {
     
     if (userNick === "Volunteer") {
       try {
-        const updatedUser = await UserService.volunteerUpdateUser(userId, req.body);
+        const updatedUser = await UserService.volunteerUpdateUser(userSk, req.body);
         res.status(200).json(updatedUser);
       } catch(error) {
         console.error(error);

@@ -5,9 +5,9 @@ const { getUserCognitoData, handleRefreshTokenFlow } = require("../utils");
 const ArtworkService = require("../services/artwork");
 
 async function getArtwork(req, res) {
-  const artworkId = req.params.artworkId;
+  const artworkSk = req.params.artworkSk;
   try {
-    const artwork = await ArtworkService.getArtwork(artworkId);
+    const artwork = await ArtworkService.getArtwork(artworkSk);
     res.status(200).json(artwork);
   } catch(error) {
     console.error(error);
@@ -19,10 +19,10 @@ async function addArtwork(req, res) {
   await handleRefreshTokenFlow(req, res);
   if (res.headersSent) return;
   const userCognitoData = await getUserCognitoData(req.cookies.accessToken);
-  const userId = userCognitoData.sub;
+  const userSk = userCognitoData.sub;
 
   const artworkData = {
-    id: userId,
+    sk: userSk,
     f_name: req.body.f_name,
     age: req.body.age,
     description: req.body.description,
@@ -35,7 +35,7 @@ async function addArtwork(req, res) {
   };
 
   try {
-    const result = await ArtworkService.addArtworkAndUpdateUser(artworkData, userId);
+    const result = await ArtworkService.addArtworkAndUpdateUser(artworkData, userSk);
     res.status(200).json(result);
   } catch(error) {
     res.status(400).json({message: "Error adding artwork and updating user", error: error.message});
@@ -43,7 +43,7 @@ async function addArtwork(req, res) {
 }
 
 async function approveArtwork(req, res) {
-  const artworkId = req.params.artworkId;
+  const artworkSk = req.params.artworkSk;
   const approvalStatus = req.body.is_approved;
 
   // Ensure user is authenticated as a volunteer
@@ -71,7 +71,7 @@ async function approveArtwork(req, res) {
       const command = new InvokeCommand({
         FunctionName: `arn:aws:lambda:us-east-1:011385746984:function:processImage-${process.env.ENV}`,
         InvocationType: 'RequestResponse', // for synchronous execution
-        Payload: JSON.stringify({ user_id: artworkId }) // artwork id is the same as user id
+        Payload: JSON.stringify({ user_sk: artworkSk }) // artwork sk is the same as user sk
       });
       const { Payload } = await lambdaClient.send(command);
       const response = JSON.parse(Buffer.from(Payload));
@@ -85,7 +85,7 @@ async function approveArtwork(req, res) {
       };
     };
 
-    const artwork = await ArtworkService.approveArtwork(artworkId, approvalStatus);
+    const artwork = await ArtworkService.approveArtwork(artworkSk, approvalStatus);
     res.status(200).json(artwork);
   } catch(error) {
     console.error(error);
@@ -94,9 +94,9 @@ async function approveArtwork(req, res) {
 }
 
 async function incrementVoteArtwork(req, res) {
-  const artworkId = req.params.artworkId;
+  const artworkSk = req.params.artworkSk;
   try {
-    const artwork = await ArtworkService.incrementVoteArtwork(artworkId);
+    const artwork = await ArtworkService.incrementVoteArtwork(artworkSk);
     res.status(200).json(artwork);
   } catch(error) {
     console.error(error);
@@ -105,9 +105,9 @@ async function incrementVoteArtwork(req, res) {
 }
 
 async function decrementVoteArtwork(req, res) {
-  const artworkId = req.params.artworkId;
+  const artworkSk = req.params.artworkSk;
   try {
-    const artwork = await ArtworkService.decrementVoteArtwork(artworkId);
+    const artwork = await ArtworkService.decrementVoteArtwork(artworkSk);
     res.status(200).json(artwork);
   } catch(error) {
     console.error(error);
@@ -115,15 +115,35 @@ async function decrementVoteArtwork(req, res) {
   }
 }
 
+async function voteArtwork(req, res) {
+  try {
+    await handleRefreshTokenFlow(req, res);
+    if (res.headersSent) return;
+
+    const userCognitoData = await getUserCognitoData(req.cookies.accessToken);
+    const userSk = userCognitoData.sub;
+    const artworkSk = req.params.artworkSk;
+
+    const result = await ArtworkService.handleVote(userSk, artworkSk);
+    res.status(200).json(result);
+  } catch (error) {
+    if (error.message === "Cannot vote on the same artwork twice") {
+      res.status(400).json({ message: error.message });
+    } else {
+      res.status(500).json({ message: "Error processing vote", error: error.message });
+    }
+  }
+}
+
 async function deleteArtwork(req, res) {
-  const artworkId = req.params.artworkId;
+  const artworkSk = req.params.artworkSk;
   await handleRefreshTokenFlow(req, res);
   if (res.headersSent) return;
   const userCognitoData = await getUserCognitoData(req.cookies.accessToken);
-  const userId = userCognitoData.sub;
-  if ((userCognitoData && userCognitoData.nickname && userCognitoData.nickname === "Volunteer") || (userId && userId === req.params.artworkId)) {
+  const userSk = userCognitoData.sub;
+  if ((userCognitoData && userCognitoData.nickname && userCognitoData.nickname === "Volunteer") || (userSk && userSk === req.params.artworkSk)) {
     try {
-      const response = await ArtworkService.deleteArtworkCompletely(artworkId);
+      const response = await ArtworkService.deleteArtworkCompletely(artworkSk);
       res.status(204).json(response);
     } catch (error) {
       console.log(error);
@@ -148,11 +168,11 @@ async function generatePresigned(req, res) {
   await handleRefreshTokenFlow(req, res);
   if (res.headersSent) return;
   const userCognitoData = await getUserCognitoData(req.cookies.accessToken);
-  const userId = userCognitoData.sub;
+  const userSk = userCognitoData.sub;
   const fileType = req.body.file_type;
 
   try {
-    const { url, fields } = await ArtworkService.createUrlAndFields(userId, fileType);
+    const { url, fields } = await ArtworkService.createUrlAndFields(userSk, fileType);
     res.status(200).json({ 
       s3_presigned_url:url, 
       fields: fields,
@@ -170,5 +190,6 @@ module.exports = {
   decrementVoteArtwork,
   deleteArtwork,
   getArtworks,
-  generatePresigned
+  generatePresigned,
+  voteArtwork
 };

@@ -24,9 +24,9 @@ export interface UploadResponse {
 }
 
 export interface VolunteerArtworkInterface {
-  artwork_id: string;
+  artwork_sk: string;
 }
 
 export interface VolunteerUserInterface {
-  user_id: string;
+  user_sk: string;
 }

@@ -1,8 +1,8 @@
 const UserModel = require("../models/user");
 const ArtworkService = require("./artwork");
 
-async function getUser(userId) {
-  const user = await UserModel.getUserById(userId);
+async function getUser(userSk) {
+  const user = await UserModel.getUserBySk(userSk);
   return user.Item;
 }
 
@@ -35,11 +35,11 @@ async function logout(accessToken) {
   return await UserModel.globalSignOut(accessToken);
 }
 
-async function deleteUser(userId, token) {
+async function deleteUser(userSk, token) {
   await UserModel.deleteCognitoUser(token);
-  await UserModel.deleteUserData(userId);
+  await UserModel.deleteUserData(userSk);
   // 
-  await ArtworkService.deleteArtwork(userId); 
+  await ArtworkService.deleteArtwork(userSk); 
   return;
 }
 
@@ -48,7 +48,7 @@ async function forgotPassword(username) {
   return forgotPasswordResult;
 }
 
-async function updateUser(userId, updateField) {
+async function updateUser(userSk, updateField) {
   const fieldName = Object.keys(updateField)[0];
   const fieldValue = updateField[fieldName];
   
@@ -56,12 +56,12 @@ async function updateUser(userId, updateField) {
   
   if (allowedFields.includes(fieldName)) {
     try {
-      const user = await UserModel.updateUserById(userId, fieldName, fieldValue);
+      const user = await UserModel.updateUserById(userSk, fieldName, fieldValue);
       const {pk, sk, ...formattedUser} = user.Attributes;
     
       return formattedUser;
     } catch (error) {
-      console.error(`Error updating user ${userId}:`, error);
+      console.error(`Error updating user ${userSk}:`, error);
       throw error;
     }
   } else {
@@ -71,7 +71,7 @@ async function updateUser(userId, updateField) {
   }
 }
 
-async function volunteerUpdateUser(userId, updateField) {
+async function volunteerUpdateUser(userSk, updateField) {
   const fieldName = Object.keys(updateField)[0];
   const fieldValue = updateField[fieldName];
   
@@ -79,12 +79,12 @@ async function volunteerUpdateUser(userId, updateField) {
   
   if (allowedFields.includes(fieldName)) {
     try {
-      const user = await UserModel.updateUserById(userId, fieldName, fieldValue);
+      const user = await UserModel.updateUserById(userSk, fieldName, fieldValue);
       const {pk, sk, ...formattedUser} = user.Attributes;
     
       return formattedUser;
     } catch (error) {
-      console.error(`Error updating user ${userId}:`, error);
+      console.error(`Error updating user ${userSk}:`, error);
       throw error;
     }
   } else {

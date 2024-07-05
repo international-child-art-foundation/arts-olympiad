@@ -1,9 +1,9 @@
 import { artworkDataRequest } from "@/interfaces/gallery_shapes";
 import { artworkDataResponse } from "@/interfaces/gallery_shapes";
 
-export async function getSingleArtworkData(artwork_id: string) {
+export async function getSingleArtworkData(artwork_sk: string) {
   try {
-    const response = await fetch(`/next-proxy/api/artworks/${artwork_id}`, {
+    const response = await fetch(`/next-proxy/api/artworks/${artwork_sk}`, {
       method: "GET",
       headers: {
         "Content-Type": "application/json",
@@ -125,4 +125,40 @@ export async function getArtworkData(data: artworkDataRequest): Promise<artworkD
 
     throw new Error(errorMessage);
   }
+}
+
+export async function voteForArtwork(artwork_sk: string) {
+  try {
+    const response = await fetch(`/next-proxy/api/vote/${artwork_sk}`, {
+      method: "PATCH",
+      headers: {
+        "Content-Type": "application/json",
+        "x-api-key": process.env.NEXT_PUBLIC_AK || "",
+      },
+    });
+
+    const result = await response.json();
+
+    if (response.ok) {
+      return { success: true, message: result.message };
+    } else {
+      return { success: false, message: result.message };
+    }
+  } catch (error) {
+    console.log("error checking authentication status", error);
+    let errorMessage: string;
+
+    if (error instanceof Error) {
+      errorMessage = error.message;
+    } else if (typeof error === "string") {
+      errorMessage = error;
+    } else if (typeof error === "object" && error !== null && "message" in error) {
+      errorMessage = (error as { message: string }).message;
+    } else {
+      errorMessage = "Unknown error";
+    }
+
+    return { success: false, message: errorMessage };
+  }
+
 }

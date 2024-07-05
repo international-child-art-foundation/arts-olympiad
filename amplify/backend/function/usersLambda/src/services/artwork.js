@@ -1,4 +1,5 @@
 const ArtworkModel = require("../models/artwork");
+const UserModel = require("../models/user");
 
 const { s3Client } = require("../lib/s3Client");
 const { createPresignedPost } = require("@aws-sdk/s3-presigned-post"); 
@@ -8,10 +9,10 @@ if (process.env.ENV && process.env.ENV !== "NONE") {
   tableName = tableName + "-" + process.env.ENV;
 }
 
-async function getArtwork(artworkId) {
-  const artwork = await ArtworkModel.getArtworkById(artworkId);
+async function getArtwork(artworkSk) {
+  const artwork = await ArtworkModel.getArtworkById(artworkSk);
   if (!artwork.Item) {
-    throw new Error(`Artwork with ID ${artworkId} not found.`);
+    throw new Error(`Artwork with ID ${artworkSk} not found.`);
   }
   return formatArtwork(artwork.Item);
 }
@@ -20,11 +21,9 @@ async function addArtwork(artworkData) {
   const timestamp = (Date.now() / 1000).toFixed(2);
   const item = {
     pk: "ART",
-    sk: artworkData.id,
-    id: artworkData.id,
+    sk: artworkData.sk,
     gsi1pk: 0,
-    gsi1sk: artworkData.id,
-    id: artworkData.userId,
+    gsi1sk: artworkData.sk,
     f_name: artworkData.f_name,
     l_name: artworkData.l_name,
     description: artworkData.description,
@@ -42,14 +41,13 @@ async function addArtwork(artworkData) {
   return formatArtwork(item);
 }
 
-async function addArtworkAndUpdateUser(artworkData, userId) {
+async function addArtworkAndUpdateUser(artworkData, userSk) {
   const timestamp = (Date.now() / 1000).toFixed(2);
   const item = {
     pk: "ART",
-    sk: artworkData.id,
-    id: artworkData.id,
+    sk: artworkData.sk,
     gsi1pk: 0,
-    gsi1sk: artworkData.id,
+    gsi1sk: artworkData.sk,
     f_name: artworkData.f_name,
     age: artworkData.age,
     description: artworkData.description,
@@ -64,16 +62,40 @@ async function addArtworkAndUpdateUser(artworkData, userId) {
     file_type: artworkData.file_type
   };
 
-  const result = await ArtworkModel.createArtworkAndUpdateUser(item, userId);
+  const result = await ArtworkModel.createArtworkAndUpdateUser(item, userSk);
   return {
     artwork: formatArtwork(result.artwork),
     userUpdated: result.userUpdated
   };
 }
 
-async function deleteArtwork(artworkId) {
+async function handleVote(userSk, artworkSk) {
+  const userData = await UserModel.getUserBySk(userSk);
+
+  if (!userData) {
+    throw new Error("User not found");
+  }
+  // console.log(userSk);
+  // console.log(artworkSk);
+  // console.log(userData.voted_id);
+  // console.log(userData);
+  if (userData.Item.voted_id) {
+    if (userData.Item.voted_id === artworkSk) {
+      // User is trying to vote for the same artwork again
+      throw new Error("Cannot vote on the same artwork twice");
+    } else {
+      // User is changing their vote
+      return await ArtworkModel.changeVote(userSk, userData.Item.voted_id, artworkSk);
+    }
+  } else {
+    // User doesn't have an active vote
+    return await ArtworkModel.addNewVote(userSk, artworkSk);
+  }
+}
+
+async function deleteArtwork(artworkSk) {
   try {
-    await ArtworkModel.deleteArtworkById(artworkId);
+    await ArtworkModel.deleteArtworkById(artworkSk);
     return {message: "successfully deleted"};
   } catch (error) {
     console.log(error);
@@ -81,27 +103,27 @@ async function deleteArtwork(artworkId) {
 }
 
 // Does not currently invalidate CloudFront URLs. 
-async function deleteArtworkCompletely(artworkId) {
+async function deleteArtworkCompletely(artworkSk) {
   try {
-    await ArtworkModel.deleteArtworkAndFiles(artworkId);
+    await ArtworkModel.deleteArtworkAndFiles(artworkSk);
     return {message: "successfully deleted"};
   } catch(error) {
     console.log(error);
   }
 }
 
-async function incrementVoteArtwork(artworkId) {
-  const artwork = await ArtworkModel.incrementVoteArtworkById(artworkId);
+async function incrementVoteArtwork(artworkSk) {
+  const artwork = await ArtworkModel.incrementVoteArtworkById(artworkSk);
   return formatArtwork(artwork.Attributes);
 }
 
-async function decrementVoteArtwork(artworkId) {
-  const artwork = await ArtworkModel.decrementVoteArtworkById(artworkId);
+async function decrementVoteArtwork(artworkSk) {
+  const artwork = await ArtworkModel.decrementVoteArtworkById(artworkSk);
   return formatArtwork(artwork.Attributes);
 }
 
-async function approveArtwork(artworkId, approvalStatus) {
-  const artwork = await ArtworkModel.approveArtworkById(artworkId, approvalStatus);
+async function approveArtwork(artworkSk, approvalStatus) {
+  const artwork = await ArtworkModel.approveArtworkById(artworkSk, approvalStatus);
   return formatArtwork(artwork.Attributes);
 }
 
@@ -120,19 +142,19 @@ async function getArtworks(queryParams) {
   return results;
 }
 
-async function createUrlAndFields(userId, fileType="jpg") {
+async function createUrlAndFields(userSk, fileType="jpg") {
   const client = s3Client;
   const Bucket = `artsolympiadf677eab9a54848dc8788ee9110a11839185846-${process.env.ENV}`;
 
-  const Key = `${userId}/initial.${fileType}`;
+  const Key = `${userSk}/initial.${fileType}`;
   const Expires = 900;
   const Fields = {
-    "x-amz-meta-user-id": userId,
+    "x-amz-meta-user-id": userSk,
   };
   const Conditions = [
     ["starts-with", "$key", Key],
     ["content-length-range", 0, 1024 * 1024 * 5],
-    ["eq", "$x-amz-meta-user-id", userId],
+    ["eq", "$x-amz-meta-user-id", userSk],
   ];
 
   const { url, fields } = await createPresignedPost(client, {
@@ -169,7 +191,7 @@ function calculateTotalQueryCalls(params) {
 
 function formatArtwork(artwork) { 
   return {
-    id: artwork.id,
+    sk: artwork.sk,
     f_name: artwork.f_name,
     age: artwork.age,
     description: artwork.description,
@@ -194,5 +216,6 @@ module.exports = {
   approveArtwork,
   getArtworks,
   createUrlAndFields,
-  addArtworkAndUpdateUser
+  addArtworkAndUpdateUser,
+  handleVote
 };

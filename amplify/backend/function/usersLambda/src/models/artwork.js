@@ -13,20 +13,20 @@ if (process.env.ENV && process.env.ENV !== "NONE") {
   bucketName = bucketName + "-" + process.env.ENV;
 }
 
-async function getArtworkById(artworkId) {
+async function getArtworkById(artworkSk) {
   const input = {
     TableName: tableName,
-    ProjectionExpression: "id, description, sport, #loc, is_approved, votes, f_name, age, is_ai_gen, model, prompt, file_type",
+    ProjectionExpression: "sk, description, sport, #loc, is_approved, votes, f_name, age, is_ai_gen, model, prompt, file_type",
     ExpressionAttributeNames: { "#loc": "location" },
     Key: {
       pk: "ART",
-      sk: artworkId
+      sk: artworkSk
     }
   };
   try {
     const response = await ddbDocClient.send(new GetCommand(input));
     if (!response.Item) {
-      console.log(`Artwork with ID ${artworkId} not found.`);
+      console.log(`Artwork with ID ${artworkSk} not found.`);
     }
     return response;
   } catch(error) {
@@ -50,7 +50,7 @@ async function createArtwork(item) {
   }
 }
 
-async function createArtworkAndUpdateUser(item, userId) {
+async function createArtworkAndUpdateUser(item, userSk) {
   const transactItems = [
     {
       Put: {
@@ -64,7 +64,7 @@ async function createArtworkAndUpdateUser(item, userId) {
         TableName: tableName,
         Key: {
           pk: "USER",
-          sk: userId
+          sk: userSk
         },
         UpdateExpression: "SET has_active_submission = :true",
         ExpressionAttributeValues: {
@@ -89,30 +89,148 @@ async function createArtworkAndUpdateUser(item, userId) {
   }
 }
 
-async function deleteArtworkById(artworkId) {
+async function deleteArtworkById(artworkSk) {
   const input = {
     TableName: tableName,
     Key: {
       pk: "ART",
-      sk: artworkId
+      sk: artworkSk
     }
   };
   try {
     await ddbDocClient.send(new DeleteCommand(input));
     return;
   } catch(error) {
-    console.error(`Error deleting artwork with id ${artworkId}`);
+    console.error(`Error deleting artwork with sk ${artworkSk}`);
     throw error;
   }
 }
 
-async function deleteArtworkAndFiles(artworkId) {
+async function addNewVote(userSk, artworkSk) {
+  const transactItems = [
+    {
+      Update: {
+        TableName: tableName,
+        Key: {
+          pk: "USER",
+          sk: userSk
+        },
+        UpdateExpression: "SET voted_id = :artworkSk",
+        ExpressionAttributeValues: {
+          ":artworkSk": artworkSk
+        },
+        ConditionExpression: "attribute_exists(pk) AND attribute_exists(sk)"
+      }
+    },
+    {
+      Update: {
+        TableName: tableName,
+        Key: {
+          pk: "ART",
+          sk: artworkSk
+        },
+        UpdateExpression: "ADD votes :inc",
+        ExpressionAttributeValues: {
+          ":inc": 1
+        },
+        ConditionExpression: "attribute_exists(pk) AND attribute_exists(sk)"
+      }
+    },
+    {
+      Update: {
+        TableName: tableName,
+        Key: {
+          pk: "VOTES",
+          sk: "TOTAL"
+        },
+        UpdateExpression: "ADD votes :inc",
+        ExpressionAttributeValues: {
+          ":inc": 1
+        },
+        ConditionExpression: "attribute_exists(pk) AND attribute_exists(sk)"
+      }
+    }
+  ];
+
+  const command = new TransactWriteCommand({ TransactItems: transactItems });
+
+  try {
+    await ddbDocClient.send(command);
+    return { message: "Vote added successfully" };
+  } catch (error) {
+    console.error("Error adding new vote", error);
+    throw error;
+  }
+}
+
+async function changeVote(userSk, oldArtworkId, newArtworkId) {
+  const transactItems = [
+    {
+      Update: {
+        TableName: tableName,
+        Key: {
+          pk: "ART",
+          sk: oldArtworkId
+        },
+        UpdateExpression: "ADD votes :dec",
+        ExpressionAttributeValues: {
+          ":dec": -1
+        },
+        ConditionExpression: "attribute_exists(pk) AND attribute_exists(sk) AND votes > :zero",
+        ExpressionAttributeValues: {
+          ":dec": -1,
+          ":zero": 0
+        }
+      }
+    },
+    {
+      Update: {
+        TableName: tableName,
+        Key: {
+          pk: "USER",
+          sk: userSk
+        },
+        UpdateExpression: "SET voted_id = :newArtworkId",
+        ExpressionAttributeValues: {
+          ":newArtworkId": newArtworkId
+        },
+        ConditionExpression: "attribute_exists(pk) AND attribute_exists(sk)"
+      }
+    },
+    {
+      Update: {
+        TableName: tableName,
+        Key: {
+          pk: "ART",
+          sk: newArtworkId
+        },
+        UpdateExpression: "ADD votes :inc",
+        ExpressionAttributeValues: {
+          ":inc": 1
+        },
+        ConditionExpression: "attribute_exists(pk) AND attribute_exists(sk)"
+      }
+    }
+  ];
+
+  const command = new TransactWriteCommand({ TransactItems: transactItems });
+
+  try {
+    await ddbDocClient.send(command);
+    return { message: "Vote changed successfully" };
+  } catch (error) {
+    console.error("Error changing vote", error);
+    throw error;
+  }
+}
+
+async function deleteArtworkAndFiles(artworkSk) {
   try {
     // Delete from DynamoDB
-    await deleteArtworkFromDynamoDB(artworkId);
+    await deleteArtworkFromDynamoDB(artworkSk);
 
     // Delete folder from S3
-    await deleteArtworkFolderFromS3(artworkId);
+    await deleteArtworkFolderFromS3(artworkSk);
 
     return { message: "Successfully deleted artwork and associated files" };
   } catch (error) {
@@ -121,14 +239,14 @@ async function deleteArtworkAndFiles(artworkId) {
   }
 }
 
-async function deleteArtworkFromDynamoDB(artworkId) {
+async function deleteArtworkFromDynamoDB(artworkSk) {
   const transactItems = [
     {
       Delete: {
         TableName: tableName,
         Key: {
           pk: "ART",
-          sk: artworkId
+          sk: artworkSk
         },
         ConditionExpression: "attribute_exists(pk) AND attribute_exists(sk)"
       }
@@ -138,7 +256,7 @@ async function deleteArtworkFromDynamoDB(artworkId) {
         TableName: tableName,
         Key: {
           pk: "USER",
-          sk: artworkId
+          sk: artworkSk
         },
         UpdateExpression: "SET has_active_submission = :false",
         ExpressionAttributeValues: {
@@ -153,17 +271,17 @@ async function deleteArtworkFromDynamoDB(artworkId) {
 
   try {
     await ddbDocClient.send(command);
-    console.log(`Successfully deleted artwork ${artworkId} and updated user status`);
+    console.log(`Successfully deleted artwork ${artworkSk} and updated user status`);
   } catch (error) {
-    console.error(`Error in transactional delete for artwork ${artworkId}:`, error);
+    console.error(`Error in transactional delete for artwork ${artworkSk}:`, error);
     throw error;
   }
 }
 
-async function deleteArtworkFolderFromS3(artworkId) {
+async function deleteArtworkFolderFromS3(artworkSk) {
   const listParams = {
     Bucket: bucketName,
-    Prefix: `${artworkId}/`
+    Prefix: `${artworkSk}/`
   };
 
   try {
@@ -180,22 +298,22 @@ async function deleteArtworkFolderFromS3(artworkId) {
 
     await s3Client.send(new DeleteObjectsCommand(deleteParams));
 
-    if (listedObjects.IsTruncated) await deleteArtworkFolderFromS3(artworkId);
+    if (listedObjects.IsTruncated) await deleteArtworkFolderFromS3(artworkSk);
 
   } catch (error) {
-    console.error(`Error deleting S3 folder for artwork ${artworkId}`, error);
+    console.error(`Error deleting S3 folder for artwork ${artworkSk}`, error);
     throw error;
   }
 }
 
-async function updateVoteArtworkbyId(artworkId, decrement=false) {
+async function updateVoteArtworkbyId(artworkSk, decrement=false) {
   operator = (decrement === true) ? "-" : "+";
 
   const input = {
     TableName: tableName,
     Key: {
       pk: "ART",
-      sk: artworkId
+      sk: artworkSk
     },
     UpdateExpression: `SET votes = votes ${operator} :value`,
     ExpressionAttributeValues: {
@@ -214,17 +332,17 @@ async function updateVoteArtworkbyId(artworkId, decrement=false) {
   }
 }
 
-async function incrementVoteArtworkById(artworkId) {
+async function incrementVoteArtworkById(artworkSk) {
   VotesModel.incrementTotalVotes();
-  return updateVoteArtworkbyId(artworkId)
+  return updateVoteArtworkbyId(artworkSk)
 }
 
-async function decrementVoteArtworkById(artworkId) {
+async function decrementVoteArtworkById(artworkSk) {
   VotesModel.decrementTotalVotes();
-  return updateVoteArtworkbyId(artworkId, decrement=true)
+  return updateVoteArtworkbyId(artworkSk, decrement=true)
 }
 
-async function approveArtworkById(artworkId, approvalStatus) {
+async function approveArtworkById(artworkSk, approvalStatus) {
   const isApproved = approvalStatus === true;
   const gsi1pkVal = isApproved ? 1 : 0;
 
@@ -232,7 +350,7 @@ async function approveArtworkById(artworkId, approvalStatus) {
     TableName: tableName,
     Key: {
       pk: "ART",
-      sk: artworkId
+      sk: artworkSk
     }
   };
 
@@ -337,7 +455,7 @@ function addInput({indexName, keyConditionExpr, exprAtrValue, limit=20, orderBy}
   const scanIndexForward = (Array.isArray(orderBy) ? orderBy[0] : orderBy) !== "descending";
   const input = {
     TableName: tableName,
-    ProjectionExpression: "sk, id, description, sport, #loc, is_approved, votes, f_name, l_name, age, is_ai_gen, model, prompt, file_type",
+    ProjectionExpression: "sk, description, sport, #loc, is_approved, votes, f_name, l_name, age, is_ai_gen, model, prompt, file_type",
     ExpressionAttributeNames: { "#loc": "location" },
     IndexName: indexName,
     KeyConditionExpression: keyConditionExpr,
@@ -358,5 +476,7 @@ module.exports = {
   decrementVoteArtworkById,
   approveArtworkById,
   queryArtworks,
-  buildQueryInputs
+  buildQueryInputs,
+  addNewVote,
+  changeVote
 };

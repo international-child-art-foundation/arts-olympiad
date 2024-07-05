@@ -17,13 +17,13 @@ export const handler = async (event) => {
   console.log(`EVENT: ${JSON.stringify(event)}`);
   
   const bucket = `artsolympiadf677eab9a54848dc8788ee9110a11839185846-${process.env.ENV}`;
-  const userId = event.user_id;
+  const userSk = event.user_sk;
 
   let srcKey;
   try {
     const data = await s3Client.send(new ListObjectsV2Command({
       Bucket: bucket,
-      Prefix: userId
+      Prefix: userSk
     }));
 
     if (data.Contents.length != 1) {
@@ -74,7 +74,7 @@ export const handler = async (event) => {
   }
 
   for (const [name, width] of Object.entries(widthByName)) {
-    const dstKey = `${userId}/${name}.webp`;
+    const dstKey = `${userSk}/${name}.webp`;
     let outputBuffer;
     try {
       outputBuffer = await sharp(contentBuffer).resize(width).toFormat("webp").toBuffer();

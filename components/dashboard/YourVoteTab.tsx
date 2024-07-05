@@ -28,7 +28,7 @@ export const YourVoteTab: React.FC<YourVoteTabProps> = ({ dashboardLoadingState,
       {dashboardLoadingState == "Loaded" && isAuthenticated == "Authenticated" && 
       <div>
         <p className="font-montserrat text-2xl font-regular text-[32px] my-3 mb-8"> Your Vote </p>
-        {apiUserData && !apiUserData.voted_id ?
+        {apiUserData && !apiUserData.voted_sk ?
           <VotedArtDisplay/>
           :
           <div className="my-10">

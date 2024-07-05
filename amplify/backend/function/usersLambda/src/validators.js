@@ -11,7 +11,7 @@ const emailValidator = [
 ]
 
 const uuidValidator = [
-    body('id').isUUID().withMessage('id must be a UUID string'),
+    body('sk').isUUID().withMessage('sk must be a UUID string'),
 ]
 
 const verificationCodeValidator = [

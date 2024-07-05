@@ -22,14 +22,14 @@ export const VotedArtDisplay = () => {
             <div className="flex flex-col overflow-hidden gap-4">
               <div className="flex justify-center items-center rounded-xl overflow-hidden relative flex-grow ">
                 <Image
-                  src={apiArtworkVoteData?.url ?? placeholderImage}
+                  src={apiArtworkVoteData?.sk ?? placeholderImage}
                   alt="Your submitted image"
                   width={400}
                   height={400}
                   className="z-10 max-h-full max-w-full object-contain"
                 />
                 <Image
-                  src={apiArtworkVoteData?.url ?? placeholderImage}
+                  src={apiArtworkVoteData?.sk ?? placeholderImage}
                   alt="Background"
                   width={400}
                   height={400}
@@ -55,7 +55,7 @@ export const VotedArtDisplay = () => {
               )}
               <div>
                 <p className="font-semibold">Share This Post</p>
-                <SocialShare shareUrl={"/gallery?id=" + apiArtworkVoteData.id} />
+                <SocialShare shareUrl={"/gallery?id=" + apiArtworkVoteData.sk} />
               </div>
             </div>
           </div>

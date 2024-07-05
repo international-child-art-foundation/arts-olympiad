@@ -37,10 +37,10 @@ export const Arts: React.FC<ArtsProps> = ({ contestState }) => {
   const { filterableOptions, setFilterOption, bulkAlterCategoryOptions, resetAllFilters, //activateOptionsByName,
     pageNumber, setPageNumber,
     sortValue, setSortValue,
-    activeEntryId, setActiveEntryId } = useFilters();
+    activeEntrySk, setActiveEntrySk } = useFilters();
   const [mostRecentFilterState, setMostRecentFilterState] = useState(filterableOptions);
   const [pageLoadArtwork, setPageLoadArtwork] = useState<userArtworkSchema | undefined>(undefined);
-  const [currentUserId, setCurrentUserId] = useState<string | null>(null);
+  const [currentUserSk, setCurrentUserSk] = useState<string | null>(null);
 
   const { windowWidth } = useWindowDimensions();
   const isMobile = windowWidth < 1024;
@@ -86,20 +86,20 @@ export const Arts: React.FC<ArtsProps> = ({ contestState }) => {
   useEffect(() => {
     async function handleIdUponPageLoad() {
       if (searchParams) {
-        const idFromUrl = searchParams.get("id");
-        if (idFromUrl) {
-          updateActiveEntryId(idFromUrl);
+        const skFromUrl = searchParams.get("id");
+        if (skFromUrl) {
+          updateActiveEntrySk(skFromUrl);
           setModalOpen(true);
-          const singleArtworkData = await getSingleArtworkData(idFromUrl);
+          const singleArtworkData = await getSingleArtworkData(skFromUrl);
           setPageLoadArtwork(singleArtworkData);
         }
       }
     }
 
     // Set current user ID from local storage
-    setCurrentUserId(localStorage.getItem("isAuthenticated"));
+    setCurrentUserSk(localStorage.getItem("isAuthenticated"));
   
-    // If 'id' is in the search params, load that id
+    // If 'id' is in the search params, load that id (sk)
     handleIdUponPageLoad();
     console.log("Initial page load population of artwork:");
     fetchArtworkData();
@@ -133,14 +133,14 @@ export const Arts: React.FC<ArtsProps> = ({ contestState }) => {
   
     // If modal is open, add ID to the url
     if (isModalOpen) {
-      if (activeEntryId) {
-        currentParams.set("id", activeEntryId);
+      if (activeEntrySk) {
+        currentParams.set("id", activeEntrySk);
       }
     }
   
     // Push the updated URL
     router.push(`${window.location.pathname}?${currentParams.toString()}`, { scroll: false });
-  }, [filterableOptions, pageNumber, sortValue, isModalOpen, activeEntryId]);
+  }, [filterableOptions, pageNumber, sortValue, isModalOpen, activeEntrySk]);
   
   useEffect(() => {
     updateURLFromState();
@@ -149,8 +149,8 @@ export const Arts: React.FC<ArtsProps> = ({ contestState }) => {
   const getShareUrl = () => {
     const baseUrl = `${window.location.protocol}//${window.location.host}${window.location.pathname}`;
     const shareUrl = new URL(baseUrl);
-    if (activeEntryId) {
-      shareUrl.searchParams.set("id", activeEntryId); // Append the activeEntryId as a query parameter
+    if (activeEntrySk) {
+      shareUrl.searchParams.set("id", activeEntrySk); // Append the activeEntrySk as a query parameter
     }
   
     return shareUrl.toString();
@@ -162,15 +162,15 @@ export const Arts: React.FC<ArtsProps> = ({ contestState }) => {
     fetchArtworkData(filterableOptions, pageNumber, sortValue, isFilterOpen);
   };
 
-  const updateActiveEntryId = (id: string) => {
-    setActiveEntryId(id);
+  const updateActiveEntrySk = (sk: string) => {
+    setActiveEntrySk(sk);
     // console.log("Active entry ID has been updated to " + id);
   };
 
-  const openModal = useCallback((id: string) => {
+  const openModal = useCallback((sk: string) => {
     // Only allow user to view artwork if the filter list is closed and the contest has begun.
     if (!isFilterOpen && contestState !== ContestState.Inactive) {
-      updateActiveEntryId(id);
+      updateActiveEntrySk(sk);
       setModalOpen(true);
     }
   }, []);
@@ -179,7 +179,7 @@ export const Arts: React.FC<ArtsProps> = ({ contestState }) => {
     // If user has closed the modal, we no longer need pageLoadArtwork.
     setPageLoadArtwork(undefined);
     setModalOpen(false);
-    setActiveEntryId(null);
+    setActiveEntrySk(null);
   };
 
   {/* If modal is open, prevent page scrolling */}
@@ -267,7 +267,7 @@ export const Arts: React.FC<ArtsProps> = ({ contestState }) => {
 
   return (
     <div className={`${contestState == ContestState.Inactive && "opacity-60 pointer-events-none select-none blur-sm relative"} `}>
-      <ArtworkModal artworks={artworks} pageLoadArtwork={pageLoadArtwork} id={activeEntryId} closeModal={closeModal} isMobile={isMobile} isModalOpen={isModalOpen} currentUserId={currentUserId} getShareUrl={getShareUrl}/>
+      <ArtworkModal artworks={artworks} pageLoadArtwork={pageLoadArtwork} sk={activeEntrySk} closeModal={closeModal} isMobile={isMobile} isModalOpen={isModalOpen} currentUserSk={currentUserSk} getShareUrl={getShareUrl}/>
       {isMobile && <MobileFilter isFilterOpen={isFilterOpen} handleModifyFilterState={handleModifyFilterState} updateFilterOption={updateFilterOption} updateSortValue={updateSortValue} alterFiltersByCategory={alterFiltersByCategory} resetAllFilters={resetAllFilters} /> }
       <div className="relative px-8 md:px-12 lg:px-16 xl:px-20 max-w-screen-2xl z-0 m-auto w-screen min-h-[800px]">
         {/* Flexbox 1 - Contains filter open/close button on left side, and Sort title/maybe options on right side */}
@@ -328,11 +328,11 @@ export const Arts: React.FC<ArtsProps> = ({ contestState }) => {
               <div className="grid grid-cols-2 gap-x-2 gap-y-6 xl:grid-cols-4 xl:gap-x-6 xl:gap-y-10">
                 {Array.isArray(artworks) && artworks.length > 0 && (
                   artworks.map((artwork) => (
-                    artwork.id != null ? (
+                    artwork.sk != null ? (
                       <ArtworkCard
                         data={artwork}
                         openModal={openModal}
-                        key={artwork.id}
+                        key={artwork.sk}
                       />
                     ) : null
                   ))
