@@ -4,8 +4,8 @@ import hashtag from "../../public/home/hashtag.svg";
 // import bicycleHero from "../../public/home/MFS_Bicycle_Hero.webp";
 import HeroHeader from "../../public/home/Hero_Header.jpg";
 import { formatDate } from "../../mock/dates";
-import ranbowLine from "../../public/home/rainbowLine.png";
-
+import ranbowLine from "../../public/home/new-hero/rainbowLine.png";
+// import RainbowLine from "../../public/home/new-hero/RainbowLine.svg";
 
 export const Intro = () => {
 
@@ -16,7 +16,7 @@ export const Intro = () => {
         <article role="banner" className=" z-20 relative flex-col align-middle col-span-8 lg:col-span-7 xl:col-span-6 lg:place-self-center">
           <div className=" z-20 flex flex-row align-center mb-8 place-content-center lg:place-content-start">
             <Image src={hashtag} alt="" width={32} height={32} />
-            <h1 className=" z-20 break-words font-semibold text-3xl xsm:text-4xl lg:text-5xl xl:text-6xl font-montserrat">
+            <h1 className=" z-20 break-words font-semibold text-3xl xsm:text-5xl lg:text-6xl xl:text-6xl font-montserrat">
               MyFavoriteSport<span className="sr-only">.</span>
             </h1>
           </div>
@@ -45,7 +45,7 @@ export const Intro = () => {
         <figure
           role="region"
           aria-label="Bicycle art"
-          className="relative z-10 px-10 md:px-16 lg:px-4 md:grid col-span-8 md:col-start-2 md:col-span-6 lg:col-span-5 xl:col-span-6 "
+          className="relative z-10 px-10 md:px-24 lg:px-0 md:grid col-span-8 md:col-start-2 md:col-span-6 lg:col-span-5 xl:col-span-6 "
         >
           <div className="z-10 image-container">
             <div className="text-sm text-black italic font-medium font-montserrat text-right">

@@ -34,7 +34,7 @@ export const Wisdom = () => {
       <div className="relative z-100 mt-20 mb-36 z-20 flex flex-col">
         <Image src={BlueBlob} alt="" className="absolute z-0 right-1/2 -bottom-24 "></Image>
         <Pm className="relative font-semibold z-20 font-montserrat">Your donation will bring the benefits of art and sport to young and older people alike.</Pm>
-        <button className="relative z-20 bg-amber-300 mt-20 px-4 py-2 rounded-3xl self-center">Donate</button>
+        <button onClick={() => window.location.href="https://icaf.org/about-us/donate"} className="relative z-20 bg-amber-300 mt-20 px-4 py-2 rounded-3xl self-center">Donate</button>
       </div>
     </section>
   );
