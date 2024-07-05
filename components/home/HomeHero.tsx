@@ -28,16 +28,16 @@ export const Intro = () => {
               Sports fans and art lovers vote for the artwork you like the most for it to win the Gold (US$3,000), Silver ($2,000), or Bronze ($1,000).
             </p>
             <p className="z-20 mb-4 leading-8 lg:mb8 "> {/* Use &nbsp to allow grid layout to work properly */}
-              This history-making global contest starts on&nbsp;<b> {formatDate("competitionBegin", "MMMM do")} </b>
-              —the Games kick off in Paris. Artists must act soon to get more public votes. The contest ends on {formatDate("competitionEnd", "MMMM do")}.
-              Winners receive the cash prizes on &nbsp;{formatDate("winnerAnnounced", "MMMM d, yyyy")}.
+              This historic global art contest begins on&nbsp;<b> {formatDate("competitionBegin", "MMMM do")}</b>
+              —when the Games kick off in Paris. Artists must act right away to get more public votes. Judges must vote before {formatDate("competitionEnd", "MMMM do")}&nbsp;
+              when the contest ends. Winners receive the cash prizes on &nbsp;{formatDate("winnerAnnounced", "MMMM d, yyyy")}.
             </p>
             <p className="z-20 mb-4 leading-8 lg:mb8">
               This #MyFavoriteSport campaign is launched by ICAF.org, a Washington DC-based charity. The entry fee for artists is $10 but voters register for free.
             </p>
-            <p className="z-20 mb-4 leading-8 lg:mb8">
+            {/* <p className="z-20 mb-4 leading-8 lg:mb8">
               Your donation helps unite artists and athletes by reassuring them that their chaotic and divided world has hope.
-            </p>
+            </p> */}
 
           </div>
         </article>
@@ -48,10 +48,11 @@ export const Intro = () => {
           className="relative z-10 px-10 md:px-24 lg:px-0 md:grid col-span-8 md:col-start-2 md:col-span-6 lg:col-span-5 xl:col-span-6 "
         >
           <div className="z-10 image-container">
+
+            <Image className="m-auto rounded-2xl" src={HeroHeader} alt="" />
             <div className="text-sm text-black italic font-medium font-montserrat text-right">
               * Eric Liang, age 11, Illinois
             </div>
-            <Image className="m-auto rounded-2xl" src={HeroHeader} alt="" />
           </div>
         </figure>
         <Image src={ranbowLine} alt="" className="absolute inset-x-0 -bottom-6 lg:bottom-0 z-0 object-cover object-center w-full"></Image>
