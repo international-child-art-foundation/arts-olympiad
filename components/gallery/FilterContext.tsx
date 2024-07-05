@@ -15,6 +15,8 @@ interface FilterContextType {
   setSortValue: (newSortOption: sortValueType) => void;
   activeEntrySk: string | null;
   setActiveEntrySk: (newActiveEntrySk: string | null) => void;
+  votedSk: string | undefined;
+  setVotedSk: (artwork_sk: string) => void;
 }
 
 const FilterContext = createContext<FilterContextType | undefined>(undefined);
@@ -28,6 +30,7 @@ export const FilterProvider: React.FC<FilterProviderProps> = ({ children }) => {
   const [pageNumber, setPageNumber] = useState(1);
   const [sortValue, setSortValue] = useState<sortValueType>("Newest");
   const [activeEntrySk, setActiveEntrySk] = useState<string | null>(null);
+  const [votedSk, setVotedSk] = useState<string | undefined>(undefined);
 
   // Sets the attributes of one filter option
   const setFilterOption = (optionName: string, updates: Partial<{ number: number; active: boolean; }>) => {
@@ -95,7 +98,8 @@ export const FilterProvider: React.FC<FilterProviderProps> = ({ children }) => {
       resetAllFilters,
       pageNumber, setPageNumber,
       sortValue, setSortValue,
-      activeEntrySk, setActiveEntrySk
+      activeEntrySk, setActiveEntrySk,
+      votedSk, setVotedSk
     }}>
       {children}
     </FilterContext.Provider>

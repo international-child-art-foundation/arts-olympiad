@@ -1,3 +1,4 @@
+"use client";
 import React, { useState } from "react";
 import Image from "next/image";
 
@@ -11,12 +12,16 @@ const iconMap: { [key: string]: string } = {
 };
 
 interface SocialShareProps {
-  shareUrl: string;
+  shareId: string;
 }
 
-const SocialShare: React.FC<SocialShareProps> = ({ shareUrl }) => {
+const SocialShare: React.FC<SocialShareProps> = ({ shareId }) => {
   const [showCopiedPopup, setShowCopiedPopup] = useState(false);
-  const encodeUrl = encodeURIComponent(shareUrl);
+  const baseUrl = `${window.location.protocol}//${window.location.host}/gallery/?id=${shareId}`;
+  console.log(baseUrl);
+  const shareUrl = new URL(baseUrl);
+  const encodeUrl = encodeURIComponent(shareUrl.toString());
+  console.log(encodeUrl);
 
   const platforms = {
     Facebook: `https://www.facebook.com/sharer/sharer.php?u=${encodeUrl}`,
@@ -36,7 +41,7 @@ const SocialShare: React.FC<SocialShareProps> = ({ shareUrl }) => {
 
   const copyToClipboard = async () => {
     try {
-      await navigator.clipboard.writeText(shareUrl);
+      await navigator.clipboard.writeText(baseUrl);
       setShowCopiedPopup(true);
       setTimeout(() => {
         setShowCopiedPopup(false);

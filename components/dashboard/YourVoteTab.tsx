@@ -2,6 +2,8 @@ import { DashboardLoadingStates, DashboardAuthenticationStates } from "../../moc
 import { VotedArtDisplay } from "./VotedArtDisplay";
 import { useDashboardContext } from "./DashboardContext";
 import Link from "next/link";
+import { getSingleArtworkData } from "@/utils/artworks";
+import { useCallback, useEffect } from "react";
 
 interface YourVoteTabProps {
   dashboardLoadingState: DashboardLoadingStates;
@@ -10,7 +12,23 @@ interface YourVoteTabProps {
 
 export const YourVoteTab: React.FC<YourVoteTabProps> = ({ dashboardLoadingState, isAuthenticated }) => {
 
-  const { apiUserData } = useDashboardContext();
+  const { apiUserData, apiArtworkVoteData, setApiArtworkVoteData } = useDashboardContext();
+
+  const handleGetVotedArtworkData = useCallback(async () => {
+    console.log(apiUserData);
+    if (apiUserData && apiUserData.voted_sk) {
+      const singleArtworkData = await getSingleArtworkData(apiUserData?.voted_sk);
+      console.log(singleArtworkData);
+      if (singleArtworkData.success == true && singleArtworkData.data) {
+        setApiArtworkVoteData(singleArtworkData.data);
+      }
+    }
+  }, [apiUserData, setApiArtworkVoteData]);
+
+  useEffect(() => {
+    handleGetVotedArtworkData();
+
+  }, [handleGetVotedArtworkData]);
 
   return (
     <div>
@@ -28,7 +46,7 @@ export const YourVoteTab: React.FC<YourVoteTabProps> = ({ dashboardLoadingState,
       {dashboardLoadingState == "Loaded" && isAuthenticated == "Authenticated" && 
       <div>
         <p className="font-montserrat text-2xl font-regular text-[32px] my-3 mb-8"> Your Vote </p>
-        {apiUserData && !apiUserData.voted_sk ?
+        {apiArtworkVoteData && apiArtworkVoteData.sk ?
           <VotedArtDisplay/>
           :
           <div className="my-10">

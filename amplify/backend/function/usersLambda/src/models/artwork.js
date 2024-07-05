@@ -115,7 +115,7 @@ async function addNewVote(userSk, artworkSk) {
           pk: "USER",
           sk: userSk
         },
-        UpdateExpression: "SET voted_id = :artworkSk",
+        UpdateExpression: "SET voted_sk = :artworkSk",
         ExpressionAttributeValues: {
           ":artworkSk": artworkSk
         },
@@ -190,7 +190,7 @@ async function changeVote(userSk, oldArtworkId, newArtworkId) {
           pk: "USER",
           sk: userSk
         },
-        UpdateExpression: "SET voted_id = :newArtworkId",
+        UpdateExpression: "SET voted_sk = :newArtworkId",
         ExpressionAttributeValues: {
           ":newArtworkId": newArtworkId
         },

@@ -1,7 +1,14 @@
 import { artworkDataRequest } from "@/interfaces/gallery_shapes";
 import { artworkDataResponse } from "@/interfaces/gallery_shapes";
+import { userArtworkSchema } from "../../mock/userArtworkSchema";
 
-export async function getSingleArtworkData(artwork_sk: string) {
+interface getArtworkResponse {
+  success: boolean
+  data?: userArtworkSchema
+  message?: string
+}
+
+export async function getSingleArtworkData(artwork_sk: string): Promise<getArtworkResponse> {
   try {
     const response = await fetch(`/next-proxy/api/artworks/${artwork_sk}`, {
       method: "GET",
@@ -14,9 +21,9 @@ export async function getSingleArtworkData(artwork_sk: string) {
     const result = await response.json();
 
     if (response.ok) {
-      return result;
+      return { success: true, data: result };
     } else {
-      return { message: result.message };
+      return { success: false, message: result.message };
     }
   } catch (error) {
     console.log("error checking authentication status", error);
@@ -143,6 +150,42 @@ export async function voteForArtwork(artwork_sk: string) {
       return { success: true, message: result.message };
     } else {
       return { success: false, message: result.message };
+    }
+  } catch (error) {
+    console.log("error checking authentication status", error);
+    let errorMessage: string;
+
+    if (error instanceof Error) {
+      errorMessage = error.message;
+    } else if (typeof error === "string") {
+      errorMessage = error;
+    } else if (typeof error === "object" && error !== null && "message" in error) {
+      errorMessage = (error as { message: string }).message;
+    } else {
+      errorMessage = "Unknown error";
+    }
+
+    return { success: false, message: errorMessage };
+  }
+
+}
+
+export async function getTotalVotes() {
+  try {
+    const response = await fetch("/next-proxy/api/votes", {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+        "x-api-key": process.env.NEXT_PUBLIC_AK || "",
+      },
+    });
+
+    const result = await response.json();
+
+    if (response.ok) {
+      return result;
+    } else {
+      return { message: result.message };
     }
   } catch (error) {
     console.log("error checking authentication status", error);

@@ -1,7 +1,10 @@
 import { differenceInYears, parseISO } from "date-fns";
 import { BirthdateInterface } from "@/interfaces/user_auth";
 
-export function calculateAgeFromString(birthdate: string): number {
+export function calculateAgeFromString(birthdate: string | undefined): number {
+  if (birthdate == undefined || birthdate == null) {
+    return 0;
+  }
   const today = new Date();
   const birthDate = parseISO(birthdate);
   return differenceInYears(today, birthDate);

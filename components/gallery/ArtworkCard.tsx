@@ -5,6 +5,7 @@ import React, { memo, useState } from "react";
 
 type ArtworkCardProps = {
   data: userArtworkSchema;
+  voted: boolean;
   openModal: (id: string) => void;
 };
 
@@ -14,10 +15,10 @@ function checkSameProps(prevProps: ArtworkCardProps, nextProps: ArtworkCardProps
   // } else {
   //   console.log("Found different artwork card props. re-rendering.");
   // }
-  return prevProps.data.sk === nextProps.data.sk;
+  return prevProps.data.sk === nextProps.data.sk && prevProps.voted === nextProps.voted;
 }
 
-const ArtworkCard = ({ data, openModal }: ArtworkCardProps) => {
+const ArtworkCard = ({ data, openModal, voted }: ArtworkCardProps) => {
   const manageEnter = (e: React.MouseEvent<HTMLElement>) => {
     gsap.to(e.target, { scaleX: 1.2, scaleY: 1.2, duration: 0.3, ease: "power3.inout" });
   };
@@ -41,8 +42,11 @@ const ArtworkCard = ({ data, openModal }: ArtworkCardProps) => {
         <section className="w-full h-32 md:h-60 xl:h-52 mxl:h-56 rounded-t-lg overflow-hidden relative select-none">
           <div className="z-20 w-full h-full relative">
             <p className="rounded-lg py-2 px-4 z-40 absolute top-0 left-0 bg-[#ffffff1a] font-normal text-xs xl:text-sm">
-              {data.votes} Votes
+              {data.votes} {data.votes == 1 ? "Vote" : "Votes"}
             </p>
+            {voted && <p className="rounded-lg py-1 px-2 m-2 z-40 absolute top-0 right-0 bg-green-300 opacity-90 font-normal text-xs xl:text-sm">
+              Your Vote
+            </p>}
             <Image
               fill
               src={imageUrl}

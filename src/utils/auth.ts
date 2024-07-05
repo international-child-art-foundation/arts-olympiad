@@ -253,7 +253,7 @@ export async function getUserData() {
     if (response.ok) {
       return result;
     } else {
-      return { message: result.message };
+      return { success: false, message: result.message };
     }
   } catch (error) {
     console.log("error checking authentication status", error);
@@ -269,9 +269,46 @@ export async function getUserData() {
       errorMessage = "Unknown error";
     }
 
-    return { isAuthenticated: false, message: errorMessage };
+    return { success: false, message: errorMessage };
   }
 }
+
+export async function getUserVoteData() {
+  try {
+    const response = await fetch("/next-proxy/api/voted", {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+        "x-api-key": process.env.NEXT_PUBLIC_AK || "",
+      },
+      credentials: "include",
+    });
+
+    const result = await response.json();
+
+    if (response.ok) {
+      return { success: true, data: result};
+    } else {
+      return { success: false, message: result.message };
+    }
+  } catch (error) {
+    console.log("error checking authentication status", error);
+    let errorMessage: string;
+
+    if (error instanceof Error) {
+      errorMessage = error.message;
+    } else if (typeof error === "string") {
+      errorMessage = error;
+    } else if (typeof error === "object" && error !== null && "message" in error) {
+      errorMessage = (error as { message: string }).message;
+    } else {
+      errorMessage = "Unknown error";
+    }
+
+    return { success: false, message: errorMessage };
+  }
+}
+
 
 export async function handleSignOut() {
   try {

@@ -84,6 +84,13 @@
       "permissions": {
         "setting": "open"
       }
+    },
+    "/api/voted": {
+      "name": "/api/voted",
+      "lambdaFunction": "usersLambda",
+      "permissions": {
+        "setting": "open"
+      }
     }
   }
 }

@@ -1,6 +1,6 @@
 "use client";
 import Image from "next/image";
-import React from "react";
+import React, { useState, useEffect, useCallback } from "react";
 import hashtag from "../../public/home/hashtag.svg";
 import Paris from "../../public/svgs/gallery-svg/Paris.svg";
 import {Countdown} from "./Countdown";
@@ -9,6 +9,7 @@ import CountdownContainer from "./CountdownContainer";
 import colorfulScribble from "../../public/svgs/colorful-scribble.svg";
 import Link from "next/link";
 import { ContestState } from "../../mock/contestState";
+import { getTotalVotes } from "@/utils/artworks";
 // import { artworks } from "../../mock/artworks";
 
 interface GalleryHeaderProps {
@@ -16,6 +17,21 @@ interface GalleryHeaderProps {
 }
 
 export const GalleryHeader: React.FC<GalleryHeaderProps> = ({ contestState }) => {  
+  const [totalVotes, setTotalVotes] = useState<number | undefined>(undefined);
+
+  const fetchTotalVotes = useCallback(async () => {
+    try {
+      const votesResponse = await getTotalVotes();
+      setTotalVotes(votesResponse.votes);
+    } catch {
+      setTotalVotes(undefined);
+    }
+  }, []);
+
+  useEffect(() => {
+    fetchTotalVotes();
+  }, [fetchTotalVotes]);
+
   return (
     <>
       <section className="relative flex scale-x-80 xsm:scale-x-100 justify-start xsm:justify-center mt-6 md:mt-20 max-h-[760px] bg-neutral-white m-auto max-w-screen-2xl px-8 md:px-12 lg:px-16 xl:px-20">
@@ -57,7 +73,7 @@ export const GalleryHeader: React.FC<GalleryHeaderProps> = ({ contestState }) =>
             </div>
             <div className="text-3xl font-semibold lg:text-4xl lg:font-bold">
               {/* API call: get total votes */}
-              0
+              {totalVotes ? totalVotes : ""}
               <Image src={colorfulScribble} alt="" width={160} height={20} className="-ml-8"/>
             </div>
           </div>

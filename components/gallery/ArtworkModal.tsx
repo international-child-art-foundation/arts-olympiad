@@ -12,6 +12,7 @@ import { useGlobalContext } from "@/app/GlobalContext";
 import useWindowDimensions from "@/hooks/useWindowDimensions";
 import { gsap } from "gsap";
 import "@/styles/home.css";
+import { useFilters } from "./FilterContext";
 
 type ArtworkModalProps = {
   artworks: artworkDataResponse
@@ -20,8 +21,8 @@ type ArtworkModalProps = {
   isModalOpen: boolean;
   isMobile: boolean;
   currentUserSk: string | null;
+  voted: boolean;
   closeModal: () => void;
-  getShareUrl: () => string;
 };
 
 // Define the enum for modal states
@@ -34,16 +35,16 @@ type ModalState =
 function checkSameProps(prevProps: ArtworkModalProps, nextProps: ArtworkModalProps) {
   // We memoize this function to be efficient. If any of `id`, `modalState`, or `pageLoadArtwork` have changed, re-render. 
   // May need to include `artworks` as well.
-  // isMobile/isHorizontal currently bugged with this solution, but adding them here may be expensive, so more thought has to be done.
   return prevProps.sk == nextProps.sk && prevProps.isModalOpen == nextProps.isModalOpen && prevProps.pageLoadArtwork == nextProps.pageLoadArtwork;
 }
 
-const ArtworkModal: React.FC<ArtworkModalProps> = ({ artworks, pageLoadArtwork, sk, isModalOpen, closeModal, getShareUrl, currentUserSk, isMobile }) => {
+const ArtworkModal: React.FC<ArtworkModalProps> = ({ artworks, pageLoadArtwork, sk, isModalOpen, closeModal, currentUserSk, isMobile, voted }) => {
   const {isAuthenticated} = useGlobalContext();
   const { windowWidth, windowHeight } = useWindowDimensions();
   const isHorizontal = windowWidth > windowHeight;
   const [modalState, setModalState] = useState<ModalState>({ status: "loading" });
   const [alreadyVoted, setAlreadyVoted] = useState(false);
+  const { setVotedSk } = useFilters();
 
   async function handleCloseModal() {
     await setModalState({status: "loading"});
@@ -67,7 +68,8 @@ const ArtworkModal: React.FC<ArtworkModalProps> = ({ artworks, pageLoadArtwork, 
   
       if (!data && sk) {
         try {
-          data = await getSingleArtworkData(sk);
+          const singleArtworkResponse = await getSingleArtworkData(sk);
+          data = singleArtworkResponse.data;
         } catch (error) {
           console.error("Error fetching artwork data:", error);
           setModalState({ status: "error" });
@@ -114,6 +116,7 @@ const ArtworkModal: React.FC<ArtworkModalProps> = ({ artworks, pageLoadArtwork, 
         const response = await voteForArtwork(artwork_sk);
         if (response.success === true) {
           setModalState({status: "submitted"}); // Transition to submitted state on success
+          setVotedSk(artwork_sk);
         } else {
           if (response.message == "Cannot vote on the same artwork twice") {
             setModalState({status: "loaded", data: currentData});
@@ -154,7 +157,9 @@ const ArtworkModal: React.FC<ArtworkModalProps> = ({ artworks, pageLoadArtwork, 
         <p className="text-xl pb-10 font-light">Your vote is cast – thank you for participating! You've just helped an artist get one step closer to the spotlight. Share their work to spread the word!</p>
         <div className="">
           <p className="font-semibold text-xl text-center">Share this post</p>
-          <SocialShare shareUrl={getShareUrl()} />
+          {sk && 
+            <SocialShare shareId={sk} />
+          }
         </div>
 
         <button className="bg-new-blue w-full text-base text-white text-base p-4 rounded mt-6 cursor-pointer" onClick={handleCloseModal}>Return to Gallery</button>
@@ -177,7 +182,9 @@ const ArtworkModal: React.FC<ArtworkModalProps> = ({ artworks, pageLoadArtwork, 
       <div className="grid grid-cols-2 gap-5 md:gap-10 grid-rows-1 overflow-hidden max-h-full mx-auto px-6">
         <div className="flex flex-col overflow-auto no-scrollbar">
           <div className="inline-block py-2">
-            <span className="bg-[#fbb22e] rounded-3xl p-2 px-8">{modalState.data.votes} Votes</span>
+            <span className="bg-[#fbb22e] rounded-3xl p-2 px-8">
+              {modalState.data.votes} {modalState.data.votes == 1 ? "Vote" : "Votes"}
+            </span>
           </div>
           <p className="font-bold text-xl mt-5">{modalState.data.f_name}</p>
           <div className="mt-5">
@@ -194,7 +201,7 @@ const ArtworkModal: React.FC<ArtworkModalProps> = ({ artworks, pageLoadArtwork, 
           )}
           <div className="mt-auto">
             <p className="font-semibold text-xl pt-4">Share this post</p>
-            <SocialShare shareUrl={getShareUrl()} />
+            <SocialShare shareId={sk} />
           </div>
           {!isAuthenticated ? (
             <>
@@ -205,7 +212,11 @@ const ArtworkModal: React.FC<ArtworkModalProps> = ({ artworks, pageLoadArtwork, 
             currentUserSk != sk && (
               <>
                 {alreadyVoted && <p className="text-md pt-4 text-green-700">You've already voted for this artwork!</p>}
-                <button className={`bg-new-blue text-white text-base p-4 rounded mt-4 ${alreadyVoted && "opacity-60 pointer-events-none"}`} onClick={() => submitVote(sk)}>Vote for this artwork</button>
+                {voted ? (
+                  <button className={"bg-green-600 text-white text-base p-4 rounded mt-4 opacity-60 pointer-events-none"} onClick={() => submitVote(sk)}>Thanks for your vote!</button>
+                ) : (
+                  <button className={`bg-new-blue text-white text-base p-4 rounded mt-4 ${alreadyVoted && "opacity-60 pointer-events-none"}`} onClick={() => submitVote(sk)}>Vote for this artwork</button>
+                )}
               </>
             )
           )}
@@ -250,7 +261,9 @@ const ArtworkModal: React.FC<ArtworkModalProps> = ({ artworks, pageLoadArtwork, 
     return (
       <div className="grid max-h-full p-4 overflow-auto gap-y-2">
         <div className="inline-block py-2 mb-4">
-          <span className="bg-[#fbb22e] rounded-3xl p-2 px-8">{modalState.data.votes} Votes</span>
+          <span className="bg-[#fbb22e] rounded-3xl p-2 px-8">
+            {modalState.data.votes} {modalState.data.votes == 1 ? "Vote" : "Votes"}
+          </span>
         </div>
         <div className="flex justify-center items-center rounded-xl overflow-hidden relative flex-shrink">
           <Image src={`${process.env.NEXT_PUBLIC_CLOUDFRONT_DISTRIBUTION_URL}/${modalState.data.sk}/medium.webp`} alt={modalState.data.f_name} width={500} height={300} className="max-w-full max-h-full col-start-2 z-20 object-contain" />
@@ -270,7 +283,7 @@ const ArtworkModal: React.FC<ArtworkModalProps> = ({ artworks, pageLoadArtwork, 
         )}
         <div className="mt-auto">
           <p className="font-semibold text-xl">Share this post</p>
-          <SocialShare shareUrl={getShareUrl()} />
+          {sk && <SocialShare shareId={sk} />}
         </div>
         {!isAuthenticated ? (
           <>

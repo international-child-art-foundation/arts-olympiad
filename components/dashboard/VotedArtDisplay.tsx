@@ -2,17 +2,10 @@ import { useDashboardContext } from "./DashboardContext";
 import Image from "next/image";
 import placeholderImage from "../../public/dashboard/placeholder-image.png";
 import SocialShare from "../SocialShare";
-import { useEffect } from "react";
-import { fakeUserArtworkData } from "../../mock/fakeUserArtworkData";
+import { buildMdImageUrl } from "@/utils/url-builders";
 
 export const VotedArtDisplay = () => {
-  const {apiUserData, apiArtworkVoteData, setApiArtworkVoteData } = useDashboardContext();
-  // On page load, get and set voted artwork data once
-  useEffect(() => { 
-    setTimeout(() => { // Simulate API call wait time
-      setApiArtworkVoteData(fakeUserArtworkData);
-    }, 1000);
-  });
+  const {apiArtworkVoteData } = useDashboardContext();
 
   return (
     <div>
@@ -22,14 +15,14 @@ export const VotedArtDisplay = () => {
             <div className="flex flex-col overflow-hidden gap-4">
               <div className="flex justify-center items-center rounded-xl overflow-hidden relative flex-grow ">
                 <Image
-                  src={apiArtworkVoteData?.sk ?? placeholderImage}
+                  src={buildMdImageUrl(apiArtworkVoteData.sk) ?? placeholderImage}
                   alt="Your submitted image"
                   width={400}
                   height={400}
                   className="z-10 max-h-full max-w-full object-contain"
                 />
                 <Image
-                  src={apiArtworkVoteData?.sk ?? placeholderImage}
+                  src={buildMdImageUrl(apiArtworkVoteData.sk) ?? placeholderImage}
                   alt="Background"
                   width={400}
                   height={400}
@@ -37,14 +30,19 @@ export const VotedArtDisplay = () => {
                 />
               </div>
               <div className="bg-main-orange flex rounded-[30px] w-[180px] p-2.5 gap-8 m-auto text-center h-auto flex-none">
-                <p className="m-auto font-semibold">{apiArtworkVoteData?.votes} Votes</p>
+                <p className="m-auto font-semibold">
+                  {apiArtworkVoteData.votes} {apiArtworkVoteData.votes == 1 ? "Vote" : "Votes"}
+                </p>
               </div>
             </div>
             <div className="flex flex-col pl-4 justify-between gap-4">
-              <p className="text-xl font-semibold">{apiUserData?.f_name} {apiUserData?.l_name}</p>
+              <p className="text-xl font-semibold">{apiArtworkVoteData?.f_name}</p>
               <div>
-                <p>{apiUserData?.age} | {apiUserData?.location}</p>
+                <p>{apiArtworkVoteData?.age} | {apiArtworkVoteData?.location}</p>
                 <p>{apiArtworkVoteData.sport}</p>
+              </div>
+              <div>
+                <p>{apiArtworkVoteData.description}</p>
               </div>
               {apiArtworkVoteData.is_ai_gen && (
                 <div>
@@ -55,7 +53,7 @@ export const VotedArtDisplay = () => {
               )}
               <div>
                 <p className="font-semibold">Share This Post</p>
-                <SocialShare shareUrl={"/gallery?id=" + apiArtworkVoteData.sk} />
+                <SocialShare shareId={apiArtworkVoteData.sk} />
               </div>
             </div>
           </div>

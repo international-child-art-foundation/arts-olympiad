@@ -8,6 +8,7 @@ interface GlobalContextType {
   isAuthenticated: boolean;
   signIn: ({ email, password }: UserLoginInterface) => Promise<LoginResponse>;
   signOut: () => void;
+  handleRealizeSignedOut: () => void;
 }
 
 export const GlobalContext = createContext<GlobalContextType | undefined>(undefined);
@@ -44,9 +45,16 @@ export const GlobalContextProvider: React.FC<GlobalContextProviderProps> = ({ ch
     localStorage.removeItem("isAuthenticated");
   }, []);
 
+  // Should be used whenever the client realizes (during normal operation)
+  // that the user is signed out and should be shown the default UI.
+  const handleRealizeSignedOut = useCallback(async () => {
+    setIsAuthenticated(false);
+    localStorage.removeItem("isAuthenticated");
+  }, []);
+
   const value = React.useMemo<GlobalContextType>(
-    () => ({ isAuthenticated, signIn, signOut }),
-    [isAuthenticated, signIn, signOut]
+    () => ({ isAuthenticated, signIn, signOut, handleRealizeSignedOut }),
+    [isAuthenticated, signIn, signOut, handleRealizeSignedOut]
   );
 
   return (

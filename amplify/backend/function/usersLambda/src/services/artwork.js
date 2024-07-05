@@ -77,15 +77,15 @@ async function handleVote(userSk, artworkSk) {
   }
   // console.log(userSk);
   // console.log(artworkSk);
-  // console.log(userData.voted_id);
+  // console.log(userData.voted_sk);
   // console.log(userData);
-  if (userData.Item.voted_id) {
-    if (userData.Item.voted_id === artworkSk) {
+  if (userData.Item.voted_sk) {
+    if (userData.Item.voted_sk === artworkSk) {
       // User is trying to vote for the same artwork again
       throw new Error("Cannot vote on the same artwork twice");
     } else {
       // User is changing their vote
-      return await ArtworkModel.changeVote(userSk, userData.Item.voted_id, artworkSk);
+      return await ArtworkModel.changeVote(userSk, userData.Item.voted_sk, artworkSk);
     }
   } else {
     // User doesn't have an active vote

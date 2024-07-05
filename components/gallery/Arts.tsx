@@ -25,6 +25,8 @@ import { filterableOptions as initialFilterableOptions } from "../../mock/filter
 import { userArtworkSchema } from "../../mock/userArtworkSchema";
 import no_results_found from "../../public/svgs/no_results_found_bg.svg";
 import LoadingAnimation from "../svgs/LoadingAnimation";
+import { getUserVoteData } from "@/utils/auth";
+import { useGlobalContext } from "@/app/GlobalContext";
 
 interface ArtsProps {
   contestState: ContestState;
@@ -37,18 +39,17 @@ export const Arts: React.FC<ArtsProps> = ({ contestState }) => {
   const { filterableOptions, setFilterOption, bulkAlterCategoryOptions, resetAllFilters, //activateOptionsByName,
     pageNumber, setPageNumber,
     sortValue, setSortValue,
-    activeEntrySk, setActiveEntrySk } = useFilters();
+    activeEntrySk, setActiveEntrySk,
+    votedSk, setVotedSk } = useFilters();
+  const { handleRealizeSignedOut, isAuthenticated } = useGlobalContext();
   const [mostRecentFilterState, setMostRecentFilterState] = useState(filterableOptions);
   const [pageLoadArtwork, setPageLoadArtwork] = useState<userArtworkSchema | undefined>(undefined);
   const [currentUserSk, setCurrentUserSk] = useState<string | null>(null);
 
   const { windowWidth } = useWindowDimensions();
   const isMobile = windowWidth < 1024;
-  // const isHorizontal = windowWidth > windowHeight;
   const searchParams = useSearchParams();
   const artworksPerPage = 20;
-  // const startIndex = (pageNumber - 1) * artworksPerPage;
-  // const endIndex = startIndex + artworksPerPage;
 
   const [artworks, setArtworks] = useState([] as artworkDataResponse);
   const [isLoading, setIsLoading] = useState(true);
@@ -82,6 +83,20 @@ export const Arts: React.FC<ArtsProps> = ({ contestState }) => {
     }
   }, []);
 
+  const fetchUserAuthAndVote = useCallback(async () => {
+    // We want to fetch the user's data on page load to set their voted-for artwork
+    // and to confirm their authentication status before they try to vote.
+    if (isAuthenticated) {
+      const userVotedResponse = await getUserVoteData();
+      if (userVotedResponse.success == true && userVotedResponse.data) {
+        setVotedSk(userVotedResponse.data);
+      } else {
+        handleRealizeSignedOut();
+      }
+    }
+
+  }, [setVotedSk, handleRealizeSignedOut]);
+
   // Populate artwork data on page load
   useEffect(() => {
     async function handleIdUponPageLoad() {
@@ -90,8 +105,10 @@ export const Arts: React.FC<ArtsProps> = ({ contestState }) => {
         if (skFromUrl) {
           updateActiveEntrySk(skFromUrl);
           setModalOpen(true);
-          const singleArtworkData = await getSingleArtworkData(skFromUrl);
-          setPageLoadArtwork(singleArtworkData);
+          const singleArtworkResponse = await getSingleArtworkData(skFromUrl);
+          if (singleArtworkResponse.success === true && singleArtworkResponse.data) {
+            setPageLoadArtwork(singleArtworkResponse.data);
+          }
         }
       }
     }
@@ -103,6 +120,7 @@ export const Arts: React.FC<ArtsProps> = ({ contestState }) => {
     handleIdUponPageLoad();
     console.log("Initial page load population of artwork:");
     fetchArtworkData();
+    fetchUserAuthAndVote();
   }, [fetchArtworkData]);
 
   {/* The state of our application is handled by our FilterContext.tsx file. Variables imported from useFilters() represent our state.*/}
@@ -146,15 +164,15 @@ export const Arts: React.FC<ArtsProps> = ({ contestState }) => {
     updateURLFromState();
   }, [updateURLFromState]);
 
-  const getShareUrl = () => {
-    const baseUrl = `${window.location.protocol}//${window.location.host}${window.location.pathname}`;
-    const shareUrl = new URL(baseUrl);
-    if (activeEntrySk) {
-      shareUrl.searchParams.set("id", activeEntrySk); // Append the activeEntrySk as a query parameter
-    }
+  // const getShareUrl = () => {
+  //   const baseUrl = `${window.location.protocol}//${window.location.host}${window.location.pathname}`;
+  //   const shareUrl = new URL(baseUrl);
+  //   if (activeEntrySk) {
+  //     shareUrl.searchParams.set("id", activeEntrySk); // Append the activeEntrySk as a query parameter
+  //   }
   
-    return shareUrl.toString();
-  };
+  //   return shareUrl.toString();
+  // };
 
   const updatePageNumber = (currentPageNumber: number, newPageNumber: number) => {
     setPageNumber(newPageNumber);
@@ -267,7 +285,7 @@ export const Arts: React.FC<ArtsProps> = ({ contestState }) => {
 
   return (
     <div className={`${contestState == ContestState.Inactive && "opacity-60 pointer-events-none select-none blur-sm relative"} `}>
-      <ArtworkModal artworks={artworks} pageLoadArtwork={pageLoadArtwork} sk={activeEntrySk} closeModal={closeModal} isMobile={isMobile} isModalOpen={isModalOpen} currentUserSk={currentUserSk} getShareUrl={getShareUrl}/>
+      <ArtworkModal artworks={artworks} voted={activeEntrySk == votedSk} pageLoadArtwork={pageLoadArtwork} sk={activeEntrySk} closeModal={closeModal} isMobile={isMobile} isModalOpen={isModalOpen} currentUserSk={currentUserSk} />
       {isMobile && <MobileFilter isFilterOpen={isFilterOpen} handleModifyFilterState={handleModifyFilterState} updateFilterOption={updateFilterOption} updateSortValue={updateSortValue} alterFiltersByCategory={alterFiltersByCategory} resetAllFilters={resetAllFilters} /> }
       <div className="relative px-8 md:px-12 lg:px-16 xl:px-20 max-w-screen-2xl z-0 m-auto w-screen min-h-[800px]">
         {/* Flexbox 1 - Contains filter open/close button on left side, and Sort title/maybe options on right side */}
@@ -327,16 +345,18 @@ export const Arts: React.FC<ArtsProps> = ({ contestState }) => {
               {error && <div className="text-red-600 py-6 text-lg mx-auto text-center">We're having some difficulty fetching artworks. Try refreshing the page. </div>}
               <div className="grid grid-cols-2 gap-x-2 gap-y-6 xl:grid-cols-4 xl:gap-x-6 xl:gap-y-10">
                 {Array.isArray(artworks) && artworks.length > 0 && (
-                  artworks.map((artwork) => (
-                    artwork.sk != null ? (
-                      <ArtworkCard
-                        data={artwork}
-                        openModal={openModal}
-                        key={artwork.sk}
-                      />
-                    ) : null
-                  ))
-                )}
+                  (sortValue === "Most Popular" ? artworks.sort((a, b) => (b.votes || 0) - (a.votes || 0)) : artworks)
+                    .map((artwork) => (
+                      artwork.sk != null ? (
+                        <ArtworkCard
+                          data={artwork}
+                          openModal={openModal}
+                          key={artwork.sk}
+                          voted={votedSk == artwork.sk}
+                        />
+                      ) : null
+                    ))
+                )}              
               </div>
               <Pagination
                 totalItems={artworks?.length || 0}

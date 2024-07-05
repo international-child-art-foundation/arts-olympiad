@@ -12,6 +12,7 @@ import { DashboardModal } from "./DashboardModal";
 import { DeleteArtwork } from "./DeleteArtwork";
 import { getAuthStatus, getUserData } from "@/utils/auth";
 import { getSingleArtworkData } from "@/utils/artworks";
+import { useGlobalContext } from "@/app/GlobalContext";
 
 export default function DashboardManager() {
   const router = useRouter();
@@ -22,6 +23,7 @@ export default function DashboardManager() {
   // authenticated page visits, and API requests. We will also need to manage refresh 
   // token tasks manually which will likely occur when authentication status is checked. 
   const [isAuthenticated, setIsAuthenticated] = useState<DashboardAuthenticationStates>("Loading");
+  const { handleRealizeSignedOut } = useGlobalContext();
 
   // Create our dashboard state variable
   const [dashboardTab, setDashboardTab] = useState<DashboardTabs>("Dashboard");
@@ -34,6 +36,7 @@ export default function DashboardManager() {
       if (authStatus.isAuthenticated === true) {
         setIsAuthenticated("Authenticated");
       } else {
+        router.push("/auth/login");
         setIsAuthenticated("Unauthenticated");
       }
       return authStatus.isAuthenticated;
@@ -48,7 +51,9 @@ export default function DashboardManager() {
       if (userData.sk && userData.has_active_submission) {
         const artworkData = await getSingleArtworkData(userData.sk);
         console.log(artworkData);
-        setApiArtworkData(artworkData);
+        if (artworkData.success == true && artworkData.data) {
+          setApiArtworkData(artworkData.data);
+        }
       }
     }
     async function init() {
@@ -56,9 +61,10 @@ export default function DashboardManager() {
       if (authStatus === true) {
         await asyncGetUserData();
         setDashboardLoadingState("Loaded" as DashboardLoadingStates);
+      } else {
+        handleRealizeSignedOut();
       }
     }
-
     init();
   }, [setApiUserData, setApiArtworkData]);
   

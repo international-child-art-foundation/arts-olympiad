@@ -47,12 +47,12 @@ const Header = () => {
       
       <div className="flex flex-wrap w-full">
 
-        <Link href={isAuthenticated ? "/dashboard" : "/auth/login"} className="group my-2 h-fit w-fit border-new-blue border rounded text-center py-2 px-3 text-xs cursor-pointer tracking-wide text-new-blue hidden md:block">
+        <Link href={isAuthenticated ? "/dashboard" : "/auth/login"} className="active:scale-95 group my-2 h-fit w-fit border-new-blue border rounded text-center py-2 px-3 text-xs cursor-pointer tracking-wide text-new-blue hidden md:block">
           <UploadIcon />
           Upload
         </Link>
 
-        <Link href="/gallery" className="group my-2 ml-2 h-fit w-fit border-new-blue border rounded text-center py-2 px-3 text-xs cursor-pointer tracking-wide text-new-blue hidden md:block">
+        <Link href="/gallery" className="active:scale-95 group my-2 ml-2 h-fit w-fit border-new-blue border rounded text-center py-2 px-3 text-xs cursor-pointer tracking-wide text-new-blue hidden md:block">
           <VoteIcon />
           Vote
         </Link>
@@ -60,14 +60,14 @@ const Header = () => {
         {isAuthenticated === true ? (
           <>
             <div className="group ml-auto flex">
-              <Link href="/dashboard" className={`group my-2 h-fit w-fit border-new-blue border rounded text-center py-2 px-3 text-xs cursor-pointer tracking-wide text-new-blue hidden md:inline-flex items-center ${logoutLoading ? "opacity-50 pointer-events-none" : ""}`}>
+              <Link href="/dashboard" className={`active:scale-95 group my-2 h-fit w-fit border-new-blue border rounded text-center py-2 px-3 text-xs cursor-pointer tracking-wide text-new-blue hidden md:inline-flex items-center ${logoutLoading ? "opacity-50 pointer-events-none" : ""}`}>
                 <UserIcon />
                 Dashboard
               </Link>
 
               <a
                 onClick={logoutLoading ? undefined : handleSignOut}
-                className={`group gap-2 my-2 ml-2 h-fit w-fit border-new-blue border rounded text-center py-2 px-3 text-xs cursor-pointer tracking-wide text-new-blue hidden md:inline-flex items-center ${logoutLoading ? "opacity-50 pointer-events-none" : ""}`}
+                className={`active:scale-95 group gap-2 my-2 ml-2 h-fit w-fit border-new-blue border rounded text-center py-2 px-3 text-xs cursor-pointer tracking-wide text-new-blue hidden md:inline-flex items-center ${logoutLoading ? "opacity-50 pointer-events-none" : ""}`}
               >
                 <p>Logout</p>
                 <LoginIcon

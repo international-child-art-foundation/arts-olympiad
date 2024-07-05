@@ -37,7 +37,7 @@ enum ModalState {
   Submitted,
 }
 
-const ArtworkModal: React.FC<ArtworkModalProps> = ({ id, modalState, isHorizontal, closeModal, getShareUrl }) => {
+const ArtworkModal: React.FC<ArtworkModalProps> = ({ id, modalState, isHorizontal, closeModal }) => {
   const [artworkData, setArtworkData] = useState<Artwork | undefined>(undefined);
   const [currentState, setCurrentState] = useState<ModalState>(ModalState.Default);
 
@@ -86,7 +86,7 @@ const ArtworkModal: React.FC<ArtworkModalProps> = ({ id, modalState, isHorizonta
         <p className="text-xl pb-10 font-light">Your vote is cast – thank you for participating!  You've just helped an artist get one step closer to the spotlight. Share their work to spread the word!</p>
         <div className="">
           <p className="font-semibold text-xl text-center">Share this post</p>
-          <SocialShare shareUrl={getShareUrl()} />
+          <SocialShare shareId={id} />
         </div>
 
         <button className="bg-new-blue w-full text-base text-white text-base p-4 rounded mt-6 cursor-pointer" onClick={closeModal}>Return to Gallery</button>
@@ -123,7 +123,7 @@ const ArtworkModal: React.FC<ArtworkModalProps> = ({ id, modalState, isHorizonta
           )}
           <div className="mt-auto">
             <p className="font-semibold text-xl pt-4">Share this post</p>
-            <SocialShare shareUrl={getShareUrl()} />
+            <SocialShare shareId={id} />
           </div>
           {!signedIn ? (
             <>
@@ -165,7 +165,9 @@ const ArtworkModal: React.FC<ArtworkModalProps> = ({ id, modalState, isHorizonta
     return (
       <div className="grid max-h-full overflow-auto gap-y-2">
         <div className="inline-block py-2 mb-4">
-          <span className="bg-[#fbb22e] rounded-3xl p-2 px-8">{artworkData.votes} Votes</span>
+          <span className="bg-[#fbb22e] rounded-3xl p-2 px-8">
+            {artworkData.votes} {artworkData.votes == 1 ? "Vote" : "Votes"}
+          </span>
         </div>
         <div className="flex justify-center items-center rounded-xl overflow-hidden relative flex-shrink">
           <Image src={artworkData.url} alt={artworkData.alt} width={500} height={300} className="max-w-full max-h-full col-start-2 z-20 object-contain" />
@@ -185,7 +187,7 @@ const ArtworkModal: React.FC<ArtworkModalProps> = ({ id, modalState, isHorizonta
         )}
         <div className="mt-auto">
           <p className="font-semibold text-xl">Share this post</p>
-          <SocialShare shareUrl={getShareUrl()} />
+          <SocialShare shareId={id} />
         </div>
         {!signedIn ? (
           <>

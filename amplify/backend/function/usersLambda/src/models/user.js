@@ -30,7 +30,7 @@ async function getUserBySk(userSk) {
       pk: "USER",
       sk: userSk
     },
-    ProjectionExpression: "sk, f_name, l_name, birthdate, #loc, age, email, g_f_name, g_l_name, voted_id, can_submit_art, has_active_submission",
+    ProjectionExpression: "sk, f_name, l_name, birthdate, #loc, age, email, g_f_name, g_l_name, voted_sk, can_submit_art, has_active_submission",
     ExpressionAttributeNames: { "#loc": "location" },
   };
   try {

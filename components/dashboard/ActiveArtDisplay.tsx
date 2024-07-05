@@ -77,7 +77,9 @@ export const ActiveArtDisplay = () => {
                   )}
                 </div>
                 <div className="bg-main-orange flex rounded-[30px] w-[180px] p-2.5 gap-8 m-auto text-center h-auto flex-none">
-                  <p className="m-auto font-semibold">{apiArtworkData?.votes} Votes</p>
+                  <p className="m-auto font-semibold">
+                    {apiArtworkData.votes} {apiArtworkData.votes == 1 ? "Vote" : "Votes"}
+                  </p>
                 </div>
               </div>
               <div className="flex flex-col pl-4 justify-between gap-4">
@@ -155,7 +157,7 @@ export const ActiveArtDisplay = () => {
                 {apiArtworkData.is_approved ? (
                   <div>
                     <p className="font-semibold">Share This Post</p>
-                    <SocialShare shareUrl={"/gallery?id=" + apiArtworkData.sk} />
+                    <SocialShare shareId={apiArtworkData.sk} />
                   </div>
                 ) : (
                   <div>

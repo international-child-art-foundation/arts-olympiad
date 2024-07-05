@@ -19,6 +19,24 @@ async function getUser(req, res) {
   }
 }
 
+async function getUserVoted(req, res) {
+  try {
+    const {accessToken, refreshToken} = req.cookies;
+    if (!accessToken && !refreshToken) {
+      return res.status(401).json({ message: "User is not logged in"});
+    }
+    await handleRefreshTokenFlow(req, res);
+    if (res.headersSent) return; // Exit execution if response has already been sent
+    const userCognitoData = await getUserCognitoData(req.cookies.accessToken);
+    const userSk = userCognitoData.sub;
+    const user = await UserService.getUser(userSk);
+    res.status(200).json(user.voted_sk);
+  } catch (error) {
+    console.error("Error from route:", error.message || error);
+    res.status(400).json({ error: error.message || "An unknown error occurred" });  
+  }
+}
+
 async function registerUser(req, res)  {
   const { email, password, f_name, l_name, birthdate } = req.body;
   const userData = { email, password, f_name, l_name, birthdate };
@@ -228,5 +246,6 @@ module.exports = {
   updateUser,
   volunteerUpdateUser,
   getAuthStatus,
-  getVolunteerAuthStatus
+  getVolunteerAuthStatus,
+  getUserVoted
 };
