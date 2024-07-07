@@ -28,7 +28,7 @@ export const Intro = () => {
               Sports fans and art lovers vote for the artwork you like the most for it to win the Gold (US$3,000), Silver ($2,000), or Bronze ($1,000).
             </p>
             <p className="z-20 mb-4 leading-8 lg:mb8 "> {/* Use &nbsp to allow grid layout to work properly */}
-              This historic global art contest begins on&nbsp;<b> {formatDate("competitionBegin", "MMMM do")}</b>
+              This historic global art contest begins on&nbsp;<b>July 26<sup>th</sup></b>
               —when the Games kick off in Paris. Artists must act right away to get more public votes. Judges must vote before {formatDate("competitionEnd", "MMMM do")}&nbsp;
               when the contest ends. Winners receive the cash prizes on &nbsp;{formatDate("winnerAnnounced", "MMMM d, yyyy")}.
             </p>
@@ -55,7 +55,7 @@ export const Intro = () => {
             </div>
           </div>
         </figure>
-        <Image src={ranbowLine} alt="" className="absolute inset-x-0 -bottom-6 lg:bottom-0 z-0 object-cover object-center w-full"></Image>
+        <Image src={ranbowLine} alt="" className="absolute inset-x-0 bottom-6 lg:-bottom-6 z-0 object-cover object-center w-full"></Image>
       </section>
     </>
   );
