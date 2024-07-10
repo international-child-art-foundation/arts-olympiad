@@ -215,6 +215,9 @@ export async function getUserVoteData(): Promise<UserVotedResponse> {
       },
       credentials: "include",
     });
+
+    // Result can be empty if user has not voted; needs to be handled gracefully
+    // Should return success regardless
     let result = null;
     try {
       result = await response.json();
