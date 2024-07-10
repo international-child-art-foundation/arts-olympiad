@@ -1,7 +1,7 @@
 "use client";
 import React, { createContext, useState, ReactNode, useContext } from "react";
-import { UserDataSchema } from "../../mock/userDataSchema";
-import { userArtworkSchema } from "../../mock/userArtworkSchema";
+import { UserDataSchema } from "@/interfaces/user_auth";
+import { UserArtworkSchema } from "@/interfaces/artwork_shapes";
 import { dashboardMainTabSubmissionSchema } from "../../mock/dashboardMainTabSubmissionSchema";
 
 interface DashboardContextType {
@@ -9,10 +9,10 @@ interface DashboardContextType {
   setApiUserData: React.Dispatch<React.SetStateAction<UserDataSchema | undefined>>;
   userHasActiveSubmission: boolean;
   setUserHasActiveSubmission: React.Dispatch<React.SetStateAction<boolean>>;
-  apiArtworkData: userArtworkSchema | undefined;
-  setApiArtworkData: React.Dispatch<React.SetStateAction<userArtworkSchema | undefined>>;
-  apiArtworkVoteData: userArtworkSchema | undefined;
-  setApiArtworkVoteData: React.Dispatch<React.SetStateAction<userArtworkSchema | undefined>>;
+  apiArtworkData: UserArtworkSchema | undefined;
+  setApiArtworkData: React.Dispatch<React.SetStateAction<UserArtworkSchema | undefined>>;
+  apiArtworkVoteData: UserArtworkSchema | undefined;
+  setApiArtworkVoteData: React.Dispatch<React.SetStateAction<UserArtworkSchema | undefined>>;
   dashboardMainTabSubmissionData: dashboardMainTabSubmissionSchema;
   setDashboardMainTabSubmissionData: React.Dispatch<React.SetStateAction<dashboardMainTabSubmissionSchema>>;
   displayModal: string;
@@ -26,8 +26,8 @@ export const DashboardContextProvider: React.FC<{ children: ReactNode }> = ({ ch
   // Probably should not be used for form data; the form should submit its data, and upon a success response, we update userData and artworkData
   // Or we do another API call to retrieve them again, ensuring consistency 
   const [apiUserData, setApiUserData] = useState<UserDataSchema>();
-  const [apiArtworkData, setApiArtworkData] = useState<userArtworkSchema>();
-  const [apiArtworkVoteData, setApiArtworkVoteData] = useState<userArtworkSchema>(); // This can be set via API upon user visiting Your Vote page
+  const [apiArtworkData, setApiArtworkData] = useState<UserArtworkSchema>();
+  const [apiArtworkVoteData, setApiArtworkVoteData] = useState<UserArtworkSchema>(); // This can be set via API upon user visiting Your Vote page
   // TODO: Update userHasActiveSubmission to be set by API, or just replace usage with API data
   const [userHasActiveSubmission, setUserHasActiveSubmission] = useState(false); // harcoded to true for now, should change with API integration
   const [displayModal, setDisplayModal] = useState("");

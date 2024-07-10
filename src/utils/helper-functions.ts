@@ -25,3 +25,19 @@ export function calculateAgeFromUserBirthdateInput(birthdate: BirthdateInterface
 
   return differenceInYears(today, birthDate);
 }
+
+export function returnErrorAsString(error: unknown) {
+  let errorMessage: string;
+
+  if (error instanceof Error) {
+    errorMessage = error.message;
+  } else if (typeof error === "string") {
+    errorMessage = error;
+  } else if (typeof error === "object" && error !== null && "message" in error) {
+    errorMessage = (error as { message: string }).message;
+  } else {
+    errorMessage = "Unknown error";
+  }
+
+  return errorMessage;
+}

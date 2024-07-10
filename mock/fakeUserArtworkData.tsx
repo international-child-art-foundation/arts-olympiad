@@ -1,6 +1,6 @@
-import { userArtworkSchema } from "./userArtworkSchema";
+import { UserArtworkSchema } from "@/interfaces/artwork_shapes";
 
-export const fakeUserArtworkData: userArtworkSchema = {
+export const fakeUserArtworkData: UserArtworkSchema = {
   sk: "UUID",
   f_name: "Lewis",
   sport: "High Jump",

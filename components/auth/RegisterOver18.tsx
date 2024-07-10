@@ -10,7 +10,7 @@ import ClosedEye from "../../public/auth/eye_closed.svg";
 // import {useRouter} from "next/navigation";
 import {NewPasswordInput} from "../common/form_inputs/NewPasswordInput";
 import { BirthdateInterface, UserRegisterInterfaceOver18, UserRegisterInterface } from "@/interfaces/user_auth";
-import { handleRegister } from "@/utils/auth";
+import { handleRegister } from "@/utils/api-user";
 import { validate as uuidValidate } from "uuid";
 import "react-phone-number-input/style.css";
 import { CustomPhoneInput } from "../common/form_inputs/CustomPhoneInput";
@@ -21,6 +21,7 @@ import {
   emailValidation, 
   passwordValidation 
 } from "@/utils/yup-validators";
+import { limiter } from "@/utils/api-rate-limit";
 
 type RegisterOver18Props = {
   setUserEmail: React.Dispatch<React.SetStateAction<string>>
@@ -30,10 +31,12 @@ type RegisterOver18Props = {
   formSubmissionLoading: boolean;
   setFormSubmissionLoading: React.Dispatch<React.SetStateAction<boolean>>
 }
+import Bottleneck from "bottleneck";
 
 export const RegisterOver18: React.FC<RegisterOver18Props> = ({setUserEmail, setUserUuid, userBirthdate, setRegisterSuccess, formSubmissionLoading, setFormSubmissionLoading}) => {
 
   const [showPassword, setShowPassword] = useState(false);
+  const [apiError, setApiError] = useState("");
   const over18ValidationSchema = Yup.object().shape({
     ...firstNameValidation,
     ...lastNameValidation,
@@ -52,6 +55,7 @@ export const RegisterOver18: React.FC<RegisterOver18Props> = ({setUserEmail, set
 
   const onSubmit = async (values: UserRegisterInterfaceOver18) => {
     setFormSubmissionLoading(true);
+    setApiError("");
     const userRegisterValues: UserRegisterInterface = {
       ...values,
       guardianFirstName: undefined,
@@ -60,13 +64,23 @@ export const RegisterOver18: React.FC<RegisterOver18Props> = ({setUserEmail, set
     };
   
     setUserEmail(values.email); // Set user email for use in verificationSubmit
-    const result = await handleRegister(userRegisterValues);
-    console.log(result);
-    if (result?.success) {
-      setRegisterSuccess(result.success);
-      if (result?.message && uuidValidate(result.message)) {
-        setUserUuid(result.message);
-      }  
+    try {
+      const result = await limiter.schedule(() => handleRegister(userRegisterValues));
+      console.log(result);
+      if (result.success) {
+        setRegisterSuccess(result.success);
+        if (result.message && uuidValidate(result.message)) {
+          setUserUuid(result.message);
+        }  
+      } else {
+        setApiError("An error has occurred. Try again later.");
+      }
+    } catch(error) {
+      if (error instanceof Bottleneck.BottleneckError) {
+        setApiError("Error: Rate limit reached.");
+      } else {
+        setApiError("An error has occurred. Try again later.");
+      }
     }
     setFormSubmissionLoading(false);
   };
@@ -108,6 +122,7 @@ export const RegisterOver18: React.FC<RegisterOver18Props> = ({setUserEmail, set
               alt="Show password button." />
           </div>
           <ButtonStd type="submit" className="w-full my-2">Sign up</ButtonStd>
+          {apiError && <p className="text-red-500">{apiError}</p>}
         </Form>
       )}
     </Formik>

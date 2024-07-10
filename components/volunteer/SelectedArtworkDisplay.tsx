@@ -1,10 +1,11 @@
 import Image from "next/image";
-import { userArtworkSchema } from "../../mock/userArtworkSchema";
+import { UserArtworkSchema } from "@/interfaces/artwork_shapes";
 import { useState, useCallback } from "react";
 
 interface SelectedArtworkDisplayProps {
-  selectedArtwork: userArtworkSchema;
-  setSelectedArtwork: React.Dispatch<React.SetStateAction<userArtworkSchema | null>>;
+  selectedArtwork: UserArtworkSchema;
+  setSelectedArtwork: React.Dispatch<React.SetStateAction<UserArtworkSchema | null>>;
+  apiError: string;
   onApprove: (artworkId: string) => void;
   onDeny: (artworkId: string) => void;
   onBanUser: (userId: string) => void;
@@ -21,7 +22,8 @@ export const SelectedArtworkDisplay: React.FC<SelectedArtworkDisplayProps> = ({
   setSelectedArtwork,
   onApprove,
   onDeny,
-  onBanUser
+  onBanUser,
+  apiError
 }) => {
   const [checklistItems, setChecklistItems] = useState<ChecklistState>({
     noHiddenContent: null,
@@ -71,6 +73,12 @@ export const SelectedArtworkDisplay: React.FC<SelectedArtworkDisplayProps> = ({
       <div className="bg-white p-6 rounded-lg max-w-2xl w-full max-h-[90vh] overflow-y-auto">
         <div className="flex justify-between items-center mb-4">
           <h2 className="text-2xl font-bold">{selectedArtwork.f_name}</h2>
+          {apiError && 
+          <>
+            <p className="text-red-500">An API error has occurred. You may be offline, the server may be down, or you may have reached your rate limit.</p>
+            <p className="text-red-500">Please contact an administrator if this keeps unexpectedly happening.</p>
+          </>
+          }
           <button 
             onClick={() => setSelectedArtwork(null)}
             className="text-gray-500 hover:text-gray-700"

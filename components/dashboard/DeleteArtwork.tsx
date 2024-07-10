@@ -2,7 +2,7 @@ import { useDashboardContext } from "./DashboardContext";
 import LoadingAnimation from "../svgs/LoadingAnimation";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
-import { handleDeleteArtwork } from "@/utils/volunteer-artwork-functions";
+import { handleDeleteArtwork } from "@/utils/api-volunteer-artwork-functions";
 
 interface DeleteArtworkProps { // Empty for now
 }

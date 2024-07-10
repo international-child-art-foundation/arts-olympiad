@@ -2,21 +2,20 @@ import React, { useEffect, useState, memo, useRef } from "react";
 import Image from "next/image";
 import SocialShare from "../SocialShare";
 import Link from "next/link";
-
 // import { artworks } from "../../mock/artworks";
 import LoadingAnimation from "../svgs/LoadingAnimation";
-import { userArtworkSchema } from "../../mock/userArtworkSchema";
-import { artworkDataResponse } from "@/interfaces/gallery_shapes";
-import { getSingleArtworkData, voteForArtwork } from "@/utils/artworks";
+import { UserArtworkSchema } from "@/interfaces/artwork_shapes";
+import { getSingleArtworkData, voteForArtwork } from "@/utils/api-artworks";
 import { useGlobalContext } from "@/app/GlobalContext";
 import useWindowDimensions from "@/hooks/useWindowDimensions";
 import { gsap } from "gsap";
 import "@/styles/home.css";
 import { useFilters } from "./FilterContext";
+import { limiter } from "@/utils/api-rate-limit";
 
 type ArtworkModalProps = {
-  artworks: artworkDataResponse
-  pageLoadArtwork: userArtworkSchema | undefined;
+  artworks: UserArtworkSchema[];
+  pageLoadArtwork: UserArtworkSchema | undefined;
   sk: string | null;
   isModalOpen: boolean;
   isMobile: boolean;
@@ -29,8 +28,27 @@ type ArtworkModalProps = {
 type ModalState = 
   | { status: "loading" }
   | { status: "error" }
-  | { status: "loaded", data: userArtworkSchema }
+  | { status: "loaded", data: UserArtworkSchema }
   | { status: "submitted" };
+
+function isUserArtworkSchema(data: unknown): data is UserArtworkSchema {
+  if (typeof data !== "object" || data === null) {
+    return false;
+  }
+  
+  const artwork = data as UserArtworkSchema;
+  
+  return typeof artwork.sk === "string" &&
+           typeof artwork.f_name === "string" &&
+           typeof artwork.age === "number" || artwork.age == null &&
+           typeof artwork.sport === "string" || artwork.sport === null &&
+           typeof artwork.location === "string" &&
+           typeof artwork.is_ai_gen === "boolean" &&
+           (typeof artwork.model === "undefined" || typeof artwork.model === "string") &&
+           (typeof artwork.prompt === "undefined" || typeof artwork.prompt === "string") &&
+           typeof artwork.is_approved === "boolean" &&
+           typeof artwork.votes === "number";
+}
 
 function checkSameProps(prevProps: ArtworkModalProps, nextProps: ArtworkModalProps) {
   // We memoize this function to be efficient. If any of `id`, `modalState`, or `pageLoadArtwork` have changed, re-render. 
@@ -68,16 +86,17 @@ const ArtworkModal: React.FC<ArtworkModalProps> = ({ artworks, pageLoadArtwork, 
   
       if (!data && sk) {
         try {
-          const singleArtworkResponse = await getSingleArtworkData(sk);
-          data = singleArtworkResponse.data;
+          const singleArtworkResponse = await limiter.schedule(() => getSingleArtworkData(sk));
+          if (singleArtworkResponse.success && isUserArtworkSchema(singleArtworkResponse.data)) {
+            data = singleArtworkResponse.data;
+          }
         } catch (error) {
           console.error("Error fetching artwork data:", error);
           setModalState({ status: "error" });
           return;
         }
       }
-  
-      if (data) {
+      if (isUserArtworkSchema(data)) {
         setModalState({ status: "loaded", data });
         let delay;
         if (isMobile) {
@@ -113,12 +132,12 @@ const ArtworkModal: React.FC<ArtworkModalProps> = ({ artworks, pageLoadArtwork, 
       const currentData = modalState.data;
       setModalState({status: "loading"}); // Transition to loading state
       try {
-        const response = await voteForArtwork(artwork_sk);
+        const response = await limiter.schedule(() => voteForArtwork(artwork_sk));
         if (response.success === true) {
           setModalState({status: "submitted"}); // Transition to submitted state on success
           setVotedSk(artwork_sk);
         } else {
-          if (response.message == "Cannot vote on the same artwork twice") {
+          if (response.error == "Cannot vote on the same artwork twice") {
             setModalState({status: "loaded", data: currentData});
             setAlreadyVoted(true);
           } else {

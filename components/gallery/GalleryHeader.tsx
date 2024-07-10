@@ -9,8 +9,9 @@ import CountdownContainer from "./CountdownContainer";
 import colorfulScribble from "../../public/svgs/colorful-scribble.svg";
 import Link from "next/link";
 import { ContestState } from "../../mock/contestState";
-import { getTotalVotes } from "@/utils/artworks";
+import { getTotalVotes } from "@/utils/api-artworks";
 // import { artworks } from "../../mock/artworks";
+import { limiter } from "@/utils/api-rate-limit";
 
 interface GalleryHeaderProps {
   contestState: ContestState;
@@ -21,8 +22,12 @@ export const GalleryHeader: React.FC<GalleryHeaderProps> = ({ contestState }) =>
 
   const fetchTotalVotes = useCallback(async () => {
     try {
-      const votesResponse = await getTotalVotes();
-      setTotalVotes(votesResponse.votes);
+      const votesResponse = await limiter.schedule(() => getTotalVotes());
+      if (votesResponse.success) {
+        setTotalVotes(votesResponse.total_votes);
+      } else {
+        setTotalVotes(undefined);
+      }
     } catch {
       setTotalVotes(undefined);
     }

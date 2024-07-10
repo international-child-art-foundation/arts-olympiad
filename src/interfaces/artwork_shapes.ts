@@ -1,16 +1,21 @@
+export type PresignedUrlResponse = PresignedUrlSuccessResponse | PresignedUrlErrorResponse;
+
+export interface PresignedUrlSuccessResponse {
+  success: true;
+  data: PresignedUrlBody;
+}
+
+interface PresignedUrlErrorResponse {
+  success: false;
+  error: string;
+}
+
 export interface PresignedUrlRequest {
   fileType: string;
 }
 
-export interface PresignedUrlResponse {
-  success: boolean;
-  message: string;
-  body?: PresignedUrlBody;
-}
-
-
 interface S3PresignedFields {
-  [key: string]: string;  // Index signature for dynamic keys
+  [key: string]: string;
 }
 
 interface PresignedUrlBody {
@@ -30,3 +35,23 @@ export interface VolunteerArtworkInterface {
 export interface VolunteerUserInterface {
   user_sk: string;
 }
+
+export interface UserArtworkSchema {
+	sk: string; // This is ID
+	f_name: string;
+	age: number;
+	sport: string;
+	location: string;
+	is_ai_gen: boolean;
+  model?: string;
+	prompt?: string;
+	is_approved: boolean;
+	votes: number;
+	description: string;
+	file_type: string;
+}
+
+export type ApiArtworksResponse = {
+  success: boolean;
+  data: UserArtworkSchema[];
+};

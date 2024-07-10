@@ -1,7 +1,8 @@
-import { UserDataSchema } from "./userDataSchema";
+import { UserDataSchema } from "@/interfaces/user_auth";
 
 export const fakeUserData: UserDataSchema = 
 {
+  sk: "2",
   f_name: "Testing",
   l_name: "User",
   location: "Canada",  

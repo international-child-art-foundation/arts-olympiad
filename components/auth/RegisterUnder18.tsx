@@ -10,7 +10,7 @@ import ClosedEye from "../../public/auth/eye_closed.svg";
 // import {useRouter} from "next/navigation";
 import {NewPasswordInput} from "../common/form_inputs/NewPasswordInput";
 import { BirthdateInterface, UserRegisterInterfaceUnder18, UserRegisterInterface } from "@/interfaces/user_auth";
-import { handleRegister } from "@/utils/auth";
+import { handleRegister } from "@/utils/api-user";
 import { validate as uuidValidate } from "uuid";
 import "react-phone-number-input/style.css";
 import { CustomPhoneInput } from "../common/form_inputs/CustomPhoneInput";
@@ -32,10 +32,13 @@ type RegisterUnder18Props = {
   formSubmissionLoading: boolean
   setFormSubmissionLoading: React.Dispatch<React.SetStateAction<boolean>>
 }
+import Bottleneck from "bottleneck";
+import { limiter } from "@/utils/api-rate-limit";
 
 export const RegisterUnder18: React.FC<RegisterUnder18Props> = ({setUserEmail, setUserUuid, userBirthdate, setRegisterSuccess, formSubmissionLoading, setFormSubmissionLoading}) => {
 
   const [showPassword, setShowPassword] = useState(false);
+  const [apiError, setApiError] = useState("");
   const under18ValidationSchema = Yup.object().shape({
     ...firstNameValidation,
     ...lastNameValidation,
@@ -57,20 +60,29 @@ export const RegisterUnder18: React.FC<RegisterUnder18Props> = ({setUserEmail, s
   };
 
   const onSubmit = async (values: UserRegisterInterfaceUnder18) => {
+    setFormSubmissionLoading(true);
     const userRegisterValues: UserRegisterInterface = {
       ...values,
       birthdate: userBirthdate
     };
-  
-    setFormSubmissionLoading(true);
     setUserEmail(values.email); // Set user email for use in verificationSubmit
-    const result = await handleRegister(userRegisterValues);
-    console.log(result);
-    if (result?.success) {
-      setRegisterSuccess(result.success);
-      if (result?.message && uuidValidate(result.message)) {
-        setUserUuid(result.message);
-      }  
+    try {
+      const result = await limiter.schedule(() => handleRegister(userRegisterValues));
+      console.log(result);
+      if (result.success) {
+        setRegisterSuccess(result.success);
+        if (result.message && uuidValidate(result.message)) {
+          setUserUuid(result.message);
+        }  
+      } else {
+        setApiError("An error has occurred. Try again later.");
+      }
+    } catch(error) {
+      if (error instanceof Bottleneck.BottleneckError) {
+        setApiError("Error: Rate limit reached.");
+      } else {
+        setApiError("An error has occurred. Try again later.");
+      }
     }
     setFormSubmissionLoading(false);
   };
@@ -120,6 +132,7 @@ export const RegisterUnder18: React.FC<RegisterUnder18Props> = ({setUserEmail, s
                 alt="Show password button." />
             </div>
             <ButtonStd type="submit" className="w-full my-2">Sign up</ButtonStd>
+            {apiError && <p className="text-red-500">{apiError}</p>}
           </Form>
         )}
       </Formik>

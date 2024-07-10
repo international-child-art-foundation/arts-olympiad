@@ -18,15 +18,15 @@ import useWindowDimensions from "@/hooks/useWindowDimensions";
 import { sortValue as sortValueType } from "../../mock/sortValueType";
 import { sortBy } from "../../mock/sortBy";
 import { ContestState } from "../../mock/contestState";
-import { getArtworkData, getSingleArtworkData } from "@/utils/artworks";
-import { artworkDataRequest } from "@/interfaces/gallery_shapes";
-import { artworkDataResponse } from "@/interfaces/gallery_shapes";
+import { getArtworksData, getSingleArtworkData } from "@/utils/api-artworks";
+import { ArtworksDataRequest } from "@/interfaces/gallery_shapes";
 import { filterableOptions as initialFilterableOptions } from "../../mock/filterableOptionsData";
-import { userArtworkSchema } from "../../mock/userArtworkSchema";
+import { UserArtworkSchema } from "@/interfaces/artwork_shapes";
 import no_results_found from "../../public/svgs/no_results_found_bg.svg";
 import LoadingAnimation from "../svgs/LoadingAnimation";
-import { getUserVoteData } from "@/utils/auth";
+import { getUserVoteData } from "@/utils/api-user";
 import { useGlobalContext } from "@/app/GlobalContext";
+import { limiter } from "@/utils/api-rate-limit";
 
 interface ArtsProps {
   contestState: ContestState;
@@ -43,7 +43,7 @@ export const Arts: React.FC<ArtsProps> = ({ contestState }) => {
     votedSk, setVotedSk } = useFilters();
   const { handleRealizeSignedOut, isAuthenticated } = useGlobalContext();
   const [mostRecentFilterState, setMostRecentFilterState] = useState(filterableOptions);
-  const [pageLoadArtwork, setPageLoadArtwork] = useState<userArtworkSchema | undefined>(undefined);
+  const [pageLoadArtwork, setPageLoadArtwork] = useState<UserArtworkSchema | undefined>(undefined);
   const [currentUserSk, setCurrentUserSk] = useState<string | null>(null);
 
   const { windowWidth } = useWindowDimensions();
@@ -51,29 +51,26 @@ export const Arts: React.FC<ArtsProps> = ({ contestState }) => {
   const searchParams = useSearchParams();
   const artworksPerPage = 20;
 
-  const [artworks, setArtworks] = useState([] as artworkDataResponse);
+  const [artworks, setArtworks] = useState<UserArtworkSchema[]>([]);
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
 
   // Function to fetch artwork data from API given current variable values
   const fetchArtworkData = useCallback(async (filterableOptions = initialFilterableOptions, pageNumber = 1, sortValue = "Newest", isFilterOpen=false) => {
-    console.log(isFilterOpen);
     if (isFilterOpen) {
       // If filter menu is ever open, we don't want to make API calls.
       return;
     }
     setIsLoading(true);
     setError(null);
-    const filterState = {filterableOptions, pageNumber, sortValue} as artworkDataRequest;
+    const filterState = {filterableOptions, pageNumber, sortValue} as ArtworksDataRequest;
     try {
-      const response = await getArtworkData(filterState);
-      // console.log("Arts.tsx received artwork data: " + response);
-      // response?.map((responseItem) => {
-      //   console.log(responseItem.id);
-      //   console.log(responseItem);
-      // });
-      // console.log(response);
-      setArtworks(response);
+      const response = await limiter.schedule(() => getArtworksData(filterState));
+      if (response.success) {
+        setArtworks(response.data);
+      } else {
+        setError("Failed to fetch artwork");
+      }
     } catch (err) {
       if (typeof err == "string") {
         setError(err);
@@ -87,9 +84,12 @@ export const Arts: React.FC<ArtsProps> = ({ contestState }) => {
     // We want to fetch the user's data on page load to set their voted-for artwork
     // and to confirm their authentication status before they try to vote.
     if (isAuthenticated) {
-      const userVotedResponse = await getUserVoteData();
-      if (userVotedResponse.success == true && userVotedResponse.data) {
-        setVotedSk(userVotedResponse.data);
+      const userVotedResponse = await limiter.schedule(() => getUserVoteData());
+      console.log(userVotedResponse);
+      if (userVotedResponse.success) {
+        if (userVotedResponse.voted_sk) {
+          setVotedSk(userVotedResponse.voted_sk);
+        }
       } else {
         handleRealizeSignedOut();
       }
@@ -105,9 +105,9 @@ export const Arts: React.FC<ArtsProps> = ({ contestState }) => {
         if (skFromUrl) {
           updateActiveEntrySk(skFromUrl);
           setModalOpen(true);
-          const singleArtworkResponse = await getSingleArtworkData(skFromUrl);
+          const singleArtworkResponse = await limiter.schedule(() => getSingleArtworkData(skFromUrl));
           if (singleArtworkResponse.success === true && singleArtworkResponse.data) {
-            setPageLoadArtwork(singleArtworkResponse.data);
+            setPageLoadArtwork(singleArtworkResponse.data as UserArtworkSchema);
           }
         }
       }

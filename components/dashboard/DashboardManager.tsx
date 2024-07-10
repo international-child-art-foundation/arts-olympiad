@@ -10,9 +10,12 @@ import { useRouter, useSearchParams } from "next/navigation";
 import { useDashboardContext } from "./DashboardContext";
 import { DashboardModal } from "./DashboardModal";
 import { DeleteArtwork } from "./DeleteArtwork";
-import { getAuthStatus, getUserData } from "@/utils/auth";
-import { getSingleArtworkData } from "@/utils/artworks";
+import { getAuthStatus, getUserData } from "@/utils/api-user";
+import { getSingleArtworkData } from "@/utils/api-artworks";
 import { useGlobalContext } from "@/app/GlobalContext";
+import { UserDataSchema } from "@/interfaces/user_auth";
+import { UserArtworkSchema } from "@/interfaces/artwork_shapes";
+import { limiter } from "@/utils/api-rate-limit";
 
 export default function DashboardManager() {
   const router = useRouter();
@@ -32,37 +35,47 @@ export default function DashboardManager() {
 
   useEffect(() => {
     async function asyncGetAuthStatus() {
-      const authStatus = await getAuthStatus();
-      if (authStatus.isAuthenticated === true) {
+      const authStatus = await limiter.schedule(() => getAuthStatus());
+      if (authStatus.success) {
         setIsAuthenticated("Authenticated");
       } else {
         router.push("/auth/login");
         setIsAuthenticated("Unauthenticated");
       }
-      return authStatus.isAuthenticated;
+      return authStatus.success;
     }
   
     async function asyncGetUserData() {
-      const userData = await getUserData();
-      if (userData) {
-        console.log(userData);
-        setApiUserData(userData);
-      }
-      if (userData.sk && userData.has_active_submission) {
-        const artworkData = await getSingleArtworkData(userData.sk);
-        console.log(artworkData);
-        if (artworkData.success == true && artworkData.data) {
-          setApiArtworkData(artworkData.data);
+      try {
+        const userDataResponse = await limiter.schedule(() => getUserData());
+        if (userDataResponse.success) {
+          const userData = userDataResponse.data as UserDataSchema;
+          setApiUserData(userData);
+        
+          if (userData.sk && userData.has_active_submission) {
+            const artworkDataResponse = await limiter.schedule(() => getSingleArtworkData(userData.sk));
+            if (artworkDataResponse.success) {
+              const artworkData = artworkDataResponse.data as UserArtworkSchema;
+              setApiArtworkData(artworkData);
+            }
+          }
         }
+      } catch {
+        console.log("Error fetching user or artwork data.");
       }
     }
+
     async function init() {
-      const authStatus = await asyncGetAuthStatus();
-      if (authStatus === true) {
-        await asyncGetUserData();
-        setDashboardLoadingState("Loaded" as DashboardLoadingStates);
-      } else {
-        handleRealizeSignedOut();
+      try {
+        const authStatus = await asyncGetAuthStatus();
+        if (authStatus === true) {
+          await asyncGetUserData();
+          setDashboardLoadingState("Loaded" as DashboardLoadingStates);
+        } else {
+          handleRealizeSignedOut();
+        }
+      } catch(error) {
+        console.log(error);
       }
     }
     init();

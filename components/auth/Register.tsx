@@ -7,19 +7,22 @@ import { useState } from "react";
 import { VerificationModal } from "./VerificationModal";
 import {Form, Formik} from "formik";
 import { VerificationCodeInterface } from "@/interfaces/user_auth";
-import { handleVerify } from "@/utils/auth";
+import { handleVerify } from "@/utils/api-user";
 import * as Yup from "yup";
 import { TextInput } from "../common/form_inputs/TextInput";
 import { ButtonStd } from "../common/ui/ButtonStd";
 import LoadingAnimation from "../svgs/LoadingAnimation";
+import Bottleneck from "bottleneck";
+import {useRouter} from "next/navigation";
+import { limiter } from "@/utils/api-rate-limit";
 
 export const Register = () => {
   const [userEmail, setUserEmail] = useState("");
   const [userUuid, setUserUuid] = useState("");
   const [registerSuccess, setRegisterSuccess] = useState(false);
-  const [validationError, setValidationError] = useState(false);
-
-
+  const [apiError, setApiError] = useState("");
+  const router = useRouter();
+  
   const verificationInitialValues: VerificationCodeInterface = {
     uuid: "",
     email: "",
@@ -32,27 +35,34 @@ export const Register = () => {
   });
   const [verificationSubmissionLoading, setVerificationSubmissionLoading] = useState(false);
   const verificationSubmit = async (values: VerificationCodeInterface) => {
-    setValidationError(false);
+    setApiError("");
     setVerificationSubmissionLoading(true);
     values.uuid = userUuid;
     values.email = userEmail;
     if (values.uuid == "" || values.email == "") {
       console.log("Values missing");
       setVerificationSubmissionLoading(false);
-      setValidationError(true);
+      setApiError("An error has occurred. Try reloading the page.");
       return;
     }
-    const result = await handleVerify({
-      uuid: values.uuid,
-      email: values.email,
-      verificationCode: values.verificationCode
-    } as VerificationCodeInterface);
-    if (result?.success != true) {
-      console.log("Success is false");
-      setValidationError(true);
-    } else {
-      // router.push
-    }
+    try {
+      const result = await limiter.schedule(() => handleVerify({
+        uuid: values.uuid,
+        email: values.email,
+        verificationCode: values.verificationCode
+      } as VerificationCodeInterface));
+      if (result.success) {
+        router.push("/auth/login");
+      } else {
+        setApiError("An error has occurred. Try reloading the page.");
+      }
+    } catch(error) {
+      if (error instanceof Bottleneck.BottleneckError) {
+        setApiError("Error: Rate limit reached.");
+      } else {
+        setApiError("An error has occurred. Try again later.");
+      }
+    }  
     setVerificationSubmissionLoading(false);
   };
 
@@ -90,13 +100,10 @@ export const Register = () => {
                   </Form>
                 )}
               </Formik>
-              {validationError && 
+              {apiError && 
               <div>
                 <p className="text-red-300 max-w-full">
-                  An error occurred while attempting to validate your account.
-                </p>
-                <p className="text-red-300 max-w-full">
-                  Please reload the page and try again.
+                  {apiError}
                 </p>
               </div>
               }

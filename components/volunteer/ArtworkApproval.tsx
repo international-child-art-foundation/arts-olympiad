@@ -1,58 +1,93 @@
 "use client";
 import React, { useState } from "react";
-import { handleBanUser, handleFetchUnapprovedArtworks, handleApproveArtwork, handleDeleteArtwork } from "@/utils/volunteer-artwork-functions";
+import { handleBanUser, handleFetchUnapprovedArtworks, handleApproveArtwork, handleDeleteArtwork } from "@/utils/api-volunteer-artwork-functions";
 import Image from "next/image";
-import { ApiArtworksResponse, userArtworkSchema } from "../../mock/userArtworkSchema";
+import { ApiArtworksResponse, UserArtworkSchema } from "@/interfaces/artwork_shapes";
+import { limiter } from "@/utils/api-rate-limit";
 import { SelectedArtworkDisplay} from "./SelectedArtworkDisplay";
+import Bottleneck from "bottleneck";
 
 type ArtworkStatus = "approved" | "denied" | "banned" | null;
 
 export const ArtworkApproval = () => {
   const [result, setResult] = useState<ApiArtworksResponse | null>(null);
-  const [selectedArtwork, setSelectedArtwork] = useState<userArtworkSchema | null>(null);
+  const [selectedArtwork, setSelectedArtwork] = useState<UserArtworkSchema | null>(null);
   const [artworkStatuses, setArtworkStatuses] = useState<Record<string, ArtworkStatus>>({});
+  const [apiError, setApiError] = useState("");
 
   async function onApprove(artwork_sk: string) {
     console.log(artwork_sk);
-    const artworkStatus = await handleApproveArtwork({artwork_sk});
-    if (artworkStatus?.success == true) {
-      setSelectedArtwork(null);
-      setArtworkStatuses(prev => ({...prev, [artwork_sk]: "approved"}));
-      console.log(artwork_sk + " has successfully been approved.");
-    } else {
-      console.log("Failed to approve artwork " + artwork_sk);
+    try {
+      const artworkStatus = await limiter.schedule(() => handleApproveArtwork({artwork_sk}));
+      if (artworkStatus?.success == true) {
+        setSelectedArtwork(null);
+        setArtworkStatuses(prev => ({...prev, [artwork_sk]: "approved"}));
+        console.log(artwork_sk + " has successfully been approved.");
+      } else {
+        setApiError("An error has occurred. Try again later.");
+      }
+    } catch(error) {
+      if (error instanceof Bottleneck.BottleneckError) {
+        setApiError("Error: Rate limit reached.");
+      } else {
+        setApiError("An error has occurred. Try again later.");
+      }
     }
   }
 
   async function onDeny(artwork_sk: string) {
     console.log(artwork_sk);
-    const artworkStatus = await handleDeleteArtwork({artwork_sk});
-    if (artworkStatus?.success == true) {
-    
-      setArtworkStatuses(prev => ({...prev, [artwork_sk]: "denied"}));
-      console.log(artwork_sk + " has been denied.");
-    } else {
-      console.log("Failed to delete artwork " + artwork_sk);
+    try {
+      const artworkStatus = await limiter.schedule(() => handleDeleteArtwork({artwork_sk}));
+      if (artworkStatus.success == true) {
+        setArtworkStatuses(prev => ({...prev, [artwork_sk]: "denied"}));
+        console.log(artwork_sk + " has been denied.");
+      } else {
+        setApiError("An error has occurred. Try again later.");
+        console.log("Failed to delete artwork " + artwork_sk);
+      }
+    } catch(error) {
+      if (error instanceof Bottleneck.BottleneckError) {
+        setApiError("Error: Rate limit reached.");
+      } else {
+        setApiError("An error has occurred. Try again later.");
+      }
     }
   }
 
   async function onBanUser(artwork_sk: string) {
     const user_sk = artwork_sk;
-    const artworkStatus = await handleBanUser({user_sk});
-    if (artworkStatus?.success == true) {
-      console.log(artwork_sk);
-      setArtworkStatuses(prev => ({...prev, [artwork_sk]: "banned"}));
-      console.log("User associated with " + artwork_sk + " has been banned.");
-    } else {
-      console.log("Failed to ban user " + artwork_sk);
+    try {
+      const artworkStatus = await limiter.schedule(() => handleBanUser({user_sk}));
+      if (artworkStatus.success == true) {
+        console.log(artwork_sk);
+        setArtworkStatuses(prev => ({...prev, [artwork_sk]: "banned"}));
+        console.log("User associated with " + artwork_sk + " has been banned.");
+      } else {
+        setApiError("An error has occurred. Try again later.");
+      } 
+    } catch(error) {
+      if (error instanceof Bottleneck.BottleneckError) {
+        setApiError("Error: Rate limit reached.");
+      } else {
+        setApiError("An error has occurred. Try again later.");
+      }
     }
   }
 
   const handleFetchArtworks = async () => {
-    const response = await handleFetchUnapprovedArtworks({});
-    if (response) {
-      setResult(response as ApiArtworksResponse);
-      console.log("API Response:", response);
+    try {
+      const response = await limiter.schedule(() => handleFetchUnapprovedArtworks());
+      if (response) {
+        setResult(response as ApiArtworksResponse);
+        console.log("API Response:", response);
+      }
+    } catch(error) {
+      if (error instanceof Bottleneck.BottleneckError) {
+        setApiError("Error: Rate limit reached.");
+      } else {
+        setApiError("An error has occurred. Try again later.");
+      }
     }
   };
 
@@ -61,7 +96,7 @@ export const ArtworkApproval = () => {
     return description.slice(0, maxLength) + "...";
   };
 
-  const handleArtworkClick = (artwork: userArtworkSchema) => {
+  const handleArtworkClick = (artwork: UserArtworkSchema) => {
     setSelectedArtwork(artwork);
   };
 
@@ -74,12 +109,12 @@ export const ArtworkApproval = () => {
         </button>
       </div>
       
-      {(result?.message.length === 0) && (
+      {(result?.data.length === 0) && (
         <p className="text-center my-4">Found zero unapproved artworks. We're all caught up!</p>
       )}
-      {result?.message && (
+      {result?.data && (
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
-          {result.message.map((artwork, index) => (
+          {result.data.map((artwork, index) => (
             <div 
               key={index} 
               className={`relative border border-gray-200 rounded-lg overflow-hidden shadow-md hover:shadow-lg transition-shadow duration-300 cursor-pointer ${
@@ -118,7 +153,7 @@ export const ArtworkApproval = () => {
         </div>
       )}
 
-      {selectedArtwork && <SelectedArtworkDisplay selectedArtwork={selectedArtwork} setSelectedArtwork={setSelectedArtwork} onApprove={onApprove} onDeny={onDeny} onBanUser={onBanUser}/>}
+      {selectedArtwork && <SelectedArtworkDisplay apiError={apiError} selectedArtwork={selectedArtwork} setSelectedArtwork={setSelectedArtwork} onApprove={onApprove} onDeny={onDeny} onBanUser={onBanUser}/>}
     </div>
   );
 };

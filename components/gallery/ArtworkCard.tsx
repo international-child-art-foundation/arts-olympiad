@@ -1,10 +1,10 @@
 import Image from "next/image";
 import { gsap } from "gsap";
-import { userArtworkSchema } from "../../mock/userArtworkSchema";
+import { UserArtworkSchema } from "@/interfaces/artwork_shapes";
 import React, { memo, useState } from "react";
 
 type ArtworkCardProps = {
-  data: userArtworkSchema;
+  data: UserArtworkSchema;
   voted: boolean;
   openModal: (id: string) => void;
 };

@@ -58,7 +58,7 @@ export const LoginForm = () => {
     setLoginLoading(true);
     setLoginError(false);
     const loginAttempt = await signIn(values);
-    if (loginAttempt.success == true) {
+    if (loginAttempt.success) {
       setLoginError(false);
       router.push("/dashboard");
     } else {

@@ -18,10 +18,8 @@ interface SocialShareProps {
 const SocialShare: React.FC<SocialShareProps> = ({ shareId }) => {
   const [showCopiedPopup, setShowCopiedPopup] = useState(false);
   const baseUrl = `${window.location.protocol}//${window.location.host}/gallery/?id=${shareId}`;
-  console.log(baseUrl);
   const shareUrl = new URL(baseUrl);
   const encodeUrl = encodeURIComponent(shareUrl.toString());
-  console.log(encodeUrl);
 
   const platforms = {
     Facebook: `https://www.facebook.com/sharer/sharer.php?u=${encodeUrl}`,

@@ -1,12 +1,14 @@
 "use client";
 import React, { createContext, useState, useContext, useEffect, useCallback, ReactNode } from "react";
-import { handleSignOut, handleLogin } from "@/utils/auth";
+import { handleSignOut, handleLogin } from "@/utils/api-user";
 import { UserLoginInterface } from "@/interfaces/user_auth";
-import { LoginResponse } from "@/interfaces/api_shapes";
+import { SignInResponse } from "@/interfaces/api_shapes";
+import { limiter } from "@/utils/api-rate-limit";
+import { EmptyErrorResponse } from "@/interfaces/api_shapes";
 
 interface GlobalContextType {
   isAuthenticated: boolean;
-  signIn: ({ email, password }: UserLoginInterface) => Promise<LoginResponse>;
+  signIn: ({ email, password }: UserLoginInterface) => Promise<SignInResponse>;
   signOut: () => void;
   handleRealizeSignedOut: () => void;
 }
@@ -30,17 +32,29 @@ export const GlobalContextProvider: React.FC<GlobalContextProviderProps> = ({ ch
   }, []);
 
   const signIn = useCallback(async (values: UserLoginInterface) => {
-    const signInStatus = await handleLogin(values);
-
-    if (signInStatus.success === true) {
-      setIsAuthenticated(true);
-      localStorage.setItem("isAuthenticated", signInStatus.message);
+    try {
+      const signInRequest = await limiter.schedule(() => handleLogin(values));
+      if (signInRequest.success) {
+        setIsAuthenticated(true);
+        localStorage.setItem("isAuthenticated", signInRequest.sk);
+        return signInRequest;
+      } else {
+        return {success: false} as EmptyErrorResponse;
+      }
+    } catch(error) {
+      console.log("Error signing in");
+      return {success: false} as EmptyErrorResponse;
     }
-    return signInStatus;
   }, []);
 
   const signOut = useCallback(async () => {
-    await handleSignOut();
+    try {
+      await limiter.schedule(() => handleSignOut());
+      console.log("Successfully signed out.");
+    } catch {
+      console.log("Failed to sign out.");
+    }
+    // Regardless of server action, set local signout
     setIsAuthenticated(false);
     localStorage.removeItem("isAuthenticated");
   }, []);

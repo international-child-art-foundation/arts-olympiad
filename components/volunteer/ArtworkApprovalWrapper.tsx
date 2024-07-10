@@ -1,7 +1,8 @@
 "use client";
 import React, { useState, useEffect } from "react";
 import { ArtworkApproval } from "./ArtworkApproval";
-import { getVolunteerAuthStatus } from "@/utils/auth";
+import { getVolunteerAuthStatus } from "@/utils/api-user";
+import { limiter } from "@/utils/api-rate-limit";
 
 export const ArtworkApprovalWrapper = () => {
   const [volunteerAuthenticated, setVolunteerAuthenticated] = useState<boolean | null>(null);
@@ -10,8 +11,8 @@ export const ArtworkApprovalWrapper = () => {
   useEffect(() => {
     const checkAuthStatus = async () => {
       try {
-        const response = await getVolunteerAuthStatus();
-        setVolunteerAuthenticated(response.isVolunteerAuthenticated);
+        const response = await limiter.schedule(() => getVolunteerAuthStatus());
+        setVolunteerAuthenticated(response.success);
       } catch (error) {
         console.error("Error checking authentication status:", error);
         setVolunteerAuthenticated(false);
@@ -19,7 +20,6 @@ export const ArtworkApprovalWrapper = () => {
         setLoading(false);
       }
     };
-
     checkAuthStatus();
   }, []);
 

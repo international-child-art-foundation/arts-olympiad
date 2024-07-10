@@ -2,8 +2,10 @@ import { DashboardLoadingStates, DashboardAuthenticationStates } from "../../moc
 import { VotedArtDisplay } from "./VotedArtDisplay";
 import { useDashboardContext } from "./DashboardContext";
 import Link from "next/link";
-import { getSingleArtworkData } from "@/utils/artworks";
+import { getSingleArtworkData } from "@/utils/api-artworks";
 import { useCallback, useEffect } from "react";
+import { limiter } from "@/utils/api-rate-limit";
+import { UserArtworkSchema } from "@/interfaces/artwork_shapes";
 
 interface YourVoteTabProps {
   dashboardLoadingState: DashboardLoadingStates;
@@ -17,10 +19,10 @@ export const YourVoteTab: React.FC<YourVoteTabProps> = ({ dashboardLoadingState,
   const handleGetVotedArtworkData = useCallback(async () => {
     console.log(apiUserData);
     if (apiUserData && apiUserData.voted_sk) {
-      const singleArtworkData = await getSingleArtworkData(apiUserData?.voted_sk);
+      const singleArtworkData = await limiter.schedule(() => getSingleArtworkData(apiUserData.voted_sk));
       console.log(singleArtworkData);
       if (singleArtworkData.success == true && singleArtworkData.data) {
-        setApiArtworkVoteData(singleArtworkData.data);
+        setApiArtworkVoteData(singleArtworkData.data as UserArtworkSchema);
       }
     }
   }, [apiUserData, setApiArtworkVoteData]);

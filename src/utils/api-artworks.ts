@@ -1,14 +1,10 @@
-import { artworkDataRequest } from "@/interfaces/gallery_shapes";
-import { artworkDataResponse } from "@/interfaces/gallery_shapes";
-import { userArtworkSchema } from "../../mock/userArtworkSchema";
+import { ArtworksDataRequest } from "@/interfaces/gallery_shapes";
+import { GenericResponse, TotalVotesResponse, ResponseWithoutSuccessDetails } from "@/interfaces/api_shapes";
+import { returnErrorAsString } from "./helper-functions";
+import { ArtworksResponse } from "@/interfaces/gallery_shapes";
+import { UserArtworkSchema } from "@/interfaces/artwork_shapes";
 
-interface getArtworkResponse {
-  success: boolean
-  data?: userArtworkSchema
-  message?: string
-}
-
-export async function getSingleArtworkData(artwork_sk: string): Promise<getArtworkResponse> {
+export async function getSingleArtworkData(artwork_sk: string): Promise<GenericResponse> {
   try {
     const response = await fetch(`/next-proxy/api/artworks/${artwork_sk}`, {
       method: "GET",
@@ -23,38 +19,23 @@ export async function getSingleArtworkData(artwork_sk: string): Promise<getArtwo
     if (response.ok) {
       return { success: true, data: result };
     } else {
-      return { success: false, message: result.message };
+      return { success: false, error: result.message };
     }
   } catch (error) {
-    console.log("error checking authentication status", error);
-    let errorMessage: string;
-
-    if (error instanceof Error) {
-      errorMessage = error.message;
-    } else if (typeof error === "string") {
-      errorMessage = error;
-    } else if (typeof error === "object" && error !== null && "message" in error) {
-      errorMessage = (error as { message: string }).message;
-    } else {
-      errorMessage = "Unknown error";
-    }
-
-    return { success: false, message: errorMessage };
+    const errorString = returnErrorAsString(error);
+    return { success: false, error: errorString };
   }
 }
 
 // import { artworks } from "../../mock/artworks";
 
 // Create a cache object to store results
-const cache: Record<string, artworkDataResponse> = {};
+const cache: Record<string, UserArtworkSchema[]> = {};
 
-export async function getArtworkData(data: artworkDataRequest): Promise<artworkDataResponse> {
+export async function getArtworksData(data: ArtworksDataRequest): Promise<ArtworksResponse> {
   try {
     // Construct the query parameters
     const queryParams = new URLSearchParams();
-
-    // Always include is_approved=true
-    // queryParams.append("is_approved", "true");
 
     // Handle sport filters
     const activeSports = data.filterableOptions
@@ -94,7 +75,8 @@ export async function getArtworkData(data: artworkDataRequest): Promise<artworkD
     // Check if the result is already in the cache
     if (cache[url]) {
       console.log("Returning cached API result");
-      return cache[url];
+      console.log(cache[url]);
+      return { success: true, data: cache[url] };
     }
 
     // Prevent API calls during testing
@@ -116,25 +98,15 @@ export async function getArtworkData(data: artworkDataRequest): Promise<artworkD
     // Cache the result
     cache[url] = result;
 
-    return result;
+    return { success: true, data: result };
 
   } catch (error) {
-    console.error("Error fetching artwork data:", error);
-    let errorMessage: string;
-
-    if (error instanceof Error) {
-      errorMessage = error.message;
-    } else if (typeof error === "string") {
-      errorMessage = error;
-    } else {
-      errorMessage = "Unknown error occurred";
-    }
-
-    throw new Error(errorMessage);
+    const errorString = returnErrorAsString(error);
+    return { success: false, error: errorString };
   }
 }
 
-export async function voteForArtwork(artwork_sk: string) {
+export async function voteForArtwork(artwork_sk: string): Promise<ResponseWithoutSuccessDetails> {
   try {
     const response = await fetch(`/next-proxy/api/vote/${artwork_sk}`, {
       method: "PATCH",
@@ -147,30 +119,17 @@ export async function voteForArtwork(artwork_sk: string) {
     const result = await response.json();
 
     if (response.ok) {
-      return { success: true, message: result.message };
+      return { success: true };
     } else {
-      return { success: false, message: result.message };
+      return { success: false, error: result.message };
     }
   } catch (error) {
-    console.log("error checking authentication status", error);
-    let errorMessage: string;
-
-    if (error instanceof Error) {
-      errorMessage = error.message;
-    } else if (typeof error === "string") {
-      errorMessage = error;
-    } else if (typeof error === "object" && error !== null && "message" in error) {
-      errorMessage = (error as { message: string }).message;
-    } else {
-      errorMessage = "Unknown error";
-    }
-
-    return { success: false, message: errorMessage };
+    const errorString = returnErrorAsString(error);
+    return { success: false, error: errorString };
   }
-
 }
 
-export async function getTotalVotes() {
+export async function getTotalVotes(): Promise<TotalVotesResponse> {
   try {
     const response = await fetch("/next-proxy/api/votes", {
       method: "GET",
@@ -183,25 +142,11 @@ export async function getTotalVotes() {
     const result = await response.json();
 
     if (response.ok) {
-      return result;
+      return {success: true, total_votes: result.votes};
     } else {
-      return { message: result.message };
+      return { success: false };
     }
   } catch (error) {
-    console.log("error checking authentication status", error);
-    let errorMessage: string;
-
-    if (error instanceof Error) {
-      errorMessage = error.message;
-    } else if (typeof error === "string") {
-      errorMessage = error;
-    } else if (typeof error === "object" && error !== null && "message" in error) {
-      errorMessage = (error as { message: string }).message;
-    } else {
-      errorMessage = "Unknown error";
-    }
-
-    return { success: false, message: errorMessage };
+    return { success: false };
   }
-
 }

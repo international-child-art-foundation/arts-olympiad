@@ -1,9 +1,10 @@
 import { LeftIcon } from "../../svgs/LeftIcon";
 import { useStepsContext } from "./StepsContext";
 import React, { useState } from "react";
-import { generatePresignedUrl, uploadImageToS3, postArtworkEntryToDDB } from "@/utils/artwork-upload";
+import { generatePresignedUrl, uploadImageToS3, postArtworkEntryToDDB } from "@/utils/api-artwork-upload";
 import { useDashboardContext } from "../DashboardContext";
 import { ModifiedUploadFormData } from "../../../mock/formDataStructs";
+import { limiter } from "@/utils/api-rate-limit";
 
 interface FormikValidatedStepsControlProps { // Unnecessary for now
 }
@@ -62,19 +63,20 @@ export const FormikValidatedStepsControl: React.FC<FormikValidatedStepsControlPr
       }
       try {
 
-        const presignedData = await generatePresignedUrl({fileType: fileType});
+        const presignedData = await limiter.schedule(() => generatePresignedUrl({fileType: fileType}));
         if (presignedData.success !== true) {
           setErrorMessage("Our server has encountered an error. Please try again later.");
           throw new Error("Failed to generate presigned URL");
         }
   
-        const uploadedImage = await uploadImageToS3(uploadFormData.image, fileType, presignedData);
+        // Removed fileType
+        const uploadedImage = await limiter.schedule(() => uploadImageToS3(uploadFormData.image, presignedData));
         if (uploadedImage.success !== true) {
           setErrorMessage("Our server has encountered an error. Please try again later.");
           throw new Error("Failed to upload image to S3");
         }
   
-        const postDB = await postArtworkEntryToDDB(modifiedUploadFormData);
+        const postDB = await limiter.schedule(() => postArtworkEntryToDDB(modifiedUploadFormData));
         if (postDB.success !== true) {
           setErrorMessage("Our server has encountered an error. Please try again later.");
           throw new Error("Failed to post artwork entry to DynamoDB");

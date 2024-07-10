@@ -48,6 +48,21 @@ export interface UserRegisterInterfaceAfterFormatting {
   password: string;
 }
 
+export interface UserDataSchema {
+  sk: string;
+  f_name: string;
+  l_name: string;
+  location: string;
+  birthdate: string;
+  age: number;
+  email: string,  
+  g_f_name: string,
+  g_l_name: string,
+  voted_sk: string,
+  can_submit_art: boolean;
+  has_active_submission: boolean;
+}
+
 export interface VerificationCodeInterface {
   uuid: string;
   email: string;
