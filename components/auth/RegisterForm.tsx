@@ -20,7 +20,6 @@ import { RegisterOver18 } from "./RegisterOver18";
 import { RegisterUnder18 } from "./RegisterUnder18";
 
 interface RegisterFormProps {
-  setUserUuid: React.Dispatch<React.SetStateAction<string>>
   setRegisterSuccess: React.Dispatch<React.SetStateAction<boolean>>
   setUserEmail: React.Dispatch<React.SetStateAction<string>>
 }
@@ -34,7 +33,7 @@ Yup.addMethod(Yup.string, "isPossiblePhoneNumber", function (errorMessage) {
   });
 });
 
-export const RegisterForm: React.FC<RegisterFormProps> = ({setUserEmail, setRegisterSuccess, setUserUuid}) => {
+export const RegisterForm: React.FC<RegisterFormProps> = ({setUserEmail, setRegisterSuccess}) => {
   const [formSubmissionLoading, setFormSubmissionLoading] = useState(false);
   const [userBirthdate, setUserBirthdate] = useState({day: undefined, month: undefined, year: undefined} as BirthdateInterface);
   const [userAge, setUserAge] = useState<number | null>(null);
@@ -62,7 +61,6 @@ export const RegisterForm: React.FC<RegisterFormProps> = ({setUserEmail, setRegi
             userAge > 18 ? (
               <RegisterOver18 
                 setUserEmail={setUserEmail}
-                setUserUuid={setUserUuid}
                 userBirthdate={userBirthdate}
                 setRegisterSuccess={setRegisterSuccess}
                 formSubmissionLoading={formSubmissionLoading}
@@ -71,7 +69,6 @@ export const RegisterForm: React.FC<RegisterFormProps> = ({setUserEmail, setRegi
             ) : (
               <RegisterUnder18
                 setUserEmail={setUserEmail}
-                setUserUuid={setUserUuid}
                 userBirthdate={userBirthdate}
                 setRegisterSuccess={setRegisterSuccess}
                 formSubmissionLoading={formSubmissionLoading}

@@ -249,6 +249,23 @@
                   ]
                 }
               ]
+            },
+            {
+              "Effect": "Allow",
+              "Action": "cognito-idp:AdminGetUser",
+              "Resource": {
+                "Fn::Sub": [
+                  "arn:aws:cognito-idp:${region}:${account}:userpool/us-east-1_3PznlHK93",
+                  {
+                    "region": {
+                      "Ref": "AWS::Region"
+                    },
+                    "account": {
+                      "Ref": "AWS::AccountId"
+                    }
+                  }
+                ]
+              }
             }
           ]
         }

@@ -1,7 +1,21 @@
-import { BirthdateInterface, UserLoginInterface, UserRegisterInterface, VerificationCodeInterface,
-  UserRegisterInterfaceAfterFormatting
+import { BirthdateInterface, 
+  UserLoginInterface, 
+  UserRegisterInterface, 
+  VerificationCodeInterface,
+  UserRegisterInterfaceAfterFormatting,
+  EmailInterface,
+  ConfirmForgotPasswordInterface
 } from "@/interfaces/user_auth";
-import { GenericResponse, RegisterResponse, AuthenticationResponse, VerifyResponse, SignInResponse, ResponseWithoutSuccessDetails, VolunteerAuthenticationResponse, UserVotedResponse } from "@/interfaces/api_shapes";
+import { 
+  GenericResponse, 
+  RegisterResponse, 
+  AuthenticationResponse, 
+  VerifyResponse, SignInResponse, 
+  ResponseWithoutSuccessDetails, 
+  VolunteerAuthenticationResponse,
+  UserVotedResponse, 
+  EmptyResponse
+} from "@/interfaces/api_shapes";
 import { returnErrorAsString } from "./helper-functions";
 
 // These functions are used to call our server API files in /src/app/api/, which interact
@@ -73,13 +87,11 @@ export async function handleRegister({
 }
 
 export async function handleVerify({
-  uuid,
   email,
   verificationCode,
 }: VerificationCodeInterface): Promise<VerifyResponse> {
 
   const verifyBody = JSON.stringify({
-    uuid: uuid,
     email: email,
     verificationCode: verificationCode
   });
@@ -258,5 +270,81 @@ export async function handleSignOut(): Promise<ResponseWithoutSuccessDetails> {
   } catch (error) {
     const errorString = returnErrorAsString(error);
     return { success: false, error: errorString };
+  }
+}
+
+export async function resendVerificationEmail({email}: EmailInterface): Promise<EmptyResponse> {
+  const body = JSON.stringify({
+    email: email,
+  });
+
+  try {
+    const response = await fetch("/next-proxy/api/resend-verification", {
+      method: "POST", 
+      headers: {
+        "Content-Type": "application/json",
+        "x-api-key": process.env.NEXT_PUBLIC_AK || "",
+      },
+      body: body,
+    });
+    await response.json();
+    if (response.ok) {
+      return { success: true };
+    } else {
+      return { success: false };
+    }
+  } catch {
+    return { success: false };
+  }
+}
+
+export async function sendForgotPasswordEmail({email} : EmailInterface): Promise<EmptyResponse> {
+  const body = JSON.stringify({
+    email: email,
+  });
+
+  try {
+    const response = await fetch("/next-proxy/api/forgot-password", {
+      method: "POST", 
+      headers: {
+        "Content-Type": "application/json",
+        "x-api-key": process.env.NEXT_PUBLIC_AK || "",
+      },
+      body: body,
+    });
+    await response.json();
+    if (response.ok) {
+      return { success: true };
+    } else {
+      return { success: false };
+    }
+  } catch {
+    return { success: false };
+  }
+}
+
+export async function confirmForgotPassword({email, confirmationCode, newPassword} : ConfirmForgotPasswordInterface) : Promise<EmptyResponse> {
+  const body = JSON.stringify({ 
+    email: email,
+    newPassword: newPassword,
+    confirmationCode: confirmationCode,
+  });
+  try {
+    const response = await fetch("/next-proxy/api/confirm-forgot-password", {
+      method: "POST", 
+      headers: {
+        "Content-Type": "application/json",
+        "x-api-key": process.env.NEXT_PUBLIC_AK || "",
+      },
+      body: body,
+    });
+    await response.json();
+    if (response.ok) {
+      return { success: true };
+    } else {
+      return { success: false };
+    }
+  } catch {
+    return { success: false };
   }
 }

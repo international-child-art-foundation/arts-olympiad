@@ -18,13 +18,11 @@ import { limiter } from "@/utils/api-rate-limit";
 
 export const Register = () => {
   const [userEmail, setUserEmail] = useState("");
-  const [userUuid, setUserUuid] = useState("");
   const [registerSuccess, setRegisterSuccess] = useState(false);
   const [apiError, setApiError] = useState("");
   const router = useRouter();
   
   const verificationInitialValues: VerificationCodeInterface = {
-    uuid: "",
     email: "",
     verificationCode: "",
   };
@@ -37,17 +35,15 @@ export const Register = () => {
   const verificationSubmit = async (values: VerificationCodeInterface) => {
     setApiError("");
     setVerificationSubmissionLoading(true);
-    values.uuid = userUuid;
     values.email = userEmail;
-    if (values.uuid == "" || values.email == "") {
-      console.log("Values missing");
+    if (values.email == "") {
+      console.log("Email missing");
       setVerificationSubmissionLoading(false);
       setApiError("An error has occurred. Try reloading the page.");
       return;
     }
     try {
       const result = await limiter.schedule(() => handleVerify({
-        uuid: values.uuid,
         email: values.email,
         verificationCode: values.verificationCode
       } as VerificationCodeInterface));
@@ -116,7 +112,7 @@ export const Register = () => {
       >
         <div className="flex flex-row justify-center lg:justify-between">
           <Image className="mx-auto h-fit hidden lg:block" width={500} src={MFS_Logo} alt="My favorite sport logo." />
-          <RegisterForm setUserEmail={setUserEmail} setUserUuid={setUserUuid} setRegisterSuccess={setRegisterSuccess}/>
+          <RegisterForm setUserEmail={setUserEmail} setRegisterSuccess={setRegisterSuccess}/>
         </div>
       </section>
     </>

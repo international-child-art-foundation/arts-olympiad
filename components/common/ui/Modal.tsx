@@ -18,7 +18,7 @@ export const Modal = ({ isOpen, onClose, children }: IProps) => {
         >
           <div
             onClick={(e) => e.stopPropagation()}
-            className=" max-w-[90%] sm:max-w-[70%] lg:max-w-[50%] cursor-default relative mx-8 py-16 bg-white p-6 rounded-md flex justify-center"
+            className=" max-w-[90%] sm:max-w-[70%] lg:max-w-[50%] min-w-[40%] cursor-default relative mx-8 py-16 bg-white p-6 rounded-md flex justify-center"
           >
             <button className="absolute top-8 right-8"  onClick={() => onClose()} >
               <Image width={14} src={close} alt="Close button." />

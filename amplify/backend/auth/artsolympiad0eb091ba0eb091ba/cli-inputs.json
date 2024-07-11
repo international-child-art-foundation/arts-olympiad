@@ -26,14 +26,10 @@
     "userpoolClientGenerateSecret": false,
     "userpoolClientRefreshTokenValidity": 30,
     "userpoolClientWriteAttributes": [
-      "birthdate",
-      "family_name",
       "given_name",
       "email"
     ],
     "userpoolClientReadAttributes": [
-      "birthdate",
-      "family_name",
       "given_name",
       "nickname"
     ],

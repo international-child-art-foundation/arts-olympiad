@@ -91,6 +91,27 @@
       "permissions": {
         "setting": "open"
       }
+    },
+    "/api/resend-verification": {
+      "name": "/api/resend-verification",
+      "lambdaFunction": "usersLambda",
+      "permissions": {
+        "setting": "open"
+      }
+    },
+    "/api/confirm-forgot-password": {
+      "name": "/api/confirm-forgot-password",
+      "lambdaFunction": "usersLambda",
+      "permissions": {
+        "setting": "open"
+      }
+    },
+    "/api/forgot-password": {
+      "name": "/api/forgot-password",
+      "lambdaFunction": "usersLambda",
+      "permissions": {
+        "setting": "open"
+      }
     }
   }
 }

@@ -11,7 +11,6 @@ import ClosedEye from "../../public/auth/eye_closed.svg";
 import {NewPasswordInput} from "../common/form_inputs/NewPasswordInput";
 import { BirthdateInterface, UserRegisterInterfaceUnder18, UserRegisterInterface } from "@/interfaces/user_auth";
 import { handleRegister } from "@/utils/api-user";
-import { validate as uuidValidate } from "uuid";
 import "react-phone-number-input/style.css";
 import { CustomPhoneInput } from "../common/form_inputs/CustomPhoneInput";
 import { 
@@ -26,7 +25,6 @@ import {
 
 type RegisterUnder18Props = {
   setUserEmail: React.Dispatch<React.SetStateAction<string>>
-  setUserUuid: React.Dispatch<React.SetStateAction<string>>
   userBirthdate: BirthdateInterface
   setRegisterSuccess: React.Dispatch<React.SetStateAction<boolean>>
   formSubmissionLoading: boolean
@@ -35,7 +33,7 @@ type RegisterUnder18Props = {
 import Bottleneck from "bottleneck";
 import { limiter } from "@/utils/api-rate-limit";
 
-export const RegisterUnder18: React.FC<RegisterUnder18Props> = ({setUserEmail, setUserUuid, userBirthdate, setRegisterSuccess, formSubmissionLoading, setFormSubmissionLoading}) => {
+export const RegisterUnder18: React.FC<RegisterUnder18Props> = ({setUserEmail, userBirthdate, setRegisterSuccess, formSubmissionLoading, setFormSubmissionLoading}) => {
 
   const [showPassword, setShowPassword] = useState(false);
   const [apiError, setApiError] = useState("");
@@ -71,9 +69,6 @@ export const RegisterUnder18: React.FC<RegisterUnder18Props> = ({setUserEmail, s
       console.log(result);
       if (result.success) {
         setRegisterSuccess(result.success);
-        if (result.message && uuidValidate(result.message)) {
-          setUserUuid(result.message);
-        }  
       } else {
         setApiError("An error has occurred. Try again later.");
       }

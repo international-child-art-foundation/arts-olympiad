@@ -71,9 +71,17 @@ const approveArtworkValidator = [
 ]
 
 const forgotPasswordValidator = [
-    body('email')
-    .notEmpty().withMessage('Email is required')
-    .isEmail().withMessage('Email must be a valid email address')
+    ...emailValidator
+]
+
+const confirmForgotPasswordValidator = [
+    ...emailValidator,
+    body('newPassword').isString().withMessage('newPassword must be a string'),
+    body('confirmationCode').isString().withMessage('confirmation code must be a string')
+]
+
+const resendVerificationValidator = [
+    ...emailValidator
 ]
   
 function validationMiddleware(req, res, next) {
@@ -94,5 +102,7 @@ module.exports = {
     addArtworkValidator,
     approveArtworkValidator,
     validationMiddleware,
-    forgotPasswordValidator
+    forgotPasswordValidator,
+    resendVerificationValidator,
+    confirmForgotPasswordValidator
 }

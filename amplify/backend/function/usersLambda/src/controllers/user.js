@@ -1,3 +1,4 @@
+const { ResendConfirmationCodeCommand } = require("@aws-sdk/client-cognito-identity-provider");
 const UserService = require("../services/user");
 const { getUserCognitoData, handleRefreshTokenFlow } = require("../utils");
 
@@ -51,14 +52,28 @@ async function registerUser(req, res)  {
 }
 
 async function verifyUser(req, res) {
-  const { uuid, email, verificationCode } = req.body;
-
+  const { email, verificationCode } = req.body;
   try {
-    const user = await UserService.verifyUser(uuid, email, verificationCode);
+    const userInfo = await UserService.getStatusAndSubFromId(email);
+    const user = await UserService.verifyUser(userInfo.sub, email, verificationCode);
     res.status(200).json(user);
   } catch (error) {
     console.error(error);
     res.status(400).json({ message: "Registration failed", error: error.message });
+  }
+}
+
+async function sendVerificationEmail(req, res) {
+  const { email } = req.body;
+  try {
+    const response = await UserService.sendVerificationEmail(email);
+    if (response.$metadata.httpStatusCode === 200) {
+      res.status(200).json({ message: "Verification email resent successfully" });
+    } else {
+      res.status(500).json({ message: "Failed to resend verification email" });
+    }
+  } catch (error) {
+    res.status(500).json({ message: "Failed to resend verification email" });
   }
 }
 
@@ -194,6 +209,17 @@ async function forgotPassword(req, res) {
   }
 }
 
+async function confirmForgotPassword(req, res) {
+  const reqArgs = { confirmationCode: req.body.confirmationCode, newPassword: req.body.newPassword, email: req.body.email };
+  try {
+    const confirmForgotPasswordResponse = await UserService.confirmForgotPassword(reqArgs);
+    res.status(200).json(confirmForgotPasswordResponse);
+  } catch (error) {
+    console.error(error);
+    res.status(400).json({message: "Failed to reset password"});
+  }
+}
+
 async function updateUser(req, res) {
   const userCognitoData = await getUserCognitoData(req.cookies.accessToken);
   const userSk = userCognitoData.sub;
@@ -247,5 +273,7 @@ module.exports = {
   volunteerUpdateUser,
   getAuthStatus,
   getVolunteerAuthStatus,
-  getUserVoted
+  getUserVoted,
+  sendVerificationEmail,
+  confirmForgotPassword
 };

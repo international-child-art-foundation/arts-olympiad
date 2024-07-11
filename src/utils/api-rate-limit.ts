@@ -12,6 +12,26 @@ export const limiter = new Bottleneck({
   minTime: 100
 });
 
+// // Listen to the "failed" event
+// limiter.on("failed", async (error, jobInfo) => {
+//   const id = jobInfo.options.id;
+//   console.warn(`Job ${id} failed: ${error}`);
+ 
+//   if (jobInfo.retryCount === 0) { // Here we only retry once
+//     console.log(`Retrying job ${id} in 200ms!`);
+//     return 200;
+//   }
+// });
+
+// limiter.on("error", function (error) {
+//   console.log("Error fired");
+//   console.log(error);
+// });
+
+// limiter.on("debug", function (message, data) {
+//   console.log(message);
+//   console.log(data);
+// });
 
 // limiter.on("error", function (error) {
 //   console.log(error);

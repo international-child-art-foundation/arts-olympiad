@@ -2,12 +2,15 @@ const { ddbDocClient } = require("../lib/dynamoDBClient");
 const { DeleteCommand, GetCommand, PutCommand, UpdateCommand } = require("@aws-sdk/lib-dynamodb");
 const { SignUpCommand, ConfirmSignUpCommand, CognitoIdentityProviderClient, 
   AuthFlowType, InitiateAuthCommand, DeleteUserCommand, ForgotPasswordCommand,
-  GlobalSignOutCommand, } = require("@aws-sdk/client-cognito-identity-provider");
+  ConfirmForgotPasswordCommand, GlobalSignOutCommand, AdminGetUserCommand, 
+  ResendConfirmationCodeCommand } = require("@aws-sdk/client-cognito-identity-provider");
 
 let tableName = "dynamo22205621";
 if (process.env.ENV && process.env.ENV !== "NONE") {
   tableName = tableName + "-" + process.env.ENV;
 }
+
+let userPoolId = "us-east-1_3PznlHK93";
 
 const client = new CognitoIdentityProviderClient({});
 
@@ -173,6 +176,45 @@ async function forgotPassword(username) {
   }
 }
 
+async function confirmForgotPassword(reqArgs) {
+  try {
+    const input = {
+      ClientId: "26h0ul3gca5v4kevgl13dhhsur",
+      ConfirmationCode: reqArgs.confirmationCode,
+      Username: reqArgs.email,
+      Password: reqArgs.newPassword
+    };
+    const command = new ConfirmForgotPasswordCommand(input);
+    return await client.send(command);
+  } catch(error) {
+    console.error("Forgot password command failed.");
+    throw error;
+  }
+};
+
+async function getStatusAndSubFromId(username) {
+  try {
+    const input = {
+      UserPoolId: userPoolId,
+      Username: username,
+    };
+    const command = new AdminGetUserCommand(input);
+    const response = await client.send(command);
+
+    // Extracting the sub attribute from the UserAttributes array
+    const subAttribute = response.UserAttributes.find(attr => attr.Name === "sub");
+    const sub = subAttribute ? subAttribute.Value : null;
+
+    return {
+      status: response.UserStatus,
+      sub: sub
+    };
+  } catch (error) {
+    console.error("Error fetching the user's sub from their username");
+    throw error;
+  }
+}
+
 async function deleteUserData(userSk) {
   try {
     const input = {
@@ -216,6 +258,21 @@ async function updateUserById(userSk, fieldName, fieldValue) {
   }
 }
 
+async function sendVerificationEmail(email) {
+  try {
+    const params = {
+      ClientId: "26h0ul3gca5v4kevgl13dhhsur",
+      Username: email
+    };
+    const command = new ResendConfirmationCodeCommand(params);
+    const response = await client.send(command);
+    return response;
+  } catch (error) {
+    console.error("Error sending new verification email");
+    throw error;
+  }
+}
+
 module.exports = {
   getUserBySk,
   createCognitoUser,
@@ -227,5 +284,8 @@ module.exports = {
   forgotPassword,
   deleteUserData,
   updateUserById,
-  getNewTokens
+  getNewTokens,
+  getStatusAndSubFromId,
+  sendVerificationEmail,
+  confirmForgotPassword
 };

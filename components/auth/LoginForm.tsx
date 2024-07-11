@@ -18,6 +18,7 @@ import {CheckBox} from "../common/form_inputs/CheckBox";
 import {ForgotPasswordForm} from "./ForgotPasswordForm";
 import { UserLoginInterface } from "@/interfaces/user_auth";
 import LoadingAnimation from "../svgs/LoadingAnimation";
+import { VerifyEmailForm } from "./VerifyEmailForm";
 
 import { allowedPasswordCharactersRegex } from "../../mock/passwordRegex";
 import { useGlobalContext } from "@/app/GlobalContext";
@@ -51,6 +52,7 @@ export const LoginForm = () => {
 
   const [showPassword, setShowPassword] = useState(false);
   const [showForgotPassword, setShowForgotPassword] = useState(false);
+  const [showVerifyEmail, setShowVerifyEmail] = useState(false);
   const [loginLoading, setLoginLoading] = useState(false);
   const [loginError, setLoginError] = useState(false);
 
@@ -103,6 +105,7 @@ export const LoginForm = () => {
                   <span className="sr-only">.</span>
                 </button>
               </div>
+              {loginError && <p className="text-red-600">Couldn't log in. Is your password correct?</p>}
               <ButtonStd type="submit" className="w-full my-2">Log in</ButtonStd>
             </Form>
           )}
@@ -111,7 +114,14 @@ export const LoginForm = () => {
       <Pm className="font-semibold my-4 text-center">Don’t have an account?
         <span className="text-main-blue font-semibold"><Link className="inline" href="/auth/register"> Create one now</Link></span>
       </Pm>
-      {loginError && <p className="text-red-600">Couldn't log in. Is your password correct?</p>}
+      {loginError && <div className="bg-white rounded-3xl w-80% py-4">
+        <p className="text-center">If you're still having trouble, maybe you forgot to:</p>
+        <div className="w-full">
+          <button className="w-full font-semibold bg-transparent border-none mx-auto px-auto text-center" onClick={() => setShowVerifyEmail(true)}>
+            Verify your email address
+          </button>
+        </div>
+      </div>}
       <div className="invisible">
         <div className="flex flex-row">
           <div className=" mx-4 z-10 my-12 relative bg-main-grey w-full m-0 border-1 border-main-grey" />
@@ -138,6 +148,9 @@ export const LoginForm = () => {
       {/*</Pm>*/}
       <Modal isOpen={showForgotPassword} onClose={() => setShowForgotPassword(false)}>
         <ForgotPasswordForm />
+      </Modal>
+      <Modal isOpen={showVerifyEmail} onClose={() => setShowVerifyEmail(false)}>
+        <VerifyEmailForm />
       </Modal>
     </div>
   );

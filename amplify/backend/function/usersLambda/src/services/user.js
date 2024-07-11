@@ -48,6 +48,11 @@ async function forgotPassword(username) {
   return forgotPasswordResult;
 }
 
+async function confirmForgotPassword(reqArgs) {
+  const confirmForgotPasswordResult = await UserModel.confirmForgotPassword(reqArgs);
+  return confirmForgotPasswordResult;
+}
+
 async function updateUser(userSk, updateField) {
   const fieldName = Object.keys(updateField)[0];
   const fieldValue = updateField[fieldName];
@@ -94,6 +99,14 @@ async function volunteerUpdateUser(userSk, updateField) {
   }
 }
 
+async function getStatusAndSubFromId(email) {
+  return await UserModel.getStatusAndSubFromId(email);
+}
+
+async function sendVerificationEmail(email) {
+  return await UserModel.sendVerificationEmail(email);
+}
+
 module.exports = {
   getUser,
   registerUser,
@@ -103,5 +116,8 @@ module.exports = {
   deleteUser,
   forgotPassword,
   updateUser,
-  volunteerUpdateUser
+  volunteerUpdateUser,
+  getStatusAndSubFromId,
+  sendVerificationEmail,
+  confirmForgotPassword
 };

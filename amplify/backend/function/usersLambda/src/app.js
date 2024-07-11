@@ -10,9 +10,8 @@ const VotesController = require("./controllers/votes");
 const {
   loginUserValidator, registerUserValidator, verifyUserValidator, updateUserValidator,
   generatePresignedValidator, addArtworkValidator, approveArtworkValidator, validationMiddleware,
-  forgotPasswordValidator, volunteerUpdateUserValidator
+  forgotPasswordValidator, volunteerUpdateUserValidator, confirmForgotPasswordValidator, resendVerificationValidator
 } = require('./validators');
-const { volunteerUpdateUser } = require("./services/user");
 
 // declare a new express app
 const app = express();
@@ -36,8 +35,10 @@ app.patch("/api/users", updateUserValidator, validationMiddleware, UserControlle
 app.delete("/api/users", UserController.deleteUser);
 app.post("/api/users/presigned-url", generatePresignedValidator, validationMiddleware, ArtworkController.generatePresigned);
 app.post("/api/forgot-password", forgotPasswordValidator, validationMiddleware, UserController.forgotPassword);
+app.post("/api/confirm-forgot-password", confirmForgotPasswordValidator, validationMiddleware, UserController.confirmForgotPassword);
 app.get("/api/auth-status", UserController.getAuthStatus);
 app.get("/api/voted", UserController.getUserVoted);
+app.post("/api/resend-verification", resendVerificationValidator, validationMiddleware, UserController.sendVerificationEmail);
 
 app.patch("/api/volunteer/update-user/:userSk", volunteerUpdateUserValidator, validationMiddleware, UserController.volunteerUpdateUser);
 app.get("/api/volunteer/auth-status", UserController.getVolunteerAuthStatus);

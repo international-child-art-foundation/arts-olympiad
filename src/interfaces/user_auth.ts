@@ -64,7 +64,6 @@ export interface UserDataSchema {
 }
 
 export interface VerificationCodeInterface {
-  uuid: string;
   email: string;
   verificationCode: string;
 }
@@ -72,6 +71,14 @@ export interface VerificationCodeInterface {
 export interface UserLoginInterface {
   email: string;
   password: string;
+}
+
+export interface ResendVerificationInterface {
+  verificationCode: string;
+}
+
+export interface EmailInterface {
+  email: string;
 }
 
 export interface ApiEndpointConfig {
@@ -82,7 +89,11 @@ export interface ApiConfig {
   [key: string]: ApiEndpointConfig;
 }
 
-
+export interface ConfirmForgotPasswordInterface {
+  confirmationCode: string;
+  newPassword: string;
+  email: string;
+}
 
 export interface ErrorResponse {
   response?: {
