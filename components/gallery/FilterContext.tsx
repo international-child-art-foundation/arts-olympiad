@@ -3,9 +3,18 @@ import React, { createContext, useContext, useState, ReactNode } from "react";
 import { filterableOptions as initialFilterableOptions } from "../../mock/filterableOptionsData";
 import { sortValue as sortValueType } from "../../mock/sortValueType";
 
+type FilterableOption = {
+  id: string;
+  categoryType: string;
+  title: string;
+  options: { name: string; number: number; active: boolean; }[];
+  filterType: string;
+};
+
 interface FilterContextType {
-  filterableOptions: typeof initialFilterableOptions;
+  filterableOptions: FilterableOption[];
   setFilterOption: (optionName: string, updates: Partial<{ number: number; active: boolean; }>) => void;
+  setFilterableOptions: (newOptions: FilterableOption[]) => void;
   activateOptionsByName: (names: string[]) => void;
   bulkAlterCategoryOptions: (categoryId: string, activeStatus: boolean) => void;
   resetAllFilters: () => void;
@@ -26,74 +35,70 @@ interface FilterProviderProps {
 }
 
 export const FilterProvider: React.FC<FilterProviderProps> = ({ children }) => {
-  const [filterableOptions, setFilterableOptions] = useState(initialFilterableOptions);
+  const [filterableOptions, setFilterableOptionsState] = useState<FilterableOption[]>(initialFilterableOptions);
   const [pageNumber, setPageNumber] = useState(1);
   const [sortValue, setSortValue] = useState<sortValueType>("Newest");
   const [activeEntrySk, setActiveEntrySk] = useState<string | null>(null);
   const [votedSk, setVotedSk] = useState<string | undefined>(undefined);
 
-  // Sets the attributes of one filter option
+  const setFilterableOptions = (newOptions: FilterableOption[]) => {
+    setFilterableOptionsState(newOptions);
+  };
+
   const setFilterOption = (optionName: string, updates: Partial<{ number: number; active: boolean; }>) => {
-    setFilterableOptions((prevOptions) => {
-      return prevOptions.map((category) => ({
+    setFilterableOptionsState(prevOptions => 
+      prevOptions.map(category => ({
         ...category,
-        options: category.options.map((option) => {
-          if (option.name === optionName) {
-            return { ...option, ...updates };
-          }
-          return option;
-        }),
-      }));
-    });
+        options: category.options.map(option => 
+          option.name === optionName ? { ...option, ...updates } : option
+        ),
+      }))
+    );
   };
   
-  // Activates an individual option within a category
   const activateOptionsByName = (names: string[]) => {
-    setFilterableOptions((prevOptions) => {
-      return prevOptions.map((category) => ({
+    setFilterableOptionsState(prevOptions => 
+      prevOptions.map(category => ({
         ...category,
-        options: category.options.map((option) => ({
+        options: category.options.map(option => ({
           ...option,
           active: names.includes(option.name) ? true : option.active,
         })),
-      }));
-    });
+      }))
+    );
   };
 
-  // Deactivates all options within a specified category
   const bulkAlterCategoryOptions = (categoryId: string, activeStatus: boolean) => {
-    setFilterableOptions((prevOptions) => {
-      return prevOptions.map((category) => {
-        if (category.id === categoryId) {
-          return {
+    setFilterableOptionsState(prevOptions => 
+      prevOptions.map(category => 
+        category.id === categoryId
+          ? {
             ...category,
-            options: category.options.map((option) => ({
+            options: category.options.map(option => ({
               ...option,
               active: activeStatus,
             })),
-          };
-        }
-        return category;
-      });
-    });
+          }
+          : category
+      )
+    );
   };
 
-  // Resets all filters to their default state
   const resetAllFilters = () => {
-    setFilterableOptions((prevOptions) => {
-      return prevOptions.map((category) => ({
+    setFilterableOptionsState(prevOptions => 
+      prevOptions.map(category => ({
         ...category,
-        options: category.options.map((option) => ({
+        options: category.options.map(option => ({
           ...option,
           active: false,
         })),
-      }));
-    });
+      }))
+    );
   };
   
   return (
     <FilterContext.Provider value={{
-      filterableOptions, setFilterOption,
+      filterableOptions, setFilterOption, setFilterableOptions,
       activateOptionsByName, bulkAlterCategoryOptions,
       resetAllFilters,
       pageNumber, setPageNumber,

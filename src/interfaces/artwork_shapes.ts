@@ -49,7 +49,9 @@ export interface UserArtworkSchema {
 	votes: number;
 	description: string;
 	file_type: string;
+  timestamp: string;
 }
+export type GroupOfArtworks = UserArtworkSchema[] | []
 
 export type ApiArtworksResponse = {
   success: boolean;

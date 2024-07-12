@@ -11,7 +11,7 @@ export default function CountdownContainer({
   const ellipsePath=`M ${50 + stroke},${10 + stroke} L ${550 + stroke},${10 + stroke} A 30,30 0 0 1 ${551 + stroke},${91 + stroke} L ${50 + stroke},${91 + stroke} A 30,30 0 0 1 ${50 + stroke},${10 + stroke}`;
 
   return (
-    <svg width={602 + stroke*2} height={102 + stroke*2} viewBox={`0 0 ${602 + stroke*2} ${102 + stroke*2}}`} fill="none" xmlns="http://www.w3.org/2000/svg" transform={`scale(${scale})`}>
+    <svg width={602 + stroke*2} height={102 + stroke*2} viewBox={`0 0 ${602 + stroke*2} ${102 + stroke*2}`} fill="none" xmlns="http://www.w3.org/2000/svg" transform={`scale(${scale})`}>
       <defs>
         <linearGradient id="paint0_linear_3_4" x1={2 + stroke} y1={65 + stroke} x2={602 + stroke} y2={65 + stroke} gradientUnits="userSpaceOnUse">
           <stop stopColor="#121212"/>

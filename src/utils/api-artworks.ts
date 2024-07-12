@@ -30,7 +30,7 @@ export async function getSingleArtworkData(artwork_sk: string): Promise<GenericR
 // import { artworks } from "../../mock/artworks";
 
 // Create a cache object to store results
-const cache: Record<string, UserArtworkSchema[]> = {};
+// const cache: Record<string, UserArtworkSchema[]> = {};
 
 export async function getArtworksData(data: ArtworksDataRequest): Promise<ArtworksResponse> {
   try {
@@ -100,6 +100,51 @@ export async function getArtworksData(data: ArtworksDataRequest): Promise<Artwor
 
     return { success: true, data: result };
 
+  } catch (error) {
+    const errorString = returnErrorAsString(error);
+    return { success: false, error: errorString };
+  }
+}
+
+const cache: Record<string, UserArtworkSchema[]> = {};
+export async function getArtworks({is_approved = true, sort_by = "votes", order_by = "descending"}): Promise<ArtworksResponse> {
+
+  const queryParams = new URLSearchParams();
+  queryParams.append("is_approved", is_approved.toString());
+  queryParams.append("sort_by", sort_by);
+  queryParams.append("order_by", order_by);
+  const url = `/next-proxy/api/artworks?${queryParams.toString()}`;
+
+  // Caching not necessary anymore but might as well be kept
+  if (cache[url]) {
+    console.log("Returning cached API result");
+    console.log(cache[url]);
+    return { success: true, data: cache[url] };
+  }
+
+  try {
+    const response = await fetch(url, {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+        "x-api-key": process.env.NEXT_PUBLIC_AK || "",
+      },
+    });
+    if (!response.ok) {
+      return { success: false, error: "Error fetching data"};
+    }
+
+    const result = await response.json();
+    // Cache the result
+    cache[url] = result;
+
+    // const duplicatedResults = [];
+    // while (duplicatedResults.length < 500) {
+    //   duplicatedResults.push(...result);
+    // }
+    // duplicatedResults.length = 500; 
+
+    return { success: true, data: result };
   } catch (error) {
     const errorString = returnErrorAsString(error);
     return { success: false, error: errorString };

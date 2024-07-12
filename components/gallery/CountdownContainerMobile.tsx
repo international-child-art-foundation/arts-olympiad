@@ -11,7 +11,7 @@ export default function CountdownContainerMobile({
   const ellipseMobilePath = `M ${83 + stroke},${8 + stroke} L ${260 + stroke},${8 + stroke} A 80,65 0 0 1 ${260 + stroke},${140 + stroke} L ${83 + stroke},${140 + stroke} A 80,65 0 0 1 ${83 + stroke},${8 + stroke}`;
 
   return (
-    <svg width={342 + stroke*2} height={147 + stroke*2} viewBox={`0 0 ${342 + stroke*2} ${147 + stroke*2}}`} fill="none" xmlns="http://www.w3.org/2000/svg" transform={`scale(${scale})`}>
+    <svg width={342 + stroke*2} height={147 + stroke*2} viewBox={`0 0 ${342 + stroke*2} ${147 + stroke*2}`} fill="none" xmlns="http://www.w3.org/2000/svg" transform={`scale(${scale})`}>
       <defs>
         <linearGradient id="paint0_linear_3_4_mobile" x1={2 + stroke} y1={65 + stroke} x2={342 + stroke} y2={65 + stroke} gradientUnits="userSpaceOnUse">
           <stop stopColor="#121212"/>

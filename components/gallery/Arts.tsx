@@ -18,31 +18,49 @@ import useWindowDimensions from "@/hooks/useWindowDimensions";
 import { sortValue as sortValueType } from "../../mock/sortValueType";
 import { sortBy } from "../../mock/sortBy";
 import { ContestState } from "../../mock/contestState";
-import { getArtworksData, getSingleArtworkData } from "@/utils/api-artworks";
-import { ArtworksDataRequest } from "@/interfaces/gallery_shapes";
+import { getArtworks, getSingleArtworkData } from "@/utils/api-artworks";
 import { filterableOptions as initialFilterableOptions } from "../../mock/filterableOptionsData";
-import { UserArtworkSchema } from "@/interfaces/artwork_shapes";
+import { UserArtworkSchema, GroupOfArtworks } from "@/interfaces/artwork_shapes";
 import no_results_found from "../../public/svgs/no_results_found_bg.svg";
 import LoadingAnimation from "../svgs/LoadingAnimation";
 import { getUserVoteData } from "@/utils/api-user";
 import { useGlobalContext } from "@/app/GlobalContext";
 import { limiter } from "@/utils/api-rate-limit";
+import { useMemo } from "react";
 
 interface ArtsProps {
   contestState: ContestState;
+}
+
+interface Option {
+  name: string;
+  number: number;
+  active: boolean;
+}
+
+interface FilterableOption {
+  id: string;
+  categoryType: string;
+  title: string;
+  options: Option[];
+  filterType: string;
+}
+
+interface ActiveFilters {
+  sports: string[];
+  locations: string[];
 }
 
 export const Arts: React.FC<ArtsProps> = ({ contestState }) => {
   const router = useRouter();
   const [isModalOpen, setModalOpen] = useState(false);
   const [isFilterOpen, setIsFilterOpen] = useState(false);
-  const { filterableOptions, setFilterOption, bulkAlterCategoryOptions, resetAllFilters, //activateOptionsByName,
+  const { filterableOptions, setFilterableOptions, setFilterOption, bulkAlterCategoryOptions, resetAllFilters, //activateOptionsByName,
     pageNumber, setPageNumber,
     sortValue, setSortValue,
     activeEntrySk, setActiveEntrySk,
     votedSk, setVotedSk } = useFilters();
   const { handleRealizeSignedOut, isAuthenticated } = useGlobalContext();
-  const [mostRecentFilterState, setMostRecentFilterState] = useState(filterableOptions);
   const [pageLoadArtwork, setPageLoadArtwork] = useState<UserArtworkSchema | undefined>(undefined);
   const [currentUserSk, setCurrentUserSk] = useState<string | null>(null);
 
@@ -51,23 +69,49 @@ export const Arts: React.FC<ArtsProps> = ({ contestState }) => {
   const searchParams = useSearchParams();
   const artworksPerPage = 20;
 
-  const [artworks, setArtworks] = useState<UserArtworkSchema[]>([]);
+  const [allArtworks, setAllArtworks] = useState<GroupOfArtworks>([]);
+  const [activeArtworks, setActiveArtworks] = useState<GroupOfArtworks>([]);
+
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
 
-  // Function to fetch artwork data from API given current variable values
-  const fetchArtworkData = useCallback(async (filterableOptions = initialFilterableOptions, pageNumber = 1, sortValue = "Newest", isFilterOpen=false) => {
-    if (isFilterOpen) {
-      // If filter menu is ever open, we don't want to make API calls.
-      return;
-    }
+  function updateFilterableCounts(artworks: GroupOfArtworks) {
+    const newFilterableOptions = filterableOptions.map(category => ({
+      ...category,
+      options: category.options.map(option => ({
+        ...option,
+        number: artworks.filter(artwork => 
+          category.categoryType === "sport" 
+            ? artwork.sport === option.name
+            : artwork.location === option.name
+        ).length
+      }))
+    }));
+  
+    setFilterableOptions(newFilterableOptions);
+  };
+
+  // useEffect(() => {
+  //   console.log(filterableOptions);
+  // }, [filterableOptions]);
+
+  // This function will be used if we decide to load data from URL on page load (other than ID).
+  // const activateOneOrManyFilterOptions = (names: string[]) => {
+  //   activateOptionsByName(names);
+  //   console.log("The filter options have been activated. ");
+  //   {/* API call: Get artwork data from filterable options. May need advanced throttling technique here, or just give constant delay. */}
+  // };
+
+  // Function to fetch artwork data from API
+  const fetchArtworkData = useCallback(async () => {
     setIsLoading(true);
     setError(null);
-    const filterState = {filterableOptions, pageNumber, sortValue} as ArtworksDataRequest;
     try {
-      const response = await limiter.schedule(() => getArtworksData(filterState));
+      const response = await limiter.schedule(() => getArtworks({}));
       if (response.success) {
-        setArtworks(response.data);
+        const sortedArtworks = sortArtworks(response.data, sortValue);
+        updateFilterableCounts(sortedArtworks);
+        setAllArtworks(sortedArtworks);
       } else {
         setError("Failed to fetch artwork");
       }
@@ -80,12 +124,24 @@ export const Arts: React.FC<ArtsProps> = ({ contestState }) => {
     }
   }, []);
 
+  const sortArtworks = useCallback((artworks: GroupOfArtworks, sortValue: sortValueType) => {
+    if (artworks) {
+      if (sortValue === "Most Popular") {
+        return [...artworks].sort((a, b) => b.votes - a.votes);
+      } else if (sortValue === "Newest") {
+        return [...artworks].sort((a, b) => Number(b.timestamp) - Number(a.timestamp));
+      } else if (sortValue === "Oldest") {
+        return [...artworks].sort((a, b) => Number(a.timestamp) - Number(b.timestamp));
+      }
+    }
+    return artworks || [];
+  }, []);
+
   const fetchUserAuthAndVote = useCallback(async () => {
     // We want to fetch the user's data on page load to set their voted-for artwork
     // and to confirm their authentication status before they try to vote.
     if (isAuthenticated) {
       const userVotedResponse = await limiter.schedule(() => getUserVoteData());
-      console.log(userVotedResponse);
       if (userVotedResponse.success) {
         if (userVotedResponse.voted_sk) {
           setVotedSk(userVotedResponse.voted_sk);
@@ -118,7 +174,6 @@ export const Arts: React.FC<ArtsProps> = ({ contestState }) => {
   
     // If 'id' is in the search params, load that id (sk)
     handleIdUponPageLoad();
-    console.log("Initial page load population of artwork:");
     fetchArtworkData();
     fetchUserAuthAndVote();
   }, [fetchArtworkData]);
@@ -159,25 +214,13 @@ export const Arts: React.FC<ArtsProps> = ({ contestState }) => {
     // Push the updated URL
     router.push(`${window.location.pathname}?${currentParams.toString()}`, { scroll: false });
   }, [filterableOptions, pageNumber, sortValue, isModalOpen, activeEntrySk]);
-  
   useEffect(() => {
     updateURLFromState();
   }, [updateURLFromState]);
 
-  // const getShareUrl = () => {
-  //   const baseUrl = `${window.location.protocol}//${window.location.host}${window.location.pathname}`;
-  //   const shareUrl = new URL(baseUrl);
-  //   if (activeEntrySk) {
-  //     shareUrl.searchParams.set("id", activeEntrySk); // Append the activeEntrySk as a query parameter
-  //   }
-  
-  //   return shareUrl.toString();
-  // };
-
   const updatePageNumber = (currentPageNumber: number, newPageNumber: number) => {
     setPageNumber(newPageNumber);
     // console.log("Page number has been updated to " + pageNumber);
-    fetchArtworkData(filterableOptions, pageNumber, sortValue, isFilterOpen);
   };
 
   const updateActiveEntrySk = (sk: string) => {
@@ -207,7 +250,7 @@ export const Arts: React.FC<ArtsProps> = ({ contestState }) => {
     } else {
       document.body.style.overflow = "";
     }
-    
+
     return () => {
       document.body.style.overflow = "";
     };
@@ -215,32 +258,18 @@ export const Arts: React.FC<ArtsProps> = ({ contestState }) => {
 
   const updateSortValue = (sortValue: sortValueType) => {
     setSortValue(sortValue);
-    // console.log("The new sort value is: " + sortValue);
-    fetchArtworkData(filterableOptions, pageNumber, sortValue, isFilterOpen);
   };
 
   const updateFilterOption = (optionName: string, updates: Partial<{ number: number; active: boolean; }>) => {
     setFilterOption(optionName, updates);
-    // console.log("The new filter object is:" + optionName);
-    {/* API call does not occur here, it occurs when filter menu is closed. */}
   };
-
-  // This function will be used if we decide to load data from URL on page load (other than ID).
-  // const activateOneOrManyFilterOptions = (names: string[]) => {
-  //   activateOptionsByName(names);
-  //   console.log("The filter options have been activated. ");
-  //   {/* API call: Get artwork data from filterable options. May need advanced throttling technique here, or just give constant delay. */}
-  // };
 
   const alterFiltersByCategory = (categoryId: string, activeStatus: boolean) => {
     bulkAlterCategoryOptions(categoryId, activeStatus);
-    // console.log("Filters of type " + categoryId + " now have an active status of: " + activeStatus);
   };
 
   const clearAllFilters = () => {
     resetAllFilters();
-    // This API call should always be returned from cache by default
-    fetchArtworkData(initialFilterableOptions, pageNumber, sortValue, isFilterOpen);
   };
 
   // Closes filter if background of grid is clicked by the user
@@ -255,16 +284,7 @@ export const Arts: React.FC<ArtsProps> = ({ contestState }) => {
   // const pageData = filteredArts.slice(startIndex, endIndex);
 
   const handleModifyFilterState = (setValue: boolean) => {
-    
-    // Handle default behavior
     setIsFilterOpen(setValue);
-
-    // Optionally perform API call if filterableOptions has changed
-    if (setValue == false && filterableOptions != mostRecentFilterState) {
-      fetchArtworkData(filterableOptions, pageNumber, sortValue, setValue);
-    } else {
-      setMostRecentFilterState(filterableOptions);
-    }
   };
 
   useEffect(() => {
@@ -273,19 +293,72 @@ export const Arts: React.FC<ArtsProps> = ({ contestState }) => {
         handleModifyFilterState(false);
       }
     };
-  
     document.addEventListener("keydown", handleKeyDown);
-  
     return () => {
       document.removeEventListener("keydown", handleKeyDown);
     };
-  
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
+  const filterUserArtworks = useCallback((artworks: GroupOfArtworks, filterableOptionsArg: typeof initialFilterableOptions) => {
+
+    const extractActiveFilters = (filterableOptions: FilterableOption[]): ActiveFilters => {
+      const activeSports: string[] = [];
+      const activeLocations: string[] = [];
+    
+      filterableOptions.forEach(optionCategory => {
+        if (optionCategory.categoryType === "sport") {
+          optionCategory.options.forEach(option => {
+            if (option.active) {
+              activeSports.push(option.name);
+            }
+          });
+        } else if (optionCategory.categoryType === "country") {
+          optionCategory.options.forEach(option => {
+            if (option.active) {
+              activeLocations.push(option.name);
+            }
+          });
+        }
+      });
+    
+      return { sports: activeSports, locations: activeLocations };
+    };
+  
+    const activeFilters = extractActiveFilters(filterableOptionsArg);
+    const locations = activeFilters.locations;
+    const sports = activeFilters.sports;
+    
+    if (!artworks) return [];
+    
+    return artworks.filter(artwork => {
+      if (sports.length > 0 && locations.length > 0) {
+        return sports.includes(artwork.sport) && locations.includes(artwork.location);
+      } else if (sports.length > 0) {
+        return sports.includes(artwork.sport);
+      } else if (locations.length > 0) {
+        return locations.includes(artwork.location);
+      } else {
+        return true;
+      }
+    });
+  }, []);
+  
+  const sortedAndFilteredArtworks = useMemo(() => {
+    const sorted = sortArtworks(allArtworks, sortValue);
+    return filterUserArtworks(sorted, filterableOptions);
+  }, [allArtworks, sortValue, filterableOptions, sortArtworks, filterUserArtworks]);
+
+  useEffect(() => {
+    const startIndex = (pageNumber - 1) * artworksPerPage;
+    const endIndex = startIndex + artworksPerPage;
+    const newActiveArtworksValue = sortedAndFilteredArtworks.slice(startIndex, endIndex);
+    setActiveArtworks(newActiveArtworksValue);
+  }, [sortedAndFilteredArtworks, pageNumber]);
+
   return (
     <div className={`${contestState == ContestState.Inactive && "opacity-60 pointer-events-none select-none blur-sm relative"} `}>
-      <ArtworkModal artworks={artworks} voted={activeEntrySk == votedSk} pageLoadArtwork={pageLoadArtwork} sk={activeEntrySk} closeModal={closeModal} isMobile={isMobile} isModalOpen={isModalOpen} currentUserSk={currentUserSk} />
+      <ArtworkModal artworks={allArtworks} voted={activeEntrySk == votedSk} pageLoadArtwork={pageLoadArtwork} sk={activeEntrySk} closeModal={closeModal} isMobile={isMobile} isModalOpen={isModalOpen} currentUserSk={currentUserSk} />
       {isMobile && <MobileFilter isFilterOpen={isFilterOpen} handleModifyFilterState={handleModifyFilterState} updateFilterOption={updateFilterOption} updateSortValue={updateSortValue} alterFiltersByCategory={alterFiltersByCategory} resetAllFilters={resetAllFilters} /> }
       <div className="relative px-8 md:px-12 lg:px-16 xl:px-20 max-w-screen-2xl z-0 m-auto w-screen min-h-[800px]">
         {/* Flexbox 1 - Contains filter open/close button on left side, and Sort title/maybe options on right side */}
@@ -327,7 +400,7 @@ export const Arts: React.FC<ArtsProps> = ({ contestState }) => {
               <LoadingAnimation scale={100} stroke={2}/>
             </div>
             }
-            {(!artworks || artworks.length == 0) && !isLoading ? 
+            {(!activeArtworks || activeArtworks.length == 0) && !isLoading ? 
               <div>
                 <Image className="text-center mx-auto pt-10 " src={no_results_found} width={500} alt="No results found."/>
                 <p className="font-bold text-xl mx-auto text-center py-10 font-montserrat">No Result Found</p>
@@ -344,8 +417,8 @@ export const Arts: React.FC<ArtsProps> = ({ contestState }) => {
             <div className={`${isLoading && "opacity-60"} `}>
               {error && <div className="text-red-600 py-6 text-lg mx-auto text-center">We're having some difficulty fetching artworks. Try refreshing the page. </div>}
               <div className="grid grid-cols-2 gap-x-2 gap-y-6 xl:grid-cols-4 xl:gap-x-6 xl:gap-y-10">
-                {Array.isArray(artworks) && artworks.length > 0 && (
-                  (sortValue === "Most Popular" ? artworks.sort((a, b) => (b.votes || 0) - (a.votes || 0)) : artworks)
+                {Array.isArray(activeArtworks) && activeArtworks.length > 0 && (
+                  activeArtworks
                     .map((artwork) => (
                       artwork.sk != null ? (
                         <ArtworkCard
@@ -356,10 +429,10 @@ export const Arts: React.FC<ArtsProps> = ({ contestState }) => {
                         />
                       ) : null
                     ))
-                )}              
+                )}
               </div>
               <Pagination
-                totalItems={artworks?.length || 0}
+                totalItems={allArtworks?.length || 0}
                 currentPage={pageNumber}
                 itemsPerPage={artworksPerPage}
                 updatePageNumber={updatePageNumber}

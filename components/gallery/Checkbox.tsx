@@ -33,12 +33,9 @@ function CheckboxAndRadioItem({ label, number, category, ...props }: CheckboxAnd
   return (
     <div className="text-base font-normal text-md w-full h-fit rounded-md text-neutral-black text-start">
       <div>
-        <label data-category={category} className={`grid items-center checkbox-and-radio-item select-none gap-4 py-2 my-1 cursor-pointer ${props.checked ? "font-bold" : "font-normal"} `} style={{gridTemplateColumns: "1.5rem auto"}}>
-          <input data-category={category} type="checkbox" className="w-6 h-6 py-2 my-1 cursor-pointer" {...props} />
-          {label}
-          <span className={`${number === 0 ? "hidden" : "visible"}`}>
-            (<span>{number}</span>)
-          </span>
+        <label data-category={category} id={category + "-" + label} className={`grid items-center checkbox-and-radio-item select-none gap-4 py-2 my-1 cursor-pointer ${props.checked ? "font-bold" : "font-normal"} `} style={{gridTemplateColumns: "1.5rem auto"}}>
+          <input data-category={category} id={category + "-" + label} type="checkbox" className="w-6 h-6 py-2 my-1 cursor-pointer" {...props} />
+          {number == 0 ? `${label}` : `${label} (${number})`}
         </label>
       </div>
     </div>
