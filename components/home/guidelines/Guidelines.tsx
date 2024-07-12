@@ -5,7 +5,7 @@ import img1 from "../../../public/home/guidelines/submission-1.webp";
 import img2 from "../../../public/home/guidelines/submission-2.webp";
 import img3 from "../../../public/home/guidelines/_MG_8137.webp";
 import img4 from "../../../public/home/guidelines/submission-4.webp";
-import guidelinesPinkBlob from "../../../public/home/guidelines/guidelines-pink-blob.svg";
+import guidelinesPinkBlob from "../../../public/home/guidelines/PinkBlob.png";
 import {H2m} from "../../common/texts/H2m";
 import {GuidelineCard} from "./GuidelineCard";
 import {AnimatedScribble} from "../../common/decorations/AnimatedScribble";

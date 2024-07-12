@@ -1,8 +1,7 @@
 import Image from "next/image";
 import {H2m} from "../../common/texts/H2m";
-import sponsorLogo from "../../../public/home/sponsor/icaf_sponsor_logo_large.png";
-// import yourLogoHere from "../../../public/home/sponsor/your-logo-here.webp";
-import waterColor from "../../../public/home/sponsor/WaterColor.png";
+import sponsorLogo from "../../../public/home/sponsor/sponsor-transparent.png";
+import waterColor from "../../../public/home/sponsor/WaterColor.webp";
 import gymnast from "../../../public/home/sponsor/Gymnast.webp";
 
 export const Sponsor = () => {
@@ -19,7 +18,7 @@ export const Sponsor = () => {
                 src={sponsorLogo} 
                 alt=""
                 fill
-                className="w-full h-auto object-contain"
+                className="w-full scale-125 h-auto object-contain"
               />
             </div>
             <div className="w-[54%] relative">
