@@ -7,9 +7,8 @@ import multiPic from "../../../public/svgs/gallery-svg/multiPic.webp";
 import multiPicSmall from "../../../public/svgs/gallery-svg/multiPicSmall.webp";
 import { FilterProvider } from "../../../components/gallery/FilterContext";
 import { ContestState } from "../../../mock/contestState";
-import { contestStartTime, contestEndTime } from "../../../mock/contestDates";
 import { Suspense } from "react";
-
+import dates from "../../../mock/dates";
 
 export const metadata: Metadata = {
   title: "Active Entries | My Favorite Sport",
@@ -18,6 +17,11 @@ export const metadata: Metadata = {
     title: "Active Entries | My Favorite Sport",
   }
 };
+
+const contestStartTime = new Date(dates.competitionBegin);
+contestStartTime.setHours(12, 0, 0);
+const contestEndTime = new Date(dates.competitionEnd);
+contestEndTime.setHours(23, 59, 59);
 
 export default function Gallery() {
 
