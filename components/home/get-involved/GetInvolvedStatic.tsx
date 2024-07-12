@@ -1,7 +1,7 @@
 import Image from "next/image";
 import {FlippingCardsStatic} from "./FlippingCardsStatic";
 import {H2m} from "../../common/texts/H2m";
-import swimmerBackground from "../../../public/home/MFS-Swimmer-Background.webp";
+import swimmerBackground from "../../../public/home/MFS-Swimmer-Background-Small.webp";
 // import hashtag from "../../../public/home/hashtag.svg";
 export const GetInvolvedStatic = () => {
 
