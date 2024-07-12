@@ -4,7 +4,7 @@ import hashtag from "../../public/home/hashtag.svg";
 // import bicycleHero from "../../public/home/MFS_Bicycle_Hero.webp";
 import HeroHeader from "../../public/home/Hero_Header.jpg";
 import { formatDate } from "../../mock/dates";
-import ranbowLine from "../../public/home/new-hero/rainbowLine.png";
+import ranbowLine from "../../public/home/rainbowLine.png";
 // import RainbowLine from "../../public/home/new-hero/RainbowLine.svg";
 
 export const Intro = () => {
