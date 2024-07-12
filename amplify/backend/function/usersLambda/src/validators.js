@@ -83,6 +83,7 @@ const confirmForgotPasswordValidator = [
 const resendVerificationValidator = [
     ...emailValidator
 ]
+
   
 function validationMiddleware(req, res, next) {
     const errors = validationResult(req);
@@ -91,6 +92,7 @@ function validationMiddleware(req, res, next) {
     }
     next();
 }
+
 
 module.exports = {
     loginUserValidator,

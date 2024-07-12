@@ -4,7 +4,8 @@ const UserModel = require("../models/user");
 const { s3Client } = require("../lib/s3Client");
 const { createPresignedPost } = require("@aws-sdk/s3-presigned-post"); 
 
-let tableName = "dynamo114508ab";
+// let tableName = "dynamo114508ab";
+let tableName = "dynamo22205621";
 if (process.env.ENV && process.env.ENV !== "NONE") {
   tableName = tableName + "-" + process.env.ENV;
 }
@@ -22,7 +23,7 @@ async function addArtwork(artworkData) {
   const item = {
     pk: "ART",
     sk: artworkData.sk,
-    gsi1pk: 0,
+    gsi1pk: "false",
     gsi1sk: artworkData.sk,
     f_name: artworkData.f_name,
     l_name: artworkData.l_name,
@@ -46,7 +47,7 @@ async function addArtworkAndUpdateUser(artworkData, userSk) {
   const item = {
     pk: "ART",
     sk: artworkData.sk,
-    gsi1pk: 0,
+    gsi1pk: "false",
     gsi1sk: artworkData.sk,
     f_name: artworkData.f_name,
     age: artworkData.age,
@@ -75,10 +76,7 @@ async function handleVote(userSk, artworkSk) {
   if (!userData) {
     throw new Error("User not found");
   }
-  // console.log(userSk);
-  // console.log(artworkSk);
-  // console.log(userData.voted_sk);
-  // console.log(userData);
+
   if (userData.Item.voted_sk) {
     if (userData.Item.voted_sk === artworkSk) {
       // User is trying to vote for the same artwork again
@@ -128,18 +126,30 @@ async function approveArtwork(artworkSk, approvalStatus) {
 }
 
 async function getArtworks(queryParams) {
-  const parameters = parseQueryParams(queryParams);
-  const overallLimit = 20;
-  const totalQueryCalls = calculateTotalQueryCalls(parameters);
-  const limitPerQuery = Math.floor(overallLimit / totalQueryCalls);
-  const inputs = ArtworkModel.buildQueryInputs(parameters, limitPerQuery);
-  const results = [];
+  const is_approved = "is_approved" in queryParams ? queryParams.is_approved : "true";
+  const sort_key = "sort_by" in queryParams ? queryParams.sort_by : "votes";
+  const order_by = "order_by" in queryParams ? queryParams.order_by : "descending";
 
-  for (const input of inputs) {
-    const { items: artworks } = await ArtworkModel.queryArtworks(input);
-    results.push(...artworks);
+  const query = {
+    TableName: tableName,
+    ProjectionExpression: "sk, description, sport, #loc, is_approved, votes, f_name, l_name, age, is_ai_gen, model, prompt, file_type, #time_stamp",
+    ExpressionAttributeNames: { "#loc": "location" , "#time_stamp": "timestamp"},
+    IndexName: "gsi1-index",
+    KeyConditionExpression: "gsi1pk = :v_is_approved",
+    ExpressionAttributeValues: {":v_is_approved" : is_approved},
+    // Limit: limit,
+    // ScanIndexForward: scanIndexForward
   }
-  return results;
+
+  let { items } = await ArtworkModel.queryArtworks(query);
+
+  if (order_by == "descending") {
+    items.sort((a, b) => b[sort_key] - a[sort_key]);
+  } else {
+    items.sort((a, b) => a[sort_key] - b[sort_key]);
+  }
+
+  return items;
 }
 
 async function createUrlAndFields(userSk, fileType="jpg") {
@@ -168,27 +178,6 @@ async function createUrlAndFields(userSk, fileType="jpg") {
   return { url, fields };
 }
 
-// helper functions
-function parseQueryParams(queryParams) {
-  let parameters = {};
-  for (const [key,val] of Object.entries(queryParams)) {
-    parameters[key] = val.trim().split(",").filter(Boolean);
-  }
-  return parameters;
-}
-
-function calculateTotalQueryCalls(params) {
-  let totalCombinations = 1;
-  if (params.is_approved && params.is_approved.length) {
-    totalCombinations = 1;
-  } else if (params.sport && params.location) {
-    totalCombinations = params.sport.length * params.location.length;
-  } else if (params.sport || params.location) {
-    totalCombinations = Math.max(params.sport?.length || 1, params.location?.length || 1);
-  }
-  return totalCombinations;
-}
-
 function formatArtwork(artwork) { 
   return {
     sk: artwork.sk,
@@ -203,6 +192,7 @@ function formatArtwork(artwork) {
     model: artwork.model,
     prompt: artwork.prompt,
     file_type: artwork.file_type,
+    timestamp: artwork.timestamp
   };
 }
 

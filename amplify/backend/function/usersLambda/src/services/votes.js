@@ -1,6 +1,7 @@
 const VotesModel = require("../models/votes");
 
-let tableName = "dynamo114508ab";
+// let tableName = "dynamo114508ab";
+let tableName = "dynamo22205621";
 if (process.env.ENV && process.env.ENV !== "NONE") {
   tableName = tableName + "-" + process.env.ENV;
 }

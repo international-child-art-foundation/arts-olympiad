@@ -16,8 +16,8 @@ if (process.env.ENV && process.env.ENV !== "NONE") {
 async function getArtworkById(artworkSk) {
   const input = {
     TableName: tableName,
-    ProjectionExpression: "sk, description, sport, #loc, is_approved, votes, f_name, age, is_ai_gen, model, prompt, file_type",
-    ExpressionAttributeNames: { "#loc": "location" },
+    ProjectionExpression: "sk, description, sport, #loc, is_approved, votes, f_name, age, is_ai_gen, model, prompt, file_type, #time_stamp",
+    ExpressionAttributeNames: { "#loc": "location" , "#time_stamp": "timestamp"},
     Key: {
       pk: "ART",
       sk: artworkSk
@@ -333,43 +333,32 @@ async function updateVoteArtworkbyId(artworkSk, decrement=false) {
 }
 
 async function incrementVoteArtworkById(artworkSk) {
+  const artwork = updateVoteArtworkbyId(artworkSk)
   VotesModel.incrementTotalVotes();
-  return updateVoteArtworkbyId(artworkSk)
+  return artwork
 }
 
 async function decrementVoteArtworkById(artworkSk) {
+  const artwork = updateVoteArtworkbyId(artworkSk, decrement=true)
   VotesModel.decrementTotalVotes();
-  return updateVoteArtworkbyId(artworkSk, decrement=true)
+  return artwork
 }
 
 async function approveArtworkById(artworkSk, approvalStatus) {
-  const isApproved = approvalStatus === true;
-  const gsi1pkVal = isApproved ? 1 : 0;
 
   const input = {
     TableName: tableName,
     Key: {
       pk: "ART",
       sk: artworkSk
-    }
+    },
+    UpdateExpression: "set is_approved = :approvalVal, gsi1pk = :gsi1pk",
+    ExpressionAttributeValues: {
+      ":approvalVal": approvalStatus == "true",
+      ":gsi1pk": approvalStatus, 
+    },
+    ReturnValues: "ALL_NEW",
   };
-
-  let result = await ddbDocClient.send(new GetCommand(input));
-  const { sport, location, timestamp } = result.Item;
-
-  console.log(isApproved);
-  console.log(gsi1pkVal);
-  input.UpdateExpression = "set is_approved = :approvalVal, gsi1pk = :gsi1pk, gsi2pk = :gsi2pk, gsi2sk = :gsi2sk, gsi3pk = :gsi3pk, gsi3sk = :gsi3sk";
-
-  input.ExpressionAttributeValues = {
-    ":approvalVal": isApproved,
-    ":gsi1pk": gsi1pkVal, 
-    ":gsi2pk": sport,
-    ":gsi2sk": `${location}#${timestamp}`,
-    ":gsi3pk": location,
-    ":gsi3sk": `${sport}#${timestamp}`,
-  },
-  input.ReturnValues = "ALL_NEW";
 
   try {
     const response = await ddbDocClient.send(new UpdateCommand(input));
@@ -397,75 +386,6 @@ async function queryArtworks(input, startKey=null) {
   }
 }
 
-// helper functions
-function buildQueryInputs(params, limitPerQuery) {
-  const inputs = [];
-
-  const isApproved = params["is_approved"];
-  const sports = params["sport"];
-  const locations = params["location"];
-  const orderBy = params["order_by"];
-
-  if (isApproved) {
-    const gsi1pkValue = isApproved[0] === "true" ? 1 : 0; 
-    inputs.push(addInput({
-      indexName: "gsi1-index",
-      keyConditionExpr: "gsi1pk = :v_is_approved",
-      exprAtrValue: {":v_is_approved" : gsi1pkValue},
-      limit: limitPerQuery,
-      orderBy: orderBy
-    }));
-  } else if (sports && locations) {
-    for (const sport of sports) {
-      for (const location of locations) {
-        inputs.push(addInput({
-          indexName: "gsi2-index",
-          keyConditionExpr: "gsi2pk = :v_sport AND begins_with(gsi2sk, :v_location)",
-          exprAtrValue: {":v_sport" : sport, ":v_location": location},
-          limit: limitPerQuery,
-          orderBy: orderBy
-        }));
-      }
-    }
-  } else if (sports) {
-    for (const sport of sports) {
-      inputs.push(addInput({
-        indexName: "gsi2-index",
-        keyConditionExpr: "gsi2pk = :v_sport",
-        exprAtrValue: {":v_sport" : sport},
-        limit: limitPerQuery,
-        orderBy: orderBy
-      }));
-    }
-  } else if (locations) {
-    for (const location of locations) {
-      inputs.push(addInput({
-        indexName: "gsi3-index",
-        keyConditionExpr: "gsi3pk = :v_location",
-        exprAtrValue: {":v_location" : location},
-        limit: limitPerQuery,
-        orderBy: orderBy
-      }));
-    }
-  }
-  return inputs;
-}
-
-function addInput({indexName, keyConditionExpr, exprAtrValue, limit=20, orderBy}) {
-  const scanIndexForward = (Array.isArray(orderBy) ? orderBy[0] : orderBy) !== "descending";
-  const input = {
-    TableName: tableName,
-    ProjectionExpression: "sk, description, sport, #loc, is_approved, votes, f_name, l_name, age, is_ai_gen, model, prompt, file_type",
-    ExpressionAttributeNames: { "#loc": "location" },
-    IndexName: indexName,
-    KeyConditionExpression: keyConditionExpr,
-    ExpressionAttributeValues: exprAtrValue,
-    Limit: limit,
-    ScanIndexForward: scanIndexForward
-  };
-  return input;
-}
-
 module.exports = {
   getArtworkById,
   createArtwork,
@@ -476,7 +396,6 @@ module.exports = {
   decrementVoteArtworkById,
   approveArtworkById,
   queryArtworks,
-  buildQueryInputs,
   addNewVote,
   changeVote
 };
