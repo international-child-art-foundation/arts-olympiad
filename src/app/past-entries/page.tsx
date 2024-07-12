@@ -9,7 +9,8 @@ import { FilterProvider } from "../../../components/gallery/FilterContext";
 import { Suspense } from "react";
 
 export const metadata: Metadata = {
-  title: "Active Entries | My Favorite Sport",
+  title: "Olympic Games for Kids: Gallery of Past My Favorite Sport",
+  description: "Explore our gallery of past entries from the My Favorite Sport contest. See how kids from around the world have captured their passion for Olympic sports",
   openGraph: {
     ...sharedOpenGraph,
     title: "Active Entries | My Favorite Sport",

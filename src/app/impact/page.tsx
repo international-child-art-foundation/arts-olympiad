@@ -11,7 +11,8 @@ import SlideShow from "../../../components/impact/SlideShow";
 import { FaqDropdowns } from "../../../components/impact/FaqDropdowns";
 
 export const metadata: Metadata = {
-  title: "Impact | My Favorite Sport",
+  title: "The Impact of the My Favorite Sport Paris Olympic Games",
+  description: "Discover the positive impact of the My Favorite Sport art contest on young artists and the celebration of the Olympic spirit. We foster creativity, passion, and global connection.",
   openGraph: {
     ...sharedOpenGraph,
     title: "Impact | My Favorite Sport",

@@ -9,6 +9,7 @@ import SlideShow from "../../../components/sponsor/SlideShow";
 
 export const metadata: Metadata = {
   title: "Sponsor | My Favorite Sport",
+  description: "Inspire young artists and celebrate the spirit of the Olympic Games! Partner with us to support the My Favorite Sport art contest and make a positive impact.",
   openGraph: {
     ...sharedOpenGraph,
     title: "Sponsor | My Favorite Sport",

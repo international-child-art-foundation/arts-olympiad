@@ -10,7 +10,8 @@ import icafLogo from "../../../public/svgs/Icaf-logo.svg";
 
 
 export const metadata: Metadata = {
-  title: "FAQ | My Favorite Sport",
+  title: "Olympic Games for Kids: My Favorite Sport Contest FAQ",
+  description: "Have questions about the My Favorite Sport contest? Find answers to frequently asked questions about eligibility, submission guidelines, judging criteria, and more.",
   openGraph: {
     ...sharedOpenGraph,
     title: "FAQ | My Favorite Sport",
