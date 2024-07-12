@@ -12,7 +12,7 @@ import dates from "../../../mock/dates";
 
 
 export const metadata: Metadata = {
-  title: "Kids&#39; Olympic Spirit Shines: My Favorite Sport Art Gallery",
+  title: "Kids' Olympic Spirit Shines: My Favorite Sport Art Gallery",
   description: "Explore our gallery showcasing vibrant artwork from the My Favorite Sport contest, celebrating the Paris Olympic Games and the joy of sports.",
   openGraph: {
     ...sharedOpenGraph,

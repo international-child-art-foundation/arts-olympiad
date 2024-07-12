@@ -11,7 +11,7 @@ import AccordionNew from "../../../components/contest/AccordionNew";
 
 export const metadata: Metadata = {
   title: "About My Favorite Sport Paris Olympic Games Art Contest",
-  description: "Discover the My Favorite Sport art contest&#39;s inspiration, mission, and goals. Learn how we're empowering young artists to celebrate the Paris Olympic Games",
+  description: "Discover the My Favorite Sport art contest's inspiration, mission, and goals. Learn how we're empowering young artists to celebrate the Paris Olympic Games",
   openGraph: {
     ...sharedOpenGraph,
     title: "Contest | My Favorite Sport",
