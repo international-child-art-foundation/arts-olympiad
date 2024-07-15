@@ -6,6 +6,8 @@ import { Metadata } from "next";
 import {NavigationEvents} from "./NavigationEvents";
 // import ConfigureAmplifyClientSide from "@/utils/ConfigureAmplifyClientSide";
 import { GlobalContextProvider } from "./GlobalContext";
+import CookieBanner from "../../components/CookieBanner";
+import GoogleAnalytics from "../../components/GoogleAnalytics";
 
 export const inter = Inter({
   subsets: ["latin"],
@@ -55,16 +57,18 @@ export default function RootLayout({
         href="/svgs/banner-image.svg"
         type="image/svg+xml"
       />
-      <body>
-        <GlobalContextProvider>
+      <GlobalContextProvider>
+        <GoogleAnalytics GA_MEASUREMENT_ID={process.env.NEXT_PUBLIC_GTAG_ID} />
+        <body>
           <Header/>
           <main className={"font-openSans font-base overflow-hidden flex flex-col justify-center align-middle w-full m-auto leading-8"}>
             { children }
             <NavigationEvents />
           </main>
           <Footer />
-        </GlobalContextProvider>
-      </body>
+          <CookieBanner/>
+        </body>
+      </GlobalContextProvider>
     </html>
   );
 }

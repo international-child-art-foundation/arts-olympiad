@@ -9,6 +9,10 @@ import { EmptyErrorResponse } from "@/interfaces/api_shapes";
 interface GlobalContextType {
   isAuthenticated: boolean;
   signIn: ({ email, password }: UserLoginInterface) => Promise<SignInResponse>;
+  isCookieConsentAcquired: boolean | null;
+  cookieBannerVisible: boolean;
+  setGlobalCookieConsentValue: (consentValue: boolean) => void;
+  setCookieBannerVisible: React.Dispatch<React.SetStateAction<boolean>>;
   signOut: () => void;
   handleRealizeSignedOut: () => void;
 }
@@ -22,6 +26,10 @@ interface GlobalContextProviderProps {
 export const GlobalContextProvider: React.FC<GlobalContextProviderProps> = ({ children }) => {
   const [isAuthenticated, setIsAuthenticated] = useState<boolean>(false);
 
+  // Setter should only be used by setGlobalCookieConsentValue.
+  const [isCookieConsentAcquired, setIsCookieConsentAcquired] = useState<boolean | null>(false);
+  const [cookieBannerVisible, setCookieBannerVisible] = useState(isCookieConsentAcquired != true && isCookieConsentAcquired != false);
+
   useEffect(() => {
     // If isAuthenticated exists and is a string, we are authenticated.
     // This is not a foolproof solution, just prevents superfluous API calls.
@@ -29,6 +37,7 @@ export const GlobalContextProvider: React.FC<GlobalContextProviderProps> = ({ ch
     // the getAuthStatus function from auth.ts should be used.
     const storedAuth = typeof(localStorage.getItem("isAuthenticated")) == "string";
     setIsAuthenticated(storedAuth);
+    setIsCookieConsentAcquired(JSON.parse(localStorage.getItem("cookieConsent") || "null"));
   }, []);
 
   const signIn = useCallback(async (values: UserLoginInterface) => {
@@ -46,6 +55,18 @@ export const GlobalContextProvider: React.FC<GlobalContextProviderProps> = ({ ch
       return {success: false} as EmptyErrorResponse;
     }
   }, []);
+
+  const setGlobalCookieConsentValue = useCallback(async (consentValue: boolean) => {
+    localStorage.setItem("cookieConsent", consentValue.toString());
+    setIsCookieConsentAcquired(consentValue);
+    
+    if (typeof window !== "undefined" && window.gtag) {
+      window.gtag("consent", "update", {
+        "analytics_storage": consentValue ? "granted" : "denied"
+      });
+    }
+  }, []);
+
 
   const signOut = useCallback(async () => {
     try {
@@ -67,8 +88,8 @@ export const GlobalContextProvider: React.FC<GlobalContextProviderProps> = ({ ch
   }, []);
 
   const value = React.useMemo<GlobalContextType>(
-    () => ({ isAuthenticated, signIn, signOut, handleRealizeSignedOut }),
-    [isAuthenticated, signIn, signOut, handleRealizeSignedOut]
+    () => ({ isAuthenticated, signIn, signOut, handleRealizeSignedOut, isCookieConsentAcquired, setGlobalCookieConsentValue, cookieBannerVisible, setCookieBannerVisible }),
+    [isAuthenticated, signIn, signOut, handleRealizeSignedOut, isCookieConsentAcquired, setGlobalCookieConsentValue, cookieBannerVisible, setCookieBannerVisible]
   );
 
   return (
