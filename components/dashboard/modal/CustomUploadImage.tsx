@@ -64,8 +64,8 @@ export const CustomUploadImage = ({label, ...props} : CustomUploadImageProps) =>
       return "Please upload as PNG or JPG";
     }
   
-    if (file.size > 3 * 1024 * 1024) { 
-      return "Max size 3 MB.";
+    if (file.size > 5 * 1024 * 1024) { 
+      return "Max size 5 MB.";
     }
     return null;
   }

@@ -1,7 +1,7 @@
 import { PresignedUrlRequest, PresignedUrlResponse, PresignedUrlSuccessResponse } from "@/interfaces/artwork_shapes";
 import { ModifiedUploadFormData } from "../../mock/formDataStructs";
 import { GenericResponse, ResponseWithoutSuccessDetails } from "@/interfaces/api_shapes";
-import { returnErrorAsString } from "./helper-functions";
+// import { returnErrorAsString } from "./helper-functions";
 
 export async function generatePresignedUrl({
   fileType
@@ -33,11 +33,10 @@ export async function generatePresignedUrl({
         }
       };
     } else {
-      return { success: false, error: result.message || "Failed to generate presigned URL" };
+      throw new Error("Error generating URL");
     }
   } catch (error) {
-    const errorString = returnErrorAsString(error);
-    return { success: false, error: errorString };
+    throw new Error("Error generating URL");
   }
 }
 
@@ -62,8 +61,7 @@ export async function uploadImageToS3(imageFile: File | null, presignedUrlRespon
     });
     return { success: true };
   } catch (error) {
-    const errorString = returnErrorAsString(error);
-    return { success: false, error: errorString };
+    throw new Error("Error uploading image");
   }
 }
 
@@ -84,10 +82,9 @@ export async function postArtworkEntryToDDB(formData: ModifiedUploadFormData): P
     if (gatewayServerResponse.ok) {
       return { success: gatewayServerResponse.ok, data: result.message };
     } else {
-      return { success: gatewayServerResponse.ok, error: result.message};
+      throw new Error("Error posting to DDB");
     }
   } catch (error) {
-    const errorString = returnErrorAsString(error);
-    return { success: false, error: errorString };
+    throw new Error("Error posting to DDB");
   }
 }

@@ -6,9 +6,10 @@ interface CustomCheckboxProps {
   label: string;
   type : string;
   name: string;
+  age?: number;
 }
 
-export const CustomCheckbox = ({label, ...props} : CustomCheckboxProps) => {
+export const CustomCheckbox = ({label, age, ...props} : CustomCheckboxProps) => {
   const [field, meta] = useField(props);
   return(
     <>
@@ -19,7 +20,13 @@ export const CustomCheckbox = ({label, ...props} : CustomCheckboxProps) => {
           {...props} 
           className="w-6 h-6 rounded placeholder-[#403F4C] border pl-4 pr-4 pt-2 pb-2"
         />
-        <span className="text-sm mb-1 ml-2 font-light text-neutral-black"><div className="ml-2 text-base font-light">I agree to ICAF's <span className="font-normal underline">Terms of use</span> and <span className="font-normal underline">Privacy Policy</span></div></span>
+        {age && 
+        (age < 18 ?         
+          <span className="text-sm mb-1 ml-2 font-light text-neutral-black"><div className="ml-2 text-base font-light">I, the participant's parent or guardian, agree to ICAF's <span className="font-normal underline">Terms of use</span> and <span className="font-normal underline">Privacy Policy</span></div></span>
+          :         
+          <span className="text-sm mb-1 ml-2 font-light text-neutral-black"><div className="ml-2 text-base font-light">I agree to ICAF's <span className="font-normal underline">Terms of use</span> and <span className="font-normal underline">Privacy Policy</span></div></span>
+        )
+        }
       </div>
       {meta.error && meta.touched &&
       <div className="inline-flex mt-1">

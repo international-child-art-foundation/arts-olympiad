@@ -187,7 +187,7 @@ export const ActiveArtDisplay = () => {
       {!apiArtworkData && 
         <div className="flex gap-2 py-3">
           <Image src={information} alt="info" width={16} height={16} />
-          <p>Please upload as PNG or JPG, max size 3 MB.</p>
+          <p>Please upload as PNG or JPG, max size 5 MB.</p>
         </div>
       }
     </div>

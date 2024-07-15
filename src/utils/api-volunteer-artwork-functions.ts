@@ -1,5 +1,5 @@
 import { VolunteerArtworkInterface, VolunteerUserInterface } from "@/interfaces/artwork_shapes";
-import { returnErrorAsString } from "./helper-functions";
+// import { returnErrorAsString } from "./helper-functions";
 import { GenericResponse, ResponseWithoutSuccessDetails } from "@/interfaces/api_shapes";
 
 export async function handleFetchUnapprovedArtworks(): Promise<GenericResponse> {
@@ -18,11 +18,10 @@ export async function handleFetchUnapprovedArtworks(): Promise<GenericResponse> 
     if (gatewayServerResponse.ok) {
       return { success: gatewayServerResponse.ok, data: result };
     } else {
-      return { success: false, error: "API call was unsuccessful" };
+      throw new Error("Error fetching unapproved artworks");
     }
   } catch (error) {
-    const errorString = returnErrorAsString(error);
-    return { success: false, error: errorString };
+    throw new Error("Error fetching unapproved artworks");
   }
 }
 
@@ -48,11 +47,10 @@ export async function handleApproveArtwork({
     if (gatewayServerResponse.ok) {
       return { success: gatewayServerResponse.ok };
     } else {
-      return { success: false, error: "API call was unsuccessful" };
+      throw new Error("Error approving artwork");
     }
   } catch (error) {
-    const errorString = returnErrorAsString(error);
-    return { success: false, error: errorString };
+    throw new Error("Error approving artwork");
   }
 }
 
@@ -73,11 +71,10 @@ export async function handleDeleteArtwork({
     if (gatewayServerResponse.ok) {
       return { success: gatewayServerResponse.ok };
     } else {
-      return { success: false, error: "API call was unsuccessful" };
+      throw new Error("Error deleting artwork");
     }
   } catch (error) {
-    const errorString = returnErrorAsString(error);
-    return { success: false, error: errorString };
+    throw new Error("Error deleting artwork");
   }
 }
 
@@ -101,10 +98,9 @@ export async function handleBanUser({
     if (gatewayServerResponse.ok) {
       return { success: gatewayServerResponse.ok };
     } else {
-      return { success: false, error: "API call was unsuccessful" };
+      throw new Error("Error banning user");
     }
   } catch (error) {
-    const errorString = returnErrorAsString(error);
-    return { success: false, error: errorString };
+    throw new Error("Error banning user");
   }
 }

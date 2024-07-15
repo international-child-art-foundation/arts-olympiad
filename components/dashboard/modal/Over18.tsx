@@ -86,15 +86,16 @@ const validationSchema = yup.object().shape({
 // };
 
 export const Over18 = () => {
-  const { personalFormData, setPersonalFormData, handleNavigation } = useStepsContext();
+  const { personalFormData, setPersonalFormData, handleNavigation, userAge } = useStepsContext();
 
   return (
     <section className="items-center justify-center m-auto max-w-screen-2xl px-8 md:px-12 lg:px-16 xl:px-20 w-full lg:w-4/5 2xl:w-3/5">
       <div className="mt-28 mb-9 text-center text-2xl text-neutral-black font-bold">
-        Terms & Donation Acknowledgment (For Users 18 and Over)
+        Terms & Donation Acknowledgment
       </div>
+      <p className="text-red-600 text-xl mb-4 text-center">These terms of use must be reviewed by your parent or guardian.</p>
       <div className="mb-10 text-base text-neutral-black font-normal"> 
-        Before we move forward, we need some details from you. Please review and agree to our <span className="underline">Terms of Use</span> and <span className="underline">Privacy Policy</span>. By submitting your artwork, you're also donating it to ICAF for charitable objectives. Thank you for your support!
+        Before we move forward, we need some details from you. Please review and agree to our <a className="underline text-blue-600" target="_blank" href="https://icaf.org/resource/documents/ICAF.website.-.Terms.of.Use.pdf">Terms of Use</a> and <a className="underline text-blue-600" target="_blank" href="https://icaf.org/resource/documents/ICAF.website.-.Privacy.Policy.pdf">Privacy Policy</a>. By submitting your artwork, you're also donating it to ICAF for charitable objectives. Thank you for your support!
       </div>
 
       <Formik 
@@ -159,7 +160,8 @@ export const Over18 = () => {
               <CustomCheckbox
                 label=""
                 name="termsCheck" 
-                type="checkbox" 
+                type="checkbox"
+                age={userAge}
               />
 
               <div className="my-6">

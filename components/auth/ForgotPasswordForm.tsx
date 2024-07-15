@@ -5,7 +5,7 @@ import { Form, Formik } from "formik";
 import { TextInput } from "../common/form_inputs/TextInput";
 import { ButtonStd } from "../common/ui/ButtonStd";
 import * as Yup from "yup";
-import { limiter } from "@/utils/api-rate-limit";
+import { expensiveActionLimiter, limiter } from "@/utils/api-rate-limit";
 import { sendForgotPasswordEmail, confirmForgotPassword } from "@/utils/api-user";
 import LoadingAnimation from "../svgs/LoadingAnimation";
 import Image from "next/image";
@@ -65,7 +65,7 @@ export const ForgotPasswordForm = () => {
     setLoading(true);
     setApiError(null);
     try {
-      await limiter.schedule(() => sendForgotPasswordEmail(values));
+      await expensiveActionLimiter.schedule(() => sendForgotPasswordEmail(values));
       setUserEmail(values.email);
       setStep("confirmation");
     } catch (error) {

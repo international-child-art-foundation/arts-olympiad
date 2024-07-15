@@ -78,11 +78,10 @@ export async function handleRegister({
       console.log(result.message);
       return { success: gatewayServerResponse.ok, message: result.message };
     } else {
-      return { success: false, error: "API call was unsuccessful"};
+      throw new Error("Registration attempt failed");
     }
   } catch (error) {
-    const errorString = returnErrorAsString(error);
-    return { success: false, error: errorString };
+    throw new Error("Registration attempt failed");
   }
 }
 
@@ -136,10 +135,10 @@ export async function handleLogin({ email, password }: UserLoginInterface): Prom
     if (gatewayServerResponse.ok) {
       return { success: gatewayServerResponse.ok, sk: result.message };
     } else {
-      return { success: false };
+      throw new Error("Login attempt failed");
     }
   } catch (error) {
-    return { success: false };
+    throw new Error("Login attempt failed");
   }
 }
 
@@ -161,11 +160,10 @@ export async function getAuthStatus(): Promise<AuthenticationResponse> {
       return { success: true, sk: result.message };
     } else {
       localStorage.setItem("isAuthenticated", result.message);
-      return { success: false, error: "API call was unsuccessful" };
+      throw new Error("Authentication attempt failed");
     }
   } catch (error) {
-    const errorString = returnErrorAsString(error);
-    return { success: false, error: errorString };
+    throw new Error("Authentication attempt failed");
   }
 }
 
@@ -185,11 +183,10 @@ export async function getVolunteerAuthStatus(): Promise<VolunteerAuthenticationR
     if (response.ok) {
       return { success: true };
     } else {
-      return { success: false, error: "API call was unsuccessful" };
+      throw new Error("Volunteer auth attempt failed");
     }
   } catch (error) {
-    const errorString = returnErrorAsString(error);
-    return { success: false, error: errorString };
+    throw new Error("Volunteer auth attempt failed");
   }
 }
 
@@ -209,11 +206,10 @@ export async function getUserData(): Promise<GenericResponse> {
     if (response.ok) {
       return { success: true, data: result };
     } else {
-      return { success: false, error: "API call was unsuccessful" };
+      throw new Error("Error accessing user data");
     }
   } catch (error) {
-    const errorString = returnErrorAsString(error);
-    return { success: false, error: errorString };
+    throw new Error("Error accessing user data");
   }
 }
 
@@ -242,10 +238,10 @@ export async function getUserVoteData(): Promise<UserVotedResponse> {
     } else if (response.ok) {
       return { success: true };
     } else {
-      return { success: false, error: "Gateway responded with error."};
+      throw new Error("Error getting vote data");
     }
   } catch (error) {
-    return { success: false, error: "Unknown error."};
+    throw new Error("Error getting vote data");
   }
 }
 
@@ -265,11 +261,10 @@ export async function handleSignOut(): Promise<ResponseWithoutSuccessDetails> {
     if (response.ok) {
       return { success: true };
     } else {
-      return { success: false, error: "API call was unsuccessful" };
+      throw new Error("Error signing out");
     }
   } catch (error) {
-    const errorString = returnErrorAsString(error);
-    return { success: false, error: errorString };
+    throw new Error("Error signing out");
   }
 }
 
@@ -291,10 +286,10 @@ export async function resendVerificationEmail({email}: EmailInterface): Promise<
     if (response.ok) {
       return { success: true };
     } else {
-      return { success: false };
+      throw new Error("Error sending email");
     }
   } catch {
-    return { success: false };
+    throw new Error("Error sending email");
   }
 }
 
@@ -316,10 +311,10 @@ export async function sendForgotPasswordEmail({email} : EmailInterface): Promise
     if (response.ok) {
       return { success: true };
     } else {
-      return { success: false };
+      throw new Error("Error sending email");
     }
   } catch {
-    return { success: false };
+    throw new Error("Error sending email");
   }
 }
 
@@ -342,9 +337,9 @@ export async function confirmForgotPassword({email, confirmationCode, newPasswor
     if (response.ok) {
       return { success: true };
     } else {
-      return { success: false };
+      throw new Error("Error completing password flow");
     }
   } catch {
-    return { success: false };
+    throw new Error("Error completing password flow");
   }
 }

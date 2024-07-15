@@ -38,12 +38,17 @@ const ArtworkCard = ({ data, openModal, voted }: ArtworkCardProps) => {
 
   return (
     <div id={data.sk} className="relative w-full h-full rounded-lg bg-neutral-white">
+      {/* backdropFilter causes one-pixel-off graphical error, need to hardcode 6px rounding and put <p> up here*/}
+      <p className="rounded-[6px] py-2 px-4 z-40 absolute top-0 left-0 bg-[#ffffff80] font-normal text-xs xl:text-sm"
+        style={{
+          backdropFilter: "blur(13px)",
+        }}            
+      >
+        {data.votes} {data.votes == 1 ? "Vote" : "Votes"}
+      </p>
       <div className="shadow-gray-400 shadow-md rounded-lg">
         <section className="w-full h-32 md:h-60 xl:h-52 mxl:h-56 rounded-t-lg overflow-hidden relative select-none">
           <div className="z-20 w-full h-full relative">
-            <p className="rounded-lg py-2 px-4 z-40 absolute top-0 left-0 bg-[#ffffff1a] font-normal text-xs xl:text-sm">
-              {data.votes} {data.votes == 1 ? "Vote" : "Votes"}
-            </p>
             {voted && <p className="rounded-lg py-1 px-2 m-2 z-40 absolute top-0 right-0 bg-green-300 opacity-90 font-normal text-xs xl:text-sm">
               Your Vote
             </p>}

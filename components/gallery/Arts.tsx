@@ -358,6 +358,7 @@ export const Arts: React.FC<ArtsProps> = ({ contestState }) => {
 
   return (
     <div className={`${contestState == ContestState.Inactive && "opacity-60 pointer-events-none select-none blur-sm relative"} `}>
+      {votedSk && <button className={"mx-auto text-center"}>See your vote</button>}
       <ArtworkModal artworks={allArtworks} voted={activeEntrySk == votedSk} pageLoadArtwork={pageLoadArtwork} sk={activeEntrySk} closeModal={closeModal} isMobile={isMobile} isModalOpen={isModalOpen} currentUserSk={currentUserSk} />
       {isMobile && <MobileFilter isFilterOpen={isFilterOpen} handleModifyFilterState={handleModifyFilterState} updateFilterOption={updateFilterOption} updateSortValue={updateSortValue} alterFiltersByCategory={alterFiltersByCategory} resetAllFilters={resetAllFilters} /> }
       <div className="relative px-8 md:px-12 lg:px-16 xl:px-20 max-w-screen-2xl z-0 m-auto w-screen min-h-[800px]">

@@ -11,7 +11,7 @@ import { CustomTextArea } from "./CustomTextArea";
 import { allCountries } from "../../../mock/filterableOptionsData";
 
 const SUPPORTED_FORMATS = ["image/jpg", "image/jpeg", "image/png"];
-const FILE_SIZE = 3 * 1024 * 1024;
+const FILE_SIZE = 5 * 1024 * 1024;
 const categories = [
   "Archery", "Artistic Gymnastics", "Athletics", "Badminton", "Basketball", "Boxing", "Cycling Track", "Equestrian", "Fencing", "Football", "Golf", "High jump", "Hockey", "Judo", "Rowing", "Rugby", "Sailing", "Shooting", "Table Tennis", "Taekwondo", "Tennis", "Volleyball", "Wallball", "Weightlifting", "Yoga", "Zumba"
 ];
@@ -55,7 +55,7 @@ export const Upload = () => {
   const countryValues = countryOptions.map(option => option.value);
   const validationSchema = yup.object().shape({
     image: yup.mixed()
-      .required("Oops! Unsupported file format. Please upload as PNG or JPG, max size 3 MB.")
+      .required("Oops! Unsupported file format. Please upload as PNG or JPG, max size 5 MB.")
       .test("format", "Please upload as PNG or JPG", (value) => {
         if (!value) return false; 
         const file = value as File; 
@@ -64,7 +64,7 @@ export const Upload = () => {
       )
       .test(
         "size",
-        "Max size 3 MB",
+        "Max size 5 MB",
         (value) => {
           if (!value) return false; 
           const file = value as File; 
