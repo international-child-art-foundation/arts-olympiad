@@ -23,6 +23,7 @@ export const ArtworkApproval = () => {
         setSelectedArtwork(null);
         setArtworkStatuses(prev => ({...prev, [artwork_sk]: "approved"}));
         console.log(artwork_sk + " has successfully been approved.");
+        setApiError("");
       } else {
         setApiError("An error has occurred. Try again later.");
       }
@@ -42,6 +43,7 @@ export const ArtworkApproval = () => {
       if (artworkStatus.success == true) {
         setArtworkStatuses(prev => ({...prev, [artwork_sk]: "denied"}));
         console.log(artwork_sk + " has been denied.");
+        setApiError("");
       } else {
         setApiError("An error has occurred. Try again later.");
         console.log("Failed to delete artwork " + artwork_sk);
@@ -63,6 +65,7 @@ export const ArtworkApproval = () => {
         console.log(artwork_sk);
         setArtworkStatuses(prev => ({...prev, [artwork_sk]: "banned"}));
         console.log("User associated with " + artwork_sk + " has been banned.");
+        setApiError("");
       } else {
         setApiError("An error has occurred. Try again later.");
       } 

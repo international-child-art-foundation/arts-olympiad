@@ -116,7 +116,7 @@ export const Europe = [
 ];
 
 export const NorthAmerica = [
-  { name: "U.S.A.", number: 0, active: false}, 
+  { name: "United States of America", number: 0, active: false}, 
   { name: "Mexico", number: 0, active: false}, 
   { name: "Canada", number: 0, active: false}, 
   { name: "Guatemala", number: 0, active: false}, 
@@ -153,6 +153,17 @@ export const SouthAmerica = [
   { name: "French Guiana", number: 0, active: false}, 
   { name: "Falkland Islands", number: 0, active: false}
 ];
+
+export const allCountries = [
+  ...Africa,
+  ...Australia,
+  ...Asia,
+  ...Europe,
+  ...NorthAmerica,
+  ...SouthAmerica
+];
+
+
 
 export const filterableOptions = [
   {

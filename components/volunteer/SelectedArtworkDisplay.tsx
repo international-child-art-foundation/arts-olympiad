@@ -31,6 +31,7 @@ export const SelectedArtworkDisplay: React.FC<SelectedArtworkDisplayProps> = ({
     noManipulation: null,
     normalMetadata: null
   });
+  const [isLoading, setIsLoading] = useState(false);
 
   const handleChecklistChange = (key: ChecklistItem) => {
     setChecklistItems(prev => ({ ...prev, [key]: !prev[key] }));
@@ -44,28 +45,34 @@ export const SelectedArtworkDisplay: React.FC<SelectedArtworkDisplayProps> = ({
     return Object.values(checklistItems).some(value => value === false);
   }, [checklistItems]);
 
-  const handleApprove = () => {
+  const handleApprove = async() => {
+    setIsLoading(true);
     if (isAllGreen()) {
-      onApprove(selectedArtwork.sk);
+      await onApprove(selectedArtwork.sk);
     } else {
       alert("All checklist items must be green to approve the artwork.");
     }
+    setIsLoading(false);
   };
 
-  const handleDeny = () => {
+  const handleDeny = async () => {
+    setIsLoading(true);
     if (hasRed()) {
-      onDeny(selectedArtwork.sk);
+      await onDeny(selectedArtwork.sk);
     } else {
       alert("At least one checklist item must be red to deny the artwork.");
     }
+    setIsLoading(false);
   };
 
-  const handleBanUser = () => {
+  const handleBanUser = async() => {
+    setIsLoading(true);
     if (hasRed()) {
-      onBanUser(selectedArtwork.sk);
+      await onBanUser(selectedArtwork.sk);
     } else {
       alert("At least one checklist item must be red to ban the user.");
     }
+    setIsLoading(false);
   };
 
   return (
@@ -73,12 +80,6 @@ export const SelectedArtworkDisplay: React.FC<SelectedArtworkDisplayProps> = ({
       <div className="bg-white p-6 rounded-lg max-w-2xl w-full max-h-[90vh] overflow-y-auto">
         <div className="flex justify-between items-center mb-4">
           <h2 className="text-2xl font-bold">{selectedArtwork.f_name}</h2>
-          {apiError && 
-          <>
-            <p className="text-red-500">An API error has occurred. You may be offline, the server may be down, or you may have reached your rate limit.</p>
-            <p className="text-red-500">Please contact an administrator if this keeps unexpectedly happening.</p>
-          </>
-          }
           <button 
             onClick={() => setSelectedArtwork(null)}
             className="text-gray-500 hover:text-gray-700"
@@ -111,6 +112,12 @@ export const SelectedArtworkDisplay: React.FC<SelectedArtworkDisplayProps> = ({
         
 
         <div className="mt-4">
+          {apiError && 
+          <>
+            <p className="text-red-500">An API error has occurred. You may be offline, the server may be down, or you may have reached your rate limit.</p>
+            <p className="text-red-500">Please contact an administrator if this keeps unexpectedly happening.</p>
+          </>
+          }
           <h3 className="text-lg font-semibold mb-2">Review Checklist:</h3>
           <ul className="space-y-2">
             {(Object.entries(checklistItems) as [ChecklistItem, boolean | null][]).map(([key, value]) => (
@@ -132,7 +139,7 @@ export const SelectedArtworkDisplay: React.FC<SelectedArtworkDisplayProps> = ({
           </ul>
         </div>
 
-        <div className="mt-6 flex justify-end space-x-4">
+        <div className={`${isLoading && "opacity-60 pointer-events-none select-none disabled" } mt-6 flex justify-end space-x-4`}>
           <button 
             onClick={handleApprove}
             className={`px-4 py-2 rounded-lg text-white ${isAllGreen() ? "bg-green-500 hover:bg-green-600" : "bg-gray-400 cursor-not-allowed"} transition-colors`}

@@ -126,9 +126,9 @@ async function approveArtwork(artworkSk, approvalStatus) {
 }
 
 async function getArtworks(queryParams) {
-  const is_approved = "is_approved" in queryParams ? queryParams.is_approved : "true";
-  const sort_key = "sort_by" in queryParams ? queryParams.sort_by : "votes";
-  const order_by = "order_by" in queryParams ? queryParams.order_by : "descending";
+  const is_approved = queryParams?.is_approved ?? "true";
+  const sort_key  = queryParams?.sort_by ?? "votes";
+  const order_by = queryParams?.order_by ?? "descending";
 
   const query = {
     TableName: tableName,
@@ -141,7 +141,7 @@ async function getArtworks(queryParams) {
     // ScanIndexForward: scanIndexForward
   }
 
-  let { items } = await ArtworkModel.queryArtworks(query);
+  let items = await ArtworkModel.queryArtworks(query);
 
   if (order_by == "descending") {
     items.sort((a, b) => b[sort_key] - a[sort_key]);

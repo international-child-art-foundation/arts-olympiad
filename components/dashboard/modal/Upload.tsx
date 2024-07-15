@@ -8,6 +8,7 @@ import { FormikValidatedStepsControl } from "./FormikValidatedStepsControl";
 import { CustomUploadImage } from "./CustomUploadImage";
 import { CustomSingleSelect } from "./CustomSingleSelect";
 import { CustomTextArea } from "./CustomTextArea";
+import { allCountries } from "../../../mock/filterableOptionsData";
 
 const SUPPORTED_FORMATS = ["image/jpg", "image/jpeg", "image/png"];
 const FILE_SIZE = 3 * 1024 * 1024;
@@ -15,39 +16,7 @@ const categories = [
   "Archery", "Artistic Gymnastics", "Athletics", "Badminton", "Basketball", "Boxing", "Cycling Track", "Equestrian", "Fencing", "Football", "Golf", "High jump", "Hockey", "Judo", "Rowing", "Rugby", "Sailing", "Shooting", "Table Tennis", "Taekwondo", "Tennis", "Volleyball", "Wallball", "Weightlifting", "Yoga", "Zumba"
 ];
 
-const validationSchema = yup.object().shape({
-  image: yup.mixed()
-    .required("Oops! Unsupported file format. Please upload as PNG or JPG, max size 3 MB.")
-    .test("format", "Please upload as PNG or JPG", (value) => {
-      if (!value) return false; 
-      const file = value as File; 
-      return SUPPORTED_FORMATS.includes(file.type);
-    }
-    )
-    .test(
-      "size",
-      "Max size 3 MB",
-      (value) => {
-        if (!value) return false; 
-        const file = value as File; 
-        return file.size <= FILE_SIZE;
-      }
-    )
-  ,
-  location: yup.string()
-    .oneOf([
-      "Australia", "Belgium", "China", "Denmark", "Egypt", "France", "Germany", "Italy", "Japan", "Korea", "Malaysia", "New Zealand", "Pakistan", "Russia", "Singapore", "Thailand", "United States of America", "Vietnam"
-    ])
-    .required("Please select a continent and country for your artwork's location."),
-  city: yup.string().required("Please type in your city"),
-  usingAI: yup.bool().optional(),
-  source: yup.string().optional(),
-  prompt: yup.string().optional(),
-  category: yup.string()
-    .oneOf(categories)
-    .required("Please select the Sports category that best represents your artwork."),
-  description: yup.string().optional()
-});
+
 
 const options = [
   {label: "Archery", value: "Archery"},
@@ -78,28 +47,43 @@ const options = [
   {label: "Zumba", value: "Zumba"}
 ];
 
-const countryOptions = [
-  { label: "Australia", value: "Australia" },
-  { label: "Belgium", value: "Belgium" },
-  { label: "China", value: "China" },
-  { label: "Denmark", value: "Denmark" },
-  { label: "Egypt", value: "Egypt" },
-  { label: "France", value: "France" },
-  { label: "Germany", value: "Germany" },
-  { label: "Italy", value: "Italy" },
-  { label: "Japan", value: "Japan" },
-  { label: "Korea", value: "Korea" },
-  { label: "Malaysia", value: "Malaysia" },
-  { label: "New Zealand", value: "New Zealand" },
-  { label: "Pakistan", value: "Pakistan" },
-  { label: "Russia", value: "Russia" },
-  { label: "Singapore", value: "Singapore" },
-  { label: "Thailand", value: "Thailand" },
-  { label: "United States of America", value: "United States of America" },
-  { label: "Vietnam", value: "Vietnam" },
-];
-
 export const Upload = () => {
+  const countryOptions = allCountries.map(country => ({
+    label: country.name,
+    value: country.name
+  }));
+  const countryValues = countryOptions.map(option => option.value);
+  const validationSchema = yup.object().shape({
+    image: yup.mixed()
+      .required("Oops! Unsupported file format. Please upload as PNG or JPG, max size 3 MB.")
+      .test("format", "Please upload as PNG or JPG", (value) => {
+        if (!value) return false; 
+        const file = value as File; 
+        return SUPPORTED_FORMATS.includes(file.type);
+      }
+      )
+      .test(
+        "size",
+        "Max size 3 MB",
+        (value) => {
+          if (!value) return false; 
+          const file = value as File; 
+          return file.size <= FILE_SIZE;
+        }
+      )
+    ,
+    location: yup.string()
+      .oneOf(countryValues)
+      .required("Please select a continent and country for your artwork's location."),
+    city: yup.string().required("Please type in your city"),
+    usingAI: yup.bool().optional(),
+    source: yup.string().optional(),
+    prompt: yup.string().optional(),
+    category: yup.string()
+      .oneOf(categories)
+      .required("Please select the Sports category that best represents your artwork."),
+    description: yup.string().optional()
+  });
   const { uploadFormData, setUploadFormData, handleNavigation } = useStepsContext();
   return (
     <>

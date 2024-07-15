@@ -3,30 +3,29 @@ import { useState, useEffect } from "react";
 import information from "../../public/svgs/information.svg";
 import Image from "next/image";
 import deleteIcon from "../../public/svgs/delete.svg";
-import editIcon from "../../public/svgs/edit.svg";
 import placeholderImage from "../../public/dashboard/placeholder-image.png";
 import SocialShare from "../SocialShare";
-import * as yup from "yup";
-import { Formik, Form } from "formik";
-import { CustomInput } from "./modal/CustomInput";
-import { FormControlButtons } from "./FormControlButtons";
-import { simulateDelay } from "../SimulateDelay";
-import LoadingAnimation from "../../components/svgs/LoadingAnimation";
+// import * as yup from "yup";
+// import { Formik, Form } from "formik";
+// import { CustomInput } from "./modal/CustomInput";
+// import { FormControlButtons } from "./FormControlButtons";
+// import { simulateDelay } from "../SimulateDelay";
+// import LoadingAnimation from "../../components/svgs/LoadingAnimation";
 import { buildLgImageUrl, buildMdImageUrl } from "@/utils/url-builders";
 import { calculateAgeFromString } from "@/utils/helper-functions";
 import Link from "next/link";
 
 export const ActiveArtDisplay = () => {
-  const [editMode, setEditMode] = useState(false);
-  const [formSubmissionLoading, setFormSubmissionLoading] = useState(false);
+  // const [editMode, setEditMode] = useState(false);
+  // const [formSubmissionLoading, setFormSubmissionLoading] = useState(false);
   const [imageUrl, setImageUrl] = useState("");
   const [userAge, setUserAge] = useState(0);
-  const validationSchema = yup.object().shape({ 
-    source: yup.string().max(100, "Source must be no more than 100 characters long"),
-    prompt: yup.string().max(200, "Prompt must be no more than 200 characters long"),
-    description: yup.string().max(200, "Description must be no more than 200 characters long")
-  });
-  const {apiUserData, apiArtworkData, dashboardMainTabSubmissionData, setDashboardMainTabSubmissionData, setDisplayModal } = useDashboardContext();
+  // const validationSchema = yup.object().shape({ 
+  //   source: yup.string().max(100, "Source must be no more than 100 characters long"),
+  //   prompt: yup.string().max(200, "Prompt must be no more than 200 characters long"),
+  //   description: yup.string().max(200, "Description must be no more than 200 characters long")
+  // });
+  const {apiUserData, apiArtworkData, setDisplayModal } = useDashboardContext();
 
   useEffect(() => {
     if (apiArtworkData && apiArtworkData.sk && apiArtworkData.is_approved == true) {
@@ -91,14 +90,14 @@ export const ActiveArtDisplay = () => {
                 <div>
                   <p>{apiArtworkData.description}</p>
                 </div>
-                {apiArtworkData.is_ai_gen && !editMode && (
+                {apiArtworkData.is_ai_gen && (
                   <div>
                     <p>* This image was created using AI</p>
                     <p>Source: {apiArtworkData.model}</p>
                     <p>AI Prompt: "{apiArtworkData.prompt}"</p>
                   </div>
                 )}
-                {editMode && (
+                {/* {editMode && (
                   <div className="relative grid">
                     {formSubmissionLoading && 
                     <div className="col-start-1 row-start-1">
@@ -153,7 +152,7 @@ export const ActiveArtDisplay = () => {
                       </Form>
                     </Formik>
                   </div>
-                )}
+                )} */}
                 {apiArtworkData.is_approved ? (
                   <div>
                     <p className="font-semibold">Share This Post</p>
@@ -177,9 +176,9 @@ export const ActiveArtDisplay = () => {
       </div>
       {apiUserData && apiArtworkData && 
       <div className="flex gap-4 justify-end">
-        <button onClick={() => setEditMode(!editMode)}>
+        {/* <button>
           <Image src={editIcon} alt={"Pencil icon: Click to edit artwork"} width={16} height={16}/>
-        </button>
+        </button> */}
         <button onClick={() => setDisplayModal("deleteModal")}>
           <Image src={deleteIcon} alt={"Trash icon: Click to delete artwork"} width={16} height={16}/>
         </button>

@@ -354,8 +354,8 @@ async function approveArtworkById(artworkSk, approvalStatus) {
     },
     UpdateExpression: "set is_approved = :approvalVal, gsi1pk = :gsi1pk",
     ExpressionAttributeValues: {
-      ":approvalVal": approvalStatus == "true",
-      ":gsi1pk": approvalStatus, 
+      ":approvalVal": approvalStatus,
+      ":gsi1pk": `${approvalStatus}`,
     },
     ReturnValues: "ALL_NEW",
   };
@@ -369,21 +369,28 @@ async function approveArtworkById(artworkSk, approvalStatus) {
   }
 }
 
-async function queryArtworks(input, startKey=null) {
-  if (startKey) {
-    input.ExclusiveStartKey = startKey;
-  }
+async function queryArtworks(query, exclusiveStartKey=null) {
+  let items = [];
+  let response;
 
+  if (exclusiveStartKey) {
+    query.ExclusiveStartKey = exclusiveStartKey;
+  }
+  
   try {
-    const response =  await ddbDocClient.send(new QueryCommand(input));
-    return {
-      items: response.Items,
-      lastKey: response.LastEvaluatedKey
-    };
+    do {
+      response = await ddbDocClient.send(new QueryCommand(query));
+      items = items.concat(response.Items);
+      query.ExclusiveStartKey = response.LastEvaluatedKey;
+    } while (typeof response.LastEvaluatedKey !== "undefined");
+    
+    return items;
+
   } catch (error) {
-    console.log("error with querying artworks" + error);
+    console.log("Error querying artworks" + error);
     throw error;
   }
+
 }
 
 module.exports = {

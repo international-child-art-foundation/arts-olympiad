@@ -65,8 +65,8 @@ async function approveArtwork(req, res) {
   }
   
   try {
+    // process images before approving artwork
     if (approvalStatus === true) {
-      // process images before approving artwork
       const lambdaClient = new LambdaClient({ region: process.env.REGION });
       const command = new InvokeCommand({
         FunctionName: `arn:aws:lambda:us-east-1:011385746984:function:processImage-${process.env.ENV}`,
