@@ -432,7 +432,7 @@ export const Arts: React.FC<ArtsProps> = ({ contestState }) => {
                 )}
               </div>
               <Pagination
-                totalItems={allArtworks?.length || 0}
+                totalItems={sortedAndFilteredArtworks?.length || 0}
                 currentPage={pageNumber}
                 itemsPerPage={artworksPerPage}
                 updatePageNumber={updatePageNumber}

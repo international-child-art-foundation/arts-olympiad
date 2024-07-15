@@ -73,7 +73,7 @@ const Pagination = ({
         {totalItems > itemsPerPage && getPageNumbers().map((pageNumber, index) => (
           <button
             key={index}
-            className={`w-10 font-montserrat  font-xl h-10 flex items-center justify-center rounded ${pageNumber === dots ? "cursor-default" : "cursor-pointer"}`}
+            className={`w-10 py-3 px-4 border border-neutral-black rounded  font-xl h-10 flex items-center justify-center rounded ${pageNumber === dots ? "cursor-default" : "cursor-pointer"}`}
             onClick={() => {
               if (pageNumber !== dots) {
                 updatePageNumber(currentPage, pageNumber as number);
