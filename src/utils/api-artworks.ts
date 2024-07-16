@@ -64,7 +64,7 @@ export async function getArtworks({is_approved = true, sort_by = "votes", order_
     // }
     // duplicatedResults.length = 500; 
 
-    throw new Error("Error getting artwork data");
+    return { success: true, data: result };
   } catch (error) {
     throw new Error("Error getting artwork data");
   }

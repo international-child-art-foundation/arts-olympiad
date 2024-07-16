@@ -137,10 +137,10 @@ export const Arts: React.FC<ArtsProps> = ({ contestState }) => {
     return artworks || [];
   }, []);
 
-  const fetchUserAuthAndVote = useCallback(async () => {
+  const fetchUserAuthAndVote = useCallback(async (userSk: string | null) => {
     // We want to fetch the user's data on page load to set their voted-for artwork
     // and to confirm their authentication status before they try to vote.
-    if (isAuthenticated) {
+    if (isAuthenticated || userSk) {
       const userVotedResponse = await limiter.schedule(() => getUserVoteData());
       if (userVotedResponse.success) {
         if (userVotedResponse.voted_sk) {
@@ -151,7 +151,7 @@ export const Arts: React.FC<ArtsProps> = ({ contestState }) => {
       }
     }
 
-  }, [setVotedSk, handleRealizeSignedOut]);
+  }, [setVotedSk, handleRealizeSignedOut, isAuthenticated]);
 
   // Populate artwork data on page load
   useEffect(() => {
@@ -170,12 +170,15 @@ export const Arts: React.FC<ArtsProps> = ({ contestState }) => {
     }
 
     // Set current user ID from local storage
+    const userSk = localStorage.getItem("isAuthenticated");
     setCurrentUserSk(localStorage.getItem("isAuthenticated"));
   
     // If 'id' is in the search params, load that id (sk)
     handleIdUponPageLoad();
     fetchArtworkData();
-    fetchUserAuthAndVote();
+    if (localStorage.getItem("isAuthenticated")) {
+      fetchUserAuthAndVote(userSk);
+    }
   }, [fetchArtworkData]);
 
   {/* The state of our application is handled by our FilterContext.tsx file. Variables imported from useFilters() represent our state.*/}
@@ -356,9 +359,21 @@ export const Arts: React.FC<ArtsProps> = ({ contestState }) => {
     setActiveArtworks(newActiveArtworksValue);
   }, [sortedAndFilteredArtworks, pageNumber]);
 
+  const openModalToArtwork = (artwork_sk: string) => {
+    setModalOpen(true);
+    setActiveEntrySk(artwork_sk);
+  };
+
   return (
     <div className={`${contestState == ContestState.Inactive && "opacity-60 pointer-events-none select-none blur-sm relative"} `}>
-      {votedSk && <button className={"mx-auto text-center"}>See your vote</button>}
+      {votedSk ? 
+        <div className="w-fit mx-auto">
+          <button className={"mx-auto text-center bg-new-blue text-white px-4 py-2 rounded-lg cursor-pointer active:scale-[97%]"} onClick={() => openModalToArtwork(votedSk)}>See your vote</button>
+        </div> 
+        : 
+        <div className="w-fit mx-auto h-12">
+        </div>
+      }
       <ArtworkModal artworks={allArtworks} voted={activeEntrySk == votedSk} pageLoadArtwork={pageLoadArtwork} sk={activeEntrySk} closeModal={closeModal} isMobile={isMobile} isModalOpen={isModalOpen} currentUserSk={currentUserSk} />
       {isMobile && <MobileFilter isFilterOpen={isFilterOpen} handleModifyFilterState={handleModifyFilterState} updateFilterOption={updateFilterOption} updateSortValue={updateSortValue} alterFiltersByCategory={alterFiltersByCategory} resetAllFilters={resetAllFilters} /> }
       <div className="relative px-8 md:px-12 lg:px-16 xl:px-20 max-w-screen-2xl z-0 m-auto w-screen min-h-[800px]">

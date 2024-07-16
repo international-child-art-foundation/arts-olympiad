@@ -79,7 +79,7 @@ export const GalleryHeader: React.FC<GalleryHeaderProps> = ({ contestState }) =>
           </div>
           <div className="text-3xl font-semibold lg:text-4xl lg:font-bold">
             {totalVotes}
-            <Image src={colorfulScribble} alt="" width={160} height={20} className="-ml-8"/>
+            <Image src={colorfulScribble} alt="" width={160} height={20} className="-ml-12"/>
           </div>
         </>
           }

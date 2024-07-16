@@ -28,7 +28,7 @@ export const GlobalContextProvider: React.FC<GlobalContextProviderProps> = ({ ch
 
   // Setter should only be used by setGlobalCookieConsentValue.
   const [isCookieConsentAcquired, setIsCookieConsentAcquired] = useState<boolean | null>(false);
-  const [cookieBannerVisible, setCookieBannerVisible] = useState(isCookieConsentAcquired != true && isCookieConsentAcquired != false);
+  const [cookieBannerVisible, setCookieBannerVisible] = useState<boolean>(isCookieConsentAcquired != true && isCookieConsentAcquired != false);
 
   useEffect(() => {
     // If isAuthenticated exists and is a string, we are authenticated.
@@ -37,7 +37,13 @@ export const GlobalContextProvider: React.FC<GlobalContextProviderProps> = ({ ch
     // the getAuthStatus function from auth.ts should be used.
     const storedAuth = typeof(localStorage.getItem("isAuthenticated")) == "string";
     setIsAuthenticated(storedAuth);
-    setIsCookieConsentAcquired(JSON.parse(localStorage.getItem("cookieConsent") || "null"));
+    const cookieConsentStatus = JSON.parse(localStorage.getItem("cookieConsent") || "null");
+    setIsCookieConsentAcquired(cookieConsentStatus);
+    if (cookieConsentStatus != true && cookieConsentStatus != false) {
+      setCookieBannerVisible(true);
+    } else {
+      setCookieBannerVisible(false);
+    }
   }, []);
 
   const signIn = useCallback(async (values: UserLoginInterface) => {
