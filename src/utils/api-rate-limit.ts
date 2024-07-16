@@ -19,7 +19,7 @@ limiter.on("failed", async (error, jobInfo) => {
  
   if (jobInfo.retryCount === 0) { // Here we only retry once
     console.log(`Retrying job ${id} in 2 seconds!`);
-    return 1000;
+    return 2000;
   }
 });
 
@@ -45,7 +45,7 @@ expensiveActionLimiter.on("failed", async (error, jobInfo) => {
  
   if (jobInfo.retryCount === 0) { // Here we only retry once
     console.log(`Retrying job ${id} in 2 seconds!`);
-    return 1000;
+    return 2000;
   }
 });
 
