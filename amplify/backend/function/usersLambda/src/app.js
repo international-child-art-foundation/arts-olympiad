@@ -6,6 +6,7 @@ const express = require("express");
 const ArtworkController = require("./controllers/artwork");
 const UserController = require("./controllers/user");
 const VotesController = require("./controllers/votes");
+const StripeController = require("./controllers/stripe");
 
 const {
   loginUserValidator, registerUserValidator, verifyUserValidator, updateUserValidator,
@@ -15,6 +16,10 @@ const {
 
 // declare a new express app
 const app = express();
+
+// Register this endpoint before adding bodyParser and CORS, as they cause errors
+app.post("/api/stripe-webhook", express.raw({type: "application/json"}), StripeController.handleWebhook);
+
 app.use(bodyParser.json());
 app.use(cookieParser());
 app.use(awsServerlessExpressMiddleware.eventContext());

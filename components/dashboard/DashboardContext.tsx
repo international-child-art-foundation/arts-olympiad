@@ -8,6 +8,7 @@ interface DashboardContextType {
   apiUserData: UserDataSchema | undefined;
   setApiUserData: React.Dispatch<React.SetStateAction<UserDataSchema | undefined>>;
   userHasActiveSubmission: boolean;
+  userHasPaid: boolean;
   setUserHasActiveSubmission: React.Dispatch<React.SetStateAction<boolean>>;
   apiArtworkData: UserArtworkSchema | undefined;
   setApiArtworkData: React.Dispatch<React.SetStateAction<UserArtworkSchema | undefined>>;
@@ -17,6 +18,7 @@ interface DashboardContextType {
   setDashboardMainTabSubmissionData: React.Dispatch<React.SetStateAction<dashboardMainTabSubmissionSchema>>;
   displayModal: string;
   setDisplayModal: React.Dispatch<React.SetStateAction<string>>;
+  setUserHasPaid: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
 export const DashboardContext = createContext<DashboardContextType | undefined>(undefined);
@@ -28,6 +30,7 @@ export const DashboardContextProvider: React.FC<{ children: ReactNode }> = ({ ch
   const [apiUserData, setApiUserData] = useState<UserDataSchema>();
   const [apiArtworkData, setApiArtworkData] = useState<UserArtworkSchema>();
   const [apiArtworkVoteData, setApiArtworkVoteData] = useState<UserArtworkSchema>(); // This can be set via API upon user visiting Your Vote page
+  const [userHasPaid, setUserHasPaid] = useState<boolean>(false);
   // TODO: Update userHasActiveSubmission to be set by API, or just replace usage with API data
   const [userHasActiveSubmission, setUserHasActiveSubmission] = useState(false); // harcoded to true for now, should change with API integration
   const [displayModal, setDisplayModal] = useState("");
@@ -42,7 +45,8 @@ export const DashboardContextProvider: React.FC<{ children: ReactNode }> = ({ ch
     apiArtworkData, setApiArtworkData,
     apiArtworkVoteData, setApiArtworkVoteData,
     dashboardMainTabSubmissionData, setDashboardMainTabSubmissionData,
-    displayModal, setDisplayModal
+    displayModal, setDisplayModal,
+    userHasPaid, setUserHasPaid
   };
 
   return (

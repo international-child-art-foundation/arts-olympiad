@@ -20,6 +20,10 @@ async function registerUser(userData) {
   return {message: uuid};
 }
 
+async function updateUserPaymentStatus(userSk, updateValue) {
+  await UserModel.updateUserById(userSk, "has_paid", updateValue);
+}
+
 async function verifyUser(uuid, email, verificationCode) {
   await UserModel.confirmCognitoUser(email, verificationCode);
   await UserModel.updateUserById(uuid, "can_submit_art", true);
@@ -119,5 +123,6 @@ module.exports = {
   volunteerUpdateUser,
   getStatusAndSubFromId,
   sendVerificationEmail,
-  confirmForgotPassword
+  confirmForgotPassword,
+  updateUserPaymentStatus
 };

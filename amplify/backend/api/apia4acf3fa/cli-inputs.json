@@ -112,6 +112,13 @@
       "permissions": {
         "setting": "open"
       }
+    },
+    "/api/stripe-webhook": {
+      "name": "/api/stripe-webhook",
+      "lambdaFunction": "usersLambda",
+      "permissions": {
+        "setting": "open"
+      }
     }
   }
 }

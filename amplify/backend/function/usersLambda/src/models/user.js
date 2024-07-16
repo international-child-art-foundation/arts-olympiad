@@ -5,12 +5,13 @@ const { SignUpCommand, ConfirmSignUpCommand, CognitoIdentityProviderClient,
   ConfirmForgotPasswordCommand, GlobalSignOutCommand, AdminGetUserCommand, 
   ResendConfirmationCodeCommand } = require("@aws-sdk/client-cognito-identity-provider");
 
-let tableName = "dynamo22205621";
+let tableName = process.env.DYNAMO_TABLE_NAME;
 if (process.env.ENV && process.env.ENV !== "NONE") {
   tableName = tableName + "-" + process.env.ENV;
 }
 
-let userPoolId = "us-east-1_3PznlHK93";
+let userPoolId = process.env.COGNITO_USERPOOL_ID;
+let clientId = process.env.COGNITO_CLIENT_ID;
 
 const client = new CognitoIdentityProviderClient({});
 
@@ -33,7 +34,7 @@ async function getUserBySk(userSk) {
       pk: "USER",
       sk: userSk
     },
-    ProjectionExpression: "sk, f_name, l_name, birthdate, #loc, age, email, g_f_name, g_l_name, voted_sk, can_submit_art, has_active_submission",
+    ProjectionExpression: "sk, f_name, l_name, birthdate, #loc, age, email, g_f_name, g_l_name, voted_sk, can_submit_art, has_active_submission, has_paid",
     ExpressionAttributeNames: { "#loc": "location" },
   };
   try {
@@ -48,7 +49,7 @@ async function getUserBySk(userSk) {
 async function createCognitoUser(email, password, f_name) {
   try {
     const command = new SignUpCommand({
-      ClientId: "26h0ul3gca5v4kevgl13dhhsur", 
+      ClientId: clientId, 
       Username: email,
       Password: password,
       UserAttributes: [
@@ -91,7 +92,7 @@ async function createUser(signUpResult, userDetails) {
 async function confirmCognitoUser(email, verificationCode) {
   try {
     const command = new ConfirmSignUpCommand({
-      ClientId: "26h0ul3gca5v4kevgl13dhhsur", //change clientId to web
+      ClientId: clientId, //change clientId to web
       Username: email,
       ConfirmationCode: verificationCode
     });
@@ -110,7 +111,7 @@ async function signIn(email, password) {
         USERNAME: email,
         PASSWORD: password,
       },
-      ClientId: "26h0ul3gca5v4kevgl13dhhsur", // ** double check clientId
+      ClientId: clientId, // ** double check clientId
     });
 
     const response = await client.send(command);
@@ -141,7 +142,7 @@ async function getNewTokens(refreshToken) {
       AuthParameters: {
         REFRESH_TOKEN: refreshToken,
       },
-      ClientId: "26h0ul3gca5v4kevgl13dhhsur", // ** double check clientId
+      ClientId: clientId, // ** double check clientId
     });
 
     const response = await client.send(command);
@@ -165,7 +166,7 @@ async function deleteCognitoUser(token) {
 async function forgotPassword(username) {
   try {
     const input = {
-      ClientId: "26h0ul3gca5v4kevgl13dhhsur",
+      ClientId: clientId,
       Username: username,
     };
     const command = new ForgotPasswordCommand(input);
@@ -179,7 +180,7 @@ async function forgotPassword(username) {
 async function confirmForgotPassword(reqArgs) {
   try {
     const input = {
-      ClientId: "26h0ul3gca5v4kevgl13dhhsur",
+      ClientId: clientId,
       ConfirmationCode: reqArgs.confirmationCode,
       Username: reqArgs.email,
       Password: reqArgs.newPassword
@@ -261,7 +262,7 @@ async function updateUserById(userSk, fieldName, fieldValue) {
 async function sendVerificationEmail(email) {
   try {
     const params = {
-      ClientId: "26h0ul3gca5v4kevgl13dhhsur",
+      ClientId: clientId,
       Username: email
     };
     const command = new ResendConfirmationCodeCommand(params);
