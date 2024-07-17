@@ -6,6 +6,7 @@ import { DashboardTabs, DashboardLoadingStates, dashboardTypeStringConversions, 
 import { DashboardMainTab } from "../../components/dashboard/DashboardMainTab";
 import { DashboardTabSection } from "./DashboardTabSection";
 import { YourVoteTab } from "./YourVoteTab";
+import { AccountSettingsTab } from "./AccountSettingsTab";
 import { useRouter, useSearchParams } from "next/navigation";
 import { useDashboardContext } from "./DashboardContext";
 import { DashboardModal } from "./DashboardModal";
@@ -16,6 +17,7 @@ import { useGlobalContext } from "@/app/GlobalContext";
 import { UserDataSchema } from "@/interfaces/user_auth";
 import { UserArtworkSchema } from "@/interfaces/artwork_shapes";
 import { limiter } from "@/utils/api-rate-limit";
+import { DeleteAccount } from "./DeleteAccount";
 
 export default function DashboardManager() {
   const router = useRouter();
@@ -117,6 +119,11 @@ export default function DashboardManager() {
           <DeleteArtwork />
         </DashboardModal>
       }
+      {displayModal === "deleteAccount" &&
+        <DashboardModal>
+          <DeleteAccount />
+        </DashboardModal>
+      }
       <div className="flex flex-col md:grid md:grid-cols-2 md:px-8"style={{            gridTemplateColumns: "minmax(260px, 17%) 1fr",
         boxShadow: "inset 0px 5px 10px 0px rgba(0, 0, 0, 0.05)",
         clipPath: "inset(0px 10px)",
@@ -128,6 +135,7 @@ export default function DashboardManager() {
             {/* {isAuthenticated && <div>Authenticated!</div>} */}
             {dashboardTab == "Dashboard" && <DashboardMainTab dashboardLoadingState={dashboardLoadingState} isAuthenticated={isAuthenticated}/>}
             {dashboardTab == "YourVote" && <YourVoteTab dashboardLoadingState={dashboardLoadingState} isAuthenticated={isAuthenticated}/>}
+            {dashboardTab == "AccountSettings" && <AccountSettingsTab dashboardLoadingState={dashboardLoadingState} isAuthenticated={isAuthenticated}/>}
           </div>
         </div>
       </div>

@@ -3,6 +3,7 @@ import LoadingAnimation from "../svgs/LoadingAnimation";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { handleDeleteArtwork } from "@/utils/api-volunteer-artwork-functions";
+import { limiter } from "@/utils/api-rate-limit";
 
 interface DeleteArtworkProps { // Empty for now
 }
@@ -16,7 +17,7 @@ export const DeleteArtwork: React.FC<DeleteArtworkProps> = ({  }) => {
   const deleteArtwork = async (artwork_sk: string) => {
     setIsLoading(true);
     try {
-      const artworkStatus = await handleDeleteArtwork({artwork_sk});
+      const artworkStatus = await limiter.schedule(() => handleDeleteArtwork({artwork_sk}));
       if (artworkStatus?.success == true) {
         console.log(artwork_sk + " has been deleted.");
       } else {
@@ -39,7 +40,7 @@ export const DeleteArtwork: React.FC<DeleteArtworkProps> = ({  }) => {
       }
       {!successfulArtworkDeletion && (
         apiArtworkData && apiArtworkData.sk ? (
-          <div className={`max-w-[900px] px-2 sm:px-10 lg:px-20 py-10 flex flex-col gap-6 h-full w-full col-start-1 row-start-1 mx-auto ${isLoading && "opacity-50"}`}>
+          <div className={`max-w-[900px] px-2 sm:px-10 lg:px-20 py-10 flex flex-col gap-6 justify-between h-full w-full col-start-1 row-start-1 mx-auto ${isLoading && "opacity-50"}`}>
             <p className="font-montserrat text-4xl">
               {apiUserData && apiUserData.f_name}, are you sure?
             </p>
@@ -56,7 +57,7 @@ export const DeleteArtwork: React.FC<DeleteArtworkProps> = ({  }) => {
                 onClick={() => setDisplayModal("")}>
                 No, go back
               </button>
-              <button className="p-4 bg-warning-red text-white rounded flex-grow hover:bg-[#DB3952]"
+              <button className="p-4 bg-red-500 hover:bg-red-600 text-white rounded flex-grow"
                 onClick={() => deleteArtwork(apiArtworkData.sk)}
               >
                 Yes, remove my art now

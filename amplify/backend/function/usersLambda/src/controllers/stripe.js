@@ -8,43 +8,33 @@ async function handleWebhook(req, res) {
   try {
     event = stripe.webhooks.constructEvent(req.body, sig, process.env.STRIPE_WEBHOOK_SECRET);
   } catch (err) {
-    console.error(`Webhook Error: ${err.message}`);
-    return res.status(400).send(`Webhook Error: ${err.message}`);
+    console.error("Webhook Error");
+    return res.status(400).send("Webhook Error");
   }
 
   // Handle the event
   try {
-    switch (event.type) {
-    case "charge.succeeded":
+    if (event.type == "checkout.session.completed") {
       if (event.data.object.client_reference_id) {
         await handleSuccessfulPayment(event.data.object);
+        res.status(200).json({success: true});
+      } else {
+        res.status(400).json({success: false, error: "User did not submit payment with a client_reference_id. Aborting."});
       }
-      break;
-    case "charge.refunded":
-      await handleRefund(event.data.object);
-      break;
-    default:
-      console.log(`Unhandled event type ${event.type}`);
+    } else {
+      res.status(400).json({success: false, error: "Received unexpected or undefined event type; expected checkout.session.completed."});
     }
-
-    // Return a response to acknowledge receipt of the event
-    res.json({received: true});
   } catch (error) {
-    console.error(`Error processing webhook: ${error.message}`);
-    res.status(500).send(`Server Error: ${error.message}`);
+    console.error("Error processing webhook");
+    res.status(500).send("Server Error encountered when processing webhook");
   }
 }
 
 async function handleSuccessfulPayment(charge) {
+  console.log("Received successful payment; now handling update of DynamoDB");
   const userSk = charge.client_reference_id;
-  await UserService.updateUserPaymentStatus(userSk, true);
-  console.log(`Payment successful for user ${userSk}`);
-}
-
-async function handleRefund(charge) {
-  const userSk = charge.client_reference_id;
-  await UserService.updateUserPaymentStatus(userSk, false);
-  console.log(`Refund processed for user ${userSk}`);
+  await UserService.updateUserPaymentStatus(userSk, true, charge.payment_intent);
+  console.log(`Payment successful for user ${userSk} with ID ${charge.client_reference_id}`);
 }
 
 module.exports = { handleWebhook };

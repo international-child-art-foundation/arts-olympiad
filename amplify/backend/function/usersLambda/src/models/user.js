@@ -3,7 +3,9 @@ const { DeleteCommand, GetCommand, PutCommand, UpdateCommand } = require("@aws-s
 const { SignUpCommand, ConfirmSignUpCommand, CognitoIdentityProviderClient, 
   AuthFlowType, InitiateAuthCommand, DeleteUserCommand, ForgotPasswordCommand,
   ConfirmForgotPasswordCommand, GlobalSignOutCommand, AdminGetUserCommand, 
-  ResendConfirmationCodeCommand } = require("@aws-sdk/client-cognito-identity-provider");
+  ResendConfirmationCodeCommand, AdminDeleteUserAttributesCommand, AdminDisableUserCommand } = require("@aws-sdk/client-cognito-identity-provider");
+const stripe = require("stripe")(process.env.STRIPE_SK);
+
 
 let tableName = process.env.DYNAMO_TABLE_NAME;
 if (process.env.ENV && process.env.ENV !== "NONE") {
@@ -34,7 +36,7 @@ async function getUserBySk(userSk) {
       pk: "USER",
       sk: userSk
     },
-    ProjectionExpression: "sk, f_name, l_name, birthdate, #loc, age, email, g_f_name, g_l_name, voted_sk, can_submit_art, has_active_submission, has_paid",
+    ProjectionExpression: "sk, f_name, l_name, birthdate, #loc, age, email, g_f_name, g_l_name, voted_sk, can_submit_art, has_active_submission, has_paid, pi_id",
     ExpressionAttributeNames: { "#loc": "location" },
   };
   try {
@@ -163,6 +165,58 @@ async function deleteCognitoUser(token) {
   }
 }
 
+async function deleteCognitoUserDetails(userEmail) {
+  try {
+    const getUserCommand = new AdminGetUserCommand({
+      UserPoolId: userPoolId,
+      Username: userEmail
+    });
+    const userResponse = await client.send(getUserCommand);
+
+    // List of immutable attributes
+    const immutableAttributes = ["sub", "email", "email_verified", "phone_number_verified", "created_at", "updated_at"];
+
+    // Create an array of attributes to delete
+    const attributesToDelete = userResponse.UserAttributes
+      .filter(attr => !immutableAttributes.includes(attr.Name))
+      .map(attr => attr.Name);
+
+    if (attributesToDelete.length > 0) {
+      const deleteAttributesCommand = new AdminDeleteUserAttributesCommand({
+        UserPoolId: userPoolId,
+        Username: userEmail,
+        UserAttributeNames: attributesToDelete
+      });
+
+      // Send the delete attributes command
+      await client.send(deleteAttributesCommand);
+    }
+
+    console.log(`User details deleted for user ${userEmail}, keeping immutable attributes`);
+    return true;
+  } catch (error) {
+    console.error("Error deleting Cognito user details:", error);
+    throw error;
+  }
+}
+
+async function disableUser(userEmail) {
+  try {
+    const disableUserCommand = new AdminDisableUserCommand({
+      UserPoolId: userPoolId,
+      Username: userEmail
+    });
+    await client.send(disableUserCommand);
+
+    console.log(`User ${userEmail} account disabled`);
+    return true;
+  } catch (error) {
+    console.error(`Error disabling user account for ${userEmail}:`, error);
+    throw error;
+  }
+}
+
+
 async function forgotPassword(username) {
   try {
     const input = {
@@ -232,6 +286,62 @@ async function deleteUserData(userSk) {
   }
 }
 
+async function refundUser(pi_id) {
+  try {
+    // Retrieve the PaymentIntent to ensure it exists and to get the amount
+    const paymentIntent = await stripe.paymentIntents.retrieve(pi_id);
+
+    // Create the refund
+    const refund = await stripe.refunds.create({
+      payment_intent: pi_id,
+      amount: paymentIntent.amount // Refund the full amount
+    });
+
+    console.log(`Refund processed successfully: ${refund.id}`);
+    return {
+      statusCode: 200,
+      body: JSON.stringify({
+        message: "Refund processed successfully",
+        refundId: refund.id
+      })
+    };
+  } catch (error) {
+    console.error(`Error processing refund for payment intent ${pi_id}:`, error);
+    return {
+      statusCode: 500,
+      body: JSON.stringify({
+        message: "Error processing refund",
+        error: error.message
+      })
+    };
+  }
+}
+
+async function updateUserSuccessfulPaymentStatus(userSk, pi_id) {
+  const input = {
+    TableName: tableName,
+    Key: {
+      pk: "USER",
+      sk: userSk
+    },
+    ConditionExpression: "attribute_exists(pk) AND attribute_exists(sk)",
+    UpdateExpression: "SET has_paid = :hasPaid, pi_id = :piId",
+    ExpressionAttributeValues: {
+      ":hasPaid": true,
+      ":piId": pi_id
+    },
+    ReturnValues: "ALL_NEW"
+  };
+
+  try {
+    const response = await ddbDocClient.send(new UpdateCommand(input));
+    return response;
+  } catch(error) {
+    console.error("Error updating user payment status in db:", error);
+    throw error;
+  }
+}
+
 async function updateUserById(userSk, fieldName, fieldValue) {
   const input = {
     TableName: tableName,
@@ -288,5 +398,9 @@ module.exports = {
   getNewTokens,
   getStatusAndSubFromId,
   sendVerificationEmail,
-  confirmForgotPassword
+  confirmForgotPassword,
+  updateUserSuccessfulPaymentStatus,
+  refundUser,
+  deleteCognitoUserDetails,
+  disableUser
 };

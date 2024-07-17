@@ -20,8 +20,10 @@ async function registerUser(userData) {
   return {message: uuid};
 }
 
-async function updateUserPaymentStatus(userSk, updateValue) {
-  await UserModel.updateUserById(userSk, "has_paid", updateValue);
+async function updateUserPaymentStatus(userSk, updateValue, pi_id) {
+  if (updateValue == true) {
+    await UserModel.updateUserSuccessfulPaymentStatus(userSk, pi_id);
+  }
 }
 
 async function verifyUser(uuid, email, verificationCode) {
@@ -45,6 +47,24 @@ async function deleteUser(userSk, token) {
   // 
   await ArtworkService.deleteArtwork(userSk); 
   return;
+}
+
+async function userDeleteAccount(userSk, userEmail) {
+  try {
+    try { // If this second try{} errors, we still return success (user may not have a submission)
+      await ArtworkService.deleteArtworkCompletely(userSk);
+    } catch (artworkError) {
+      console.log("Error deleting artwork during account deletion:", artworkError.message);
+    }
+    await UserModel.deleteUserData(userSk);
+    await UserModel.deleteCognitoUserDetails(userEmail);
+    await UserModel.disableUser(userEmail);
+
+    return { success: true, message: "Account successfully deleted" };
+  } catch (error) {
+    console.error("Error in userDeleteAccount:", error);
+    throw error;
+  }
 }
 
 async function forgotPassword(username) {
@@ -78,6 +98,11 @@ async function updateUser(userSk, updateField) {
     console.error(error.message);
     throw error;
   }
+}
+
+async function refundUser(userSk) {
+  const userData = await UserModel.getUserBySk(userSk);
+  await UserModel.refundUser(userData.pi_id);
 }
 
 async function volunteerUpdateUser(userSk, updateField) {
@@ -124,5 +149,7 @@ module.exports = {
   getStatusAndSubFromId,
   sendVerificationEmail,
   confirmForgotPassword,
-  updateUserPaymentStatus
+  updateUserPaymentStatus,
+  refundUser,
+  userDeleteAccount
 };

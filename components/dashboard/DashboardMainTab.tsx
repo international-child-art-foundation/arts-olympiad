@@ -11,6 +11,7 @@ import { DashboardModal } from "./DashboardModal";
 import Link from "next/link";
 import { DashboardAuthenticationStates } from "../../mock/DashboardTypes";
 import { calculateAgeFromString } from "@/utils/helper-functions";
+import LoadingAnimation from "../svgs/LoadingAnimation";
 
 interface DashboardMainTabProps {
   dashboardLoadingState: DashboardLoadingStates;
@@ -19,13 +20,16 @@ interface DashboardMainTabProps {
 
 export const DashboardMainTab: React.FC<DashboardMainTabProps> = ({ dashboardLoadingState, isAuthenticated }) => {
   const [age, setAge] = useState(0);
-  const { apiUserData, displayModal, setDisplayModal, userHasPaid } = useDashboardContext();
+  const { apiUserData, displayModal, setDisplayModal, userHasPaid, setUserHasPaid } = useDashboardContext();
   
   useEffect(() => {
     if (apiUserData && apiUserData.birthdate) {
       setAge(calculateAgeFromString(apiUserData?.birthdate));
     }
-  }, [apiUserData]);
+    if (apiUserData && apiUserData.has_paid) {
+      setUserHasPaid(true);
+    }
+  }, [apiUserData, setUserHasPaid]);
 
   useEffect(() => {
     if (displayModal === "mainTab") {
@@ -39,10 +43,20 @@ export const DashboardMainTab: React.FC<DashboardMainTabProps> = ({ dashboardLoa
     };
   }, [displayModal]);
 
+  useEffect(() => {
+    console.log(dashboardLoadingState);
+  }, [dashboardLoadingState]);
+
+  useEffect(() => {
+    console.log(isAuthenticated);
+  }, [isAuthenticated]);
+
   return (
     <>
-      {isAuthenticated === "Loading" && (
-        <div>Loading...</div>
+      {(isAuthenticated === "Loading" || isAuthenticated === "Authenticated" && dashboardLoadingState != "Loaded")  && (
+        <div className="h-full">
+          <LoadingAnimation scale={1} stroke={2}/>
+        </div>
       )}
   
       {isAuthenticated === "Unauthenticated" && (
@@ -87,10 +101,11 @@ export const DashboardMainTab: React.FC<DashboardMainTabProps> = ({ dashboardLoa
                   )}
                 </>
               ) : (
-                <div>
-                  <p>You must pay to submit art for the competition.</p>
-                  <a href={process.env.NEXT_PUBLIC_STRIPE_URL + "?client_reference_id=" + apiUserData.sk} className="bg-new-blue text-white px-4 py-2 rounded">
-                    Pay Now
+                <div className="flex flex-col my-6">
+                  <p className="">In order to submit art, you must first pay a $10 entry fee. </p>
+                  <p className="">Once the fee is paid, we can go through the process of getting your artwork ready for the world. </p>
+                  <a href={process.env.NEXT_PUBLIC_STRIPE_URL + "?client_reference_id=" + apiUserData.sk} className=" my-4 mx-auto text-center bg-new-blue text-white px-4 py-2 rounded active:scale-[97%]">
+                    Pay Entry Fee
                   </a>
                 </div>
               )}

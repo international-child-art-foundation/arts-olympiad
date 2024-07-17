@@ -44,6 +44,8 @@ app.post("/api/confirm-forgot-password", confirmForgotPasswordValidator, validat
 app.get("/api/auth-status", UserController.getAuthStatus);
 app.get("/api/voted", UserController.getUserVoted);
 app.post("/api/resend-verification", resendVerificationValidator, validationMiddleware, UserController.sendVerificationEmail);
+app.post("/api/refund-user/:userSk", UserController.refundUser);
+app.delete("/api/users/user-delete-account", UserController.userDeleteAccount);
 
 app.patch("/api/volunteer/update-user/:userSk", volunteerUpdateUserValidator, validationMiddleware, UserController.volunteerUpdateUser);
 app.get("/api/volunteer/auth-status", UserController.getVolunteerAuthStatus);

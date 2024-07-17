@@ -89,6 +89,8 @@ const ArtworkModal: React.FC<ArtworkModalProps> = ({ artworks, pageLoadArtwork, 
           const singleArtworkResponse = await limiter.schedule(() => getSingleArtworkData(sk));
           if (singleArtworkResponse.success && isUserArtworkSchema(singleArtworkResponse.data)) {
             data = singleArtworkResponse.data;
+          } else {
+            console.log("Couldn't find single artwork data.");
           }
         } catch (error) {
           console.error("Error fetching artwork data:", error);
@@ -163,7 +165,7 @@ const ArtworkModal: React.FC<ArtworkModalProps> = ({ artworks, pageLoadArtwork, 
 
   function renderLoadingState() {
     return (
-      <div className="relative inset-0 flex justify-center items-center pointer-events-none h-[100px]">
+      <div className="relative inset-0 flex justify-center items-center pointer-events-none max-h-full h-[600px]">
         <LoadingAnimation scale={90} stroke={2}/>
       </div>
     );
@@ -251,7 +253,7 @@ const ArtworkModal: React.FC<ArtworkModalProps> = ({ artworks, pageLoadArtwork, 
   // Mobile rendering for the loading state
   function renderLoadingStateMobile() {
     return (
-      <div className="relative inset-0 flex justify-center items-center pointer-events-none h-[0px]">
+      <div className="relative inset-0 flex justify-center items-center pointer-events-none">
         <LoadingAnimation scale={90} stroke={2}/>
       </div>
     );
@@ -259,8 +261,12 @@ const ArtworkModal: React.FC<ArtworkModalProps> = ({ artworks, pageLoadArtwork, 
   
   function renderErrorState() {
     return (
-      <div className="absolute inset-0 flex justify-center items-center pointer-events-none">
-        <p>Something went wrong. It may help to reload the page.</p>
+      <div className="absolute inset-0 flex justify-center items-center flex-col">
+        <p className="text-2xl font-semibold text-center">This artwork is currently inaccessible</p>
+        <p>It may have been deleted.</p>
+        <button className="bg-new-blue mt-8 p-2 px-3 active:scale-[97%] text-white rounded-lg" onClick={handleCloseModal}>
+          Return to gallery
+        </button>
       </div>
     );
   }
@@ -343,9 +349,9 @@ const ArtworkModal: React.FC<ArtworkModalProps> = ({ artworks, pageLoadArtwork, 
   return (
     <div className="fixed inset-0 bg-black bg-opacity-50 z-50 flex justify-center items-center h-auto" onClick={handleClick}>
       <div ref={modalWrapperRef} className={`max-h-[93%] bg-white rounded-3xl ${isHorizontal ? "w-[80%] max-w-[1100px]" : "w-[480px] max-w-[95%]"} flex flex-col relative overflow-hidden`}>
-        <span onClick={handleCloseModal} className="absolute top-0 right-0 text-5xl font-light p-4 cursor-pointer active:scale-90">&times;</span>
+        <span onClick={handleCloseModal} className="absolute top-0 right-0 text-5xl font-light p-4 cursor-pointer active:scale-90 z-10">&times;</span>
         <div ref={gridContainerRef} className="grid overflow-scroll no-scrollbar " style={{gridTemplateRows:"0.2fr"}}>
-          <div ref={modalContentRef} className={`min-h-[200px] ${isHorizontal ? "p-16" : "p-8"}`}>
+          <div ref={modalContentRef} className={`min-h-[300px] ${isHorizontal ? "p-16" : "p-8"}`}>
             {renderContent()}
           </div>
         </div>

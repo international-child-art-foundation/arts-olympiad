@@ -9,6 +9,7 @@ interface SelectedArtworkDisplayProps {
   onApprove: (artworkId: string) => void;
   onDeny: (artworkId: string) => void;
   onBanUser: (userId: string) => void;
+  onRefundUser: (userId: string) => void;
 }
 
 type ChecklistItem = "noHiddenContent" | "noInappropriateContent" | "noManipulation" | "normalMetadata";
@@ -23,7 +24,8 @@ export const SelectedArtworkDisplay: React.FC<SelectedArtworkDisplayProps> = ({
   onApprove,
   onDeny,
   onBanUser,
-  apiError
+  apiError,
+  onRefundUser
 }) => {
   const [checklistItems, setChecklistItems] = useState<ChecklistState>({
     noHiddenContent: null,
@@ -72,6 +74,12 @@ export const SelectedArtworkDisplay: React.FC<SelectedArtworkDisplayProps> = ({
     } else {
       alert("At least one checklist item must be red to ban the user.");
     }
+    setIsLoading(false);
+  };
+
+  const handleRefundUser = async() => {
+    setIsLoading(true);
+    await onRefundUser(selectedArtwork.sk);
     setIsLoading(false);
   };
 
@@ -155,17 +163,17 @@ export const SelectedArtworkDisplay: React.FC<SelectedArtworkDisplayProps> = ({
             Deny
           </button>
           <button 
+            onClick={handleRefundUser}
+            className="bg-orange-300 text-gray-700 px-4 py-2 rounded-lg hover:bg-gray-400 transition-colors"
+          >
+            Refund user
+          </button>
+          <button 
             onClick={handleBanUser}
             className={`px-4 py-2 rounded-lg text-white ${hasRed() ? "bg-yellow-500 hover:bg-yellow-600" : "bg-gray-400 cursor-not-allowed"} transition-colors`}
             disabled={!hasRed()}
           >
             Ban User
-          </button>
-          <button 
-            onClick={() => setSelectedArtwork(null)}
-            className="bg-gray-300 text-gray-700 px-4 py-2 rounded-lg hover:bg-gray-400 transition-colors"
-          >
-            Close
           </button>
         </div>
       </div>

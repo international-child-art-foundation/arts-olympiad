@@ -78,6 +78,29 @@ export async function handleDeleteArtwork({
   }
 }
 
+export async function handleRefundUser({
+  user_sk,
+}: VolunteerUserInterface): Promise<ResponseWithoutSuccessDetails> {
+  try {
+    const gatewayServerResponse = await fetch(`/next-proxy/api/refund-user/${user_sk}`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        "x-api-key": process.env.NEXT_PUBLIC_AK || "",
+      },
+      credentials: "include",
+    });
+
+    if (gatewayServerResponse.ok) {
+      return { success: gatewayServerResponse.ok };
+    } else {
+      throw new Error("Error refunding user");
+    }
+  } catch (error) {
+    throw new Error("Error refunding user");
+  }
+}
+
 export async function handleBanUser({
   user_sk,
 }: VolunteerUserInterface): Promise<ResponseWithoutSuccessDetails> {

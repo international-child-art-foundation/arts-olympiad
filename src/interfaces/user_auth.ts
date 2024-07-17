@@ -61,6 +61,7 @@ export interface UserDataSchema {
   voted_sk: string,
   can_submit_art: boolean;
   has_active_submission: boolean;
+  has_paid: boolean;
 }
 
 export interface VerificationCodeInterface {
@@ -79,6 +80,10 @@ export interface ResendVerificationInterface {
 
 export interface EmailInterface {
   email: string;
+}
+
+export interface DeleteAccountInterface {
+  user_sk: string;
 }
 
 export interface ApiEndpointConfig {

@@ -2,9 +2,9 @@
 // export type DashboardUrls = "dashboard" | "account-settings" | "guardian-information" | "your-vote";
 // export type DashboardDisplay = "Dashboard" | "Account Settings" | "Guardian Information" | "Your Vote"
 
-export type DashboardTabs = "Dashboard" | "YourVote";
-export type DashboardUrls = "dashboard" | "your-vote";
-export type DashboardDisplay = "Dashboard" | "Your Vote"
+export type DashboardTabs = "Dashboard" | "YourVote" | "AccountSettings";
+export type DashboardUrls = "dashboard" | "your-vote" | "account-settings";
+export type DashboardDisplay = "Dashboard" | "Your Vote" | "Account Settings";
 
 export type DashboardLoadingStates = "Loading" | "Loaded";
 
@@ -19,7 +19,7 @@ export type DashboardTypeConversions = {
 
 export const dashboardTypeStringConversions: DashboardTypeConversions = {
   Dashboard: { url: "dashboard", display: "Dashboard" },
-  // AccountSettings: { url: "account-settings", display: "Account Settings" },
   // GuardianInformation: { url: "guardian-information", display: "Guardian Information" },
-  YourVote: { url: "your-vote", display: "Your Vote" }
+  YourVote: { url: "your-vote", display: "Your Vote" },
+  AccountSettings: { url: "account-settings", display: "Account Settings" },
 };

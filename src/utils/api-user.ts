@@ -4,7 +4,7 @@ import { BirthdateInterface,
   VerificationCodeInterface,
   UserRegisterInterfaceAfterFormatting,
   EmailInterface,
-  ConfirmForgotPasswordInterface
+  ConfirmForgotPasswordInterface,
 } from "@/interfaces/user_auth";
 import { 
   GenericResponse, 
@@ -341,5 +341,29 @@ export async function confirmForgotPassword({email, confirmationCode, newPasswor
     }
   } catch {
     throw new Error("Error completing password flow");
+  }
+}
+
+export async function handleUserDeleteAccount(): Promise<EmptyResponse> {
+  try {
+    const response = await fetch("/next-proxy/api/users/user-delete-account", {
+      method: "DELETE",
+      headers: {
+        "Content-Type": "application/json",
+        "x-api-key": process.env.NEXT_PUBLIC_AK || "",
+      },
+      credentials: "include",
+    });
+
+    const data = await response.json();
+
+    if (response.ok) {
+      return { success: true };
+    } else {
+      throw new Error(data.message || "Error deleting account");
+    }
+  } catch (error) {
+    console.error("Error in handleUserDeleteAccount:", error);
+    throw new Error(error instanceof Error ? error.message : "Unknown error deleting account");
   }
 }

@@ -1,6 +1,6 @@
 const { LambdaClient, InvokeCommand } = require("@aws-sdk/client-lambda");
 const { getUserCognitoData, handleRefreshTokenFlow } = require("../utils");
-
+const UserModel = require("../models/user");
 
 const ArtworkService = require("../services/artwork");
 
@@ -169,16 +169,20 @@ async function generatePresigned(req, res) {
   if (res.headersSent) return;
   const userCognitoData = await getUserCognitoData(req.cookies.accessToken);
   const userSk = userCognitoData.sub;
+  const userData = await UserModel.getUserBySk(userSk);
   const fileType = req.body.file_type;
-
-  try {
-    const { url, fields } = await ArtworkService.createUrlAndFields(userSk, fileType);
-    res.status(200).json({ 
-      s3_presigned_url:url, 
-      fields: fields,
-    });
-  } catch (error) {
-    res.status(400).json({ error: error.message });
+  if (userData.Item.has_paid == true) {
+    try {
+      const { url, fields } = await ArtworkService.createUrlAndFields(userSk, fileType);
+      res.status(200).json({ 
+        s3_presigned_url:url, 
+        fields: fields,
+      });
+    } catch (error) {
+      res.status(400).json({ error: error.message });
+    }
+  } else {
+    res.status(400).json({ error: "User has not paid their entry fee."});
   }
 }
 

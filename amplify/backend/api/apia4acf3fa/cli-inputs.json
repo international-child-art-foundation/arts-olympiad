@@ -119,6 +119,20 @@
       "permissions": {
         "setting": "open"
       }
+    },
+    "/api/refund-user": {
+      "name": "/api/refund-user",
+      "lambdaFunction": "usersLambda",
+      "permissions": {
+        "setting": "open"
+      }
+    },
+    "/api/user-delete-account": {
+      "name": "/api/user-delete-account",
+      "lambdaFunction": "usersLambda",
+      "permissions": {
+        "setting": "open"
+      }
     }
   }
 }

@@ -125,6 +125,34 @@ async function getVolunteerAuthStatus(req, res) {
   }
 }
 
+async function refundUser(req, res) {
+  const userSk = req.params.userSk;
+  
+  if (!req.cookies.accessToken) {
+    return res.status(401).json({message: "No access token provided"});
+  }
+
+  try {
+    const userCognitoData = await getUserCognitoData(req.cookies.accessToken);
+    const userNick = userCognitoData.nickname;
+    
+    if (userNick === "Volunteer") {
+      try {
+        const refundedUser = await UserService.refundUser(userSk);
+        res.status(200).json(refundedUser);
+      } catch(error) {
+        console.error(error);
+        res.status(400).json({message: "Refunding user failed due to unknown error", error: "Refunding user failed"});
+      }
+    } else {
+      res.status(403).json({message: "User is not authenticated as a volunteer."});
+    }
+  } catch (error) {
+    console.error("Error getting user Cognito data:", error);
+    res.status(500).json({message: "Error authenticating user", error: "Error authenticating user"});
+  }
+}
+
 async function login(req, res)  {
   const { email, password } = req.body;
 
@@ -196,6 +224,36 @@ async function deleteUser(req, res) {
   } catch(error) {
     console.error("error deleting user");
     res.status(400).json({message: "error deleting user", error: error});
+  }
+}
+
+async function userDeleteAccount(req, res) {
+  try {
+    const {accessToken, refreshToken} = req.cookies;
+    if (!accessToken && !refreshToken) {
+      return res.status(401).json({ message: "User is not logged in" });
+    }
+    await handleRefreshTokenFlow(req, res);
+    if (res.headersSent) return; // Exit execution if response has already been sent
+
+    const userCognitoData = await getUserCognitoData(accessToken);
+    const userSk = userCognitoData.sub;
+    const userEmail = userCognitoData.email;
+    
+    const result = await UserService.userDeleteAccount(userSk, userEmail);
+    
+    if (result.success) {
+      res.clearCookie("accessToken");
+      res.clearCookie("refreshToken");
+      res.status(200).json({ message: "Account successfully deleted" });
+    } else {
+      console.error(result.message);
+      res.status(400).json({ message: "Error deleting account" });
+    }
+
+  } catch(error) {
+    console.error("Error deleting user:", error);
+    res.status(500).json({ message: "Internal server error while deleting account" });
   }
 }
 
@@ -275,5 +333,7 @@ module.exports = {
   getVolunteerAuthStatus,
   getUserVoted,
   sendVerificationEmail,
-  confirmForgotPassword
+  confirmForgotPassword,
+  refundUser,
+  userDeleteAccount
 };

@@ -1,13 +1,13 @@
 "use client";
 import React, { useState } from "react";
-import { handleBanUser, handleFetchUnapprovedArtworks, handleApproveArtwork, handleDeleteArtwork } from "@/utils/api-volunteer-artwork-functions";
+import { handleBanUser, handleFetchUnapprovedArtworks, handleApproveArtwork, handleDeleteArtwork, handleRefundUser } from "@/utils/api-volunteer-artwork-functions";
 import Image from "next/image";
 import { ApiArtworksResponse, UserArtworkSchema } from "@/interfaces/artwork_shapes";
 import { limiter } from "@/utils/api-rate-limit";
 import { SelectedArtworkDisplay} from "./SelectedArtworkDisplay";
 import Bottleneck from "bottleneck";
 
-type ArtworkStatus = "approved" | "denied" | "banned" | null;
+type ArtworkStatus = "approved" | "denied" | "banned" | "refunded";
 
 export const ArtworkApproval = () => {
   const [result, setResult] = useState<ApiArtworksResponse | null>(null);
@@ -48,6 +48,27 @@ export const ArtworkApproval = () => {
         setApiError("An error has occurred. Try again later.");
         console.log("Failed to delete artwork " + artwork_sk);
       }
+    } catch(error) {
+      if (error instanceof Bottleneck.BottleneckError) {
+        setApiError("Error: Rate limit reached.");
+      } else {
+        setApiError("An error has occurred. Try again later.");
+      }
+    }
+  }
+
+  async function onRefundUser(artwork_sk: string) {
+    const user_sk = artwork_sk;
+    try {
+      const refundUser = await limiter.schedule(() => handleRefundUser({user_sk}));
+      if (refundUser.success == true) {
+        console.log(artwork_sk);
+        setArtworkStatuses(prev => ({...prev, [artwork_sk]: "refunded"}));
+        console.log("User associated with " + artwork_sk + " has been refunded.");
+        setApiError("");
+      } else {
+        setApiError("An error has occurred. Try again later.");
+      } 
     } catch(error) {
       if (error instanceof Bottleneck.BottleneckError) {
         setApiError("Error: Rate limit reached.");
@@ -156,7 +177,7 @@ export const ArtworkApproval = () => {
         </div>
       )}
 
-      {selectedArtwork && <SelectedArtworkDisplay apiError={apiError} selectedArtwork={selectedArtwork} setSelectedArtwork={setSelectedArtwork} onApprove={onApprove} onDeny={onDeny} onBanUser={onBanUser}/>}
+      {selectedArtwork && <SelectedArtworkDisplay apiError={apiError} selectedArtwork={selectedArtwork} setSelectedArtwork={setSelectedArtwork} onApprove={onApprove} onDeny={onDeny} onBanUser={onBanUser} onRefundUser={onRefundUser}/>}
     </div>
   );
 };
