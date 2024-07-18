@@ -17,13 +17,13 @@ interface FilterContextType {
   setActiveEntryId: (newActiveEntryId: string) => void;
 }
 
-const FilterContext = createContext<FilterContextType | undefined>(undefined);
+const PastEntriesFilterContext = createContext<FilterContextType | undefined>(undefined);
 
 interface FilterProviderProps {
   children: ReactNode;
 }
 
-export const FilterProvider: React.FC<FilterProviderProps> = ({ children }) => {
+export const PastEntriesFilterProvider: React.FC<FilterProviderProps> = ({ children }) => {
   const [filterableOptions, setFilterableOptions] = useState(initialFilterableOptions);
   const [pageNumber, setPageNumber] = useState(1);
   const [sortValue, setsortValue] = useState<sortValueType>("Newest");
@@ -89,7 +89,7 @@ export const FilterProvider: React.FC<FilterProviderProps> = ({ children }) => {
   };
   
   return (
-    <FilterContext.Provider value={{
+    <PastEntriesFilterContext.Provider value={{
       filterableOptions, setFilterOption,
       activateOptionsByName, bulkAlterCategoryOptions,
       resetAllFilters,
@@ -98,14 +98,14 @@ export const FilterProvider: React.FC<FilterProviderProps> = ({ children }) => {
       activeEntryId, setActiveEntryId
     }}>
       {children}
-    </FilterContext.Provider>
+    </PastEntriesFilterContext.Provider>
   );
 };
 
-export const useFilters = () => {
-  const context = useContext(FilterContext);
+export const usePastEntriesFilters = () => {
+  const context = useContext(PastEntriesFilterContext);
   if (context === undefined) {
-    throw new Error("useFilters must be used within a FilterProvider");
+    throw new Error("usePastEntriesFilters must be used within a PastEntriesFilterProvider");
   }
   return context;
 };

@@ -5,7 +5,7 @@ import { DownIcon } from "../../svgs/DownIconWithoutMargin";
 import { UpIcon } from "../../svgs/UpIcon2";
 import { gsap } from "gsap";
 import { Flip } from "gsap/all";
-import { useFilters } from "./PastEntriesFilterContext";
+import { usePastEntriesFilters } from "./PastEntriesFilterContext";
 import { sortValue as sortValueType } from "../../../mock/sortValueType";
 
 gsap.registerPlugin(Flip);
@@ -60,7 +60,7 @@ export function saveAllUserOptions(searchParams: ReadonlyURLSearchParams | null)
 
 const Checkbox = (props: CheckboxProps) => {
   const [selectAllChecked, setSelectAllChecked] = useState<boolean>(false);
-  const { filterableOptions, sortValue } = useFilters();  // Access global context
+  const { filterableOptions, sortValue } = usePastEntriesFilters();  // Access global context
   const [visibilityState, setVisibilityState] = useState<VisibilityState>("Hidden");
   const componentRootRef = useRef<HTMLDivElement>(null);
 

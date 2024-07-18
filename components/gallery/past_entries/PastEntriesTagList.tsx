@@ -64,7 +64,7 @@ export const TagList = (props: TagListProps) => {
         </button>
       )}
       {filteredKeys.map(key =>
-        props.paramsObj[key].map(value => <Tag dropdownActive={props.dropdownActive} key={value} label={value} filterType={key} onRemove={() => removeTag(key, value)} />)
+        props.paramsObj[key].map(value => <Tag key={value} label={value} filterType={key} onRemove={() => removeTag(key, value)} />)
       )}
     </div>
   );

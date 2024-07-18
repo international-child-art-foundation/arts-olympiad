@@ -13,7 +13,7 @@ import Image from "next/image";
 import Filter from "./PastEntriesFilter";
 import { TagList } from "./PastEntriesTagList";
 import ArtworkModal from "./PastEntriesArtworkModal";
-import { useFilters } from "./PastEntriesFilterContext";
+import { usePastEntriesFilters } from "./PastEntriesFilterContext";
 import { sortValue as sortValueType } from "../../../mock/sortValueType";
 import MobileFilter from "./PastEntriesMobileFilter";
 import useWindowDimensions from "@/hooks/useWindowDimensions";
@@ -33,13 +33,13 @@ export const PastEntriesArts = () => {
   const { filterableOptions, setFilterOption, bulkAlterCategoryOptions, resetAllFilters,
     pageNumber, setPageNumber,
     sortValue, setsortValue,
-    activeEntryId, setActiveEntryId } = useFilters();
+    activeEntryId, setActiveEntryId } = usePastEntriesFilters();
 
   const { windowWidth, windowHeight } = useWindowDimensions();
   const isMobile = windowWidth < 1024;
   const isHorizontal = windowWidth > windowHeight;
 
-  {/* The state of our application is handled by our FilterContext.tsx file. Variables imported from useFilters() represent our state.*/}
+  {/* The state of our application is handled by our FilterContext.tsx file. Variables imported from usePastEntriesFilters() represent our state.*/}
   {/* Generally when an action occurs that changes the state of our application, we update the URL to reflect those changes to the user. */}
   const updateURLFromState = useCallback(() => {
     const currentParams = new URLSearchParams();

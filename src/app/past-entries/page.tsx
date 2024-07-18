@@ -5,7 +5,7 @@ import { PastEntriesArts } from "../../../components/gallery/past_entries/PastEn
 import { BannerImgOverflow } from "../../../components/BannerImgOverflow";
 import multiPic from "../../../public/svgs/gallery-svg/multiPic.webp";
 import multiPicSmall from "../../../public/svgs/gallery-svg/multiPicSmall.webp";
-import { FilterProvider } from "../../../components/gallery/FilterContext";
+import { PastEntriesFilterProvider } from "../../../components/gallery/past_entries/PastEntriesFilterContext";
 import { Suspense } from "react";
 
 export const metadata: Metadata = {
@@ -21,11 +21,11 @@ export default function PastEntries() {
   return (
     <>
       <PastEntriesHeader />
-      <FilterProvider>
+      <PastEntriesFilterProvider>
         <Suspense>
           <PastEntriesArts />
         </Suspense>
-      </FilterProvider>
+      </PastEntriesFilterProvider>
       <BannerImgOverflow 
         backgroundColor="light-blue"
         title="Submit Your Artwork Today!" 

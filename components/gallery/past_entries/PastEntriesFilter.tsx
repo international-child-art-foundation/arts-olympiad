@@ -1,7 +1,7 @@
 "use client";
 import React, { useState, useEffect } from "react";
 
-import CheckBox from "../Checkbox";
+import CheckBox from "./PastEntriesCheckbox";
 import { filterableOptions } from "../../../mock/filterableOptionsData";
 import { sortValue as sortValueType } from "../../../mock/sortValueType";
 
