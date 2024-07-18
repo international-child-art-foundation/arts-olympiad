@@ -37,7 +37,7 @@ export const FlippingCardsStatic = () => {
       >
         <div className="flex-grow"></div> {/* Spacer element */}
         <ButtonStyledLink
-          href={"/auth/register"}
+          href={"/register"}
           className="my-1 w-full"
           onTouchStart={(e: React.TouchEvent<HTMLAnchorElement>) => { e.stopPropagation();}}
           onClick={(e: React.MouseEvent<HTMLAnchorElement>) => { e.stopPropagation();}}

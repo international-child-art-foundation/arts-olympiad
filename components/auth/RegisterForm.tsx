@@ -78,7 +78,7 @@ export const RegisterForm: React.FC<RegisterFormProps> = ({setUserEmail, setRegi
           )}
         </div>
         <Pm className="font-semibold my-4 text-center">Already have an account?
-          <span className="text-main-blue font-semibold"><Link className="inline" href="/auth/login"> Log in here</Link></span>
+          <span className="text-main-blue font-semibold"><Link className="inline" href="/login"> Log in here</Link></span>
         </Pm>
         <div className="invisible">
           <div className="flex flex-row">
@@ -102,7 +102,7 @@ export const RegisterForm: React.FC<RegisterFormProps> = ({setUserEmail, setRegi
           </div>
         </div>
         {/*<Pm className="font-semibold my-4 text-center">Already have an account?*/}
-        {/*  <span className="text-main-blue font-semibold"><Link className="inline" href="/auth/login"> Log in here</Link></span>*/}
+        {/*  <span className="text-main-blue font-semibold"><Link className="inline" href="/login"> Log in here</Link></span>*/}
         {/*</Pm>*/}
       </div>
     </>

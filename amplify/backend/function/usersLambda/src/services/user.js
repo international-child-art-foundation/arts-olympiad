@@ -22,7 +22,7 @@ async function registerUser(userData) {
 
 async function updateUserPaymentStatus(userSk, updateValue, pi_id) {
   if (updateValue == true) {
-    await UserModel.updateUserSuccessfulPaymentStatus(userSk, pi_id);
+    return await UserModel.updateUserSuccessfulPaymentStatus(userSk, pi_id);
   }
 }
 
@@ -102,7 +102,7 @@ async function updateUser(userSk, updateField) {
 
 async function refundUser(userSk) {
   const userData = await UserModel.getUserBySk(userSk);
-  await UserModel.refundUser(userData.pi_id);
+  return await UserModel.refundUser(userData.Item.pi_id);
 }
 
 async function volunteerUpdateUser(userSk, updateField) {

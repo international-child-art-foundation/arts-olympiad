@@ -41,7 +41,7 @@ export default function DashboardManager() {
       if (authStatus.success) {
         setIsAuthenticated("Authenticated");
       } else {
-        router.push("/auth/login");
+        router.push("/login");
         setIsAuthenticated("Unauthenticated");
       }
       return authStatus.success;
@@ -77,6 +77,11 @@ export default function DashboardManager() {
           handleRealizeSignedOut();
         }
       } catch(error) {
+        handleRealizeSignedOut();
+        setIsAuthenticated("Unauthenticated");
+        setDashboardLoadingState("Loaded" as DashboardLoadingStates);
+        router.push("/login");
+
         console.log(error);
       }
     }
@@ -110,7 +115,7 @@ export default function DashboardManager() {
   }, [dashboardTab, router]);
 
   return(
-    <div className=" max-w-screen-2xl mx-auto w-full h-full" 
+    <div className=" max-w-screen-2xl mx-auto w-full h-full flex-grow mt-4" 
       style={{
         
       }}>
@@ -124,13 +129,13 @@ export default function DashboardManager() {
           <DeleteAccount />
         </DashboardModal>
       }
-      <div className="flex flex-col md:grid md:grid-cols-2 md:px-8"style={{            gridTemplateColumns: "minmax(260px, 17%) 1fr",
+      <div className="flex flex-col md:grid md:grid-cols-2 md:px-8 h-full "style={{            gridTemplateColumns: "minmax(260px, 17%) 1fr",
         boxShadow: "inset 0px 5px 10px 0px rgba(0, 0, 0, 0.05)",
         clipPath: "inset(0px 10px)",
         backdropFilter: "blur(15px)"
       }}>
         <DashboardTabSection dashboardTab={dashboardTab} handleTabClick={handleTabClick}/>
-        <div className="p-10">
+        <div className="p-10 h-full">
           <div className="xl:w-[80%] m-auto max-w-[800px]">
             {/* {isAuthenticated && <div>Authenticated!</div>} */}
             {dashboardTab == "Dashboard" && <DashboardMainTab dashboardLoadingState={dashboardLoadingState} isAuthenticated={isAuthenticated}/>}

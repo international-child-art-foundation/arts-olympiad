@@ -48,7 +48,7 @@ export const Register = () => {
         verificationCode: values.verificationCode
       } as VerificationCodeInterface));
       if (result.success) {
-        router.push("/auth/login");
+        router.push("/login");
       } else {
         setApiError("An error has occurred. Try reloading the page.");
       }

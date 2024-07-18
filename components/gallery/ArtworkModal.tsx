@@ -173,7 +173,7 @@ const ArtworkModal: React.FC<ArtworkModalProps> = ({ artworks, pageLoadArtwork, 
   
   function renderSubmittedState() {
     return (
-      <div className="flex flex-col overflow-auto no-scrollbar items-center justify-center h-full w-[410px] max-w-full mx-auto">
+      <div className="flex flex-col overflow-auto no-scrollbar items-center justify-center h-full w-[300px] max-w-full mx-auto">
         <p className="font-montserrat font-semibold text-3xl pb-7">Thank you for your vote.</p>
         <p className="text-xl pb-10 font-light">Your vote is cast – thank you for participating! You've just helped an artist get one step closer to the spotlight. Share their work to spread the word!</p>
         <div className="">
@@ -227,7 +227,7 @@ const ArtworkModal: React.FC<ArtworkModalProps> = ({ artworks, pageLoadArtwork, 
           {!isAuthenticated ? (
             <>
               <p className="text-sm text-new-blue mt-4">Ready to vote for this artwork? Please sign in or create an account to participate.</p>
-              <Link className="bg-new-blue text-white text-base p-4 rounded mt-4 text-center" href="/auth/login">Sign in</Link>
+              <Link className="bg-new-blue text-white text-base p-4 rounded mt-4 text-center" href="/login">Sign in</Link>
             </>
           ) : (
             currentUserSk != sk && (
@@ -313,7 +313,7 @@ const ArtworkModal: React.FC<ArtworkModalProps> = ({ artworks, pageLoadArtwork, 
         {!isAuthenticated ? (
           <>
             <p className="text-sm text-new-blue mt-4">Ready to vote for this artwork? Please sign in or create an account to participate.</p>
-            <Link className="bg-new-blue text-white text-base p-4 rounded mt-4 text-center" href="/auth/login">Sign in</Link>
+            <Link className="bg-new-blue text-white text-base p-4 rounded mt-4 text-center" href="/login">Sign in</Link>
           </>
         ) : (
           currentUserSk != sk && sk && (

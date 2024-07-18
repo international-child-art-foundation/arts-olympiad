@@ -10,7 +10,7 @@ export const ResetPasswordSuccess = () => {
       <Pm className="my-8" >
         New password ready! Log in to access your account. For assistance, reach out to our team.
       </Pm>
-      <ButtonStyledLink target="_self" href={"/auth/login"}>Sign into my account</ButtonStyledLink>
+      <ButtonStyledLink target="_self" href={"/login"}>Sign into my account</ButtonStyledLink>
     </>
   );
 };

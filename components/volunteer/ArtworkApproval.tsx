@@ -6,6 +6,7 @@ import { ApiArtworksResponse, UserArtworkSchema } from "@/interfaces/artwork_sha
 import { limiter } from "@/utils/api-rate-limit";
 import { SelectedArtworkDisplay} from "./SelectedArtworkDisplay";
 import Bottleneck from "bottleneck";
+import { Modal } from "../../components/common/ui/Modal";
 
 type ArtworkStatus = "approved" | "denied" | "banned" | "refunded";
 
@@ -14,6 +15,23 @@ export const ArtworkApproval = () => {
   const [selectedArtwork, setSelectedArtwork] = useState<UserArtworkSchema | null>(null);
   const [artworkStatuses, setArtworkStatuses] = useState<Record<string, ArtworkStatus>>({});
   const [apiError, setApiError] = useState("");
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [modalAction, setModalAction] = useState<"refund" | "ban" | null>(null);
+
+  const handleModalConfirm = () => {
+    if (modalAction === "refund" && selectedArtwork) {
+      onRefundUser(selectedArtwork.sk);
+    } else if (modalAction === "ban" && selectedArtwork) {
+      onBanUser(selectedArtwork.sk);
+    }
+    setIsModalOpen(false);
+    setModalAction(null);
+  };
+
+  const openModal = (action: "refund" | "ban") => {
+    setModalAction(action);
+    setIsModalOpen(true);
+  };
 
   async function onApprove(artwork_sk: string) {
     console.log(artwork_sk);
@@ -144,9 +162,10 @@ export const ArtworkApproval = () => {
               className={`relative border border-gray-200 rounded-lg overflow-hidden shadow-md hover:shadow-lg transition-shadow duration-300 cursor-pointer ${
                 artworkStatuses[artwork.sk] === "approved" ? "bg-green-200 opacity-50" :
                   artworkStatuses[artwork.sk] === "denied" ? "bg-red-200 opacity-50" :
-                    artworkStatuses[artwork.sk] === "banned" ? "bg-gray-200 opacity-50" : ""
+                    artworkStatuses[artwork.sk] === "banned" ? "bg-gray-200 opacity-50" :
+                      artworkStatuses[artwork.sk] === "refunded" ? "bg-yellow-200 opacity-50" : ""
               }`}
-              onClick={() => !artworkStatuses[artwork.sk] && handleArtworkClick(artwork)}
+              onClick={() => handleArtworkClick(artwork)}
             >
               <div className="relative h-48">
                 <Image 
@@ -166,10 +185,13 @@ export const ArtworkApproval = () => {
                 <div className={`absolute top-2 right-2 px-2 py-1 rounded-full text-xs text-white ${
                   artworkStatuses[artwork.sk] === "approved" ? "bg-green-500" :
                     artworkStatuses[artwork.sk] === "denied" ? "bg-red-500" :
-                      "bg-gray-500"
+                      artworkStatuses[artwork.sk] === "banned" ? "bg-gray-500" :
+                        artworkStatuses[artwork.sk] === "refunded" ? "bg-yellow-500" : ""
                 }`}>
                   {artworkStatuses[artwork.sk] === "approved" ? "Approved" :
-                    artworkStatuses[artwork.sk] === "denied" ? "Denied" : "User Banned"}
+                    artworkStatuses[artwork.sk] === "denied" ? "Denied" :
+                      artworkStatuses[artwork.sk] === "banned" ? "User Banned" :
+                        artworkStatuses[artwork.sk] === "refunded" ? "Refunded" : ""}
                 </div>
               )}
             </div>
@@ -177,7 +199,43 @@ export const ArtworkApproval = () => {
         </div>
       )}
 
-      {selectedArtwork && <SelectedArtworkDisplay apiError={apiError} selectedArtwork={selectedArtwork} setSelectedArtwork={setSelectedArtwork} onApprove={onApprove} onDeny={onDeny} onBanUser={onBanUser} onRefundUser={onRefundUser}/>}
+      {selectedArtwork && (
+        <SelectedArtworkDisplay
+          apiError={apiError}
+          selectedArtwork={selectedArtwork}
+          setSelectedArtwork={setSelectedArtwork}
+          onApprove={onApprove}
+          onDeny={onDeny}
+          onBanUser={() => openModal("ban")}
+          onRefundUser={() => openModal("refund")}
+        />
+      )}
+
+      <Modal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)}>
+        <div className="text-center">
+          <h2 className="text-xl mb-4">
+            Are you sure you want to {modalAction === "refund" ? "refund this user" : "ban this user"}?
+          </h2>
+          <div className="flex justify-center space-x-4">
+            <button
+              className={`px-4 py-2 rounded-lg text-white ${
+                modalAction === "refund" ? "bg-yellow-500" : "bg-red-500"
+              }`}
+              onClick={handleModalConfirm}
+            >
+              Confirm {modalAction === "refund" ? "Refund" : "Ban"}
+            </button>
+            <button
+              className="px-4 py-2 rounded-lg text-white bg-gray-500"
+              onClick={() => setIsModalOpen(false)}
+            >
+              Cancel
+            </button>
+          </div>
+        </div>
+      </Modal>
+
+
     </div>
   );
 };

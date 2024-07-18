@@ -291,29 +291,26 @@ async function refundUser(pi_id) {
     // Retrieve the PaymentIntent to ensure it exists and to get the amount
     const paymentIntent = await stripe.paymentIntents.retrieve(pi_id);
 
-    // Create the refund
-    const refund = await stripe.refunds.create({
-      payment_intent: pi_id,
-      amount: paymentIntent.amount // Refund the full amount
-    });
-
-    console.log(`Refund processed successfully: ${refund.id}`);
-    return {
-      statusCode: 200,
-      body: JSON.stringify({
-        message: "Refund processed successfully",
-        refundId: refund.id
-      })
-    };
+    if (paymentIntent) {
+      // Create the refund
+      const refund = await stripe.refunds.create({
+        payment_intent: pi_id,
+        amount: paymentIntent.amount // Refund the full amount
+      });
+  
+      if (refund.status === "succeeded") {
+        console.log(`Refund processed successfully: ${refund.id}`);
+        return refund.id;
+      } else {
+        throw new Error(`Refund failed with status: ${refund.status}`);
+      }
+    } else {
+      console.error(`Error processing refund for payment intent ${pi_id}`);
+      throw new Error(`Refund failed with status: ${refund.status}`);
+    }
   } catch (error) {
     console.error(`Error processing refund for payment intent ${pi_id}:`, error);
-    return {
-      statusCode: 500,
-      body: JSON.stringify({
-        message: "Error processing refund",
-        error: error.message
-      })
-    };
+    throw new Error(`Refund failed with status: ${refund.status}`);
   }
 }
 

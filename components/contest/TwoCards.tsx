@@ -31,7 +31,7 @@ function TwoCards() {
             <Pm className="z-20 font-sans font-light my-2 mb-14">
                 Creators aged 14 to 20, anywhere in the world.
             </Pm>
-            <ArrowCTADirectLink text="Register now" href="/auth/register"/>
+            <ArrowCTADirectLink text="Register now" href="/register"/>
           </div>
         </article>
 
@@ -47,7 +47,7 @@ function TwoCards() {
                 Your favorite Olympic sport.
             </Pm>
             <div className="">
-              <ArrowCTADirectLink text="Create my account" href="/auth/register"></ArrowCTADirectLink>
+              <ArrowCTADirectLink text="Create my account" href="/register"></ArrowCTADirectLink>
             </div>
           </div>
         </article>

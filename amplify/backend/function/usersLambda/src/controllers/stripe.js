@@ -33,8 +33,12 @@ async function handleWebhook(req, res) {
 async function handleSuccessfulPayment(charge) {
   console.log("Received successful payment; now handling update of DynamoDB");
   const userSk = charge.client_reference_id;
-  await UserService.updateUserPaymentStatus(userSk, true, charge.payment_intent);
-  console.log(`Payment successful for user ${userSk} with ID ${charge.client_reference_id}`);
+  const paymentStatus = await UserService.updateUserPaymentStatus(userSk, true, charge.payment_intent);
+  if (paymentStatus) {
+    console.log(`Payment successful for user ${userSk} with ID ${charge.client_reference_id}`);
+  } else {
+    console.error(`Payment failed for user ${userSk} with ID ${charge.client_reference_id}`);
+  }
 }
 
 module.exports = { handleWebhook };

@@ -6,10 +6,10 @@ interface SelectedArtworkDisplayProps {
   selectedArtwork: UserArtworkSchema;
   setSelectedArtwork: React.Dispatch<React.SetStateAction<UserArtworkSchema | null>>;
   apiError: string;
-  onApprove: (artworkId: string) => void;
-  onDeny: (artworkId: string) => void;
-  onBanUser: (userId: string) => void;
-  onRefundUser: (userId: string) => void;
+  onApprove: (artworkSk: string) => Promise<void>;
+  onDeny: (artworkSk: string) => Promise<void>;
+  onBanUser: (userSk: string) => void;
+  onRefundUser: (userSk: string) => void;
 }
 
 type ChecklistItem = "noHiddenContent" | "noInappropriateContent" | "noManipulation" | "normalMetadata";
@@ -47,7 +47,7 @@ export const SelectedArtworkDisplay: React.FC<SelectedArtworkDisplayProps> = ({
     return Object.values(checklistItems).some(value => value === false);
   }, [checklistItems]);
 
-  const handleApprove = async() => {
+  const handleApprove = async () => {
     setIsLoading(true);
     if (isAllGreen()) {
       await onApprove(selectedArtwork.sk);
@@ -67,7 +67,7 @@ export const SelectedArtworkDisplay: React.FC<SelectedArtworkDisplayProps> = ({
     setIsLoading(false);
   };
 
-  const handleBanUser = async() => {
+  const handleBanUser = async () => {
     setIsLoading(true);
     if (hasRed()) {
       await onBanUser(selectedArtwork.sk);
@@ -77,7 +77,7 @@ export const SelectedArtworkDisplay: React.FC<SelectedArtworkDisplayProps> = ({
     setIsLoading(false);
   };
 
-  const handleRefundUser = async() => {
+  const handleRefundUser = async () => {
     setIsLoading(true);
     await onRefundUser(selectedArtwork.sk);
     setIsLoading(false);
@@ -122,7 +122,7 @@ export const SelectedArtworkDisplay: React.FC<SelectedArtworkDisplayProps> = ({
         <div className="mt-4">
           {apiError && 
           <>
-            <p className="text-red-500">An API error has occurred. You may be offline, the server may be down, or you may have reached your rate limit.</p>
+            <p className="text-red-500">An API error has occurred. A refund may have been rejected, you may be offline, the server may be down, or you may have reached your rate limit.</p>
             <p className="text-red-500">Please contact an administrator if this keeps unexpectedly happening.</p>
           </>
           }

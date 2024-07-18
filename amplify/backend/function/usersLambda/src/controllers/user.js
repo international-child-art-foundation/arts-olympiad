@@ -6,7 +6,7 @@ async function getUser(req, res) {
   try {
     const {accessToken, refreshToken} = req.cookies;
     if (!accessToken && !refreshToken) {
-      return res.status(401).json({ message: "User is not logged in"});
+      return res.status(401).json({ error: "User is not logged in"});
     }
     await handleRefreshTokenFlow(req, res);
     if (res.headersSent) return; // Exit execution if response has already been sent
@@ -16,7 +16,7 @@ async function getUser(req, res) {
     res.status(200).json(user);
   } catch (error) {
     console.error("Error from route:", error.message || error);
-    res.status(400).json({ error: error.message || "An unknown error occurred" });  
+    res.status(400).json({ error: "An error occurred when trying to get the user" });  
   }
 }
 
@@ -24,7 +24,7 @@ async function getUserVoted(req, res) {
   try {
     const {accessToken, refreshToken} = req.cookies;
     if (!accessToken && !refreshToken) {
-      return res.status(401).json({ message: "User is not logged in"});
+      return res.status(401).json({ error: "User is not logged in"});
     }
     await handleRefreshTokenFlow(req, res);
     if (res.headersSent) return; // Exit execution if response has already been sent
@@ -34,7 +34,7 @@ async function getUserVoted(req, res) {
     res.status(200).json(user.voted_sk);
   } catch (error) {
     console.error("Error from route:", error.message || error);
-    res.status(400).json({ error: error.message || "An unknown error occurred" });  
+    res.status(400).json({ error: "Could not get user's voted artwork" });  
   }
 }
 
@@ -47,7 +47,7 @@ async function registerUser(req, res)  {
     res.status(201).json(userSuccessMessage);
   } catch (error) {
     console.error(error);
-    res.status(400).json({ message: "Registration failed", error: error.message });
+    res.status(400).json({ error: "Registration failed" });
   }
 }
 
@@ -59,7 +59,7 @@ async function verifyUser(req, res) {
     res.status(200).json(user);
   } catch (error) {
     console.error(error);
-    res.status(400).json({ message: "Registration failed", error: error.message });
+    res.status(400).json({ error: "Registration failed" });
   }
 }
 
@@ -70,10 +70,11 @@ async function sendVerificationEmail(req, res) {
     if (response.$metadata.httpStatusCode === 200) {
       res.status(200).json({ message: "Verification email resent successfully" });
     } else {
-      res.status(500).json({ message: "Failed to resend verification email" });
+      res.status(500).json({ error: "Failed to resend verification email" });
     }
   } catch (error) {
-    res.status(500).json({ message: "Failed to resend verification email" });
+    console.error("Failed to resend verification email:", error);
+    res.status(500).json({ error: "Failed to resend verification email" });
   }
 }
 
@@ -90,14 +91,14 @@ async function getAuthStatus(req, res) {
       if (userCognitoData.sub) {
         res.status(200).json({message: userCognitoData.sub});
       } else {
-        res.status(400).json({message: "First name not available"});
+        res.status(400).json({error: "User ID not found"});
       }
     } else {
-      res.status(401).json({message: "Invalid or expired access token"});
+      res.status(401).json({error: "Invalid or expired access token"});
     }
   } catch(error) {
     console.error(error);
-    res.status(400).json({ message: "Authentication failed", error: error.message});
+    res.status(400).json({ error: "Authentication failed"});
   }
 }
 
@@ -112,16 +113,16 @@ async function getVolunteerAuthStatus(req, res) {
     const userCognitoData = await getUserCognitoData(req.cookies.accessToken);
     if (userCognitoData) {
       if (userCognitoData.nickname == "Volunteer") {
-        res.status(200).json({message: "Authenticated as a volunteer."});
+        res.status(200).json({ message: "Authenticated as a volunteer." });
       } else {
-        res.status(400).json({ message: "User is not a volunteer."});
+        res.status(400).json({ error: "User is not a volunteer."});
       }
     } else {
-      res.status(401).json({ message: "Invalid or expired access token" });
+      res.status(401).json({ error: "Invalid or expired access token" });
     }
   } catch(error) {
     console.error(error);
-    res.status(400).json({ message: "Authentication failed", error: error.message});
+    res.status(400).json({ error: "Authentication failed"});
   }
 }
 
@@ -129,7 +130,7 @@ async function refundUser(req, res) {
   const userSk = req.params.userSk;
   
   if (!req.cookies.accessToken) {
-    return res.status(401).json({message: "No access token provided"});
+    return res.status(401).json({error: "No access token provided"});
   }
 
   try {
@@ -138,18 +139,18 @@ async function refundUser(req, res) {
     
     if (userNick === "Volunteer") {
       try {
-        const refundedUser = await UserService.refundUser(userSk);
-        res.status(200).json(refundedUser);
+        const refundedUserId = await UserService.refundUser(userSk);
+        res.status(200).json(refundedUserId);
       } catch(error) {
         console.error(error);
-        res.status(400).json({message: "Refunding user failed due to unknown error", error: "Refunding user failed"});
+        res.status(400).json({error: "Refunding user failed due to unknown error"});
       }
     } else {
-      res.status(403).json({message: "User is not authenticated as a volunteer."});
+      res.status(403).json({error: "User is not authenticated as a volunteer."});
     }
   } catch (error) {
     console.error("Error getting user Cognito data:", error);
-    res.status(500).json({message: "Error authenticating user", error: "Error authenticating user"});
+    res.status(500).json({error: "Error authenticating user"});
   }
 }
 
@@ -181,7 +182,8 @@ async function login(req, res)  {
     });
     res.status(201).json(response);
   } catch(error) {
-    res.status(401).json({ message: "Login failed", error: error.message });
+    console.error("Login error:", error);
+    res.status(401).json({ error: "Login failed" });
   }
 }
 
@@ -209,7 +211,7 @@ async function logout(req, res) {
     res.status(200).json({ message: "Logout successful" });
   } catch (error) {
     console.error("Logout error:", error);
-    res.status(500).json({ message: "Logout failed", error: error.message });
+    res.status(500).json({ error: "Logout failed" });
   }
 }
 
@@ -223,7 +225,7 @@ async function deleteUser(req, res) {
     res.status(204).send();
   } catch(error) {
     console.error("error deleting user");
-    res.status(400).json({message: "error deleting user", error: error});
+    res.status(400).json({error: "Error deleting user"});
   }
 }
 
@@ -248,12 +250,12 @@ async function userDeleteAccount(req, res) {
       res.status(200).json({ message: "Account successfully deleted" });
     } else {
       console.error(result.message);
-      res.status(400).json({ message: "Error deleting account" });
+      res.status(400).json({ error: "Error deleting account" });
     }
 
   } catch(error) {
     console.error("Error deleting user:", error);
-    res.status(500).json({ message: "Internal server error while deleting account" });
+    res.status(500).json({ error: "Internal server error while deleting account" });
   }
 }
 
@@ -263,7 +265,7 @@ async function forgotPassword(req, res) {
     res.status(200).json(forgotPasswordResponse);
   } catch (error) {
     console.error(error);
-    res.status(400).json({message: "failed to initiate forgot password flow", error: error.message});
+    res.status(400).json({error: "failed to initiate forgot password flow"});
   }
 }
 
@@ -274,7 +276,7 @@ async function confirmForgotPassword(req, res) {
     res.status(200).json(confirmForgotPasswordResponse);
   } catch (error) {
     console.error(error);
-    res.status(400).json({message: "Failed to reset password"});
+    res.status(400).json({error: "Failed to reset password"});
   }
 }
 
@@ -287,7 +289,7 @@ async function updateUser(req, res) {
     res.status(200).json(updatedUser);
   } catch(error) {
     console.error(error);
-    res.status(400).json({message: "updating user failed" , error: error.message});
+    res.status(400).json({error: "Failed to update user" });
   }
 }
 
@@ -308,14 +310,14 @@ async function volunteerUpdateUser(req, res) {
         res.status(200).json(updatedUser);
       } catch(error) {
         console.error(error);
-        res.status(400).json({message: "Updating user failed", error: error.message});
+        res.status(400).json({error: "Updating user failed"});
       }
     } else {
-      res.status(403).json({message: "User is not authenticated as a volunteer."});
+      res.status(403).json({error: "User is not authenticated as a volunteer."});
     }
   } catch (error) {
     console.error("Error getting user Cognito data:", error);
-    res.status(500).json({message: "Error authenticating user", error: error.message});
+    res.status(500).json({error: "Error authenticating user"});
   }
 }
 

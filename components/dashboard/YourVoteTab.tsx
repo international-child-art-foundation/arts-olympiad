@@ -37,7 +37,7 @@ export const YourVoteTab: React.FC<YourVoteTabProps> = ({ dashboardLoadingState,
       {isAuthenticated == "Unauthenticated" &&
           <>
             <div>You're not logged in!</div>
-            <Link href="/auth/login">Return to login page</Link>
+            <Link href="/login">Return to login page</Link>
           </>
       }
       {isAuthenticated == "Authenticated" && dashboardLoadingState == "Loading" && 

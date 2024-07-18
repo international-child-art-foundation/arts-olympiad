@@ -47,8 +47,8 @@ const MobileNav = () => {
         onStateChange={handleStateChange} 
         right 
         styles={styles} 
-        customCrossIcon={<Image src="/svgs/close.svg" alt="Close navigation menu" width={30} height={30}/>}
-        customBurgerIcon={<Image src="/svgs/burger.svg" alt="Open navigation menu" width={30} height={30} />}
+        customCrossIcon={<Image src="/svgs/close.svg" alt="Close navigation menu" className="" width={30} height={30}/>}
+        customBurgerIcon={<Image src="/svgs/burger.svg" alt="Open navigation menu" className="p-4" width={30} height={30} />}
       >
 
         <div className="logo-bg w-[60px] h-[90px] mx-auto my-2"></div>
@@ -111,7 +111,7 @@ const MobileNav = () => {
         </a>
         <div className="heart-black me-auto ml-4"></div>
         
-        <Link onClick={closeMenu} href={isAuthenticated ? "/dashboard" : "/auth/login"} className="group mx-auto mb-4 h-fit w-5/6 border-new-blue border rounded text-center py-2 px-3 text-xs cursor-pointer tracking-wide text-new-blue active:scale-95">
+        <Link onClick={closeMenu} href={isAuthenticated ? "/dashboard" : "/login"} className="group mx-auto mb-4 h-fit w-5/6 border-new-blue border rounded text-center py-2 px-3 text-xs cursor-pointer tracking-wide text-new-blue active:scale-95">
           Upload
         </Link>
 
@@ -125,7 +125,7 @@ const MobileNav = () => {
             <LoginIcon transform="scale(-0.9, 0.9)" />
           </a>
         ) : (
-          <Link onClick={closeMenu} href={"/auth/login"} style={{display: "flex"}} className="group flex gap-1 items-center justify-center mx-auto mb-4 h-fit w-5/6 border-new-blue border rounded text-center py-2 px-3 text-xs cursor-pointer tracking-wide text-new-blue active:scale-95">
+          <Link onClick={closeMenu} href={"/login"} style={{display: "flex"}} className="group flex gap-1 items-center justify-center mx-auto mb-4 h-fit w-5/6 border-new-blue border rounded text-center py-2 px-3 text-xs cursor-pointer tracking-wide text-new-blue active:scale-95">
             <p>Login</p>
             <LoginIcon transform="scale(0.9, 0.9)" />
           </Link>
@@ -133,7 +133,7 @@ const MobileNav = () => {
 
         }
 
-        {/* <a href="/auth/login" className="group mx-auto mb-2 h-fit w-5/6 text-center py-2 px-3 text-xs cursor-pointer tracking-wide text-new-blue hidden md:block">
+        {/* <a href="/login" className="group mx-auto mb-2 h-fit w-5/6 text-center py-2 px-3 text-xs cursor-pointer tracking-wide text-new-blue hidden md:block">
           Login
           <LoginIcon />
         </a> */}

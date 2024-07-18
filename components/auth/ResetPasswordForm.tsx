@@ -1,31 +1,29 @@
-import React, {useState} from "react";
+import React, { useState } from "react";
 import * as Yup from "yup";
-import {Form, Formik} from "formik";
-import {TextInput} from "../common/form_inputs/TextInput";
-import {ButtonStd} from "../common/ui/ButtonStd";
-import {H2m} from "../common/texts/H2m";
-import {Pm} from "../common/texts/Pm";
+import { Form, Formik } from "formik";
+import { ButtonStd } from "../common/ui/ButtonStd";
+import { H2m } from "../common/texts/H2m";
+import { Pm } from "../common/texts/Pm";
 import Image from "next/image";
 import OpenEye from "../../public/auth/eye_open.svg";
 import ClosedEye from "../../public/auth/eye_closed.svg";
-import {NewPasswordInput} from "../common/form_inputs/NewPasswordInput";
+import { NewPasswordInput } from "../common/form_inputs/NewPasswordInput";
+import { passwordValidation } from "@/utils/yup-validators";
+import { ConfirmForgotPasswordInterface } from "@/interfaces/user_auth";
 
 interface IProps {
-  onSubmitResetForm: () => void
+  onSubmitResetForm: (values: ConfirmForgotPasswordInterface) => void;
+  email: string;
+  resetCode: string;
 }
 
 interface IResetPasswordFormValues {
-  password: string,
-  confirmPassword: string
+  password: string;
+  confirmPassword: string;
 }
 
 const validationSchema = Yup.object().shape({
-  password: Yup.string()
-    .required("Password is required")
-    .matches(
-      /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/,
-      "Password must contain at least 1 uppercase letter, 1 lowercase letter, 1 digit, and 1 special character"
-    ),
+  ...passwordValidation,
   confirmPassword: Yup.string()
     .required("Confirm Password is required")
     .oneOf([Yup.ref("password")], "Your passwords do not match. They must be the same."),
@@ -36,12 +34,17 @@ const initialValues: IResetPasswordFormValues = {
   confirmPassword: ""
 };
 
-export const ResetPasswordForm = ({ onSubmitResetForm }: IProps) => {
-
+export const ResetPasswordForm = ({ onSubmitResetForm, email, resetCode }: IProps) => {
   const [showPassword, setShowPassword] = useState(false);
 
-  const onSubmit = () => {
-    onSubmitResetForm();
+  const onSubmit = (values: IResetPasswordFormValues) => {
+    const forgotPasswordValues = {
+      newPassword: values.confirmPassword,
+      email: email,
+      confirmationCode: resetCode,
+    } as ConfirmForgotPasswordInterface;
+    console.log("Resetting password for:", email, "with code:", resetCode);
+    onSubmitResetForm(forgotPasswordValues);
   };
 
   return (
@@ -54,24 +57,37 @@ export const ResetPasswordForm = ({ onSubmitResetForm }: IProps) => {
         onSubmit={onSubmit}
       >
         {({ errors, touched, values }) => (
-          <Form className="pointer-events-none opacity-50"> {/*  Disabled until contest begins*/}
+          <Form>
             <div className="relative">
-              <NewPasswordInput inputType={`${!showPassword && "password" }`} className="mb-4" placeholder="Squk1*Bn" error={errors.password}  touched={touched.password} value={values.password} labelText="New Password*" id="password" />
+              <NewPasswordInput 
+                inputType={showPassword ? "text" : "password"}
+                className="mb-4" 
+                placeholder="Squk1*Bn" 
+                error={errors.password}  
+                touched={touched.password} 
+                value={values.password} 
+                labelText="New Password*" 
+                id="password" 
+              />
               <Image
                 className="absolute top-14 right-4 cursor-pointer"
                 onClick={() => setShowPassword(!showPassword)}
                 width={30} height={30}
                 src={showPassword ? OpenEye : ClosedEye }
-                alt="Show password button." />
+                alt="Show password button." 
+              />
             </div>
             <div className="relative">
-              <TextInput inputType={`${!showPassword && "password" }`} className="mb-4" placeholder="Squk1*Bn" error={errors.confirmPassword}  touched={touched.confirmPassword} value={values.confirmPassword} labelText="Confirm New Password*" id="confirmPassword" />
-              <Image
-                className="absolute top-14 right-4 cursor-pointer"
-                onClick={() => setShowPassword(!showPassword)}
-                width={30} height={30}
-                src={showPassword ? OpenEye : ClosedEye }
-                alt="Show password button." />
+              <NewPasswordInput 
+                inputType={showPassword ? "text" : "password"}
+                className="mb-4" 
+                placeholder="Squk1*Bn" 
+                error={errors.confirmPassword}  
+                touched={touched.confirmPassword} 
+                value={values.confirmPassword} 
+                labelText="Confirm New Password*" 
+                id="confirmPassword" 
+              />
             </div>
             <ButtonStd type="submit" className="w-full my-2">Submit</ButtonStd>
           </Form>

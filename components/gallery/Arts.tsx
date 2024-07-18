@@ -368,7 +368,7 @@ export const Arts: React.FC<ArtsProps> = ({ contestState }) => {
     <div className={`${contestState == ContestState.Inactive && "opacity-60 pointer-events-none select-none blur-sm relative"} `}>
       {votedSk ? 
         <div className="w-fit mx-auto">
-          <button className={"mx-auto text-center bg-new-blue text-white px-4 py-2 rounded-lg cursor-pointer active:scale-[97%]"} onClick={() => openModalToArtwork(votedSk)}>See your vote</button>
+          <button className={"mx-auto text-center bg-new-blue text-white px-4 py-2 rounded-lg cursor-pointer active:scale-[97%] mb-8 md:mb-0"} onClick={() => openModalToArtwork(votedSk)}>See your vote</button>
         </div> 
         : 
         <div className="w-fit mx-auto h-12">

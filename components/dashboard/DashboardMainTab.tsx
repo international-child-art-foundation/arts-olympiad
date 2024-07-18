@@ -62,7 +62,7 @@ export const DashboardMainTab: React.FC<DashboardMainTabProps> = ({ dashboardLoa
       {isAuthenticated === "Unauthenticated" && (
         <>
           <div>You're not logged in!</div>
-          <Link href="/auth/login">Returning to login page...</Link>
+          <Link href="/login">Returning to login page...</Link>
         </>
       )}
   

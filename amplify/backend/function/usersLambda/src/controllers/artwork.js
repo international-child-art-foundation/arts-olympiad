@@ -11,7 +11,7 @@ async function getArtwork(req, res) {
     res.status(200).json(artwork);
   } catch(error) {
     console.error(error);
-    res.status(400).json({message: "Error getting artwork", error: error.message});
+    res.status(400).json({ error: "Error getting artwork" });
   }
 }
 
@@ -38,7 +38,8 @@ async function addArtwork(req, res) {
     const result = await ArtworkService.addArtworkAndUpdateUser(artworkData, userSk);
     res.status(200).json(result);
   } catch(error) {
-    res.status(400).json({message: "Error adding artwork and updating user", error: error.message});
+    console.error(error);
+    res.status(400).json({ error: "Error adding artwork and updating user" });
   }
 }
 
@@ -61,7 +62,7 @@ async function approveArtwork(req, res) {
     }
   } catch(error) {
     console.error("Authentication error:", error);
-    return res.status(500).json({ message: "Error during authentication", error: error.message});
+    return res.status(500).json({ error: "Error during authentication"});
   }
   
   try {
@@ -89,7 +90,7 @@ async function approveArtwork(req, res) {
     res.status(200).json(artwork);
   } catch(error) {
     console.error(error);
-    res.status(400).json({message: "Error updating artwork", error: error.message});
+    res.status(400).json({error: "Error updating artwork"});
   }
 }
 
@@ -100,7 +101,7 @@ async function incrementVoteArtwork(req, res) {
     res.status(200).json(artwork);
   } catch(error) {
     console.error(error);
-    res.status(400).json({message: "Error incrementing vote for artwork", error: error.message});
+    res.status(400).json({error: "Error incrementing vote for artwork"});
   }
 }
 
@@ -111,7 +112,7 @@ async function decrementVoteArtwork(req, res) {
     res.status(200).json(artwork);
   } catch(error) {
     console.error(error);
-    res.status(400).json({message: "Error decrementing vote for artwork", error: error.message});
+    res.status(400).json({error: "Error decrementing vote for artwork"});
   }
 }
 
@@ -127,10 +128,11 @@ async function voteArtwork(req, res) {
     const result = await ArtworkService.handleVote(userSk, artworkSk);
     res.status(200).json(result);
   } catch (error) {
+    console.error(error);
     if (error.message === "Cannot vote on the same artwork twice") {
-      res.status(400).json({ message: error.message });
+      res.status(400).json({ error: "Cannot vote on the same artwork twice" });
     } else {
-      res.status(500).json({ message: "Error processing vote", error: error.message });
+      res.status(500).json({ error: "Error processing vote" });
     }
   }
 }
@@ -146,11 +148,12 @@ async function deleteArtwork(req, res) {
       const response = await ArtworkService.deleteArtworkCompletely(artworkSk);
       res.status(204).json(response);
     } catch (error) {
-      console.log(error);
-      res.status(400).json({ message: "Error deleting artwork", error: error.message });
+      console.error(error);
+      res.status(400).json({ error: "Error deleting artwork" });
     }  
   } else {
-    res.status(400).json({ message: "User is not authenticated to perform this action."});
+    console.error(error);
+    res.status(400).json({ error: "User is not authenticated to perform this action."});
   }
 }
 
@@ -160,7 +163,8 @@ async function getArtworks(req, res) {
     const artworks = await ArtworkService.getArtworks(queryParams);
     res.status(200).json(artworks);
   } catch(error) {
-    res.status(400).json({error: error.message });
+    console.error(error);
+    res.status(400).json({ error: "Error retrieving artworks" });
   }
 }
 
@@ -179,9 +183,11 @@ async function generatePresigned(req, res) {
         fields: fields,
       });
     } catch (error) {
-      res.status(400).json({ error: error.message });
+      console.error(error);
+      res.status(400).json({ error: "Failed to generate presigned URL" });
     }
   } else {
+    console.error(error);
     res.status(400).json({ error: "User has not paid their entry fee."});
   }
 }

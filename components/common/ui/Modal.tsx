@@ -14,7 +14,7 @@ export const Modal = ({ isOpen, onClose, children }: IProps) => {
       {isOpen && (
         <div
           onClick={() => onClose()}
-          className="cursor-pointer fixed z-30 top-0 left-0 w-full h-full flex items-center justify-center bg-black bg-opacity-50"
+          className="cursor-pointer fixed z-30 top-0 left-0 w-full h-full flex items-center justify-center bg-black bg-opacity-50 z-50"
         >
           <div
             onClick={(e) => e.stopPropagation()}

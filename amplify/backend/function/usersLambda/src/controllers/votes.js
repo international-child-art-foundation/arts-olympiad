@@ -6,7 +6,7 @@ async function getTotalVotes(req, res) {
         res.status(200).json(votes);
     } catch(error) {
         console.error(error);
-        res.status(400).json({message: "error fetching total votes", error: error.message});
+        res.status(400).json({error: "error fetching total votes"});
     }
 }
 

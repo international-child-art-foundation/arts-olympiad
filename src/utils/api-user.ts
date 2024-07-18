@@ -159,7 +159,7 @@ export async function getAuthStatus(): Promise<AuthenticationResponse> {
       localStorage.setItem("isAuthenticated", result.message);
       return { success: true, sk: result.message };
     } else {
-      localStorage.setItem("isAuthenticated", result.message);
+      localStorage.setItem("isAuthenticated", "");
       throw new Error("Authentication attempt failed");
     }
   } catch (error) {
@@ -360,7 +360,7 @@ export async function handleUserDeleteAccount(): Promise<EmptyResponse> {
     if (response.ok) {
       return { success: true };
     } else {
-      throw new Error(data.message || "Error deleting account");
+      throw new Error(data.error || "Error deleting account");
     }
   } catch (error) {
     console.error("Error in handleUserDeleteAccount:", error);

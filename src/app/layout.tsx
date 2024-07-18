@@ -59,9 +59,9 @@ export default function RootLayout({
       />
       <GlobalContextProvider>
         <GoogleAnalytics GA_MEASUREMENT_ID={process.env.NEXT_PUBLIC_GTAG_ID} />
-        <body>
+        <body className="flex flex-col min-h-screen"> 
           <Header/>
-          <main className={"font-openSans font-base overflow-hidden flex flex-col justify-center align-middle w-full m-auto leading-8"}>
+          <main className={"font-openSans font-base overflow-hidden flex flex-col justify-center align-middle w-full m-auto leading-8 flex-grow mb-auto justify-start"}>
             { children }
             <NavigationEvents />
           </main>

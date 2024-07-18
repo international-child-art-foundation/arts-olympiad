@@ -8,6 +8,7 @@ jobs:
   build:
     name: Build
     runs-on: ubuntu-latest
+    environment: Staging
     steps:
     - uses: actions/checkout@v4
     - name: Cache dependencies and build artifacts
@@ -26,6 +27,13 @@ jobs:
       run: npm ci
     - name: Run build
       run: npm run build
+      env:
+        API_URL: ${{ secrets.API_URL }}
+        NEXT_PUBLIC_AK: ${{ secrets.NEXT_PUBLIC_AK }}
+        NEXT_PUBLIC_CLOUDFRONT_DISTRIBUTION_URL: ${{ secrets.NEXT_PUBLIC_CLOUDFRONT_DISTRIBUTION_URL }}
+        NEXT_PUBLIC_GTAG_ID: ${{ secrets.NEXT_PUBLIC_GTAG_ID }}
+        NEXT_PUBLIC_STRIPE_URL: ${{ secrets.NEXT_PUBLIC_STRIPE_URL }}
+        S3_PRESIGNED_URL: ${{ secrets.S3_PRESIGNED_URL }}
     - name: Upload build artifacts
       uses: actions/upload-artifact@v4
       with:
@@ -44,3 +52,4 @@ jobs:
       run: npm ci
     - name: Run lint
       run: npm run lint
+      

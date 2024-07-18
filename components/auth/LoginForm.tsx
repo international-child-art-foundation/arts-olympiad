@@ -100,10 +100,10 @@ export const LoginForm = () => {
               </div>
               <div className=" mb-4 flex flex-col xsm:flex-row items-center justify-between">
                 <CheckBox name="remember" value="Remember me"/>
-                <button onClick={() => setShowForgotPassword(true)} type="button" className="font-semibold bg-transparent border-none xsm:ml-8">
+                <Link href={"/reset-password"} type="button" className="font-semibold bg-transparent border-none xsm:ml-8">
                   Forgot your password?
                   <span className="sr-only">.</span>
-                </button>
+                </Link>
               </div>
               {loginError && <p className="text-red-600">Couldn't log in. Is your password correct?</p>}
               <ButtonStd type="submit" className="w-full my-2">Log in</ButtonStd>
@@ -112,7 +112,7 @@ export const LoginForm = () => {
         </Formik>
       </div>
       <Pm className="font-semibold my-4 text-center">Don’t have an account?
-        <span className="text-main-blue font-semibold"><Link className="inline" href="/auth/register"> Create one now</Link></span>
+        <span className="text-main-blue font-semibold"><Link className="inline" href="/register"> Create one now</Link></span>
       </Pm>
       {loginError && <div className="bg-white rounded-3xl w-80% py-4">
         <p className="text-center">If you're still having trouble, maybe you forgot to:</p>
@@ -144,7 +144,7 @@ export const LoginForm = () => {
         </div>
       </div>
       {/*<Pm className="font-semibold my-4 text-center">Don’t have an account?*/}
-      {/*  <span className="text-main-blue font-semibold"><Link className="inline" href="/auth/register"> Create one now</Link></span>*/}
+      {/*  <span className="text-main-blue font-semibold"><Link className="inline" href="/register"> Create one now</Link></span>*/}
       {/*</Pm>*/}
       <Modal isOpen={showForgotPassword} onClose={() => setShowForgotPassword(false)}>
         <ForgotPasswordForm />

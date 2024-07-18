@@ -44,7 +44,7 @@ export const FlippingCards = () => {
         color="#0286C3"
       >
         <ButtonStyledLink
-          href={"/auth/register"}
+          href={"/register"}
           className="my-1"
           onTouchStart={(e: React.TouchEvent<HTMLAnchorElement>) => { e.stopPropagation();}}
           onClick={(e: React.MouseEvent<HTMLAnchorElement>) => { e.stopPropagation();}}

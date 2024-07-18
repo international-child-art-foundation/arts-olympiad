@@ -37,7 +37,7 @@ const Header = () => {
   ];
 
   return (
-    <header className="px-6 gap-6 mt-6 m-auto sm:px-8 md:px-12 lg:px-16 xl:px-20 max-w-screen-2xl font-body z-20 md:flex h-fit relative top-0 left-0">
+    <header className="px-6 gap-6 mt-6 sm:px-8 lg:mx-auto md:px-12 lg:px-16 xl:px-20 max-w-screen-2xl font-body z-20 md:flex h-fit relative top-0 left-0">
       
       <div className="w-full md:w-fit">
         <Link href="/">
@@ -47,7 +47,7 @@ const Header = () => {
       
       <div className="flex flex-wrap w-full">
 
-        <Link href={isAuthenticated ? "/dashboard" : "/auth/login"} className="active:scale-95 group my-2 h-fit w-fit border-new-blue border rounded text-center py-2 px-3 text-xs cursor-pointer tracking-wide text-new-blue hidden md:block">
+        <Link href={isAuthenticated ? "/dashboard" : "/login"} className="active:scale-95 group my-2 h-fit w-fit border-new-blue border rounded text-center py-2 px-3 text-xs cursor-pointer tracking-wide text-new-blue hidden md:block">
           <UploadIcon />
           Upload
         </Link>
@@ -77,7 +77,7 @@ const Header = () => {
             </div>
           </>
         ) : (
-          <Link href="/auth/login" className=" flex flex-row gap-2 my-2 ml-auto h-fit w-fit text-center py-2 px-3 text-xs cursor-pointer tracking-wide text-new-blue hidden md:block active:scale-95">
+          <Link href="/login" className=" flex flex-row gap-2 my-2 ml-auto h-fit w-fit text-center py-2 px-3 text-xs cursor-pointer tracking-wide text-new-blue hidden md:block active:scale-95">
             <LoginIcon transform="scale(0.9, 0.9)" />
             <p>Login</p>
           </Link>
