@@ -12,5 +12,6 @@ export const fakeUserArtworkData: UserArtworkSchema = {
   is_approved: true,
   votes: 3,
   description: "Some information",
-  file_type: "png"
+  file_type: "png",
+  timestamp: "312783"
 };

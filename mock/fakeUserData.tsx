@@ -14,4 +14,5 @@ export const fakeUserData: UserDataSchema =
   voted_sk: "3",
   can_submit_art: true,
   has_active_submission: false,
+  has_paid: true,
 };

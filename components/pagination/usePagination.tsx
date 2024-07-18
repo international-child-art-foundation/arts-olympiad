@@ -1,4 +1,4 @@
-import { dotts } from "../pagination/Pagination";
+import { dots } from "../pagination/Pagination";
 
 const getPages = (length: number, inc = 1) =>
   Array.from({ length }, (_, i) => i + inc);
@@ -16,20 +16,20 @@ export default function usePagination(
   }
   // -> 1 2 3 4 ... 10
   if (currentPage <= 3) {
-    return [1, 2, 3, 4, dotts, totalPages];
+    return [1, 2, 3, 4, dots, totalPages];
   }
   // -> 1 ... 4 5 6 ... 10
   if (currentPage < totalPages - 2) {
     return [
       1,
-      dotts,
+      dots,
       currentPage - 1,
       currentPage,
       currentPage + 1,
-      dotts,
+      dots,
       totalPages,
     ];
   }
   // -> 1 ... 7 8 9 10
-  return [1, dotts, ...getPages(4, totalPages - 3)];
+  return [1, dots, ...getPages(4, totalPages - 3)];
 }

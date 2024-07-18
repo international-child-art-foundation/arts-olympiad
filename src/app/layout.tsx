@@ -3,11 +3,11 @@ import { Inter, Epilogue, Nunito, Open_Sans, Montserrat } from "next/font/google
 import Footer from "../../components/Footer";
 import Header from "../../components/Header";
 import { Metadata } from "next";
-import {NavigationEvents} from "./NavigationEvents";
 // import ConfigureAmplifyClientSide from "@/utils/ConfigureAmplifyClientSide";
 import { GlobalContextProvider } from "./GlobalContext";
 import CookieBanner from "../../components/CookieBanner";
 import GoogleAnalytics from "../../components/GoogleAnalytics";
+import { Suspense } from "react";
 
 export const inter = Inter({
   subsets: ["latin"],
@@ -58,12 +58,13 @@ export default function RootLayout({
         type="image/svg+xml"
       />
       <GlobalContextProvider>
-        <GoogleAnalytics GA_MEASUREMENT_ID={process.env.NEXT_PUBLIC_GTAG_ID} />
+        <Suspense>
+          <GoogleAnalytics GA_MEASUREMENT_ID={process.env.NEXT_PUBLIC_GTAG_ID} />
+        </Suspense>
         <body className="flex flex-col min-h-screen"> 
           <Header/>
           <main className={"font-openSans font-base overflow-hidden flex flex-col justify-center align-middle w-full m-auto leading-8 flex-grow mb-auto justify-start"}>
             { children }
-            <NavigationEvents />
           </main>
           <Footer />
           <CookieBanner/>
