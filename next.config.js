@@ -1,6 +1,6 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-  // output: "export", // Enables "npm build" to export a static site into the /out dir
+  output: "export", // Enables "npm build" to export a static site into the /out dir
   trailingSlash: true,
   images: {
     unoptimized: true,
@@ -29,27 +29,27 @@ const nextConfig = {
   // The original plan was to proxy the APIGateway URL to myfavoritesport.org/api.
   // Unsure if this method is secure or will be altered in prod, but good enough for
   // local development for now.
-  async rewrites() {
-    return [
-      {
-        source: "/next-proxy/:path*",
-        destination: `${process.env.API_URL}/:path*`
-      },
-      {
-        // Rewrite for S3 bucket to not fail CORS
-        source: "/s3",
-        destination: `${process.env.S3_PRESIGNED_URL}/:path*`
-      },
-      // {
-      //   source: "/volunteer/:path*",
-      //   destination: `${process.env.S3_PRESIGNED_URL}/volunteer/:path*`
-      // },
-      // {
-      //   source: "/gallery/:path*",
-      //   destination: `${process.env.S3_PRESIGNED_URL}/gallery/:path*`
-      // }
-    ];
-  },
+  // async rewrites() {
+  //   return [
+  //     {
+  //       source: "/next-proxy/:path*",
+  //       destination: `${process.env.API_URL}/:path*`
+  //     },
+  //     {
+  //       // Rewrite for S3 bucket to not fail CORS
+  //       source: "/s3",
+  //       destination: `${process.env.S3_PRESIGNED_URL}/:path*`
+  //     },
+  //     // {
+  //     //   source: "/volunteer/:path*",
+  //     //   destination: `${process.env.S3_PRESIGNED_URL}/volunteer/:path*`
+  //     // },
+  //     // {
+  //     //   source: "/gallery/:path*",
+  //     //   destination: `${process.env.S3_PRESIGNED_URL}/gallery/:path*`
+  //     // }
+  //   ];
+  // },
 };
 
 module.exports = nextConfig;

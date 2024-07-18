@@ -44,6 +44,37 @@
     }
   },
   "function": {
+    "emergencyShutdown": {
+      "build": true,
+      "dependsOn": [
+        {
+          "attributes": [
+            "ApiName",
+            "ApiId"
+          ],
+          "category": "api",
+          "resourceName": "apia4acf3fa"
+        },
+        {
+          "attributes": [
+            "BucketName"
+          ],
+          "category": "storage",
+          "resourceName": "s369dba687"
+        },
+        {
+          "attributes": [
+            "Name",
+            "Arn",
+            "StreamArn"
+          ],
+          "category": "storage",
+          "resourceName": "dynamo22205621"
+        }
+      ],
+      "providerPlugin": "awscloudformation",
+      "service": "Lambda"
+    },
     "processImage": {
       "build": true,
       "dependsOn": [],
@@ -71,6 +102,22 @@
     }
   },
   "parameters": {
+    "AMPLIFY_function_emergencyShutdown_deploymentBucketName": {
+      "usedBy": [
+        {
+          "category": "function",
+          "resourceName": "emergencyShutdown"
+        }
+      ]
+    },
+    "AMPLIFY_function_emergencyShutdown_s3Key": {
+      "usedBy": [
+        {
+          "category": "function",
+          "resourceName": "emergencyShutdown"
+        }
+      ]
+    },
     "AMPLIFY_function_processImage_deploymentBucketName": {
       "usedBy": [
         {

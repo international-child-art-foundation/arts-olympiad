@@ -1,0 +1,24 @@
+{
+  "permissions": {
+    "api": {
+      "apia4acf3fa": [
+        "read",
+        "update",
+        "delete"
+      ]
+    },
+    "storage": {
+      "s369dba687": [
+        "read",
+        "update",
+        "delete"
+      ],
+      "dynamo22205621": [
+        "read",
+        "update",
+        "delete"
+      ]
+    }
+  },
+  "lambdaLayers": []
+}
