@@ -47,7 +47,7 @@ export async function uploadImageToS3(imageFile: File | null, presignedUrlRespon
   if (imageFile == null) {
     return { success: false, error: "Image file was not received."};
   }
-  const { fields } = presignedUrlResponse.data; // can also grab presigned_url but don't need
+  const { fields, s3_presigned_url } = presignedUrlResponse.data; // can also grab presigned_url but don't need
   const formData = new FormData();
   Object.keys(fields).forEach(key => {
     formData.append(key, fields[key]);
@@ -55,7 +55,7 @@ export async function uploadImageToS3(imageFile: File | null, presignedUrlRespon
   // append file data last
   formData.append("file", imageFile);
   try {
-    await fetch("/s3", {
+    await fetch(s3_presigned_url, {
       method: "POST",
       body: formData
     });

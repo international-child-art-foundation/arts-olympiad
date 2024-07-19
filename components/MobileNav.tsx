@@ -75,12 +75,12 @@ const MobileNav = () => {
           <nav tabIndex={0} className="bg-neutral-white hidden w-full relative left-0 top-full group-hover:block">
             <ul className="py-1">
               <li>
-                <Link href="/gallery" className="text-new-blue block px-12 py-4 w-full h-fit tracking-widest text-sm hover:bg-gradient-to-b drop-shadow-md from-light-blue focus-within:text-new-blue focus-within:font-bold">
+                <Link href="/gallery" onClick={closeMenu} className="text-new-blue block px-12 py-4 w-full h-fit tracking-widest text-sm hover:bg-gradient-to-b drop-shadow-md from-light-blue focus-within:text-new-blue focus-within:font-bold">
                   Active Entries to Vote on
                 </Link>
               </li>
               <li>
-                <Link href="/past-entries" className="text-new-blue block px-12 py-4 w-full h-fit tracking-widest text-sm hover:bg-gradient-to-b drop-shadow-md from-light-blue focus-within:text-new-blue focus-within:font-bold">
+                <Link href="/past-entries" onClick={closeMenu} className="text-new-blue block px-12 py-4 w-full h-fit tracking-widest text-sm hover:bg-gradient-to-b drop-shadow-md from-light-blue focus-within:text-new-blue focus-within:font-bold">
                   Past Entries for Inspiration
                 </Link>
               </li>

@@ -240,7 +240,7 @@
                       {
                         "Ref": "AWS::Region"
                       },
-                      "::/restapis/*"
+                      "::/apikeys/*"
                     ]
                   ]
                 },
@@ -319,7 +319,8 @@
               "Effect": "Allow",
               "Action": [
                 "amplify:ListApps",
-                "amplify:DeleteApp"
+                "amplify:DeleteBranch",
+                "amplify:ListBranches"
               ],
               "Resource": "*"
             }

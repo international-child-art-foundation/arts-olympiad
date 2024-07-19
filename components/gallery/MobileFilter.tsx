@@ -74,11 +74,11 @@ export const MobileFilter = (props: FilterProps) => {
           );
         })}
       </section>
-      <div className="fixed bottom-0 w-full m-auto grid grid-cols-2 gap-2 pr-16 bg-[#f9faf6] h-[100px]">        
+      <div className="fixed bottom-0 w-full m-auto grid grid-cols-2 gap-2 pr-16 bg-[#f9faf6] h-[60px]">        
         <button 
-          className="font-semibold rounded-md border-1 border-black p-2 h-[48px]"
+          className="font-semibold rounded-md border-1 border-black p-2 h-[48px] w-full"
           onClick={() => {props.resetAllFilters();}}>Reset Filters</button>
-        <button className="rounded-md font-semibold text-white bg-new-blue h-[48px]" onClick={() => {props.handleModifyFilterState(false);}}>
+        <button className="rounded-md font-semibold text-white bg-new-blue h-[48px] w-full" onClick={() => {props.handleModifyFilterState(false);}}>
           Apply
         </button>
       </div>

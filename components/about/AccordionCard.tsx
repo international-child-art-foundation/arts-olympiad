@@ -26,6 +26,7 @@ export const AccordionCard = (
     : IProps
 ) => {
 
+  const [hasBeenClicked, setHasBeenClicked] = useState(false);
   const minimalContentWidthWithPadding = minimalContentWidth && minimalContentWidth - 48;
   const {windowWidth} = useWindowDimensions();
   const displayhorizontally = windowWidth >= 1024;
@@ -57,14 +58,14 @@ export const AccordionCard = (
   // an effect to scroll into view of the card once all transitions are over
   useEffect(() => {
     const timer = setTimeout(() => {
-      if (!displayhorizontally && isOpen) {
+      if (!displayhorizontally && isOpen && hasBeenClicked) {
         cardRef.current?.scrollIntoView({behavior: "smooth"});
       }
     }, 900);
-
+  
     return () => clearTimeout(timer);
-  }, [isOpen, displayhorizontally]);
-
+  }, [isOpen, displayhorizontally, hasBeenClicked]);
+  
   // an effect that sets minimal content width to avoid content wrapping
   useLayoutEffect(() => {
     if (displayhorizontally && isOpen && !contentWidthWasSet) {
@@ -88,7 +89,11 @@ export const AccordionCard = (
       lg:flex-row lg:min-w-[85px] 
       cursor-pointer
       `}
-      onClick={() => setIsOpen(number)}
+      onClick={() => {
+        setIsOpen(number);
+        setHasBeenClicked(true);
+      }}
+      
     >
       <div
         className="flex flex-row lg:flex-col lg:justify-between min-w-[80px] p-6 items-center"

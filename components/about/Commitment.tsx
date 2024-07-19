@@ -54,7 +54,7 @@ export const Commitment = () => {
               Learn more about ICAF’s impact nationally and globally.
             </Pm>
             <div className="">
-              <ArrowCTA text="Take me there now" href="/impact"></ArrowCTA>
+              <ArrowCTA text="Take me there now" href="/impact" link={true}></ArrowCTA>
             </div>
           </div>
         </article>
