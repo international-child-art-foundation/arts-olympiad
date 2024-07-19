@@ -10,7 +10,8 @@ import {Guidelines} from "../../components/home/guidelines/Guidelines";
 import {Sponsor} from "../../components/home/sponsor/sponsor";
 
 export const metadata: Metadata = {
-  title: "Home | My Favorite Sport",
+  title: "Paris Olympic Games for Kids: My Favorite Sport",
+  description: "Calling all young artists! Join the &quot;My Favorite Sport&quot; contest inspired by the Paris Olympic Games. Share your artistic vision and win amazing prizes!",
   openGraph: {
     ...sharedOpenGraph,
     title: "Home | My Favorite Sport",

@@ -10,6 +10,7 @@ const contestEndTime = new Date(dates.competitionEnd);
 contestEndTime.setHours(23, 59, 59);
 
 export const Countdown = () => {
+
   const [endTime, setEndTime] = useState(false);
   const [days, setDays] = useState(0);
   const [hours, setHours] = useState(0);
