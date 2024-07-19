@@ -45,7 +45,7 @@ export const Review = () => {
               <p className="mt-28 text-3xl mx-auto text-center">Review your submission</p>
               <div className="mt-10 mb-10">
                 {imageUrl && 
-                  <Image src={imageUrl} alt="" width={498} height={332} className="w-full h-fit rounded-xl" />
+                  <Image src={imageUrl} alt="" width={498} height={332} className="h-full w-fit mx-auto rounded-xl" />
                 }
               </div>
               <div className="my-10 text-3xl font-semibold">{personalFormData.firstName} {personalFormData.lastName}</div>

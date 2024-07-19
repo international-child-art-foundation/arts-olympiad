@@ -21,11 +21,11 @@ export default function Popup(){
 
   useEffect(() => {
     const updatedSteps = [
-      "Age confirmation",
-      isUnder18 && !guardianConsentObtained ? "Guardian's Consent" : "Terms & Donation Acknowledgment",
-      "Upload Artwork",
+      "Start",
+      isUnder18 && !guardianConsentObtained ? "Terms" : "Prepare",
+      "Upload",
       "Review",
-      "Confirmation",
+      "Confirm",
     ];
     setSteps(updatedSteps);
   }, [isUnder18, guardianConsentObtained, setSteps]);
@@ -56,7 +56,7 @@ export default function Popup(){
 
 
   return (
-    <div className="my-10 sm:w-full">
+    <div className="my-10">
       <Steps 
         steps = {steps}
         currentStep = {currentStep}

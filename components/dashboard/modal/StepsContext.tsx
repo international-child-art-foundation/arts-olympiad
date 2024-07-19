@@ -29,12 +29,12 @@ export const StepsContext = createContext<StepsContextType | undefined>(undefine
 
 export const StepsProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
   const [steps, setSteps] = useState([
-    "Age confirmation",
-    "Guardian's Consent",
-    "Terms & Donation Acknowledgment",
-    "Upload Artwork",
+    "Start",
+    "Terms",
+    "Prepare",
+    "Upload",
     "Review",
-    "Confirmation",
+    "Confirm",
   ]);
 
   const [currentStep, setCurrentStep] = useState(1);

@@ -89,7 +89,7 @@ export const Over18 = () => {
   const { personalFormData, setPersonalFormData, handleNavigation, userAge } = useStepsContext();
 
   return (
-    <section className="items-center justify-center m-auto max-w-screen-2xl px-8 md:px-12 lg:px-16 xl:px-20 w-full lg:w-4/5 2xl:w-3/5">
+    <section className="items-center justify-center m-auto max-w-screen-2xl px-8 md:px-12 lg:px-16 xl:px-20 w-full">
       <div className="mt-28 mb-9 text-center text-2xl text-neutral-black font-bold">
         Terms & Donation Acknowledgment
       </div>

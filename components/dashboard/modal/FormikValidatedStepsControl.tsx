@@ -123,24 +123,24 @@ export const FormikValidatedStepsControl: React.FC<FormikValidatedStepsControlPr
       {canSubmitArt === false ? (
         <p className="font-bold ">You are currently banned from submitting art. If you believe this is a mistake, please <a href="https://icaf.org/about/contact-us" className="text-blue-600">Contact Us</a> and include your contest email address.</p>
       ) : (
-        <div className={`pt-8 justify-around mx-auto w-full mb-4 md:flex ${isLoading ? "opacity-50" : ""}`}>
+        <div className={`pt-8 relative justify-around md:justify-center mx-auto w-full mb-4 md:grid ${currentStep != (steps.length - 1) && "grid-cols-2 gap-2"} ${isLoading ? "opacity-50" : ""}`}>
           {currentStep != (steps.length - 1) && 
           <button type="button"
             onClick={() => handleButtonClick("back")}
-            className={`${currentStep === steps.length ? "hidden" : "group flex text-center bg-neutral-white border-new-blue border rounded text-base font-normal text-new-blue w-full md:w-fit me-auto mr-5 cursor-pointer"}`}
+            className={`${currentStep === steps.length ? "hidden" : "group bg-neutral-white border-new-blue border rounded text-base font-normal text-new-blue w-full me-auto mr-5 cursor-pointer"}`}
             disabled={isLoading}
           >
-            <span className="ml-4 my-4"><LeftIcon /></span>
-            <div className="mx-auto md:ml-8 md:mr-10 lg:ml-14 lg:mr-20 my-4">
-              Go Back
+            <div className="my-4 absolute left-3"><LeftIcon /></div>
+            <div className="mx-auto px-12 my-4">
+              Back
             </div>
           </button>
           }
           <button type="submit"
             onClick={() => handleButtonClick("next")}
-            className={` mx-auto border rounded text-center text-base font-normal w-full mt-6 md:mt-0 md:w-fit py-4 px-10 cursor-pointer ${currentStep === steps.length ? "bg-neutral-white border-new-blue text-new-blue" : "ms-auto text-neutral-white bg-new-blue ml-5 border-new-blue"}`}
+            className={` mx-auto border rounded text-center text-base font-normal w-full mt-6 md:mt-0 py-4 px-10 cursor-pointer ${currentStep === steps.length ? "bg-neutral-white border-new-blue text-new-blue" : "text-neutral-white bg-new-blue border-new-blue"}`}
             disabled={isLoading || !canSubmitArt}>
-            {isLoading ? "Loading..." : (currentStep === steps.length ? "Go to gallery" : (currentStep === steps.length - 2 ? "Submit my artwork" : "Agree and continue"))}
+            {isLoading ? "Loading..." : (currentStep === steps.length ? "Gallery" : (currentStep === steps.length - 2 ? "Submit" : "Continue"))}
           </button>
         </div>
       )}

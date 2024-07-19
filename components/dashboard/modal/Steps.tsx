@@ -61,30 +61,48 @@ export const Steps = ({ steps, currentStep }: StepsProps) => {
 
   const displaySteps = newStep.map((step, index) => {
     return (
-      <div key={index} className={index !== newStep.length - 1 ? "flex items-center w-full" : "flex items-center"}> 
-        <div className="relative flex flex-col items-center"> 
-          <div className={`rounded-full h-5 w-5 flex items-center justify-center border  ${
-            step.selected ? "bg-new-blue border-neutral-black" : "bg-neutral-white border-[#E6E6E6]"
-          }`}></div>
-          <div className="absolute top-0 text-center mt-8 w-28 md:w-32 text-neutral-black text-base font-light">
-            {step.description}
+      <>
+        {(index !== newStep.length - 1) ? (
+          <div key={index} className="flex items-center w-full"> 
+            <div className="relative flex flex-col items-center"> 
+              <div className={`rounded-full h-5 w-5 flex items-center justify-center border  ${
+                step.selected ? "bg-new-blue border-neutral-black" : "bg-neutral-white border-[#E6E6E6]"
+              }`}>
+              </div>
+              <div className="absolute top-0 text-center mt-8 w-28 md:w-32 text-neutral-black text-base font-light">
+                {step.description}
+              </div>
+            </div>
+            <div className="flex-auto border-t-1 border-neutral-black "></div>
           </div>
-        </div>
-        <div className="flex-auto border-t-1 border-neutral-black"></div>
-      </div>
+        ) : (
+          <div key={index} className="flex items-center justify-right"> 
+            <div className="relative flex flex-col items-center"> 
+              <div className={`rounded-full h-5 w-5 flex items-center justify-center border  ${
+                step.selected ? "bg-new-blue border-neutral-black" : "bg-neutral-white border-[#E6E6E6]"
+              }`}>
+              </div>
+              <div className="absolute top-0 text-center mt-8 w-28 md:w-32 text-neutral-black text-base font-light">
+                {step.description}
+              </div>
+            </div>
+          </div>
+        )
+        }
+      </>
     );
   });
 
 
   return (
     <>
-      <section className="m-auto ml-2 max-w-screen-2xl px-8 md:px-12 lg:px-16 xl:px-20 w-full justify-between items-center hidden sm:flex">
+      <section className="m-auto mx-auto px-8 md:px-12 lg:px-16 xl:px-20 justify-between items-center hidden sm:flex max-w-[80%] lg:max-w-screen-2xl">
         {displaySteps}
       </section>
 
 
-      <section className="no-scrollbar ml-5 m-auto max-w-[800px] overflow-x-visible overscroll-x-none sm:hidden">
-        <div className="w-[400px] h-[190px] flex object-scale-down">{displaySteps}</div>
+      <section className="no-scrollbar m-auto max-w-[800px] overflow-x-hidden overscroll-x-none sm:hidden">
+        <div className=" h-[100px] md:h-[190px] flex object-scale-down">{displaySteps}</div>
       </section>
 
     </>
