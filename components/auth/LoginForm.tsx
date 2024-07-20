@@ -90,7 +90,7 @@ export const LoginForm = () => {
             > {/* Disabled until contest begins: className="pointer-events-none opacity-50"*/}
               <TextInput inputType="email" className="mt-4" placeholder="johndoe@gmail.com" error={errors.email}  touched={touched.email} value={values.email} labelText="Email" id="email" />
               <div className="relative">
-                <TextInput inputType={`${!showPassword && "password" }`} placeholder="Squk1*Bn" error={errors.password}  touched={touched.password} value={values.password} labelText="Password" id="password" />
+                <TextInput inputType={`${!showPassword && "password" }`} placeholder="Enter password..." error={errors.password}  touched={touched.password} value={values.password} labelText="Password" id="password" />
                 <Image
                   className="absolute top-14 right-4 cursor-pointer"
                   onClick={() => setShowPassword(!showPassword)}

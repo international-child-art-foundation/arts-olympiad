@@ -69,10 +69,13 @@ export const Register = () => {
         <VerificationModal>
           <div className="p-6">
             <p className="font-bold text-2xl text-center mb-4">
-              Verify your account
+              Verify your email address
             </p>
             <p>
-              Please enter your six-digit verification code:
+              We've sent a six-digit code to <b>{userEmail}</b>.
+            </p>
+            <p>
+              Make sure to check your spam folder.
             </p>
             <div className="grid grid-cols-1 grid-rows-1">
               {verificationSubmissionLoading && <div className="col-start-1 row-start-1">

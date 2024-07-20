@@ -108,7 +108,7 @@ export const RegisterOver18: React.FC<RegisterOver18Props> = ({setUserEmail, use
 
           <TextInput inputType="email" className="" placeholder="johndoe@gmail.com" autoComplete="username" error={errors.email}  touched={touched.email} value={values.email} labelText="Email" id="email" />
           <div className="relative">
-            <NewPasswordInput inputType={`${!showPassword && "password" }`} className="mb-4" placeholder="Squk1*Bn" error={errors.password}  touched={touched.password} value={values.password} labelText="Password" id="password" />
+            <NewPasswordInput inputType={`${!showPassword && "password" }`} className="mb-4" placeholder="Enter password..." error={errors.password}  touched={touched.password} value={values.password} labelText="Password" id="password" />
             <Image
               className="absolute top-14 right-4 cursor-pointer"
               onClick={() => setShowPassword(!showPassword)}

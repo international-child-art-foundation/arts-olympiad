@@ -62,7 +62,7 @@ export const ResetPasswordForm = ({ onSubmitResetForm, email, resetCode }: IProp
               <NewPasswordInput 
                 inputType={showPassword ? "text" : "password"}
                 className="mb-4" 
-                placeholder="Squk1*Bn" 
+                placeholder="Enter password..." 
                 error={errors.password}  
                 touched={touched.password} 
                 value={values.password} 
@@ -81,7 +81,7 @@ export const ResetPasswordForm = ({ onSubmitResetForm, email, resetCode }: IProp
               <NewPasswordInput 
                 inputType={showPassword ? "text" : "password"}
                 className="mb-4" 
-                placeholder="Squk1*Bn" 
+                placeholder="Enter password..." 
                 error={errors.confirmPassword}  
                 touched={touched.confirmPassword} 
                 value={values.confirmPassword} 

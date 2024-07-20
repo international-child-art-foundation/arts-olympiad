@@ -183,7 +183,7 @@ export const ForgotPasswordForm = () => {
                   <NewPasswordInput
                     inputType={showPassword ? "text" : "password"}
                     className={`${loading ? "opacity-60 pointer-events-none disabled" : ""} mb-4`}
-                    placeholder="Squk1*Bn"
+                    placeholder="Enter password..."
                     error={errors.password}
                     touched={touched.password}
                     value={values.password}
@@ -202,7 +202,7 @@ export const ForgotPasswordForm = () => {
                 <NewPasswordInput
                   inputType={showPassword ? "text" : "password"}
                   className={`${loading ? "opacity-60 pointer-events-none disabled" : ""} mt-4`}
-                  placeholder="Squk1*Bn"
+                  placeholder="Enter password..."
                   error={errors.confirmPassword}
                   touched={touched.confirmPassword}
                   value={values.confirmPassword}
