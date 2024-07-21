@@ -3,7 +3,6 @@ import { useState, useEffect } from "react";
 import information from "../../public/svgs/information.svg";
 import Image from "next/image";
 import deleteIcon from "../../public/svgs/delete.svg";
-import placeholderImage from "../../public/dashboard/placeholder-image.png";
 import SocialShare from "../SocialShare";
 // import * as yup from "yup";
 // import { Formik, Form } from "formik";
@@ -11,7 +10,7 @@ import SocialShare from "../SocialShare";
 // import { FormControlButtons } from "./FormControlButtons";
 // import { simulateDelay } from "../SimulateDelay";
 // import LoadingAnimation from "../../components/svgs/LoadingAnimation";
-import { buildLgImageUrl, buildMdImageUrl } from "@/utils/url-builders";
+import { buildMdImageUrl } from "@/utils/url-builders";
 import { calculateAgeFromString } from "@/utils/helper-functions";
 import Link from "next/link";
 
@@ -28,12 +27,9 @@ export const ActiveArtDisplay = () => {
   const {apiUserData, apiArtworkData, setDisplayModal } = useDashboardContext();
 
   useEffect(() => {
-    if (apiArtworkData && apiArtworkData.sk && apiArtworkData.is_approved == true) {
+    if (apiArtworkData && apiArtworkData.sk) {
       console.log(apiArtworkData);
       setImageUrl(buildMdImageUrl(apiArtworkData.sk));
-    }
-    if (apiArtworkData && apiArtworkData.sk) {
-      setImageUrl(buildLgImageUrl(apiArtworkData.sk, apiArtworkData.file_type) ?? placeholderImage);
     }
   }, [apiArtworkData]);
   
@@ -153,16 +149,14 @@ export const ActiveArtDisplay = () => {
                     </Formik>
                   </div>
                 )} */}
-                {apiArtworkData.is_approved ? (
-                  <div>
-                    <p className="font-semibold">Share This Post</p>
-                    <SocialShare shareId={apiArtworkData.sk} />
-                  </div>
-                ) : (
-                  <div>
-                    <p>Your art is still being reviewed by our team. Check back later to share it!</p>
-                  </div>
-                )}
+                <div>
+                  <p className="font-semibold">Share This Post</p>
+                  <SocialShare shareId={apiArtworkData.sk} />
+                </div>
+                <div className="bg-white rounded-xl p-4 opacity-95">
+                  <p>Your art is still being reviewed by our team and will not yet appear in the gallery.</p>
+                  <p className={"italic"}>You can still share it with your friends and receive votes!</p>
+                </div>
               </div>
             </div>
           )

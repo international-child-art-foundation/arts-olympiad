@@ -18,6 +18,7 @@ async function getArtwork(req, res) {
 async function addArtwork(req, res) {
   await handleRefreshTokenFlow(req, res);
   if (res.headersSent) return;
+  
   const userCognitoData = await getUserCognitoData(req.cookies.accessToken);
   const userSk = userCognitoData.sub;
 
@@ -35,11 +36,41 @@ async function addArtwork(req, res) {
   };
 
   try {
-    const result = await ArtworkService.addArtworkAndUpdateUser(artworkData, userSk);
+    // First, process the image
+    const lambdaClient = new LambdaClient({ region: process.env.REGION });
+    const command = new InvokeCommand({
+      FunctionName: `arn:aws:lambda:us-east-1:011385746984:function:processImage-${process.env.ENV}`,
+      InvocationType: 'RequestResponse',
+      Payload: JSON.stringify({ user_sk: userSk })
+    });
+    
+    const { Payload } = await lambdaClient.send(command);
+    const response = JSON.parse(Buffer.from(Payload));
+    
+    if (response.statusCode !== 200) {
+      throw new Error(JSON.parse(response.body).error);
+    }
+
+    // If image processing succeeds, add artwork to the database
+    let result;
+    try {
+      result = await ArtworkService.addArtworkAndUpdateUser(artworkData, userSk);
+    } catch (error) {
+      console.error("First attempt to add artwork failed. Retrying...");
+      // Wait for a short time before retrying
+      await new Promise(resolve => setTimeout(resolve, 1000));
+      result = await ArtworkService.addArtworkAndUpdateUser(artworkData, userSk);
+    }
+
+    if (!result || typeof result !== "object" || Object.keys(result).length === 0) {
+      throw new Error("Adding artwork returned an invalid or empty result");
+    }
+    // If both operations succeed, return success
     res.status(200).json(result);
+
   } catch(error) {
     console.error(error);
-    res.status(400).json({ error: "Error adding artwork and updating user" });
+    res.status(400).json({ error: "Error processing image or adding artwork" });
   }
 }
 
@@ -66,26 +97,6 @@ async function approveArtwork(req, res) {
   }
   
   try {
-    // process images before approving artwork
-    if (approvalStatus === true) {
-      const lambdaClient = new LambdaClient({ region: process.env.REGION });
-      const command = new InvokeCommand({
-        FunctionName: `arn:aws:lambda:us-east-1:011385746984:function:processImage-${process.env.ENV}`,
-        InvocationType: 'RequestResponse', // for synchronous execution
-        Payload: JSON.stringify({ user_sk: artworkSk }) // artwork sk is the same as user sk
-      });
-      const { Payload } = await lambdaClient.send(command);
-      const response = JSON.parse(Buffer.from(Payload));
-      console.log(response);
-      if (response.statusCode != 200) {
-        const error = JSON.parse(response.body).error;
-        if (error != 'Image already processed.') {
-          throw new Error(error);
-        }
-        console.error(error);
-      };
-    };
-
     const artwork = await ArtworkService.approveArtwork(artworkSk, approvalStatus);
     res.status(200).json(artwork);
   } catch(error) {

@@ -26,22 +26,35 @@ export const handler = async (event) => {
       Prefix: userSk
     }));
 
-    if (data.Contents.length != 1) {
-      const error = data.Contents.length ? "Image already processed." : "Image not found.";
-      console.log(error)
+    const initialFile = data.Contents.find(item => item.Key.startsWith(`${userSk}/initial`));
+    if (!initialFile) {
+      const error = "Initial image not found.";
+      console.log(error);
       return {
         statusCode: 400,
         body: JSON.stringify({ error: error })
-      }
+      };
     }
+    srcKey = initialFile.Key;
 
-    srcKey = data.Contents[0].Key;
+    // Old code which prevents reruns if folder has more than one file
+    // (Function often fails if this is in place, and we have enough throttling
+    // to be fine with removing this safety)
+    // if (data.Contents.length != 1) {
+    //   const error = data.Contents.length ? "Image already processed." : "Image not found.";
+    //   console.log(error)
+    //   return {
+    //     statusCode: 400,
+    //     body: JSON.stringify({ error: error })
+    //   }
+    // }
+    // srcKey = data.Contents[0].Key;
   } catch (error) {
     console.log("Error", error);
     return {
       statusCode: 400,
       body: JSON.stringify({ error: error })
-    }
+    };
   }
   
   const getCommand = new GetObjectCommand({ Bucket: bucket, Key: srcKey });

@@ -6,7 +6,8 @@ import { useDashboardContext } from "../DashboardContext";
 import { ModifiedUploadFormData } from "../../../mock/formDataStructs";
 import { expensiveActionLimiter } from "@/utils/api-rate-limit";
 
-interface FormikValidatedStepsControlProps { // Unnecessary for now
+interface FormikValidatedStepsControlProps {
+  setAwaitingResponse?: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
 // function simulateApiCall() {
@@ -22,7 +23,7 @@ interface FormikValidatedStepsControlProps { // Unnecessary for now
 //   });
 // }
 
-export const FormikValidatedStepsControl: React.FC<FormikValidatedStepsControlProps> = ({  }) => {
+export const FormikValidatedStepsControl: React.FC<FormikValidatedStepsControlProps> = ({ setAwaitingResponse }) => {
 
   const {
     steps,
@@ -52,6 +53,7 @@ export const FormikValidatedStepsControl: React.FC<FormikValidatedStepsControlPr
   } as ModifiedUploadFormData;
 
   const handleButtonClick = async (direction: string) => { 
+    setErrorMessage("");
     if (direction === "back") {
       handleNavigation("back");
     }
@@ -62,7 +64,9 @@ export const FormikValidatedStepsControl: React.FC<FormikValidatedStepsControlPr
         return;
       }
       try {
-
+        if (setAwaitingResponse) {
+          setAwaitingResponse(true);
+        }
         const presignedData = await expensiveActionLimiter.schedule(() => generatePresignedUrl({fileType: fileType}));
         if (presignedData.success !== true) {
           setErrorMessage("Our server has encountered an error. Please try again later.");
@@ -82,10 +86,17 @@ export const FormikValidatedStepsControl: React.FC<FormikValidatedStepsControlPr
           throw new Error("Failed to post artwork entry to DynamoDB");
         }
   
+        if (setAwaitingResponse) {
+          setAwaitingResponse(false);
+        }
         setErrorMessage("");
         handleNavigation("next");
       
       } catch (error) {
+        if (setAwaitingResponse) {
+          setAwaitingResponse(false);
+        }
+        setErrorMessage("An error occurred while uploading your artwork.");
         console.error("An error occurred:", error);
       }
       setIsLoading(false);
