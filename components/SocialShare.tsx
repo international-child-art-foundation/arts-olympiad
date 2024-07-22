@@ -13,9 +13,10 @@ const iconMap: { [key: string]: string } = {
 
 interface SocialShareProps {
   shareId: string;
+  center?: boolean;
 }
 
-const SocialShare: React.FC<SocialShareProps> = ({ shareId }) => {
+const SocialShare: React.FC<SocialShareProps> = ({ shareId, center=false }) => {
   const [showCopiedPopup, setShowCopiedPopup] = useState(false);
   const baseUrl = `${window.location.protocol}//${window.location.host}/gallery/?id=${shareId}`;
   const shareUrl = new URL(baseUrl);
@@ -50,7 +51,7 @@ const SocialShare: React.FC<SocialShareProps> = ({ shareId }) => {
   };
 
   return (
-    <div className="relative flex space-x-2 mt-4">
+    <div className={`${ center && "justify-center"} relative flex space-x-2 mt-4`}>
       <button onClick={copyToClipboard} className="text-white rounded-full flex items-center justify-center border-2 active:border-slate-300 active:scale-95">
         <Image src={iconMap.Share} alt="Share icon" width={32} height={32} />
       </button>

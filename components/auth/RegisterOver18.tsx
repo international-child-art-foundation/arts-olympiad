@@ -18,9 +18,11 @@ import {
   lastNameValidation, 
   // phoneValidation, 
   emailValidation, 
-  passwordValidation 
+  passwordValidation, 
+  termsAgreement
 } from "@/utils/yup-validators";
 import { limiter } from "@/utils/api-rate-limit";
+import { TermsCheckbox } from "../common/form_inputs/TermsCheckbox";
 
 type RegisterOver18Props = {
   setUserEmail: React.Dispatch<React.SetStateAction<string>>
@@ -41,6 +43,7 @@ export const RegisterOver18: React.FC<RegisterOver18Props> = ({setUserEmail, use
     // ...phoneValidation,
     ...emailValidation,
     ...passwordValidation,
+    ...termsAgreement
   });
 
   const over18InitialValues: UserRegisterInterfaceOver18 = {
@@ -48,7 +51,8 @@ export const RegisterOver18: React.FC<RegisterOver18Props> = ({setUserEmail, use
     lastName: "",
     email: "",
     phone: undefined,
-    password: ""
+    password: "",
+    termsAgreement: false,
   };
 
   const onSubmit = async (values: UserRegisterInterfaceOver18) => {
@@ -116,6 +120,7 @@ export const RegisterOver18: React.FC<RegisterOver18Props> = ({setUserEmail, use
               src={showPassword ? OpenEye : ClosedEye }
               alt="Show password button." />
           </div>
+          <TermsCheckbox id={"termsAgreement"} error={errors.termsAgreement} touched={touched.termsAgreement} value={values.termsAgreement} over18={true}/>
           <ButtonStd type="submit" className="w-full my-2">Sign up</ButtonStd>
           {apiError && <p className="text-red-500">{apiError}</p>}
         </Form>

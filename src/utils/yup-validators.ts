@@ -3,10 +3,12 @@ import { isPossiblePhoneNumber } from "libphonenumber-js";
 
 import { allowedPasswordCharactersRegex, passwordPolicyRegex } from "../../mock/passwordRegex";
 
+const nameRegex = new RegExp("^[a-zA-ZàáâäãåąčćęèéêëėįìíîïłńòóôöõøùúûüųūÿýżźñçčšžÀÁÂÄÃÅĄĆČĖĘÈÉÊËÌÍÎÏĮŁŃÒÓÔÖÕØÙÚÛÜŲŪŸÝŻŹÑßÇŒÆČŠŽ∂ð ,.\"-]+$");
+
 export const firstNameValidation = {
   firstName: Yup.string()
     .matches(
-      /^[a-zA-ZàáâäãåąčćęèéêëėįìíîïłńòóôöõøùúûüųūÿýżźñçčšžÀÁÂÄÃÅĄĆČĖĘÈÉÊËÌÍÎÏĮŁŃÒÓÔÖÕØÙÚÛÜŲŪŸÝŻŹÑßÇŒÆČŠŽ∂ð ,."-]+$/u, 
+      nameRegex, 
       "Invalid characters in first name"
     )
     .max(30, "First name must be no longer than 30 characters")
@@ -15,7 +17,7 @@ export const firstNameValidation = {
 export const lastNameValidation = {
   lastName: Yup.string()
     .matches(
-      /^[a-zA-ZàáâäãåąčćęèéêëėįìíîïłńòóôöõøùúûüųūÿýżźñçčšžÀÁÂÄÃÅĄĆČĖĘÈÉÊËÌÍÎÏĮŁŃÒÓÔÖÕØÙÚÛÜŲŪŸÝŻŹÑßÇŒÆČŠŽ∂ð ,."-]+$/u, 
+      nameRegex, 
       "Invalid characters in last name"
     )
     .max(30, "Last name must be no longer than 30 characters")
@@ -24,7 +26,7 @@ export const lastNameValidation = {
 export const guardianFirstNameValidation = {
   firstName: Yup.string()
     .matches(
-      /^[a-zA-ZàáâäãåąčćęèéêëėįìíîïłńòóôöõøùúûüųūÿýżźñçčšžÀÁÂÄÃÅĄĆČĖĘÈÉÊËÌÍÎÏĮŁŃÒÓÔÖÕØÙÚÛÜŲŪŸÝŻŹÑßÇŒÆČŠŽ∂ð ,."-]+$/u, 
+      nameRegex, 
       "Invalid characters in first name"
     )
     .max(30, "First name must be no longer than 30 characters")
@@ -33,7 +35,7 @@ export const guardianFirstNameValidation = {
 export const guardianLastNameValidation = {
   lastName: Yup.string()
     .matches(
-      /^[a-zA-ZàáâäãåąčćęèéêëėįìíîïłńòóôöõøùúûüųūÿýżźñçčšžÀÁÂÄÃÅĄĆČĖĘÈÉÊËÌÍÎÏĮŁŃÒÓÔÖÕØÙÚÛÜŲŪŸÝŻŹÑßÇŒÆČŠŽ∂ð ,."-]+$/u, 
+      nameRegex, 
       "Invalid characters in last name"
     )
     .max(30, "Last name must be no longer than 30 characters")
@@ -50,6 +52,12 @@ export const emailValidation = {
   email: Yup.string()
     .email("Not a recognized email address")
     .required("Email is required")
+};
+
+export const termsAgreement = {
+  termsAgreement: Yup.boolean()
+    .oneOf([true], "In order to register, you must accept the terms and conditions.")
+    .required("In order to register, you must accept the terms and conditions."),
 };
 
 export const passwordValidation = {

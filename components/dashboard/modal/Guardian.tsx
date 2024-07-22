@@ -81,14 +81,14 @@ export const Guardian = () => {
                 type="checkbox" 
               />
 
-              <div className="my-6">
+              {/* <div className="my-6">
                 <label className="text-sm font-light text-neutral-black">
                   Parent or Guardian's Digital Signature
                 </label>
                 <div className="text-new-blue flex items-center justify-center border border-neutral-black w-full h-52 rounded-lg">
                   Sign here
                 </div>
-              </div>
+              </div> */}
 
               <FormikValidatedStepsControl />
             </Form>

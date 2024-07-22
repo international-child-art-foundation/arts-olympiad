@@ -134,8 +134,8 @@ export const FormikValidatedStepsControl: React.FC<FormikValidatedStepsControlPr
       {canSubmitArt === false ? (
         <p className="font-bold ">You are currently banned from submitting art. If you believe this is a mistake, please <a href="https://icaf.org/about/contact-us" className="text-blue-600">Contact Us</a> and include your contest email address.</p>
       ) : (
-        <div className={`pt-8 relative justify-around md:justify-center mx-auto w-full mb-4 md:grid ${currentStep != (steps.length - 1) && "grid-cols-2 gap-2"} ${isLoading ? "opacity-50" : ""}`}>
-          {currentStep != (steps.length - 1) && 
+        <div className={`pt-8 relative justify-around md:justify-center mx-auto w-full mb-4 md:grid ${currentStep != (steps.length) && "grid-cols-2 gap-2"} ${isLoading ? "opacity-50" : ""}`}>
+          {currentStep != (steps.length) && 
           <button type="button"
             onClick={() => handleButtonClick("back")}
             className={`${currentStep === steps.length ? "hidden" : "group bg-neutral-white border-new-blue border rounded text-base font-normal text-new-blue w-full me-auto mr-5 cursor-pointer"}`}
@@ -151,7 +151,7 @@ export const FormikValidatedStepsControl: React.FC<FormikValidatedStepsControlPr
             onClick={() => handleButtonClick("next")}
             className={` mx-auto border rounded text-center text-base font-normal w-full mt-6 md:mt-0 py-4 px-10 cursor-pointer ${currentStep === steps.length ? "bg-neutral-white border-new-blue text-new-blue" : "text-neutral-white bg-new-blue border-new-blue"}`}
             disabled={isLoading || !canSubmitArt}>
-            {isLoading ? "Loading..." : (currentStep === steps.length ? "Gallery" : (currentStep === steps.length - 2 ? "Submit" : "Continue"))}
+            {isLoading ? "Loading..." : (currentStep === steps.length ? "Continue" : (currentStep === steps.length - 1 ? "Submit" : "Continue"))}
           </button>
         </div>
       )}

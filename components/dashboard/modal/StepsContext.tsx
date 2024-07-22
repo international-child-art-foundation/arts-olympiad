@@ -33,7 +33,6 @@ export const StepsProvider: React.FC<{ children: ReactNode }> = ({ children }) =
     "Terms",
     "Prepare",
     "Upload",
-    "Review",
     "Confirm",
   ]);
 

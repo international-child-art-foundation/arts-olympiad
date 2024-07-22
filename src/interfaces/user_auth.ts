@@ -14,6 +14,7 @@ export interface UserRegisterInterfaceOver18 {
   email: string;
   phone: string | undefined;
   password: string;
+  termsAgreement: boolean;
 }
 
 export interface UserRegisterInterfaceUnder18 {
@@ -24,6 +25,7 @@ export interface UserRegisterInterfaceUnder18 {
   email: string;
   phone: string | undefined;
   password: string;
+  termsAgreement: boolean;
 }
 
 export interface UserRegisterInterface {

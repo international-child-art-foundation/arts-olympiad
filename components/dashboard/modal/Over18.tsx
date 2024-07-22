@@ -93,7 +93,7 @@ export const Over18 = () => {
       <div className="mt-28 mb-9 text-center text-2xl text-neutral-black font-bold">
         Terms & Donation Acknowledgment
       </div>
-      <p className="text-red-600 text-xl mb-4 text-center">These terms of use must be reviewed by your parent or guardian.</p>
+      {userAge < 18 && <p className="text-red-600 text-xl mb-4 text-center">These terms of use must be reviewed by your parent or guardian.</p>}
       <div className="mb-10 text-base text-neutral-black font-normal"> 
         Before we move forward, we need some details from you. Please review and agree to our <a className="underline text-blue-600" target="_blank" href="https://icaf.org/resource/documents/ICAF.website.-.Terms.of.Use.pdf">Terms of Use</a> and <a className="underline text-blue-600" target="_blank" href="https://icaf.org/resource/documents/ICAF.website.-.Privacy.Policy.pdf">Privacy Policy</a>. By submitting your artwork, you're also donating it to ICAF for charitable objectives. Thank you for your support!
       </div>
@@ -164,14 +164,14 @@ export const Over18 = () => {
                 age={userAge}
               />
 
-              <div className="my-6">
+              {/* <div className="my-6">
                 <label className="text-sm font-light text-neutral-black">
                   Digital Signature
                 </label>
                 <div className="text-new-blue flex items-center justify-center border border-neutral-black w-full h-52 rounded-lg">
                   Sign here
                 </div>
-              </div>
+              </div> */}
 
               <FormikValidatedStepsControl/>
               

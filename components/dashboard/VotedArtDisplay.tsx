@@ -11,7 +11,7 @@ export const VotedArtDisplay = () => {
     <div>
       <div className="my-2 p-6 outline outline-1 rounded-3xl max-h-full max-w-full font-light">
         {apiArtworkVoteData ? (
-          <div className="grid grid-cols-1 lg:grid-cols-2 h-full gap-6">
+          <div className="grid grid-cols-1 lg:grid-cols-2 h-full gap-6 overflow-hidden">
             <div className="flex flex-col overflow-hidden gap-4">
               <div className="flex justify-center items-center rounded-xl overflow-hidden relative flex-grow ">
                 <Image

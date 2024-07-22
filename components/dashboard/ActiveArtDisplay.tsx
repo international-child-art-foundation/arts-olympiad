@@ -49,7 +49,7 @@ export const ActiveArtDisplay = () => {
               <Link href="/gallery" className="mx-auto text-blue-600">Visit the gallery</Link>
             </div>
           ) : (
-            <div className="grid grid-cols-1 lg:grid-cols-2 h-full gap-6">
+            <div className="grid grid-cols-1 lg:grid-cols-2 h-full gap-6 overflow-hidden">
               <div className="flex flex-col overflow-hidden gap-4">
                 <div className="flex justify-center items-center rounded-xl overflow-hidden relative flex-grow ">
                   {imageUrl && (

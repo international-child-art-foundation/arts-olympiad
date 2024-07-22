@@ -20,8 +20,10 @@ import {
   guardianLastNameValidation,
   // phoneValidation, 
   emailValidation, 
-  passwordValidation 
+  passwordValidation, 
+  termsAgreement
 } from "@/utils/yup-validators";
+import { TermsCheckbox } from "../../components/common/form_inputs/TermsCheckbox";
 
 type RegisterUnder18Props = {
   setUserEmail: React.Dispatch<React.SetStateAction<string>>
@@ -45,6 +47,7 @@ export const RegisterUnder18: React.FC<RegisterUnder18Props> = ({setUserEmail, u
     // ...phoneValidation,
     ...emailValidation,
     ...passwordValidation,
+    ...termsAgreement
   });
 
   const under18InitialValues: UserRegisterInterfaceUnder18 = {
@@ -54,7 +57,8 @@ export const RegisterUnder18: React.FC<RegisterUnder18Props> = ({setUserEmail, u
     guardianLastName: "",
     email: "",
     phone: undefined,
-    password: ""
+    password: "",
+    termsAgreement: false
   };
 
   const onSubmit = async (values: UserRegisterInterfaceUnder18) => {
@@ -95,7 +99,7 @@ export const RegisterUnder18: React.FC<RegisterUnder18Props> = ({setUserEmail, u
           <Form 
             className={`${formSubmissionLoading && "blur-sm opacity-80"} col-start-1 row-start-1`}
           > {/* Disabled until contest begins: className="pointer-events-none opacity-50"*/}
-            <p className="rounded-3xl p-4 bg-white italic">Since you're under the age of 18, please ask a parent or guardian to help you fill out the rest of this form.</p>
+            <p className="rounded-3xl p-4 bg-white italic">Since you're under the age of 18, this form must be completed by your parent or guardian.</p>
             <div className="grid grid-cols-2 gap-4">
               <TextInput inputType="string" className="mt-4" placeholder="John" error={errors.firstName}  touched={touched.firstName} value={values.firstName} labelText="First Name" id="firstName" />
               <TextInput inputType="string" className="mt-4" placeholder="Doe" error={errors.lastName}  touched={touched.lastName} value={values.lastName} labelText="Last name" id="lastName" />
@@ -126,6 +130,7 @@ export const RegisterUnder18: React.FC<RegisterUnder18Props> = ({setUserEmail, u
                 src={showPassword ? OpenEye : ClosedEye }
                 alt="Show password button." />
             </div>
+            <TermsCheckbox id={"termsAgreement"} error={errors.termsAgreement} touched={touched.termsAgreement} value={values.termsAgreement} over18={false}/>
             <ButtonStd type="submit" className="w-full my-2">Sign up</ButtonStd>
             {apiError && <p className="text-red-500">{apiError}</p>}
           </Form>

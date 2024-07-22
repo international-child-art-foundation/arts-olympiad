@@ -22,6 +22,9 @@ import { RegisterUnder18 } from "./RegisterUnder18";
 interface RegisterFormProps {
   setRegisterSuccess: React.Dispatch<React.SetStateAction<boolean>>
   setUserEmail: React.Dispatch<React.SetStateAction<string>>
+  setIsVerificationModalOpen: React.Dispatch<React.SetStateAction<boolean>>
+  registerSuccess: boolean
+  isVerificationModalOpen: boolean 
 }
 
 Yup.addMethod(Yup.string, "isPossiblePhoneNumber", function (errorMessage) {
@@ -33,7 +36,7 @@ Yup.addMethod(Yup.string, "isPossiblePhoneNumber", function (errorMessage) {
   });
 });
 
-export const RegisterForm: React.FC<RegisterFormProps> = ({setUserEmail, setRegisterSuccess}) => {
+export const RegisterForm: React.FC<RegisterFormProps> = ({setUserEmail, setRegisterSuccess, registerSuccess, setIsVerificationModalOpen}) => {
   const [formSubmissionLoading, setFormSubmissionLoading] = useState(false);
   const [userBirthdate, setUserBirthdate] = useState({day: undefined, month: undefined, year: undefined} as BirthdateInterface);
   const [userAge, setUserAge] = useState<number | null>(null);
@@ -77,9 +80,23 @@ export const RegisterForm: React.FC<RegisterFormProps> = ({setUserEmail, setRegi
             )
           )}
         </div>
-        <Pm className="font-semibold my-4 text-center">Already have an account?
-          <span className="text-main-blue font-semibold"><Link className="inline" href="/login"> Log in here</Link></span>
-        </Pm>
+        { registerSuccess ?
+          (
+            <div>
+              <div className="w-full border-bottom border-2 my-4 border-gray-400"/>
+              <button onClick={() => setIsVerificationModalOpen(true)}className="p-4 mt-2 bg-new-blue text-white font-bold rounded-lg w-full">
+                Verify your email address
+              </button>
+              <p className="italic mt-4">
+                In order to access your account, you must verify your email address.
+              </p>
+            </div>
+          ) : (
+            <Pm className="font-semibold my-4 text-center">Already have an account?
+              <span className="text-main-blue font-semibold"><Link className="inline" href="/login"> Log in here</Link></span>
+            </Pm>
+          )
+        }
         <div className="invisible">
           <div className="flex flex-row">
             <div className=" mx-4 z-10 my-12 relative bg-main-grey w-full m-0 border-1 border-main-grey" />

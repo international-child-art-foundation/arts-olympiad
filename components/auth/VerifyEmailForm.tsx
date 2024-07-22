@@ -6,7 +6,7 @@ import { TextInput } from "../common/form_inputs/TextInput";
 import { ButtonStd } from "../common/ui/ButtonStd";
 import * as Yup from "yup";
 import LoadingAnimation from "../svgs/LoadingAnimation";
-import { limiter } from "@/utils/api-rate-limit";
+import { expensiveActionLimiter, limiter } from "@/utils/api-rate-limit";
 import { resendVerificationEmail, handleVerify } from "@/utils/api-user";
 import { ResendVerificationInterface, VerificationCodeInterface, EmailInterface } from "@/interfaces/user_auth";
 
@@ -37,7 +37,7 @@ export const VerifyEmailForm = () => {
     setLoading(true);
     setApiError(null);
     try {
-      await limiter.schedule(() => resendVerificationEmail(values));
+      await expensiveActionLimiter.schedule(() => resendVerificationEmail(values));
       setUserEmail(values.email);
       setStep("verification");
     } catch (error) {
