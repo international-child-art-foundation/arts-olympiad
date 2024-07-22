@@ -12,6 +12,7 @@ interface IProps {
   onSendResetCode: (email: string) => void;
   onCodeVerified: (code: string) => void;
   email: string;
+  isLoading: boolean;
 }
 
 interface IResetCodeFormValues {
@@ -24,7 +25,7 @@ const validationSchema = Yup.object().shape({
   code: Yup.string().length(6, "Code must be 6 characters long")
 });
 
-export const SendResetCodeForm = ({ onSendResetCode, onCodeVerified, email }: IProps) => {
+export const SendResetCodeForm = ({ onSendResetCode, onCodeVerified, email, isLoading }: IProps) => {
   const [isCodeSent, setIsCodeSent] = useState(false);
 
   const initialValues: IResetCodeFormValues = {
@@ -74,7 +75,7 @@ export const SendResetCodeForm = ({ onSendResetCode, onCodeVerified, email }: IP
                 id="code"
               />
             )}
-            <ButtonStd type="submit" className="w-full my-2">
+            <ButtonStd type="submit" className={`${isLoading && "pointer-events-none opacity-60"} w-full my-2`}>
               {isCodeSent ? "Verify Code" : "Send reset code"}
             </ButtonStd>
           </Form>

@@ -12,6 +12,7 @@ import { passwordValidation } from "@/utils/yup-validators";
 import { ConfirmForgotPasswordInterface } from "@/interfaces/user_auth";
 
 interface IProps {
+  isLoading: boolean;
   onSubmitResetForm: (values: ConfirmForgotPasswordInterface) => void;
   email: string;
   resetCode: string;
@@ -34,7 +35,7 @@ const initialValues: IResetPasswordFormValues = {
   confirmPassword: ""
 };
 
-export const ResetPasswordForm = ({ onSubmitResetForm, email, resetCode }: IProps) => {
+export const ResetPasswordForm = ({ onSubmitResetForm, email, resetCode, isLoading }: IProps) => {
   const [showPassword, setShowPassword] = useState(false);
 
   const onSubmit = (values: IResetPasswordFormValues) => {
@@ -89,7 +90,7 @@ export const ResetPasswordForm = ({ onSubmitResetForm, email, resetCode }: IProp
                 id="confirmPassword" 
               />
             </div>
-            <ButtonStd type="submit" className="w-full my-2">Submit</ButtonStd>
+            <ButtonStd type="submit" className={`${isLoading && "pointer-events-none opacity-60"} w-full my-2`}>Submit</ButtonStd>
           </Form>
         )}
       </Formik>

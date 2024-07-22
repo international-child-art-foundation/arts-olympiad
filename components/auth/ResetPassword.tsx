@@ -20,11 +20,14 @@ export const ResetPassword = () => {
   const [formStatus, setFormStatus] = useState<TFormStatus>("send-code");
   const [email, setEmail] = useState("");
   const [resetCode, setResetCode] = useState("");
+  const [isLoading, setIsLoading] = useState(false);
 
-  const handleResetCodeSent = (sentEmail: string) => {
-    sendForgotPasswordEmail({email: sentEmail});
+  const handleResetCodeSent = async (sentEmail: string) => {
+    setIsLoading(true);
+    await sendForgotPasswordEmail({email: sentEmail});
     setEmail(sentEmail);
     setFormStatus("code-sent");
+    setIsLoading(false);
   };
 
   const handleCodeVerified = (code: string) => {
@@ -33,6 +36,7 @@ export const ResetPassword = () => {
   };
 
   const handleSubmitResetForm = async (forgotPasswordValues: ConfirmForgotPasswordInterface) => {
+    setIsLoading(true);
     try {
       const forgotPasswordResult = await confirmForgotPassword(forgotPasswordValues);
       if (forgotPasswordResult.success) {
@@ -43,7 +47,9 @@ export const ResetPassword = () => {
     } catch(error) {
       console.log(error);
       setFormStatus("fail");
+      setIsLoading(false);
     }
+    setIsLoading(false);
   };
 
   return (
@@ -58,12 +64,14 @@ export const ResetPassword = () => {
                   onSendResetCode={handleResetCodeSent}
                   onCodeVerified={handleCodeVerified}
                   email={email}
+                  isLoading={isLoading}
                 />
               ) : formStatus === "reset-form" ? (
                 <ResetPasswordForm
                   onSubmitResetForm={handleSubmitResetForm}
                   email={email}
                   resetCode={resetCode}
+                  isLoading={isLoading}
                 />
               ) : (
                 formStatus === "success" && <ResetPasswordSuccess /> || 
