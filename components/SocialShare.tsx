@@ -1,15 +1,10 @@
 "use client";
 import React, { useState } from "react";
-import Image from "next/image";
-
-const iconMap: { [key: string]: string } = {
-  Instagram: "/svgs/instagram.svg",
-  Facebook: "/svgs/facebook_icon.svg",
-  X: "/svgs/x_fka_twitter.svg",
-  WhatsApp: "/svgs/whatsapp_icon.svg",
-  LinkedIn: "/svgs/linkedin.svg",
-  Share: "/svgs/share_icon.svg",
-};
+import { FacebookIcon } from "./svgs/FacebookIcon";
+import { TwitterIcon } from "./svgs/TwitterIcon";
+import { WhatsappIcon } from "./svgs/WhatsappIcon";
+import { LinkedinIcon } from "./svgs/LinkedinIcon";
+import { ShareIcon } from "./svgs/ShareIcon";
 
 interface SocialShareProps {
   shareId: string;
@@ -53,11 +48,14 @@ const SocialShare: React.FC<SocialShareProps> = ({ shareId, center=false }) => {
   return (
     <div className={`${ center && "justify-center"} relative flex space-x-2 mt-4`}>
       <button onClick={copyToClipboard} className="text-white rounded-full flex items-center justify-center border-2 active:border-slate-300 active:scale-95">
-        <Image src={iconMap.Share} alt="Share icon" width={32} height={32} />
+        <ShareIcon width={32} height={32} />
       </button>
       {Object.entries(platforms).map(([name, url]) => (
         <button key={name} onClick={() => openPopup(url)} className="text-white rounded-full flex items-center justify-center border-2 active:border-slate-300 active:scale-95">
-          {iconMap[name] && <Image src={iconMap[name]} alt={`${name} icon`} width={32} height={32} />}
+          {name === "Facebook" && <FacebookIcon width={32} height={32} />}
+          {name === "WhatsApp" && <WhatsappIcon width={32} height={32} />}
+          {name === "X" && <TwitterIcon width={32} height={32} />}
+          {name === "LinkedIn" && <LinkedinIcon width={32} height={32} />}
         </button>
       ))}
       <div className={`absolute -top-14 z-10 bg-white border rounded p-2 px-4 transition-all ${showCopiedPopup ? "opacity-100" : "opacity-0 pointer-events-none"}`}>
