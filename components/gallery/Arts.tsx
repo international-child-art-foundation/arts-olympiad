@@ -7,7 +7,6 @@ import Checkbox from "./Checkbox";
 import ArtworkCard from "./ArtworkCard";
 import Pagination from "../pagination/Pagination";
 import blueBlobs from "../../public/svgs/gallery-svg/blueBlobs.svg";
-import multiBlueblobs from "../../public/svgs/gallery-svg/multiBlueblobs.svg";
 import Image from "next/image";
 import Filter from "./Filter";
 import { TagList } from "./TagList";
@@ -416,7 +415,7 @@ export const Arts: React.FC<ArtsProps> = ({ contestState }) => {
               <LoadingAnimation scale={100} stroke={2}/>
             </div>
             }
-            {(!activeArtworks || activeArtworks.length == 0) && !isLoading ? 
+            {(!activeArtworks || activeArtworks.length == 0) && contestState != ContestState.Inactive && !isLoading ? 
               <div>
                 <Image className="text-center mx-auto pt-10 " src={no_results_found} width={500} alt="No results found."/>
                 <p className="font-bold text-xl mx-auto text-center py-10 font-montserrat">No Result Found</p>
@@ -424,14 +423,14 @@ export const Arts: React.FC<ArtsProps> = ({ contestState }) => {
               </div>
               : (
                 <>
-                  <Image src={blueBlobs} alt="" className="-z-10 absolute top-1/4 right-0" />
-                  <Image src={multiBlueblobs} alt="" className="-z-10 absolute top-1/4 left-0" />      
+                  <Image src={blueBlobs} alt="" className="-z-10 absolute top-1/8 right-20 lg:right-40" />
+                  {/* <Image src={multiBlueblobs} alt="" className="-z-10 absolute top-1/4 left-0" />       */}
                 </>
               )} 
             {/* <Image src={blueBlobs} alt="" className="-z-10 absolute top-1/4 right-0" /> */}
             {/* <Image src={multiBlueblobs} alt="" className="-z-10 absolute top-1/4 left-0" /> */}
             <div className={`${isLoading && "opacity-60"} `}>
-              {error && <div className="text-red-600 py-6 text-lg mx-auto text-center">We're having some difficulty fetching artworks. Try refreshing the page. </div>}
+              {error && contestState == ContestState.Active &&  <div className="text-red-600 py-6 text-lg mx-auto text-center">We're having some difficulty fetching artworks. Try refreshing the page. </div>}
               <div className="grid grid-cols-2 gap-x-2 gap-y-6 xl:grid-cols-4 xl:gap-x-6 xl:gap-y-10">
                 {Array.isArray(activeArtworks) && activeArtworks.length > 0 && (
                   activeArtworks

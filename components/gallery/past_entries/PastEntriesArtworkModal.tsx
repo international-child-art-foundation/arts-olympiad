@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from "react";
 import Image from "next/image";
-import SocialShare from "../../SocialShare";
 import Link from "next/link";
 
 import { artworks } from "./past-artworks";
@@ -48,27 +47,6 @@ const ArtworkModal: React.FC<ArtworkModalProps> = ({ id, modalState, isHorizonta
     setCurrentState(ModalState.Default); // Reset to default state when modal is opened or the artwork changes
   }, [id, modalState]);
 
-  {/* Sign-in status, to be replaced by global context AWS authentication */}
-  const signedIn = false;
-
-  const submitVote = async () => {
-    setCurrentState(ModalState.Loading); // Transition to loading state
-    try {
-      const response = await new Promise<{ ok: boolean }>((resolve) => {
-        setTimeout(() => {
-          resolve({ ok: true }); // Simulate successful API response
-        }, 1000); // Simulate network delay
-      });
-
-      if (response.ok) {
-        setCurrentState(ModalState.Submitted); // Transition to submitted state on success
-      }
-    } catch (error) {
-      console.error("Failed to submit vote", error);
-      setCurrentState(ModalState.Default); // Handle error by reverting to default state or showing an error state
-    }
-  };
-
   if (!modalState) return null;
 
   function renderLoadingState() {
@@ -84,10 +62,6 @@ const ArtworkModal: React.FC<ArtworkModalProps> = ({ id, modalState, isHorizonta
       <div className="flex flex-col overflow-auto items-center justify-center h-full w-[410px] max-w-full mx-auto">
         <p className="font-montserrat font-semibold text-3xl pb-7">Thank you for your vote.</p>
         <p className="text-xl pb-10 font-light">Your vote is cast – thank you for participating!  You've just helped an artist get one step closer to the spotlight. Share their work to spread the word!</p>
-        <div className="">
-          <p className="font-semibold text-xl text-center">Share this post</p>
-          <SocialShare shareId={id} />
-        </div>
 
         <button className="bg-new-blue w-full text-base text-white text-base p-4 rounded mt-6 cursor-pointer" onClick={closeModal}>Return to Gallery</button>
       </div>
@@ -107,7 +81,7 @@ const ArtworkModal: React.FC<ArtworkModalProps> = ({ id, modalState, isHorizonta
     }  
     return (
       <div className="grid grid-cols-2 gap-5 md:gap-10 grid-rows-1 overflow-hidden max-h-full mx-auto px-6">
-        <div className="flex flex-col overflow-auto">
+        <div className="flex flex-col overflow-auto justify-between">
 
           <p className="font-bold text-xl mt-5">{artworkData.name}</p>
           <div className="mt-5">
@@ -121,18 +95,10 @@ const ArtworkModal: React.FC<ArtworkModalProps> = ({ id, modalState, isHorizonta
               <p>Prompt: {artworkData.aiPrompt}</p>
             </div>
           )}
-          <div className="mt-auto">
-            <p className="font-semibold text-xl pt-4">Share this post</p>
-            <SocialShare shareId={id} />
+          <div className="w-full flex flex-col">
+            <p className="text-sm text-new-blue mt-4">This artwork was submitted in the past and cannot be voted upon.</p>
+            <Link className="bg-new-blue text-white text-base p-4 rounded mt-4 text-center" href="/gallery">View our gallery of active entries</Link>
           </div>
-          {!signedIn ? (
-            <>
-              <p className="text-sm text-new-blue mt-4">This artwork was submitted in the past and cannot be voted upon.</p>
-              <Link className="bg-new-blue text-white text-base p-4 rounded mt-4 text-center" href="/gallery">View our gallery of active entries</Link>
-            </>
-          ) : (
-            <button className="bg-new-blue text-white text-base p-4 rounded mt-4" onClick={submitVote}>Vote for this artwork</button>
-          )}
         </div>
         <div className="flex justify-center items-center rounded-xl overflow-hidden relative flex-shrink">
           <Image src={artworkData.url} alt={artworkData.alt} width={500} height={300} className="max-w-full max-h-full col-start-2 z-20 object-contain" />
@@ -185,18 +151,10 @@ const ArtworkModal: React.FC<ArtworkModalProps> = ({ id, modalState, isHorizonta
             <p>Prompt: {artworkData.aiPrompt}</p>
           </div>
         )}
-        <div className="mt-auto">
-          <p className="font-semibold text-xl">Share this post</p>
-          <SocialShare shareId={id} />
+        <div className="w-full flex flex-col">
+          <p className="text-sm text-new-blue mt-4">This artwork was submitted in the past and cannot be voted upon.</p>
+          <Link className="bg-new-blue text-white text-base p-4 rounded mt-4 text-center" href="/gallery">View our gallery of active entries</Link>
         </div>
-        {!signedIn ? (
-          <>
-            <p className="text-sm text-new-blue mt-4">This artwork was submitted in the past and cannot be voted upon.</p>
-            <Link className="bg-new-blue text-white text-base p-4 rounded mt-4 text-center" href="/gallery">View our gallery of active entries</Link>
-          </>
-        ) : (
-          <button className="bg-new-blue text-white text-base p-4 rounded mt-4" onClick={submitVote}>Vote for this artwork</button>
-        )}
       </div>
     );
   }

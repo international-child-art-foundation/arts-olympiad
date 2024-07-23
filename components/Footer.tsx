@@ -1,25 +1,23 @@
 "use client";
 import Link from "next/link";
 import { InstagramIcon } from "./svgs/InstagramIcon";
-import { FacebookIcon } from "./svgs/FacebookIcon";
-import { TwitterIcon } from "./svgs/TwitterIcon";
+import { FacebookIconWhite } from "./svgs/FacebookIconWhite";
+import { TwitterIconWhite } from "./svgs/TwitterIconWhite";
 import { YoutubeIcon } from "./svgs/YoutubeIcon";
-import { LinkedinIcon } from "./svgs/LinkedinIcon";
+import { LinkedinIconWhite } from "./svgs/LinkedinIconWhite";
 import { PinterestIcon } from "./svgs/PinterestIcon";
 import { EmailIcon } from "./svgs/EmailIcon";
-// import { HeartIcon } from "./svgs/HeartIcon";
 import { useGlobalContext } from "@/app/GlobalContext";
 
 const icons = [
-  { SVGcomponent: FacebookIcon, altText:"Visit the International Child Art Foundation's Facebook page", href:"https://www.facebook.com/ICAF.org"},
+  { SVGcomponent: FacebookIconWhite, altText:"Visit the International Child Art Foundation's Facebook page", href:"https://www.facebook.com/ICAF.org"},
   { SVGcomponent: InstagramIcon, altText:"Visit the International Child Art Foundation's Instagram page", href:"https://www.instagram.com/intlchildartfoundation/"},
   { SVGcomponent: YoutubeIcon, altText:"Visit the International Child Art Foundation's Youtube page", href:"https://www.youtube.com/channel/UCvvipwdFEaNnTSv0EIhznaQ"},
-  { SVGcomponent: TwitterIcon, altText:"Visit the International Child Art Foundation's Twitter page", href:"https://www.twitter.com/ICAF_org"},
+  { SVGcomponent: TwitterIconWhite, altText:"Visit the International Child Art Foundation's Twitter page", href:"https://www.twitter.com/ICAF_org"},
   { SVGcomponent: PinterestIcon, altText:"Visit the International Child Art Foundation's Pinterest page", href:"https://www.pinterest.com/icaf/"},
-  { SVGcomponent: LinkedinIcon, altText:"Visit the International Child Art Foundation's Linkedin page", href:"https://www.linkedin.com/company/international-child-art-foundation"},
+  { SVGcomponent: LinkedinIconWhite, altText:"Visit the International Child Art Foundation's Linkedin page", href:"https://www.linkedin.com/company/international-child-art-foundation"},
 ];
 
-// Custom box shadows added to apply the effects of "shadow-md" with a negative offset-y
 const Footer = () => {
   const { setCookieBannerVisible } = useGlobalContext();
   return (

@@ -37,7 +37,7 @@ export const FlippingCardsStatic = () => {
         icon={clipboard}
         color="#0286C3"
       >
-        <div className="flex-grow"></div> {/* Spacer element */}
+        <div className="flex-grow min-h-[20px]"></div> {/* Spacer element */}
         <ButtonStyledLink
           href={"/register"}
           className="my-1 w-full"
@@ -63,7 +63,7 @@ export const FlippingCardsStatic = () => {
         icon={monitorUp}
         color="#EE2F4D"
       >
-        <div className="flex-grow"></div> {/* Spacer element */}
+        <div className="flex-grow min-h-[20px]"></div> {/* Spacer element */}
       </FlippingCardStatic>
       <FlippingCardStatic
         heading1="Partner"
@@ -83,7 +83,7 @@ export const FlippingCardsStatic = () => {
         icon={vote}
         color="#FBB22E"
       >
-        <div className="flex-grow"></div> {/* Spacer element */}
+        <div className="flex-grow min-h-[20px]"></div> {/* Spacer element */}
         <ButtonStyledLink
           href={"https://icaf.org/about/contact-us"}
           className="my-1 w-full"
@@ -124,7 +124,7 @@ export const FlippingCardsStatic = () => {
         icon={heart}
         color="#168C39"
       >
-        <div className="flex-grow"></div> {/* Spacer element */}
+        <div className="flex-grow min-h-[20px]"></div> {/* Spacer element */}
         <ButtonStyledLink
           href={"https://icaf.org/about/contact-us"}
           className="my-1 w-full"

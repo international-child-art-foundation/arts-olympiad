@@ -62,7 +62,7 @@ export const DashboardMainTab: React.FC<DashboardMainTabProps> = ({ dashboardLoa
           The contest has not yet begun. It begins on <span className="font-bold"> {formatDate("competitionBegin", "MMMM do")}</span>.
         </p>
         <p>
-          Until then, <Link className="text-blue-600 visited:text-purple-600 underline" href="/past-entries">get inspired</Link> by viewing our collection of ICAF artwork!
+          Until then, <Link className="text-blue-600 visited:text-purple-600 underline" href="/past-entries">get inspired</Link> by viewing the work of our exceptional past artists!
         </p>
       </div>
     );
@@ -117,14 +117,27 @@ export const DashboardMainTab: React.FC<DashboardMainTabProps> = ({ dashboardLoa
                     )}
                   </>
                 ) : (
-                  <div className="flex flex-col my-6">
-                    <p className="">In order to submit art, you must first pay a $10 entry fee. </p>
-                    <p className="">Once the fee is paid, we can go through the process of getting your artwork ready for the world. </p>
-                    <a href={process.env.NEXT_PUBLIC_STRIPE_URL + "?client_reference_id=" + apiUserData.sk} className=" my-4 mx-auto text-center bg-new-blue text-white px-4 py-2 rounded active:scale-[97%]">
-                      Pay Entry Fee
-                    </a>
-                  </div>
-                )}
+                  <>
+                    {contestState == ContestState.Complete ? (
+                      <div>
+                        <p>
+                          The contest has ended. Thank you for participating!
+                        </p>
+                      </div>
+                    ) : (
+                      <div className="flex flex-col my-6">
+                        <p className="">In order to submit art, you must first pay a $10 entry fee. </p>
+                        <p className="">Once the fee is paid, we can go through the process of getting your artwork ready for the world. </p>
+                        <a href={process.env.NEXT_PUBLIC_STRIPE_URL + "?client_reference_id=" + apiUserData.sk} className=" my-4 mx-auto text-center bg-new-blue text-white px-4 py-2 rounded active:scale-[97%]">
+                          Pay Entry Fee
+                        </a>
+                      </div>
+
+                    )
+                    }
+                  </>
+                )
+                }
               </>
             ) : (
               <div>
