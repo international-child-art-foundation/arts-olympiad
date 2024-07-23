@@ -5,7 +5,7 @@ import img1 from "../../../public/home/guidelines/submission-1.webp";
 import img2 from "../../../public/home/guidelines/submission-2.webp";
 import img3 from "../../../public/home/guidelines/_MG_8137.webp";
 import img4 from "../../../public/home/guidelines/submission-4.webp";
-import guidelinesPinkBlob from "../../../public/home/guidelines/guidelines-pink-blob.svg";
+import guidelinesPinkBlob from "../../../public/home/guidelines/PinkBlob.png";
 import {H2m} from "../../common/texts/H2m";
 import {GuidelineCard} from "./GuidelineCard";
 import {AnimatedScribble} from "../../common/decorations/AnimatedScribble";
@@ -17,7 +17,7 @@ const cardData = [
   { imgUrl: img1, className: "border-[#0286C3]", heading: "How to Submit", description: "Create an account with us, go to your dashboard and upload your work.", button:["Learn more", "/register"] },
   { imgUrl: img2, className: "border-[#168C39]", heading: "Accepted Formats", description: "All entries will be submitted digitally, but you're free to choose any format you'd like. Let your imagination take the lead on how to create your work.", button:["Learn more", "/contest"]},
   { imgUrl: img3, className: "border-[#EE2F4D]", heading: "Share your Favorites", description: "Everyone gets 1 vote. You can share your favorite piece through social media for more votes.", button:["Learn more", "/faq"], gradientStrength: 0.6 },
-  { imgUrl: img4, className: "border-[#F5AB35]", heading: "How much does it cost?", description: "All entires and votes are free!  This is thanks to our generous sponsors and donors supporting this amazing event!", button:["Learn more", "/sponsor"]}
+  { imgUrl: img4, className: "border-[#F5AB35]", heading: "How much does it cost?", description: "The entry fee for artists is $10 but voters register for free."}
 ];
 
 export const Guidelines = () => {

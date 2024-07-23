@@ -12,6 +12,7 @@ import tinyPinkBlob from "../../../public/svgs/blobs/tiny-vertical-pink-blob.svg
 import bigPinkBlob from "../../../public/svgs/blobs/vertical-big-pink-blob.svg";
 import bigBlueBlob from "../../../public/svgs/blobs/blue-leg-down-blob.svg";
 import {LastTimePointHeading} from "./LastTimePointHeading";
+import { formatDate } from "../../../mock/dates";
 
 export const Timeline = () => {
 
@@ -38,7 +39,7 @@ export const Timeline = () => {
           <TimePoint
             heading="When does it start?"
             description="#MyFavoriteSport event kicks off at an interactive exhibition in Paris."
-            date="June 15th, 2024"
+            date={formatDate("competitionBegin", "MMMM do, yyyy")}
             color={"#0286C3"}
             isMobile={isMobile}
           />
@@ -47,10 +48,10 @@ export const Timeline = () => {
             description={
               <>
             This is the time to create, and engage your creative mind. Make your entry before
-                <span className="font-bold text-dark-blue"> August 15th 2024</span>
+                <span className="font-bold text-dark-blue"> {formatDate("competitionEnd", "MMMM do yyyy")}</span>
               </>
             }
-            date="June to August"
+            date={`${formatDate("competitionBegin", "MMMM")} to ${formatDate("competitionEnd", "MMMM")}`}
             color={"#FBB22E"}
             isMobile={isMobile}
             inversed
@@ -60,9 +61,9 @@ export const Timeline = () => {
             description={
               <>
                 The gold, silver, and bronze winners, selected through public votes, will be announced on
-                <span className="font-bold text-dark-blue"> August 20th, 2024 </span>
+                <span className="font-bold text-dark-blue"> {formatDate("winnerAnnounced", "MMMM do yyyy")}</span>
               </>}
-            date="20th August, 2024"
+            date={formatDate("winnerAnnounced", "do MMMM, yyyy")}
             color={"#168C39"}
             isMobile={isMobile}
           />
@@ -71,7 +72,7 @@ export const Timeline = () => {
               <LastTimePointHeading />
             }
             description="These winners will be on their way to the Paris Olympics, thanks to generous sponsors!"
-            date="July 26, 2024"
+            date={formatDate("winnerAnnounced", "MMMM d, yyyy")}
             color={"#EE2F4D"}
             isMobile={isMobile}
             inversed

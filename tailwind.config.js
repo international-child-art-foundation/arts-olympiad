@@ -10,6 +10,9 @@ module.exports = {
   ],
   theme: {
     extend: {
+      animation:{
+        fade: "fade 0.5s ease-in-out",
+      },
       colors:{
         "secondary-blue": "#98CEFF",
         "main-blue": "#3256D5",

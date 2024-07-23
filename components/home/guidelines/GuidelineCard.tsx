@@ -9,7 +9,7 @@ interface IProps extends React.HTMLProps<HTMLDivElement> {
   alt?: string;
   heading: string;
   description: string | React.ReactNode;
-  button: string[];
+  button?: string[];
   isActive: boolean;
   gradientStrength: number | undefined;
 }
@@ -63,11 +63,13 @@ export const GuidelineCard = ({
         <Pm className="font-light font-sans text-sm min-w-[100%]">
           {description}
         </Pm>
-        <div className="inline-flex box-border grow-0 rounded">
-          <Link className="bg-white text-main-blue px-4 py-3 box-border rounded" href={button[1]}>
-            {button[0]}
-          </Link>
-        </div>
+        {button && (
+          <div className="inline-flex box-border grow-0 rounded">
+            <Link className="bg-white text-main-blue px-4 py-3 box-border rounded" href={button[1]}>
+              {button[0]}
+            </Link>
+          </div>
+        )}
       </div>
       <div 
         className={`${isActive ? "opacity-0 pointer-events-none" : "opacity-100 pointer-events-auto"} p-6 absolute bottom-0 w-full`} 

@@ -2,7 +2,12 @@
 import React from "react";
 import { useEffect, useState } from "react";
 import countdownStyles from "@/styles/gallery.module.css";
-import { contestStartTime, contestEndTime } from "../../mock/contestDates";
+import dates from "../../mock/dates";
+
+const contestStartTime = new Date(dates.competitionBegin);
+contestStartTime.setHours(12, 0, 0);
+const contestEndTime = new Date(dates.competitionEnd);
+contestEndTime.setHours(23, 59, 59);
 
 export const Countdown = () => {
   const [endTime, setEndTime] = useState(false);

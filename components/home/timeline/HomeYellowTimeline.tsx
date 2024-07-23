@@ -15,6 +15,7 @@ import basketballPlayer from "../../../public/home/basketball-player.webp";
 import badmintonPlayer from "../../../public/home/badminton-player.webp";
 import secondSwimmer from "../../../public/home/swim2.webp";
 import dive from "../../../public/home/dive.webp";
+import { formatDate } from "../../../mock/dates";
 
 export const HomeYellowTimeline = () => {
 
@@ -37,7 +38,7 @@ export const HomeYellowTimeline = () => {
         <Image src={bigBlueBlob} alt="" className="-z-10 w-[400px] md:w-[700px] absolute bottom-96 md:bottom-24 -left-12 md:-left-44 select-none pointer-events-none" />
         <Image src={basketballPlayer} alt="Basketball player" className="z-10 absolute md:-bottom-12 md:right-8 lg:-bottom-12 lg:right-14 xl:right-24 2xl:right-32 hidden md:block"/>
         <Image src={badmintonPlayer} alt="Badminton player" className="z-10 absolute md:left-8 md:bottom-64 lg:left-14 xl:left-24 2xl:left-32 hidden md:block"/>
-        <Image src={dive} alt="" className="z-10 absolute md:left-8 md:bottom-[46rem] lg:left-14 xl:left-24 2xl:left-32 hidden md:block"/>
+        <Image src={dive} alt="" className="z-10 absolute md:left-8 md:bottom-[48rem] lg:left-14 xl:left-24 2xl:left-32 hidden md:block"/>
         <Image src={secondSwimmer} alt="" className="z-10 absolute md:right-8 md:top-60 lg:-right-4 xl:top-[17rem] xl:right-8 2xl:right-8 hidden md:block"/>
 
         <h3 className="m-auto font-montserrat text-[2rem] ">Timeline</h3>
@@ -51,8 +52,8 @@ export const HomeYellowTimeline = () => {
           <ul aria-label="participation timeline.">
             <TimePoint
               heading="When does it start?"
-              description="The #MyFavoriteSport event kicks off at an interactive exhibition in Paris."
-              date="June 15th, 2024"
+              description=""
+              date={formatDate("competitionBegin", "MMMM do, yyyy")}
               color={"#0286C3"}
               isMobile={isMobile}
             />
@@ -60,11 +61,11 @@ export const HomeYellowTimeline = () => {
               heading="Register to Enter and Vote"
               description={
                 <>
-              This is the time to engage your creative mind. Make your entry before
-                  <span className="font-bold text-dark-blue"> August 15th, 2024.</span>
+              This is the time to engage your creative mind. Make your entry before 
+                  <span className="font-bold text-dark-blue"> {formatDate("competitionEnd", "MMMM do, yyyy")}.</span>
                 </>
               }
-              date="June to August"
+              date={`${formatDate("competitionBegin", "MMMM")} to ${formatDate("competitionEnd", "MMMM")}`}
               color={"#FBB22E"}
               isMobile={isMobile}
               inversed
@@ -74,9 +75,9 @@ export const HomeYellowTimeline = () => {
               description={
                 <>
                   The gold, silver, and bronze winners, selected through public votes, will be announced on
-                  <span className="font-bold text-dark-blue"> August 20th, 2024 </span>
+                  <span className="font-bold text-dark-blue"> {formatDate("winnerAnnounced", "MMMM do, yyyy")}</span>
                 </>}
-              date="20th August, 2024"
+              date={formatDate("winnerAnnounced", "do MMMM, yyyy")}
               color={"#168C39"}
               isMobile={isMobile}
             />
