@@ -11,7 +11,7 @@ export const firstNameValidation = {
       nameRegex, 
       "Invalid characters in first name"
     )
-    .max(30, "First name must be no longer than 30 characters")
+    .max(50, "First name must be no longer than 50 characters")
 };
 
 export const lastNameValidation = {
@@ -20,7 +20,7 @@ export const lastNameValidation = {
       nameRegex, 
       "Invalid characters in last name"
     )
-    .max(30, "Last name must be no longer than 30 characters")
+    .max(50, "Last name must be no longer than 50 characters")
 };
 
 export const guardianFirstNameValidation = {
@@ -29,7 +29,7 @@ export const guardianFirstNameValidation = {
       nameRegex, 
       "Invalid characters in first name"
     )
-    .max(30, "First name must be no longer than 30 characters")
+    .max(50, "First name must be no longer than 50 characters")
 };
 
 export const guardianLastNameValidation = {
@@ -38,7 +38,7 @@ export const guardianLastNameValidation = {
       nameRegex, 
       "Invalid characters in last name"
     )
-    .max(30, "Last name must be no longer than 30 characters")
+    .max(50, "Last name must be no longer than 50 characters")
 };
 
 export const phoneValidation = {
@@ -92,11 +92,11 @@ export const sourceValidator = {
 };
 
 export const promptValidator = {
-  prompt: Yup.string().optional().max(1000),
+  prompt: Yup.string().optional().max(600),
 };
 
 export const descriptionValidator = {
-  description: Yup.string().optional().max(1000),
+  description: Yup.string().optional().max(600),
 };
 
 export const passwordValidation = {
