@@ -90,7 +90,7 @@ export const GalleryHeader: React.FC<GalleryHeaderProps> = ({ contestState }) =>
         {contestState == ContestState.Inactive && 
           <div className="flex justify-center items-center text-base lg:text-xl mr-3 mb-20 lg:mb-36 font-normal">
             <p>
-              This contest has not yet begun. It begins on <span className="font-bold"> {formatDate("competitionBegin", "MMMM do, yyyy")} </span> Feel free to
+              This contest has not yet begun. It begins on <span className="font-bold"> {formatDate("competitionBegin", "MMMM do, yyyy")}</span>. Feel free to
               {" "}<Link href="/past-entries" className="text-blue-500 visited:text-purple-600">
                 explore previously submitted art
               </Link>{" "}

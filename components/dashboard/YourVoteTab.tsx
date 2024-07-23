@@ -53,7 +53,7 @@ export const YourVoteTab: React.FC<YourVoteTabProps> = ({ dashboardLoadingState,
           :
           <div className="my-10">
             <p>Your voted-upon artwork will appear here.</p>
-            <p>Visit the <Link href="/gallery" className="text-blue-500 visited:text-purple-600"> Gallery page </Link> to vote for your favorite artwork!</p>
+            <p>Visit the <Link href="/gallery" className="text-blue-500 visited:text-purple-600 underline">Gallery page</Link> to vote for your favorite artwork!</p>
           </div>
         }
       </div>

@@ -37,9 +37,6 @@ export default function Gallery() {
     contestState = ContestState.Complete;
   }
 
-  // Or hardcode the contestState to active for testing
-  // contestState = ContestState.Active;
-
   return (
     <>
       <GalleryHeader contestState={contestState} />
@@ -51,11 +48,11 @@ export default function Gallery() {
       
       <BannerImgOverflow 
         backgroundColor="light-blue"
-        title="Submit Your Artwork Today!" 
-        description="Join the Art Competition and Showcase Your Talent in Anticipation of the 2024 Olympics." 
+        title={contestState === ContestState.Active ? "Submit Your Artwork Today!" : (contestState === ContestState.Inactive ? "Start creating your masterpiece!" : "The contest has ended")}
+        description={contestState === ContestState.Active ? "Join the Art Competition and Showcase Your Talent in Anticipation of the 2024 Olympics." : (contestState === ContestState.Inactive ? "Our competition will begin very soon. Now is the best time to get creative." : "Thank you to everyone for participating!")}
         img={[multiPic, multiPicSmall]}
         alt={["Artwork of Olympic sports", "Artwork of Olympic sports"]}
-        buttons={[
+        buttons={contestState === ContestState.Active || contestState === ContestState.Inactive ? [
           {
             href: "/dashboard",
             localLink: true,
@@ -70,7 +67,7 @@ export default function Gallery() {
             icon: <></>,
             className: "w-full ml-4 border-new-blue border rounded text-center text-sm cursor-pointer tracking-wide bg-light-blue text-new-blue w-36"
           }
-        ]}
+        ] : []}
       />
     </>
     

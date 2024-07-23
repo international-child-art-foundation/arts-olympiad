@@ -18,10 +18,29 @@ import { UserDataSchema } from "@/interfaces/user_auth";
 import { UserArtworkSchema } from "@/interfaces/artwork_shapes";
 import { limiter } from "@/utils/api-rate-limit";
 import { DeleteAccount } from "./DeleteAccount";
+import { ContestState } from "../../mock/contestState";
+import dates from "../../mock/dates";
 
 export default function DashboardManager() {
   const router = useRouter();
   const searchParams = useSearchParams();
+
+  const contestStartTime = new Date(dates.competitionBegin);
+  contestStartTime.setHours(12, 0, 0);
+  const contestEndTime = new Date(dates.competitionEnd);
+  contestEndTime.setHours(23, 59, 59);
+
+  const now = new Date();
+
+  // Determine the contest state based on today's date
+  let contestState: ContestState = ContestState.Active;
+  if (now < contestStartTime) {
+    contestState = ContestState.Inactive;
+  } else if (now >= contestStartTime && now <= contestEndTime) {
+    contestState = ContestState.Active;
+  } else if (now > contestEndTime) {
+    contestState = ContestState.Complete;
+  }
 
   // This state and function were used to test whether authentication can be verified
   // in its current state. Authentication status should be checked upon login,
@@ -138,7 +157,7 @@ export default function DashboardManager() {
         <div className="p-10 h-full">
           <div className="xl:w-[80%] m-auto max-w-[800px]">
             {/* {isAuthenticated && <div>Authenticated!</div>} */}
-            {dashboardTab == "Dashboard" && <DashboardMainTab dashboardLoadingState={dashboardLoadingState} isAuthenticated={isAuthenticated}/>}
+            {dashboardTab == "Dashboard" && <DashboardMainTab dashboardLoadingState={dashboardLoadingState} isAuthenticated={isAuthenticated} contestState={contestState}/>}
             {dashboardTab == "YourVote" && <YourVoteTab dashboardLoadingState={dashboardLoadingState} isAuthenticated={isAuthenticated}/>}
             {dashboardTab == "AccountSettings" && <AccountSettingsTab dashboardLoadingState={dashboardLoadingState} isAuthenticated={isAuthenticated}/>}
           </div>
