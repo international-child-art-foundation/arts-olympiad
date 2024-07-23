@@ -136,14 +136,14 @@ export const Upload = () => {
                       label= "AI Source"
                       name= "source"
                       type= "text"
-                      placeholder= "Type link here"
+                      placeholder= "Source..."
                     />
 
                     <CustomInput
                       label= "AI Prompt"
                       name= "prompt"
                       type= "text"
-                      placeholder= "Type link here"
+                      placeholder= "Prompt..."
                     />
                     <br/>
                   </>

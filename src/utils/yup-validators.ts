@@ -24,7 +24,7 @@ export const lastNameValidation = {
 };
 
 export const guardianFirstNameValidation = {
-  firstName: Yup.string()
+  guardianFirstName: Yup.string()
     .matches(
       nameRegex, 
       "Invalid characters in first name"
@@ -33,7 +33,7 @@ export const guardianFirstNameValidation = {
 };
 
 export const guardianLastNameValidation = {
-  lastName: Yup.string()
+  guardianLastName: Yup.string()
     .matches(
       nameRegex, 
       "Invalid characters in last name"
@@ -88,15 +88,15 @@ export const imageValidator = {
 };
 
 export const sourceValidator = {
-  source: Yup.string().optional().max(50)
+  source: Yup.string().optional().max(50, "Source is too long")
 };
 
 export const promptValidator = {
-  prompt: Yup.string().optional().max(600),
+  prompt: Yup.string().optional().max(300, "Prompt is too long"),
 };
 
 export const descriptionValidator = {
-  description: Yup.string().optional().max(600),
+  description: Yup.string().optional().max(300, "Description is too long"),
 };
 
 export const passwordValidation = {

@@ -1,13 +1,17 @@
 const { body, validationResult, matchedData, param } = require("express-validator");
 
 const createStringValidator = (field, minLength = 1, maxLength = 255, optional = false) => {
-  let chain = body(field)
+  let chain = body(field);
+  if (optional) {
+    chain = chain.optional();
+  }
+  chain = chain
     .isString().withMessage(`${field} must be a string`)
     .trim()
     .isLength({ min: minLength, max: maxLength }).withMessage(`${field} must be between ${minLength} and ${maxLength} characters`)
     .escape();
   
-  return optional ? chain.optional() : chain;
+  return chain;
 };
 
 const createParamUUIDValidator = (paramName) => {
@@ -67,9 +71,9 @@ const refundUserValidator = [
 ];
 
 const updateUserValidator = [
-  createStringValidator("location", 1, 100, true),
-  createStringValidator("g_f_name", 1, 50, true),
-  createStringValidator("g_l_name", 1, 50, true),
+  createStringValidator("location", 0, 100, true),
+  createStringValidator("g_f_name", 0, 50, true),
+  createStringValidator("g_l_name", 0, 50, true),
 ];
 
 const volunteerUpdateUserValidator = [
@@ -90,12 +94,12 @@ const generatePresignedValidator = [
 const addArtworkValidator = [
   createStringValidator("f_name", 1, 50),
   body("age").isInt({ min: 0, max: 150 }).withMessage("age must be an integer between 0 and 150"),
-  createStringValidator("description", 1, 1000),
+  createStringValidator("description", 1, 300),
   createStringValidator("sport", 1, 50),
   createStringValidator("location", 1, 100),
   createBooleanValidator("is_ai_gen"),
-  createStringValidator("model", 1, 100, true),
-  createStringValidator("prompt", 1, 1000, true),
+  createStringValidator("model", 0, 100, true),
+  createStringValidator("prompt", 0, 300, true),
   body("file_type")
     .isString().withMessage("file_type must be a string")
     .isIn(["jpg", "png", "jpeg"]).withMessage("file_type must be jpg, png, or jpeg")
