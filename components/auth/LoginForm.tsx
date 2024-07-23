@@ -19,25 +19,12 @@ import {ForgotPasswordForm} from "./ForgotPasswordForm";
 import { UserLoginInterface } from "@/interfaces/user_auth";
 import LoadingAnimation from "../svgs/LoadingAnimation";
 import { VerifyEmailForm } from "./VerifyEmailForm";
-
-import { allowedPasswordCharactersRegex } from "../../mock/passwordRegex";
 import { useGlobalContext } from "@/app/GlobalContext";
+import { emailValidation, passwordValidation } from "@/utils/yup-validators";
 
 const validationSchema = Yup.object().shape({
-  email: Yup.string().email("Not a recognized email address").required("Email is required"),
-  password: Yup.string()
-    .required("Password is required")
-    .max(256, "Password must be at most 256 characters long")
-    .test(
-      "is-valid-password",
-      function(value) {
-        const { path, createError } = this;
-        if (!allowedPasswordCharactersRegex.test(value || "")) {
-          return createError({ path, message: "Password contains disallowed characters" });
-        }
-        return true;
-      }
-    )
+  ...emailValidation,
+  ...passwordValidation,
 });
 
 const initialValues: UserLoginInterface = {

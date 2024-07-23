@@ -6,6 +6,7 @@ import { TextInput } from "../common/form_inputs/TextInput";
 import { ButtonStd } from "../common/ui/ButtonStd";
 import * as Yup from "yup";
 import { TFormStatus } from "./ResetPassword";
+import { emailValidation } from "@/utils/yup-validators";
 
 interface IProps {
   formStatus: TFormStatus;
@@ -21,7 +22,7 @@ interface IResetCodeFormValues {
 }
 
 const validationSchema = Yup.object().shape({
-  email: Yup.string().email("Not a recognized email address").required("Email is required"),
+  ...emailValidation,
   code: Yup.string().length(6, "Code must be 6 characters long")
 });
 

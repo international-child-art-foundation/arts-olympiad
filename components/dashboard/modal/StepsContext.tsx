@@ -65,8 +65,6 @@ export const StepsProvider: React.FC<{ children: ReactNode }> = ({ children }) =
     image: null,
     location: "",
     city: "",
-    g_f_name: null,
-    g_l_name: null,
     usingAI: false,
     source: "",
     prompt: "",

@@ -9,8 +9,6 @@ import { FormikValidatedStepsControl } from "./FormikValidatedStepsControl";
 // const phonevalid= /^((\\+[1-9]{1,4}[ \\-]*)|(\\([0-9]{2,3}\\)[ \\-]*)|([0-9]{2,4})[ \\-]*)*?[0-9]{3,4}?[ \\-]*[0-9]{3,4}?$/;
 
 const validationSchema = yup.object().shape({
-  guardianFirstName: yup.string().required("Required"),
-  guardianLastName: yup.string().required("Required"),
   // guardianEmail: yup.string().email("Not a recognized email address").required("Not a recognized email address"),
   // guardianPhone: yup.string().matches(phonevalid, "Not a valid phone number").max(10, "longer than 10 digit").optional(),
   guardianTermsCheck: yup.bool().oneOf([true], "Agreement to the Terms and Conditions is required")

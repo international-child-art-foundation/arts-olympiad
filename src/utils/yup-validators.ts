@@ -52,6 +52,7 @@ export const emailValidation = {
   email: Yup.string()
     .email("Not a recognized email address")
     .required("Email is required")
+    .max(254, "Email address is too long")
 };
 
 export const termsAgreement = {
@@ -60,10 +61,48 @@ export const termsAgreement = {
     .required("In order to register, you must accept the terms and conditions."),
 };
 
+export const cityValidator = {
+  city: Yup.string().required("Please enter the name of your city").max(100, "City name is too long")
+};
+
+const SUPPORTED_FORMATS = ["image/jpg", "image/jpeg", "image/png"];
+const FILE_SIZE = 5 * 1024 * 1024;
+export const imageValidator = {
+  image: Yup.mixed()
+    .required("Oops! Unsupported file format. Please upload as PNG or JPG, max size 5 MB.")
+    .test("format", "Please upload as PNG or JPG", (value) => {
+      if (!value) return false; 
+      const file = value as File; 
+      return SUPPORTED_FORMATS.includes(file.type);
+    }
+    )
+    .test(
+      "size",
+      "Max size 5 MB",
+      (value) => {
+        if (!value) return false; 
+        const file = value as File; 
+        return file.size <= FILE_SIZE;
+      }
+    )
+};
+
+export const sourceValidator = {
+  source: Yup.string().optional().max(50)
+};
+
+export const promptValidator = {
+  prompt: Yup.string().optional().max(1000),
+};
+
+export const descriptionValidator = {
+  description: Yup.string().optional().max(1000),
+};
+
 export const passwordValidation = {
   password: Yup.string()
     .required("Password is required")
-    .max(256, "Password must be at most 256 characters long")
+    .max(100, "Password must be at most 100 characters long")
     .test(
       "is-valid-password",
       function(value) {

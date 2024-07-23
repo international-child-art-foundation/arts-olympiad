@@ -4,26 +4,13 @@ import information from "../../public/svgs/information.svg";
 import Image from "next/image";
 import deleteIcon from "../../public/svgs/delete.svg";
 import SocialShare from "../SocialShare";
-// import * as yup from "yup";
-// import { Formik, Form } from "formik";
-// import { CustomInput } from "./modal/CustomInput";
-// import { FormControlButtons } from "./FormControlButtons";
-// import { simulateDelay } from "../SimulateDelay";
-// import LoadingAnimation from "../../components/svgs/LoadingAnimation";
 import { buildMdImageUrl } from "@/utils/url-builders";
 import { calculateAgeFromString } from "@/utils/helper-functions";
 import Link from "next/link";
 
 export const ActiveArtDisplay = () => {
-  // const [editMode, setEditMode] = useState(false);
-  // const [formSubmissionLoading, setFormSubmissionLoading] = useState(false);
   const [imageUrl, setImageUrl] = useState("");
   const [userAge, setUserAge] = useState(0);
-  // const validationSchema = yup.object().shape({ 
-  //   source: yup.string().max(100, "Source must be no more than 100 characters long"),
-  //   prompt: yup.string().max(200, "Prompt must be no more than 200 characters long"),
-  //   description: yup.string().max(200, "Description must be no more than 200 characters long")
-  // });
   const {apiUserData, apiArtworkData, setDisplayModal } = useDashboardContext();
 
   useEffect(() => {
@@ -93,62 +80,6 @@ export const ActiveArtDisplay = () => {
                     <p>AI Prompt: "{apiArtworkData.prompt}"</p>
                   </div>
                 )}
-                {/* {editMode && (
-                  <div className="relative grid">
-                    {formSubmissionLoading && 
-                    <div className="col-start-1 row-start-1">
-                      <LoadingAnimation scale={100} stroke={2}/>
-                    </div>}
-                    <Formik
-                      initialValues={dashboardMainTabSubmissionData}
-                      validationSchema={validationSchema}
-                      onSubmit={async (values) => {
-                        setFormSubmissionLoading(true);
-                        setDashboardMainTabSubmissionData(prevState => ({
-                          ...prevState,
-                          source: values.source,
-                          prompt: values.prompt,
-                          description: values.description
-                        }));
-                        try {
-                          // await apiPostCall(values);
-                          // await apiGetCall();
-                          await simulateDelay(1000);
-                          console.log(dashboardMainTabSubmissionData);
-                          setFormSubmissionLoading(false);
-                          setEditMode(false);
-                        } catch (error) {
-                          console.error("Error during form submission:", error);
-                          setFormSubmissionLoading(false);
-                        }
-                        console.log(dashboardMainTabSubmissionData);
-                      }}>
-                      <Form
-                        className={`${formSubmissionLoading && "blur-sm opacity-80"} col-start-1 row-start-1`}
-                      >
-                        <CustomInput
-                          label="AI Source"
-                          name="source"
-                          type="text"
-                          placeholder="Type here..."
-                        />
-                        <CustomInput
-                          label="AI Prompt"
-                          name="prompt"
-                          type="text"
-                          placeholder="Type here..."
-                        />
-                        <CustomInput
-                          label="Description"
-                          name="description"
-                          type="text"
-                          placeholder="Type here..."
-                        />
-                        <FormControlButtons setEditMode={setEditMode}/>
-                      </Form>
-                    </Formik>
-                  </div>
-                )} */}
                 <div>
                   <p className="font-semibold">Share This Post</p>
                   <SocialShare shareId={apiArtworkData.sk} />
@@ -170,9 +101,6 @@ export const ActiveArtDisplay = () => {
       </div>
       {apiUserData && apiArtworkData && 
       <div className="flex gap-4 justify-end">
-        {/* <button>
-          <Image src={editIcon} alt={"Pencil icon: Click to edit artwork"} width={16} height={16}/>
-        </button> */}
         <button onClick={() => setDisplayModal("deleteModal")}>
           <Image src={deleteIcon} alt={"Trash icon: Click to delete artwork"} width={16} height={16}/>
         </button>

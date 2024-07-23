@@ -9,14 +9,11 @@ import { CustomUploadImage } from "./CustomUploadImage";
 import { CustomSingleSelect } from "./CustomSingleSelect";
 import { CustomTextArea } from "./CustomTextArea";
 import { allCountries } from "../../../mock/filterableOptionsData";
+import { cityValidator, imageValidator, promptValidator, sourceValidator, descriptionValidator } from "@/utils/yup-validators";
 
-const SUPPORTED_FORMATS = ["image/jpg", "image/jpeg", "image/png"];
-const FILE_SIZE = 5 * 1024 * 1024;
 const categories = [
   "Archery", "Artistic Gymnastics", "Athletics", "Badminton", "Basketball", "Boxing", "Cycling Track", "Equestrian", "Fencing", "Football", "Golf", "High jump", "Hockey", "Judo", "Rowing", "Rugby", "Sailing", "Shooting", "Table Tennis", "Taekwondo", "Tennis", "Volleyball", "Wallball", "Weightlifting", "Yoga", "Zumba"
 ];
-
-
 
 const options = [
   {label: "Archery", value: "Archery"},
@@ -54,35 +51,18 @@ export const Upload = () => {
   }));
   const countryValues = countryOptions.map(option => option.value);
   const validationSchema = yup.object().shape({
-    image: yup.mixed()
-      .required("Oops! Unsupported file format. Please upload as PNG or JPG, max size 5 MB.")
-      .test("format", "Please upload as PNG or JPG", (value) => {
-        if (!value) return false; 
-        const file = value as File; 
-        return SUPPORTED_FORMATS.includes(file.type);
-      }
-      )
-      .test(
-        "size",
-        "Max size 5 MB",
-        (value) => {
-          if (!value) return false; 
-          const file = value as File; 
-          return file.size <= FILE_SIZE;
-        }
-      )
-    ,
+    ...imageValidator,
     location: yup.string()
       .oneOf(countryValues)
       .required("Please select a continent and country for your artwork's location."),
-    city: yup.string().required("Please type in your city"),
+    ...cityValidator,
     usingAI: yup.bool().optional(),
-    source: yup.string().optional(),
-    prompt: yup.string().optional(),
+    ...sourceValidator,
+    ...promptValidator,
     category: yup.string()
       .oneOf(categories)
       .required("Please select the Sports category that best represents your artwork."),
-    description: yup.string().optional()
+    ...descriptionValidator
   });
   const { uploadFormData, setUploadFormData, handleNavigation } = useStepsContext();
   return (

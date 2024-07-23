@@ -12,7 +12,7 @@ import Image from "next/image";
 import OpenEye from "../../public/auth/eye_open.svg";
 import ClosedEye from "../../public/auth/eye_closed.svg";
 import { NewPasswordInput } from "../common/form_inputs/NewPasswordInput";
-import { passwordValidation } from "@/utils/yup-validators";
+import { passwordValidation, emailValidation } from "@/utils/yup-validators";
 
 const passwordResetValidationSchema = Yup.object().shape({
   ...passwordValidation,
@@ -31,10 +31,6 @@ interface IPasswordResetFormValues {
   password: string;
   confirmPassword: string;
 }
-
-const emailValidationSchema = Yup.object().shape({
-  email: Yup.string().email("Not a recognized email address").required("Email is required"),
-});
 
 const confirmationValidationSchema = Yup.object().shape({
   confirmationCode: Yup.string().length(6, "confirmation code must be 6 digits").required("confirmation code is required"),
@@ -109,7 +105,7 @@ export const ForgotPasswordForm = () => {
           <Pm className="my-8">Enter the email linked to your account to receive a password reset code.</Pm>
           <Formik
             initialValues={emailInitialValues}
-            validationSchema={emailValidationSchema}
+            validationSchema={emailValidation}
             onSubmit={onEmailSubmit}
           >
             {({ errors, touched, values }) => (

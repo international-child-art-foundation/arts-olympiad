@@ -9,10 +9,11 @@ import LoadingAnimation from "../svgs/LoadingAnimation";
 import { expensiveActionLimiter, limiter } from "@/utils/api-rate-limit";
 import { resendVerificationEmail, handleVerify } from "@/utils/api-user";
 import { ResendVerificationInterface, VerificationCodeInterface, EmailInterface } from "@/interfaces/user_auth";
+import { emailValidation } from "@/utils/yup-validators";
 
 
 const emailValidationSchema = Yup.object().shape({
-  email: Yup.string().email("Not a recognized email address").required("Email is required"),
+  ...emailValidation,
 });
 
 const verificationValidationSchema = Yup.object().shape({

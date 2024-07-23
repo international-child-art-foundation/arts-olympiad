@@ -5,8 +5,7 @@ import React from "react";
 import { useStepsContext } from "./StepsContext";
 import { DateInput } from "./DateInput";
 import { FormikValidatedStepsControl } from "./FormikValidatedStepsControl";
-
-const phonevalid= /^((\\+[1-9]{1,4}[ \\-]*)|(\\([0-9]{2,3}\\)[ \\-]*)|([0-9]{2,4})[ \\-]*)*?[0-9]{3,4}?[ \\-]*[0-9]{3,4}?$/;
+import { emailValidation, firstNameValidation, lastNameValidation, phoneValidation } from "@/utils/yup-validators";
 
 const isLeapYear = (year: number) => {
   return ((year % 4 === 0 && year % 100 !== 0) || year % 400 === 0);
@@ -23,10 +22,10 @@ const calculateAge = (birthDate: Date) => {
 };
 
 const validationSchema = yup.object().shape({
-  firstName: yup.string().required("Required"),
-  lastName: yup.string().required("Required"),
-  email: yup.string().email("Not a recognized email address").required("Not a recognized email address"),
-  phone: yup.string().matches(phonevalid, "Not a valid phone number").max(10, "longer than 10 digit").optional(),
+  ...firstNameValidation,
+  ...lastNameValidation,
+  ...emailValidation,
+  ...phoneValidation,
   date: yup.object().shape({
     // Test that each date number is valid
     day: yup.number().min(1, "Please enter a valid day").max(31, "Please enter a valid day").required(),
