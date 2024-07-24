@@ -15,7 +15,7 @@ async function handleWebhook(req, res) {
   // Handle the event
   try {
     if (event.type == "checkout.session.completed") {
-      if (event.data.object.client_reference_id) {
+      if (event.data.object.client_reference_id && event.data.object.metadata && event.data.object.metadata.entryfee == "true") { // "true" as string intentional
         await handleSuccessfulPayment(event.data.object);
         res.status(200).json({success: true});
       } else {
