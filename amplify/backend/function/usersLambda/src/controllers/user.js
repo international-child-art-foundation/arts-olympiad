@@ -1,4 +1,3 @@
-const { ResendConfirmationCodeCommand } = require("@aws-sdk/client-cognito-identity-provider");
 const UserService = require("../services/user");
 const { getUserCognitoData, handleRefreshTokenFlow } = require("../utils");
 

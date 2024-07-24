@@ -2,17 +2,21 @@ const awsServerlessExpressMiddleware = require("aws-serverless-express/middlewar
 const bodyParser = require("body-parser");
 const cookieParser = require("cookie-parser");
 const express = require("express");
+const helmet = require("helmet");
 
 const ArtworkController = require("./controllers/artwork");
 const UserController = require("./controllers/user");
 const VotesController = require("./controllers/votes");
 const StripeController = require("./controllers/stripe");
 
+const domains = require('disposable-email-domains');
+const wildcards = require('disposable-email-domains/wildcard.json');
+
 const {
   loginUserValidator, registerUserValidator, verifyUserValidator, updateUserValidator,
   generatePresignedValidator, addArtworkValidator, approveArtworkValidator, validationMiddleware,
   forgotPasswordValidator, volunteerUpdateUserValidator, confirmForgotPasswordValidator, resendVerificationValidator,
-  refundUserValidator, getArtworkValidator, deleteArtworkValidator, voteArtworkValidator
+  refundUserValidator, getArtworkValidator, deleteArtworkValidator, voteArtworkValidator, blacklistEmailValidator
 } = require("./validators");
 
 const STRIPE_WEBHOOK_IPS = [
@@ -23,6 +27,7 @@ const STRIPE_WEBHOOK_IPS = [
   "54.88.130.237",  "54.187.174.169",
   "54.187.205.235",  "54.187.216.72"
 ];
+const ALLOWED_ORIGINS = ['https://artsolympiad.info', 'https://myfavoritesport.org'];
 
 // declare a new express app
 const app = express();
@@ -39,21 +44,53 @@ app.post("/api/stripe-webhook", (req, res, next) => {
   next();
 }, express.raw({type: "application/json"}), StripeController.handleWebhook);
 
+app.use(helmet());
+app.use(
+  helmet.contentSecurityPolicy({
+    directives: {
+      defaultSrc: ["'self'"],
+      scriptSrc: ["'none'"],
+      imgSrc: ["'none'"],
+      styleSrc: ["'none'"],
+      connectSrc: ["'self'", "https://*.amazonaws.com"], // Allows connections to AWS APIs
+      frameAncestors: ["'none'"],
+      upgradeInsecureRequests: [],
+    },
+    referrerPolicy: {
+      policy: 'no-referrer-when-downgrade',
+    },  
+  })
+);
+app.use((req, res, next) => {
+  if (req.headers['x-forwarded-proto'] !== 'https') {
+    return res.status(403).send('HTTPS Required');
+  }
+  next();
+});
+app.use((req, res, next) => {
+  res.setHeader('X-XSS-Protection', '1; mode=block');
+  res.setHeader('X-Frame-Options', 'DENY');
+  res.setHeader('X-Content-Type-Options', 'nosniff');
+  next();
+});
 app.use(bodyParser.json());
 app.use(cookieParser());
 app.use(awsServerlessExpressMiddleware.eventContext());
-
 // Limit size of requests to the API
 app.use(express.json({ limit: "15kb" }));
-
-// Enable CORS for all methods
-app.use(function(req, res, next) {
-  res.header("Access-Control-Allow-Origin", "*");
-  res.header("Access-Control-Allow-Headers", "*");
+app.use((req, res, next) => {
+  const origin = req.headers.origin;
+  if (ALLOWED_ORIGINS.includes(origin)) {
+    res.setHeader('Access-Control-Allow-Origin', origin);
+  }
+  res.header('Access-Control-Allow-Methods', 'GET, POST, DELETE, PATCH, OPTIONS');
+  res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept, Authorization');
   next();
 });
 
-app.post("/api/users", registerUserValidator, validationMiddleware, UserController.registerUser);
+const emailValidatorWithDomainBlacklist = blacklistEmailValidator(domains, wildcards);
+
+app.post("/api/users", [...emailValidatorWithDomainBlacklist, ...registerUserValidator], validationMiddleware, UserController.registerUser);
 app.post("/api/login", loginUserValidator, validationMiddleware, UserController.login);
 app.post("/api/logout", UserController.logout);
 app.post("/api/verify", verifyUserValidator, validationMiddleware, UserController.verifyUser);

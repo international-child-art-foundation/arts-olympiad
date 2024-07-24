@@ -37,6 +37,32 @@ const emailValidator = [
     .normalizeEmail()
 ];
 
+const blacklistEmailValidator = (domainBlacklist, wildcardBlacklist) => [
+  body("email")
+    .isEmail().withMessage("email must be a valid email address")
+    .isLength({ max: 254 }).withMessage("email must not exceed 254 characters")
+    .custom((value) => {
+      if (process.env.ENV != "production") { return true; }
+      const domain = value.split('@')[1].toLowerCase();
+      
+      if (domainBlacklist.includes(domain)) {
+        throw new Error('This email domain is not allowed');
+      }
+      
+      for (let wildcardDomain of wildcardBlacklist) {
+        if (wildcardDomain.startsWith('*.')) {
+          const suffix = wildcardDomain.slice(1);
+          if (domain.endsWith(suffix)) {
+            throw new Error('This email domain is not allowed');
+          }
+        }
+      }
+      
+      return true;
+    })
+    .normalizeEmail()
+];
+
 const verificationCodeValidator = [
   body("verificationCode")
     .isNumeric().withMessage("Verification code must be numeric")
@@ -157,5 +183,6 @@ module.exports = {
   refundUserValidator,
   getArtworkValidator,
   deleteArtworkValidator,
-  voteArtworkValidator
+  voteArtworkValidator,
+  blacklistEmailValidator
 };

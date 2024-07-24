@@ -31,8 +31,7 @@ export const DashboardContextProvider: React.FC<{ children: ReactNode }> = ({ ch
   const [apiArtworkData, setApiArtworkData] = useState<UserArtworkSchema>();
   const [apiArtworkVoteData, setApiArtworkVoteData] = useState<UserArtworkSchema>(); // This can be set via API upon user visiting Your Vote page
   const [userHasPaid, setUserHasPaid] = useState<boolean>(false);
-  // TODO: Update userHasActiveSubmission to be set by API, or just replace usage with API data
-  const [userHasActiveSubmission, setUserHasActiveSubmission] = useState(false); // harcoded to true for now, should change with API integration
+  const [userHasActiveSubmission, setUserHasActiveSubmission] = useState(false);
   const [displayModal, setDisplayModal] = useState("");
   const [dashboardMainTabSubmissionData, setDashboardMainTabSubmissionData] = useState<dashboardMainTabSubmissionSchema>({
     source: "",
