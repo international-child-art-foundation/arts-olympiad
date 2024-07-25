@@ -50,6 +50,7 @@ async function deleteUser(userSk, token) {
 }
 
 async function userDeleteAccount(userSk, userEmail) {
+  console.log(userEmail);
   try {
     try { // If this second try{} errors, we still return success (user may not have a submission)
       await ArtworkService.deleteArtworkCompletely(userSk);

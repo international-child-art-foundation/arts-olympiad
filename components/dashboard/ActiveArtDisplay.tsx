@@ -84,10 +84,12 @@ export const ActiveArtDisplay = () => {
                   <p className="font-semibold">Share This Post</p>
                   <SocialShare shareId={apiArtworkData.sk} />
                 </div>
+                {apiArtworkData.is_approved == false && 
                 <div className="bg-white rounded-xl p-4 opacity-95">
                   <p>Your art is still being reviewed by our team and will not yet appear in the gallery.</p>
                   <p className={"italic"}>You can still share it with your friends and receive votes!</p>
                 </div>
+                }
               </div>
             </div>
           )

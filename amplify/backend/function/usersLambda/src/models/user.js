@@ -167,35 +167,19 @@ async function deleteCognitoUser(token) {
 
 async function deleteCognitoUserDetails(userEmail) {
   try {
-    const getUserCommand = new AdminGetUserCommand({
+    const deleteAttributesCommand = new AdminDeleteUserAttributesCommand({
       UserPoolId: userPoolId,
-      Username: userEmail
+      Username: userEmail,
+      UserAttributeNames: ["given_name"]
     });
-    const userResponse = await client.send(getUserCommand);
 
-    // List of immutable attributes
-    const immutableAttributes = ["sub", "email", "email_verified", "phone_number_verified", "created_at", "updated_at"];
+    // Send the delete attributes command
+    await client.send(deleteAttributesCommand);
 
-    // Create an array of attributes to delete
-    const attributesToDelete = userResponse.UserAttributes
-      .filter(attr => !immutableAttributes.includes(attr.Name))
-      .map(attr => attr.Name);
-
-    if (attributesToDelete.length > 0) {
-      const deleteAttributesCommand = new AdminDeleteUserAttributesCommand({
-        UserPoolId: userPoolId,
-        Username: userEmail,
-        UserAttributeNames: attributesToDelete
-      });
-
-      // Send the delete attributes command
-      await client.send(deleteAttributesCommand);
-    }
-
-    console.log(`User details deleted for user ${userEmail}, keeping immutable attributes`);
+    console.log(`Given name deleted for user ${userEmail}`);
     return true;
   } catch (error) {
-    console.error("Error deleting Cognito user details:", error);
+    console.error("Error deleting Cognito user given name:", error);
     throw error;
   }
 }

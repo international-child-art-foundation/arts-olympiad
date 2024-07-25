@@ -230,7 +230,7 @@
               "Resource": [
                 {
                   "Fn::Sub": [
-                    "arn:aws:s3:::artsolympiadf677eab9a54848dc8788ee9110a11839185846-${ENV}",
+                    "arn:aws:s3:::artsolympiadf677eab9a54848dc8788ee9110a11839772e2-${ENV}",
                     {
                       "ENV": {
                         "Ref": "env"
@@ -240,7 +240,7 @@
                 },
                 {
                   "Fn::Sub": [
-                    "arn:aws:s3:::artsolympiadf677eab9a54848dc8788ee9110a11839185846-${ENV}/*",
+                    "arn:aws:s3:::artsolympiadf677eab9a54848dc8788ee9110a11839772e2-${ENV}/*",
                     {
                       "ENV": {
                         "Ref": "env"
@@ -259,7 +259,7 @@
               ],
               "Resource": {
                 "Fn::Sub": [
-                  "arn:aws:cognito-idp:${region}:${account}:userpool/us-east-1_3PznlHK93",
+                  "arn:aws:cognito-idp:${region}:${account}:userpool/us-east-1_wDRkpYy4D",
                   {
                     "region": {
                       "Ref": "AWS::Region"

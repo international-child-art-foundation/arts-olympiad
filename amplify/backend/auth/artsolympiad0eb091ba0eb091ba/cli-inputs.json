@@ -31,7 +31,8 @@
     ],
     "userpoolClientReadAttributes": [
       "given_name",
-      "nickname"
+      "nickname",
+      "email"
     ],
     "userpoolClientLambdaRole": "artsol0eb091ba_userpoolclient_lambda_role",
     "userpoolClientSetAttributes": true,
