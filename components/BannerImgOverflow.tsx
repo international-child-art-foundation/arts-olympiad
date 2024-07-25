@@ -51,7 +51,7 @@ export const BannerImgOverflow = (props: BannerImgOverflowProps) => {
             </div>
             <div className="row-span-1 sm:row-span-2 relative order-1 sm:order-none justify-self-center sm:justify-self-auto">
               <Image src={props.img[0]} width={500} height={179} alt={props.alt[0]} className="hidden sm:block sm:scale-150 sm:bottom-12 absolute md:scale-125 md:bottom-0 sm:-right-20 md:-right-24" /> 
-              <Image src={props.img[1]} width={500} height={179} alt={props.alt[1]} className="block sm:hidden scale-110 -mt-40" /> 
+              <Image src={props.img[0]} width={500} height={179} alt={props.alt[0]} className="block sm:hidden scale-110 -mt-40" /> 
             </div>
           </div>
         </div>

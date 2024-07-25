@@ -1,7 +1,7 @@
 "use client";
 import Image from "next/image";
 import scrollIcon from "../../../public/home/timeline/scroll-icon.svg";
-import arrow from "../../../public/home/timeline/left-inclined-arrow.svg";
+import arrow from "../../../public/home/timeline/left-inclined-arrow.webp";
 import {Pm} from "../../common/texts/Pm";
 import {TimePoint} from "./TimePoint";
 import useWindowDimensions from "@/hooks/useWindowDimensions";

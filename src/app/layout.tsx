@@ -1,5 +1,5 @@
 import "./globals.css";
-import { Inter, Epilogue, Nunito, Open_Sans, Montserrat } from "next/font/google";
+import { Open_Sans, Montserrat } from "next/font/google";
 import Footer from "../../components/Footer";
 import Header from "../../components/Header";
 import { Metadata } from "next";
@@ -8,24 +8,6 @@ import { GlobalContextProvider } from "./GlobalContext";
 import CookieBanner from "../../components/CookieBanner";
 import GoogleAnalytics from "../../components/GoogleAnalytics";
 import { Suspense } from "react";
-
-export const inter = Inter({
-  subsets: ["latin"],
-  variable: "--font-inter",
-  display: "swap",
-});
-
-export const epilogue = Epilogue({
-  subsets: ["latin"],
-  variable: "--font-epilogue",
-  display: "swap",
-});
-
-export const nunito = Nunito({
-  subsets: ["latin"],
-  variable: "--font-nunito",
-  display: "swap",
-});
 
 export const openSans = Open_Sans({
   subsets: ["latin"],
@@ -51,7 +33,7 @@ export default function RootLayout({
   children: React.ReactNode
 }) {
   return (
-    <html lang="en" className={`${inter.variable} ${epilogue.variable} ${openSans.variable} ${nunito.variable} ${montserrat.variable} bg-neutral-white`}>
+    <html lang="en" className={`${openSans.variable} ${montserrat.variable} bg-neutral-white`}>
       <link
         rel="icon"
         href="/svgs/banner-image.svg"

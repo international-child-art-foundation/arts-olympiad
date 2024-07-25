@@ -4,9 +4,9 @@ import {Pm} from "../common/texts/Pm";
 import React from "next/image";
 import Image from "next/image";
 import { ArrowCTA } from "../../components/ArrowCTA";
-import footer from "../../public/about/footer.png";
-import BlueDot from "../../public/about/BlueDot.png";
-import BlueLine from "../../public/about/BlueLine.png";
+import footer from "../../public/about/footer.webp";
+import BlueDot from "../../public/about/BlueDot.webp";
+import BlueLine from "../../public/about/BlueLine.webp";
 
 export const Commitment = () => {
   return (

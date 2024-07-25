@@ -4,7 +4,6 @@ import { GalleryHeader } from "../../../components/gallery/GalleryHeader";
 import { Arts } from "../../../components/gallery/Arts";
 import { BannerImgOverflow } from "../../../components/BannerImgOverflow";
 import multiPic from "../../../public/svgs/gallery-svg/multiPic.webp";
-import multiPicSmall from "../../../public/svgs/gallery-svg/multiPicSmall.webp";
 import { FilterProvider } from "../../../components/gallery/FilterContext";
 import { ContestState } from "../../../mock/contestState";
 import { Suspense } from "react";
@@ -50,7 +49,7 @@ export default function Gallery() {
         backgroundColor="light-blue"
         title={contestState === ContestState.Active ? "Submit Your Artwork Today!" : (contestState === ContestState.Inactive ? "Start creating your masterpiece!" : "The contest has ended")}
         description={contestState === ContestState.Active ? "Join the Art Competition and Showcase Your Talent in Anticipation of the 2024 Olympics." : (contestState === ContestState.Inactive ? "Our competition will begin very soon. Now is the best time to get creative." : "Thank you to everyone for participating!")}
-        img={[multiPic, multiPicSmall]}
+        img={[multiPic]}
         alt={["Artwork of Olympic sports", "Artwork of Olympic sports"]}
         buttons={contestState === ContestState.Active || contestState === ContestState.Inactive ? [
           {

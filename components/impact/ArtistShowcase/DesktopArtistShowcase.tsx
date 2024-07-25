@@ -1,5 +1,5 @@
 import { ArtistShowcaseInterface } from "../../../mock/artistShowcaseInterface";
-import { artistShowcaseList } from "../../../mock/artistShowcaseItems";
+import { wisdomList } from "../../../mock/wisdomItems";
 import { gsap } from "gsap";
 import { Flip } from "gsap/all";
 import { useEffect, useRef } from "react";
@@ -17,13 +17,13 @@ export const DesktopArtistShowcase: React.FC<ArtistShowcaseInterface> = ({active
 
   const handleIndexChange = (newIndex: number) => {
     const state = Flip.getState(".grid-animation-target");
-    const normalizedIndex = ((newIndex % artistShowcaseList.length) + artistShowcaseList.length) % artistShowcaseList.length;
+    const normalizedIndex = ((newIndex % wisdomList.length) + wisdomList.length) % wisdomList.length;
     setActiveIndex(normalizedIndex);
   
     // Calculate and apply new classes to each item
     document.querySelectorAll(".grid-animation-target").forEach((element: Element) => {
       const idx = Number(element.getAttribute("data-index"));
-      const total = artistShowcaseList.length;
+      const total = wisdomList.length;
       const relativePosition = (idx - newIndex + total) % total;
   
       let imageClasses = [];
@@ -66,7 +66,7 @@ export const DesktopArtistShowcase: React.FC<ArtistShowcaseInterface> = ({active
   return (
     <div className=" w-[80%] max-w-[1200px] overflow-hidden mx-auto">     
       <div className="grid gap-4 h-[478px] lg:w-[165%] xl:w-[125%] grid-cols-5 grid-rows-2">
-        {artistShowcaseList.map((artwork, idx) => (
+        {wisdomList.map((artwork, idx) => (
           <>
             <div key={idx} data-index={idx} onClick={() => handleIndexChange(idx)} className=" rounded-[20px] grid-animation-target overflow-hidden content-center">
               <div className="relative row-span-2 row-start-1 col-start-1">
@@ -89,8 +89,8 @@ export const DesktopArtistShowcase: React.FC<ArtistShowcaseInterface> = ({active
           backdropFilter: "blur(15px)",
           
         }}>
-          <p className="font-semibold">{artistShowcaseList[activeIndex].author}</p>
-          <p>Age {artistShowcaseList[activeIndex].age} | {artistShowcaseList[activeIndex].location}</p>
+          <p className="font-semibold">{wisdomList[activeIndex].author}</p>
+          <p>{wisdomList[activeIndex].wisdomText}</p>
         </div>
       </div>
     </div>

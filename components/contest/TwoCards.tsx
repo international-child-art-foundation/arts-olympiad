@@ -3,7 +3,7 @@ import {H2m} from "../common/texts/H2m";
 import {AnimatedScribble} from "../common/decorations/AnimatedScribble";
 import {Pm} from "../common/texts/Pm";
 import Image from "next/image";
-import BlueLine from "../../public/about/BlueLine.png";
+import BlueLine from "../../public/about/BlueLine.webp";
 import dark_green_blob from "../../public/contest/dark_green_blob.png";
 import { ArrowCTADirectLink } from "../ArrowCTADirectLink";
 

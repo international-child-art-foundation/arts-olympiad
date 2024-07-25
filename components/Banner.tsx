@@ -1,12 +1,14 @@
 "use client";
 import Image from "next/image";
 // import { useEffect } from "react";
+import { StaticImageData } from "next/image";
 
 interface BannerProps {
   backgroundColor: string;
   title: string;
   description: string;
-  img: string;
+  img: string | StaticImageData;
+  alt: string;
   buttons: {
     href: string;
     text: string;
@@ -39,7 +41,7 @@ export const Banner = (props: BannerProps) => {
 
           {/* Image: First on small screens, second on larger screens */}
           {/* <Image src={props.img} width = {318} height = {179} alt={props.img} onError={e => e.target.style.display = 'none'} className="mx-auto my-auto w-1/2 h-fit order-1 md:order-2 md:w-11/12 md:col-start-3 md:col-end-3 md:row-span-3s" /> */}
-          <Image src={props.img} width = {318} height = {179} alt={props.img} className="mx-auto my-auto w-1/2 h-fit order-1 md:order-2 md:w-11/12 md:col-start-3 md:col-end-3 md:row-span-3" />
+          <Image src={props.img} width = {318} height = {179} alt={props.alt} className="mx-auto my-auto w-1/2 h-fit order-1 md:order-2 md:w-11/12 md:col-start-3 md:col-end-3 md:row-span-3" />
           
           <div className="mx-auto mb-8 md:mx-0 h-auto order-3 flex flex-nowrap justify-start w-full items-baseline">
             {props.buttons && Array.isArray(props.buttons) && props.buttons.map((button, index) => (

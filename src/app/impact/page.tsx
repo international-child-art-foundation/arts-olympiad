@@ -3,7 +3,7 @@ import { sharedOpenGraph } from "../shared-metadata";
 import { ImpactBegin } from "../../../components/impact/ImpactBegin";
 import { Banner } from "../../../components/Banner";
 import { HeartIcon } from "../../../components/svgs/HeartIcon";
-import icafLogo from "../../../public/svgs/Icaf-logo.svg";
+import impactHeader from "../../../public/impact/impact-header.webp";
 import { Wisdom } from "../../../components/impact/wisdom/Wisdom";
 import SlideShow from "../../../components/impact/SlideShow";
 // import Kids from "../../../public/impact/kids.png";
@@ -33,7 +33,8 @@ export default function impactPage() {
         backgroundColor="light-blue"
         title="Interested in participating?" 
         description="Join us in making a positive impact on children's lives worldwide." 
-        img={icafLogo}
+        img={impactHeader}
+        alt="ICAF"
         buttons={[
           {
             href: "https://icaf.org/donate", 

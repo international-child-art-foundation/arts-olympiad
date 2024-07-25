@@ -1,21 +1,21 @@
 import {StaticImageData} from "next/image";
-import GymnasticsGirl from "../../../public/impact/GymnasticsGirl.png";
-import OlympicRings from "../../../public/impact/OlympicRings.png";
-import SwimMan from "../../../public/impact/SwimMan.png";
-import PurpleEarth from "../../../public/impact/PurpleEarth.png";
+import GymnasticsGirl from "../../../public/impact/GymnasticsGirl.webp";
+import OlympicRings from "../../../public/impact/OlympicRings.webp";
+import SwimMan from "../../../public/impact/SwimMan.webp";
+import PurpleEarth from "../../../public/impact/PurpleEarth.webp";
 // import YellowThree from "../../../public/impact/YellowThree.png"
-import FootBall from "../../../public/impact/FootBall.png";
-import ColorfulButterfly from "../../../public/impact/ColorfulButterfly.png";
-import ChildrensWorld from "../../../public/impact/ChildrensWorld.png";
-import BlueRings from "../../../public/impact/BlueRings.png";
-import Tennessee from "../../../public/impact/Tennessee.png";
-import RedTennis from "../../../public/impact/RedTennis.png";
-import FlyKids from "../../../public/impact/FlyKids.png";
-import YellowTennis from "../../../public/impact/YellowTennis.png";
-import Surfing from "../../../public/impact/Surfing.png";
-import SwimGlass from "../../../public/impact/SwimGlass.png";
-import Poland from "../../../public/impact/Poland.png";
-import BlackHeart from "../../../public/impact/BlackHeart.png";
+import FootBall from "../../../public/impact/Football.webp";
+import ColorfulButterfly from "../../../public/impact/ColorfulButterfly.webp";
+import ChildrensWorld from "../../../public/impact/ChildrensWorld.webp";
+import BlueRings from "../../../public/impact/BlueRings.webp";
+import Tennessee from "../../../public/impact/Tennessee.webp";
+import RedTennis from "../../../public/impact/RedTennis.webp";
+import FlyKids from "../../../public/impact/FlyKids.webp";
+import YellowTennis from "../../../public/impact/YellowTennis.webp";
+import Surfing from "../../../public/impact/Surfing.webp";
+import SwimGlass from "../../../public/impact/SwimGlass.webp";
+import Poland from "../../../public/impact/Poland.webp";
+import BlackHeart from "../../../public/impact/BlackHeart.webp";
 
 export interface IWisdom {
   id: number

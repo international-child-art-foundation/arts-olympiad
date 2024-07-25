@@ -1,6 +1,6 @@
 import Image from "next/image";
 import hashtag from "../../public/home/hashtag.svg";
-import HeroLogo from "../../public/sponsor/HeroLogo.png";
+import HeroLogo from "../../public/MFS_Logo_V3.svg";
 import { TitleLayout } from "@/app/HeaderLayout";
 
 export const SponsorBegin = () => {

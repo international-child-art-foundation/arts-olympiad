@@ -6,7 +6,7 @@ import Image from "next/image";
 // import RightIcon from "../../public/impact/right-icon.svg";
 import "@/styles/fade-in-out-texture.css";
 import useWindowDimensions from "@/hooks/useWindowDimensions";
-import BlueBlob from "../../public/impact/blue-blob.png";
+import BlueBlob from "../../public/impact/blue-blob.webp";
 
 const SlideShow = () => {
   const { windowWidth } = useWindowDimensions();

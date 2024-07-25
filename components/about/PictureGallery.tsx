@@ -1,9 +1,9 @@
 import Image from "next/image";
-import Rectangle from "../../public/about/Rectangle.webp";
+import Rectangle from "../../public/about/RectangleTwo.webp";
 import Photo1 from "../../public/about/photo1.webp";
 import Photo2 from "../../public/about/photo2.webp";
 import Photo3 from "../../public/about/photo3.webp";
-import YellowBlob from "../../public/about/YellowBlob.png";
+import YellowBlob from "../../public/about/YellowBlob.webp";
 import YellowLine from "../../public/about/YellowLine.png";
 import snowFlakeLeft from "../../public/about/snowFlakeLeft.png";
 import snowFlakeRight from "../../public/about/snowFlakeRight.png";
@@ -11,11 +11,11 @@ import snowFlakeRight from "../../public/about/snowFlakeRight.png";
 export const PictureGallery = () => {
   return (
     <>          
-      <section className="mx-auto max-w-screen-2xl ">
-        <Image src={YellowBlob} alt="" className="absolute z-0 mt-20 select-none pointer-events-none object-fill"></Image>
+      <section className="mx-auto max-w-screen-2xl relative">
+        <Image src={YellowBlob} alt="" className="absolute z-0 mt-20 select-none pointer-events-none object-fill w-full"></Image>
         <div className="grid grid-cols-3 z-20 mt-20 w-full px-20">
-          <div className="col-span-3 py-5 px-5 z-20">
-            <Image src={Rectangle} alt="" className="z-20"></Image>
+          <div className="col-span-3 py-5 px-5 z-20 ">
+            <Image src={Rectangle} alt="" className="z-20 w-full"></Image>
           </div>     
           <div className="z-20 py-5 px-5 relative">
             <Image src={YellowLine} alt="" className="absolute z-10 w-20 -left-10 -top-5 pointer-events-none"></Image>

@@ -43,10 +43,7 @@ module.exports = {
         "warning-red": "#C4384E",
       },
       fontFamily:{
-        inter: ["var(--font-inter)"],
         openSans: ["var(--font-open-sans)"],
-        nunito: ["var(--font-nunito)"],
-        epilogue: ["var(--font-epilogue)"],
         montserrat: ["var(--font-montserrat)"],
       },
       fontWeight: {

@@ -7,11 +7,11 @@ import {LazyImage} from "../common/images/LazyImage";
 import {H2m} from "../common/texts/H2m";
 import Image from "next/image";
 import useWindowDimensions from "@/hooks/useWindowDimensions";
-import PinkBlob from "../../public/about/PinkBlob.png";
+import PinkBlob from "../../public/about/PinkBlob.webp";
 import { ArrowCTA } from "../../components/ArrowCTA";
-import Torch from "../../public/about/Torch.png";
+import Torch from "../../public/about/Torch.webp";
 import LightingIdea from "../../public/about/LightingIdea.png";
-import OlympicRings from "../../public/about/OlympicRings.png";
+import OlympicRings from "../../public/about/OlympicRings.webp";
 
 export const Accordion = () => {
 

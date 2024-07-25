@@ -4,7 +4,6 @@ import { PastEntriesHeader } from "../../../components/gallery/past_entries/Past
 import { PastEntriesArts } from "../../../components/gallery/past_entries/PastEntriesArts";
 import { BannerImgOverflow } from "../../../components/BannerImgOverflow";
 import multiPic from "../../../public/svgs/gallery-svg/multiPic.webp";
-import multiPicSmall from "../../../public/svgs/gallery-svg/multiPicSmall.webp";
 import { PastEntriesFilterProvider } from "../../../components/gallery/past_entries/PastEntriesFilterContext";
 import { Suspense } from "react";
 
@@ -30,7 +29,7 @@ export default function PastEntries() {
         backgroundColor="light-blue"
         title="Submit Your Artwork Today!" 
         description="Join the Art Competition and Showcase Your Talent in Anticipation of the 2024 Olympics." 
-        img={[multiPic, multiPicSmall]}
+        img={[multiPic]}
         alt={["Artwork of Olympic sports", "Artwork of Olympic sports"]}
         buttons={[
           {

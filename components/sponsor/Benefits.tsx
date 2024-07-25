@@ -1,5 +1,5 @@
 import Image from "next/image";
-import yellowBlob from "../../public/sponsor/YellowBlob.png";
+import yellowBlob from "../../public/sponsor/YellowBlob.webp";
 import React from "react";
 import HandsUp from "../../public/sponsor/HandsUp.webp";
 

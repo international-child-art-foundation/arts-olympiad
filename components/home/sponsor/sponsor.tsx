@@ -1,8 +1,8 @@
 import Image from "next/image";
 import {H2m} from "../../common/texts/H2m";
-import sponsorLogo from "../../../public/home/sponsor/sponsor-transparent.png";
-import waterColor from "../../../public/home/sponsor/WaterColor.webp";
-import gymnast from "../../../public/home/sponsor/Gymnast.webp";
+import sponsorLogo from "../../../public/home/sponsor/sponsor-transparent.webp";
+import waterColor from "../../../public/home/sponsor/WaterColorLow.webp";
+import gymnast from "../../../public/home/sponsor/GymnastSmall.webp";
 
 export const Sponsor = () => {
   return (

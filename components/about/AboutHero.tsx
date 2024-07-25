@@ -1,5 +1,5 @@
 import Image from "next/image";
-import aboutHeaderImage from "../../public/about/about_header_image.png";
+import aboutHeaderImage from "../../public/about/about_header_image.webp";
 import headerLine from "../../public/about/header_line.png";
 
 export const AboutHero = () => {

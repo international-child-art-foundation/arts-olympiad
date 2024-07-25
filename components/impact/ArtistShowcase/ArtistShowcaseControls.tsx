@@ -1,7 +1,7 @@
 import LeftIcon from "../../../public/impact/left-icon.svg";
 import RightIcon from "../../../public/impact/right-icon.svg";
 import Image from "next/image";
-import { artistShowcaseList } from "../../../mock/artistShowcaseItems";
+import { wisdomList } from "../wisdom/wisdomItems";
 
 interface ArtistShowcaseControlsInterface {
   activeIndex: number
@@ -10,7 +10,7 @@ interface ArtistShowcaseControlsInterface {
 
 
 export const ArtistShowcaseControls: React.FC<ArtistShowcaseControlsInterface> = ({activeIndex, setActiveIndex}) => {
-  const totalItems = artistShowcaseList.length;
+  const totalItems = wisdomList.length;
   const handleNext = () => {
     const newIndex = (activeIndex + 1) % totalItems;
     setActiveIndex(newIndex);
