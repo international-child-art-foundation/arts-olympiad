@@ -146,10 +146,10 @@ export const WisdomCarousel = () => {
         <div className=" z-5 relative w-full h-full">
           <div
             ref={wisdomTextRef}
-            className="flex flex-col md:flex-col text-white p-5 absolute right-0 bottom-[-1px] z-50 bg-gray-700 -translate-y-48 mb-1 md:-translate-y-52 opacity-90 rounded-xl w-full md:w-60 w-96 overflow-hidden max-w-full"
+            className="flex flex-col md:flex-col text-white p-5 absolute right-0 bottom-[-1px] z-10 bg-gray-700 -translate-y-48 mb-1 md:-translate-y-52 opacity-90 rounded-xl w-full md:w-60 w-96 overflow-hidden max-w-full"
           >
-            <Pm className="text-sm z-20 row-span-1 text-end overflow-hidden  text-overflow-ellipsis">{wisdomText}</Pm>
-            <H3m className="z-20 mt-4 text-right font-semibold overline row-span-1 xl:text-2xl lg:text-xl overflow-hidden whitespace-nowrap text-overflow-ellipsis font-montserrat pt-2">{authorName}</H3m>
+            <Pm className="text-sm z-10 row-span-1 text-end overflow-hidden  text-overflow-ellipsis">{wisdomText}</Pm>
+            <H3m className="z-10 mt-4 text-right font-semibold overline row-span-1 xl:text-2xl lg:text-xl overflow-hidden whitespace-nowrap text-overflow-ellipsis font-montserrat pt-2">{authorName}</H3m>
           </div>
           {
             wisdomList
