@@ -61,7 +61,7 @@ export const RegisterForm: React.FC<RegisterFormProps> = ({setUserEmail, setRegi
           }
           {userAge == null && <BirthdateForm setUserBirthdate={setUserBirthdate}/>}
           {userAge !== null && (
-            userAge > 18 ? (
+            userAge >= 18 ? (
               <RegisterOver18 
                 setUserEmail={setUserEmail}
                 userBirthdate={userBirthdate}
