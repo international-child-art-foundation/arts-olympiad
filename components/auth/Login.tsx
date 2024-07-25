@@ -2,12 +2,12 @@
 
 import Image from "next/image";
 import {LoginForm} from "./LoginForm";
-import BlueBlob from "../../public/auth/blobs/blue_blob.svg";
+import BlueBlob from "../../public/auth/blobs/blue_blob.webp";
 import BlueSmallBlob from "../../public/auth/blobs/blue_small_blob.svg";
 import GreenBlob from "../../public/auth/blobs/green_blob.svg";
-import PinkBlob from "../../public/auth/blobs/pink_blob.svg";
+import PinkBlob from "../../public/auth/blobs/pink_blob.webp";
 import PinkMobileBlob from "../../public/auth/blobs/pink_mobile_blob.svg";
-import YellowBlob from "../../public/auth/blobs/yellow_blob.svg";
+import YellowBlob from "../../public/auth/blobs/yellow_blob.webp";
 import useWindowDimensions from "@/hooks/useWindowDimensions";
 
 export const Login = () => {

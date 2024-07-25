@@ -1,6 +1,6 @@
 import {H2m} from "../../common/texts/H2m";
 import Image from "next/image";
-import icafLogo from "../../../public/svgs/Icaf-logo.svg";
+import icafLogo from "../../../public/icaf-logo.webp";
 import blob from "../../../public/svgs/blobs/blue-leg-down-blob.svg";
 import {Pm} from "../../common/texts/Pm";
 import {AboutImages} from "./AboutImages";

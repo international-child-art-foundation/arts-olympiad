@@ -1,6 +1,6 @@
 import Image from "next/image";
 import hashtag from "../../public/home/hashtag.svg";
-import impactHeader from "../../public/impact/impact-header.webp";
+import impactHeader from "../../public/icaf-logo.webp";
 import { TitleLayout } from "@/app/HeaderLayout";
 
 export const ImpactBegin = () => {
@@ -26,8 +26,8 @@ export const ImpactBegin = () => {
           </div>
         </div>
 
-        <div className="col-span-2 z-20 lg:col-span-1 w-fit lg:mt-12 mx-auto justify-center lg:justify-end">            
-          <Image src={impactHeader}  className="mx-auto w-fit sm:w-2/3" alt="photo" />
+        <div className="col-span-2 z-20 lg:col-span-1 w-fit  mx-auto justify-center lg:justify-end">            
+          <Image src={impactHeader}  className="mx-auto w-fit sm:w-2/3 md:w-[90%]" alt="photo" />
         </div>
 
       </section>

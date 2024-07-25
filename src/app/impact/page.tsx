@@ -3,7 +3,7 @@ import { sharedOpenGraph } from "../shared-metadata";
 import { ImpactBegin } from "../../../components/impact/ImpactBegin";
 import { Banner } from "../../../components/Banner";
 import { HeartIcon } from "../../../components/svgs/HeartIcon";
-import impactHeader from "../../../public/impact/impact-header.webp";
+import impactHeader from "../../../public/icaf-logo.webp";
 import { Wisdom } from "../../../components/impact/wisdom/Wisdom";
 import SlideShow from "../../../components/impact/SlideShow";
 // import Kids from "../../../public/impact/kids.png";

@@ -5,7 +5,7 @@ import yellowBGtablet from "../../public/svgs/impact-svg/yellowBG-tablet.svg";
 import yellowBGsmall from "../../public/svgs/impact-svg/yellowBG-small.svg";
 import yellowBGlarge from "../../public/svgs/impact-svg/yellowBG-large.svg";
 import yellowTiny from "../../public/svgs/impact-svg/yellowBlobTiny.svg";
-import icafLogo from "../../public/svgs/Icaf-logo.svg";
+import icafLogo from "../../public/icaf-logo.webp";
 import headsLarge from "../../public/impact/heads-large.webp";
 import headsSmall from "../../public/impact/heads-small.webp";
 import colorfulScribble from "../../public/svgs/colorful-scribble.svg";

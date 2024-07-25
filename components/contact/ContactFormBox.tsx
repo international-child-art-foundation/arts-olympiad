@@ -39,7 +39,7 @@ export const ContactFormBox = ({ setIsSubmitted } : IProps) => {
             </div>
           </div>
         </div>
-        <LazyImage imageUrl="/svgs/icaf-logo.svg" alt="ICAF Logo." className="hidden md:block mx-auto my-8" />
+        <LazyImage imageUrl="icaf-logo.webp" alt="ICAF Logo." className="hidden md:block mx-auto my-8" />
       </div>
       <ContactForm setIsSubmitted={setIsSubmitted} />
 

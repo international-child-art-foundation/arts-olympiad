@@ -7,7 +7,7 @@ import Image from "next/image";
 export const ContactConfirmation = () => {
   return (
     <article className="p-10 xl:p-20 flex flex-col lg:flex-row border-1 border-black rounded-xl relative z-10 bg-neutral-white">
-      <LazyImage imageUrl="/svgs/icaf-logo.svg" alt="ICAF Logo." className="mx-auto my-8 lg:hidden max-w-[80%] md:max-w-[50%]" />
+      <LazyImage imageUrl="icaf-logo.webp" alt="ICAF Logo." className="mx-auto my-8 lg:hidden max-w-[80%] md:max-w-[50%]" />
       <div className="flex flex-col xl:ml-12 md:ml-20">
         <Image
           src="/contact/vertical-arrow.svg" alt=""
@@ -25,7 +25,7 @@ export const ContactConfirmation = () => {
           </ButtonStyledLink>
         </div>
       </div>
-      <LazyImage imageUrl="/svgs/icaf-logo.svg" alt="ICAF Logo." className="my-auto mx-8 hidden lg:block min-w-[30%]" />
+      <LazyImage imageUrl="icaf-logo.webp" alt="ICAF Logo." className="my-auto mx-8 hidden lg:block min-w-[30%]" />
     </article>
   );
 };

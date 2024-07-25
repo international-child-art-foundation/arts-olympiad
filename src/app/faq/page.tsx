@@ -6,7 +6,7 @@ import { FaqHeader } from "../../../components/faq/FaqHeader";
 import { FaqSubheader } from "../../../components/faq/FaqSubheader";
 import { FaqDropdowns } from "../../../components/faq/FaqDropdowns";
 import { Banner } from "../../../components/Banner";
-import icafLogo from "../../../public/svgs/Icaf-logo.svg";
+import icafLogo from "../../../public/icaf-logo.webp";
 
 
 export const metadata: Metadata = {
