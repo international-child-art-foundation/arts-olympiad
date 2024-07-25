@@ -73,13 +73,13 @@ export const GalleryHeader: React.FC<GalleryHeaderProps> = ({ contestState }) =>
 
         {/* Total votes section - to be activated upon contest start and populated via API */}
         <div className="mb-10 mt-10 flex justify-center items-center">
-          { contestState != ContestState.Inactive && totalVotes &&  
+          { contestState == ContestState.Inactive && totalVotes &&  
         <>
           <div className="text-base font-semibold lg:text-xl mr-3">
             Total votes:
           </div>
           <div className="text-3xl font-semibold lg:text-4xl lg:font-bold">
-            {totalVotes}
+            {totalVotes > 0 && totalVotes}
             <Image src={colorfulScribble} alt="" width={160} height={20} className="-ml-12"/>
           </div>
         </>

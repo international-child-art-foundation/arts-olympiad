@@ -34,14 +34,14 @@ export const Accordion = () => {
         src={PinkBlob} alt="" width={645} height={903}
         className="absolute -z-10 select-none pointer-events-none w-full h-auto object-contain xsm:w-1/2 xsm:mt-52 xsm:-right-28 md:w-1/3 md:mt-28 md:-right-28 lg:w-1/2 xl:-mt-20"
       />
-      <article className="md:flex flex-col mr-10 z-30" >
+      <article className="md:flex flex-col mr-10 z-5" >
         <H2m className="font-medium font-montserrat my-8 text-3xl md:text-4xl" >ICAF's U.S. and global initiatives</H2m>
       </article>
     
       <div
         role="region"
         aria-live="polite"
-        className="z-30 flex flex-col lg:flex-row lg:h-accordion-narrow lg:max-h-accordion-narrow-max xl:h-accordion-wide xl:max-h-accordion-wide-max overflow-hidden"
+        className="z-5 flex flex-col lg:flex-row lg:h-accordion-narrow lg:max-h-accordion-narrow-max xl:h-accordion-wide xl:max-h-accordion-wide-max overflow-hidden"
       >
         <AccordionCard
           minimalContentWidth={minimalContentWidth}
