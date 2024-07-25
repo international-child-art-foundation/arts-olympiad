@@ -2,7 +2,7 @@ import { format } from "date-fns";
 
 const dates: { [key: string]: Date } = {
   // Months are 0-indexed
-  competitionBegin: new Date(2024, 6, 26),
+  competitionBegin: new Date(2024, 6, 25),
   competitionEnd: new Date(2024, 8, 30),
   winnerAnnounced: new Date(2024, 9, 4)
 };
