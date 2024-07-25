@@ -170,8 +170,8 @@
                 "s3:ListBucket"
               ],
               "Resource": [
-                "arn:aws:s3:::artsolympiadf677eab9a54848dc8788ee9110a11839185846-staging",
-                "arn:aws:s3:::artsolympiadf677eab9a54848dc8788ee9110a11839185846-staging/*"
+                "arn:aws:s3:::artsolympiadf677eab9a54848dc8788ee9110a11839772e2-production",
+                "arn:aws:s3:::artsolympiadf677eab9a54848dc8788ee9110a11839772e2-production/*"
               ]
             }
           ]

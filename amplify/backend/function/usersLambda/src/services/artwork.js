@@ -154,7 +154,7 @@ async function getArtworks(queryParams) {
 
 async function createUrlAndFields(userSk, fileType="jpg") {
   const client = s3Client;
-  const Bucket = `artsolympiadf677eab9a54848dc8788ee9110a11839185846-${process.env.ENV}`;
+  const Bucket = `artsolympiadf677eab9a54848dc8788ee9110a11839772e2-${process.env.ENV}`;
 
   const Key = `${userSk}/initial.${fileType}`;
   const Expires = 900;

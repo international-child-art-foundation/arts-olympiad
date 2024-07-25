@@ -16,7 +16,7 @@ const s3Client = new S3Client();
 export const handler = async (event) => {
   console.log(`EVENT: ${JSON.stringify(event)}`);
   
-  const bucket = `artsolympiadf677eab9a54848dc8788ee9110a11839185846-${process.env.ENV}`;
+  const bucket = `artsolympiadf677eab9a54848dc8788ee9110a11839772e2-${process.env.ENV}`;
   const userSk = event.user_sk;
 
   let srcKey;
@@ -38,8 +38,6 @@ export const handler = async (event) => {
     srcKey = initialFile.Key;
 
     // Old code which prevents reruns if folder has more than one file
-    // (Function often fails if this is in place, and we have enough throttling
-    // to be fine with removing this safety)
     // if (data.Contents.length != 1) {
     //   const error = data.Contents.length ? "Image already processed." : "Image not found.";
     //   console.log(error)

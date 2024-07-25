@@ -6,8 +6,8 @@ const { ListObjectsV2Command, DeleteObjectsCommand } = require("@aws-sdk/client-
 
 
 
-let tableName = "dynamo22205621";
-let bucketName = "artsolympiadf677eab9a54848dc8788ee9110a11839185846";
+let tableName = process.env.DYNAMO_TABLE_NAME;
+let bucketName = process.env.BUCKET_NAME;
 if (process.env.ENV && process.env.ENV !== "NONE") {
   tableName = tableName + "-" + process.env.ENV;
   bucketName = bucketName + "-" + process.env.ENV;

@@ -240,7 +240,6 @@ async function userDeleteAccount(req, res) {
     const userCognitoData = await getUserCognitoData(accessToken);
     const userSk = userCognitoData.sub;
     const userEmail = userCognitoData.email;
-    
     const result = await UserService.userDeleteAccount(userSk, userEmail);
     
     if (result.success) {
