@@ -16,7 +16,7 @@ export const Intro = () => {
         <article role="banner" className=" z-20 relative flex-col align-middle col-span-8 lg:col-span-7 xl:col-span-6 lg:place-self-center">
           <div className=" z-20 flex flex-row align-center mb-8 place-content-center lg:place-content-start">
             <Image src={hashtag} alt="" width={32} height={32} />
-            <h1 className=" z-20 break-words font-semibold text-3xl xsm:text-5xl lg:text-6xl xl:text-6xl font-montserrat">
+            <h1 className=" z-20 break-words font-semibold text-3xl xsm:text-4xl sm:text-5xl lg:text-6xl xl:text-6xl font-montserrat">
               MyFavoriteSport<span className="sr-only">.</span>
             </h1>
           </div>
