@@ -17,7 +17,6 @@ export const YourVoteTab: React.FC<YourVoteTabProps> = ({ dashboardLoadingState,
   const { apiUserData, apiArtworkVoteData, setApiArtworkVoteData } = useDashboardContext();
 
   const handleGetVotedArtworkData = useCallback(async () => {
-    console.log(apiUserData);
     if (apiUserData && apiUserData.voted_sk) {
       const singleArtworkData = await limiter.schedule(() => getSingleArtworkData(apiUserData.voted_sk));
       console.log(singleArtworkData);
