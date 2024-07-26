@@ -22,7 +22,7 @@ export const Timeline = () => {
   return (
     <>
       <div className="relative">
-        <Image src={yellow_blob} width={1672} height={1672} alt="yellow blob" className="absolute object-cover w-screen h-[1672px] top-0 z-0 -top-8 "/>
+        <Image src={yellow_blob} width={1672} height={1672} alt="yellow blob" className="absolute mx-auto left-0 right-0 object-cover w-[1672px] h-[1672px] top-0 z-0 -top-8 "/>
         {/* <section className=" relative px-8 py-24 md:px-12 lg:px-16 xl:px-20 flex flex-col max-w-screen-2xl m-auto" aria-label="Timeline."> */}
         <section className=" relative py-48 flex flex-col max-w-screen-2xl m-auto" aria-label="Timeline.">
           <div className="xsm:px-6 md:w-full md:px-6 lg:w-[70%] flex flex-col self-center justify-center items-center z-20">
