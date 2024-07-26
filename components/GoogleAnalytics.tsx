@@ -1,6 +1,6 @@
 "use client";
 import Script from "next/script";
-import { usePathname, useSearchParams } from "next/navigation";
+import { usePathname } from "next/navigation";
 import { useEffect } from "react";
 import { useGlobalContext } from "@/app/GlobalContext";
 
@@ -16,12 +16,13 @@ export default function GoogleAnalytics({ GA_MEASUREMENT_ID }: { GA_MEASUREMENT_
   const { isCookieConsentAcquired } = useGlobalContext();
 
   const pathname = usePathname();
-  const searchParams = useSearchParams();
 
   useEffect(() => {
-    const url = pathname + (searchParams?.toString() ?? "");
-    pageview(GA_MEASUREMENT_ID, url);
-  }, [pathname, searchParams, GA_MEASUREMENT_ID]);
+    const url = pathname;
+    if (url) {
+      pageview(GA_MEASUREMENT_ID, url);
+    }
+  }, [pathname, GA_MEASUREMENT_ID]);
 
   if (!GA_MEASUREMENT_ID) {
     return null; // Don't render anything if GA_MEASUREMENT_ID is not found
