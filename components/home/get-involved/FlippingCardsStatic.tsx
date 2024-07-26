@@ -22,15 +22,15 @@ export const FlippingCardsStatic = () => {
 
       <FlippingCardStatic
         heading1="Register"
-        heading2="All sports fans and art lovers"
+        heading2="Creators and Judges"
         description={
           <div className="w-full">
             <Pm className=" mt-4 md:mt-12 mb-4 font-light text-base">
 
-            It's easy to register and completely free!
+            Everyone is invited!
             </Pm>
             <Pm className="font-light text-base mb-4 md:mb-0">
-              You must register to upload your artwork or to vote for your favorite artist or artwork.
+              It's easy to register to upload your art or to judge your favorite artwork.
             </Pm>
           </div>
         }
@@ -49,11 +49,11 @@ export const FlippingCardsStatic = () => {
       </FlippingCardStatic>
       <FlippingCardStatic
         heading1="Create & Share"
-        heading2="Artists, ages 14-20: Share your creations!"
+        heading2="Youths aged 14 to 20: Share your art with the world!"
         description={
           <div>
             <Pm className="mt-4 md:mt-12 mb-4 font-light text-sm md:text-base">
-              Unleash your creativity by painting or drawing your favorite Olympic Sports. We accept digital or AI art.
+            Unleash your creativity by painting or drawing your favorite sport. Digital or AI art is also accepted.
             </Pm>
             {/* <Pm className="font-light text-sm md:text-base mb-2 md:mb-4">
               Register, Upload, and Share to get votes.
@@ -66,14 +66,11 @@ export const FlippingCardsStatic = () => {
         <div className="flex-grow min-h-[20px]"></div> {/* Spacer element */}
       </FlippingCardStatic>
       <FlippingCardStatic
-        heading1="Partner"
+        heading1="Sports fans and Art lovers as Judges"
         description={
           <div>
-            <Pm className="mt-4 md:mt-12 mb-4 font-light text-sm md:text-base">
-              Any 10 to 100-year-old can be a judge.
-            </Pm>
             <Pm className="font-light text-sm md:text-base">
-              Register first, then search for the artists by name or country, and vote. You can vote only once.
+            Register first, then search for artists by name or country to cast your vote. You can vote only once.
             </Pm>
             {/* <Pm className="font-light text-base mb-4 md:mb-0">
               You must register to upload your artwork or to vote for your favorite artist or artwork.
@@ -94,13 +91,12 @@ export const FlippingCardsStatic = () => {
         </ButtonStyledLink>
       </FlippingCardStatic>
       <FlippingCardStatic
-        heading1="Sponsor or Donate"
-        heading2="Your support changes lives"
+        heading1="Partner"
+        heading2="You can help art and sports change the world."
         description={
           <div className="flex flex-col justify-between">
-            <Pm className="mt-6 font-light text-sm md:text-base">
-              Help democratize creativity and optimize children's creative potential with your donation today.
-            </Pm>
+            {/* <Pm className="mt-6 font-light text-sm md:text-base">
+            </Pm> */}
 
             <Pm className=" font-light text-sm md:text-base">
               {"Please "}
@@ -114,7 +110,7 @@ export const FlippingCardsStatic = () => {
               <a href="https://icaf.org/about/contact-us" target="_blank" rel="noopener noreferrer" className="underline ">
                 contact us
               </a>
-              {" about partnership prospects."}
+              {" about sponsorship."}
             </Pm>
             {/* <Pm className="font-light text-base mb-4 md:mb-0">
               You must register to upload your artwork or to vote for your favorite artist or artwork.

@@ -21,16 +21,11 @@ export const Intro = () => {
             </h1>
           </div>
           <div className="font-normal text-base mb-6 md:mb-12 z-20">
-            <p className=" z-20 mb-4 leading-8 lg:mb8">
-              Artists aged 14 to 20 create and upload your art and get your family and friends to vote for your masterpiece.
+            <p className="z-20 mb-4 leading-8 lg:mb8">
+              14- to 20-year-olds in the U.S. or any other country can create art about their favorite sport, upload it, and share it with family and friends to get their vote. For this historic global art contest ({formatDate("competitionBegin", "MMMM d")} to {formatDate("competitionEnd", "MMMM d, yyyy")}), upload your art early to get more public votes.
             </p>
             <p className="z-20 mb-4 leading-8 lg:mb8">
-              Sports fans and art lovers vote for the artwork you like the most for it to win the Gold (US$3,000), Silver ($2,000), or Bronze ($1,000).
-            </p>
-            <p className="z-20 mb-4 leading-8 lg:mb8 "> {/* Use &nbsp to allow grid layout to work properly */}
-              This historic global art contest begins on&nbsp;<b>July 26<sup>th</sup></b>
-              —when the Games kick off in Paris. Artists must act right away to get more public votes. Judges must vote before {formatDate("competitionEnd", "MMMM do")}&nbsp;
-              when the contest ends. Winners receive the cash prizes on &nbsp;{formatDate("winnerAnnounced", "MMMM d, yyyy")}.
+              Any sports fan or art lover can vote for the artwork you like the most for it to win the Gold (US$3,000), Silver ($2,000), or Bronze ($1,000). The winners will be announced on {formatDate("winnerAnnounced", "MMMM d, yyyy")}.
             </p>
             <p className="z-20 mb-4 leading-8 lg:mb8">
               This #MyFavoriteSport campaign is launched by ICAF.org, a Washington DC-based charity. The entry fee for artists is $10 but voters register for free.

@@ -19,7 +19,7 @@ export const FlippingCardStatic = ({icon, heading1, heading2, description, color
   if (heading2) {
     heading2WithBreaks = heading2.split(":").map((part, index, array) => (
       <React.Fragment key={index}>
-        {part}{index < array.length - 1 && <><span>:</span><br /></>}
+        {part}{index < array.length - 1 && <><span></span><br /></>}
       </React.Fragment>
     ));  
   } else {
@@ -56,6 +56,7 @@ export const FlippingCardStatic = ({icon, heading1, heading2, description, color
           <H3m className="my-2 text-dark-blue font-semibold text-center" >{heading2WithBreaks ? heading2WithBreaks : heading2}</H3m>
         </div>
         <>
+          <div className="flex-grow min-h-[20px]"></div> {/* Spacer element */}
           {
             typeof description === "string"
               ?  <Pm className="my-12 font-light text-sm " > {description} </Pm>
