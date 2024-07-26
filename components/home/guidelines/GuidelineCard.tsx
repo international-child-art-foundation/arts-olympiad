@@ -65,7 +65,7 @@ export const GuidelineCard = ({
         </Pm>
         {button && (
           <div className="inline-flex box-border grow-0 rounded">
-            <Link className="bg-white text-main-blue px-4 py-3 box-border rounded" href={button[1]}>
+            <Link className="bg-white text-new-blue px-4 py-3 box-border rounded" href={button[1]}>
               {button[0]}
             </Link>
           </div>
