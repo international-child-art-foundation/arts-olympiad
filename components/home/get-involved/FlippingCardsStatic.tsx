@@ -53,7 +53,7 @@ export const FlippingCardsStatic = () => {
         description={
           <div>
             <Pm className="mt-4 md:mt-12 mb-4 font-light text-sm md:text-base">
-              Unleash your creativity by painting or drawing your favorite Olympic Sportss. We accept digital or AI art.
+              Unleash your creativity by painting or drawing your favorite Olympic Sports. We accept digital or AI art.
             </Pm>
             {/* <Pm className="font-light text-sm md:text-base mb-2 md:mb-4">
               Register, Upload, and Share to get votes.

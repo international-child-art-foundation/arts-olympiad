@@ -38,7 +38,7 @@ export const FormikValidatedStepsControl: React.FC<FormikValidatedStepsControlPr
     setDisplayModal,
   } = useDashboardContext();
 
-  const fileType = uploadFormData.image ? uploadFormData.image.type.split("/")[1] : "unknown";
+  const fileType = uploadFormData.image?.type ? uploadFormData.image.type.split("/")[1] : "unknown";
 
   const modifiedUploadFormData =  {
     f_name: apiUserData?.f_name,
