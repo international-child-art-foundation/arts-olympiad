@@ -32,7 +32,7 @@ export const Wisdom = () => {
       <div className="relative mt-20 mb-36 z-0 flex flex-col">
         <Image src={BlueBlob} alt="" className="absolute z-0 right-1/2 -bottom-24 "></Image>
         <Pm className="relative font-semibold z-5 font-montserrat">Your donation will bring the benefits of art and sport to young and older people alike.</Pm>
-        <a href="https://icaf.org/donate" target="_blank" rel="noopener noreferrer" className=" tracking-wider items-center gap-1 font-open-sans flex flex-row z-10 group text-2xl bg-new-blue rounded-[10px] text-center text-sm cursor-pointer tracking-wide text-neutral-white px-6 py-4 mt-10 mx-auto">
+        <a href="https://icaf.org/donate" target="_blank" rel="noopener noreferrer" className=" tracking-wider items-center gap-1 font-open-sans flex flex-row z-10 group text-2xl bg-new-blue rounded-[4px] text-center text-sm cursor-pointer tracking-wide text-neutral-white px-6 py-4 mt-10 mx-auto">
           <HeartIcon stroke="#FEFEFE" />
           <p>Donate</p>
         </a>
