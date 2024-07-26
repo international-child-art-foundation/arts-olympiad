@@ -7,7 +7,7 @@ import { Metadata } from "next";
 import { GlobalContextProvider } from "./GlobalContext";
 import CookieBanner from "../../components/CookieBanner";
 import GoogleAnalytics from "../../components/GoogleAnalytics";
-import { Suspense } from "react";
+// import { Suspense } from "react";
 
 export const openSans = Open_Sans({
   subsets: ["latin"],
@@ -40,9 +40,9 @@ export default function RootLayout({
         type="image/svg+xml"
       />
       <GlobalContextProvider>
-        <Suspense>
-          <GoogleAnalytics GA_MEASUREMENT_ID={process.env.NEXT_PUBLIC_GTAG_ID} />
-        </Suspense>
+        {/* <Suspense>
+        </Suspense> */}
+        <GoogleAnalytics GA_MEASUREMENT_ID={process.env.NEXT_PUBLIC_GTAG_ID} />
         <body className="flex flex-col min-h-screen"> 
           <Header/>
           <main className={"font-openSans font-base overflow-hidden flex flex-col justify-center align-middle w-full m-auto leading-8 flex-grow mb-auto justify-start"}>
