@@ -1,7 +1,6 @@
 "use client";
 import Image from "next/image";
 import hashtag from "../../public/home/hashtag.svg";
-// import bicycleHero from "../../public/home/MFS_Bicycle_Hero.webp";
 import HeroHeader from "../../public/home/Hero_Header_Small.jpg";
 import { formatDate } from "../../mock/dates";
 import ranbowLine from "../../public/home/rainbowLineWebp.webp";

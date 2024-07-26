@@ -2,7 +2,7 @@ import Image from "next/image";
 import {H2m} from "../../common/texts/H2m";
 import sponsorLogo from "../../../public/icaf-logo.webp";
 import waterColor from "../../../public/home/sponsor/WaterColorLow.webp";
-import gymnast from "../../../public/home/sponsor/GymnastSmall.webp";
+import gymnast from "../../../public/home/Gymnast.webp";
 
 export const Sponsor = () => {
   return (
