@@ -28,7 +28,7 @@ export const Intro = () => {
               Any sports fan or art lover can vote for the artwork you like the most for it to win the Gold (US$3,000), Silver ($2,000), or Bronze ($1,000). The winners will be announced on {formatDate("winnerAnnounced", "MMMM d, yyyy")}.
             </p>
             <p className="z-20 mb-4 leading-8 lg:mb8">
-              This #MyFavoriteSport campaign is launched by ICAF.org, a Washington DC-based charity. The entry fee for artists is $10 but voters register for free.
+              This #MyFavoriteSport campaign is launched by ICAF.org, a Washington DC-based charity. The entry fee to upload art is US$10 but voters register for free.
             </p>
             {/* <p className="z-20 mb-4 leading-8 lg:mb8">
               Your donation helps unite artists and athletes by reassuring them that their chaotic and divided world has hope.

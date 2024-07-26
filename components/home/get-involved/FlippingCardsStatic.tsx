@@ -81,14 +81,14 @@ export const FlippingCardsStatic = () => {
         color="#FBB22E"
       >
         <div className="flex-grow min-h-[20px]"></div> {/* Spacer element */}
-        <ButtonStyledLink
+        {/* <ButtonStyledLink
           href={"https://icaf.org/about/contact-us"}
           className="my-1 w-full"
           onTouchStart={(e: React.TouchEvent<HTMLAnchorElement>) => { e.stopPropagation(); }}
           onClick={(e: React.MouseEvent<HTMLAnchorElement>) => { e.stopPropagation(); }}
         >
           Partner with ICAF
-        </ButtonStyledLink>
+        </ButtonStyledLink> */}
       </FlippingCardStatic>
       <FlippingCardStatic
         heading1="Partner"
@@ -121,14 +121,14 @@ export const FlippingCardsStatic = () => {
         color="#168C39"
       >
         <div className="flex-grow min-h-[20px]"></div> {/* Spacer element */}
-        <ButtonStyledLink
+        {/* <ButtonStyledLink
           href={"https://icaf.org/about/contact-us"}
           className="my-1 w-full"
           onTouchStart={(e: React.TouchEvent<HTMLAnchorElement>) => { e.stopPropagation(); }}
           onClick={(e: React.MouseEvent<HTMLAnchorElement>) => { e.stopPropagation(); }}
         >
           Sponsor
-        </ButtonStyledLink>
+        </ButtonStyledLink> */}
       </FlippingCardStatic>
     </div>
   );
