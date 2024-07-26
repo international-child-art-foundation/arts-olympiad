@@ -24,17 +24,17 @@ contestEndTime.setHours(23, 59, 59);
 
 export default function Gallery() {
 
-  const now = new Date();
+  // const now = new Date();
 
   // Determine the contest state based on today's date
-  let contestState: ContestState = ContestState.Active;
-  if (now < contestStartTime) {
-    contestState = ContestState.Inactive;
-  } else if (now >= contestStartTime && now <= contestEndTime) {
-    contestState = ContestState.Active;
-  } else if (now > contestEndTime) {
-    contestState = ContestState.Complete;
-  }
+  const contestState: ContestState = ContestState.Active;
+  // if (now < contestStartTime) {
+  //   contestState = ContestState.Inactive;
+  // } else if (now >= contestStartTime && now <= contestEndTime) {
+  //   contestState = ContestState.Active;
+  // } else if (now > contestEndTime) {
+  //   contestState = ContestState.Complete;
+  // }
 
   return (
     <>
