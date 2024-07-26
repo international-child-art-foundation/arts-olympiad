@@ -37,7 +37,6 @@ export const FlippingCardStatic = ({icon, heading1, heading2, description, color
         role="region"
         aria-live="polite"
         className={`
-        card
         w-full h-full
         z-10 rounded-lg flex flex-col items-center p-6 border-2
           `}

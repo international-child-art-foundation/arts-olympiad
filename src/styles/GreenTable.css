@@ -1,11 +1,9 @@
 .card {
-    width: 60%;
     height: 100%;
     left: 0;
     right: 0;
     margin: auto;
     transition: transform .4s ease;
-    cursor: pointer;
   }
 
 .container {
