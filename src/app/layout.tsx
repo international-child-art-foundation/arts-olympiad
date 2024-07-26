@@ -40,8 +40,6 @@ export default function RootLayout({
         type="image/svg+xml"
       />
       <GlobalContextProvider>
-        {/* <Suspense>
-        </Suspense> */}
         <GoogleAnalytics GA_MEASUREMENT_ID={process.env.NEXT_PUBLIC_GTAG_ID} />
         <body className="flex flex-col min-h-screen"> 
           <Header/>
