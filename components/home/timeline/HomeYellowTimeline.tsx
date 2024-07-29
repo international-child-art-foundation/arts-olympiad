@@ -25,7 +25,7 @@ export const HomeYellowTimeline = () => {
 
   return (
     <>
-      <div className="mt-72 md:mt-72 bg-[#fff5ad] absolute w-[100%] px-8 md:px-12 lg:px-16 xl:px-20 h-full -z-20"> </div>
+      <div className="mt-72 md:mt-72 absolute w-[100%] px-8 md:px-12 lg:px-16 xl:px-20 h-full -z-20"> </div>
       <div className="flex justify-center items-center relative">
         <Image src={timelineYellowEllipse} alt="" className="absolute -z-20 top-[950px] md:top-[950px] left-1/2 -translate-x-1/2 -translate-y-1/2 select-none pointer-events-none max-w-[unset]" />
       </div>
@@ -44,7 +44,7 @@ export const HomeYellowTimeline = () => {
         <h3 className="m-auto font-montserrat text-[2rem] ">Timeline</h3>
         <figure className="relative mb-8 self-center flex flex-col items-center justify-center">
           <Image width={105} src={scrollIcon} alt="mouse scroller icon." className=" self-center" />
-          <div className="z-10 bg-[fff5ad] w-[130px] h-[85px] draw-line-left absolute bottom-0 right-24 select-none" />
+          <div className="z-10 w-[130px] h-[85px] draw-line-left absolute bottom-0 right-24 select-none" />
           <Image src={arrow} alt="arrow pointing downwards." className="select-none absolute bottom-0 right-24" />
           <Pm className="z-20 text-center font-light">Scroll Down</Pm>
         </figure>

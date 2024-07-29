@@ -96,7 +96,7 @@ export const DashboardMainTab: React.FC<DashboardMainTabProps> = ({ dashboardLoa
                       <ActiveArtDisplay />
                     ) : (
                       <div>
-                        <div className="my-2 w-full outline outline-1 rounded-3xl h-[400px] max-w-full content-center">
+                        <div className="my-2 w-full outline outline-1 rounded-3xl h-[400px] max-w-full flex">
                           <button onClick={() => setDisplayModal("mainTab")} className="z-10 flex bg-new-blue rounded text-white p-4 m-auto items-center gap-8">
                             <p>Upload Artwork</p>
                             <Image src={uploadIcon} alt="upload" width={16} height={16} />

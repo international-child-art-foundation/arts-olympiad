@@ -78,6 +78,7 @@ module.exports = {
       screens: {
         "xsm": "382px",
         "mxl": "1380px",
+        "3xl": "1700px",
       },
       height: {
         "accordion-wide": "43rem",

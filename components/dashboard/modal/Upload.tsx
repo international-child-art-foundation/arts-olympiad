@@ -45,7 +45,8 @@ const options = [
 ];
 
 export const Upload = () => {
-  const countryOptions = allCountries.map(country => ({
+  const sortedCountries = [...allCountries].sort((a, b) => a.name.localeCompare(b.name));
+  const countryOptions = sortedCountries.map(country => ({
     label: country.name,
     value: country.name
   }));

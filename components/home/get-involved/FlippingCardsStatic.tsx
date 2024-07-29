@@ -17,7 +17,7 @@ export const FlippingCardsStatic = () => {
   return (
     <div className="relative z-10 md:grid grid-cols-2 grid-rows-1 gap-4 card-grid m-auto max-w-[400px] md:max-w-[720px] lg:max-w-[800px]" >
       <div className="absolute -top-16 -left-32 md:-top-44 md:-left-32 lg:-top-28 lg:-left-40 hidden xsm:block">
-        <Image src={highlightSwimmer} alt="" className="" />
+        <Image src={highlightSwimmer} alt="" className=" pointer-events-none select-none" />
       </div>
 
       <FlippingCardStatic
