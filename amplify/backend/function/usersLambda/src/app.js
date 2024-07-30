@@ -32,6 +32,11 @@ const ALLOWED_ORIGINS = ['https://artsolympiad.info', 'https://myfavoritesport.o
 // declare a new express app
 const app = express();
 
+const logRequest = (req, res, next) => {
+  console.log(`API endpoint hit: ${req.method} ${req.url}`);
+  next();
+};
+
 // Register this endpoint before adding bodyParser and CORS, as they cause errors
 app.post("/api/stripe-webhook", (req, res, next) => {
   const forwardedFor = req.headers["x-forwarded-for"];
@@ -73,6 +78,7 @@ app.use((req, res, next) => {
   res.setHeader('X-Content-Type-Options', 'nosniff');
   next();
 });
+app.use(logRequest);
 app.use(bodyParser.json());
 app.use(cookieParser());
 app.use(awsServerlessExpressMiddleware.eventContext());

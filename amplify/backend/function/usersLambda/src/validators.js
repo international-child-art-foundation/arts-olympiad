@@ -161,6 +161,8 @@ const resendVerificationValidator = [
 function validationMiddleware(req, res, next) {
   const errors = validationResult(req);
   if (!errors.isEmpty()) {
+    console.error("Found a validation error");
+    console.error({errors: errors.array()});
     return res.status(400).json({ message: "Validation errors", errors: errors.array() });
   }
   req.validatedData = matchedData(req, { locations: ["body", "query", "params"] });
