@@ -23,6 +23,7 @@ interface DashboardMainTabProps {
 
 export const DashboardMainTab: React.FC<DashboardMainTabProps> = ({ dashboardLoadingState, isAuthenticated, contestState }) => {
   const [age, setAge] = useState(0);
+  const [isSubmissionDisabled] = useState(true);
   const { apiUserData, displayModal, setDisplayModal, userHasPaid, setUserHasPaid } = useDashboardContext();
   
   useEffect(() => {
@@ -46,14 +47,6 @@ export const DashboardMainTab: React.FC<DashboardMainTabProps> = ({ dashboardLoa
     };
   }, [displayModal]);
 
-  useEffect(() => {
-    console.log(dashboardLoadingState);
-  }, [dashboardLoadingState]);
-
-  useEffect(() => {
-    console.log(isAuthenticated);
-  }, [isAuthenticated]);
-
   if (contestState == ContestState.Inactive) {
     return (
       <div className="w-full">
@@ -67,6 +60,18 @@ export const DashboardMainTab: React.FC<DashboardMainTabProps> = ({ dashboardLoa
       </div>
     );
   } else if (contestState == ContestState.Active || contestState == ContestState.Complete) {
+
+    // Contest is paused
+    if (isSubmissionDisabled) {
+      return (
+        <div className="w-full">
+          <p className="text-2xl">
+            The competition is currently paused, and art submission has been disabled. Please <a className="text-main-blue" href="https://www.icaf.org/about/contact-us">Contact Us</a> for more information.
+          </p>
+        </div>
+      );
+    }
+
     return (
       <>
         {(isAuthenticated === "Loading" || isAuthenticated === "Authenticated" && dashboardLoadingState != "Loaded")  && (
