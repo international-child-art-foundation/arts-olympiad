@@ -22,7 +22,7 @@ export const FlippingCardsStatic = () => {
 
       <FlippingCardStatic
         heading1="Register"
-        heading2="Creators and Judges"
+        heading2="Creators and Voters"
         description={
           <div className="w-full">
             <Pm className=" mt-4 md:mt-12 mb-4 font-light text-base">
@@ -66,7 +66,7 @@ export const FlippingCardsStatic = () => {
         <div className="flex-grow min-h-[20px]"></div> {/* Spacer element */}
       </FlippingCardStatic>
       <FlippingCardStatic
-        heading1="Sports fans and Art lovers as Judges"
+        heading1="Art Lovers & Sports Fans"
         description={
           <div>
             <Pm className="font-light text-sm md:text-base">
