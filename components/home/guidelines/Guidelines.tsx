@@ -14,10 +14,10 @@ import { Flip } from "gsap/all";
 
 gsap.registerPlugin(Flip);
 const cardData = [
-  { imgUrl: img1, className: "border-[#0286C3]", heading: "How to Upload", description: "Create an account with us, go to your dashboard and upload your work.", button:["Learn more", "/register"] },
-  { imgUrl: img2, className: "border-[#168C39]", heading: "Accepted Formats", description: "All entries will be submitted digitally, but you're free to choose any format you'd like. Let your imagination take the lead on how to create your work.", button:["Learn more", "/contest"]},
-  { imgUrl: img3, className: "border-[#EE2F4D]", heading: "Share your Favorites", description: "Everyone gets 1 vote. You can share your favorite piece through social media for more votes.", button:["Learn more", "/faq"], gradientStrength: 0.6 },
-  { imgUrl: img4, className: "border-[#F5AB35]", heading: "How much does it cost?", description: "The entry fee for artists is $10 but voters register for free."}
+  { imgUrl: img4, className: "border-[#F5AB35]", heading: "Fee and Awards", description: ["Entry fee to upload artwork is $3 but voters register for free to select the winners of each age year between 8 and 20.", "All 13 winners are featured in the International Child Art Foundation's ChildArt Magazine and will receive Certificates of Exceptional Artistry. Their art may also be exhibited at major venues."]},
+  { imgUrl: img1, className: "border-[#0286C3]", heading: "How to Upload", description: ["Create an account with us, go to your dashboard and upload your work."], button:["Learn more", "/register"] },
+  { imgUrl: img2, className: "border-[#168C39]", heading: "Accepted Formats", description: ["All entries will be submitted digitally, but you're free to choose any format you'd like. Let your imagination take the lead on how to create your work."], button:["Learn more", "/contest"]},
+  { imgUrl: img3, className: "border-[#EE2F4D]", heading: "Share your Masterpiece", description: ["Everyone gets 1 vote. You can share your favorite piece through social media for more votes."], button:["Learn more", "/faq"], gradientStrength: 0.6 },
 ];
 
 export const Guidelines = () => {

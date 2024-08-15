@@ -5,6 +5,7 @@ import HeroHeader from "../../public/home/Hero_Header_Small.jpg";
 import { formatDate } from "../../mock/dates";
 import rainbowLine from "../../public/home/rainbowLineWebp.webp";
 // import RainbowLine from "../../public/home/new-hero/RainbowLine.svg";
+import HeroCarousel from "./carousel/HeroCarousel";
 
 export const Intro = () => {
 
@@ -25,22 +26,20 @@ export const Intro = () => {
             </div>
             <div className="font-normal text-base mb-6 md:mb-12 z-10">
               <p className=" z-10 mb-4 leading-8 lg:mb8">
-                14- to 20-year-olds in the U.S. or any other country can create art about their favorite sport, upload it, and share it with family and friends to get their vote. For this historic global art contest ({formatDate("competitionBegin", "MMMM d")} to {formatDate("competitionEnd", "MMMM d, yyyy")}), upload your art early to get more public votes.
+              Anyone <b>aged 8 to 20</b> in the U.S. or another country can create art about their favorite sport, pload it, and share it with family and friends to get their votes before December 24, 2024.
               </p>
               <p className=" z-10 mb-4 leading-8 lg:mb8">
-                Any sports fan or art lover can vote for the artwork you like the most for it to win the Gold (US$3,000), Silver ($2,000), or Bronze ($1,000). The winners will be announced on {formatDate("winnerAnnounced", "MMMM d, yyyy")}.
+              Any art lover or sports fan can vote for their favorite artwork to select the 13 winners (one per age year) who will receive awards  on December 28, 2024.
               </p>
-              <p className="z-10 mb-4 leading-8 lg:mb8">
-                This #MyFavoriteSport campaign is launched by ICAF.org, a Washington DC-based charity. The entry fee to upload art is US$10 but voters register for free.
-              </p>
-              {/* <p className="z-20 mb-4 leading-8 lg:mb8">
-                Your donation helps unite artists and athletes by reassuring them that their chaotic and divided world has hope.
-              </p> */}
 
             </div>
           </article>
-
-          <figure
+          <div
+            className="relative z-10 px-10 md:px-24 lg:px-0 md:grid col-span-8 md:col-start-2 md:col-span-6 lg:col-span-5 xl:col-span-6 "
+           >
+            <HeroCarousel />
+          </div>
+          {/* <figure
             role="region"
             aria-label="Bicycle art"
             className="relative z-10 px-10 md:px-24 lg:px-0 md:grid col-span-8 md:col-start-2 md:col-span-6 lg:col-span-5 xl:col-span-6 "
@@ -52,7 +51,7 @@ export const Intro = () => {
                 * Eric Liang, age 11, Illinois
               </div>
             </div>
-          </figure>
+          </figure> */}
         </section>
       </div>
 

@@ -31,7 +31,7 @@ export const wisdomList: IWisdom[] = [
   {id:3, url: SwimMan, alt:"", author:"Arjaa Raghu", wisdomText:"Age 11 | Illinois, USA"},
   {id:4, url: PurpleEarth, alt:"", author:"Michael Wong", wisdomText:"Age 11 | New York, USA"},
   // {url: YellowThree, alt:"", author:"Ashling Sophia Kelly", wisdomText:"Age 12 | Arizona, USA"},
-  {id:5, url: FootBall, alt:"", author:"Isra Nadeem", wisdomText:"Age 13 | UAE"},
+  // {id:5, url: FootBall, alt:"", author:"Isra Nadeem", wisdomText:"Age 13 | UAE"},
   {id:6, url: ColorfulButterfly, alt:"", author:"UNKNOWN NAME", wisdomText:"Age Unknown | Poland (Winner)"},
   // {url: ColorfulBike, alt:"", author:"Unknown", wisdomText:"Age Unknown | Unknown Location"},
   {id:7, url: ChildrensWorld, alt:"", author:"Children's World Mural", wisdomText:"ICAF"},

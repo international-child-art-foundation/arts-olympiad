@@ -49,7 +49,7 @@ export const FlippingCardsStatic = () => {
       </FlippingCardStatic>
       <FlippingCardStatic
         heading1="Create & Share"
-        heading2="Youths aged 14 to 20: Share your art with the world!"
+        heading2="Youths aged 8 to 20: Share your art with the world!"
         description={
           <div>
             <Pm className="mt-4 md:mt-12 mb-4 font-light text-sm md:text-base">
