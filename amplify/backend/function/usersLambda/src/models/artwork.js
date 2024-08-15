@@ -333,15 +333,15 @@ async function updateVoteArtworkbyId(artworkSk, decrement=false) {
 }
 
 async function incrementVoteArtworkById(artworkSk) {
-  const artwork = updateVoteArtworkbyId(artworkSk)
+  const artwork = updateVoteArtworkbyId(artworkSk);
   VotesModel.incrementTotalVotes();
-  return artwork
+  return artwork;
 }
 
 async function decrementVoteArtworkById(artworkSk) {
-  const artwork = updateVoteArtworkbyId(artworkSk, decrement=true)
+  const artwork = updateVoteArtworkbyId(artworkSk, decrement=true);
   VotesModel.decrementTotalVotes();
-  return artwork
+  return artwork;
 }
 
 async function approveArtworkById(artworkSk, approvalStatus) {

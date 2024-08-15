@@ -4,7 +4,7 @@ import OlympicRings from "../../../public/impact/OlympicRings.webp";
 import SwimMan from "../../../public/impact/SwimMan.webp";
 import PurpleEarth from "../../../public/impact/PurpleEarth.webp";
 // import YellowThree from "../../../public/impact/YellowThree.png"
-import FootBall from "../../../public/impact/Football.webp";
+// import FootBall from "../../../public/impact/Football.webp";
 import ColorfulButterfly from "../../../public/impact/ColorfulButterfly.webp";
 import ChildrensWorld from "../../../public/impact/ChildrensWorld.webp";
 import BlueRings from "../../../public/impact/BlueRings.webp";

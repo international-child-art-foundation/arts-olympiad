@@ -61,13 +61,13 @@ export const GuidelineCard = ({
       >
         <H3m className="font-semibold grid-card-header break-normal">{heading}</H3m>
         {description && description.map((item, index) => {
-          return(
-          <Pm key={index} className="font-light font-sans text-sm min-w-[100%]">
-            {item}
-          </Pm>
-          )
+          return (
+            <Pm key={index} className="font-light font-sans text-sm min-w-[100%]">
+              {item}
+            </Pm>
+          );
         })}
-        
+
         {button && (
           <div className="inline-flex box-border grow-0 rounded">
             <Link className="bg-white text-new-blue px-4 py-3 box-border rounded" href={button[1]}>
@@ -76,9 +76,9 @@ export const GuidelineCard = ({
           </div>
         )}
       </div>
-      <div 
-        className={`${isActive ? "opacity-0 pointer-events-none" : "opacity-100 pointer-events-auto"} p-6 absolute bottom-0 w-full`} 
-        style={isActive ? {...baseTitleAnimationStyle}  : {...activeTitleAnimationStyle}}
+      <div
+        className={`${isActive ? "opacity-0 pointer-events-none" : "opacity-100 pointer-events-auto"} p-6 absolute bottom-0 w-full`}
+        style={isActive ? { ...baseTitleAnimationStyle } : { ...activeTitleAnimationStyle }}
       >
         <H3m className="font-semibold grid-card-header break-normal">{heading}</H3m>
       </div>

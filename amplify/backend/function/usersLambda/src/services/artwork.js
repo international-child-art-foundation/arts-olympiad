@@ -139,7 +139,7 @@ async function getArtworks(queryParams) {
     ExpressionAttributeValues: {":v_is_approved" : is_approved},
     // Limit: limit,
     // ScanIndexForward: scanIndexForward
-  }
+  };
 
   let items = await ArtworkModel.queryArtworks(query);
 

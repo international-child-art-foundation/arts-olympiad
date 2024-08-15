@@ -1,8 +1,6 @@
 "use client";
 import Image from "next/image";
 import hashtag from "../../public/home/hashtag.svg";
-import HeroHeader from "../../public/home/Hero_Header_Small.jpg";
-import { formatDate } from "../../mock/dates";
 import rainbowLine from "../../public/home/rainbowLineWebp.webp";
 // import RainbowLine from "../../public/home/new-hero/RainbowLine.svg";
 import HeroCarousel from "./carousel/HeroCarousel";
@@ -26,17 +24,17 @@ export const Intro = () => {
             </div>
             <div className="font-normal text-base mb-6 md:mb-12 z-10">
               <p className=" z-10 mb-4 leading-8 lg:mb8">
-              Anyone <b>aged 8 to 20</b> in the U.S. or another country can create art about their favorite sport, pload it, and share it with family and friends to get their votes before December 24, 2024.
+                Anyone <b>aged 8 to 20</b> in the U.S. or another country can create art about their favorite sport, pload it, and share it with family and friends to get their votes before December 24, 2024.
               </p>
               <p className=" z-10 mb-4 leading-8 lg:mb8">
-              Any art lover or sports fan can vote for their favorite artwork to select the 13 winners (one per age year) who will receive awards  on December 28, 2024.
+                Any art lover or sports fan can vote for their favorite artwork to select the 13 winners (one per age year) who will receive awards  on December 28, 2024.
               </p>
 
             </div>
           </article>
           <div
             className="relative z-10 px-10 md:px-24 lg:px-0 md:grid col-span-8 md:col-start-2 md:col-span-6 lg:col-span-5 xl:col-span-6 "
-           >
+          >
             <HeroCarousel />
           </div>
           {/* <figure

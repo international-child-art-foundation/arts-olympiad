@@ -9,8 +9,8 @@ const UserController = require("./controllers/user");
 const VotesController = require("./controllers/votes");
 const StripeController = require("./controllers/stripe");
 
-const domains = require('disposable-email-domains');
-const wildcards = require('disposable-email-domains/wildcard.json');
+const domains = require("disposable-email-domains");
+const wildcards = require("disposable-email-domains/wildcard.json");
 
 const {
   loginUserValidator, registerUserValidator, verifyUserValidator, updateUserValidator,
@@ -27,7 +27,7 @@ const STRIPE_WEBHOOK_IPS = [
   "54.88.130.237",  "54.187.174.169",
   "54.187.205.235",  "54.187.216.72"
 ];
-const ALLOWED_ORIGINS = ['https://artsolympiad.info', 'https://myfavoritesport.org'];
+const ALLOWED_ORIGINS = ["https://artsolympiad.info", "https://myfavoritesport.org"];
 
 // declare a new express app
 const app = express();
@@ -62,20 +62,20 @@ app.use(
       upgradeInsecureRequests: [],
     },
     referrerPolicy: {
-      policy: 'no-referrer-when-downgrade',
+      policy: "no-referrer-when-downgrade",
     },  
   })
 );
 app.use((req, res, next) => {
-  if (req.headers['x-forwarded-proto'] !== 'https') {
-    return res.status(403).send('HTTPS Required');
+  if (req.headers["x-forwarded-proto"] !== "https") {
+    return res.status(403).send("HTTPS Required");
   }
   next();
 });
 app.use((req, res, next) => {
-  res.setHeader('X-XSS-Protection', '1; mode=block');
-  res.setHeader('X-Frame-Options', 'DENY');
-  res.setHeader('X-Content-Type-Options', 'nosniff');
+  res.setHeader("X-XSS-Protection", "1; mode=block");
+  res.setHeader("X-Frame-Options", "DENY");
+  res.setHeader("X-Content-Type-Options", "nosniff");
   next();
 });
 app.use(logRequest);
@@ -87,10 +87,10 @@ app.use(express.json({ limit: "15kb" }));
 app.use((req, res, next) => {
   const origin = req.headers.origin;
   if (ALLOWED_ORIGINS.includes(origin)) {
-    res.setHeader('Access-Control-Allow-Origin', origin);
+    res.setHeader("Access-Control-Allow-Origin", origin);
   }
-  res.header('Access-Control-Allow-Methods', 'GET, POST, DELETE, PATCH, OPTIONS');
-  res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept, Authorization');
+  res.header("Access-Control-Allow-Methods", "GET, POST, DELETE, PATCH, OPTIONS");
+  res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept, Authorization");
   next();
 });
 
