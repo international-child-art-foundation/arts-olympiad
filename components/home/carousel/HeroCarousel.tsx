@@ -1,12 +1,13 @@
 import React from "react";
-import { wisdomList } from "../../impact/wisdom/wisdomItems";
+// import { IHeroList } from "../../impact/wisdom/wisdomItems";
+import { IHeroList } from "./HeroItem";
 import { useState, useEffect, useRef, createRef } from "react";
 import { LazyImage } from "../../common/images/LazyImage";
-import { H3m } from "../../common/texts/H3m";
 
 export default function HeroCarousel() {
   const [index, setIndex] = useState(0);
   const timeoutRef = useRef<NodeJS.Timeout | null>(null);
+  const [transitioning, setTransitioning] = useState(true);
 
   function resetTimeout() {
     if (timeoutRef.current) {
@@ -19,92 +20,77 @@ export default function HeroCarousel() {
     timeoutRef.current = setTimeout(
       () =>
         setIndex((prevIndex) =>
-        // prevIndex === wisdomList.length - 1 ? 0 : prevIndex + 1
-          (prevIndex + 1) % wisdomList.length
+          // prevIndex + 1
+          (prevIndex + 1) % IHeroList.length
         ),
-      3000
+      3500
     );
-
     return () => {
       resetTimeout();
     };
   }, [index]);
 
+  // useEffect(() => {
+  //   if (index > IHeroList.length) {
+  //     setTimeout(() => {
+  //       setTransitioning(false)
+  //       setIndex(0)
+  //     }, 0)
+  //   } else {
+  //     setTransitioning(true)
+  //   }
+  // }, [index, transitioning])
+
+  function handleDotOnClick (i: number) {
+    setIndex(i);
+  }
+
   return (
-    <div className="relative w-full h-full overflow-hidden">
+    <div className="relative w-full overflow-hidden flex flex-col items-center">
       <div
-        className="flex transition-transform duration-500"
+        className={`flex transition-transform duration-500 ${!transitioning ? "" : "ease-linear"}`}
         style={{ transform: `translateX(${-index * 100}%)` }}
       >
         {
-          wisdomList.map((wisdom, i) => {
+          IHeroList.map((wisdom, i) => {
             return (
               <div key={i} className="relative w-full flex-shrink-0 flex justify-center items-center rounded-2xl">
                 <div
                   className="
-                                        thumbnail
-                                        cursor-pointer
-                                        relative
-                                        rounded-xl
-                                        font-montserrat
-                                        font-bold
-                                        w-full
-                                    "
+                              thumbnail
+                              cursor-pointer
+                              relative
+                              rounded-xl
+                              font-montserrat
+                              font-bold
+                              w-full
+                          "
                 >
                   <LazyImage
-                    className="thumbnail-image w-full h-[450px] object-cover select-none pointer-events-none"
+                    className="thumbnail-image w-full object-cover select-none pointer-events-none"
                     imageUrl={wisdom.url}
                     alt={wisdom.alt}
                   />
-                  <div
-                    className="
-                                            cardLabel
-                                            thumbnail-textfield
-                                            h-[20%]
-                                            w-full
-                                            absolute
-                                            bottom-0
-                                        "
+                  <div 
+                    className={`text-sm text-black italic font-medium font-montserrat text-right`}
                   >
-                    <div
-                      className="
-                                            absolute
-                                            w-full
-                                            h-full
-                                            bg-gray-700 bg-opacity-60
-                                            rounded-b-xl
-                                            backdrop-blur-[5px]
-                                        "
-                    ></div>
-                    <div
-                      className="
-                                            cardLabel
-                                            thumbnail-textfield
-                                            absolute
-                                            bottom-0
-                                            w-full
-                                            h-full
-                                            text-gray-100
-                                            rounded-b-xl
-                                            flex
-                                            flex-col
-                                            items-center
-                                            justify-center
-                                        "
-                    >
-                      <H3m className="select-none font-montserrat font-semibold z-10">
-                        {wisdom.wisdomText}
-                      </H3m>
-                      <H3m className="select-none font-montserrat font-semibold z-10">
-                        {wisdom.author}
-                      </H3m>
-                    </div>
+                    {wisdom.name}, {wisdom.age}, {wisdom.country}
                   </div>
                 </div>
+
               </div>
             );
           })
         }
+      </div>
+      <div className="flex flex-row space-x-3">
+        {Array(3).fill(null).map((_, i) => (
+          <div key={i} 
+            className={`w-[15px] h-[15px] rounded-full ${i == index % 3 ? "bg-new-blue" : "bg-main-silver"}`}
+            onClick={() => handleDotOnClick(i)}
+            >
+          </div>
+        ))}
       </div>
     </div>
   );
