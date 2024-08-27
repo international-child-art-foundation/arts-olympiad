@@ -60,11 +60,10 @@ export const Guidelines = () => {
       newActiveTextarea.addEventListener("transitionend", () => {
         // Once the transition is complete, set the width to auto
         newActiveTextarea.style.width = "auto";
-      }, { once: true }); // The 'once' option auto-removes the event listener after it's invoked  
+      }, { once: true }); 
     }
     
   
-    // Use FLIP to animate from the previous state to the new state for all cards
     Flip.from(state, {
       duration: 0.6,
       ease: "power2.inOut",

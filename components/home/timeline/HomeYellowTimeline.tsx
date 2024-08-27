@@ -52,21 +52,20 @@ export const HomeYellowTimeline = () => {
           <ul aria-label="participation timeline.">
             <TimePoint
               heading="When does it start?"
-              description=""
-              // date={formatDate("competitionBegin", "MMMM do, yyyy")}
-              date="Today!"
+              description={<span className="text-dark-blue">The #MyFavoriteSport movement has begun!</span>}
+              date={formatDate("competitionBegin", "MMMM yyyy")}
+              // date="Today!"
               color={"#0286C3"}
               isMobile={isMobile}
             />
             <TimePoint
-              heading="Register to Enter and Vote"
+              heading="Register to Upload or Vote"
               description={
-                <>
-              This is the time to engage your creative mind. Make your entry before 
-                  <span className="font-bold text-dark-blue"> {formatDate("competitionEnd", "MMMM do, yyyy")}.</span>
-                </>
+                <span className="text-dark-blue">
+              Upload your masterpiece or Vote for your favorite artwork! 
+                </span>
               }
-              date={`${formatDate("competitionBegin", "MMMM")} to ${formatDate("competitionEnd", "MMMM")}`}
+              date={`${formatDate("competitionBegin", "MMMM")} to ${formatDate("competitionEnd", "MMMM do, yyyy")}`}
               color={"#FBB22E"}
               isMobile={isMobile}
               inversed
@@ -74,22 +73,21 @@ export const HomeYellowTimeline = () => {
             <TimePoint
               heading={<>Public choose the <span className="font-bold text-dark-blue">Winners</span></>}
               description={
-                <>
-                  The gold, silver, and bronze winners, selected through public votes, will be announced on
-                  <span className="font-bold text-dark-blue"> {formatDate("winnerAnnounced", "MMMM do, yyyy")}</span>
-                </>}
-              date={formatDate("winnerAnnounced", "do MMMM, yyyy")}
+                <span className="text-dark-blue">
+                  Garner the most votes to win the award!
+                </span>}
+              date={formatDate("competitionEnd", "MMMM do, yyyy")}
               color={"#168C39"}
               isMobile={isMobile}
             />
             <TimePoint
-              heading="Awards!"
+              heading="Winners Announcement!"
               description={
                 <>
               All 13 winners are featured in the International Child Art Foundation's ChildArt Magazine and receive Certificates of Exceptional Artistry. Their art may also be exhibited at major venues. 
                 </>
               }
-              date={`${formatDate("winnerAnnounced", "do MMMM, yyyy")} Announcement`}
+              date={`${formatDate("winnerAnnounced", "MMMM do, yyyy")}`}
               color={"#FB2E2E"}
               isMobile={isMobile}
               inversed
