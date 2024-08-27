@@ -7,13 +7,13 @@ if (process.env.ENV && process.env.ENV !== "NONE") {
 }
 
 async function getTotalVotes() {
-    const votes = await VotesModel.getTotalVotes()
-    if (!votes.Item) {
-        throw new Error("Votes not found.");
-    }
-    return votes.Item;
+  const votes = await VotesModel.getTotalVotes();
+  if (!votes.Item) {
+    throw new Error("Votes not found.");
+  }
+  return votes.Item;
 }
 
 module.exports = {
-    getTotalVotes
-}
+  getTotalVotes
+};

@@ -1,5 +1,5 @@
 const { CognitoIdentityProviderClient, GetUserCommand } = require("@aws-sdk/client-cognito-identity-provider");
-const UserModel = require("./models/user") 
+const UserModel = require("./models/user"); 
 
 const client = new CognitoIdentityProviderClient();
 

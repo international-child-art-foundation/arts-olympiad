@@ -2,9 +2,9 @@ import { format } from "date-fns";
 
 const dates: { [key: string]: Date } = {
   // Months are 0-indexed
-  competitionBegin: new Date(2024, 6, 26),
-  competitionEnd: new Date(2024, 8, 30),
-  winnerAnnounced: new Date(2024, 9, 4)
+  competitionBegin: new Date(2024, 7, 26),
+  competitionEnd: new Date(2024, 11, 24),
+  winnerAnnounced: new Date(2024, 11, 28)
 };
 
 export const formatDate = (dateKey: string, formatString: string): string => {

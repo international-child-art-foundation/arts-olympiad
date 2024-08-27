@@ -80,9 +80,9 @@ export const handler = async (event) => {
   }
 
   const widthByName = {
-    'medium': 800,
-    'thumb': 400
-  }
+    "medium": 800,
+    "thumb": 400
+  };
 
   for (const [name, width] of Object.entries(widthByName)) {
     const dstKey = `${userSk}/${name}.webp`;
@@ -113,11 +113,11 @@ export const handler = async (event) => {
       return {
         statusCode: 400,
         body: JSON.stringify({ error: error })
-      }
+      };
     }
   }
   return {
     statusCode: 200,
-    body: JSON.stringify({ message: 'Success processing image.' })
+    body: JSON.stringify({ message: "Success processing image." })
   };
 };

@@ -36,7 +36,7 @@ export const HomeYellowTimeline = () => {
         <Image src={tinyPinkBlob} alt="" className="hidden md:block -z-10 absolute top-[672px] right-44 select-none pointer-events-none" />
         <Image src={bigPinkBlob} alt="" className="-z-10 w-[300px] md:w-[500px] absolute top-[576px] -right-12 md:-right-44 select-none pointer-events-none" />
         <Image src={bigBlueBlob} alt="" className="-z-10 w-[400px] md:w-[700px] absolute bottom-96 md:bottom-24 -left-12 md:-left-44 select-none pointer-events-none" />
-        <Image src={basketballPlayer} alt="Basketball player" className="z-10 absolute md:-bottom-12 md:right-8 lg:-bottom-12 lg:right-14 xl:right-24 2xl:right-32 hidden md:block"/>
+        <Image src={basketballPlayer} alt="Basketball player" className="z-10 absolute md:bottom-36 md:right-8 lg:right-14 xl:right-24 2xl:right-32 hidden md:block"/>
         <Image src={badmintonPlayer} alt="Badminton player" className="z-10 absolute md:left-8 md:bottom-64 lg:left-14 xl:left-24 2xl:left-32 hidden md:block"/>
         <Image src={dive} alt="" className="z-10 absolute md:left-8 md:bottom-[48rem] lg:left-14 xl:left-24 2xl:left-32 hidden md:block"/>
         <Image src={secondSwimmer} alt="" className="z-10 absolute md:right-8 md:top-60 lg:-right-4 xl:top-[17rem] xl:right-8 2xl:right-8 hidden md:block"/>
@@ -52,34 +52,45 @@ export const HomeYellowTimeline = () => {
           <ul aria-label="participation timeline.">
             <TimePoint
               heading="When does it start?"
-              description=""
-              date={formatDate("competitionBegin", "MMMM do, yyyy")}
+              description={<span className="text-dark-blue">The #MyFavoriteSport movement has begun!</span>}
+              date={formatDate("competitionBegin", "MMMM yyyy")}
+              // date="Today!"
               color={"#0286C3"}
               isMobile={isMobile}
             />
             <TimePoint
-              heading="Register to Enter and Vote"
+              heading="Register to Upload or Vote"
               description={
-                <>
-              This is the time to engage your creative mind. Make your entry before 
-                  <span className="font-bold text-dark-blue"> {formatDate("competitionEnd", "MMMM do, yyyy")}.</span>
-                </>
+                <span className="text-dark-blue">
+              Upload your masterpiece or Vote for your favorite artwork! 
+                </span>
               }
-              date={`${formatDate("competitionBegin", "MMMM")} to ${formatDate("competitionEnd", "MMMM")}`}
+              date={`${formatDate("competitionBegin", "MMMM")} to ${formatDate("competitionEnd", "MMMM do, yyyy")}`}
               color={"#FBB22E"}
               isMobile={isMobile}
               inversed
             />
             <TimePoint
-              heading={<>Public Choice <span className="font-bold text-dark-blue">Winners</span></>}
+              heading={<>Public choose the <span className="font-bold text-dark-blue">Winners</span></>}
               description={
-                <>
-                  The gold, silver, and bronze winners, selected through public votes, will be announced on
-                  <span className="font-bold text-dark-blue"> {formatDate("winnerAnnounced", "MMMM do, yyyy")}</span>
-                </>}
-              date={formatDate("winnerAnnounced", "do MMMM, yyyy")}
+                <span className="text-dark-blue">
+                  Garner the most votes to win the award!
+                </span>}
+              date={formatDate("competitionEnd", "MMMM do, yyyy")}
               color={"#168C39"}
               isMobile={isMobile}
+            />
+            <TimePoint
+              heading="Winners Announcement!"
+              description={
+                <>
+              All 13 winners are featured in the International Child Art Foundation's ChildArt Magazine and receive Certificates of Exceptional Artistry. Their art may also be exhibited at major venues. 
+                </>
+              }
+              date={`${formatDate("winnerAnnounced", "MMMM do, yyyy")}`}
+              color={"#FB2E2E"}
+              isMobile={isMobile}
+              inversed
             />
           </ul>
         </div>

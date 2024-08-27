@@ -19,6 +19,7 @@ export const TimePointDescription = ({heading, color, description, isMobile, inv
       className={`
       z-20
       flex flex-col min-h-full justify-center
+      font-montserrat
       ${isMobile ? "w-full" : "w-[49.7%]"}
       ${inversed ? "pl-11 text-right " : "pr-11"}
       `}

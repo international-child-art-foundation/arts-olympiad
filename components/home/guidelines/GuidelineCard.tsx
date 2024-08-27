@@ -8,7 +8,7 @@ interface IProps extends React.HTMLProps<HTMLDivElement> {
   imgUrl: string | StaticImageData;
   alt?: string;
   heading: string;
-  description: string | React.ReactNode;
+  description: string[];
   button?: string[];
   isActive: boolean;
   gradientStrength: number | undefined;
@@ -60,9 +60,14 @@ export const GuidelineCard = ({
         className={"div-textholder p-6 absolute bottom-0 min-w-full max-w-[450px] lg:max-w-[unset] w-full flex flex-col gap-6 "}
       >
         <H3m className="font-semibold grid-card-header break-normal">{heading}</H3m>
-        <Pm className="font-light font-sans text-sm min-w-[100%]">
-          {description}
-        </Pm>
+        {description && description.map((item, index) => {
+          return (
+            <Pm key={index} className="font-light font-sans text-sm min-w-[100%]">
+              {item}
+            </Pm>
+          );
+        })}
+
         {button && (
           <div className="inline-flex box-border grow-0 rounded">
             <Link className="bg-white text-new-blue px-4 py-3 box-border rounded" href={button[1]}>
@@ -71,9 +76,9 @@ export const GuidelineCard = ({
           </div>
         )}
       </div>
-      <div 
-        className={`${isActive ? "opacity-0 pointer-events-none" : "opacity-100 pointer-events-auto"} p-6 absolute bottom-0 w-full`} 
-        style={isActive ? {...baseTitleAnimationStyle}  : {...activeTitleAnimationStyle}}
+      <div
+        className={`${isActive ? "opacity-0 pointer-events-none" : "opacity-100 pointer-events-auto"} p-6 absolute bottom-0 w-full`}
+        style={isActive ? { ...baseTitleAnimationStyle } : { ...activeTitleAnimationStyle }}
       >
         <H3m className="font-semibold grid-card-header break-normal">{heading}</H3m>
       </div>
