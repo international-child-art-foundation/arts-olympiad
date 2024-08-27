@@ -1,7 +1,7 @@
 import React from "react";
 // import { IHeroList } from "../../impact/wisdom/wisdomItems";
 import { IHeroList } from "./HeroItem";
-import { useState, useEffect, useRef, createRef } from "react";
+import { useState, useEffect, useRef } from "react";
 import { LazyImage } from "../../common/images/LazyImage";
 
 export default function HeroCarousel() {
@@ -66,11 +66,13 @@ export default function HeroCarousel() {
                               w-full
                           "
                 >
-                  <LazyImage
-                    className="thumbnail-image w-full object-cover select-none pointer-events-none"
-                    imageUrl={wisdom.url}
-                    alt={wisdom.alt}
-                  />
+                  <div className="rounded-[20px] overflow-clip">
+                    <LazyImage
+                      className="thumbnail-image w-full object-cover select-none pointer-events-none"
+                      imageUrl={wisdom.url}
+                      alt={wisdom.alt}
+                    />
+                  </div>
                   <div 
                     className={`text-sm text-black italic font-medium font-montserrat text-right`}
                   >
@@ -88,7 +90,7 @@ export default function HeroCarousel() {
           <div key={i} 
             className={`w-[15px] h-[15px] rounded-full ${i == index % 3 ? "bg-new-blue" : "bg-main-silver"}`}
             onClick={() => handleDotOnClick(i)}
-            >
+          >
           </div>
         ))}
       </div>
