@@ -7,7 +7,7 @@ import { LazyImage } from "../../common/images/LazyImage";
 export default function HeroCarousel() {
   const [index, setIndex] = useState(0);
   const timeoutRef = useRef<NodeJS.Timeout | null>(null);
-  const [transitioning, setTransitioning] = useState(true);
+  const [transitioning] = useState(true); // setTransitioning unused - double check
 
   function resetTimeout() {
     if (timeoutRef.current) {
@@ -74,7 +74,7 @@ export default function HeroCarousel() {
                     />
                   </div>
                   <div 
-                    className={`text-sm text-black italic font-medium font-montserrat text-right`}
+                    className="text-sm text-black italic font-medium font-montserrat text-right"
                   >
                     {wisdom.name}, {wisdom.age}, {wisdom.country}
                   </div>
