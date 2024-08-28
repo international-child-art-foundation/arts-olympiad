@@ -1,6 +1,6 @@
 import React from "react";
-// import { IHeroList } from "../../impact/wisdom/wisdomItems";
-import { IHeroList } from "./HeroItem";
+// import { IHeroArray } from "../../impact/wisdom/wisdomItems";
+import { IHeroArray } from "./HeroItem";
 import { useState, useEffect, useRef } from "react";
 import { LazyImage } from "../../common/images/LazyImage";
 
@@ -21,7 +21,7 @@ export default function HeroCarousel() {
       () =>
         setIndex((prevIndex) =>
           // prevIndex + 1
-          (prevIndex + 1) % IHeroList.length
+          (prevIndex + 1) % IHeroArray.length
         ),
       3500
     );
@@ -31,7 +31,7 @@ export default function HeroCarousel() {
   }, [index]);
 
   // useEffect(() => {
-  //   if (index > IHeroList.length) {
+  //   if (index > IHeroArray.length) {
   //     setTimeout(() => {
   //       setTransitioning(false)
   //       setIndex(0)
@@ -52,7 +52,7 @@ export default function HeroCarousel() {
         style={{ transform: `translateX(${-index * 100}%)` }}
       >
         {
-          IHeroList.map((wisdom, i) => {
+          IHeroArray.map((wisdom, i) => {
             return (
               <div key={i} className="relative w-full flex-shrink-0 flex justify-center items-center rounded-2xl">
                 <div

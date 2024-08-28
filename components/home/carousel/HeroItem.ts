@@ -14,7 +14,7 @@ export interface IHero {
 export type HeroImageType = IHero[]
 
 
-const IHeroArray: IHero[] = [
+export const IHeroArray: IHero[] = [
   {url: img1, name:"Eric Liang", age: 11, country: "Illinois", alt:"Eric Liang, age 11, Illinois"},
   {url: img2, name:"Esther Kim", age: 11, country: "Virginia", alt:"Esther Kim, age 11, Virginia"},
   {url: img3, name:"Teruhito Sekine", age:12, country: "Japan", alt:"Teruhito Sekine, age 12, Japan"},
