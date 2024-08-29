@@ -43,17 +43,17 @@ const blacklistEmailValidator = (domainBlacklist, wildcardBlacklist) => [
     .isLength({ max: 254 }).withMessage("email must not exceed 254 characters")
     .custom((value) => {
       if (process.env.ENV != "production") { return true; }
-      const domain = value.split('@')[1].toLowerCase();
+      const domain = value.split("@")[1].toLowerCase();
       
       if (domainBlacklist.includes(domain)) {
-        throw new Error('This email domain is not allowed');
+        throw new Error("This email domain is not allowed");
       }
       
       for (let wildcardDomain of wildcardBlacklist) {
-        if (wildcardDomain.startsWith('*.')) {
+        if (wildcardDomain.startsWith("*.")) {
           const suffix = wildcardDomain.slice(1);
           if (domain.endsWith(suffix)) {
-            throw new Error('This email domain is not allowed');
+            throw new Error("This email domain is not allowed");
           }
         }
       }

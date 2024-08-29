@@ -14,10 +14,10 @@ import { Flip } from "gsap/all";
 
 gsap.registerPlugin(Flip);
 const cardData = [
-  { imgUrl: img1, className: "border-[#0286C3]", heading: "How to Upload", description: "Create an account with us, go to your dashboard and upload your work.", button:["Learn more", "/register"] },
-  { imgUrl: img2, className: "border-[#168C39]", heading: "Accepted Formats", description: "All entries will be submitted digitally, but you're free to choose any format you'd like. Let your imagination take the lead on how to create your work.", button:["Learn more", "/contest"]},
-  { imgUrl: img3, className: "border-[#EE2F4D]", heading: "Share your Favorites", description: "Everyone gets 1 vote. You can share your favorite piece through social media for more votes.", button:["Learn more", "/faq"], gradientStrength: 0.6 },
-  { imgUrl: img4, className: "border-[#F5AB35]", heading: "How much does it cost?", description: "The entry fee for artists is $10 but voters register for free."}
+  { imgUrl: img1, className: "border-[#F5AB35]", heading: "Fee and Awards", description: ["The entry fee to upload the artwork is US$3 but voters register for free.", "All 13 winners aged 8 to 20 will be featured in the International Child Art Foundation's ChildArt Magazine and shall receive Awards of Exceptional Artistry. Their art may also be exhibited at major venues."]},
+  { imgUrl: img2, className: "border-[#0286C3]", heading: "How to Upload", description: ["Create an account with us, go to your dashboard and upload your work."], button:["Learn more", "/register"] },
+  { imgUrl: img3, className: "border-[#168C39]", heading: "Accepted Formats", description: ["All entries will be submitted digitally, but you're free to choose any format you'd like. Let your imagination take the lead on how to create your work."], button:["Learn more", "/contest"]},
+  { imgUrl: img4, className: "border-[#EE2F4D]", heading: "Share your Masterpiece", description: ["Everyone gets 1 vote. You can share your favorite piece through social media for more votes."], button:["Learn more", "/faq"], gradientStrength: 0.6 },
 ];
 
 export const Guidelines = () => {
@@ -60,11 +60,10 @@ export const Guidelines = () => {
       newActiveTextarea.addEventListener("transitionend", () => {
         // Once the transition is complete, set the width to auto
         newActiveTextarea.style.width = "auto";
-      }, { once: true }); // The 'once' option auto-removes the event listener after it's invoked  
+      }, { once: true }); 
     }
     
   
-    // Use FLIP to animate from the previous state to the new state for all cards
     Flip.from(state, {
       duration: 0.6,
       ease: "power2.inOut",

@@ -40,7 +40,7 @@ async function addArtwork(req, res) {
     const lambdaClient = new LambdaClient({ region: process.env.REGION });
     const command = new InvokeCommand({
       FunctionName: `arn:aws:lambda:us-east-1:011385746984:function:processImage-${process.env.ENV}`,
-      InvocationType: 'RequestResponse',
+      InvocationType: "RequestResponse",
       Payload: JSON.stringify({ user_sk: userSk })
     });
     
