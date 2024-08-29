@@ -70,7 +70,7 @@ export const FlippingCardsStatic = () => {
         description={
           <div>
             <Pm className="font-light text-sm md:text-base">
-            Register first, then search for artists by name or country to cast your vote. You can vote only once.
+            Register for free, then search for artists by name or country to cast your vote. You can vote only once.
             </Pm>
             {/* <Pm className="font-light text-base mb-4 md:mb-0">
               You must register to upload your artwork or to vote for your favorite artist or artwork.

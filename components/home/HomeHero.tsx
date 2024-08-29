@@ -24,7 +24,7 @@ export const Intro = () => {
             </div>
             <div className="font-normal text-base mb-6 md:mb-12 z-10">
               <p className=" z-10 mb-4 leading-8 lg:mb8">
-                Anyone <b>aged 8 to 20</b> in the U.S. or another country can create art about their favorite sport, pload it, and share it with family and friends to get their votes before December 24, 2024.
+                Anyone <b>aged 8 to 20</b> in the U.S. or another country can create art about their favorite sport, upload it, and share it with family and friends to get their votes before December 24, 2024.
               </p>
               <p className=" z-10 mb-4 leading-8 lg:mb8">
                 Any art lover or sports fan can vote for their favorite artwork to select the 13 winners (one per age year) who will receive awards  on December 28, 2024.
