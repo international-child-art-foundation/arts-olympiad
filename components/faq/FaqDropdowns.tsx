@@ -23,7 +23,7 @@ const ContestSectionData: ExpandingDivProps = {
     {
       title: "Are there any fees?",
       description:
-        "Yes, there is a $10 administrative fee. ",
+        "Yes, there is a $3 administrative fee. ",
     },
     {
       title: "When can I submit?",

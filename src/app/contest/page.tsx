@@ -6,7 +6,6 @@ import { ContestBegin } from "../../../components/contest/ContestBegin";
 import { Timeline } from "../../../components/contest/timeline/Timeline";
 import { Participate } from "../../../components/contest/Participate";
 import TwoCards from "../../../components/contest/TwoCards";
-import {Prizes} from "../../../components/contest/Prizes";
 import AccordionNew from "../../../components/contest/AccordionNew";
 
 export const metadata: Metadata = {
@@ -24,7 +23,7 @@ export default function contestPage() {
       <TwoCards />
       <AccordionNew />
       <Timeline />
-      <Prizes />
+      {/* <Prizes /> */}
       <Participate />
     </div>
   );

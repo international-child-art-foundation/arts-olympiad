@@ -131,7 +131,7 @@ export const DashboardMainTab: React.FC<DashboardMainTabProps> = ({ dashboardLoa
                       </div>
                     ) : (
                       <div className="flex flex-col my-6">
-                        <p className="">In order to submit art, you must first pay a $10 administrative fee. </p>
+                        <p className="">In order to submit art, you must first pay a $3 administrative fee. </p>
                         <p className="">Once the fee is paid, we can go through the process of getting your artwork ready for the world. </p>
                         <a href={process.env.NEXT_PUBLIC_STRIPE_URL + "?client_reference_id=" + apiUserData.sk} className=" my-4 mx-auto text-center bg-new-blue text-white px-4 py-2 rounded active:scale-[97%]">
                           Pay Entry Fee

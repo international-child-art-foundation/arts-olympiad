@@ -52,7 +52,7 @@ export const RegisterForm: React.FC<RegisterFormProps> = ({setUserEmail, setRegi
       <div className="max-w-[90%] sm:max-w-[70%] lg:max-w-[40%]">
         <H2m>Create an account</H2m>
         <Pm className="my-2" >Join us! Create your account to either vote for inspiring art or enter your own work.</Pm>
-        <Pm className="my-2" >Registration begins on <b>June 15, 2024</b>.</Pm>
+        <Pm className="my-2" >Registration begins on <b>August 26, 2024</b>.</Pm>
         <div className="grid">
           {formSubmissionLoading && 
             <div className="col-start-1 row-start-1">

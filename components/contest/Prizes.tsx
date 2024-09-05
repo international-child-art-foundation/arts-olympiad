@@ -1,6 +1,6 @@
 import React from "react";
-import { H2m } from "../common/texts/H2m";
-import { Pm } from "../common/texts/Pm";
+// import { H2m } from "../common/texts/H2m";
+// import { Pm } from "../common/texts/Pm";
 // import Image from "next/image";
 // import KidsBlue from "../../public/contest/kids_blue.webp";
 // import PrizesCards from "./PrizesCards";
@@ -18,12 +18,6 @@ export const Prizes = () => {
   return (
     <>
       <section className="relative z-30 mt-12 m-auto max-w-screen-2xl ">
-        <div className="mt-8 px-8 md:px-12 lg:px-20 xl:px-24 z-30">
-          <H2m className="flex-col z-20 font-montserrat font-medium mb-6 xsm:text-center lg:text-left">
-          Prizes
-          </H2m>
-          <Pm className="font-openSans font-light z-30 text-center lg:text-left mb-8">People around the world through their votes will select who wins the Gold (US$3,000), Silver ($2,000) or Bronze ($1,000)</Pm>
-        </div>
         {/* <div className="relative flex flex-col w-full px-6 md:grid md:grid-cols-2 lg:px-24 mxl:px-72 mx-auto my-20 z-10">
           <PrizesCards 
             src={ClipBoard}
