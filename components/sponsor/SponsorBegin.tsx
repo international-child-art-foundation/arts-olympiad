@@ -10,7 +10,7 @@ export const SponsorBegin = () => {
         <div className="col-span-2 lg:col-span-1 md:mt-8 flex flex-col justify-center items-center lg:items-start">
           <TitleLayout>
             <h1 className="flex-col z-20 font-semibold font-montserrat mb-1 text-3xl xsm:text-4xl lg:text-5xl xl:text-6xl">
-            Join the International Child Art Foundation in sponsoring
+            Join the International Child Art Foundation in helping to promote
             </h1>
             <div className="z-20 flex flex-row align-center mb-8">
               <Image src={hashtag} alt="" width={32} height={32}  />
