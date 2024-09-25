@@ -9,7 +9,7 @@ import OpenEye from "../../public/auth/eye_open.svg";
 import ClosedEye from "../../public/auth/eye_closed.svg";
 // import {useRouter} from "next/navigation";
 import {NewPasswordInput} from "../common/form_inputs/NewPasswordInput";
-import { BirthdateInterface, UserRegisterInterfaceOver18, UserRegisterInterface } from "@/interfaces/user_auth";
+import { BirthdateInterface, UserRegisterInterfaceOver14, UserRegisterInterface } from "@/interfaces/user_auth";
 import { handleRegister } from "@/utils/api-user";
 import "react-phone-number-input/style.css";
 import { CustomPhoneInput } from "../common/form_inputs/CustomPhoneInput";
@@ -24,7 +24,7 @@ import {
 import { limiter } from "@/utils/api-rate-limit";
 import { TermsCheckbox } from "../common/form_inputs/TermsCheckbox";
 
-type RegisterOver18Props = {
+type RegisterOver14Props = {
   setUserEmail: React.Dispatch<React.SetStateAction<string>>
   userBirthdate: BirthdateInterface
   setRegisterSuccess: React.Dispatch<React.SetStateAction<boolean>>
@@ -33,11 +33,11 @@ type RegisterOver18Props = {
 }
 import Bottleneck from "bottleneck";
 
-export const RegisterOver18: React.FC<RegisterOver18Props> = ({setUserEmail, userBirthdate, setRegisterSuccess, formSubmissionLoading, setFormSubmissionLoading}) => {
+export const RegisterOver14: React.FC<RegisterOver14Props> = ({setUserEmail, userBirthdate, setRegisterSuccess, formSubmissionLoading, setFormSubmissionLoading}) => {
 
   const [showPassword, setShowPassword] = useState(false);
   const [apiError, setApiError] = useState("");
-  const over18ValidationSchema = Yup.object().shape({
+  const over14ValidationSchema = Yup.object().shape({
     ...firstNameValidation,
     ...lastNameValidation,
     // ...phoneValidation,
@@ -46,7 +46,7 @@ export const RegisterOver18: React.FC<RegisterOver18Props> = ({setUserEmail, use
     ...termsAgreement
   });
 
-  const over18InitialValues: UserRegisterInterfaceOver18 = {
+  const over14InitialValues: UserRegisterInterfaceOver14 = {
     firstName: "",
     lastName: "",
     email: "",
@@ -55,7 +55,7 @@ export const RegisterOver18: React.FC<RegisterOver18Props> = ({setUserEmail, use
     termsAgreement: false,
   };
 
-  const onSubmit = async (values: UserRegisterInterfaceOver18) => {
+  const onSubmit = async (values: UserRegisterInterfaceOver14) => {
     setFormSubmissionLoading(true);
     setApiError("");
     const userRegisterValues: UserRegisterInterface = {
@@ -86,8 +86,8 @@ export const RegisterOver18: React.FC<RegisterOver18Props> = ({setUserEmail, use
 
   return (
     <Formik
-      initialValues={over18InitialValues}
-      validationSchema={over18ValidationSchema}
+      initialValues={over14InitialValues}
+      validationSchema={over14ValidationSchema}
       onSubmit={onSubmit}
     >
       {({ errors, touched, values, setFieldValue, setFieldTouched }) => (
@@ -120,7 +120,7 @@ export const RegisterOver18: React.FC<RegisterOver18Props> = ({setUserEmail, use
               src={showPassword ? OpenEye : ClosedEye }
               alt="Show password button." />
           </div>
-          <TermsCheckbox id={"termsAgreement"} error={errors.termsAgreement} touched={touched.termsAgreement} value={values.termsAgreement} over18={true}/>
+          <TermsCheckbox id={"termsAgreement"} error={errors.termsAgreement} touched={touched.termsAgreement} value={values.termsAgreement} over14={true}/>
           <ButtonStd type="submit" className="w-full my-2">Sign up</ButtonStd>
           {apiError && <p className="text-red-500">{apiError}</p>}
         </Form>

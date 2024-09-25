@@ -8,7 +8,7 @@ export interface BirthdateFormInterface {
   birthdate: BirthdateInterface
 }
 
-export interface UserRegisterInterfaceOver18 {
+export interface UserRegisterInterfaceOver14 {
   firstName: string;
   lastName: string;
   email: string;
@@ -17,7 +17,7 @@ export interface UserRegisterInterfaceOver18 {
   termsAgreement: boolean;
 }
 
-export interface UserRegisterInterfaceUnder18 {
+export interface UserRegisterInterfaceUnder14 {
   firstName: string;
   lastName: string;
   guardianFirstName: string;

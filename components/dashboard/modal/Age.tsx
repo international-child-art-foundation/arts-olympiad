@@ -10,7 +10,7 @@ export const Age = () => {
     if (apiUserData && apiUserData.birthdate && typeof apiUserData.birthdate === "string") {
       const userAge = calculateAgeFromString(apiUserData.birthdate);
       setUserAge(userAge);
-      if (userAge >= 18) {
+      if (userAge >= 14) {
         handleNavigation("over");
       } else {
         handleNavigation("under");

@@ -16,8 +16,8 @@ import { isPossiblePhoneNumber } from "react-phone-number-input";
 import { BirthdateInterface } from "@/interfaces/user_auth";
 import { calculateAgeFromUserBirthdateInput } from "@/utils/helper-functions";
 import { BirthdateForm } from "./BirthdateForm";
-import { RegisterOver18 } from "./RegisterOver18";
-import { RegisterUnder18 } from "./RegisterUnder18";
+import { RegisterOver14 } from "./RegisterOver14";
+import { RegisterUnder14 } from "./RegisterUnder14";
 
 interface RegisterFormProps {
   setRegisterSuccess: React.Dispatch<React.SetStateAction<boolean>>
@@ -61,8 +61,8 @@ export const RegisterForm: React.FC<RegisterFormProps> = ({setUserEmail, setRegi
           }
           {userAge == null && <BirthdateForm setUserBirthdate={setUserBirthdate}/>}
           {userAge !== null && (
-            userAge >= 18 ? (
-              <RegisterOver18 
+            userAge >= 14 ? (
+              <RegisterOver14 
                 setUserEmail={setUserEmail}
                 userBirthdate={userBirthdate}
                 setRegisterSuccess={setRegisterSuccess}
@@ -70,7 +70,7 @@ export const RegisterForm: React.FC<RegisterFormProps> = ({setUserEmail, setRegi
                 setFormSubmissionLoading={setFormSubmissionLoading}
               />
             ) : (
-              <RegisterUnder18
+              <RegisterUnder14
                 setUserEmail={setUserEmail}
                 userBirthdate={userBirthdate}
                 setRegisterSuccess={setRegisterSuccess}

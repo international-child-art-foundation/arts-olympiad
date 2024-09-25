@@ -9,7 +9,7 @@ import OpenEye from "../../public/auth/eye_open.svg";
 import ClosedEye from "../../public/auth/eye_closed.svg";
 // import {useRouter} from "next/navigation";
 import {NewPasswordInput} from "../common/form_inputs/NewPasswordInput";
-import { BirthdateInterface, UserRegisterInterfaceUnder18, UserRegisterInterface } from "@/interfaces/user_auth";
+import { BirthdateInterface, UserRegisterInterfaceUnder14, UserRegisterInterface } from "@/interfaces/user_auth";
 import { handleRegister } from "@/utils/api-user";
 import "react-phone-number-input/style.css";
 import { CustomPhoneInput } from "../common/form_inputs/CustomPhoneInput";
@@ -23,9 +23,9 @@ import {
   passwordValidation, 
   termsAgreement
 } from "@/utils/yup-validators";
-import { TermsCheckbox } from "../../components/common/form_inputs/TermsCheckbox";
+import { TermsCheckbox } from "../common/form_inputs/TermsCheckbox";
 
-type RegisterUnder18Props = {
+type RegisterUnder14Props = {
   setUserEmail: React.Dispatch<React.SetStateAction<string>>
   userBirthdate: BirthdateInterface
   setRegisterSuccess: React.Dispatch<React.SetStateAction<boolean>>
@@ -35,11 +35,11 @@ type RegisterUnder18Props = {
 import Bottleneck from "bottleneck";
 import { limiter } from "@/utils/api-rate-limit";
 
-export const RegisterUnder18: React.FC<RegisterUnder18Props> = ({setUserEmail, userBirthdate, setRegisterSuccess, formSubmissionLoading, setFormSubmissionLoading}) => {
+export const RegisterUnder14: React.FC<RegisterUnder14Props> = ({setUserEmail, userBirthdate, setRegisterSuccess, formSubmissionLoading, setFormSubmissionLoading}) => {
 
   const [showPassword, setShowPassword] = useState(false);
   const [apiError, setApiError] = useState("");
-  const under18ValidationSchema = Yup.object().shape({
+  const under14ValidationSchema = Yup.object().shape({
     ...firstNameValidation,
     ...lastNameValidation,
     ...guardianFirstNameValidation,
@@ -50,7 +50,7 @@ export const RegisterUnder18: React.FC<RegisterUnder18Props> = ({setUserEmail, u
     ...termsAgreement
   });
 
-  const under18InitialValues: UserRegisterInterfaceUnder18 = {
+  const under14InitialValues: UserRegisterInterfaceUnder14 = {
     firstName: "",
     lastName: "",
     guardianFirstName: "",
@@ -61,7 +61,7 @@ export const RegisterUnder18: React.FC<RegisterUnder18Props> = ({setUserEmail, u
     termsAgreement: false
   };
 
-  const onSubmit = async (values: UserRegisterInterfaceUnder18) => {
+  const onSubmit = async (values: UserRegisterInterfaceUnder14) => {
     setFormSubmissionLoading(true);
     const userRegisterValues: UserRegisterInterface = {
       ...values,
@@ -89,8 +89,8 @@ export const RegisterUnder18: React.FC<RegisterUnder18Props> = ({setUserEmail, u
   return (
     <>
       <Formik
-        initialValues={under18InitialValues}
-        validationSchema={under18ValidationSchema}
+        initialValues={under14InitialValues}
+        validationSchema={under14ValidationSchema}
         onSubmit={onSubmit}
       >
 
@@ -99,7 +99,7 @@ export const RegisterUnder18: React.FC<RegisterUnder18Props> = ({setUserEmail, u
           <Form 
             className={`${formSubmissionLoading && "blur-sm opacity-80"} col-start-1 row-start-1`}
           > {/* Disabled until contest begins: className="pointer-events-none opacity-50"*/}
-            <p className="rounded-3xl p-4 bg-white italic">Since you're under the age of 18, this form must be completed by your parent or guardian.</p>
+            <p className="rounded-3xl p-4 bg-white italic">Since you're under the age of 14, this form must be completed by your parent or guardian.</p>
             <div className="grid grid-cols-2 gap-4">
               <TextInput inputType="string" className="mt-4" placeholder="John" error={errors.firstName}  touched={touched.firstName} value={values.firstName} labelText="First Name" id="firstName" />
               <TextInput inputType="string" className="mt-4" placeholder="Doe" error={errors.lastName}  touched={touched.lastName} value={values.lastName} labelText="Last name" id="lastName" />
@@ -130,7 +130,7 @@ export const RegisterUnder18: React.FC<RegisterUnder18Props> = ({setUserEmail, u
                 src={showPassword ? OpenEye : ClosedEye }
                 alt="Show password button." />
             </div>
-            <TermsCheckbox id={"termsAgreement"} error={errors.termsAgreement} touched={touched.termsAgreement} value={values.termsAgreement} over18={false}/>
+            <TermsCheckbox id={"termsAgreement"} error={errors.termsAgreement} touched={touched.termsAgreement} value={values.termsAgreement} over14={false}/>
             <ButtonStd type="submit" className="w-full my-2">Sign up</ButtonStd>
             {apiError && <p className="text-red-500">{apiError}</p>}
           </Form>

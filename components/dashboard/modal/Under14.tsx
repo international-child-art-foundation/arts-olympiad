@@ -38,21 +38,21 @@ const validationSchema = yup.object().shape({
     const daysInMonth = isLeapYear(year) && month === 2 ? 29 : new Date(year, month, 0).getDate();
     if (day > daysInMonth) return false; 
     return true; 
-  }).test("is-old-enough", "You need to be over 14 to enter this competition", (value) => {
+  }).test("is-old-enough", "You need to be 8 or older to enter this competition", (value) => {
     const { day, month, year } = value;
     const birthDate = new Date(year, month - 1, day); 
     const age = calculateAge(birthDate);
-    return age >= 14; 
+    return age >= 8; 
   }),
 });
 
-export const Under18 = () => {
+export const Under14 = () => {
   const { personalFormData, setPersonalFormData, handleNavigation } = useStepsContext();
   
   return (
     <section className="items-center justify-center m-auto max-w-screen-2xl px-8 md:px-12 lg:px-16 xl:px-20 w-full">
       <div className="mt-28 mb-9 text-center text-2xl text-neutral-black font-bold">
-        Terms & Donation Acknowledgment (For Users 18 and Under)
+        Terms & Donation Acknowledgment (For Users 13 and Under)
       </div>
       <div className="mb-4 text-base text-neutral-black font-normal"> 
         Before we move forward, we need some details from you. Please review and agree to our <span className="underline">Terms of Use</span> and <span className="underline">Privacy Policy</span>. By submitting your artwork, you're also donating it to ICAF for charitable objectives. Thank you for your support!

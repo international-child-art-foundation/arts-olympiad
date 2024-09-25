@@ -15,8 +15,8 @@ interface StepsContextType {
   setSteps: React.Dispatch<React.SetStateAction<string[]>>; // Function to update steps
   currentStep: number; // Number representing the current step
   setCurrentStep: React.Dispatch<React.SetStateAction<number>>; // Function to update the current step
-  isUnder18: boolean | null; // Boolean indicating if the user is under 18
-  setIsUnder18: React.Dispatch<React.SetStateAction<boolean | null>>; // Function to update isUnder18
+  isUnder14: boolean | null; // Boolean indicating if the user is under 14
+  setIsUnder14: React.Dispatch<React.SetStateAction<boolean | null>>; // Function to update isUnder14
   guardianConsentObtained: boolean; // Boolean indicating if guardian consent is obtained
   setGuardianConsentObtained: React.Dispatch<React.SetStateAction<boolean>>; // Function to update guardianConsentObtained
   handleNavigation: (direction: string) => void;
@@ -38,7 +38,7 @@ export const StepsProvider: React.FC<{ children: ReactNode }> = ({ children }) =
 
   const [currentStep, setCurrentStep] = useState(1);
   const [userAge, setUserAge] = useState(0);
-  const [isUnder18, setIsUnder18] = useState<boolean | null>(null);
+  const [isUnder14, setIsUnder14] = useState<boolean | null>(null);
   const [guardianConsentObtained, setGuardianConsentObtained] = useState(false);
 
   const [ hasError, setHasError ] = useState<boolean>(false);
@@ -52,7 +52,7 @@ export const StepsProvider: React.FC<{ children: ReactNode }> = ({ children }) =
   });
 
   const [ personalFormData, setPersonalFormData] = useState<PersonalFormData>({
-    // isUnder18: false,
+    // isUnder14: false,
     firstName: "",
     lastName: "",
     email: "",
@@ -81,7 +81,7 @@ export const StepsProvider: React.FC<{ children: ReactNode }> = ({ children }) =
         const parsedData = JSON.parse(storedData);
         setSteps(parsedData.steps);
         setCurrentStep(parsedData.currentStep);
-        setIsUnder18(parsedData.isUnder18);
+        setIsUnder14(parsedData.isUnder14);
         setGuardianConsentObtained(parsedData.guardianConsentObtained);
         setGuardianFormData(parsedData.guardianFormData);
         setPersonalFormData(parsedData.personalFormData);
@@ -99,7 +99,7 @@ export const StepsProvider: React.FC<{ children: ReactNode }> = ({ children }) =
     const dataToStore = JSON.stringify({
       steps,
       currentStep,
-      isUnder18,
+      isUnder14,
       guardianConsentObtained,
       guardianFormData,
       personalFormData,
@@ -111,7 +111,7 @@ export const StepsProvider: React.FC<{ children: ReactNode }> = ({ children }) =
     } catch (error) {
       console.error("There was an error when writing data into session storage:", error);
     }
-  }, [steps, currentStep, isUnder18, guardianConsentObtained, guardianFormData, personalFormData, uploadFormData, hasError]);
+  }, [steps, currentStep, isUnder14, guardianConsentObtained, guardianFormData, personalFormData, uploadFormData, hasError]);
 
   const handleNavigation = (direction: string) => {
     console.log("Handling navigation. " + currentStep);
@@ -120,7 +120,7 @@ export const StepsProvider: React.FC<{ children: ReactNode }> = ({ children }) =
       if(newStep === 1){
         newStep++;
       }
-      else if (newStep === 2 && isUnder18 && hasError === false && !guardianConsentObtained) {
+      else if (newStep === 2 && isUnder14 && hasError === false && !guardianConsentObtained) {
         setGuardianConsentObtained(true);
       }
       else{
@@ -131,7 +131,7 @@ export const StepsProvider: React.FC<{ children: ReactNode }> = ({ children }) =
       if(newStep === 1){
         newStep++;
       }
-      else if(newStep === 2 && isUnder18 && hasError === false && guardianConsentObtained ) {
+      else if(newStep === 2 && isUnder14 && hasError === false && guardianConsentObtained ) {
         setGuardianConsentObtained(false);
       }
       else{
@@ -180,8 +180,8 @@ export const StepsProvider: React.FC<{ children: ReactNode }> = ({ children }) =
     setSteps,
     currentStep,
     setCurrentStep,
-    isUnder18,
-    setIsUnder18,
+    isUnder14,
+    setIsUnder14,
     guardianConsentObtained,
     setGuardianConsentObtained,
     handleNavigation,

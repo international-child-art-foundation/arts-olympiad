@@ -9,7 +9,7 @@ interface IProps {
   touched: boolean | undefined;
   value: boolean | undefined;
   required?: boolean;
-  over18: boolean;
+  over14: boolean;
 }
 
 export const TermsCheckbox = ({
@@ -19,7 +19,7 @@ export const TermsCheckbox = ({
   touched,
   value,
   required = true,
-  over18,
+  over14,
 }: IProps) => {
   const labelClass = `font-semibold ${
     required && error && touched
@@ -47,7 +47,7 @@ export const TermsCheckbox = ({
           name={id}
         />
         <div className={labelClass}>
-          {over18 ? (
+          {over14 ? (
             <>
               I agree to the{" "}
               <a className={linkClass} target="_blank" rel="noopener noreferrer" href="https://icaf.org/resource/documents/myfavoritesport/MyFavoriteSport_Terms_of_Use.pdf" onClick={(e) => e.stopPropagation()}>
