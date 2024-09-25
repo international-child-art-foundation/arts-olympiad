@@ -50,22 +50,22 @@ export const TermsCheckbox = ({
           {over18 ? (
             <>
               I agree to the{" "}
-              <a className={linkClass} target="_blank" rel="noopener noreferrer" href="https://icaf.org/resource/documents/ICAF.website.-.Terms.of.Use.pdf" onClick={(e) => e.stopPropagation()}>
+              <a className={linkClass} target="_blank" rel="noopener noreferrer" href="https://icaf.org/resource/documents/myfavoritesport/MyFavoriteSport_Terms_of_Use.pdf" onClick={(e) => e.stopPropagation()}>
                 Terms of Use
               </a>{" "}
               and{" "}
-              <a className={linkClass} target="_blank" rel="noopener noreferrer" href="https://icaf.org/resource/documents/ICAF.website.-.Privacy.Policy.pdf" onClick={(e) => e.stopPropagation()}>
+              <a className={linkClass} target="_blank" rel="noopener noreferrer" href="https://icaf.org/resource/documents/myfavoritesport/MyFavoriteSport_Privacy_Policy.pdf" onClick={(e) => e.stopPropagation()}>
                 Privacy Policy
               </a>
             </>
           ) : (
             <>
               As the parent or guardian of this user, I agree to the{" "}
-              <a className={linkClass} target="_blank" rel="noopener noreferrer" href="https://icaf.org/resource/documents/ICAF.website.-.Terms.of.Use.pdf" onClick={(e) => e.stopPropagation()}>
+              <a className={linkClass} target="_blank" rel="noopener noreferrer" href="https://icaf.org/resource/documents/myfavoritesport/MyFavoriteSport_Terms_of_Use.pdf" onClick={(e) => e.stopPropagation()}>
                 Terms of Use
               </a>{" "}
               and{" "}
-              <a className={linkClass} target="_blank" rel="noopener noreferrer" href="https://icaf.org/resource/documents/ICAF.website.-.Privacy.Policy.pdf" onClick={(e) => e.stopPropagation()}>
+              <a className={linkClass} target="_blank" rel="noopener noreferrer" href="https://icaf.org/resource/documents/myfavoritesport/MyFavoriteSport_Privacy_Policy.pdf" onClick={(e) => e.stopPropagation()}>
                 Privacy Policy
               </a>
             </>
