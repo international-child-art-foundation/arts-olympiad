@@ -7,7 +7,7 @@ import {GetInvolvedStatic} from "../../components/home/get-involved/GetInvolvedS
 import {HomeYellowTimeline} from "../../components/home/timeline/HomeYellowTimeline";
 import {Wisdom} from "../../components/home/wisdom/Wisdom";
 import {Guidelines} from "../../components/home/guidelines/Guidelines";
-import {Sponsor} from "../../components/home/sponsor/sponsor";
+// import {Sponsor} from "../../components/home/sponsor/sponsor";
 
 export const metadata: Metadata = {
   title: "Home | My Favorite Sport",
@@ -22,7 +22,7 @@ export default function Home() {
     <>
       <Intro />
       <GetInvolvedStatic />
-      <Sponsor/>
+      {/* <Sponsor/> */}
       <Guidelines />
       <div className="relative overflow-hidden">       
         <HomeYellowTimeline />
