@@ -63,8 +63,8 @@ const Footer = () => {
 
         <div className="text-sm w-full max-w-sm md:order-2 md:w-1/4 md:pl-11 lg:w-1/5 lg:pl-0 lg:w-auto text-neutral-white">
           <ol className="grid grid-cols-2 gap-y-5 md:gap-y-3 md:grid-cols-1">
-            <div className="break-words"><a href="https://icaf.org/resource/documents/myfavoritesport/MyFavoriteSport_Terms_of_Use.pdf">Terms of Use</a></div>
-            <div className="break-words"><a href="https://icaf.org/resource/documents/myfavoritesport/MyFavoriteSport_Privacy_Policy.pdf">Privacy Policy</a></div>
+            <div className="break-words"><a href="https://icaf.org/resource/documents/myfavoritesport/MyFavoriteSport_Terms_of_Use.pdf" target="blank" rel="noopener noreferrer">Terms of Use</a></div>
+            <div className="break-words"><a href="https://icaf.org/resource/documents/myfavoritesport/MyFavoriteSport_Privacy_Policy.pdf" target="blank" rel="noopener noreferrer">Privacy Policy</a></div>
             <div className="break-words"><a href="https://icaf.org/resource/documents/myfavoritesport/MyFavoriteSport_Childrens_Online_Privacy_Policy.pdf" target="blank" rel="noopener noreferrer">COPPA Notice</a></div>
             <div className="break-words cursor-pointer" onClick={() => setCookieBannerVisible(true)}>Cookie Settings</div>
           </ol>
