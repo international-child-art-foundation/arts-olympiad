@@ -57,7 +57,7 @@ export const FlippingCards = () => {
         touchScreenPrimary={touchScreenPrimary}
         isFlippable={areFlippable}
         heading1="Create & Share"
-        heading2="For artists aged 14 to 20"
+        heading2="For artists aged 8 to 20"
         description={
           <div>
             <Pm className="mt-4 md:mt-12 mb-4 font-light text-sm md:text-base">

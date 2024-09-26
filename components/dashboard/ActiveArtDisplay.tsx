@@ -30,9 +30,9 @@ export const ActiveArtDisplay = () => {
     <div>
       <div className="my-2 p-6 outline outline-1 rounded-3xl max-h-full max-w-full font-light">
         {apiUserData && apiArtworkData ? (
-          (!apiArtworkData && (userAge > 20 || userAge < 14)  ? (
+          (!apiArtworkData && (userAge > 20 || userAge < 8)  ? (
             <div className="text-center">
-              <p>In order to submit art, you must be between the ages of 14 and 20.</p>
+              <p>In order to submit art, you must be between the ages of 8 and 20.</p>
               <Link href="/gallery" className="mx-auto text-blue-600">Visit the gallery</Link>
             </div>
           ) : (

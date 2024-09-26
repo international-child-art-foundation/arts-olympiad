@@ -29,7 +29,7 @@ function TwoCards() {
             <Image src={BlueLine} className="absolute z-0 -top-10 -right-10 select-none pointer-events-none" alt=""></Image>
             <H2m className="z-20 font-regular font-montserrat pb-4 text-3xl md:text-4xl" >Who can enter?</H2m>
             <Pm className="z-20 font-sans font-light my-2 mb-14">
-                Creators aged 14 to 20, anywhere in the world.
+                Creators aged 8 to 20, anywhere in the world.
             </Pm>
             <ArrowCTADirectLink text="Register now" href="/register"/>
           </div>

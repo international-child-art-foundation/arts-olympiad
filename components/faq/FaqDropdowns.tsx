@@ -113,7 +113,7 @@ const GeneralQueriesSectionData: ExpandingDivProps = {
     {
       title: "Who can participate in the #MyFavoriteSport competitions?",
       description:
-        "Our competitions are open to artists aged between 14 and 20 years old. We encourage individuals who are passionate about combining the themes of sports and art to participate..",
+        "Our competitions are open to artists aged between 8 and 20 years old. We encourage individuals who are passionate about combining the themes of sports and art to participate..",
     },
     {
       title: "How can I register for an account on the website?",

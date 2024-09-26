@@ -23,7 +23,7 @@ interface DashboardMainTabProps {
 
 export const DashboardMainTab: React.FC<DashboardMainTabProps> = ({ dashboardLoadingState, isAuthenticated, contestState }) => {
   const [age, setAge] = useState(0);
-  const [isSubmissionDisabled] = useState(true);
+  // const [isSubmissionDisabled] = useState(true);
   const { apiUserData, displayModal, setDisplayModal, userHasPaid, setUserHasPaid } = useDashboardContext();
   
   useEffect(() => {
@@ -61,16 +61,16 @@ export const DashboardMainTab: React.FC<DashboardMainTabProps> = ({ dashboardLoa
     );
   } else if (contestState == ContestState.Active || contestState == ContestState.Complete) {
 
-    // Contest is paused
-    if (isSubmissionDisabled) {
-      return (
-        <div className="w-full">
-          <p className="text-2xl">
-            The competition is currently paused, and art submission has been disabled. Please <a className="text-main-blue" href="https://www.icaf.org/about/contact-us">Contact Us</a> for more information.
-          </p>
-        </div>
-      );
-    }
+    // Code to pause the competition, in conjunction with variable isSubmissionDisabled
+    // if (isSubmissionDisabled) {
+    //   return (
+    //     <div className="w-full">
+    //       <p className="text-2xl">
+    //         The competition is currently paused, and art submission has been disabled. Please <a className="text-main-blue" href="https://www.icaf.org/about/contact-us">Contact Us</a> for more information.
+    //       </p>
+    //     </div>
+    //   );
+    // }
 
     return (
       <>
@@ -92,7 +92,7 @@ export const DashboardMainTab: React.FC<DashboardMainTabProps> = ({ dashboardLoa
             <p className="font-montserrat text-2xl font-regular text-[32px]">Welcome to your dashboard, {apiUserData.f_name}!</p>
             <p className="font-light text-base py-2 pb-4">See your account information here.</p>
             
-            {age >= 14 && age <= 20 ? (
+            {age >= 8 && age <= 20 ? (
               <>
                 {userHasPaid ? (
                   <>
