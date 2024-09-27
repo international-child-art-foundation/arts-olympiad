@@ -33,7 +33,7 @@ const ContestSectionData: ExpandingDivProps = {
     {
       title: "How will the winners be chosen?",
       description:
-        "The top 20 artworks will be selected based on public votes on this site, so be sure to share your submission on social media. These 20 finalists will make it to the next round where we will determine the top 3 winners.",
+        "Through votes by the public, 13 winners will be selected (one per birth year) who will be awarded the ICAF Certificates of Exceptional Artistry.",
     },
   ],
 };
