@@ -319,9 +319,10 @@ export async function sendForgotPasswordEmail({email} : EmailInterface): Promise
 }
 
 export async function confirmForgotPassword({email, confirmationCode, newPassword} : ConfirmForgotPasswordInterface) : Promise<EmptyResponse> {
+  // Re-label `newPassword` as `password` for backend processing
   const body = JSON.stringify({ 
     email: email,
-    newPassword: newPassword,
+    password: newPassword,
     confirmationCode: confirmationCode,
   });
   try {
