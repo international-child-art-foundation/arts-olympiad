@@ -268,7 +268,7 @@ async function forgotPassword(req, res) {
 }
 
 async function confirmForgotPassword(req, res) {
-  const reqArgs = { confirmationCode: req.body.confirmationCode, newPassword: req.body.newPassword, email: req.body.email };
+  const reqArgs = { confirmationCode: req.body.confirmationCode, password: req.body.password, email: req.body.email };
   try {
     const confirmForgotPasswordResponse = await UserService.confirmForgotPassword(reqArgs);
     res.status(200).json(confirmForgotPasswordResponse);

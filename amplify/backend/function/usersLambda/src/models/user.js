@@ -221,7 +221,7 @@ async function confirmForgotPassword(reqArgs) {
       ClientId: clientId,
       ConfirmationCode: reqArgs.confirmationCode,
       Username: reqArgs.email,
-      Password: reqArgs.newPassword
+      Password: reqArgs.password
     };
     const command = new ConfirmForgotPasswordCommand(input);
     return await client.send(command);
