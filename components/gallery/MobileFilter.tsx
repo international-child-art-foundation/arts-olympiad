@@ -2,10 +2,10 @@
 import React, { useState, useEffect } from "react";
 
 import CheckBox from "./Checkbox";
-import { filterableOptions } from "../../mock/filterableOptionsData";
 import { sortValue as sortValueType } from "../../mock/sortValueType";
 import Checkbox from "./Checkbox";
 import { sortBy } from "../../mock/sortBy";
+import { useFilters } from "./FilterContext";
 
 interface FilterProps {
   isFilterOpen: boolean;
@@ -17,6 +17,7 @@ interface FilterProps {
 }
 
 export const MobileFilter = (props: FilterProps) => {
+  const { filterableOptions } = useFilters();
   const [isVisible, setIsVisible] = useState(props.isFilterOpen);
 
   useEffect(() => {
