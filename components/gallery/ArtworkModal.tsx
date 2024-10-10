@@ -273,30 +273,55 @@ const ArtworkModal: React.FC<ArtworkModalProps> = ({ artworks, pageLoadArtwork, 
 
   // Mobile rendering for the default state
   function renderDefaultStateMobile() {
-    if (modalState.status != "loaded") {
+    if (modalState.status !== "loaded") {
       return (
         <>
-          <p className="mx-auto font-semibold font-montserrat text-xl mt-auto">Oops! An error has occurred. This artwork may be unavailable.</p>
-          <p className="mx-auto py-4 text-slate-400">error: artworkData not found.</p>
-          <p className="mx-auto py-4 mt-auto text-xl">If this error persists, please let us know.</p>
-          <button className="bg-new-blue w-[200px] text-base text-white text-base p-2 rounded mt-4 mx-auto" onClick={handleCloseModal}>Contact Us</button>
+          <p className="mx-auto font-semibold font-montserrat text-xl mt-auto">
+            Oops! An error has occurred. This artwork may be unavailable.
+          </p>
+          <p className="mx-auto py-4 text-slate-400">
+            error: artworkData not found.
+          </p>
+          <p className="mx-auto py-4 mt-auto text-xl">
+            If this error persists, please let us know.
+          </p>
+          <button
+            className="bg-new-blue w-[200px] text-base text-white p-2 rounded mt-4 mx-auto"
+            onClick={handleCloseModal}
+          >
+            Contact Us
+          </button>
         </>
       );
-    }  
+    }
+  
     return (
       <div className="grid max-h-full p-4 overflow-auto gap-y-2">
         <div className="inline-block py-2 mb-4">
           <span className="bg-[#fbb22e] rounded-3xl p-2 px-8">
-            {modalState.data.votes} {modalState.data.votes == 1 ? "Vote" : "Votes"}
+            {modalState.data.votes} {modalState.data.votes === 1 ? "Vote" : "Votes"}
           </span>
         </div>
         <div className="flex justify-center items-center rounded-xl overflow-hidden relative flex-shrink">
-          <Image src={`${process.env.NEXT_PUBLIC_CLOUDFRONT_DISTRIBUTION_URL}/${modalState.data.sk}/medium.webp`} alt={modalState.data.f_name} width={500} height={300} className="max-w-full max-h-full col-start-2 z-20 object-contain" />
-          <Image src={`${process.env.NEXT_PUBLIC_CLOUDFRONT_DISTRIBUTION_URL}/${modalState.data.sk}/medium.webp`} fill alt={modalState.data.f_name} className="col-start-2 z-10 rounded-xl blur-3xl opacity-50 object-cover" />
+          <Image
+            src={`${process.env.NEXT_PUBLIC_CLOUDFRONT_DISTRIBUTION_URL}/${modalState.data.sk}/medium.webp`}
+            alt={modalState.data.f_name}
+            width={500}
+            height={300}
+            className="max-w-full max-h-full col-start-2 z-20 object-contain"
+          />
+          <Image
+            src={`${process.env.NEXT_PUBLIC_CLOUDFRONT_DISTRIBUTION_URL}/${modalState.data.sk}/medium.webp`}
+            fill
+            alt={modalState.data.f_name}
+            className="col-start-2 z-10 rounded-xl blur-3xl opacity-50 object-cover"
+          />
         </div>
         <p className="font-bold text-xl mt-9">{modalState.data.f_name}</p>
         <div className="mt-2">
-          <p>{modalState.data.age} | {modalState.data.location}</p>
+          <p>
+            {modalState.data.age} | {modalState.data.location}
+          </p>
           <p className="">{modalState.data.sport}</p>
         </div>
         {modalState.data.is_ai_gen && (
@@ -312,21 +337,49 @@ const ArtworkModal: React.FC<ArtworkModalProps> = ({ artworks, pageLoadArtwork, 
         </div>
         {!isAuthenticated ? (
           <>
-            <p className="text-sm text-new-blue mt-4">Ready to vote for this artwork? Please sign in or create an account to participate.</p>
-            <Link className="bg-new-blue text-white text-base p-4 rounded mt-4 text-center" href="/login">Sign in</Link>
+            <p className="text-sm text-new-blue mt-4">
+              Ready to vote for this artwork? Please sign in or create an account to participate.
+            </p>
+            <Link
+              className="bg-new-blue text-white text-base p-4 rounded mt-4 text-center"
+              href="/login"
+            >
+              Sign in
+            </Link>
           </>
         ) : (
-          currentUserSk != sk && sk && (
+          currentUserSk !== sk &&
+          sk && (
             <>
-              {alreadyVoted && <p className="text-md pt-4 text-green-700">You've already voted for this artwork!</p>}
-              <button className={`bg-new-blue text-white text-base p-4 rounded mt-4 ${alreadyVoted && "opacity-60 pointer-events-none"}`} onClick={() => submitVote(sk)}>Vote for this artwork</button>
+              {alreadyVoted && (
+                <p className="text-md pt-4 text-green-700">
+                  You've already voted for this artwork!
+                </p>
+              )}
+              {voted ? (
+                <button
+                  className="bg-green-600 text-white text-base p-4 rounded mt-4 opacity-60 pointer-events-none"
+                  onClick={() => submitVote(sk)}
+                >
+                  Thanks for your vote!
+                </button>
+              ) : (
+                <button
+                  className={`bg-new-blue text-white text-base p-4 rounded mt-4 ${
+                    alreadyVoted ? "opacity-60 pointer-events-none" : ""
+                  }`}
+                  onClick={() => submitVote(sk)}
+                >
+                  Vote for this artwork
+                </button>
+              )}
             </>
           )
         )}
       </div>
     );
   }
-
+  
   const handleClick = (e: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
     if (e.target === e.currentTarget) {
       handleCloseModal();
