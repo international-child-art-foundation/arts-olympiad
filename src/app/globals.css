@@ -54,3 +54,13 @@
 .checkbox-and-radio-item input[type="checkbox"]:checked + label {
   font-weight: bold;
 }
+
+.layout-height {
+  min-height: calc(100vh - 130px);
+}
+
+@media (min-width: 768px) {
+  .layout-height {
+    min-height: calc(100vh - 170px);
+  }
+}
