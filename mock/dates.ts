@@ -3,8 +3,8 @@ import { format } from "date-fns";
 const dates: { [key: string]: Date } = {
   // Months are 0-indexed
   competitionBegin: new Date(2024, 8, 26),
-  competitionEnd: new Date(2024, 11, 24),
-  winnerAnnounced: new Date(2024, 11, 28)
+  competitionEnd: new Date(2025, 11, 31),
+  winnerAnnounced: new Date(2026, 0, 5)
 };
 
 export const formatDate = (dateKey: string, formatString: string): string => {
