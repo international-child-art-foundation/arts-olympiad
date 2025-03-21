@@ -6,64 +6,119 @@ import img2 from "../../../public/home/guidelines/submission-2.webp";
 import img3 from "../../../public/home/guidelines/_MG_8137.webp";
 import img4 from "../../../public/home/guidelines/submission-4.webp";
 import guidelinesPinkBlob from "../../../public/home/guidelines/PinkBlob.webp";
-import {H2m} from "../../common/texts/H2m";
-import {GuidelineCard} from "./GuidelineCard";
-import {AnimatedScribble} from "../../common/decorations/AnimatedScribble";
+import { H2m } from "../../common/texts/H2m";
+import { GuidelineCard } from "./GuidelineCard";
+import { AnimatedScribble } from "../../common/decorations/AnimatedScribble";
 import { gsap } from "gsap";
 import { Flip } from "gsap/all";
 
 gsap.registerPlugin(Flip);
 const cardData = [
-  { imgUrl: img1, className: "border-[#F5AB35]", heading: "Fee and Awards", description: ["The administrative fee to upload the artwork is US$3 but voters register for free.", "All 13 winners aged 8 to 20 will be featured in the International Child Art Foundation's ChildArt Magazine and shall be awarded Exceptional Artistry Certificates. Their art may also be exhibited at major venues."]},
-  { imgUrl: img2, className: "border-[#0286C3]", heading: "How to Upload", description: ["Create an account with us, go to your dashboard and upload your work."], button:["Learn more", "/register"] },
-  { imgUrl: img3, className: "border-[#168C39]", heading: "Accepted Formats", description: ["All entries will be submitted digitally, but you're free to choose any format you'd like. Let your imagination take the lead on how to create your work."], button:["Learn more", "/contest"]},
-  { imgUrl: img4, className: "border-[#EE2F4D]", heading: "Share your Masterpiece", description: ["Everyone gets 1 vote. You can share your favorite piece through social media for more votes."], button:["Learn more", "/faq"], gradientStrength: 0.6 },
+  {
+    imgUrl: img1,
+    className: "border-[#F5AB35]",
+    heading: "Fee and Awards",
+    description: [
+      "The administrative fee to upload the artwork is US$3 but voters register for free.",
+      "All 13 winners will be featured in the International Child Art Foundation's ChildArt Magazine and shall be awarded Exceptional Artistry Certificates. Their art will be exhibited at the National Mall during the 7th World Children's Festival.",
+    ],
+  },
+  {
+    imgUrl: img2,
+    className: "border-[#0286C3]",
+    heading: "How to Upload",
+    description: [
+      "Create an account with us, go to your dashboard and upload your work.",
+    ],
+    button: ["Learn more", "/register"],
+  },
+  {
+    imgUrl: img3,
+    className: "border-[#168C39]",
+    heading: "Accepted Formats",
+    description: [
+      "All entries will be submitted digitally, but you're free to choose any format you'd like. Let your imagination take the lead on how to create your work.",
+    ],
+    button: ["Learn more", "/contest"],
+  },
+  {
+    imgUrl: img4,
+    className: "border-[#EE2F4D]",
+    heading: "Share your Masterpiece",
+    description: [
+      "Everyone gets 1 vote. You can share your favorite piece through social media for more votes.",
+    ],
+    button: ["Learn more", "/faq"],
+    gradientStrength: 0.6,
+  },
 ];
 
 export const Guidelines = () => {
   const [activeIndex, setActiveIndex] = useState(0);
 
   const handleCardClick = (index: number) => {
-    const currentActiveTextarea = document.querySelector(`.grid-card:nth-child(${activeIndex + 1}) .div-textholder`) as HTMLElement;
-    const currentTextareaWidth = currentActiveTextarea ? currentActiveTextarea.clientWidth : "auto";  
+    const currentActiveTextarea = document.querySelector(
+      `.grid-card:nth-child(${activeIndex + 1}) .div-textholder`
+    ) as HTMLElement;
+    const currentTextareaWidth = currentActiveTextarea
+      ? currentActiveTextarea.clientWidth
+      : "auto";
     if (currentActiveTextarea) {
       currentActiveTextarea.style.width = `${currentTextareaWidth}px`;
-    }  
+    }
 
     setActiveIndex(index); // Update the active card index
-    
-  
+
     // Capture the state of all cards in the grid before making any changes
     const state = Flip.getState(".grid-card");
-  
+
     // Apply the changes to reflect the new layout
     document.querySelectorAll(".grid-card").forEach((card, idx) => {
       if (idx === index) {
         // This card is the one that was clicked, expand it
-        card.classList.add("lg:col-span-3", "row-span-2", "lg:row-span-1", "cursor-auto");
+        card.classList.add(
+          "lg:col-span-3",
+          "row-span-2",
+          "lg:row-span-1",
+          "cursor-auto"
+        );
         card.classList.remove("col-span-1", "row-span-1", "cursor-pointer");
       } else {
         // Make sure other cards are in their default state
         card.classList.add("row-span-1", "col-span-1", "cursor-pointer");
-        card.classList.remove("lg:col-span-3", "row-span-2", "lg:row-span-1", "cursor-auto");
+        card.classList.remove(
+          "lg:col-span-3",
+          "row-span-2",
+          "lg:row-span-1",
+          "cursor-auto"
+        );
       }
     });
 
     if (currentActiveTextarea) {
-      currentActiveTextarea.addEventListener("transitionend", () => {
-        currentActiveTextarea.style.width = "auto";
-      }, { once: true });
-    }  
-    const newActiveTextarea = document.querySelector(`.grid-card:nth-child(${index + 1}) .div-textholder`) as HTMLElement;
+      currentActiveTextarea.addEventListener(
+        "transitionend",
+        () => {
+          currentActiveTextarea.style.width = "auto";
+        },
+        { once: true }
+      );
+    }
+    const newActiveTextarea = document.querySelector(
+      `.grid-card:nth-child(${index + 1}) .div-textholder`
+    ) as HTMLElement;
     if (newActiveTextarea) {
       newActiveTextarea.style.width = `${currentTextareaWidth}px`;
-      newActiveTextarea.addEventListener("transitionend", () => {
-        // Once the transition is complete, set the width to auto
-        newActiveTextarea.style.width = "auto";
-      }, { once: true }); 
+      newActiveTextarea.addEventListener(
+        "transitionend",
+        () => {
+          // Once the transition is complete, set the width to auto
+          newActiveTextarea.style.width = "auto";
+        },
+        { once: true }
+      );
     }
-    
-  
+
     Flip.from(state, {
       duration: 0.6,
       ease: "power2.inOut",
@@ -72,13 +127,23 @@ export const Guidelines = () => {
       scale: false,
     });
   };
-  
+
   return (
-    <section aria-label="Submission guidelines." className="relative px-8 md:px-12 lg:px-16 xl:px-20 flex flex-col max-w-screen-2xl lg:mx-auto mt-16 md:mt-36 mb-16">
-      <Image src={guidelinesPinkBlob} alt="" width={1000} className="z-0 absolute -top-32 -left-12 md:left-0 w-[700px] max-w-[unset] " />
-      <H2m className="z-10 font-medium text-3xl md:text-4xl font-montserrat" >
+    <section
+      aria-label="Submission guidelines."
+      className="relative px-8 md:px-12 lg:px-16 xl:px-20 flex flex-col max-w-screen-2xl lg:mx-auto mt-16 md:mt-36 mb-16"
+    >
+      <Image
+        src={guidelinesPinkBlob}
+        alt=""
+        width={1000}
+        className="z-0 absolute -top-32 -left-12 md:left-0 w-[700px] max-w-[unset] "
+      />
+      <H2m className="z-10 font-medium text-3xl md:text-4xl font-montserrat">
         Submission made
-        <span className="text-dark-blue relative font-montserrat"> simple
+        <span className="text-dark-blue relative font-montserrat">
+          {" "}
+          simple
           <AnimatedScribble
             width={280}
             smwidth={180}
@@ -91,7 +156,11 @@ export const Guidelines = () => {
           <GuidelineCard
             key={index}
             isActive={activeIndex === index}
-            className={`grid-card ${card.className} border-[#0286C3] ${activeIndex === index ? "lg:col-span-3 row-span-2 lg:row-span-1 cursor-auto" : "col-span-1 row-span-1 cursor-pointer"}`}
+            className={`grid-card ${card.className} border-[#0286C3] ${
+              activeIndex === index
+                ? "lg:col-span-3 row-span-2 lg:row-span-1 cursor-auto"
+                : "col-span-1 row-span-1 cursor-pointer"
+            }`}
             imgUrl={card.imgUrl}
             heading={card.heading}
             description={card.description}

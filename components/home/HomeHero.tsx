@@ -6,16 +6,24 @@ import rainbowLine from "../../public/home/rainbowLineWebp.webp";
 import HeroCarousel from "./carousel/HeroCarousel";
 
 export const Intro = () => {
-
   return (
     <div className="grid grid-cols-1 grid-rows-1 grid-col relative">
-      <Image src={rainbowLine} alt="" className="relative mt-auto 
+      <Image
+        src={rainbowLine}
+        alt=""
+        className="relative mt-auto 
       mb-32 md:mb-40 lg:mb-20 xl:mb-28
-      col-start-1 col-span-1 row-start-1 z-[5] inset-x-0 object-cover object-center w-full max-w-[1920px] mx-auto pointer-events-none select-none"></Image>
+      col-start-1 col-span-1 row-start-1 z-[5] inset-x-0 object-cover object-center w-full max-w-[1920px] mx-auto pointer-events-none select-none"
+      ></Image>
       <div className="col-start-1 row-start-1 relative">
-        <section aria-label="introduction." className="gap-8 mb-24 md:mb-28 sm:mb-20 mt-6 md:mt-20 relative bg-neutral-white lg:grid lg:grid-rows-1 col-span-8 lg:col-span-12 lg:grid-cols-12 px-8 md:px-12 lg:px-16 xl:px-20 max-w-screen-2xl m-auto ">
-
-          <article role="banner" className=" relative flex-col align-middle col-span-8 lg:col-span-7 xl:col-span-6 lg:place-self-center z-10">
+        <section
+          aria-label="introduction."
+          className="gap-8 mb-24 md:mb-28 sm:mb-20 mt-6 md:mt-20 relative bg-neutral-white lg:grid lg:grid-rows-1 col-span-8 lg:col-span-12 lg:grid-cols-12 px-8 md:px-12 lg:px-16 xl:px-20 max-w-screen-2xl m-auto "
+        >
+          <article
+            role="banner"
+            className=" relative flex-col align-middle col-span-8 lg:col-span-7 xl:col-span-6 lg:place-self-center z-10"
+          >
             <div className=" flex flex-row align-center mb-8 place-content-center lg:place-content-start">
               <Image src={hashtag} alt="" width={32} height={32} />
               <h1 className="break-words font-semibold text-3xl xsm:text-4xl sm:text-5xl lg:text-6xl xl:text-6xl font-montserrat">
@@ -24,17 +32,27 @@ export const Intro = () => {
             </div>
             <div className="font-normal text-base mb-6 md:mb-12 z-10">
               <p className=" z-10 mb-4 leading-8 lg:mb8">
-                Anyone <b>aged 8 to 20</b> in the U.S. or another country can create art about their favorite sport, upload it, and share it with family and friends to get their votes before December 24, 2024.
+                Anyone <b>aged 8 to 20</b> in the U.S. or another country can
+                create art about their favorite sport, upload it, and share it
+                with family and friends to get their votes.
               </p>
               <p className=" z-10 mb-4 leading-8 lg:mb8">
-                Any art lover or sports fan can vote for their favorite artwork to select the 13 winners (one per birth year) who will be awarded Certificates of Exceptional Artistry.
+                Any art lover or sports fan can vote for their favorite artwork
+                to select the 13 winners (one per birth year) who will be
+                awarded Certificates of Exceptional Artistry, and will be
+                invited as delegates to the 7th World Children's Festival in
+                late June 2026 at the National Mall across from the U.S.
+                Capitol.
               </p>
-
+              <p className=" z-10 mb-4 leading-8 lg:mb8">
+                The three-day festival will also celebrate America's 250th
+                Anniversary through the eyes of children. While the festival is
+                free, delegates are responsible for making their own travel and
+                accommodation arrangements.
+              </p>
             </div>
           </article>
-          <div
-            className="relative z-10 px-10 md:px-24 lg:px-0 md:grid col-span-8 md:col-start-2 md:col-span-6 lg:col-span-5 xl:col-span-6 "
-          >
+          <div className="relative z-10 px-10 md:px-24 lg:px-0 md:grid col-span-8 md:col-start-2 md:col-span-6 lg:col-span-5 xl:col-span-6 ">
             <HeroCarousel />
           </div>
           {/* <figure
@@ -52,7 +70,6 @@ export const Intro = () => {
           </figure> */}
         </section>
       </div>
-
     </div>
   );
 };
