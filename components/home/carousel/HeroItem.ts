@@ -1,7 +1,7 @@
 import { StaticImageData } from "next/image";
 import img1 from "../../../public/home/new-hero/Georgia.webp";
-import img2 from "../../../public/home/new-hero/Virginia.webp";
-import img3 from "../../../public/home/new-hero/Japan.webp";
+import img2 from "../../../public/home/new-hero/Arizona.webp";
+import img3 from "../../../public/home/new-hero/Virginia.webp";
 
 export interface IHero {
   url: StaticImageData;
@@ -23,17 +23,17 @@ export const IHeroArray: IHero[] = [
   },
   {
     url: img2,
+    name: "Aishling Kelly",
+    age: 11,
+    country: "Arizona",
+    alt: "Aishling Kelly, age 11, Arizona",
+  },
+  {
+    url: img3,
     name: "Esther Kim",
     age: 11,
     country: "Virginia",
     alt: "Esther Kim, age 11, Virginia",
-  },
-  {
-    url: img3,
-    name: "Teruhito Sekine",
-    age: 12,
-    country: "Japan",
-    alt: "Teruhito Sekine, age 12, Japan",
   },
 ];
 
