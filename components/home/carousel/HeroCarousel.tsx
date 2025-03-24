@@ -19,11 +19,12 @@ export default function HeroCarousel() {
     resetTimeout();
     timeoutRef.current = setTimeout(
       () =>
-        setIndex((prevIndex) =>
-          // prevIndex + 1
-          (prevIndex + 1) % IHeroArray.length
+        setIndex(
+          (prevIndex) =>
+            // prevIndex + 1
+            (prevIndex + 1) % IHeroArray.length
         ),
-      3500
+      5000
     );
     return () => {
       resetTimeout();
@@ -41,22 +42,26 @@ export default function HeroCarousel() {
   //   }
   // }, [index, transitioning])
 
-  function handleDotOnClick (i: number) {
+  function handleDotOnClick(i: number) {
     setIndex(i);
   }
 
   return (
     <div className="relative w-full overflow-hidden flex flex-col items-center">
       <div
-        className={`flex transition-transform duration-500 ${!transitioning ? "" : "ease-linear"}`}
+        className={`flex transition-transform duration-500 ${
+          !transitioning ? "" : "ease-linear"
+        }`}
         style={{ transform: `translateX(${-index * 100}%)` }}
       >
-        {
-          IHeroArray.map((wisdom, i) => {
-            return (
-              <div key={i} className="relative w-full flex-shrink-0 flex justify-center items-center rounded-2xl">
-                <div
-                  className="
+        {IHeroArray.map((wisdom, i) => {
+          return (
+            <div
+              key={i}
+              className="relative w-full flex-shrink-0 flex justify-center items-center rounded-2xl"
+            >
+              <div
+                className="
                               thumbnail
                               cursor-pointer
                               relative
@@ -65,36 +70,35 @@ export default function HeroCarousel() {
                               font-bold
                               w-full
                           "
-                >
-                  <div className="rounded-[20px] overflow-clip">
-                    <LazyImage
-                      className="thumbnail-image w-full object-cover select-none pointer-events-none"
-                      imageUrl={wisdom.url}
-                      alt={wisdom.alt}
-                    />
-                  </div>
-                  <div 
-                    className="text-sm text-black italic font-medium font-montserrat text-right"
-                  >
-                    {wisdom.name}, {wisdom.age}, {wisdom.country}
-                  </div>
+              >
+                <div className="rounded-[20px] overflow-clip">
+                  <LazyImage
+                    className="thumbnail-image w-full object-cover select-none pointer-events-none"
+                    imageUrl={wisdom.url}
+                    alt={wisdom.alt}
+                  />
                 </div>
-
+                <div className="text-sm text-black italic font-medium font-montserrat text-right">
+                  {wisdom.name}, {wisdom.age}, {wisdom.country}
+                </div>
               </div>
-            );
-          })
-        }
+            </div>
+          );
+        })}
       </div>
       <div className="flex flex-row space-x-3">
-        {Array(3).fill(null).map((_, i) => (
-          <div key={i} 
-            className={`w-[15px] h-[15px] rounded-full ${i == index % 3 ? "bg-new-blue" : "bg-main-silver"}`}
-            onClick={() => handleDotOnClick(i)}
-          >
-          </div>
-        ))}
+        {Array(3)
+          .fill(null)
+          .map((_, i) => (
+            <div
+              key={i}
+              className={`w-[15px] h-[15px] rounded-full ${
+                i == index % 3 ? "bg-new-blue" : "bg-main-silver"
+              }`}
+              onClick={() => handleDotOnClick(i)}
+            ></div>
+          ))}
       </div>
     </div>
   );
 }
-
