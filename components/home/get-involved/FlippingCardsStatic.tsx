@@ -82,7 +82,7 @@ export const FlippingCardsStatic = () => {
       >
         <div className="flex-grow min-h-[20px]"></div> {/* Spacer element */}
         {/* <ButtonStyledLink
-          href={"https://icaf.org/about/contact-us"}
+          href={"https://icaf.org/contact"}
           className="my-1 w-full"
           onTouchStart={(e: React.TouchEvent<HTMLAnchorElement>) => { e.stopPropagation(); }}
           onClick={(e: React.MouseEvent<HTMLAnchorElement>) => { e.stopPropagation(); }}
@@ -107,7 +107,7 @@ export const FlippingCardsStatic = () => {
             </Pm>
             <Pm className="mb-6 font-light text-sm md:text-base">
               {" "}  */}
-              <a href="https://icaf.org/about/contact-us" target="_blank" rel="noopener noreferrer" className="underline ">
+              <a href="https://icaf.org/contact" target="_blank" rel="noopener noreferrer" className="underline ">
                 contact us
               </a>
               {" about sponsorship."}
@@ -122,7 +122,7 @@ export const FlippingCardsStatic = () => {
       >
         <div className="flex-grow min-h-[20px]"></div> {/* Spacer element */}
         {/* <ButtonStyledLink
-          href={"https://icaf.org/about/contact-us"}
+          href={"https://icaf.org/contact"}
           className="my-1 w-full"
           onTouchStart={(e: React.TouchEvent<HTMLAnchorElement>) => { e.stopPropagation(); }}
           onClick={(e: React.MouseEvent<HTMLAnchorElement>) => { e.stopPropagation(); }}

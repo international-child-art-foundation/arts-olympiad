@@ -71,7 +71,7 @@ export const Accordion = () => {
               </Pm>
               <ArrowCTA
                 text="The Arts Olympiad in Texas, China, Israel, and New Zealand"
-                href="https://icaf.org/resource/pdfs/Arts-Olympiad-Stories-Texas.pdf"
+                href="https://icaf.org/documents/myfavoritesport/Arts-Olympiad-Stories-Texas.pdf"
               />
             </>
           }
@@ -100,7 +100,7 @@ export const Accordion = () => {
               </Pm>
               <ArrowCTA
                 text="Learn more"
-                href="https://icaf.org/mission/world-childrens-festival"
+                href="https://icaf.org/programs/world-childrens-festival"
               />
             </>
           }
@@ -130,7 +130,7 @@ export const Accordion = () => {
               {/* <button className="bg-dark-blue text-white h-10 whitespace-no-wrap inline-block max-w-max px-4"><Link href="https://www.icaf.org/resource/pdfs/new-york-olympic.pdf">See pdf to learn more</Link></button> */}
               <ArrowCTA
                 text="See pdf to learn more"
-                href="https://www.icaf.org/resource/pdfs/new-york-olympic.pdf"
+                href="https://www.icaf.org/documents/myfavoritesport/new-york-olympic.pdf"
               />
             </>
           }

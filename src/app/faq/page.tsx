@@ -31,7 +31,7 @@ export default function FAQPage() {
         alt="ICAF"
         buttons={[
           {
-            href: "https://icaf.org/about/contact-us", 
+            href: "https://icaf.org/contact", 
             text: "Contact Us",
             icon: <></>,
             className: "group bg-new-blue rounded text-center text-sm cursor-pointer tracking-wide text-neutral-white w-36"

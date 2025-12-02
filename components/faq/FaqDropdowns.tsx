@@ -47,7 +47,7 @@ const SponsorshipSectionData: ExpandingDivProps = {
         "To explore sponsorship opportunities and learn about the unique benefits, please contact us.",
       buttons: [
         {
-          href: "https://icaf.org/about/contact-us",
+          href: "https://icaf.org/contact",
           classNames: [
             "group",
             "w-fit",
@@ -137,7 +137,7 @@ const GeneralQueriesSectionData: ExpandingDivProps = {
         "Absolutely! We're always looking for passionate individuals to join our team. Whether you're interested in helping out at events, contributing to our online content, or assisting in community outreach, we have a variety of volunteer opportunities available. Visit our 'Volunteer' section to learn more and sign up.",
       buttons: [
         {
-          href: "https://icaf.org/join-us/volunteers",
+          href: "https://icaf.org/get-involved/volunteer",
           classNames: [
             "group",
             "w-fit",

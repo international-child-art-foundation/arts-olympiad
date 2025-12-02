@@ -48,7 +48,7 @@ const ContestSectionData: ExpandingDivProps = {
         "The United States Olympic and Paralympic Committee has granted ICAF an exclusive license to use the “Arts Olympiad” and “International Child Arts Olympiad” marks. The Arts Olympiad was included in New York City's bid for the 2024 Olympiad. ",
       buttons: [
         {
-          href: "https://www.icaf.org/resource/pdfs/new-york-olympic.pdf", 
+          href: "https://www.icaf.org/documents/myfavoritesport/new-york-olympic.pdf", 
           classNames: ["font-light", "text-lg", "leading-normal", "inline", "rounded", "underline"],
           children: ["See a 3-page except from New York's Candidature File."] 
         }
@@ -60,7 +60,7 @@ const ContestSectionData: ExpandingDivProps = {
         "Every four years, ICAF produces the World Children's Festival as the “Olympics” of children's imagination at the National Mall in Washington, D.C.",
       buttons: [
         {
-          href: "https://icaf.org/impact",
+          href: "https://icaf.org/about/impact",
           classNames: ["text-white", "bg-dark-blue", "font-openSans", "px-4", "py-2", "inline-flex", "rounded"],
           children: ["Learn More about ICAF's impact"]
         }

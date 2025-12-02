@@ -132,7 +132,7 @@ export const FormikValidatedStepsControl: React.FC<FormikValidatedStepsControlPr
   return (
     <>
       {canSubmitArt === false ? (
-        <p className="font-bold ">You are currently banned from submitting art. If you believe this is a mistake, please <a href="https://icaf.org/about/contact-us" className="text-blue-600">Contact Us</a> and include your contest email address.</p>
+        <p className="font-bold ">You are currently banned from submitting art. If you believe this is a mistake, please <a href="https://icaf.org/contact" className="text-blue-600">Contact Us</a> and include your contest email address.</p>
       ) : (
         <div className={`pt-8 relative justify-around md:justify-center mx-auto w-full mb-4 md:grid ${currentStep != (steps.length) && "grid-cols-2 gap-2"} ${isLoading ? "opacity-50" : ""}`}>
           {currentStep != (steps.length) && 
@@ -158,7 +158,7 @@ export const FormikValidatedStepsControl: React.FC<FormikValidatedStepsControlPr
       {errorMessage && 
       <>
         <p className="text-red-500">{errorMessage}</p>
-        <p className="text-red-500">If this error persists, please <a className="text-blue-600" href="https://icaf.org/about/contact-us">Contact Us.</a></p>
+        <p className="text-red-500">If this error persists, please <a className="text-blue-600" href="https://icaf.org/contact">Contact Us.</a></p>
       </>
       }
     

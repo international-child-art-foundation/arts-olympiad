@@ -93,7 +93,7 @@ const Footer = () => {
           <ol className="grid grid-cols-2 gap-y-5 md:gap-y-3 md:grid-cols-1">
             <div className="break-words">
               <a
-                href="https://icaf.org/resource/documents/myfavoritesport/MyFavoriteSport_Terms_of_Use.pdf"
+                href="https://icaf.org/documents/myfavoritesport/MyFavoriteSport_Terms_of_Use.pdf"
                 target="blank"
                 rel="noopener noreferrer"
               >
@@ -102,7 +102,7 @@ const Footer = () => {
             </div>
             <div className="break-words">
               <a
-                href="https://icaf.org/resource/documents/myfavoritesport/MyFavoriteSport_Privacy_Policy.pdf"
+                href="https://icaf.org/documents/myfavoritesport/MyFavoriteSport_Privacy_Policy.pdf"
                 target="blank"
                 rel="noopener noreferrer"
               >
@@ -111,7 +111,7 @@ const Footer = () => {
             </div>
             <div className="break-words">
               <a
-                href="https://icaf.org/resource/documents/myfavoritesport/MyFavoriteSport_Childrens_Online_Privacy_Policy.pdf"
+                href="https://icaf.org/documents/myfavoritesport/MyFavoriteSport_Childrens_Online_Privacy_Policy.pdf"
                 target="blank"
                 rel="noopener noreferrer"
               >
@@ -148,7 +148,7 @@ const Footer = () => {
           <div className="w-1/2 md:w-auto">
             <div className="flex flex-col w-auto items-left md:items-center">
               <a
-                href="https://icaf.org/about/contact-us"
+                href="https://icaf.org/contact"
                 target="blank"
                 rel="noopener noreferrer"
                 className="w-32 h-fit border-neutral-white border rounded text-center py-3 px-6 text-sm cursor-pointer tracking-wide text-neutral-white"

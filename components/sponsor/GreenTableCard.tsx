@@ -13,7 +13,7 @@ function GreenTableCard({heading, money}:IProps) {
         <Pm className="font-normal font-openSans">{heading}</Pm>
         <Pm className="font-normal font-openSans">{money}</Pm>
       </article> 
-      <a className="border-2 border-black my-12 px-4 py-2 rounded-lg" href="https://icaf.org/about/contact-us">Sponsor Now</a>
+      <a className="border-2 border-black my-12 px-4 py-2 rounded-lg" href="https://icaf.org/contact">Sponsor Now</a>
     </div>
   );
 }

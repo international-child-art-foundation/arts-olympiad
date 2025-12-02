@@ -107,7 +107,7 @@ export const FlippingCards = () => {
             </ButtonStyledLink>
 
             {"Please "} 
-            <a href="https://icaf.org/about/contact-us" target="_blank" rel="noopener noreferrer" className="text-blue-600 visited:text-purple-600">
+            <a href="https://icaf.org/contact" target="_blank" rel="noopener noreferrer" className="text-blue-600 visited:text-purple-600">
               contact us
             </a>
             {" about partnership prospects."}

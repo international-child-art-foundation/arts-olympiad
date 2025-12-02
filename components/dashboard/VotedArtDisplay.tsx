@@ -60,7 +60,7 @@ export const VotedArtDisplay = () => {
         ) : (
           <div className="my-2 w-full rounded-3xl max-h-full max-w-full content-center p-4 text-center">
             <p>Loading your voted-upon artwork...</p>
-            <a href="https://icaf.org/contact-us" className="text-blue-500">Contact Us</a>
+            <a href="https://icaf.org/contact" className="text-blue-500">Contact Us</a>
           </div>
         )}
       </div>
