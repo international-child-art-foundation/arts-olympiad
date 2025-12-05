@@ -2,9 +2,9 @@ import { Metadata } from "next";
 import { sharedOpenGraph } from "../shared-metadata";
 import { SponsorBegin } from "../../../components/sponsor/SponsorBegin";
 import { ContactUs } from "../../../components/sponsor/ContactUs";
-import {Benefits} from "../../../components/sponsor/Benefits";
+import { Benefits } from "../../../components/sponsor/Benefits";
 import { VisionCards } from "../../../components/sponsor/VisionCards";
-import GreenTable from "../../../components/sponsor/GreenTable";
+// import GreenTable from "../../../components/sponsor/GreenTable";
 import SlideShow from "../../../components/sponsor/SlideShow";
 
 export const metadata: Metadata = {
@@ -12,17 +12,16 @@ export const metadata: Metadata = {
   openGraph: {
     ...sharedOpenGraph,
     title: "Sponsor | My Favorite Sport",
-  }
+  },
 };
 
 export default function sponsorPage() {
   return (
     <div className=" z-0 ">
-
       <SponsorBegin />
       <VisionCards />
       <Benefits />
-      <GreenTable />
+      {/* <GreenTable /> */}
       <SlideShow />
       {/* <PastSponsor /> */}
       <ContactUs />
@@ -44,6 +43,5 @@ export default function sponsorPage() {
         ]}
       /> */}
     </div>
-
   );
 }

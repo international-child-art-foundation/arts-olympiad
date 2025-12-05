@@ -21,7 +21,7 @@ export const VisionCards = () => {
         <VisionCard
           icon="/sponsor/PinkLogo.png"
           heading="Attraction for Growth"
-          description="Win over young hearts and minds for business growth and audience outreach from 2016 to 2028."
+          description="Win over young hearts and minds for business growth and audience outreach."
           color="#F9E4EE"
           texture={
             <div className=" w-full absolute bottom-0 left-0 select-none pointer-events-none">
@@ -84,7 +84,7 @@ export const VisionCards = () => {
         <VisionCard
           icon="/sponsor/YellowLogo.png"
           heading="Promotion of Excellence"
-          description="Foster the Olympic values of excellence, respect, and friendship in young people and employees."
+          description="Foster the value of excellence, respect, and friendship in young people and employees."
           color="#FFF5AD"
           texture={
             <Image

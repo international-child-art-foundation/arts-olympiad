@@ -79,7 +79,8 @@ export default function HeroCarousel() {
                   />
                 </div>
                 <div className="text-sm text-black italic font-medium font-montserrat text-right">
-                  {wisdom.name}, {wisdom.age}, {wisdom.country}
+                  {wisdom.name}, {wisdom.age}
+                  {wisdom.country && ", " + wisdom.country}
                 </div>
               </div>
             </div>
@@ -87,13 +88,15 @@ export default function HeroCarousel() {
         })}
       </div>
       <div className="flex flex-row space-x-3">
-        {Array(3)
+        {Array(IHeroArray.length)
           .fill(null)
           .map((_, i) => (
             <div
               key={i}
               className={`w-[15px] h-[15px] rounded-full ${
-                i == index % 3 ? "bg-new-blue" : "bg-main-silver"
+                i == index % IHeroArray.length
+                  ? "bg-new-blue"
+                  : "bg-main-silver"
               }`}
               onClick={() => handleDotOnClick(i)}
             ></div>

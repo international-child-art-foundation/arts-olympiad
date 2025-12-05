@@ -1,13 +1,14 @@
 import { StaticImageData } from "next/image";
-import img1 from "../../../public/home/new-hero/Georgia.webp";
-import img2 from "../../../public/home/new-hero/Arizona.webp";
-import img3 from "../../../public/home/new-hero/Virginia.webp";
+import img1 from "../../../public/home/new-hero/Joseph Dexo Yowom, 11, Ghana, UNITY.webp";
+import img2 from "../../../public/home/new-hero/Theo Hector Grosso, 11, MESSI IS THE BEST.webp";
+import img3 from "../../../public/home/new-hero/Julia Alvarez Ramirez, 8, Texas, USA, GOAL.webp";
+import img4 from "../../../public/home/new-hero/Anouk Thunder, 11, Germany, FOOTBALL UNIVERSE.webp";
 
 export interface IHero {
   url: StaticImageData;
   name: string;
   age: number;
-  country: string;
+  country?: string;
   alt: string;
 }
 
@@ -16,24 +17,30 @@ export type HeroImageType = IHero[];
 export const IHeroArray: IHero[] = [
   {
     url: img1,
-    name: "Natalia Luo",
-    age: 9,
-    country: "Georgia",
-    alt: "Natalia Luo, age 9, Georgia",
+    name: "Joseph Dexo Yowom",
+    age: 11,
+    country: "Ghana",
+    alt: "",
   },
   {
     url: img2,
-    name: "Aishling Kelly",
+    name: "Theo Hector Grosso",
     age: 11,
-    country: "Arizona",
-    alt: "Aishling Kelly, age 11, Arizona",
+    alt: "",
   },
   {
     url: img3,
-    name: "Esther Kim",
+    name: "Julia Alvarez Ramirez",
+    age: 8,
+    country: "Texas, USA",
+    alt: "",
+  },
+  {
+    url: img4,
+    name: "Anouk Thunder",
     age: 11,
-    country: "Virginia",
-    alt: "Esther Kim, age 11, Virginia",
+    country: "Germany",
+    alt: "",
   },
 ];
 

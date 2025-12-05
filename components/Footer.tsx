@@ -43,6 +43,7 @@ const icons = [
 ];
 
 const Footer = () => {
+  const date = new Date();
   const { setCookieBannerVisible } = useGlobalContext();
   return (
     <footer className="bg-new-blue font-body relative w-full mx-auto">
@@ -70,6 +71,10 @@ const Footer = () => {
         </div>
 
         <div className="w-full max-w-sm md:max-w-fit md:w-1/5 lg:w-1/5 md:order-3">
+          <p className="text-white leading-0 text-sm font-semibold">
+            {" "}
+            Join the #MyFavoriteSport Campaign{" "}
+          </p>
           <ol className="grid md:place-items-center md:gap-3 md:gap-x-6 my-2 md:grid-cols-3 grid-flow-col md:grid-flow-row justify-between w-full">
             {icons.map((icon, i) => (
               <div key={i}>
@@ -160,8 +165,8 @@ const Footer = () => {
         </div>
 
         <div className="bg-new-blue order-5 lg:mx-80 max-w-sm md:max-w-full md:w-screen grid grid-cols-1 place-items-center font-light text-xs text-neutral-white">
-          © 1997-2025 International Child Art Foundation | 2549 Virginia Avenue,
-          NW, Washington, DC 20037, USA
+          © {date.getFullYear()} International Child Art Foundation Post Office
+          Box 58133 Washington, DC 20037, USA
         </div>
       </div>
     </footer>

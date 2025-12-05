@@ -1,7 +1,7 @@
 import React from "react";
-import {H2m} from "../common/texts/H2m";
-import {AnimatedScribble} from "../common/decorations/AnimatedScribble";
-import {Pm} from "../common/texts/Pm";
+import { H2m } from "../common/texts/H2m";
+import { AnimatedScribble } from "../common/decorations/AnimatedScribble";
+import { Pm } from "../common/texts/Pm";
 import Image from "next/image";
 import BlueLine from "../../public/about/BlueLine.webp";
 import dark_green_blob from "../../public/contest/dark_green_blob.png";
@@ -13,10 +13,16 @@ function TwoCards() {
       aria-label="Our Commitment."
       className="w-full mt-36 relative flex flex-col px-8 md:px-12 lg:px-16 xl:px-20 max-w-screen-2xl m-auto overflow-y-visible"
     >
-      <article className=" text-center md:flex flex-col mr-10" >
-        <H2m className="font-medium font-montserrat text-3xl md:text-4xl" >How does the contest <span className="relative">work?
-          <AnimatedScribble width={180} className="absolute -bottom-6 -right-20 stroke-new-blue" />
-        </span>
+      <article className=" text-center md:flex flex-col mr-10">
+        <H2m className="font-medium font-montserrat text-3xl md:text-4xl">
+          How does the contest{" "}
+          <span className="relative">
+            work?
+            <AnimatedScribble
+              width={180}
+              className="absolute -bottom-6 -right-20 stroke-new-blue"
+            />
+          </span>
         </H2m>
       </article>
 
@@ -26,12 +32,18 @@ function TwoCards() {
           rounded-xl bg-light-blue lg:w-[49%] min-h-fit overflow-hidden"
         >
           <div className="grid grid-col relative p-6 py-10 h-full justify-between">
-            <Image src={BlueLine} className="absolute z-0 -top-10 -right-10 select-none pointer-events-none" alt=""></Image>
-            <H2m className="z-20 font-regular font-montserrat pb-4 text-3xl md:text-4xl" >Who can enter?</H2m>
+            <Image
+              src={BlueLine}
+              className="absolute z-0 -top-10 -right-10 select-none pointer-events-none"
+              alt=""
+            ></Image>
+            <H2m className="z-20 font-regular font-montserrat pb-4 text-3xl md:text-4xl">
+              Who can enter?
+            </H2m>
             <Pm className="z-20 font-sans font-light my-2 mb-14">
-                Creators aged 8 to 20, anywhere in the world.
+              Creators aged 8 to 20, anywhere in the world.
             </Pm>
-            <ArrowCTADirectLink text="Register now" href="/register"/>
+            <ArrowCTADirectLink text="Register now" href="/register" />
           </div>
         </article>
 
@@ -40,14 +52,23 @@ function TwoCards() {
           mt-12 lg:mt-0
           rounded-xl bg-light-green lg:w-[49%] min-h-fit overflow-hidden justify-between"
         >
-          <Image src={dark_green_blob} className="absolute z-0 top-0 right-0 h-full select-none pointer-events-none" alt=""></Image>
+          <Image
+            src={dark_green_blob}
+            className="absolute z-0 top-0 right-0 h-full select-none pointer-events-none"
+            alt=""
+          ></Image>
           <div className="grid grid-col relative p-6 py-10 h-full">
-            <H2m className="font-regular font-montserrat pb-4 text-3xl md:text-4xl" >What is the theme?</H2m>
+            <H2m className="font-regular font-montserrat pb-4 text-3xl md:text-4xl">
+              What is the theme?
+            </H2m>
             <Pm className="font-sans font-light my-2 mb-14">
-                Your favorite Olympic sport.
+              Your favorite sport.
             </Pm>
             <div className="">
-              <ArrowCTADirectLink text="Create my account" href="/register"></ArrowCTADirectLink>
+              <ArrowCTADirectLink
+                text="Create my account"
+                href="/register"
+              ></ArrowCTADirectLink>
             </div>
           </div>
         </article>

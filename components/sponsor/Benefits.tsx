@@ -46,7 +46,9 @@ export const Benefits = () => {
                   Celebrate America's 250th Anniversary at the 7th World
                   Children's Festival
                 </li>
-                <li>Engage young artists worldwide in the LA28</li>
+                <li>
+                  Engage young artists worldwide in sports for better health
+                </li>
                 <li>
                   Promote five critical UN Social Development Goals: Good
                   Health, Quality Education, Gender Equality, Reduced

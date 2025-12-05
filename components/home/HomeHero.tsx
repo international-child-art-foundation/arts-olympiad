@@ -4,15 +4,20 @@ import hashtag from "../../public/home/hashtag.svg";
 import rainbowLine from "../../public/home/rainbowLineWebp.webp";
 // import RainbowLine from "../../public/home/new-hero/RainbowLine.svg";
 import HeroCarousel from "./carousel/HeroCarousel";
+import dates from "../../mock/dates";
+import { format } from "date-fns";
 
 export const Intro = () => {
+  const midnight = format(dates.competitionEnd, "bbbb");
+  const midnightCapitalized =
+    midnight.charAt(0).toUpperCase() + midnight.slice(1);
   return (
     <div className="grid grid-cols-1 grid-rows-1 grid-col relative">
       <Image
         src={rainbowLine}
         alt=""
         className="relative mt-auto 
-      mb-32 md:mb-40 lg:mb-20 xl:mb-28
+      mb-32 md:mb-40 lg:mb-20 xl:mb-20
       col-start-1 col-span-1 row-start-1 z-[5] inset-x-0 object-cover object-center w-full max-w-[1920px] mx-auto pointer-events-none select-none"
       ></Image>
       <div className="col-start-1 row-start-1 relative">
@@ -32,23 +37,38 @@ export const Intro = () => {
             </div>
             <div className="font-normal text-base mb-6 md:mb-12 z-10">
               <p className=" z-10 mb-4 leading-8 lg:mb8">
-                Anyone <b>aged 8 to 20</b> in the U.S. or another country can
-                create art about their favorite sport, upload it, and share it
-                with family and friends to get their votes.
+                Individuals aged <span className="font-bold">8 to 20</span> from
+                around the globe are invited to create artwork inspired by their
+                favorite sport, upload it, and share it with family and friends
+                to get their votes.
               </p>
               <p className=" z-10 mb-4 leading-8 lg:mb8">
-                Any art lover or sports fan can vote for their favorite artwork
-                to select the 13 winners (one per birth year) who will be
-                awarded Certificates of Exceptional Artistry, and will be
-                invited as delegates to the 7th World Children's Festival in
-                late June 2026 at the National Mall across from the U.S.
-                Capitol.
+                The registration fee is three U.S. dollars. The artist with the
+                most votes will receive a cash prize of{" "}
+                <span className="font-bold">US $1,000</span>. Additionally, the
+                top 100 artists who receive the most votes will be awarded the
+                Certificate of Exceptional Artistry.
               </p>
               <p className=" z-10 mb-4 leading-8 lg:mb8">
-                The three-day festival will also celebrate America's 250th
-                Anniversary through the eyes of children. While the festival is
-                free, delegates are responsible for making their own travel and
-                accommodation arrangements.
+                Anyone with a passion for art or sports can participate in the
+                voting process, and registration is free for all voters.
+              </p>
+              <p className=" z-10 mb-4 leading-8 lg:mb8">
+                The contest begins with the FIFA World Cup on{" "}
+                {format(dates.competitionBegin, "EEEE")},{" "}
+                <span className="font-bold">
+                  {format(dates.competitionBegin, "MMMM dd, yyyy")}
+                </span>
+                , at {format(dates.competitionBegin, "h:mm a")} EDT. The contest
+                ends on {format(dates.competitionEnd, "EEEE")},{" "}
+                <span className="font-bold">
+                  {format(dates.competitionEnd, "MMMM dd, yyyy")}{" "}
+                </span>
+                at {midnightCapitalized} EDT. On{" "}
+                {format(dates.winnerAnnounced, "EEEE")},{" "}
+                {format(dates.winnerAnnounced, "MMMM dd, yyyy")} at{" "}
+                {format(dates.winnerAnnounced, "h:mm a")} EDT, the International
+                Child Art Foundation will announce the contest winners.
               </p>
             </div>
           </article>
