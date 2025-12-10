@@ -1,106 +1,67 @@
 import React from "react";
-// import { IHeroArray } from "../../impact/wisdom/wisdomItems";
 import { IHeroArray } from "./HeroItem";
-import { useState, useEffect, useRef } from "react";
 import { LazyImage } from "../../common/images/LazyImage";
 
-export default function HeroCarousel() {
-  const [index, setIndex] = useState(0);
-  const timeoutRef = useRef<NodeJS.Timeout | null>(null);
-  const [transitioning] = useState(true); // setTransitioning unused - double check
+interface HeroCarouselProps {
+  transitioning: boolean;
+  index: number;
+}
 
-  function resetTimeout() {
-    if (timeoutRef.current) {
-      clearTimeout(timeoutRef.current);
-    }
-  }
-
-  useEffect(() => {
-    resetTimeout();
-    timeoutRef.current = setTimeout(
-      () =>
-        setIndex(
-          (prevIndex) =>
-            // prevIndex + 1
-            (prevIndex + 1) % IHeroArray.length
-        ),
-      5000
-    );
-    return () => {
-      resetTimeout();
-    };
-  }, [index]);
-
-  // useEffect(() => {
-  //   if (index > IHeroArray.length) {
-  //     setTimeout(() => {
-  //       setTransitioning(false)
-  //       setIndex(0)
-  //     }, 0)
-  //   } else {
-  //     setTransitioning(true)
-  //   }
-  // }, [index, transitioning])
-
-  function handleDotOnClick(i: number) {
-    setIndex(i);
-  }
-
+export default function HeroCarousel({
+  transitioning,
+  index,
+}: HeroCarouselProps) {
   return (
-    <div className="relative w-full overflow-hidden flex flex-col items-center">
+    <div className="relative w-full overflow-hidden flex flex-col gap-4 items-center h-[500px]">
       <div
-        className={`flex transition-transform duration-500 ${
-          !transitioning ? "" : "ease-linear"
+        className={`flex transition-transform h-full duration-500 ${
+          !transitioning ? "" : "ease-in-out"
         }`}
-        style={{ transform: `translateX(${-index * 100}%)` }}
+        style={{
+          transform: `translateX(${-index * 100}%)`,
+        }}
       >
         {IHeroArray.map((wisdom, i) => {
           return (
             <div
               key={i}
-              className="relative w-full flex-shrink-0 flex justify-center items-center rounded-2xl"
+              className="relative w-full min-w-full max-h-full overflow-hidden rounded-[20px] flex justify-center items-center bg-[#fdfffd] shadow-md"
             >
               <div
                 className="
                               thumbnail
-                              cursor-pointer
                               relative
                               rounded-xl
                               font-montserrat
                               font-bold
                               w-full
+                              grid grid-rows-[0.8fr_0.2fr] grid-cols-1 gap-4
+                              overflow-hidden
+                              h-full
                           "
               >
-                <div className="rounded-[20px] overflow-clip">
+                <div className="overflow-hidden cursor-pointer">
                   <LazyImage
-                    className="thumbnail-image w-full object-cover select-none pointer-events-none"
+                    className="thumbnail-image w-full object-cover select-none pointer-events-none rounded-none"
                     imageUrl={wisdom.url}
                     alt={wisdom.alt}
                   />
                 </div>
-                <div className="text-sm text-black italic font-medium font-montserrat text-right">
-                  {wisdom.name}, {wisdom.age}
-                  {wisdom.country && ", " + wisdom.country}
+                <div className="text-black font-montserrat text-right flex flex-col gap-1 items-end h-full mb-4">
+                  <span className="text-3xl md:text-4xl font-semibold leading-none tracking-tight mr-4">
+                    {wisdom.title && wisdom.title}
+                  </span>
+
+                  <span className="text-[0.6rem] md:text-xs uppercase tracking-[0.3em] underline underline-offset-4 opacity-70 mr-4">
+                    {wisdom.name}
+                    {wisdom.age && ` ⸱ ${wisdom.age}`}
+                    {wisdom.country && ` ⸱ ${wisdom.country}`}
+                  </span>
                 </div>
               </div>
             </div>
           );
         })}
-      </div>
-      <div className="flex flex-row space-x-3">
-        {Array(IHeroArray.length)
-          .fill(null)
-          .map((_, i) => (
-            <div
-              key={i}
-              className={`w-[15px] h-[15px] rounded-full ${
-                i == index % IHeroArray.length
-                  ? "bg-new-blue"
-                  : "bg-main-silver"
-              }`}
-              onClick={() => handleDotOnClick(i)}
-            ></div>
-          ))}
       </div>
     </div>
   );

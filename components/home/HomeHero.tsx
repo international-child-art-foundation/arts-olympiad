@@ -6,11 +6,55 @@ import rainbowLine from "../../public/home/rainbowLineWebp.webp";
 import HeroCarousel from "./carousel/HeroCarousel";
 import dates from "../../mock/dates";
 import { format } from "date-fns";
+import { useState, useEffect, useRef } from "react";
+import { IHeroArray } from "./carousel/HeroItem";
 
 export const Intro = () => {
   const midnight = format(dates.competitionEnd, "bbbb");
   const midnightCapitalized =
     midnight.charAt(0).toUpperCase() + midnight.slice(1);
+
+  const [index, setIndex] = useState(0);
+  const timeoutRef = useRef<NodeJS.Timeout | null>(null);
+  const [transitioning, setTransitioning] = useState(true);
+
+  function resetTimeout() {
+    if (timeoutRef.current) {
+      clearTimeout(timeoutRef.current);
+    }
+  }
+
+  useEffect(() => {
+    resetTimeout();
+    timeoutRef.current = setTimeout(
+      () =>
+        setIndex(
+          (prevIndex) =>
+            // prevIndex + 1
+            (prevIndex + 1) % IHeroArray.length
+        ),
+      5000
+    );
+    return () => {
+      resetTimeout();
+    };
+  }, [index]);
+
+  useEffect(() => {
+    if (index > IHeroArray.length) {
+      setTimeout(() => {
+        setTransitioning(false);
+        setIndex(0);
+      }, 0);
+    } else {
+      setTransitioning(true);
+    }
+  }, [index, transitioning]);
+
+  function handleDotOnClick(i: number) {
+    setIndex(i);
+  }
+
   return (
     <div className="grid grid-cols-1 grid-rows-1 grid-col relative">
       <Image
@@ -72,8 +116,23 @@ export const Intro = () => {
               </p>
             </div>
           </article>
-          <div className="relative z-10 px-10 md:px-24 lg:px-0 md:grid col-span-8 md:col-start-2 md:col-span-6 lg:col-span-5 xl:col-span-6 ">
-            <HeroCarousel />
+          <div className="relative z-10 px-10 md:px-24 lg:px-0 md:grid col-span-8 md:col-start-2 md:col-span-6 lg:col-span-5 xl:col-span-6 items-center">
+            <HeroCarousel transitioning={transitioning} index={index} />
+            <div className="flex z-20 flex-row space-x-3  shadow-sm p-3 rounded-[20px]">
+              {Array(IHeroArray.length)
+                .fill(null)
+                .map((_, i) => (
+                  <div
+                    key={i}
+                    className={`w-[15px] h-[15px] rounded-full cursor-pointer ${
+                      i == index % IHeroArray.length
+                        ? "bg-new-blue"
+                        : "bg-main-silver"
+                    }`}
+                    onClick={() => handleDotOnClick(i)}
+                  ></div>
+                ))}
+            </div>
           </div>
           {/* <figure
             role="region"

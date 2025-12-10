@@ -8,6 +8,7 @@ export interface IHero {
   url: StaticImageData;
   name: string;
   age: number;
+  title?: string;
   country?: string;
   alt: string;
 }
@@ -20,12 +21,14 @@ export const IHeroArray: IHero[] = [
     name: "Joseph Dexo Yowom",
     age: 11,
     country: "Ghana",
+    title: "Unity",
     alt: "",
   },
   {
     url: img2,
     name: "Theo Hector Grosso",
     age: 11,
+    title: "Messi is the Best!",
     alt: "",
   },
   {
@@ -33,6 +36,7 @@ export const IHeroArray: IHero[] = [
     name: "Julia Alvarez Ramirez",
     age: 8,
     country: "Texas, USA",
+    title: "GOAL!",
     alt: "",
   },
   {
@@ -40,6 +44,7 @@ export const IHeroArray: IHero[] = [
     name: "Anouk Thunder",
     age: 11,
     country: "Germany",
+    title: "Football Universe",
     alt: "",
   },
 ];
