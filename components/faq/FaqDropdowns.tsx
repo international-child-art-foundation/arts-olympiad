@@ -401,12 +401,12 @@ export const FaqDropdowns = () => {
               className={`
                       mx-2 rounded-full w-5 h-5 border-0.5 border-main-blue cursor-pointer 
                       ${
-                        activeSection === key && transitioningSection !== key
-                          ? "bg-new-blue" // Active and not transitioning
-                          : transitioningSection === key
-                          ? "bg-new-blue opacity-50" // Transitioning
-                          : "bg-white" // Neither active nor transitioning
-                      }`}
+            activeSection === key && transitioningSection !== key
+              ? "bg-new-blue" // Active and not transitioning
+              : transitioningSection === key
+                ? "bg-new-blue opacity-50" // Transitioning
+                : "bg-white" // Neither active nor transitioning
+            }`}
               onClick={() => handleSectionClick(key)}
             ></div>
           ))}
