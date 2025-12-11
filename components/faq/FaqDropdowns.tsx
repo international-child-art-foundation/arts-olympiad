@@ -27,13 +27,18 @@ const ContestSectionData: ExpandingDivProps = {
     },
     {
       title: "When can I submit?",
-      description:
-        `Art submission can start on ${formatDate("competitionBegin", "MMMM do, yyyy")}. The submission deadline is ${formatDate("competitionEnd", "MMMM do, yyyy")}.`,
+      description: `Art submission can start on ${formatDate(
+        "competitionBegin",
+        "MMMM do, yyyy"
+      )}. The submission deadline is ${formatDate(
+        "competitionEnd",
+        "MMMM do, yyyy"
+      )}.`,
     },
     {
       title: "How will the winners be chosen?",
       description:
-        "Through votes by the public, 13 winners will be selected (one per birth year) who will be awarded the ICAF Certificates of Exceptional Artistry.",
+        "Winners are determined entirely by public voting. The artist who receives the highest number of votes wins the US $1,000 grand prize, and the top 100 vote-getters will each receive the Certificate of Exceptional Artistry.",
     },
   ],
 };
@@ -222,7 +227,8 @@ export const FaqDropdowns = () => {
       if (activeButton && underlineRef.current) {
         const buttonRect = activeButton.getBoundingClientRect();
         gsap.set(underlineRef.current, {
-          x: buttonRect.left - containerRef.current.getBoundingClientRect().left,
+          x:
+            buttonRect.left - containerRef.current.getBoundingClientRect().left,
           width: buttonRect.width,
         });
       }
@@ -233,7 +239,7 @@ export const FaqDropdowns = () => {
       setWindowWidth(window.innerWidth);
       updateUnderlinePosition();
     }
-  }, [updateUnderlinePosition]); 
+  }, [updateUnderlinePosition]);
   useEffect(() => {
     if (typeof window !== "undefined") {
       setWindowWidth(window.innerWidth);
@@ -248,7 +254,7 @@ export const FaqDropdowns = () => {
       window.removeEventListener("resize", handleResize);
     };
   }, [activeSection, handleResize]);
-      
+
   useEffect(() => {
     const handleLoad = () => {
       const contestButton = document.querySelector(".Pm-contest");
@@ -337,8 +343,7 @@ export const FaqDropdowns = () => {
                     opacity: 1,
                     duration: 0.8,
                     ease: "power3.out",
-                    onComplete: () => {
-                    },
+                    onComplete: () => {},
                   });
                 }
               }, 0);
@@ -390,20 +395,20 @@ export const FaqDropdowns = () => {
         ></div>
         {/* Current item indicators */}
         <div className="block md:hidden mt-6 mb-0 flex flex-row mx-[10%] md:mx-[0%] md:row-start-1 md:row-end-3 md:col-start-3 md:col-end-5 justify-center">
-          {(Object.keys(sections) as SectionType[]).map(key => (
+          {(Object.keys(sections) as SectionType[]).map((key) => (
             <div
               key={key}
               className={`
                       mx-2 rounded-full w-5 h-5 border-0.5 border-main-blue cursor-pointer 
-                      ${activeSection === key && transitioningSection !== key 
-              ? "bg-new-blue"  // Active and not transitioning
-              : transitioningSection === key 
-                ? "bg-new-blue opacity-50" // Transitioning
-                : "bg-white" // Neither active nor transitioning
-            }`}
+                      ${
+                        activeSection === key && transitioningSection !== key
+                          ? "bg-new-blue" // Active and not transitioning
+                          : transitioningSection === key
+                          ? "bg-new-blue opacity-50" // Transitioning
+                          : "bg-white" // Neither active nor transitioning
+                      }`}
               onClick={() => handleSectionClick(key)}
-            >
-            </div>
+            ></div>
           ))}
         </div>
         <div className=" w-full min-h-[400px] rounded-lg ">

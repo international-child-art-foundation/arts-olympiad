@@ -118,7 +118,7 @@ export const Intro = () => {
           </article>
           <div className="relative z-10 px-10 md:px-24 lg:px-0 md:grid col-span-8 md:col-start-2 md:col-span-6 lg:col-span-5 xl:col-span-6 items-center">
             <HeroCarousel transitioning={transitioning} index={index} />
-            <div className="flex z-20 flex-row space-x-3  shadow-sm p-3 rounded-[20px]">
+            <div className="flex z-20 flex-row space-x-3 justify-self-center shadow-sm p-3 rounded-[20px] mx-auto bg-[#fdfffd]">
               {Array(IHeroArray.length)
                 .fill(null)
                 .map((_, i) => (
