@@ -30,7 +30,7 @@ export const AboutHero = () => {
             Established in 1997 as the national arts organization for American
             children and the global arts organization for the world's children,
             ICAF cultivates their creativity and grows mutual empathy as vital
-            building blocks for a prosperous and peaceful future
+            building blocks for a prosperous and peaceful future.
           </p>
         </article>
         <div className="flex xsm:justify-center lg:justify-end xsm:col-span-2 lg:col-span-1">

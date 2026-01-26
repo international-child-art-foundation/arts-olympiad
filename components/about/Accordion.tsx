@@ -129,7 +129,7 @@ export const Accordion = () => {
               </Pm>
               {/* <button className="bg-dark-blue text-white h-10 whitespace-no-wrap inline-block max-w-max px-4"><Link href="https://www.icaf.org/resource/pdfs/new-york-olympic.pdf">See pdf to learn more</Link></button> */}
               <ArrowCTA
-                text="See pdf to learn more"
+                text="Learn more"
                 href="https://www.icaf.org/documents/myfavoritesport/new-york-olympic.pdf"
               />
             </>
@@ -151,7 +151,7 @@ export const Accordion = () => {
             <>
               <Pm className="mb-12 lg:my-12 font-openSans font-light">
                 The art contest is inspired by Baron de Coubertin, founder of
-                modern Olympics, who believed that the Games must showcase
+                the modern Olympics, who believed that the Games must showcase
                 humanity’s physical prowess and artistic talents.
               </Pm>
               {/* <button className="bg-dark-blue text-white whitespace-no-wrap w-auto inline-block max-w-max h-auto px-4 py-4"><Link href="https://www.smithsonianmag.com/arts-culture/when-the-olympics-gave-out-medals-for-art-6878965/">When the Olympics gave out medals for art</Link></button> */}

@@ -49,7 +49,7 @@ export const Commitment = () => {
             Learn more about becoming a sponsor
             </ButtonStyledLink> */}
             <ArrowCTA
-              text="See 16-page pdf"
+              text="See how"
               href="https://www.icaf.org/resource/pdfs/Forging.Iconic.Brands_ICAF2023.pdf"
             />
           </div>

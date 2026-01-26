@@ -50,7 +50,7 @@ const ContestSectionData: ExpandingDivProps = {
         {
           href: "https://www.icaf.org/documents/myfavoritesport/new-york-olympic.pdf", 
           classNames: ["font-light", "text-lg", "leading-normal", "inline", "rounded", "underline"],
-          children: ["See a 3-page except from New York's Candidature File."] 
+          children: ["See a 3-page excerpt from New York's Candidature File."] 
         }
       ]
     },

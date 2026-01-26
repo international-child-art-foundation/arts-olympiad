@@ -31,7 +31,7 @@ export const Benefits = () => {
             <div className="relative w-auto z-20">
               <ul className="z-20 font-light font-openSans text-lg list-disc list-inside">
                 <li>
-                  Produce the art contest on favorite sports of 8- to
+                  Produce the art contest on the favorite sports of 8- to
                   20-year-olds
                 </li>
                 <li>
@@ -39,8 +39,8 @@ export const Benefits = () => {
                   art program
                 </li>
                 <li>
-                  Bring creative children together at the National Mall for
-                  their 7th World Children's Festival
+                  Bring creative children together at the National Mall for our
+                  7th World Children's Festival
                 </li>
                 <li>
                   Celebrate America's 250th Anniversary at the 7th World

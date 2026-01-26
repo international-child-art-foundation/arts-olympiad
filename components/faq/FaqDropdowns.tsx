@@ -78,7 +78,7 @@ const SponsorshipSectionData: ExpandingDivProps = {
     {
       title: "How does sponsorship work?",
       description:
-        "Sponsorship involves providing financial support to our charity and the at competition. In return, sponsors receive various benefits such as brand exposure and recognition.",
+        "Sponsorship involves providing financial support to our charity and at the competition. In return, sponsors receive various benefits such as brand exposure and recognition.",
     },
     {
       title: "Can I donate instead?",
