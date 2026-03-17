@@ -9,6 +9,8 @@ export default defineConfig([
       "@typescript-eslint": typescriptEslint,
       "jsx-a11y": jsxA11y,
     },
+    ignores: ["amplify/**", "node_modules/**", ".next/**", "out/**"],
+
     languageOptions: { parser: tsParser },
     rules: {
       indent: ["error", 2],
