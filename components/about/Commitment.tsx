@@ -48,10 +48,7 @@ export const Commitment = () => {
             {/* <ButtonStyledLink className="max-w-fit px-6 my-8" href="/sponsor">
             Learn more about becoming a sponsor
             </ButtonStyledLink> */}
-            <ArrowCTA
-              text="See how"
-              href="https://www.icaf.org/resource/pdfs/Forging.Iconic.Brands_ICAF2023.pdf"
-            />
+            <ArrowCTA text="See how" href="https://icaf.org/sponsorship" />
           </div>
           {/* <div className=" md:min-w-[40%] mx-auto md:ml-12 lg:ml-auto">
             
