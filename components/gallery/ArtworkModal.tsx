@@ -14,7 +14,6 @@ import { useFilters } from "./FilterContext";
 import { limiter } from "@/utils/api-rate-limit";
 
 type ArtworkModalProps = {
-  artworks: UserArtworkSchema[];
   pageLoadArtwork: UserArtworkSchema | undefined;
   sk: string | null;
   isModalOpen: boolean;
@@ -25,69 +24,91 @@ type ArtworkModalProps = {
 };
 
 // Define the enum for modal states
-type ModalState = 
+type ModalState =
   | { status: "loading" }
   | { status: "error" }
-  | { status: "loaded", data: UserArtworkSchema }
+  | { status: "loaded"; data: UserArtworkSchema }
   | { status: "submitted" };
 
 function isUserArtworkSchema(data: unknown): data is UserArtworkSchema {
-  if (typeof data !== "object" || data === null) {
-    return false;
-  }
-  
-  const artwork = data as UserArtworkSchema;
-  
-  return typeof artwork.sk === "string" &&
-           typeof artwork.f_name === "string" &&
-           typeof artwork.age === "number" || artwork.age == null &&
-           typeof artwork.sport === "string" || artwork.sport === null &&
-           typeof artwork.location === "string" &&
-           typeof artwork.is_ai_gen === "boolean" &&
-           (typeof artwork.model === "undefined" || typeof artwork.model === "string") &&
-           (typeof artwork.prompt === "undefined" || typeof artwork.prompt === "string") &&
-           typeof artwork.is_approved === "boolean" &&
-           typeof artwork.votes === "number";
+  if (typeof data !== "object" || data === null) return false;
+
+  const a = data as Partial<UserArtworkSchema>;
+
+  if (typeof a.sk !== "string") return false;
+  if (typeof a.f_name !== "string") return false;
+  if (typeof a.age !== "number") return false;
+  if (typeof a.sport !== "string") return false;
+  if (typeof a.location !== "string") return false;
+  if (typeof a.description !== "string") return false;
+  if (typeof a.is_approved !== "boolean") return false;
+  if (typeof a.votes !== "number") return false;
+  if (typeof a.is_ai_gen !== "boolean") return false;
+  if (typeof a.file_type !== "string") return false;
+  if (typeof a.timestamp !== "string") return false;
+  if (a.model !== undefined && typeof a.model !== "string") return false;
+  if (a.prompt !== undefined && typeof a.prompt !== "string") return false;
+  return true;
 }
 
-function checkSameProps(prevProps: ArtworkModalProps, nextProps: ArtworkModalProps) {
-  // We memoize this function to be efficient. If any of `id`, `modalState`, or `pageLoadArtwork` have changed, re-render. 
+function checkSameProps(
+  prevProps: ArtworkModalProps,
+  nextProps: ArtworkModalProps,
+) {
+  // We memoize this function to be efficient. If any of `id`, `modalState`, or `pageLoadArtwork` have changed, re-render.
   // May need to include `artworks` as well.
-  return prevProps.sk == nextProps.sk && prevProps.isModalOpen == nextProps.isModalOpen && prevProps.pageLoadArtwork == nextProps.pageLoadArtwork;
+  return (
+    prevProps.sk == nextProps.sk &&
+    prevProps.isModalOpen == nextProps.isModalOpen &&
+    prevProps.pageLoadArtwork == nextProps.pageLoadArtwork
+  );
 }
 
-const ArtworkModal: React.FC<ArtworkModalProps> = ({ artworks, pageLoadArtwork, sk, isModalOpen, closeModal, currentUserSk, isMobile, voted }) => {
-  const {isAuthenticated} = useGlobalContext();
+const ArtworkModal: React.FC<ArtworkModalProps> = ({
+  pageLoadArtwork,
+  sk,
+  isModalOpen,
+  closeModal,
+  currentUserSk,
+  isMobile,
+  voted,
+}) => {
+  const { isAuthenticated } = useGlobalContext();
   const { windowWidth, windowHeight } = useWindowDimensions();
   const isHorizontal = windowWidth > windowHeight;
-  const [modalState, setModalState] = useState<ModalState>({ status: "loading" });
+  const [modalState, setModalState] = useState<ModalState>({
+    status: "loading",
+  });
   const [alreadyVoted, setAlreadyVoted] = useState(false);
   const { setVotedSk } = useFilters();
 
   async function handleCloseModal() {
-    await setModalState({status: "loading"});
+    await setModalState({ status: "loading" });
     setAlreadyVoted(false);
     closeModal();
   }
-  
+
   useEffect(() => {
     if (!isModalOpen || !sk) {
       setModalState({ status: "loading" });
       return;
     }
-  
+
     const fetchArtworkData = async () => {
       let data;
       if (pageLoadArtwork && pageLoadArtwork.sk === sk) {
         data = pageLoadArtwork;
-      } else if (artworks) {
-        data = artworks.find(artwork => artwork.sk === sk);
       }
-  
+
       if (!data && sk) {
         try {
-          const singleArtworkResponse = await limiter.schedule(() => getSingleArtworkData(sk));
-          if (singleArtworkResponse.success && isUserArtworkSchema(singleArtworkResponse.data)) {
+          const singleArtworkResponse = await limiter.schedule(() =>
+            getSingleArtworkData(sk),
+          );
+          if (
+            singleArtworkResponse.success &&
+            isUserArtworkSchema(singleArtworkResponse.data)
+          ) {
             data = singleArtworkResponse.data;
           } else {
             console.log("Couldn't find single artwork data.");
@@ -110,40 +131,45 @@ const ArtworkModal: React.FC<ArtworkModalProps> = ({ artworks, pageLoadArtwork, 
         timeline
           .set(modalContentRef.current, { opacity: 0 })
           // .set(gridContainerRef.current, { gridTemplateRows: "0.7fr" })
-          .to(gridContainerRef.current, { 
-            gridTemplateRows: "1fr", 
-            duration: isMobile ? 0.7 : 0.4, 
-            ease: isMobile ? "power1.out": "power4.out" 
+          .to(gridContainerRef.current, {
+            gridTemplateRows: "1fr",
+            duration: isMobile ? 0.7 : 0.4,
+            ease: isMobile ? "power1.out" : "power4.out",
           })
-          .to(modalContentRef.current, { 
-            opacity: 1, 
-            duration: 0.2, 
-            ease: "power4.out" 
-          }, delay); // Start slightly before the grid animation ends  
+          .to(
+            modalContentRef.current,
+            {
+              opacity: 1,
+              duration: 0.2,
+              ease: "power4.out",
+            },
+            delay,
+          ); // Start slightly before the grid animation ends
       } else {
         setModalState({ status: "error" });
       }
     };
-  
-    fetchArtworkData();
-  }, [isModalOpen, sk, pageLoadArtwork, artworks]);
 
+    fetchArtworkData();
+  }, [isModalOpen, sk, pageLoadArtwork]);
 
   const submitVote = async (artwork_sk: string) => {
     if (modalState.status == "loaded") {
       const currentData = modalState.data;
-      setModalState({status: "loading"}); // Transition to loading state
+      setModalState({ status: "loading" }); // Transition to loading state
       try {
-        const response = await limiter.schedule(() => voteForArtwork(artwork_sk));
+        const response = await limiter.schedule(() =>
+          voteForArtwork(artwork_sk),
+        );
         if (response.success === true) {
-          setModalState({status: "submitted"}); // Transition to submitted state on success
+          setModalState({ status: "submitted" }); // Transition to submitted state on success
           setVotedSk(artwork_sk);
         } else {
           if (response.error == "Cannot vote on the same artwork twice") {
-            setModalState({status: "loaded", data: currentData});
+            setModalState({ status: "loaded", data: currentData });
             setAlreadyVoted(true);
           } else {
-            setModalState({status: "error"});
+            setModalState({ status: "error" });
           }
         }
       } catch (error) {
@@ -156,60 +182,78 @@ const ArtworkModal: React.FC<ArtworkModalProps> = ({ artworks, pageLoadArtwork, 
   const modalWrapperRef = useRef(null);
   const gridContainerRef = useRef(null);
 
-  useEffect(() => {
-    if (modalState.status == "loaded" && modalState.data) {
-    }
-  }, [modalState]);
-
   if (!isModalOpen) return null;
 
   function renderLoadingState() {
     return (
       <div className="relative inset-0 flex justify-center items-center pointer-events-none max-h-full h-[600px]">
-        <LoadingAnimation scale={90} stroke={2}/>
+        <LoadingAnimation scale={90} stroke={2} />
       </div>
     );
   }
-  
+
   function renderSubmittedState() {
     return (
       <div className="flex flex-col overflow-auto no-scrollbar items-center justify-center h-full w-[300px] max-w-full mx-auto">
-        <p className="font-montserrat font-semibold text-3xl pb-7">Thank you for your vote.</p>
-        <p className="text-xl pb-10 font-light">Your vote is cast – thank you for participating! You've just helped an artist get one step closer to the spotlight. Share their work to spread the word!</p>
+        <p className="font-montserrat font-semibold text-3xl pb-7">
+          Thank you for your vote.
+        </p>
+        <p className="text-xl pb-10 font-light">
+          Your vote is cast – thank you for participating! You've just helped an
+          artist get one step closer to the spotlight. Share their work to
+          spread the word!
+        </p>
         <div className="">
           <p className="font-semibold text-xl text-center">Share this post</p>
-          {sk && 
-            <SocialShare shareId={sk} />
-          }
+          {sk && <SocialShare shareId={sk} />}
         </div>
 
-        <button className="bg-new-blue w-full text-base text-white text-base p-4 rounded mt-6 cursor-pointer" onClick={handleCloseModal}>Return to Gallery</button>
+        <button
+          className="bg-new-blue w-full text-base text-white text-base p-4 rounded mt-6 cursor-pointer"
+          onClick={handleCloseModal}
+        >
+          Return to Gallery
+        </button>
       </div>
     );
   }
-  
+
   function renderDefaultState() {
     if (modalState.status != "loaded" || sk == null) {
       return (
         <>
-          <p className="mx-auto font-semibold font-montserrat text-xl mt-auto">Oops! An error has occurred. This artwork may be unavailable.</p>
-          <p className="mx-auto py-4 text-slate-400">error: artworkData not found.</p>
-          <p className="mx-auto py-4 mt-auto text-xl">If this error persists, please let us know.</p>
-          <button className="bg-new-blue w-[200px] text-base text-white text-base p-2 rounded mt-4 mx-auto" onClick={handleCloseModal}>Contact Us</button>
+          <p className="mx-auto font-semibold font-montserrat text-xl mt-auto">
+            Oops! An error has occurred. This artwork may be unavailable.
+          </p>
+          <p className="mx-auto py-4 text-slate-400">
+            error: artworkData not found.
+          </p>
+          <p className="mx-auto py-4 mt-auto text-xl">
+            If this error persists, please let us know.
+          </p>
+          <button
+            className="bg-new-blue w-[200px] text-base text-white text-base p-2 rounded mt-4 mx-auto"
+            onClick={handleCloseModal}
+          >
+            Contact Us
+          </button>
         </>
       );
-    }  
+    }
     return (
       <div className="grid grid-cols-2 gap-5 md:gap-10 grid-rows-1 overflow-hidden max-h-full mx-auto px-6">
         <div className="flex flex-col overflow-auto no-scrollbar">
           <div className="inline-block py-2">
             <span className="bg-[#fbb22e] rounded-3xl p-2 px-8">
-              {modalState.data.votes} {modalState.data.votes == 1 ? "Vote" : "Votes"}
+              {modalState.data.votes}{" "}
+              {modalState.data.votes == 1 ? "Vote" : "Votes"}
             </span>
           </div>
           <p className="font-bold text-xl mt-5">{modalState.data.f_name}</p>
           <div className="mt-5">
-            <p>{modalState.data.age} | {modalState.data.location}</p>
+            <p>
+              {modalState.data.age} | {modalState.data.location}
+            </p>
             <p className="mt-2">{modalState.data.sport}</p>
           </div>
           <p className="italic mt-10">{modalState.data.description}</p>
@@ -226,25 +270,60 @@ const ArtworkModal: React.FC<ArtworkModalProps> = ({ artworks, pageLoadArtwork, 
           </div>
           {!isAuthenticated ? (
             <>
-              <p className="text-sm text-new-blue mt-4">Ready to vote for this artwork? Please sign in or create an account to participate.</p>
-              <Link className="bg-new-blue text-white text-base p-4 rounded mt-4 text-center" href="/login">Sign in</Link>
+              <p className="text-sm text-new-blue mt-4">
+                Ready to vote for this artwork? Please sign in or create an
+                account to participate.
+              </p>
+              <Link
+                className="bg-new-blue text-white text-base p-4 rounded mt-4 text-center"
+                href="/login"
+              >
+                Sign in
+              </Link>
             </>
           ) : (
             currentUserSk != sk && (
               <>
-                {alreadyVoted && <p className="text-md pt-4 text-green-700">You've already voted for this artwork!</p>}
+                {alreadyVoted && (
+                  <p className="text-md pt-4 text-green-700">
+                    You've already voted for this artwork!
+                  </p>
+                )}
                 {voted ? (
-                  <button className={"bg-green-600 text-white text-base p-4 rounded mt-4 opacity-60 pointer-events-none"} onClick={() => submitVote(sk)}>Thanks for your vote!</button>
+                  <button
+                    className={
+                      "bg-green-600 text-white text-base p-4 rounded mt-4 opacity-60 pointer-events-none"
+                    }
+                    onClick={() => submitVote(sk)}
+                  >
+                    Thanks for your vote!
+                  </button>
                 ) : (
-                  <button className={`bg-new-blue text-white text-base p-4 rounded mt-4 ${alreadyVoted && "opacity-60 pointer-events-none"}`} onClick={() => submitVote(sk)}>Vote for this artwork</button>
+                  <button
+                    className={`bg-new-blue text-white text-base p-4 rounded mt-4 ${alreadyVoted && "opacity-60 pointer-events-none"}`}
+                    onClick={() => submitVote(sk)}
+                  >
+                    Vote for this artwork
+                  </button>
                 )}
               </>
             )
           )}
         </div>
         <div className="flex justify-center items-center rounded-xl overflow-hidden relative flex-shrink">
-          <Image src={`${process.env.NEXT_PUBLIC_CLOUDFRONT_DISTRIBUTION_URL}/${modalState.data.sk}/medium.webp`} alt={modalState.data.f_name} width={800} height={500} className="max-w-full max-h-full col-start-2 z-20 object-contain" />
-          <Image src={`${process.env.NEXT_PUBLIC_CLOUDFRONT_DISTRIBUTION_URL}/${modalState.data.sk}/medium.webp`} fill alt={modalState.data.f_name} className="col-start-2 z-10 rounded-xl blur-3xl opacity-50 object-cover" />
+          <Image
+            src={`${process.env.NEXT_PUBLIC_CLOUDFRONT_DISTRIBUTION_URL}/${modalState.data.sk}/medium.webp`}
+            alt={modalState.data.f_name}
+            width={800}
+            height={500}
+            className="max-w-full max-h-full col-start-2 z-20 object-contain"
+          />
+          <Image
+            src={`${process.env.NEXT_PUBLIC_CLOUDFRONT_DISTRIBUTION_URL}/${modalState.data.sk}/medium.webp`}
+            fill
+            alt={modalState.data.f_name}
+            className="col-start-2 z-10 rounded-xl blur-3xl opacity-50 object-cover"
+          />
         </div>
       </div>
     );
@@ -254,17 +333,22 @@ const ArtworkModal: React.FC<ArtworkModalProps> = ({ artworks, pageLoadArtwork, 
   function renderLoadingStateMobile() {
     return (
       <div className="relative inset-0 flex justify-center items-center pointer-events-none">
-        <LoadingAnimation scale={90} stroke={2}/>
+        <LoadingAnimation scale={90} stroke={2} />
       </div>
     );
   }
-  
+
   function renderErrorState() {
     return (
       <div className="absolute inset-0 flex justify-center items-center flex-col">
-        <p className="text-2xl font-semibold text-center">This artwork is currently inaccessible</p>
+        <p className="text-2xl font-semibold text-center">
+          This artwork is currently inaccessible
+        </p>
         <p>It may have been deleted.</p>
-        <button className="bg-new-blue mt-8 p-2 px-3 active:scale-[97%] text-white rounded-lg" onClick={handleCloseModal}>
+        <button
+          className="bg-new-blue mt-8 p-2 px-3 active:scale-[97%] text-white rounded-lg"
+          onClick={handleCloseModal}
+        >
           Return to gallery
         </button>
       </div>
@@ -294,12 +378,13 @@ const ArtworkModal: React.FC<ArtworkModalProps> = ({ artworks, pageLoadArtwork, 
         </>
       );
     }
-  
+
     return (
       <div className="grid max-h-full p-4 overflow-auto gap-y-2">
         <div className="inline-block py-2 mb-4">
           <span className="bg-[#fbb22e] rounded-3xl p-2 px-8">
-            {modalState.data.votes} {modalState.data.votes === 1 ? "Vote" : "Votes"}
+            {modalState.data.votes}{" "}
+            {modalState.data.votes === 1 ? "Vote" : "Votes"}
           </span>
         </div>
         <div className="flex justify-center items-center rounded-xl overflow-hidden relative flex-shrink">
@@ -338,7 +423,8 @@ const ArtworkModal: React.FC<ArtworkModalProps> = ({ artworks, pageLoadArtwork, 
         {!isAuthenticated ? (
           <>
             <p className="text-sm text-new-blue mt-4">
-              Ready to vote for this artwork? Please sign in or create an account to participate.
+              Ready to vote for this artwork? Please sign in or create an
+              account to participate.
             </p>
             <Link
               className="bg-new-blue text-white text-base p-4 rounded mt-4 text-center"
@@ -379,7 +465,7 @@ const ArtworkModal: React.FC<ArtworkModalProps> = ({ artworks, pageLoadArtwork, 
       </div>
     );
   }
-  
+
   const handleClick = (e: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
     if (e.target === e.currentTarget) {
       handleCloseModal();
@@ -388,23 +474,41 @@ const ArtworkModal: React.FC<ArtworkModalProps> = ({ artworks, pageLoadArtwork, 
 
   function renderContent() {
     switch (modalState.status) {
-    case "loading":
-      return isHorizontal ? renderLoadingState() : renderLoadingStateMobile();
-    case "error":
-      return renderErrorState();
-    case "submitted":
-      return renderSubmittedState();
-    case "loaded":
-      return isHorizontal ? renderDefaultState() : renderDefaultStateMobile();
+      case "loading":
+        return isHorizontal ? renderLoadingState() : renderLoadingStateMobile();
+      case "error":
+        return renderErrorState();
+      case "submitted":
+        return renderSubmittedState();
+      case "loaded":
+        return isHorizontal ? renderDefaultState() : renderDefaultStateMobile();
     }
   }
-    
+
   return (
-    <div className="fixed inset-0 bg-black bg-opacity-50 z-50 flex justify-center items-center h-auto" onClick={handleClick}>
-      <div ref={modalWrapperRef} className={`max-h-[93%] bg-white rounded-3xl ${isHorizontal ? "w-[80%] max-w-[1100px]" : "w-[480px] max-w-[95%]"} flex flex-col relative overflow-hidden`}>
-        <span onClick={handleCloseModal} className="absolute top-0 right-0 text-5xl font-light p-4 cursor-pointer active:scale-90 z-10">&times;</span>
-        <div ref={gridContainerRef} className="grid overflow-scroll no-scrollbar " style={{gridTemplateRows:"0.2fr"}}>
-          <div ref={modalContentRef} className={`min-h-[300px] ${isHorizontal ? "p-16" : "p-8"}`}>
+    <div
+      className="fixed inset-0 bg-black bg-opacity-50 z-50 flex justify-center items-center h-auto"
+      onClick={handleClick}
+    >
+      <div
+        ref={modalWrapperRef}
+        className={`max-h-[93%] bg-white rounded-3xl ${isHorizontal ? "w-[80%] max-w-[1100px]" : "w-[480px] max-w-[95%]"} flex flex-col relative overflow-hidden`}
+      >
+        <span
+          onClick={handleCloseModal}
+          className="absolute top-0 right-0 text-5xl font-light p-4 cursor-pointer active:scale-90 z-10"
+        >
+          &times;
+        </span>
+        <div
+          ref={gridContainerRef}
+          className="grid overflow-scroll no-scrollbar "
+          style={{ gridTemplateRows: "0.2fr" }}
+        >
+          <div
+            ref={modalContentRef}
+            className={`min-h-[300px] ${isHorizontal ? "p-16" : "p-8"}`}
+          >
             {renderContent()}
           </div>
         </div>

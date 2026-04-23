@@ -2,10 +2,13 @@ const ArtworkModel = require("../models/artwork");
 const UserModel = require("../models/user");
 
 const { s3Client } = require("../lib/s3Client");
-const { createPresignedPost } = require("@aws-sdk/s3-presigned-post"); 
+const { createPresignedPost } = require("@aws-sdk/s3-presigned-post");
 
 // let tableName = "dynamo114508ab";
 let tableName = "dynamo22205621";
+const DEFAULT_LIMIT = 20;
+const MAX_LIMIT = 100;
+
 if (process.env.ENV && process.env.ENV !== "NONE") {
   tableName = tableName + "-" + process.env.ENV;
 }
@@ -36,7 +39,7 @@ async function addArtwork(artworkData) {
     is_ai_gen: artworkData.is_ai_gen,
     model: artworkData.model,
     prompt: artworkData.prompt,
-    file_type: artworkData.file_type
+    file_type: artworkData.file_type,
   };
   await ArtworkModel.createArtwork(item);
   return formatArtwork(item);
@@ -60,13 +63,13 @@ async function addArtworkAndUpdateUser(artworkData, userSk) {
     is_ai_gen: artworkData.is_ai_gen,
     model: artworkData.model,
     prompt: artworkData.prompt,
-    file_type: artworkData.file_type
+    file_type: artworkData.file_type,
   };
 
   const result = await ArtworkModel.createArtworkAndUpdateUser(item, userSk);
   return {
     artwork: formatArtwork(result.artwork),
-    userUpdated: result.userUpdated
+    userUpdated: result.userUpdated,
   };
 }
 
@@ -83,7 +86,11 @@ async function handleVote(userSk, artworkSk) {
       throw new Error("Cannot vote on the same artwork twice");
     } else {
       // User is changing their vote
-      return await ArtworkModel.changeVote(userSk, userData.Item.voted_sk, artworkSk);
+      return await ArtworkModel.changeVote(
+        userSk,
+        userData.Item.voted_sk,
+        artworkSk,
+      );
     }
   } else {
     // User doesn't have an active vote
@@ -94,18 +101,18 @@ async function handleVote(userSk, artworkSk) {
 async function deleteArtwork(artworkSk) {
   try {
     await ArtworkModel.deleteArtworkById(artworkSk);
-    return {message: "successfully deleted"};
+    return { message: "successfully deleted" };
   } catch (error) {
     console.log(error);
   }
 }
 
-// Does not currently invalidate CloudFront URLs. 
+// Does not currently invalidate CloudFront URLs.
 async function deleteArtworkCompletely(artworkSk) {
   try {
     await ArtworkModel.deleteArtworkAndFiles(artworkSk);
-    return {message: "successfully deleted"};
-  } catch(error) {
+    return { message: "successfully deleted" };
+  } catch (error) {
     console.log(error);
   }
 }
@@ -121,38 +128,100 @@ async function decrementVoteArtwork(artworkSk) {
 }
 
 async function approveArtwork(artworkSk, approvalStatus) {
-  const artwork = await ArtworkModel.approveArtworkById(artworkSk, approvalStatus);
+  const artwork = await ArtworkModel.approveArtworkById(
+    artworkSk,
+    approvalStatus,
+  );
   return formatArtwork(artwork.Attributes);
 }
 
 async function getArtworks(queryParams) {
   const is_approved = queryParams?.is_approved ?? "true";
-  const sort_key  = queryParams?.sort_by ?? "votes";
+  const sort_by = queryParams?.sort_by ?? "votes";
   const order_by = queryParams?.order_by ?? "descending";
+
+  const rawLimit = parseInt(queryParams?.limit, 10);
+  const limit =
+    Number.isFinite(rawLimit) && rawLimit > 0
+      ? Math.min(rawLimit, MAX_LIMIT)
+      : DEFAULT_LIMIT;
+
+  const rawCursor = parseInt(queryParams?.cursor, 10);
+  const cursor = Number.isFinite(rawCursor) && rawCursor >= 0 ? rawCursor : 0;
+
+  const sports = parseMultiValue(queryParams?.sports);
+  const countries = parseMultiValue(queryParams?.countries);
 
   const query = {
     TableName: tableName,
-    ProjectionExpression: "sk, description, sport, #loc, is_approved, votes, f_name, l_name, age, is_ai_gen, model, prompt, file_type, #time_stamp",
-    ExpressionAttributeNames: { "#loc": "location" , "#time_stamp": "timestamp"},
+    ProjectionExpression:
+      "sk, description, sport, #loc, is_approved, votes, f_name, age, is_ai_gen, model, prompt, file_type, #time_stamp",
+    ExpressionAttributeNames: {
+      "#loc": "location",
+      "#time_stamp": "timestamp",
+    },
     IndexName: "gsi1-index",
     KeyConditionExpression: "gsi1pk = :v_is_approved",
-    ExpressionAttributeValues: {":v_is_approved" : is_approved},
-    // Limit: limit,
-    // ScanIndexForward: scanIndexForward
+    ExpressionAttributeValues: { ":v_is_approved": is_approved },
   };
 
-  let items = await ArtworkModel.queryArtworks(query);
+  const allItems = await ArtworkModel.queryArtworks(query);
+  const categoryCounts = computeCategoryCounts(allItems);
+  const filtered = applyFilters(allItems, { sports, countries });
+  const sorted = sortItems(filtered, sort_by, order_by);
+  const slice = sorted.slice(cursor, cursor + limit);
+  const nextCursor = cursor + limit < sorted.length ? cursor + limit : null;
 
-  if (order_by == "descending") {
-    items.sort((a, b) => b[sort_key] - a[sort_key]);
-  } else {
-    items.sort((a, b) => a[sort_key] - b[sort_key]);
-  }
-
-  return items;
+  return {
+    items: slice.map(formatArtwork),
+    nextCursor,
+    totalCount: sorted.length,
+    categoryCounts,
+  };
 }
 
-async function createUrlAndFields(userSk, fileType="jpg") {
+function parseMultiValue(raw) {
+  if (!raw) return [];
+  if (Array.isArray(raw)) return raw.filter(Boolean);
+  return String(raw)
+    .split(",")
+    .map((s) => s.trim())
+    .filter(Boolean);
+}
+
+function computeCategoryCounts(items) {
+  const sports = {};
+  const countries = {};
+  for (const item of items) {
+    if (item.sport) sports[item.sport] = (sports[item.sport] ?? 0) + 1;
+    if (item.location)
+      countries[item.location] = (countries[item.location] ?? 0) + 1;
+  }
+  return { sports, countries };
+}
+
+function applyFilters(items, { sports, countries }) {
+  if (sports.length === 0 && countries.length === 0) return items;
+  return items.filter((item) => {
+    if (sports.length > 0 && !sports.includes(item.sport)) return false;
+    if (countries.length > 0 && !countries.includes(item.location))
+      return false;
+    return true;
+  });
+}
+
+function sortItems(items, sort_by, order_by) {
+  const copy = [...items];
+  const dir = order_by === "ascending" ? 1 : -1;
+  copy.sort((a, b) => {
+    const av = Number(a[sort_by]) || 0;
+    const bv = Number(b[sort_by]) || 0;
+    return (av - bv) * dir;
+  });
+  return copy;
+}
+
+async function createUrlAndFields(userSk, fileType = "jpg") {
   const client = s3Client;
   const Bucket = `artsolympiadf677eab9a54848dc8788ee9110a11839772e2-${process.env.ENV}`;
 
@@ -178,7 +247,7 @@ async function createUrlAndFields(userSk, fileType="jpg") {
   return { url, fields };
 }
 
-function formatArtwork(artwork) { 
+function formatArtwork(artwork) {
   return {
     sk: artwork.sk,
     f_name: artwork.f_name,
@@ -192,7 +261,7 @@ function formatArtwork(artwork) {
     model: artwork.model,
     prompt: artwork.prompt,
     file_type: artwork.file_type,
-    timestamp: artwork.timestamp
+    timestamp: artwork.timestamp,
   };
 }
 
@@ -207,5 +276,5 @@ module.exports = {
   getArtworks,
   createUrlAndFields,
   addArtworkAndUpdateUser,
-  handleVote
+  handleVote,
 };

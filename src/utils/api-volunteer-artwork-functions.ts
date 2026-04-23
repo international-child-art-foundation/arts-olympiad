@@ -1,25 +1,38 @@
-import { VolunteerArtworkInterface, VolunteerUserInterface } from "@/interfaces/artwork_shapes";
+import {
+  VolunteerArtworkInterface,
+  VolunteerUserInterface,
+  FetchUnapprovedParams,
+  FetchUnapprovedResponse,
+} from "@/interfaces/artwork_shapes";
 // import { returnErrorAsString } from "./helper-functions";
-import { GenericResponse, ResponseWithoutSuccessDetails } from "@/interfaces/api_shapes";
+import {
+  GenericResponse,
+  ResponseWithoutSuccessDetails,
+} from "@/interfaces/api_shapes";
+import { ArtworksPage } from "@/interfaces/artwork_shapes";
 
-export async function handleFetchUnapprovedArtworks(): Promise<GenericResponse> {
+export async function handleFetchUnapprovedArtworks({
+  cursor = 0,
+  limit = 100,
+}: FetchUnapprovedParams = {}): Promise<FetchUnapprovedResponse> {
+  const qp = new URLSearchParams();
+  qp.append("is_approved", "false");
+  qp.append("cursor", String(cursor));
+  qp.append("limit", String(limit));
 
   try {
-    const gatewayServerResponse = await fetch("/next-proxy/api/artworks?is_approved=false", {
+    const res = await fetch(`/next-proxy/api/artworks?${qp.toString()}`, {
       method: "GET",
       headers: {
         "Content-Type": "application/json",
         "x-api-key": process.env.NEXT_PUBLIC_AK || "",
       },
     });
-
-    const result = await gatewayServerResponse.json();
-    console.log(result);
-    if (gatewayServerResponse.ok) {
-      return { success: gatewayServerResponse.ok, data: result };
-    } else {
-      throw new Error("Error fetching unapproved artworks");
+    if (!res.ok) {
+      return { success: false, error: "Error fetching unapproved artworks" };
     }
+    const data = (await res.json()) as ArtworksPage;
+    return { success: true, data };
   } catch (error) {
     throw new Error("Error fetching unapproved artworks");
   }
@@ -30,17 +43,20 @@ export async function handleApproveArtwork({
 }: VolunteerArtworkInterface): Promise<ResponseWithoutSuccessDetails> {
   console.log(artwork_sk);
   try {
-    const gatewayServerResponse = await fetch(`/next-proxy/api/artworks/${artwork_sk}`, {
-      method: "PATCH",
-      headers: {
-        "Content-Type": "application/json",
-        "x-api-key": process.env.NEXT_PUBLIC_AK || "",
+    const gatewayServerResponse = await fetch(
+      `/next-proxy/api/artworks/${artwork_sk}`,
+      {
+        method: "PATCH",
+        headers: {
+          "Content-Type": "application/json",
+          "x-api-key": process.env.NEXT_PUBLIC_AK || "",
+        },
+        body: JSON.stringify({
+          is_approved: true,
+        }),
+        credentials: "include",
       },
-      body: JSON.stringify({
-        is_approved: true,
-      }),
-      credentials: "include",
-    });
+    );
 
     const result = await gatewayServerResponse.json();
     console.log(result);
@@ -59,14 +75,17 @@ export async function handleDeleteArtwork({
 }: VolunteerArtworkInterface): Promise<ResponseWithoutSuccessDetails> {
   console.log(artwork_sk);
   try {
-    const gatewayServerResponse = await fetch(`/next-proxy/api/artworks/${artwork_sk}`, {
-      method: "DELETE",
-      headers: {
-        "Content-Type": "application/json",
-        "x-api-key": process.env.NEXT_PUBLIC_AK || "",
+    const gatewayServerResponse = await fetch(
+      `/next-proxy/api/artworks/${artwork_sk}`,
+      {
+        method: "DELETE",
+        headers: {
+          "Content-Type": "application/json",
+          "x-api-key": process.env.NEXT_PUBLIC_AK || "",
+        },
+        credentials: "include",
       },
-      credentials: "include",
-    });
+    );
 
     if (gatewayServerResponse.ok) {
       return { success: gatewayServerResponse.ok };
@@ -82,14 +101,17 @@ export async function handleRefundUser({
   user_sk,
 }: VolunteerUserInterface): Promise<ResponseWithoutSuccessDetails> {
   try {
-    const gatewayServerResponse = await fetch(`/next-proxy/api/refund-user/${user_sk}`, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-        "x-api-key": process.env.NEXT_PUBLIC_AK || "",
+    const gatewayServerResponse = await fetch(
+      `/next-proxy/api/refund-user/${user_sk}`,
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          "x-api-key": process.env.NEXT_PUBLIC_AK || "",
+        },
+        credentials: "include",
       },
-      credentials: "include",
-    });
+    );
 
     if (gatewayServerResponse.ok) {
       return { success: gatewayServerResponse.ok };
@@ -106,17 +128,20 @@ export async function handleBanUser({
 }: VolunteerUserInterface): Promise<ResponseWithoutSuccessDetails> {
   console.log(user_sk);
   try {
-    const gatewayServerResponse = await fetch(`/next-proxy/api/volunteer/update-user/${user_sk}`, {
-      method: "PATCH",
-      headers: {
-        "Content-Type": "application/json",
-        "x-api-key": process.env.NEXT_PUBLIC_AK || "",
+    const gatewayServerResponse = await fetch(
+      `/next-proxy/api/volunteer/update-user/${user_sk}`,
+      {
+        method: "PATCH",
+        headers: {
+          "Content-Type": "application/json",
+          "x-api-key": process.env.NEXT_PUBLIC_AK || "",
+        },
+        body: JSON.stringify({
+          can_submit_art: false,
+        }),
+        credentials: "include",
       },
-      body: JSON.stringify({
-        can_submit_art: false,
-      }),
-      credentials: "include",
-    });
+    );
 
     if (gatewayServerResponse.ok) {
       return { success: gatewayServerResponse.ok };

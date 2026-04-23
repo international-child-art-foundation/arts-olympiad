@@ -1,4 +1,6 @@
-export type PresignedUrlResponse = PresignedUrlSuccessResponse | PresignedUrlErrorResponse;
+export type PresignedUrlResponse =
+  | PresignedUrlSuccessResponse
+  | PresignedUrlErrorResponse;
 
 export interface PresignedUrlSuccessResponse {
   success: true;
@@ -37,23 +39,48 @@ export interface VolunteerUserInterface {
 }
 
 export interface UserArtworkSchema {
-	sk: string; // This is ID
-	f_name: string;
-	age: number;
-	sport: string;
-	location: string;
-	is_ai_gen: boolean;
+  sk: string; // This is ID
+  f_name: string;
+  age: number;
+  sport: string;
+  location: string;
+  is_ai_gen: boolean;
   model?: string;
-	prompt?: string;
-	is_approved: boolean;
-	votes: number;
-	description: string;
-	file_type: string;
+  prompt?: string;
+  is_approved: boolean;
+  votes: number;
+  description: string;
+  file_type: string;
   timestamp: string;
 }
-export type GroupOfArtworks = UserArtworkSchema[] | []
 
-export type ApiArtworksResponse = {
-  success: boolean;
-  data: UserArtworkSchema[];
-};
+export interface GetArtworksParams {
+  is_approved?: boolean;
+  sort_by?: "votes" | "timestamp";
+  order_by?: "ascending" | "descending";
+  sports?: string[];
+  countries?: string[];
+  limit?: number;
+  cursor?: number;
+}
+
+export interface ArtworksPage {
+  items: UserArtworkSchema[];
+  nextCursor: number | null;
+  totalCount: number;
+  categoryCounts: {
+    sports: Record<string, number>;
+    countries: Record<string, number>;
+  };
+}
+
+export interface FetchUnapprovedParams {
+  cursor?: number;
+  limit?: number;
+}
+
+export type FetchUnapprovedResponse =
+  | { success: true; data: ArtworksPage }
+  | { success: false; error: string };
+
+export type GroupOfArtworks = UserArtworkSchema[] | [];

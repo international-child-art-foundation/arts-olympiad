@@ -1,20 +1,33 @@
 "use client";
 import React, { useState } from "react";
-import { handleBanUser, handleFetchUnapprovedArtworks, handleApproveArtwork, handleDeleteArtwork, handleRefundUser } from "@/utils/api-volunteer-artwork-functions";
+import {
+  handleBanUser,
+  handleFetchUnapprovedArtworks,
+  handleApproveArtwork,
+  handleDeleteArtwork,
+  handleRefundUser,
+} from "@/utils/api-volunteer-artwork-functions";
 import Image from "next/image";
-import { ApiArtworksResponse, UserArtworkSchema } from "@/interfaces/artwork_shapes";
+import { UserArtworkSchema } from "@/interfaces/artwork_shapes";
 import { limiter } from "@/utils/api-rate-limit";
-import { SelectedArtworkDisplay} from "./SelectedArtworkDisplay";
+import { SelectedArtworkDisplay } from "./SelectedArtworkDisplay";
 import Bottleneck from "bottleneck";
 import { Modal } from "../../components/common/ui/Modal";
 
 type ArtworkStatus = "approved" | "denied" | "banned" | "refunded";
 
+const FETCH_PAGE_SIZE = 100;
+const MAX_PAGES = 200;
+
 export const ArtworkApproval = () => {
-  const [result, setResult] = useState<ApiArtworksResponse | null>(null);
-  const [selectedArtwork, setSelectedArtwork] = useState<UserArtworkSchema | null>(null);
-  const [artworkStatuses, setArtworkStatuses] = useState<Record<string, ArtworkStatus>>({});
+  const [artworks, setArtworks] = useState<UserArtworkSchema[] | null>(null);
+  const [selectedArtwork, setSelectedArtwork] =
+    useState<UserArtworkSchema | null>(null);
+  const [artworkStatuses, setArtworkStatuses] = useState<
+    Record<string, ArtworkStatus>
+  >({});
   const [apiError, setApiError] = useState("");
+  const [isFetching, setIsFetching] = useState(false);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [modalAction, setModalAction] = useState<"refund" | "ban" | null>(null);
 
@@ -33,19 +46,24 @@ export const ArtworkApproval = () => {
     setIsModalOpen(true);
   };
 
+  const closeModal = () => {
+    setIsModalOpen(false);
+    setModalAction(null);
+  };
+
   async function onApprove(artwork_sk: string) {
-    console.log(artwork_sk);
     try {
-      const artworkStatus = await limiter.schedule(() => handleApproveArtwork({artwork_sk}));
-      if (artworkStatus?.success == true) {
+      const artworkStatus = await limiter.schedule(() =>
+        handleApproveArtwork({ artwork_sk }),
+      );
+      if (artworkStatus?.success === true) {
         setSelectedArtwork(null);
-        setArtworkStatuses(prev => ({...prev, [artwork_sk]: "approved"}));
-        console.log(artwork_sk + " has successfully been approved.");
+        setArtworkStatuses((prev) => ({ ...prev, [artwork_sk]: "approved" }));
         setApiError("");
       } else {
         setApiError("An error has occurred. Try again later.");
       }
-    } catch(error) {
+    } catch (error) {
       if (error instanceof Bottleneck.BottleneckError) {
         setApiError("Error: Rate limit reached.");
       } else {
@@ -55,18 +73,17 @@ export const ArtworkApproval = () => {
   }
 
   async function onDeny(artwork_sk: string) {
-    console.log(artwork_sk);
     try {
-      const artworkStatus = await limiter.schedule(() => handleDeleteArtwork({artwork_sk}));
-      if (artworkStatus.success == true) {
-        setArtworkStatuses(prev => ({...prev, [artwork_sk]: "denied"}));
-        console.log(artwork_sk + " has been denied.");
+      const artworkStatus = await limiter.schedule(() =>
+        handleDeleteArtwork({ artwork_sk }),
+      );
+      if (artworkStatus.success === true) {
+        setArtworkStatuses((prev) => ({ ...prev, [artwork_sk]: "denied" }));
         setApiError("");
       } else {
         setApiError("An error has occurred. Try again later.");
-        console.log("Failed to delete artwork " + artwork_sk);
       }
-    } catch(error) {
+    } catch (error) {
       if (error instanceof Bottleneck.BottleneckError) {
         setApiError("Error: Rate limit reached.");
       } else {
@@ -78,16 +95,16 @@ export const ArtworkApproval = () => {
   async function onRefundUser(artwork_sk: string) {
     const user_sk = artwork_sk;
     try {
-      const refundUser = await limiter.schedule(() => handleRefundUser({user_sk}));
-      if (refundUser.success == true) {
-        console.log(artwork_sk);
-        setArtworkStatuses(prev => ({...prev, [artwork_sk]: "refunded"}));
-        console.log("User associated with " + artwork_sk + " has been refunded.");
+      const refundUser = await limiter.schedule(() =>
+        handleRefundUser({ user_sk }),
+      );
+      if (refundUser.success === true) {
+        setArtworkStatuses((prev) => ({ ...prev, [artwork_sk]: "refunded" }));
         setApiError("");
       } else {
         setApiError("An error has occurred. Try again later.");
-      } 
-    } catch(error) {
+      }
+    } catch (error) {
       if (error instanceof Bottleneck.BottleneckError) {
         setApiError("Error: Rate limit reached.");
       } else {
@@ -99,16 +116,16 @@ export const ArtworkApproval = () => {
   async function onBanUser(artwork_sk: string) {
     const user_sk = artwork_sk;
     try {
-      const artworkStatus = await limiter.schedule(() => handleBanUser({user_sk}));
-      if (artworkStatus.success == true) {
-        console.log(artwork_sk);
-        setArtworkStatuses(prev => ({...prev, [artwork_sk]: "banned"}));
-        console.log("User associated with " + artwork_sk + " has been banned.");
+      const artworkStatus = await limiter.schedule(() =>
+        handleBanUser({ user_sk }),
+      );
+      if (artworkStatus.success === true) {
+        setArtworkStatuses((prev) => ({ ...prev, [artwork_sk]: "banned" }));
         setApiError("");
       } else {
         setApiError("An error has occurred. Try again later.");
-      } 
-    } catch(error) {
+      }
+    } catch (error) {
       if (error instanceof Bottleneck.BottleneckError) {
         setApiError("Error: Rate limit reached.");
       } else {
@@ -118,18 +135,50 @@ export const ArtworkApproval = () => {
   }
 
   const handleFetchArtworks = async () => {
+    if (isFetching) return;
+    setIsFetching(true);
+    setApiError("");
+
+    const accumulated: UserArtworkSchema[] = [];
+    let cursor = 0;
+    let pagesFetched = 0;
+
     try {
-      const response = await limiter.schedule(() => handleFetchUnapprovedArtworks());
-      if (response) {
-        setResult(response as ApiArtworksResponse);
-        console.log("API Response:", response);
+      while (pagesFetched < MAX_PAGES) {
+        const response = await limiter.schedule(() =>
+          handleFetchUnapprovedArtworks({ cursor, limit: FETCH_PAGE_SIZE }),
+        );
+
+        if (!response?.success) {
+          setApiError("Some pages failed to load. Showing partial results.");
+          break;
+        }
+
+        accumulated.push(...response.data.items);
+        pagesFetched += 1;
+
+        if (response.data.nextCursor === null) break;
+        cursor = response.data.nextCursor;
       }
-    } catch(error) {
+
+      if (pagesFetched >= MAX_PAGES) {
+        setApiError(
+          "Queue is unusually large — showing first " +
+            accumulated.length +
+            " items.",
+        );
+      }
+
+      setArtworks(accumulated);
+    } catch (error) {
       if (error instanceof Bottleneck.BottleneckError) {
         setApiError("Error: Rate limit reached.");
       } else {
         setApiError("An error has occurred. Try again later.");
       }
+      if (accumulated.length > 0) setArtworks(accumulated);
+    } finally {
+      setIsFetching(false);
     }
   };
 
@@ -144,54 +193,85 @@ export const ArtworkApproval = () => {
 
   return (
     <div className="p-4">
-      <div className="text-center mb-4">Hello from the artwork approval component! You are authenticated as a volunteer.</div>
+      <div className="text-center mb-4">
+        Hello from the artwork approval component! You are authenticated as a
+        volunteer.
+      </div>
       <div className="w-full text-center py-4">
-        <button className="bg-new-blue text-white p-2 px-4 rounded-lg mx-auto active:scale-95" onClick={handleFetchArtworks}>
-          Fetch Unapproved Artworks
+        <button
+          className="bg-new-blue text-white p-2 px-4 rounded-lg mx-auto active:scale-95 disabled:opacity-60"
+          onClick={handleFetchArtworks}
+          disabled={isFetching}
+        >
+          {isFetching ? "Fetching..." : "Fetch Unapproved Artworks"}
         </button>
       </div>
-      
-      {(result?.data.length === 0) && (
-        <p className="text-center my-4">Found zero unapproved artworks. We're all caught up!</p>
+
+      {apiError && <p className="text-center my-4 text-red-600">{apiError}</p>}
+
+      {artworks !== null && artworks.length === 0 && (
+        <p className="text-center my-4">
+          Found zero unapproved artworks. We're all caught up!
+        </p>
       )}
-      {result?.data && (
+
+      {artworks && artworks.length > 0 && (
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
-          {result.data.map((artwork, index) => (
-            <div 
-              key={index} 
+          {artworks.map((artwork) => (
+            <div
+              key={artwork.sk}
               className={`relative border border-gray-200 rounded-lg overflow-hidden shadow-md hover:shadow-lg transition-shadow duration-300 cursor-pointer ${
-                artworkStatuses[artwork.sk] === "approved" ? "bg-green-200 opacity-50" :
-                  artworkStatuses[artwork.sk] === "denied" ? "bg-red-200 opacity-50" :
-                    artworkStatuses[artwork.sk] === "banned" ? "bg-gray-200 opacity-50" :
-                      artworkStatuses[artwork.sk] === "refunded" ? "bg-yellow-200 opacity-50" : ""
+                artworkStatuses[artwork.sk] === "approved"
+                  ? "bg-green-200 opacity-50"
+                  : artworkStatuses[artwork.sk] === "denied"
+                    ? "bg-red-200 opacity-50"
+                    : artworkStatuses[artwork.sk] === "banned"
+                      ? "bg-gray-200 opacity-50"
+                      : artworkStatuses[artwork.sk] === "refunded"
+                        ? "bg-yellow-200 opacity-50"
+                        : ""
               }`}
               onClick={() => handleArtworkClick(artwork)}
             >
               <div className="relative h-48">
-                <Image 
-                  src={`${process.env.NEXT_PUBLIC_CLOUDFRONT_DISTRIBUTION_URL}/${artwork.sk}/initial.${artwork.file_type}`} 
+                <Image
+                  src={`${process.env.NEXT_PUBLIC_CLOUDFRONT_DISTRIBUTION_URL}/${artwork.sk}/initial.${artwork.file_type}`}
                   layout="fill"
                   objectFit="cover"
-                  alt={`Artwork titled: ${artwork.f_name}`} 
+                  alt={`Artwork titled: ${artwork.f_name}`}
                 />
               </div>
               <div className="p-4">
                 <p className="text-xs text-gray-600">{artwork.sk}</p>
-                <p className="text-sm mb-2">{truncateDescription(artwork.description)}</p>
+                <p className="text-sm mb-2">
+                  {truncateDescription(artwork.description)}
+                </p>
                 <p className="text-xs text-gray-600">{artwork.location}</p>
                 <p className="text-xs text-gray-600">{artwork.sport}</p>
               </div>
               {artworkStatuses[artwork.sk] && (
-                <div className={`absolute top-2 right-2 px-2 py-1 rounded-full text-xs text-white ${
-                  artworkStatuses[artwork.sk] === "approved" ? "bg-green-500" :
-                    artworkStatuses[artwork.sk] === "denied" ? "bg-red-500" :
-                      artworkStatuses[artwork.sk] === "banned" ? "bg-gray-500" :
-                        artworkStatuses[artwork.sk] === "refunded" ? "bg-yellow-500" : ""
-                }`}>
-                  {artworkStatuses[artwork.sk] === "approved" ? "Approved" :
-                    artworkStatuses[artwork.sk] === "denied" ? "Denied" :
-                      artworkStatuses[artwork.sk] === "banned" ? "User Banned" :
-                        artworkStatuses[artwork.sk] === "refunded" ? "Refunded" : ""}
+                <div
+                  className={`absolute top-2 right-2 px-2 py-1 rounded-full text-xs text-white ${
+                    artworkStatuses[artwork.sk] === "approved"
+                      ? "bg-green-500"
+                      : artworkStatuses[artwork.sk] === "denied"
+                        ? "bg-red-500"
+                        : artworkStatuses[artwork.sk] === "banned"
+                          ? "bg-gray-500"
+                          : artworkStatuses[artwork.sk] === "refunded"
+                            ? "bg-yellow-500"
+                            : ""
+                  }`}
+                >
+                  {artworkStatuses[artwork.sk] === "approved"
+                    ? "Approved"
+                    : artworkStatuses[artwork.sk] === "denied"
+                      ? "Denied"
+                      : artworkStatuses[artwork.sk] === "banned"
+                        ? "User Banned"
+                        : artworkStatuses[artwork.sk] === "refunded"
+                          ? "Refunded"
+                          : ""}
                 </div>
               )}
             </div>
@@ -211,10 +291,11 @@ export const ArtworkApproval = () => {
         />
       )}
 
-      <Modal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)}>
+      <Modal isOpen={isModalOpen} onClose={closeModal}>
         <div className="text-center">
           <h2 className="text-xl mb-4">
-            Are you sure you want to {modalAction === "refund" ? "refund this user" : "ban this user"}?
+            Are you sure you want to{" "}
+            {modalAction === "refund" ? "refund this user" : "ban this user"}?
           </h2>
           <div className="flex justify-center space-x-4">
             <button
@@ -227,15 +308,13 @@ export const ArtworkApproval = () => {
             </button>
             <button
               className="px-4 py-2 rounded-lg text-white bg-gray-500"
-              onClick={() => setIsModalOpen(false)}
+              onClick={closeModal}
             >
               Cancel
             </button>
           </div>
         </div>
       </Modal>
-
-
     </div>
   );
 };

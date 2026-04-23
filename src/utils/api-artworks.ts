@@ -1,10 +1,20 @@
 // import { ArtworksDataRequest } from "@/interfaces/gallery_shapes";
 // import { returnErrorAsString } from "./helper-functions";
-import { GenericResponse, TotalVotesResponse, ResponseWithoutSuccessDetails } from "@/interfaces/api_shapes";
+import {
+  GenericResponse,
+  TotalVotesResponse,
+  ResponseWithoutSuccessDetails,
+} from "@/interfaces/api_shapes";
 import { ArtworksResponse } from "@/interfaces/gallery_shapes";
-import { UserArtworkSchema } from "@/interfaces/artwork_shapes";
+import {
+  UserArtworkSchema,
+  GetArtworksParams,
+  ArtworksPage,
+} from "@/interfaces/artwork_shapes";
 
-export async function getSingleArtworkData(artwork_sk: string): Promise<GenericResponse> {
+export async function getSingleArtworkData(
+  artwork_sk: string,
+): Promise<GenericResponse> {
   try {
     const response = await fetch(`/next-proxy/api/artworks/${artwork_sk}`, {
       method: "GET",
@@ -26,21 +36,25 @@ export async function getSingleArtworkData(artwork_sk: string): Promise<GenericR
   }
 }
 
-const cache: Record<string, UserArtworkSchema[]> = {};
-export async function getArtworks({is_approved = true, sort_by = "votes", order_by = "descending"}): Promise<ArtworksResponse> {
+export async function getArtworks({
+  is_approved = true,
+  sort_by = "votes",
+  order_by = "descending",
+  sports = [],
+  countries = [],
+  limit = 20,
+  cursor = 0,
+}: GetArtworksParams = {}): Promise<ArtworksResponse> {
+  const qp = new URLSearchParams();
+  qp.append("is_approved", String(is_approved));
+  qp.append("sort_by", sort_by);
+  qp.append("order_by", order_by);
+  qp.append("limit", String(limit));
+  qp.append("cursor", String(cursor));
+  if (sports.length > 0) qp.append("sports", sports.join(","));
+  if (countries.length > 0) qp.append("countries", countries.join(","));
 
-  const queryParams = new URLSearchParams();
-  queryParams.append("is_approved", is_approved.toString());
-  queryParams.append("sort_by", sort_by);
-  queryParams.append("order_by", order_by);
-  const url = `/next-proxy/api/artworks?${queryParams.toString()}`;
-
-  // Caching not necessary anymore but might as well be kept
-  if (cache[url]) {
-    console.log("Returning cached API result");
-    console.log(cache[url]);
-    return { success: true, data: cache[url] };
-  }
+  const url = `/next-proxy/api/artworks?${qp.toString()}`;
 
   try {
     const response = await fetch(url, {
@@ -51,26 +65,18 @@ export async function getArtworks({is_approved = true, sort_by = "votes", order_
       },
     });
     if (!response.ok) {
-      return { success: false, error: "Error fetching data"};
+      return { success: false, error: "Error fetching data" };
     }
-
-    const result = await response.json();
-    // Cache the result
-    cache[url] = result;
-
-    // const duplicatedResults = [];
-    // while (duplicatedResults.length < 500) {
-    //   duplicatedResults.push(...result);
-    // }
-    // duplicatedResults.length = 500; 
-
-    return { success: true, data: result };
+    const data = (await response.json()) as ArtworksPage;
+    return { success: true, data };
   } catch (error) {
     throw new Error("Error getting artwork data");
   }
 }
 
-export async function voteForArtwork(artwork_sk: string): Promise<ResponseWithoutSuccessDetails> {
+export async function voteForArtwork(
+  artwork_sk: string,
+): Promise<ResponseWithoutSuccessDetails> {
   try {
     const response = await fetch(`/next-proxy/api/vote/${artwork_sk}`, {
       method: "PATCH",
@@ -105,7 +111,7 @@ export async function getTotalVotes(): Promise<TotalVotesResponse> {
     const result = await response.json();
 
     if (response.ok) {
-      return {success: true, total_votes: result.votes};
+      return { success: true, total_votes: result.votes };
     } else {
       throw new Error("Error getting total votes");
     }
