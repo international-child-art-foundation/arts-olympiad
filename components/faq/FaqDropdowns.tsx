@@ -29,10 +29,10 @@ const ContestSectionData: ExpandingDivProps = {
       title: "When can I submit?",
       description: `Art submission can start on ${formatDate(
         "competitionBegin",
-        "MMMM do, yyyy"
+        "MMMM do, yyyy",
       )}. The submission deadline is ${formatDate(
         "competitionEnd",
-        "MMMM do, yyyy"
+        "MMMM do, yyyy",
       )}.`,
     },
     {
@@ -113,7 +113,7 @@ const GeneralQueriesSectionData: ExpandingDivProps = {
     {
       title: "What is the #MyFavoriteSport website about?",
       description:
-        "The #MyFavoriteSport website is a unique platform celebrating the intersection of art and athletics, inspired by the Olympic spirit. It’s a space where artists and sports enthusiasts can come together to showcase their creativity, participate in competitions, and engage with a global community.",
+        "The #MyFavoriteSport website is a unique platform celebrating the intersection of art and athletics, inspired by the spirit of the World Cup. It’s a space where artists and sports enthusiasts can come together to showcase their creativity, participate in competitions, and engage with a global community.",
     },
     {
       title: "Who can participate in the #MyFavoriteSport competitions?",
@@ -142,7 +142,7 @@ const GeneralQueriesSectionData: ExpandingDivProps = {
         "Absolutely! We're always looking for passionate individuals to join our team. Whether you're interested in helping out at events, contributing to our online content, or assisting in community outreach, we have a variety of volunteer opportunities available. Visit our 'Volunteer' section to learn more and sign up.",
       buttons: [
         {
-          href: "https://icaf.org/get-involved/volunteer",
+          href: "https://icaf.org/get-involved/volunteers",
           classNames: [
             "group",
             "w-fit",
@@ -163,7 +163,7 @@ const GeneralQueriesSectionData: ExpandingDivProps = {
     {
       title: "How is the artwork showcased on the website?",
       description:
-        "Artwork submitted to our competitions is displayed in our online gallery. This space allows artists to showcase their work to a global audience. We feature a variety of art forms, each inspired by the themes of sports and the Olympic spirit.",
+        "Artwork submitted to our competitions is displayed in our online gallery. This space allows artists to showcase their work to a global audience. We feature a variety of art forms, each inspired by the themes of sports and the spirit of the World Cup.",
     },
     {
       title: "How can I delete my account?",
@@ -377,12 +377,12 @@ export const FaqDropdowns = () => {
               key={key}
               className={`select-none cursor-pointer text-lg md:text-xl transition-color mb-2 px-1 Pm Pm-${key}
                     ${
-            activeSection === key && transitioningSection !== key
-              ? "text-new-blue font-bold " // Active and not transitioning
-              : transitioningSection === key
-                ? "text-gray-500 font-normal" // Transitioning
-                : "text-default-color" // Neither active nor transitioning
-            }`}
+                      activeSection === key && transitioningSection !== key
+                        ? "text-new-blue font-bold " // Active and not transitioning
+                        : transitioningSection === key
+                          ? "text-gray-500 font-normal" // Transitioning
+                          : "text-default-color" // Neither active nor transitioning
+                    }`}
               onClick={() => handleSectionClick(key)}
             >
               {displayText(key)}
@@ -401,12 +401,12 @@ export const FaqDropdowns = () => {
               className={`
                       mx-2 rounded-full w-5 h-5 border-0.5 border-main-blue cursor-pointer 
                       ${
-            activeSection === key && transitioningSection !== key
-              ? "bg-new-blue" // Active and not transitioning
-              : transitioningSection === key
-                ? "bg-new-blue opacity-50" // Transitioning
-                : "bg-white" // Neither active nor transitioning
-            }`}
+                        activeSection === key && transitioningSection !== key
+                          ? "bg-new-blue" // Active and not transitioning
+                          : transitioningSection === key
+                            ? "bg-new-blue opacity-50" // Transitioning
+                            : "bg-white" // Neither active nor transitioning
+                      }`}
               onClick={() => handleSectionClick(key)}
             ></div>
           ))}

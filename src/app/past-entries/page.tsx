@@ -12,11 +12,10 @@ export const metadata: Metadata = {
   openGraph: {
     ...sharedOpenGraph,
     title: "Active Entries | My Favorite Sport",
-  }
+  },
 };
 
 export default function PastEntries() {
-
   return (
     <>
       <PastEntriesHeader />
@@ -25,10 +24,10 @@ export default function PastEntries() {
           <PastEntriesArts />
         </Suspense>
       </PastEntriesFilterProvider>
-      <BannerImgOverflow 
+      <BannerImgOverflow
         backgroundColor="light-blue"
-        title="Submit Your Artwork Today!" 
-        description="Join the Art Competition and Showcase Your Talent in Anticipation of the 2024 Olympics." 
+        title="Submit Your Artwork Today!"
+        description="Join the Art Competition and Showcase Your Talent in Anticipation of the 2026 World Cup."
         img={[multiPic]}
         alt={["Artwork of Olympic sports", "Artwork of Olympic sports"]}
         buttons={[
@@ -37,18 +36,19 @@ export default function PastEntries() {
             localLink: true,
             text: "Submit",
             icon: <></>,
-            className: "w-full bg-new-blue rounded text-center text-sm cursor-pointer tracking-wide text-neutral-white"
+            className:
+              "w-full bg-new-blue rounded text-center text-sm cursor-pointer tracking-wide text-neutral-white",
           },
           {
             href: "/contest",
             localLink: true,
             text: "Learn More",
             icon: <></>,
-            className: "w-full ml-4 border-new-blue border rounded text-center text-sm cursor-pointer tracking-wide bg-light-blue text-new-blue w-36"
-          }
+            className:
+              "w-full ml-4 border-new-blue border rounded text-center text-sm cursor-pointer tracking-wide bg-light-blue text-new-blue w-36",
+          },
         ]}
       />
     </>
-    
   );
 }
