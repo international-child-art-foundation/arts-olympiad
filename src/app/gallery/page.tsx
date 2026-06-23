@@ -1,5 +1,5 @@
 import { Metadata } from "next";
-import { sharedOpenGraph } from "../shared-metadata";
+import { canonicalPath, sharedOpenGraph } from "../shared-metadata";
 import { GalleryHeader } from "../../../components/gallery/GalleryHeader";
 import { Arts } from "../../../components/gallery/Arts";
 import { BannerImgOverflow } from "../../../components/BannerImgOverflow";
@@ -10,10 +10,13 @@ import { Suspense } from "react";
 import dates from "../../../mock/dates";
 
 export const metadata: Metadata = {
-  title: "Gallery | My Favorite Sport",
+  ...canonicalPath("/gallery/"),
+  title: "Gallery — Vote for Your Favorite Sport Artworks | MyFavoriteSport",
+  description: "Browse active contest entries from young artists around the world and vote for your favorites. New submissions added daily — discover creativity in action.",
   openGraph: {
     ...sharedOpenGraph,
-    title: "Gallery | My Favorite Sport",
+    title: "Gallery — Vote for Your Favorite Sport Artworks | MyFavoriteSport",
+    description: "Browse active contest entries from young artists around the world and vote for your favorites. New submissions added daily — discover creativity in action.",
   },
 };
 

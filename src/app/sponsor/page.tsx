@@ -1,5 +1,5 @@
 import { Metadata } from "next";
-import { sharedOpenGraph } from "../shared-metadata";
+import { canonicalPath, sharedOpenGraph } from "../shared-metadata";
 import { SponsorBegin } from "../../../components/sponsor/SponsorBegin";
 import { ContactUs } from "../../../components/sponsor/ContactUs";
 import { Benefits } from "../../../components/sponsor/Benefits";
@@ -8,10 +8,13 @@ import { VisionCards } from "../../../components/sponsor/VisionCards";
 import SlideShow from "../../../components/sponsor/SlideShow";
 
 export const metadata: Metadata = {
-  title: "Sponsor | My Favorite Sport",
+  ...canonicalPath("/sponsor/"),
+  title: "Sponsor #MyFavoriteSport — Partner with ICAF's Global Art Contest",
+  description: "Partner with ICAF to reach young audiences worldwide. Sponsoring #MyFavoriteSport supports arts education, employee engagement, and global brand visibility.",
   openGraph: {
     ...sharedOpenGraph,
-    title: "Sponsor | My Favorite Sport",
+    title: "Sponsor #MyFavoriteSport — Partner with ICAF's Global Art Contest",
+    description: "Partner with ICAF to reach young audiences worldwide. Sponsoring #MyFavoriteSport supports arts education, employee engagement, and global brand visibility.",
   },
 };
 

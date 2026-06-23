@@ -1,14 +1,17 @@
 import ContentContainer from "../../../components/common/ui/ContentContainer";
 import Link from "next/link";
 import Image from "next/image";
-import { sharedOpenGraph } from "../shared-metadata";
+import { canonicalPath, sharedOpenGraph } from "../shared-metadata";
 import { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "Team | My Favorite Sport",
+  ...canonicalPath("/team/"),
+  title: "Meet the Team | #MyFavoriteSport",
+  description: "Meet the ICAF team and advisors supporting the #MyFavoriteSport global art contest for young artists and sports fans worldwide.",
   openGraph: {
     ...sharedOpenGraph,
-    title: "Team | My Favorite Sport",
+    title: "Meet the Team | #MyFavoriteSport",
+    description: "Meet the ICAF team and advisors supporting the #MyFavoriteSport global art contest for young artists and sports fans worldwide.",
   }
 };
 
@@ -26,7 +29,7 @@ export default function page() {
             <h2 className="text-lg lg:text-2xl font-medium pb-1 md:pb-2">Project Director</h2>
             <ul>
               <li className="text-base lg:text-lg">Ashfaq Ishaq, Ph.D.
-                <Link href="https://www.linkedin.com/in/ashfaqishaq/" className="ml-3">
+                <Link href="https://www.linkedin.com/in/ashfaqishaq/" className="ml-3" aria-label="Ashfaq Ishaq LinkedIn profile">
                   <Image
                     src="/team/icon-linkedin.svg"
                     alt="LinkedIn company logo"
@@ -40,7 +43,7 @@ export default function page() {
             <h2 className="text-lg lg:text-2xl font-medium pb-1 md:pb-2 pt-3">Director, Community Relations</h2>
             <ul>
               <li className="text-base lg:text-lg">Katty Guerami
-                <Link href="https://www.linkedin.com/in/katty-guerami-74a99014/" className="ml-3">
+                <Link href="https://www.linkedin.com/in/katty-guerami-74a99014/" className="ml-3" aria-label="Katty Guerami LinkedIn profile">
                   <Image
                     src="/team/icon-linkedin.svg"
                     alt="LinkedIn company logo"
@@ -54,7 +57,7 @@ export default function page() {
             <h2 className="text-lg lg:text-2xl font-medium pb-1 md:pb-2 pt-3">ICAF Paris</h2>
             <ul>
               <li className="text-base lg:text-lg">Katherine Harold, Paris College of Art
-                <Link href="https://www.linkedin.com/in/katherine-harold-23a5a0137/" className="ml-3">
+                <Link href="https://www.linkedin.com/in/katherine-harold-23a5a0137/" className="ml-3" aria-label="Katherine Harold LinkedIn profile">
                   <Image
                     src="/team/icon-linkedin.svg"
                     alt="LinkedIn company logo"
@@ -112,7 +115,7 @@ export default function page() {
       </div>
       {/* yellow section */}
       <div className="w-full h-32 flex items-center pl-6 bg-main-yellow -mb-5 sm:-mb-10">
-        <h1 className="mb-2 mt-0 text-3xl font-medium leading-6 text-primary sm:ml-12 ">Advisory Committee</h1>
+        <h2 className="mb-2 mt-0 text-3xl font-medium leading-6 text-primary sm:ml-12 ">Advisory Committee</h2>
       </div>
       {/* content container image row NOTE: the Advisory committe links are not populated yet*/}
       <div className="flex flex-col sm:flex-row justify-evenly gap-4 bg-main-yellow">
@@ -122,7 +125,7 @@ export default function page() {
               <ul>
                 <li className="text-base lg:text-lg">
                   Joe Addo
-                  <Link href="https://www.joeaddo.com/" target="_blank" className="ml-3">
+                  <Link href="https://www.joeaddo.com/" target="_blank" className="ml-3" aria-label="Joe Addo website">
                     <Image 
                       src="/team/icon-link.svg" 
                       alt="Two chains interlinked" 
@@ -134,7 +137,7 @@ export default function page() {
                 </li>
                 <li className="text-base lg:text-lg">
                   Michael Shetzer
-                  <Link href="https://ceesmena.org/michael-shetzer/" target="_blank" className="ml-3">
+                  <Link href="https://ceesmena.org/michael-shetzer/" target="_blank" className="ml-3" aria-label="Michael Shetzer profile">
                     <Image 
                       src="/team/icon-link.svg" 
                       alt="Two chains interlinked" 

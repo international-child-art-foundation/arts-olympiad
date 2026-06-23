@@ -23,16 +23,16 @@ export const ArtistShowcaseControls: React.FC<ArtistShowcaseControlsInterface> =
 
   return (
     <div className="mt-4 mx-auto w-auto flex justify-center">
-      <a className="prev my-auto cursor-pointer select-none" onClick={handleNext}>
+      <button type="button" aria-label="Show next artist" className="prev my-auto cursor-pointer select-none" onClick={handleNext}>
         <div className="mr-6 w-14 h-14 p-4 rounded-[100px] border border-blue-900 justify-center items-center gap-2 inline-flex">
           <Image src={LeftIcon} alt="" className="w-6 h-6 relative pointer-events-none"></Image>
         </div>
-      </a>
-      <a className="next my-auto cursor-pointer select-none " onClick={handlePrev}>
+      </button>
+      <button type="button" aria-label="Show previous artist" className="next my-auto cursor-pointer select-none " onClick={handlePrev}>
         <div className="w-14 h-14 p-4 rounded-[100px] border border-blue-900 justify-center items-center gap-2 inline-flex">
           <Image src={RightIcon} alt="" className="w-6 h-6 relative pointer-events-none"></Image>
         </div>
-      </a>
+      </button>
     </div>       
   );
 };

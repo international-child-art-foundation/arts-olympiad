@@ -47,11 +47,11 @@ const SocialShare: React.FC<SocialShareProps> = ({ shareId, center=false }) => {
 
   return (
     <div className={`${ center && "justify-center"} relative flex space-x-2 mt-4`}>
-      <button onClick={copyToClipboard} className="text-white rounded-full flex items-center justify-center border-2 active:border-slate-300 active:scale-95">
+      <button aria-label="Copy artwork share link" onClick={copyToClipboard} className="text-white rounded-full flex items-center justify-center border-2 active:border-slate-300 active:scale-95">
         <ShareIcon width={32} height={32} />
       </button>
       {Object.entries(platforms).map(([name, url]) => (
-        <button key={name} onClick={() => openPopup(url)} className="text-white rounded-full flex items-center justify-center border-2 active:border-slate-300 active:scale-95">
+        <button key={name} aria-label={"Share artwork on " + name} onClick={() => openPopup(url)} className="text-white rounded-full flex items-center justify-center border-2 active:border-slate-300 active:scale-95">
           {name === "Facebook" && <FacebookIcon width={32} height={32} />}
           {name === "WhatsApp" && <WhatsappIcon width={32} height={32} />}
           {name === "X" && <TwitterIcon width={32} height={32} />}

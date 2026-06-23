@@ -40,7 +40,7 @@ const Header = () => {
     <header className="px-6 gap-6 mt-6 sm:px-8 lg:mx-auto md:px-12 lg:px-16 xl:px-20 max-w-screen-2xl w-full font-body z-20 md:flex h-fit relative top-0 left-0 z-[50]">
       
       <div className="w-full md:w-fit">
-        <Link href="/">
+        <Link href="/" aria-label="MyFavoriteSport homepage">
           <div className="logo-bg mx-auto w-[60px] h-[90px] md:w-[90px] md:h-[137px]"></div>
         </Link>
       </div>
@@ -65,7 +65,8 @@ const Header = () => {
                 Dashboard
               </Link>
 
-              <a
+              <button
+                type="button"
                 onClick={logoutLoading ? undefined : handleSignOut}
                 className={`active:scale-95 group gap-2 my-2 ml-2 h-fit w-fit border-new-blue border rounded text-center py-2 px-3 text-xs cursor-pointer tracking-wide text-new-blue hidden md:inline-flex items-center ${logoutLoading ? "opacity-50 pointer-events-none" : ""}`}
               >
@@ -73,7 +74,7 @@ const Header = () => {
                 <LoginIcon
                   transform="scale(-0.9, 0.9)"
                 />
-              </a>
+              </button>
             </div>
           </>
         ) : (
@@ -89,9 +90,9 @@ const Header = () => {
           
           {links1.map(link => (
             <Link key={link.name} href={link.url}>
-              <li className="tracking-widest text-sm w-fit h-fit py-3 pr-2 rounded-xl un text-neutral-black hidden md:block">
+              <span className="tracking-widest text-sm w-fit h-fit py-3 pr-2 rounded-xl un text-neutral-black hidden md:block">
                 {link.name}
-              </li>
+              </span>
             </Link>
           ))}
           
@@ -119,9 +120,9 @@ const Header = () => {
 
           {links2.map(link => (
             <Link key={link.name} href={link.url}>
-              <li className="tracking-widest text-sm w-fit h-fit py-3 pr-2 rounded-xl un text-neutral-black hidden md:block">
+              <span className="tracking-widest text-sm w-fit h-fit py-3 pr-2 rounded-xl un text-neutral-black hidden md:block">
                 {link.name}
-              </li>
+              </span>
             </Link>
           ))}
           

@@ -8,9 +8,9 @@ export const PastEntriesHeader= () => {
       <article className="relative z-20">
         <div className="z-20 mb-1 lg:mb-4 flex justify-start xsm:justify-center">
           <Image src={hashtag} alt="" width={32} height={32}  />
-          <h1 className="z-20 break-words font-semibold text-3xl xsm:text-4xl lg:text-5xl xl:text-6xl ">
+          <p className="z-20 break-words font-semibold text-3xl xsm:text-4xl lg:text-5xl xl:text-6xl ">
               MyFavoriteSport<span className="sr-only">.</span>
-          </h1>
+          </p>
         </div>
 
         <div className="z-20 relative">

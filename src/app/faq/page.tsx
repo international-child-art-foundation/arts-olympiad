@@ -1,7 +1,7 @@
 import "../../styles/home.css";
 import "../../styles/animated-arrows.css";
 import { Metadata } from "next";
-import { sharedOpenGraph } from "../shared-metadata";
+import { canonicalPath, sharedOpenGraph } from "../shared-metadata";
 import { FaqHeader } from "../../../components/faq/FaqHeader";
 import { FaqSubheader } from "../../../components/faq/FaqSubheader";
 import { FaqDropdowns } from "../../../components/faq/FaqDropdowns";
@@ -10,10 +10,13 @@ import icafLogo from "../../../public/icaf-logo.webp";
 
 
 export const metadata: Metadata = {
-  title: "FAQ | My Favorite Sport",
+  ...canonicalPath("/faq/"),
+  title: "FAQ — Everything You Need to Know | #MyFavoriteSport",
+  description: "Have questions about the #MyFavoriteSport art contest? Find answers about eligibility, how to enter, voting, prizes, and more in our frequently asked questions.",
   openGraph: {
     ...sharedOpenGraph,
-    title: "FAQ | My Favorite Sport",
+    title: "FAQ — Everything You Need to Know | #MyFavoriteSport",
+    description: "Have questions about the #MyFavoriteSport art contest? Find answers about eligibility, how to enter, voting, prizes, and more in our frequently asked questions.",
   }
 };
 

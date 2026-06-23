@@ -23,8 +23,9 @@ export const montserrat = Montserrat({
 
 
 export const metadata: Metadata = {
-  title: "My Favorite Sport",
-  description: "Schoolchildren everywhere can participate in a global art contest on the theme, My Favorite Sport, and rally the votes to win the gold!"
+  metadataBase: new URL("https://www.myfavoritesport.org"),
+  title: "#MyFavoriteSport — Global Art Contest for Kids Ages 8–20",
+  description: "Schoolchildren ages 8–20 worldwide are invited to create art inspired by their favorite sport, upload it, and rally votes to win the gold. Enter free today!"
 };
 
 export default function RootLayout({

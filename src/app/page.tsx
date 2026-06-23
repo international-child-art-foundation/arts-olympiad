@@ -1,7 +1,7 @@
 import "../styles/home.css";
 import "../styles/animated-arrows.css";
 import { Metadata } from "next";
-import { sharedOpenGraph } from "./shared-metadata";
+import { canonicalPath, sharedOpenGraph } from "./shared-metadata";
 import { Intro } from "../../components/home/HomeHero";
 // import { GetInvolvedStatic } from "../../components/home/get-involved/GetInvolvedStatic";
 // import { HomeYellowTimeline } from "../../components/home/timeline/HomeYellowTimeline";
@@ -10,10 +10,13 @@ import { Guidelines } from "../../components/home/guidelines/Guidelines";
 // import {Sponsor} from "../../components/home/sponsor/sponsor";
 
 export const metadata: Metadata = {
-  title: "Home | My Favorite Sport",
+  ...canonicalPath("/"),
+  title: "#MyFavoriteSport — Global Art Contest for Kids Ages 8–20",
+  description: "Schoolchildren ages 8–20 worldwide are invited to create art inspired by their favorite sport, upload it, and rally votes to win the gold. Enter free today!",
   openGraph: {
     ...sharedOpenGraph,
-    title: "Home | My Favorite Sport",
+    title: "#MyFavoriteSport — Global Art Contest for Kids Ages 8–20",
+    description: "Schoolchildren ages 8–20 worldwide are invited to create art inspired by their favorite sport, upload it, and rally votes to win the gold. Enter free today!",
   },
 };
 

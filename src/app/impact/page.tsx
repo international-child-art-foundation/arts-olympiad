@@ -1,5 +1,5 @@
 import { Metadata } from "next";
-import { sharedOpenGraph } from "../shared-metadata";
+import { canonicalPath, sharedOpenGraph } from "../shared-metadata";
 import { ImpactBegin } from "../../../components/impact/ImpactBegin";
 import { Banner } from "../../../components/Banner";
 import { HeartIcon } from "../../../components/svgs/HeartIcon";
@@ -11,10 +11,13 @@ import SlideShow from "../../../components/impact/SlideShow";
 import { FaqDropdowns } from "../../../components/impact/FaqDropdowns";
 
 export const metadata: Metadata = {
-  title: "Impact | My Favorite Sport",
+  ...canonicalPath("/impact/"),
+  title: "Our Impact — How #MyFavoriteSport is Changing Lives Through Art",
+  description: "See the real-world impact of ICAF's #MyFavoriteSport initiative — from growing engagement among young artists to advancing key UN Sustainable Development Goals.",
   openGraph: {
     ...sharedOpenGraph,
-    title: "Impact | My Favorite Sport",
+    title: "Our Impact — How #MyFavoriteSport is Changing Lives Through Art",
+    description: "See the real-world impact of ICAF's #MyFavoriteSport initiative — from growing engagement among young artists to advancing key UN Sustainable Development Goals.",
   }
 };
 

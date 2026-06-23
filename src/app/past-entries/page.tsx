@@ -1,5 +1,5 @@
 import { Metadata } from "next";
-import { sharedOpenGraph } from "../shared-metadata";
+import { canonicalPath, sharedOpenGraph } from "../shared-metadata";
 import { PastEntriesHeader } from "../../../components/gallery/past_entries/PastEntriesHeader";
 import { PastEntriesArts } from "../../../components/gallery/past_entries/PastEntriesArts";
 import { BannerImgOverflow } from "../../../components/BannerImgOverflow";
@@ -8,10 +8,13 @@ import { PastEntriesFilterProvider } from "../../../components/gallery/past_entr
 import { Suspense } from "react";
 
 export const metadata: Metadata = {
-  title: "Active Entries | My Favorite Sport",
+  ...canonicalPath("/past-entries/"),
+  title: "Past Entries — Browse Inspiring Sport Artwork | MyFavoriteSport",
+  description: "Explore a catalog of previous #MyFavoriteSport contest submissions. Browse artwork from young artists worldwide and get inspired for your own entry.",
   openGraph: {
     ...sharedOpenGraph,
-    title: "Active Entries | My Favorite Sport",
+    title: "Past Entries — Browse Inspiring Sport Artwork | MyFavoriteSport",
+    description: "Explore a catalog of previous #MyFavoriteSport contest submissions. Browse artwork from young artists worldwide and get inspired for your own entry.",
   },
 };
 

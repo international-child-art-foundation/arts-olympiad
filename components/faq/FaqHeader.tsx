@@ -30,9 +30,9 @@ export const FaqHeader = () => {
         <div className="sm:col-span-1 md:mt-8">
           <div className="z-20 flex flex-row align-center ">
             <Image src={hashtag} alt="" width={32} height={32} />
-            <h1 className="z-20 break-words font-semibold text-3xl xsm:text-4xl lg:text-5xl xl:text-6xl font-montserrat">
+            <p className="z-20 break-words font-semibold text-3xl xsm:text-4xl lg:text-5xl xl:text-6xl font-montserrat">
               MyFavoriteSport<span className="sr-only">.</span>
-            </h1>
+            </p>
           </div>
           <h1 className="flex-col z-20 font-semibold mb-4 text-3xl xsm:text-4xl lg:text-5xl xl:text-6xl font-montserrat">
             FAQ's

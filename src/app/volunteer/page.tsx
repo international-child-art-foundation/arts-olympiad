@@ -1,13 +1,16 @@
 import React from "react";
-import { sharedOpenGraph } from "../shared-metadata";
+import { canonicalPath, sharedOpenGraph } from "../shared-metadata";
 import { Metadata } from "next";
 import { ArtworkApprovalWrapper } from "../../../components/volunteer/ArtworkApprovalWrapper";
 
 export const metadata: Metadata = {
-  title: "Team | My Favorite Sport",
+  ...canonicalPath("/volunteer/"),
+  title: "Volunteer Artwork Review | #MyFavoriteSport",
+  description: "Review submitted #MyFavoriteSport artworks and help support a fair, creative global contest experience for young artists.",
   openGraph: {
     ...sharedOpenGraph,
-    title: "Team | My Favorite Sport",
+    title: "Volunteer Artwork Review | #MyFavoriteSport",
+    description: "Review submitted #MyFavoriteSport artworks and help support a fair, creative global contest experience for young artists.",
   }
 };
 

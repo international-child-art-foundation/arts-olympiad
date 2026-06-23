@@ -1,7 +1,7 @@
 import "../../styles/home.css";
 import "../../styles/animated-arrows.css";
 import { Metadata } from "next";
-import { sharedOpenGraph } from "../shared-metadata";
+import { canonicalPath, sharedOpenGraph } from "../shared-metadata";
 import { ContestBegin } from "../../../components/contest/ContestBegin";
 import { Timeline } from "../../../components/contest/timeline/Timeline";
 import { Participate } from "../../../components/contest/Participate";
@@ -9,10 +9,13 @@ import TwoCards from "../../../components/contest/TwoCards";
 import AccordionNew from "../../../components/contest/AccordionNew";
 
 export const metadata: Metadata = {
-  title: "Contest | My Favorite Sport",
+  ...canonicalPath("/contest/"),
+  title: "Enter the Contest — Submit Your Art & Win | MyFavoriteSport",
+  description: "Ready to compete? Submit your favorite sport artwork, rally votes from friends and family, and win prizes. Open to students ages 8–20 worldwide. It's free to enter!",
   openGraph: {
     ...sharedOpenGraph,
-    title: "Contest | My Favorite Sport",
+    title: "Enter the Contest — Submit Your Art & Win | MyFavoriteSport",
+    description: "Ready to compete? Submit your favorite sport artwork, rally votes from friends and family, and win prizes. Open to students ages 8–20 worldwide. It's free to enter!",
   }
 };
 

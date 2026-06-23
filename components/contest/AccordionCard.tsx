@@ -20,7 +20,7 @@ function AccordionCard({heading, description, number, textColor, borderColor, im
     return (
       <div className="flex flex-col justify-center">
         <div className="box-header flex flex-row justify-between p-6 items-center" >
-          <h1 className={`font-bold text-center text-3xl md:text-5xl lg:text-6xl ${textColor}`}>0{`${number}`}</h1>
+          <p aria-hidden="true" className={`font-bold text-center text-3xl md:text-5xl lg:text-6xl ${textColor}`}>0{`${number}`}</p>
           <h3
             className="border-header text-2xl font-semibold font-montserrat whitespace-nowrap"
           >
@@ -52,7 +52,7 @@ function AccordionCard({heading, description, number, textColor, borderColor, im
         </div>
       </div>
       <div className="flex flex-col justify-between min-w-[80px] p-6 items-center" >
-        <h1 className={`font-bold text-center md:text-4xl md:mr-6 lg:mr-0 lg:text-6xl ${textColor}`}>0{`${number}`}</h1>
+        <p aria-hidden="true" className={`font-bold text-center md:text-4xl md:mr-6 lg:mr-0 lg:text-6xl ${textColor}`}>0{`${number}`}</p>
         <h3
           className="border-header text-2xl font-semibold font-montserrat rotate-90 whitespace-nowrap mt-36"
         >
