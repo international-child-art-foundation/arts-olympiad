@@ -245,8 +245,7 @@ const ArtworkModal: React.FC<ArtworkModalProps> = ({
         <div className="flex flex-col overflow-auto no-scrollbar">
           <div className="inline-block py-2">
             <span className="bg-[#fbb22e] rounded-3xl p-2 px-8">
-              {modalState.data.votes}{" "}
-              {modalState.data.votes == 1 ? "Vote" : "Votes"}
+              Voting is open
             </span>
           </div>
           <p className="font-bold text-xl mt-5">{modalState.data.f_name}</p>
@@ -383,8 +382,7 @@ const ArtworkModal: React.FC<ArtworkModalProps> = ({
       <div className="grid max-h-full p-4 overflow-auto gap-y-2">
         <div className="inline-block py-2 mb-4">
           <span className="bg-[#fbb22e] rounded-3xl p-2 px-8">
-            {modalState.data.votes}{" "}
-            {modalState.data.votes === 1 ? "Vote" : "Votes"}
+            Voting is open
           </span>
         </div>
         <div className="flex justify-center items-center rounded-xl overflow-hidden relative flex-shrink">
