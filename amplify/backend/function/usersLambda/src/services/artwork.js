@@ -1,5 +1,6 @@
 const ArtworkModel = require("../models/artwork");
 const UserModel = require("../models/user");
+const { isVotingClosed } = require("../contest");
 
 const { s3Client } = require("../lib/s3Client");
 const { createPresignedPost } = require("@aws-sdk/s3-presigned-post");
@@ -74,6 +75,10 @@ async function addArtworkAndUpdateUser(artworkData, userSk) {
 }
 
 async function handleVote(userSk, artworkSk) {
+  if (isVotingClosed()) {
+    throw new Error("Voting has ended");
+  }
+
   const userData = await UserModel.getUserBySk(userSk);
 
   if (!userData) {

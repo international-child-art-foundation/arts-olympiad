@@ -7,36 +7,23 @@ import multiPic from "../../../public/svgs/gallery-svg/multiPic.webp";
 import { FilterProvider } from "../../../components/gallery/FilterContext";
 import { ContestState } from "../../../mock/contestState";
 import { Suspense } from "react";
-import dates from "../../../mock/dates";
+import { getContestState } from "@/utils/contest-state";
 
 export const metadata: Metadata = {
   ...canonicalPath("/gallery/"),
   title: "Gallery — Vote for Your Favorite Sport Artworks | MyFavoriteSport",
-  description: "Browse active contest entries from young artists around the world and vote for your favorites. New submissions added daily — discover creativity in action.",
+  description:
+    "Browse active contest entries from young artists around the world and vote for your favorites. New submissions added daily — discover creativity in action.",
   openGraph: {
     ...sharedOpenGraph,
     title: "Gallery — Vote for Your Favorite Sport Artworks | MyFavoriteSport",
-    description: "Browse active contest entries from young artists around the world and vote for your favorites. New submissions added daily — discover creativity in action.",
+    description:
+      "Browse active contest entries from young artists around the world and vote for your favorites. New submissions added daily — discover creativity in action.",
   },
 };
 
-const contestStartTime = new Date(dates.competitionBegin);
-contestStartTime.setHours(12, 0, 0);
-const contestEndTime = new Date(dates.competitionEnd);
-contestEndTime.setHours(23, 59, 59);
-
 export default function Gallery() {
-  // const now = new Date();
-
-  // Determine the contest state based on today's date
-  const contestState: ContestState = ContestState.Active;
-  // if (now < contestStartTime) {
-  //   contestState = ContestState.Inactive;
-  // } else if (now >= contestStartTime && now <= contestEndTime) {
-  //   contestState = ContestState.Active;
-  // } else if (now > contestEndTime) {
-  //   contestState = ContestState.Complete;
-  // }
+  const contestState: ContestState = getContestState();
 
   return (
     <>

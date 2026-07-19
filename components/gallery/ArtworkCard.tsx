@@ -6,6 +6,7 @@ import React, { memo, useState } from "react";
 type ArtworkCardProps = {
   data: UserArtworkSchema;
   voted: boolean;
+  votingClosed: boolean;
   openModal: (id: string) => void;
 };
 
@@ -20,11 +21,17 @@ function checkSameProps(
   // }
   return (
     prevProps.data.sk === nextProps.data.sk &&
-    prevProps.voted === nextProps.voted
+    prevProps.voted === nextProps.voted &&
+    prevProps.votingClosed === nextProps.votingClosed
   );
 }
 
-const ArtworkCard = ({ data, openModal, voted }: ArtworkCardProps) => {
+const ArtworkCard = ({
+  data,
+  openModal,
+  voted,
+  votingClosed,
+}: ArtworkCardProps) => {
   const manageEnter = (e: React.MouseEvent<HTMLElement>) => {
     gsap.to(e.target, {
       scaleX: 1.2,
@@ -63,7 +70,7 @@ const ArtworkCard = ({ data, openModal, voted }: ArtworkCardProps) => {
           backdropFilter: "blur(13px)",
         }}
       >
-        Voting open
+        {votingClosed ? "Voting ended" : "Voting open"}
       </p>
       <div className="shadow-gray-400 shadow-md rounded-lg">
         <section className="w-full h-32 md:h-60 xl:h-52 mxl:h-56 rounded-t-lg overflow-hidden relative select-none">

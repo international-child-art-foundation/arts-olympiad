@@ -100,6 +100,7 @@ export const Arts: React.FC<ArtsProps> = ({ contestState }) => {
     setVotedSk,
   } = useFilters();
   const { handleRealizeSignedOut, isAuthenticated } = useGlobalContext();
+  const votingClosed = contestState === ContestState.Complete;
   const [pageLoadArtwork, setPageLoadArtwork] = useState<
     UserArtworkSchema | undefined
   >(undefined);
@@ -377,6 +378,7 @@ export const Arts: React.FC<ArtsProps> = ({ contestState }) => {
       )}
       <ArtworkModal
         voted={activeEntrySk == votedSk}
+        votingClosed={votingClosed}
         pageLoadArtwork={pageLoadArtwork}
         sk={activeEntrySk}
         closeModal={closeModal}
@@ -480,6 +482,7 @@ export const Arts: React.FC<ArtsProps> = ({ contestState }) => {
                         openModal={openModal}
                         key={artwork.sk}
                         voted={votedSk == artwork.sk}
+                        votingClosed={votingClosed}
                       />
                     ) : null,
                   )}

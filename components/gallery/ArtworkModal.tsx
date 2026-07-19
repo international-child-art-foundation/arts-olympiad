@@ -20,6 +20,7 @@ type ArtworkModalProps = {
   isMobile: boolean;
   currentUserSk: string | null;
   voted: boolean;
+  votingClosed: boolean;
   closeModal: () => void;
 };
 
@@ -60,7 +61,8 @@ function checkSameProps(
   return (
     prevProps.sk == nextProps.sk &&
     prevProps.isModalOpen == nextProps.isModalOpen &&
-    prevProps.pageLoadArtwork == nextProps.pageLoadArtwork
+    prevProps.pageLoadArtwork == nextProps.pageLoadArtwork &&
+    prevProps.votingClosed == nextProps.votingClosed
   );
 }
 
@@ -72,6 +74,7 @@ const ArtworkModal: React.FC<ArtworkModalProps> = ({
   currentUserSk,
   isMobile,
   voted,
+  votingClosed,
 }) => {
   const { isAuthenticated } = useGlobalContext();
   const { windowWidth, windowHeight } = useWindowDimensions();
@@ -154,6 +157,8 @@ const ArtworkModal: React.FC<ArtworkModalProps> = ({
   }, [isModalOpen, sk, pageLoadArtwork]);
 
   const submitVote = async (artwork_sk: string) => {
+    if (votingClosed) return;
+
     if (modalState.status == "loaded") {
       const currentData = modalState.data;
       setModalState({ status: "loading" }); // Transition to loading state
@@ -168,6 +173,8 @@ const ArtworkModal: React.FC<ArtworkModalProps> = ({
           if (response.error == "Cannot vote on the same artwork twice") {
             setModalState({ status: "loaded", data: currentData });
             setAlreadyVoted(true);
+          } else if (response.error == "Voting has ended") {
+            setModalState({ status: "loaded", data: currentData });
           } else {
             setModalState({ status: "error" });
           }
@@ -245,7 +252,7 @@ const ArtworkModal: React.FC<ArtworkModalProps> = ({
         <div className="flex flex-col overflow-auto no-scrollbar">
           <div className="inline-block py-2">
             <span className="bg-[#fbb22e] rounded-3xl p-2 px-8">
-              Voting is open
+              {votingClosed ? "Voting has ended" : "Voting is open"}
             </span>
           </div>
           <p className="font-bold text-xl mt-5">{modalState.data.f_name}</p>
@@ -267,7 +274,14 @@ const ArtworkModal: React.FC<ArtworkModalProps> = ({
             <p className="font-semibold text-xl pt-4">Share this post</p>
             <SocialShare shareId={sk} />
           </div>
-          {!isAuthenticated ? (
+          {votingClosed ? (
+            <button
+              className="bg-gray-500 text-white text-base p-4 rounded mt-4 opacity-70 pointer-events-none"
+              disabled
+            >
+              Voting has ended
+            </button>
+          ) : !isAuthenticated ? (
             <>
               <p className="text-sm text-new-blue mt-4">
                 Ready to vote for this artwork? Please sign in or create an
@@ -382,7 +396,7 @@ const ArtworkModal: React.FC<ArtworkModalProps> = ({
       <div className="grid max-h-full p-4 overflow-auto gap-y-2">
         <div className="inline-block py-2 mb-4">
           <span className="bg-[#fbb22e] rounded-3xl p-2 px-8">
-            Voting is open
+            {votingClosed ? "Voting has ended" : "Voting is open"}
           </span>
         </div>
         <div className="flex justify-center items-center rounded-xl overflow-hidden relative flex-shrink">
@@ -418,7 +432,14 @@ const ArtworkModal: React.FC<ArtworkModalProps> = ({
           <p className="font-semibold text-xl">Share this post</p>
           {sk && <SocialShare shareId={sk} />}
         </div>
-        {!isAuthenticated ? (
+        {votingClosed ? (
+          <button
+            className="bg-gray-500 text-white text-base p-4 rounded mt-4 opacity-70 pointer-events-none"
+            disabled
+          >
+            Voting has ended
+          </button>
+        ) : !isAuthenticated ? (
           <>
             <p className="text-sm text-new-blue mt-4">
               Ready to vote for this artwork? Please sign in or create an

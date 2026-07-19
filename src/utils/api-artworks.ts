@@ -86,12 +86,15 @@ export async function voteForArtwork(
       },
     });
 
-    await response.json();
+    const result = await response.json();
 
     if (response.ok) {
       return { success: true };
     } else {
-      throw new Error("Error voting for artwork");
+      return {
+        success: false,
+        error: result?.error ?? "Error voting for artwork",
+      };
     }
   } catch (error) {
     throw new Error("Error voting for artwork");

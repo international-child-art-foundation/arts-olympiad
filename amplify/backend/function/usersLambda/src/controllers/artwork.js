@@ -156,6 +156,8 @@ async function voteArtwork(req, res) {
     console.error(error);
     if (error.message === "Cannot vote on the same artwork twice") {
       res.status(400).json({ error: "Cannot vote on the same artwork twice" });
+    } else if (error.message === "Voting has ended") {
+      res.status(403).json({ error: "Voting has ended" });
     } else {
       res.status(500).json({ error: "Error processing vote" });
     }

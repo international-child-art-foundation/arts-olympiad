@@ -76,15 +76,28 @@ export const GalleryHeader: React.FC<GalleryHeaderProps> = ({
             alt=""
             className="z-50 lg:absolute hidden lg:block lg:mr-[480px]"
           />
-          <div className="z-50 mt-4 lg:mb-4">
-            <Countdown />
-          </div>
-          <div className="lg:hidden">
-            <CountdownContainerMobile />
-          </div>
-          <div className="hidden lg:block ">
-            <CountdownContainer />
-          </div>
+          {contestState === ContestState.Complete ? (
+            <div className="z-50 mt-4 lg:mb-4 px-8 py-5 text-center border-2 border-new-blue rounded-2xl bg-neutral-white">
+              <p className="font-semibold text-xl lg:text-2xl">
+                Voting has ended
+              </p>
+              <p className="text-sm lg:text-base mt-2">
+                Thank you to everyone who participated.
+              </p>
+            </div>
+          ) : (
+            <>
+              <div className="z-50 mt-4 lg:mb-4">
+                <Countdown />
+              </div>
+              <div className="lg:hidden">
+                <CountdownContainerMobile />
+              </div>
+              <div className="hidden lg:block ">
+                <CountdownContainer />
+              </div>
+            </>
+          )}
         </div>
 
         {contestState != ContestState.Inactive &&
@@ -126,6 +139,13 @@ export const GalleryHeader: React.FC<GalleryHeaderProps> = ({
                 explore previously submitted art
               </Link>{" "}
               in the meantime.
+            </p>
+          </div>
+        )}
+        {contestState == ContestState.Complete && (
+          <div className="flex justify-center items-center text-base lg:text-xl mr-3 mb-20 lg:mb-36 font-normal">
+            <p>
+              The contest has ended. You can still browse and share entries.
             </p>
           </div>
         )}
