@@ -8,7 +8,7 @@ export function getContestStartTime() {
 }
 
 export function getContestEndTime() {
-  return new Date(dates.competitionEnd);
+  return new Date(Date.UTC(2026, 6, 20, 4, 0, 0));
 }
 
 export function getContestState(now = new Date()): ContestState {
