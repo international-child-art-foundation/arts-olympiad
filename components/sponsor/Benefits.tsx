@@ -1,13 +1,13 @@
 import Image from "next/image";
 import yellowBlob from "../../public/sponsor/YellowBlob.webp";
 import React from "react";
-import WCFLogo from "../../public/sponsor/250WCFLogo.webp";
+import WCFLogo from "../../public/sponsor/ICAF_logo.png";
 
 export const Benefits = () => {
   return (
     <>
       <div className="relative mt-20">
-        <section className=" relative grid grid-cols-2 z-20 m-auto max-w-screen-2xl p-8 md:px-12 lg:px-16 xl:px-20 ">
+        <section className="relative grid grid-cols-2 z-20 m-auto max-w-screen-2xl p-8 md:px-12 lg:px-16 xl:px-20">
           <div className="relative col-span-2 lg:col-span-1">
             <Image
               src={yellowBlob}
@@ -24,39 +24,47 @@ export const Benefits = () => {
               className="2xl:block hidden lg:block -z-10 w-4/6 max-w-[1061px]"
             />
           </div>
+
           <div className="col-span-2 lg:col-span-1 xsm:mt-8 md:mt-8 2xl:mt-20">
             <h3 className="relative flex-col z-20 font-medium mb-4 text-3xl font-montserrat">
               This is what we do
             </h3>
+
             <div className="relative w-auto z-20">
               <ul className="z-20 font-light font-openSans text-lg list-disc list-inside">
+                <li>Produce art contests such as “My Favorite Sport.”</li>
                 <li>
-                  Produce the art contest on the favorite sports of 8- to
-                  20-year-olds
+                  Organize the Arts Olympiad, a free school art program that has
+                  grown since 1997 into the world’s largest.
                 </li>
                 <li>
-                  Organize the 7th Arts Olympiad, a national and global school
-                  art program
+                  Bring creative children together on the National Mall across
+                  the U.S. Capitol for the World Children&apos;s Festivals.
                 </li>
                 <li>
-                  Bring creative children together at the National Mall for our
-                  7th World Children's Festival
+                  Promote STEAMS education, which integrates <strong>A</strong>
+                  rts and creative activities and <strong>S</strong>ports or
+                  physical activities with STEM disciplines for students’
+                  holistic development.
                 </li>
                 <li>
-                  Celebrate America's 250th Anniversary at the 7th World
-                  Children's Festival
+                  Inspire students to become “Artist-Athletes” with creative
+                  minds and healthy bodies.
                 </li>
                 <li>
-                  Engage young artists worldwide in sports for better health
+                  Publish the ChildArt quarterly to enhance young readers&apos;
+                  global competencies.
                 </li>
                 <li>
-                  Promote five critical UN Social Development Goals: Good
+                  Promote five critical UN Sustainable Development Goals: Good
                   Health, Quality Education, Gender Equality, Reduced
-                  Inequities, and Peacebuilding in Communities and in the World.
+                  Inequalities, and Peacebuilding in Communities and in the
+                  World.
                 </li>
               </ul>
             </div>
           </div>
+
           <div className="relative col-span-2">
             {/* <Image
               src={yellowBlob}

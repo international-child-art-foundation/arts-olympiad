@@ -1,8 +1,9 @@
 import { StaticImageData } from "next/image";
-import img1 from "../../../public/home/new-hero/Joseph Dexo Yowom, 11, Ghana, UNITY.webp";
-import img2 from "../../../public/home/new-hero/Theo Hector Grosso, 11, MESSI IS THE BEST.webp";
-import img3 from "../../../public/home/new-hero/Julia Alvarez Ramirez, 8, Texas, USA, GOAL.webp";
-import img4 from "../../../public/home/new-hero/Anouk Thunder, 11, Germany, FOOTBALL UNIVERSE.webp";
+import img1 from "../../../public/home/new-hero/Texas (Diana Nabulsi, 11).webp";
+import img2 from "../../../public/home/new-hero/ARJAA Raghu (11, Illinois).webp";
+import img3 from "../../../public/home/new-hero/Denys Kovalchuk (12, Ukraine).webp";
+import img4 from "../../../public/home/new-hero/ESTHER Kim (11, Virginia).webp";
+import img5 from "../../../public/home/new-hero/Kristina Gechevska (age 11) Bulgaria.webp";
 
 export interface IHero {
   url: StaticImageData;
@@ -11,6 +12,7 @@ export interface IHero {
   title?: string;
   country?: string;
   alt: string;
+  positionClass?: string;
 }
 
 export type HeroImageType = IHero[];
@@ -18,33 +20,41 @@ export type HeroImageType = IHero[];
 export const IHeroArray: IHero[] = [
   {
     url: img1,
-    name: "Joseph Dexo Yowom",
+    name: "Diana Nabulsi",
     age: 11,
-    country: "Ghana",
-    title: "Unity",
+    country: "Texas, United States",
     alt: "",
+    positionClass: "object-[center_80%]",
   },
   {
     url: img2,
-    name: "Theo Hector Grosso",
+    name: "Arjaa Raghu",
     age: 11,
-    title: "Messi is the Best!",
+    country: "Illinois, United States",
     alt: "",
+    positionClass: "object-center",
   },
   {
     url: img3,
-    name: "Julia Alvarez Ramirez",
-    age: 8,
-    country: "Texas, USA",
-    title: "GOAL!",
+    name: "Denys Kovalchuk",
+    age: 12,
+    country: "Ukraine",
     alt: "",
+    positionClass: "object-top",
   },
   {
     url: img4,
-    name: "Anouk Thunder",
+    name: "Esther Kim",
     age: 11,
-    country: "Germany",
-    title: "Football Universe",
+    country: "Virginia, United States",
+    alt: "",
+    positionClass: "object-top",
+  },
+  {
+    url: img5,
+    name: "Kristina Gechevska",
+    age: 11,
+    country: "Bulgaria",
     alt: "",
   },
 ];

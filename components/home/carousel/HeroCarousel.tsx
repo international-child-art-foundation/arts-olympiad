@@ -43,19 +43,18 @@ export default function HeroCarousel({
               >
                 <div className="overflow-hidden cursor-pointer">
                   <LazyImage
-                    className="thumbnail-image w-full object-cover select-none pointer-events-none rounded-none"
+                    className={`thumbnail-image w-full object-cover ${wisdom.positionClass} select-none pointer-events-none rounded-none`}
                     imageUrl={wisdom.url}
                     alt={wisdom.alt}
                   />
                 </div>
                 <div className="text-black font-montserrat text-right flex flex-col gap-1 items-end h-full mb-4 justify-center">
                   <span className="text-2xl sm:text-3xl md:text-4xl font-semibold leading-none tracking-tight mr-4">
-                    {wisdom.title && wisdom.title}
+                    {wisdom.name && wisdom.name}
                   </span>
 
                   <span className="text-[0.6rem] md:text-xs uppercase tracking-[0.15em] sm:tracking-[0.3em] underline underline-offset-4 opacity-70 mr-4">
-                    {wisdom.name}
-                    {wisdom.age && ` ⸱ ${wisdom.age}`}
+                    {wisdom.age && `${wisdom.age}`}
                     {wisdom.country && ` ⸱ ${wisdom.country}`}
                   </span>
                 </div>

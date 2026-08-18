@@ -31,9 +31,9 @@ export const Intro = () => {
         setIndex(
           (prevIndex) =>
             // prevIndex + 1
-            (prevIndex + 1) % IHeroArray.length
+            (prevIndex + 1) % IHeroArray.length,
         ),
-      5000
+      5000,
     );
     return () => {
       resetTimeout();
@@ -97,23 +97,21 @@ export const Intro = () => {
                 Anyone with a passion for art or sports can participate in the
                 voting process, and registration is free for all voters.
               </p>
-              <p className=" z-10 mb-4 leading-8 lg:mb8">
-                The contest begins with the FIFA World Cup on{" "}
-                {format(dates.competitionBegin, "EEEE")},{" "}
+              <p className="z-10 mb-4 leading-8 lg:mb8">
+                The contest begins on{" "}
                 <span className="font-bold">
-                  {format(dates.competitionBegin, "MMMM dd, yyyy")}
+                  {format(dates.competitionBegin, "MMMM d, yyyy")}
                 </span>
                 , at {format(dates.competitionBegin, "h:mm a")} EDT. The contest
-                ends on {format(dates.competitionEnd, "EEEE")},{" "}
+                ends with the Closing Ceremony of the LA 2028 Olympics on{" "}
                 <span className="font-bold">
-                  {format(dates.competitionEnd, "MMMM dd, yyyy")}{" "}
+                  {format(dates.competitionEnd, "MMMM d, yyyy")}
                 </span>
-                at {midnightCapitalized} EDT. On{" "}
-                {format(dates.winnerAnnounced, "EEEE")},{" "}
-                {format(dates.winnerAnnounced, "MMMM dd, yyyy")} at{" "}
-                {format(dates.winnerAnnounced, "h:mm a")} EDT, the International
-                Child Art Foundation will announce the contest winners.
-              </p>
+                . The International Child Art Foundation will announce the
+                contest winners on{" "}
+                {format(dates.winnerAnnounced, "MMMM d, yyyy")}, at a press
+                conference in Washington, D.C.
+              </p>{" "}
             </div>
           </article>
           <div className="relative z-10 px-10 md:px-24 lg:px-0 md:grid col-span-8 md:col-start-2 md:col-span-6 lg:col-span-5 xl:col-span-6 items-center">
