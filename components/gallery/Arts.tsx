@@ -362,7 +362,7 @@ export const Arts: React.FC<ArtsProps> = ({ contestState }) => {
 
   return (
     <div
-      className={`${contestState == ContestState.Inactive && "opacity-60 pointer-events-none select-none blur-sm relative"} `}
+      className={`${contestState == ContestState.Inactive && "h-36 w-0 opacity-0 pointer-events-none select-none blur-sm relative"} `}
     >
       {votedSk ? (
         <div className="w-fit mx-auto">

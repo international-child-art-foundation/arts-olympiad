@@ -10,11 +10,13 @@ import { Suspense } from "react";
 export const metadata: Metadata = {
   ...canonicalPath("/past-entries/"),
   title: "Past Entries — Browse Inspiring Sport Artwork | MyFavoriteSport",
-  description: "Explore a catalog of previous #MyFavoriteSport contest submissions. Browse artwork from young artists worldwide and get inspired for your own entry.",
+  description:
+    "Explore a catalog of previous #MyFavoriteSport contest submissions. Browse artwork from young artists worldwide and get inspired for your own entry.",
   openGraph: {
     ...sharedOpenGraph,
     title: "Past Entries — Browse Inspiring Sport Artwork | MyFavoriteSport",
-    description: "Explore a catalog of previous #MyFavoriteSport contest submissions. Browse artwork from young artists worldwide and get inspired for your own entry.",
+    description:
+      "Explore a catalog of previous #MyFavoriteSport contest submissions. Browse artwork from young artists worldwide and get inspired for your own entry.",
   },
 };
 
@@ -30,7 +32,7 @@ export default function PastEntries() {
       <BannerImgOverflow
         backgroundColor="light-blue"
         title="Submit Your Artwork Today!"
-        description="Join the Art Competition and Showcase Your Talent in Anticipation of the 2026 World Cup."
+        description="Join the Art Competition and Showcase Your Talent in Anticipation of the 2028 Olympics."
         img={[multiPic]}
         alt={["Artwork of Olympic sports", "Artwork of Olympic sports"]}
         buttons={[

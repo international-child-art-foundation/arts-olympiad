@@ -70,9 +70,9 @@ export function GalleryClient({ initialContestState }: GalleryClientProps) {
         }
         description={
           contestState === ContestState.Active
-            ? "Join the Art Competition and Showcase Your Talent in Anticipation of the 2026 World Cup."
+            ? "Join the Art Competition and Showcase Your Talent in Anticipation of the 2028 Olympics."
             : contestState === ContestState.Inactive
-              ? "Our competition will begin very soon. Now is the best time to get creative."
+              ? "Now is the best time to get creative."
               : "Thank you to everyone for participating!"
         }
         img={[multiPic]}
